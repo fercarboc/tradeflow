@@ -1,0 +1,14 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+*.zip
+.env*
+!.env.example
+
+mobile/node_modules/
+mobile/.expo/
+mobile/dist/
+

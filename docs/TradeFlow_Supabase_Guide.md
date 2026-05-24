@@ -1,0 +1,737 @@
+# TradeFlow AI — Guía de Implementación Supabase
+
+**Proyecto Supabase:** GestionDebacuPro  
+**URL:** `https://dqqjaujnulutinskmqsu.supabase.co`  
+**Prefijo de tablas:** `trade_`  
+**Fecha:** Mayo 2026
+
+---
+
+## 1. Arquitectura de Base de Datos
+
+Todas las tablas llevan el prefijo `trade_` para convivir con las tablas de otras apps dentro del mismo proyecto Supabase sin conflictos.
+
+### Diagrama de entidades
+
+```
+auth.users
+    │
+    └── trade_organizations (1 por cuenta, owner_id → auth.uid())
+            │
+            ├── trade_clients          (CRM: clientes del instalador)
+            ├── trade_quotes           (presupuestos)
+            │       └── trade_quote_items  (partidas de cada presupuesto)
+            ├── trade_invoices         (facturas generadas)
+            ├── trade_voice_recordings (archivos de voz para IA)
+            └── trade_photo_scans      (fotos escaneadas por IA)
+
+trade_waitlist  (tabla pública, sin auth requerido)
+```
+
+---
+
+## 2. SQL de Migración — Crear todas las tablas
+
+Ejecuta este bloque en **Supabase → SQL Editor** del proyecto `dqqjaujnulutinskmqsu`.
+
+```sql
+-- =====================================================================
+-- TradeFlow AI — Schema completo con prefijo trade_
+-- Proyecto: GestionDebacuPro (dqqjaujnulutinskmqsu)
+-- =====================================================================
+
+-- 1. ORGANIZACIONES (empresa del instalador)
+CREATE TABLE IF NOT EXISTS public.trade_organizations (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  owner_id        uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  nombre          text NOT NULL,
+  nif             text,
+  direccion       text,
+  email           text,
+  telefono        text,
+  oficio          text NOT NULL DEFAULT 'Fontanería',
+  -- valores: 'Fontanería' | 'Electricidad' | 'Climatización / HVAC' | 'Cerrajería' | 'Otros'
+  ciudad          text,
+  iva_default     smallint NOT NULL DEFAULT 21,
+  plan            text NOT NULL DEFAULT 'básico',
+  -- valores: 'básico' | 'pro' | 'empresa'
+  logo_url        text,
+  is_onboarded    boolean NOT NULL DEFAULT false,
+  created_at      timestamptz NOT NULL DEFAULT now(),
+  updated_at      timestamptz NOT NULL DEFAULT now(),
+  UNIQUE(owner_id)
+);
+
+-- 2. CLIENTES CRM
+CREATE TABLE IF NOT EXISTS public.trade_clients (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id          uuid NOT NULL REFERENCES public.trade_organizations(id) ON DELETE CASCADE,
+  nombre          text NOT NULL,
+  telefono        text,
+  email           text,
+  direccion       text,
+  ciudad          text,
+  nif             text,
+  notas           text,
+  obras_activas   smallint NOT NULL DEFAULT 0,
+  total_facturado numeric(10,2) NOT NULL DEFAULT 0,
+  created_at      timestamptz NOT NULL DEFAULT now(),
+  updated_at      timestamptz NOT NULL DEFAULT now()
+);
+
+-- 3. PRESUPUESTOS
+CREATE TABLE IF NOT EXISTS public.trade_quotes (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id          uuid NOT NULL REFERENCES public.trade_organizations(id) ON DELETE CASCADE,
+  client_id       uuid REFERENCES public.trade_clients(id) ON DELETE SET NULL,
+  numero          text NOT NULL,        -- PRE-2026-001
+  descripcion     text,
+  fecha           date NOT NULL DEFAULT CURRENT_DATE,
+  estado          text NOT NULL DEFAULT 'Borrador',
+  -- valores: 'Borrador' | 'Enviado' | 'Aceptado' | 'Facturado'
+  total_neto      numeric(10,2) NOT NULL DEFAULT 0,
+  iva_pct         smallint NOT NULL DEFAULT 21,
+  total_con_iva   numeric(10,2) GENERATED ALWAYS AS (total_neto * (1 + iva_pct::numeric/100)) STORED,
+  voice_note_url  text,
+  whatsapp_sent_at timestamptz,
+  created_at      timestamptz NOT NULL DEFAULT now(),
+  updated_at      timestamptz NOT NULL DEFAULT now(),
+  UNIQUE(org_id, numero)
+);
+
+-- 4. PARTIDAS DE PRESUPUESTO
+CREATE TABLE IF NOT EXISTS public.trade_quote_items (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  quote_id        uuid NOT NULL REFERENCES public.trade_quotes(id) ON DELETE CASCADE,
+  descripcion     text NOT NULL,
+  tipo            text NOT NULL DEFAULT 'material',
+  -- valores: 'material' | 'mano_de_obra'
+  cantidad        numeric(8,2) NOT NULL DEFAULT 1,
+  precio_unitario numeric(10,2) NOT NULL DEFAULT 0,
+  total           numeric(10,2) GENERATED ALWAYS AS (cantidad * precio_unitario) STORED,
+  posicion        smallint NOT NULL DEFAULT 0,
+  created_at      timestamptz NOT NULL DEFAULT now()
+);
+
+-- 5. FACTURAS
+CREATE TABLE IF NOT EXISTS public.trade_invoices (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id          uuid NOT NULL REFERENCES public.trade_organizations(id) ON DELETE CASCADE,
+  quote_id        uuid REFERENCES public.trade_quotes(id) ON DELETE SET NULL,
+  client_id       uuid REFERENCES public.trade_clients(id) ON DELETE SET NULL,
+  numero          text NOT NULL,        -- FAC-2026-001
+  fecha           date NOT NULL DEFAULT CURRENT_DATE,
+  fecha_vencimiento date,
+  estado          text NOT NULL DEFAULT 'Pendiente',
+  -- valores: 'Pendiente' | 'Pagada' | 'Vencida'
+  subtotal        numeric(10,2) NOT NULL DEFAULT 0,
+  iva_pct         smallint NOT NULL DEFAULT 21,
+  iva_importe     numeric(10,2) GENERATED ALWAYS AS (subtotal * iva_pct::numeric/100) STORED,
+  total           numeric(10,2) GENERATED ALWAYS AS (subtotal * (1 + iva_pct::numeric/100)) STORED,
+  paid_at         timestamptz,
+  created_at      timestamptz NOT NULL DEFAULT now(),
+  updated_at      timestamptz NOT NULL DEFAULT now(),
+  UNIQUE(org_id, numero)
+);
+
+-- 6. LISTA DE ESPERA (sin auth, acceso público de solo inserción)
+CREATE TABLE IF NOT EXISTS public.trade_waitlist (
+  id                    uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  nombre                text NOT NULL,
+  telefono              text,
+  email                 text NOT NULL,
+  oficio                text,
+  ciudad                text,
+  presupuestos_al_mes   text,
+  created_at            timestamptz NOT NULL DEFAULT now()
+);
+
+-- 7. GRABACIONES DE VOZ (para IA Whisper)
+CREATE TABLE IF NOT EXISTS public.trade_voice_recordings (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id          uuid NOT NULL REFERENCES public.trade_organizations(id) ON DELETE CASCADE,
+  quote_id        uuid REFERENCES public.trade_quotes(id) ON DELETE SET NULL,
+  storage_path    text NOT NULL,
+  transcript      text,
+  partidas_json   jsonb,    -- partidas extraídas por IA
+  modelo_ia       text DEFAULT 'whisper-1',
+  duration_secs   smallint,
+  processed_at    timestamptz,
+  created_at      timestamptz NOT NULL DEFAULT now()
+);
+
+-- 8. ESCANEOS FOTOGRÁFICOS (para IA visual)
+CREATE TABLE IF NOT EXISTS public.trade_photo_scans (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id          uuid NOT NULL REFERENCES public.trade_organizations(id) ON DELETE CASCADE,
+  quote_id        uuid REFERENCES public.trade_quotes(id) ON DELETE SET NULL,
+  storage_path    text NOT NULL,
+  detections      jsonb,    -- array de materiales detectados con precio
+  modelo_ia       text DEFAULT 'gpt-4o',
+  processed_at    timestamptz,
+  created_at      timestamptz NOT NULL DEFAULT now()
+);
+
+-- =====================================================================
+-- ÍNDICES para búsquedas frecuentes
+-- =====================================================================
+CREATE INDEX IF NOT EXISTS idx_trade_clients_org_id       ON public.trade_clients(org_id);
+CREATE INDEX IF NOT EXISTS idx_trade_quotes_org_id        ON public.trade_quotes(org_id);
+CREATE INDEX IF NOT EXISTS idx_trade_quotes_client_id     ON public.trade_quotes(client_id);
+CREATE INDEX IF NOT EXISTS idx_trade_quotes_estado        ON public.trade_quotes(estado);
+CREATE INDEX IF NOT EXISTS idx_trade_quote_items_quote_id ON public.trade_quote_items(quote_id);
+CREATE INDEX IF NOT EXISTS idx_trade_invoices_org_id      ON public.trade_invoices(org_id);
+CREATE INDEX IF NOT EXISTS idx_trade_invoices_estado      ON public.trade_invoices(estado);
+
+-- =====================================================================
+-- TRIGGER: actualizar updated_at automáticamente
+-- =====================================================================
+CREATE OR REPLACE FUNCTION public.trade_set_updated_at()
+RETURNS trigger LANGUAGE plpgsql AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$;
+
+CREATE OR REPLACE TRIGGER trg_trade_organizations_updated
+  BEFORE UPDATE ON public.trade_organizations
+  FOR EACH ROW EXECUTE FUNCTION public.trade_set_updated_at();
+
+CREATE OR REPLACE TRIGGER trg_trade_clients_updated
+  BEFORE UPDATE ON public.trade_clients
+  FOR EACH ROW EXECUTE FUNCTION public.trade_set_updated_at();
+
+CREATE OR REPLACE TRIGGER trg_trade_quotes_updated
+  BEFORE UPDATE ON public.trade_quotes
+  FOR EACH ROW EXECUTE FUNCTION public.trade_set_updated_at();
+
+CREATE OR REPLACE TRIGGER trg_trade_invoices_updated
+  BEFORE UPDATE ON public.trade_invoices
+  FOR EACH ROW EXECUTE FUNCTION public.trade_set_updated_at();
+```
+
+---
+
+## 3. Row Level Security (RLS)
+
+Ejecuta este bloque **a continuación** del anterior, en el mismo SQL Editor.
+
+```sql
+-- =====================================================================
+-- RLS — Row Level Security
+-- =====================================================================
+
+ALTER TABLE public.trade_organizations    ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.trade_clients          ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.trade_quotes           ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.trade_quote_items      ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.trade_invoices         ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.trade_waitlist         ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.trade_voice_recordings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.trade_photo_scans      ENABLE ROW LEVEL SECURITY;
+
+-- ---- trade_organizations ----
+CREATE POLICY "Owner accede a su organización"
+  ON public.trade_organizations FOR ALL
+  USING (owner_id = auth.uid())
+  WITH CHECK (owner_id = auth.uid());
+
+-- ---- Helper: obtener org del usuario actual ----
+-- Se usa como subquery en las políticas de tablas hijas.
+
+-- ---- trade_clients ----
+CREATE POLICY "Acceso a clientes propios"
+  ON public.trade_clients FOR ALL
+  USING (org_id IN (SELECT id FROM public.trade_organizations WHERE owner_id = auth.uid()))
+  WITH CHECK (org_id IN (SELECT id FROM public.trade_organizations WHERE owner_id = auth.uid()));
+
+-- ---- trade_quotes ----
+CREATE POLICY "Acceso a presupuestos propios"
+  ON public.trade_quotes FOR ALL
+  USING (org_id IN (SELECT id FROM public.trade_organizations WHERE owner_id = auth.uid()))
+  WITH CHECK (org_id IN (SELECT id FROM public.trade_organizations WHERE owner_id = auth.uid()));
+
+-- ---- trade_quote_items ----
+CREATE POLICY "Acceso a partidas propias"
+  ON public.trade_quote_items FOR ALL
+  USING (quote_id IN (
+    SELECT q.id FROM public.trade_quotes q
+    JOIN public.trade_organizations o ON q.org_id = o.id
+    WHERE o.owner_id = auth.uid()
+  ))
+  WITH CHECK (quote_id IN (
+    SELECT q.id FROM public.trade_quotes q
+    JOIN public.trade_organizations o ON q.org_id = o.id
+    WHERE o.owner_id = auth.uid()
+  ));
+
+-- ---- trade_invoices ----
+CREATE POLICY "Acceso a facturas propias"
+  ON public.trade_invoices FOR ALL
+  USING (org_id IN (SELECT id FROM public.trade_organizations WHERE owner_id = auth.uid()))
+  WITH CHECK (org_id IN (SELECT id FROM public.trade_organizations WHERE owner_id = auth.uid()));
+
+-- ---- trade_waitlist: INSERT público (sin auth), SELECT solo service_role ----
+CREATE POLICY "Cualquiera puede unirse a la lista de espera"
+  ON public.trade_waitlist FOR INSERT
+  WITH CHECK (true);
+
+-- ---- trade_voice_recordings ----
+CREATE POLICY "Acceso a grabaciones propias"
+  ON public.trade_voice_recordings FOR ALL
+  USING (org_id IN (SELECT id FROM public.trade_organizations WHERE owner_id = auth.uid()))
+  WITH CHECK (org_id IN (SELECT id FROM public.trade_organizations WHERE owner_id = auth.uid()));
+
+-- ---- trade_photo_scans ----
+CREATE POLICY "Acceso a escaneos propios"
+  ON public.trade_photo_scans FOR ALL
+  USING (org_id IN (SELECT id FROM public.trade_organizations WHERE owner_id = auth.uid()))
+  WITH CHECK (org_id IN (SELECT id FROM public.trade_organizations WHERE owner_id = auth.uid()));
+```
+
+---
+
+## 4. Supabase Storage — Buckets para archivos
+
+```sql
+-- Ejecutar en SQL Editor o desde el panel Storage de Supabase
+INSERT INTO storage.buckets (id, name, public)
+VALUES
+  ('trade-voices', 'trade-voices', false),   -- grabaciones de voz (privado)
+  ('trade-photos', 'trade-photos', false),   -- fotos de obra (privado)
+  ('trade-logos',  'trade-logos',  true)     -- logos de empresa (público)
+ON CONFLICT (id) DO NOTHING;
+
+-- Políticas de storage
+CREATE POLICY "Users upload voices to their folder"
+  ON storage.objects FOR INSERT
+  WITH CHECK (bucket_id = 'trade-voices' AND auth.uid()::text = (storage.foldername(name))[1]);
+
+CREATE POLICY "Users read own voices"
+  ON storage.objects FOR SELECT
+  USING (bucket_id = 'trade-voices' AND auth.uid()::text = (storage.foldername(name))[1]);
+
+CREATE POLICY "Users upload photos"
+  ON storage.objects FOR INSERT
+  WITH CHECK (bucket_id = 'trade-photos' AND auth.uid()::text = (storage.foldername(name))[1]);
+
+CREATE POLICY "Users read own photos"
+  ON storage.objects FOR SELECT
+  USING (bucket_id = 'trade-photos' AND auth.uid()::text = (storage.foldername(name))[1]);
+```
+
+---
+
+## 5. Configuración de Auth
+
+En **Supabase → Authentication → Providers**, habilitar:
+
+| Proveedor | Config |
+|-----------|--------|
+| **Email** | Habilitar, desactivar confirmación en desarrollo |
+| **Phone (OTP SMS)** | Para instaladores con móvil (requiere Twilio o similar) |
+
+En **Auth → Email Templates**, personalizar con branding de TradeFlow.
+
+En **Auth → URL Configuration**:
+```
+Site URL:       https://tradeflow.ai   (o localhost:3000 en dev)
+Redirect URLs:  http://localhost:3000/**
+                https://tradeflow.ai/**
+```
+
+---
+
+## 6. Integración Web (React + Vite)
+
+### 6.1 Instalar dependencias
+
+```bash
+cd c:\tradeflow
+npm install @supabase/supabase-js
+```
+
+### 6.2 Crear archivo de cliente Supabase
+
+Crea `src/lib/supabase.ts`:
+
+```typescript
+import { createClient } from '@supabase/supabase-js';
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+  },
+});
+
+export type Database = {
+  public: {
+    Tables: {
+      trade_organizations: { Row: TradeOrganization; Insert: Omit<TradeOrganization, 'id' | 'created_at' | 'updated_at'>; Update: Partial<TradeOrganization> };
+      trade_clients:       { Row: TradeClient;       Insert: Omit<TradeClient, 'id' | 'created_at' | 'updated_at'>; Update: Partial<TradeClient> };
+      trade_quotes:        { Row: TradeQuote;        Insert: Omit<TradeQuote, 'id' | 'created_at' | 'updated_at' | 'total_con_iva'>; Update: Partial<TradeQuote> };
+      trade_quote_items:   { Row: TradeQuoteItem;    Insert: Omit<TradeQuoteItem, 'id' | 'created_at' | 'total'>; Update: Partial<TradeQuoteItem> };
+      trade_invoices:      { Row: TradeInvoice;      Insert: Omit<TradeInvoice, 'id' | 'created_at' | 'updated_at' | 'iva_importe' | 'total'>; Update: Partial<TradeInvoice> };
+      trade_waitlist:      { Row: TradeWaitlist;     Insert: Omit<TradeWaitlist, 'id' | 'created_at'>; Update: never };
+    };
+  };
+};
+
+// Tipos espejo de la base de datos
+export interface TradeOrganization {
+  id: string; owner_id: string; nombre: string; nif?: string;
+  direccion?: string; email?: string; telefono?: string;
+  oficio: string; ciudad?: string; iva_default: number;
+  plan: string; logo_url?: string; is_onboarded: boolean;
+  created_at: string; updated_at: string;
+}
+export interface TradeClient {
+  id: string; org_id: string; nombre: string; telefono?: string;
+  email?: string; direccion?: string; ciudad?: string; nif?: string;
+  notas?: string; obras_activas: number; total_facturado: number;
+  created_at: string; updated_at: string;
+}
+export interface TradeQuote {
+  id: string; org_id: string; client_id?: string; numero: string;
+  descripcion?: string; fecha: string;
+  estado: 'Borrador' | 'Enviado' | 'Aceptado' | 'Facturado';
+  total_neto: number; iva_pct: number; total_con_iva: number;
+  voice_note_url?: string; whatsapp_sent_at?: string;
+  created_at: string; updated_at: string;
+}
+export interface TradeQuoteItem {
+  id: string; quote_id: string; descripcion: string;
+  tipo: 'material' | 'mano_de_obra'; cantidad: number;
+  precio_unitario: number; total: number; posicion: number;
+  created_at: string;
+}
+export interface TradeInvoice {
+  id: string; org_id: string; quote_id?: string; client_id?: string;
+  numero: string; fecha: string; fecha_vencimiento?: string;
+  estado: 'Pendiente' | 'Pagada' | 'Vencida';
+  subtotal: number; iva_pct: number; iva_importe: number; total: number;
+  paid_at?: string; created_at: string; updated_at: string;
+}
+export interface TradeWaitlist {
+  id: string; nombre: string; telefono?: string; email: string;
+  oficio?: string; ciudad?: string; presupuestos_al_mes?: string;
+  created_at: string;
+}
+```
+
+### 6.3 Archivo `.env` en la raíz del proyecto web
+
+Crea `c:\tradeflow\.env`:
+
+```env
+VITE_SUPABASE_URL=https://dqqjaujnulutinskmqsu.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRxcWphdWpudWx1dGluc2ttcXN1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4NzA1NTYsImV4cCI6MjA4MDQ0NjU1Nn0.bszEj5MKqZgG4B_TqllE7ijxrcV9JinFXeMIaP1ljOw
+```
+
+> **NUNCA** subas `.env` a git. Añade `.env` a `.gitignore`.
+
+### 6.4 Conectar lista de espera (ContactoView)
+
+Sustituir el `localStorage` de `ContactoView.tsx` por Supabase:
+
+```typescript
+import { supabase } from '../lib/supabase';
+
+// En el handleSubmit del formulario:
+const { error } = await supabase
+  .from('trade_waitlist')
+  .insert({
+    nombre: formData.nombre,
+    telefono: formData.telefono,
+    email: formData.email,
+    oficio: formData.oficio,
+    ciudad: formData.ciudad,
+    presupuestos_al_mes: formData.presupuestosAlMes,
+  });
+
+if (error) throw error;
+setSubmitted(true);
+```
+
+---
+
+## 7. Integración Móvil (Expo React Native)
+
+### 7.1 Instalar dependencias
+
+```bash
+cd c:\tradeflow\mobile
+npx expo install @supabase/supabase-js @react-native-async-storage/async-storage react-native-url-polyfill
+```
+
+### 7.2 Actualizar `mobile/lib/supabase.ts`
+
+```typescript
+import 'react-native-url-polyfill/auto';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createClient } from '@supabase/supabase-js';
+
+const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
+const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
+
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: {
+    storage: AsyncStorage,
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: false,
+  },
+});
+```
+
+### 7.3 Archivo `mobile/.env`
+
+```env
+EXPO_PUBLIC_SUPABASE_URL=https://dqqjaujnulutinskmqsu.supabase.co
+EXPO_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRxcWphdWpudWx1dGluc2ttcXN1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ4NzA1NTYsImV4cCI6MjA4MDQ0NjU1Nn0.bszEj5MKqZgG4B_TqllE7ijxrcV9JinFXeMIaP1ljOw
+```
+
+---
+
+## 8. Patrones de Uso — Ejemplos Clave
+
+### Crear organización tras el primer login
+
+```typescript
+// Llamar en el onboarding tras auth.signUp()
+async function createOrganization(data: {
+  nombre: string; oficio: string; ciudad: string; telefono: string;
+}) {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) throw new Error('No auth');
+
+  const { data: org, error } = await supabase
+    .from('trade_organizations')
+    .insert({ owner_id: user.id, ...data })
+    .select()
+    .single();
+
+  if (error) throw error;
+  return org;
+}
+```
+
+### Guardar un presupuesto con sus partidas
+
+```typescript
+async function saveQuote(orgId: string, quote: {
+  clientId: string;
+  descripcion: string;
+  partidas: Array<{ descripcion: string; tipo: string; cantidad: number; precioUnitario: number }>;
+}) {
+  // 1. Generar número de presupuesto
+  const { count } = await supabase
+    .from('trade_quotes')
+    .select('*', { count: 'exact', head: true })
+    .eq('org_id', orgId);
+
+  const numero = `PRE-${new Date().getFullYear()}-${String((count || 0) + 1).padStart(3, '0')}`;
+  const totalNeto = quote.partidas.reduce((s, p) => s + p.cantidad * p.precioUnitario, 0);
+
+  // 2. Insertar presupuesto
+  const { data: newQuote, error: qErr } = await supabase
+    .from('trade_quotes')
+    .insert({
+      org_id: orgId,
+      client_id: quote.clientId,
+      numero,
+      descripcion: quote.descripcion,
+      total_neto: totalNeto,
+      estado: 'Borrador',
+    })
+    .select()
+    .single();
+
+  if (qErr) throw qErr;
+
+  // 3. Insertar partidas
+  const items = quote.partidas.map((p, i) => ({
+    quote_id: newQuote.id,
+    descripcion: p.descripcion,
+    tipo: p.tipo,
+    cantidad: p.cantidad,
+    precio_unitario: p.precioUnitario,
+    posicion: i,
+  }));
+
+  const { error: iErr } = await supabase.from('trade_quote_items').insert(items);
+  if (iErr) throw iErr;
+
+  return newQuote;
+}
+```
+
+### Cargar dashboard con datos reales
+
+```typescript
+async function loadDashboardData(orgId: string) {
+  const [quotesRes, invoicesRes, clientsRes] = await Promise.all([
+    supabase.from('trade_quotes').select('*, trade_quote_items(*)').eq('org_id', orgId).order('created_at', { ascending: false }),
+    supabase.from('trade_invoices').select('*').eq('org_id', orgId).order('created_at', { ascending: false }),
+    supabase.from('trade_clients').select('*').eq('org_id', orgId).order('nombre'),
+  ]);
+
+  return {
+    quotes:   quotesRes.data  ?? [],
+    invoices: invoicesRes.data ?? [],
+    clients:  clientsRes.data  ?? [],
+  };
+}
+```
+
+### Convertir presupuesto a factura
+
+```typescript
+async function convertToInvoice(quote: TradeQuote, orgId: string) {
+  const { count } = await supabase
+    .from('trade_invoices')
+    .select('*', { count: 'exact', head: true })
+    .eq('org_id', orgId);
+
+  const numero = `FAC-${new Date().getFullYear()}-${String((count || 0) + 1).padStart(3, '0')}`;
+  const dueDate = new Date();
+  dueDate.setDate(dueDate.getDate() + 30);
+
+  // Crear factura
+  const { error: invErr } = await supabase.from('trade_invoices').insert({
+    org_id: orgId,
+    quote_id: quote.id,
+    client_id: quote.client_id,
+    numero,
+    subtotal: quote.total_neto,
+    iva_pct: quote.iva_pct,
+    fecha_vencimiento: dueDate.toISOString().split('T')[0],
+  });
+
+  if (invErr) throw invErr;
+
+  // Actualizar estado del presupuesto
+  await supabase.from('trade_quotes').update({ estado: 'Facturado' }).eq('id', quote.id);
+}
+```
+
+---
+
+## 9. Edge Functions (IA y WhatsApp)
+
+Estas funciones se desplegarían en Supabase Edge Functions para mantener secretos fuera del cliente.
+
+### Estructura sugerida
+
+```
+supabase/functions/
+├── trade-voice-to-quote/   # Whisper → partidas de presupuesto
+├── trade-photo-to-quote/   # GPT-4o Vision → materiales detectados
+└── trade-whatsapp-send/    # WhatsApp Business API → envío de presupuesto
+```
+
+### `trade-voice-to-quote/index.ts` (esqueleto)
+
+```typescript
+import { serve } from 'https://deno.land/std/http/server.ts';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+serve(async (req) => {
+  const { voiceStoragePath, quoteId, orgId } = await req.json();
+
+  // 1. Descargar audio desde Storage
+  const supabase = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
+  const { data: audioFile } = await supabase.storage.from('trade-voices').download(voiceStoragePath);
+
+  // 2. Transcribir con OpenAI Whisper
+  const formData = new FormData();
+  formData.append('file', audioFile!, 'audio.m4a');
+  formData.append('model', 'whisper-1');
+  formData.append('language', 'es');
+  const whisperRes = await fetch('https://api.openai.com/v1/audio/transcriptions', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${Deno.env.get('OPENAI_API_KEY')}` },
+    body: formData,
+  });
+  const { text: transcript } = await whisperRes.json();
+
+  // 3. Extraer partidas con Claude/GPT
+  // ... llamada a LLM con prompt de extracción de presupuesto ...
+
+  // 4. Guardar en base de datos
+  await supabase.from('trade_voice_recordings').update({
+    transcript,
+    processed_at: new Date().toISOString(),
+  }).eq('quote_id', quoteId);
+
+  return new Response(JSON.stringify({ transcript, partidas: [] }), {
+    headers: { 'Content-Type': 'application/json' },
+  });
+});
+```
+
+---
+
+## 10. Checklist de Despliegue
+
+### Fase 1 — Infraestructura (ahora)
+- [ ] Ejecutar SQL de migración en Supabase SQL Editor
+- [ ] Verificar RLS con `SELECT * FROM trade_organizations` como anon (debe devolver 0 filas)
+- [ ] Crear buckets `trade-voices`, `trade-photos`, `trade-logos`
+- [ ] Configurar Auth providers (Email, posiblemente Phone OTP)
+- [ ] Añadir `.env` en `c:\tradeflow\.env` y `c:\tradeflow\mobile\.env`
+- [ ] Añadir `.env` a `.gitignore`
+
+### Fase 2 — Web App (conectar datos reales)
+- [ ] Instalar `@supabase/supabase-js` en el proyecto web
+- [ ] Crear `src/lib/supabase.ts`
+- [ ] Conectar `ContactoView` (lista de espera → `trade_waitlist`)
+- [ ] Añadir auth básica (login/registro) al `AppDashboardView`
+- [ ] Cargar datos reales en lugar de mock data en el dashboard
+
+### Fase 3 — App Móvil
+- [ ] Instalar dependencias Supabase en `mobile/`
+- [ ] Actualizar `mobile/lib/supabase.ts` con cliente real
+- [ ] Implementar flujo login → onboarding → dashboard con datos reales
+- [ ] Conectar wizard de presupuestos a `saveQuote()`
+- [ ] Subir grabaciones de voz a bucket `trade-voices`
+
+### Fase 4 — IA y WhatsApp
+- [ ] Crear Edge Functions (`trade-voice-to-quote`, `trade-photo-to-quote`)
+- [ ] Configurar secretos en Supabase: `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`
+- [ ] Integrar WhatsApp Business API (Cloud API de Meta)
+- [ ] Desplegar y probar con datos reales
+
+---
+
+## 11. Costes Estimados (proyecto compartido)
+
+Al usar el proyecto `GestionDebacuPro` existente se ahorran los ~$25/mes del plan Pro.
+
+| Recurso | Coste extra estimado |
+|---------|----------------------|
+| Almacenamiento DB (tablas trade_*) | ~0€ (dentro del plan actual) |
+| Storage (voces + fotos) | ~$0.021/GB — 10GB ≈ $0.21/mes |
+| Edge Functions (IA) | $2/millón de invocaciones |
+| Auth (usuarios) | Gratis hasta 50.000 MAU |
+| **Total adicional estimado** | **< $5/mes para fase beta** |
+
+---
+
+## 12. Credenciales del Proyecto
+
+| Variable | Valor |
+|----------|-------|
+| `SUPABASE_URL` | `https://dqqjaujnulutinskmqsu.supabase.co` |
+| `ANON_KEY` | Ver `.env` (clave pública, segura en cliente) |
+| `Publishable Key` | `sb_publishable_zBV91sZrTnbE51xGRDD_FA_en0fi7op` |
+| `Service Role Key` | En Supabase Dashboard → Settings → API (¡NUNCA al cliente!) |
+
+---
+
+*Generado por Claude Code — TradeFlow AI — Mayo 2026*
