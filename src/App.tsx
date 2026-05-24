@@ -18,15 +18,30 @@ import AppDashboardView from './components/AppDashboardView';
 import RegistroView from './components/RegistroView';
 import AdminView from './components/AdminView';
 
+function isPWAMode(): boolean {
+  if (typeof window === 'undefined') return false;
+  const params = new URLSearchParams(window.location.search);
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+    || (window.navigator as unknown as { standalone?: boolean }).standalone === true;
+  return params.get('app') === 'true' || isStandalone;
+}
+
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<ActivePage>(ActivePage.Home);
+  const pwa = isPWAMode();
+  const [currentPage, setCurrentPage] = useState<ActivePage>(
+    pwa ? ActivePage.AppDashboard : ActivePage.Home
+  );
   const [preselectedTrade, setPreselectedTrade] = useState<TradeType>('Fontanería');
-  const [initialMobile, setInitialMobile] = useState<boolean>(true);
-  const [loginOnMount, setLoginOnMount] = useState<boolean>(false);
+  const [initialMobile, setInitialMobile] = useState<boolean>(pwa ? true : true);
+  const [loginOnMount, setLoginOnMount] = useState<boolean>(pwa);
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setSession(data.session));
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
+      // Si el usuario ya tiene sesión activa al abrir en modo PWA, no mostrar el login modal
+      if (pwa && data.session) setLoginOnMount(false);
+    });
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
     return () => subscription.unsubscribe();
   }, []);

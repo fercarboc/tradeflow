@@ -1,13 +1,39 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+
+    <title>TradeFlow AI — Presupuestos por voz para instaladores</title>
+    <meta name="description" content="Crea presupuestos profesionales con tu voz. Para fontaneros, electricistas y empresas de reformas." />
+
+    <!-- PWA manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#2563EB" />
+
+    <!-- iOS PWA -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="TradeFlow" />
+    <link rel="apple-touch-icon" href="/icon.svg" />
+
+    <!-- Android / Chrome -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="TradeFlow AI" />
+
+    <!-- Open Graph (para compartir el link de instalación) -->
+    <meta property="og:title" content="TradeFlow AI — Presupuestos por voz" />
+    <meta property="og:description" content="Habla y genera tu presupuesto. Para instaladores y empresas de reformas." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/icon.svg" />
+
+    <!-- Previene el brillo blanco en carga en modo oscuro -->
+    <style>
+      html, body { background-color: #0f172a; margin: 0; padding: 0; }
+    </style>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

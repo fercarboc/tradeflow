@@ -1,0 +1,36 @@
+{
+  "name": "TradeFlow AI",
+  "short_name": "TradeFlow",
+  "description": "Crea presupuestos profesionales con tu voz. Para instaladores y empresas de reformas.",
+  "start_url": "/?app=true",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#2563EB",
+  "orientation": "portrait",
+  "lang": "es",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Nuevo presupuesto",
+      "short_name": "Presupuesto",
+      "description": "Crear un presupuesto por voz",
+      "url": "/?app=true&action=new-quote",
+      "icons": [{ "src": "/icon.svg", "sizes": "any" }]
+    }
+  ]
+}
