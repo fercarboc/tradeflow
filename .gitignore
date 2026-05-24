@@ -12,3 +12,6 @@ mobile/node_modules/
 mobile/.expo/
 mobile/dist/
 
+
+.vercel
+.vercel/
