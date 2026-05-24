@@ -52,9 +52,11 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
           className="flex cursor-pointer items-center gap-3 transition-opacity hover:opacity-95"
           id="header-logo-container"
         >
-          <div className="w-9 h-9 bg-blue-600 rounded flex items-center justify-center shadow-sm">
-            <div className="w-4.5 h-4.5 border-2 border-white rounded-sm"></div>
-          </div>
+          <img
+            src="/tradeflow.png"
+            alt="TradeFlow AI"
+            className="h-9 w-auto"
+          />
           <div className="flex flex-col">
             <span className="font-display text-lg font-bold tracking-tight text-slate-900 uppercase">
               TradeFlow <span className="text-blue-600">AI</span>
