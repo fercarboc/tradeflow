@@ -5,16 +5,17 @@
 
 import { useState } from 'react';
 import { ActivePage } from '../types';
-import { Wrench, Menu, X, ArrowRight, Sparkles } from 'lucide-react';
+import { Menu, X, LogIn, UserPlus } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface HeaderProps {
   currentPage: ActivePage;
   setCurrentPage: (page: ActivePage) => void;
   setInitialMobile?: (isMobile: boolean) => void;
+  setLoginOnMount?: (v: boolean) => void;
 }
 
-export default function Header({ currentPage, setCurrentPage, setInitialMobile }: HeaderProps) {
+export default function Header({ currentPage, setCurrentPage, setInitialMobile, setLoginOnMount }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
@@ -31,6 +32,15 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile }
     setCurrentPage(page);
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleLogin = () => {
+    setLoginOnMount?.(true);
+    handleNavigate(ActivePage.AppDashboard, false);
+  };
+
+  const handleRegister = () => {
+    handleNavigate(ActivePage.Registro);
   };
 
   return (
@@ -84,17 +94,26 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile }
         <div className="hidden md:flex items-center gap-2" id="desktop-cta">
           <button
             onClick={() => handleNavigate(ActivePage.AppDashboard, false)}
-            className="flex items-center gap-1.5 rounded-lg bg-slate-900 border border-slate-800 px-3.5 py-2 font-display text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-slate-800 cursor-pointer shadow-sm animate-pulse"
+            className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3.5 py-2 font-display text-xs font-bold uppercase tracking-wider text-slate-600 transition-colors hover:border-slate-400 hover:text-slate-900 cursor-pointer shadow-xs"
             id="header-app-pc-button"
           >
-            <span>Probar PC 💻</span>
+            Demo
           </button>
           <button
-            onClick={() => handleNavigate(ActivePage.AppDashboard, true)}
-            className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 font-display text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-blue-700 cursor-pointer shadow-sm"
-            id="header-app-mobile-button"
+            onClick={handleLogin}
+            className="flex items-center gap-1.5 rounded-lg border border-slate-300 bg-white px-3.5 py-2 font-display text-xs font-bold uppercase tracking-wider text-slate-700 transition-colors hover:bg-slate-50 hover:border-slate-500 cursor-pointer shadow-xs"
+            id="header-login-button"
           >
-            <span>Probar Móvil 📱</span>
+            <LogIn className="h-3.5 w-3.5" />
+            <span>Acceder</span>
+          </button>
+          <button
+            onClick={handleRegister}
+            className="flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 font-display text-xs font-bold uppercase tracking-wider text-white transition-colors hover:bg-blue-700 cursor-pointer shadow-sm"
+            id="header-register-button"
+          >
+            <UserPlus className="h-3.5 w-3.5" />
+            <span>Empezar gratis</span>
           </button>
         </div>
 
@@ -143,18 +162,27 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile }
               
               <div className="mt-4 pt-4 border-t border-slate-100 flex flex-col gap-2">
                 <button
-                  onClick={() => handleNavigate(ActivePage.AppDashboard, true)}
+                  onClick={handleRegister}
                   className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 py-3 font-semibold text-white cursor-pointer"
-                  id="mobile-app-btn"
+                  id="mobile-register-btn"
                 >
-                  <span>Probar en Móvil 📱</span>
+                  <UserPlus className="h-4 w-4" />
+                  <span>Empezar gratis — 3 meses</span>
+                </button>
+                <button
+                  onClick={handleLogin}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white py-3 font-semibold text-slate-700 cursor-pointer hover:bg-slate-50"
+                  id="mobile-login-btn"
+                >
+                  <LogIn className="h-4 w-4" />
+                  <span>Acceder a mi cuenta</span>
                 </button>
                 <button
                   onClick={() => handleNavigate(ActivePage.AppDashboard, false)}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 py-3 font-semibold text-white cursor-pointer"
-                  id="mobile-app-pc-btn"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-100 py-2.5 text-sm font-semibold text-slate-600 cursor-pointer hover:bg-slate-200"
+                  id="mobile-demo-btn"
                 >
-                  <span>Probar en PC 💻</span>
+                  <span>Ver demo</span>
                 </button>
               </div>
             </div>

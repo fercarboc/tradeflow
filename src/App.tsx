@@ -22,6 +22,7 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState<ActivePage>(ActivePage.Home);
   const [preselectedTrade, setPreselectedTrade] = useState<TradeType>('Fontanería');
   const [initialMobile, setInitialMobile] = useState<boolean>(true);
+  const [loginOnMount, setLoginOnMount] = useState<boolean>(false);
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
@@ -66,6 +67,7 @@ export default function App() {
             setCurrentPage={setCurrentPage}
             initialMobile={initialMobile}
             session={session}
+            loginOnMount={loginOnMount}
           />
         );
       case ActivePage.Registro:
@@ -90,7 +92,7 @@ export default function App() {
   return (
     <div className={`min-h-screen flex flex-col ${isAppView ? 'bg-slate-900' : 'bg-slate-50/30'}`}>
       {!isAppView && (
-        <Header currentPage={currentPage} setCurrentPage={setCurrentPage} setInitialMobile={setInitialMobile} />
+        <Header currentPage={currentPage} setCurrentPage={setCurrentPage} setInitialMobile={setInitialMobile} setLoginOnMount={setLoginOnMount} />
       )}
       <main className="flex-grow">{renderActiveView()}</main>
       {!isAppView && <Footer setCurrentPage={setCurrentPage} />}

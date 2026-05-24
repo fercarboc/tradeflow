@@ -54,6 +54,7 @@ interface AppDashboardViewProps {
   setCurrentPage: (page: ActivePage) => void;
   initialMobile?: boolean;
   session?: Session | null;
+  loginOnMount?: boolean;
 }
 
 interface PresetPhoto {
@@ -64,13 +65,13 @@ interface PresetPhoto {
   detections: { label: string; x: number; y: number; w: number; h: number; price: number; type: 'material' | 'mano_de_obra'; confidence: number }[];
 }
 
-export default function AppDashboardView({ setCurrentPage, initialMobile = true, session }: AppDashboardViewProps) {
+export default function AppDashboardView({ setCurrentPage, initialMobile = true, session, loginOnMount = false }: AppDashboardViewProps) {
   // Auth & data loading
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [loginError, setLoginError] = useState('');
   const [loginLoading, setLoginLoading] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(loginOnMount && !session);
   const [isLiveMode, setIsLiveMode] = useState(false);
 
   useEffect(() => {
