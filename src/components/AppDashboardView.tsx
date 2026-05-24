@@ -153,6 +153,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [isMobileMode, setIsMobileMode] = useState<boolean>(initialMobile);
   const [activeTab, setActiveTab] = useState<string>('dashboard');
 
+  // Detectar si estamos en un dispositivo móvil real (PWA instalada o teléfono)
+  const isNativeDevice = (() => {
+    if (typeof window === 'undefined') return false;
+    const params = new URLSearchParams(window.location.search);
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+      || (window.navigator as unknown as { standalone?: boolean }).standalone === true;
+    const isPWAParam = params.get('app') === 'true';
+    const isTouchPhone = window.innerWidth < 500 && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    return isStandalone || isPWAParam || isTouchPhone;
+  })();
+
   // Sincronizar prop con estado del simulador
   useEffect(() => {
     setIsMobileMode(initialMobile);
@@ -774,10 +785,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   void triggerWhatsAppShare;
 
   return (
-    <div className={`w-full min-h-screen ${isDarkMode ? 'dark bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'} font-sans flex flex-col transition-colors duration-300`}>
-      
-      {/* ================= BARRA SUPERIOR DE SIMULACIÓN MULTI-TEMA ================= */}
-      <div className="z-40 bg-slate-900 border-b border-slate-850 px-4 py-3 flex flex-wrap items-center justify-between gap-4 text-white text-xs select-none shadow-md">
+    <div className={`font-sans transition-colors duration-300 ${
+      isNativeDevice
+        ? `fixed inset-0 overflow-hidden ${isDarkMode ? 'dark bg-slate-950' : 'bg-white'}`
+        : `w-full min-h-screen flex flex-col ${isDarkMode ? 'dark bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'}`
+    }`}>
+
+      {/* ================= BARRA SUPERIOR DE SIMULACIÓN — SOLO EN DESKTOP ================= */}
+      {!isNativeDevice && <div className="z-40 bg-slate-900 border-b border-slate-850 px-4 py-3 flex flex-wrap items-center justify-between gap-4 text-white text-xs select-none shadow-md">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 bg-blue-600 rounded flex items-center justify-center font-bold text-white shadow-inner">TF</div>
           <span className="font-display font-bold tracking-tight uppercase">
@@ -868,7 +883,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <span>Salir</span>
           </button>
         </div>
-      </div>
+      </div>}
 
       {/* Confeti flotante */}
       {showConfetti && (
@@ -901,8 +916,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       )}
 
       {/* ================= NÚCLEO DEL CONTENEDOR DE LA APLICACIÓN ================= */}
+      {isNativeDevice ? (
+        /* ===== MODO NATIVO: fullscreen sin frame, sin console header ===== */
+        <AppContentMobile />
+      ) : (
       <div className="flex-grow flex items-center justify-center p-0 md:p-6 overflow-hidden">
-        
+
         {isMobileMode ? (
           /* ================= SIMULADOR MÓVIL PREMIUM CON MARCO DE IPHONE ================= */
           <div className="relative mx-auto my-4 w-[360px] h-[730px] rounded-[48px] bg-slate-900 border-[10px] border-slate-800 shadow-2xl overflow-hidden flex flex-col ring-12 ring-slate-950/20">
@@ -937,6 +956,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         )}
       </div>
+      )}
 
       {/* ================= MODAL LOGIN MODO REAL ================= */}
       <AnimatePresence>
@@ -1027,7 +1047,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className="fixed bottom-4 right-4 z-50 w-80 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-880 rounded-2xl shadow-xl overflow-hidden"
+            className={`fixed z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl overflow-hidden ${
+              isNativeDevice
+                ? 'left-3 right-3 w-auto'
+                : 'bottom-4 right-4 w-80'
+            }`}
+            style={isNativeDevice ? { bottom: 'calc(env(safe-area-inset-bottom, 0px) + 76px)' } : {}}
           >
             <div className="p-4 flex items-center gap-3">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
@@ -1279,31 +1304,76 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     }
 
     return (
-      <div className="flex flex-col h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 select-none">
-        
-        {/* Encabezado fijo móvil */}
-        <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-850 px-4 py-3 flex items-center justify-between shrink-0">
-          <div className="flex items-center gap-1.5">
-            <span className="font-display font-bold text-sm tracking-tight uppercase text-slate-900 dark:text-white">
+      <div
+        className={`flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 select-none ${
+          isNativeDevice ? 'fixed inset-0 overflow-hidden' : 'h-full'
+        }`}
+      >
+        {/* ── APP HEADER ── */}
+        <div
+          className={`bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between shrink-0 ${
+            isNativeDevice ? 'px-5 pb-3' : 'px-4 py-3'
+          }`}
+          style={isNativeDevice ? { paddingTop: 'calc(env(safe-area-inset-top, 0px) + 12px)' } : {}}
+        >
+          {/* Logo + nombre */}
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center shadow-sm shrink-0">
+              <span className="text-white font-black text-[10px]">TF</span>
+            </div>
+            <span className={`font-display font-black tracking-tight uppercase text-slate-900 dark:text-white ${isNativeDevice ? 'text-base' : 'text-sm'}`}>
               TradeFlow <span className="text-blue-500">AI</span>
             </span>
           </div>
 
-          <div className="flex items-center gap-1 bg-blue-500/10 border border-blue-500/30 text-blue-450 font-bold px-2 py-0.5 rounded-full text-[8.5px] uppercase tracking-wider font-mono">
-            Obra Activa
+          {/* Derecha: estado sesión + ajustes */}
+          <div className="flex items-center gap-2">
+            {isLiveMode ? (
+              <span className="flex items-center gap-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold px-2 py-1 rounded-full text-[9px] uppercase tracking-wider">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
+                En vivo
+              </span>
+            ) : (
+              <span className="flex items-center gap-1 bg-blue-500/10 border border-blue-500/30 text-blue-600 dark:text-blue-400 font-bold px-2 py-1 rounded-full text-[9px] uppercase tracking-wider font-mono">
+                Demo
+              </span>
+            )}
+            {isNativeDevice && (
+              <button
+                onClick={() => { setActiveTab('settings'); }}
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 active:bg-slate-200 dark:active:bg-slate-700"
+              >
+                <SettingsIcon className="w-4 h-4" />
+              </button>
+            )}
           </div>
         </div>
 
         {/* Contenido dinámico según Pestaña Móvil */}
-        <div className="flex-grow p-4 overflow-y-auto pb-20">
+        <div
+          className="flex-grow overflow-y-auto overscroll-contain"
+          style={{
+            padding: isNativeDevice ? '16px 16px 0' : '16px',
+            paddingBottom: isNativeDevice
+              ? 'calc(80px + env(safe-area-inset-bottom, 0px) + 8px)'
+              : '80px',
+          }}
+        >
           {mobileTab === 'inicio' && <MobileScreenInicio />}
           {mobileTab === 'presupuestos' && <MobileScreenPresupuestos />}
           {mobileTab === 'clientes' && <MobileScreenClientes />}
           {mobileTab === 'facturas' && <MobileScreenFacturas />}
+          {activeTab === 'settings' && isNativeDevice && <ScreenSettings />}
         </div>
 
-        {/* BOTTOM TAB BAR MÓVIL + BOTÓN FLOTANTE */}
-        <div className="absolute bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-850 h-16 grid grid-cols-4 select-none z-30">
+        {/* BOTTOM TAB BAR + FAB */}
+        <div
+          className="absolute bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 grid grid-cols-4 select-none z-30"
+          style={{
+            paddingBottom: isNativeDevice ? 'env(safe-area-inset-bottom, 0px)' : '0px',
+            minHeight: isNativeDevice ? 'calc(64px + env(safe-area-inset-bottom, 0px))' : '64px',
+          }}
+        >
           
           <MobileTabButton tab="inicio" icon={<TrendingUp className="w-5 h-5" />} label="Inicio" />
           <MobileTabButton tab="presupuestos" icon={<FileText className="w-5 h-5" />} label="Presupuestos" />
