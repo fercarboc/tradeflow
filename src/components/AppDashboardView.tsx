@@ -57,6 +57,25 @@ interface AppDashboardViewProps {
   loginOnMount?: boolean;
 }
 
+interface TrabajadorItem {
+  id: string;
+  nombre: string;
+  telefono: string;
+  email: string;
+  rol: 'tecnico' | 'admin' | 'comercial';
+  activo: boolean;
+}
+
+interface TarifaItem {
+  id: string;
+  codigo: string;
+  familia: string;
+  descripcion: string;
+  precioBase: number;
+  unidad: string;
+  activo: boolean;
+}
+
 interface PresetPhoto {
   id: string;
   name: string;
@@ -92,7 +111,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       if (data.clients.length)  setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
       if (data.quotes.length)   setPresupuestos(data.quotes.map(q => ({ id: q.numero, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '' })));
       if (data.invoices.length) setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : '', idPresupuesto: f.quote_id ?? '', importe: f.subtotal, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any })));
-      if (org) setEmpresaAjustes(prev => ({ ...prev, nombre: org.nombre, nif: org.nif ?? prev.nif, direccion: org.direccion ?? prev.direccion, email: org.email ?? prev.email, telefono: org.telefono ?? prev.telefono }));
+      if (org) {
+        setOrgId(org.id);
+        setEmpresaAjustes(prev => ({
+          ...prev,
+          nombre:       org.nombre,
+          nif:          (org as any).nif ?? prev.nif,
+          email:        org.email ?? prev.email,
+          telefonoFijo: (org as any).telefono_fijo ?? prev.telefonoFijo,
+          telefonoMovil:(org as any).telefono_movil ?? org.telefono ?? prev.telefonoMovil,
+          direccion:    org.direccion ?? prev.direccion,
+          localidad:    (org as any).localidad ?? prev.localidad,
+          cp:           (org as any).cp ?? prev.cp,
+          provincia:    (org as any).provincia ?? prev.provincia,
+          pais:         (org as any).pais ?? prev.pais,
+        }));
+      }
       showToast(`Datos reales cargados ✓`, 'success');
     } catch (e) {
       console.error('Error cargando datos live:', e);
@@ -304,15 +338,39 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     }
   ]);
 
+  const [orgId, setOrgId] = useState<string | null>(null);
+
   const [empresaAjustes, setEmpresaAjustes] = useState({
     nombre: 'Sanz Instalaciones Técnicas',
     nif: 'B-87654321',
-    direccion: 'Calle Ingenieros de Obra 12, Sevilla',
     email: 'info@sanzinstalaciones.com',
-    telefono: '611 222 333',
+    telefonoFijo: '954 123 456',
+    telefonoMovil: '611 222 333',
+    direccion: 'Calle Ingenieros de Obra 12',
+    localidad: 'Sevilla',
+    cp: '41001',
+    provincia: 'Sevilla',
+    pais: 'España',
     ivaDefault: 21,
     planSuscripcion: 'Profesional (Pro)'
   });
+
+  const [trabajadores, setTrabajadores] = useState<TrabajadorItem[]>([
+    { id: '1', nombre: 'Carlos Martínez', telefono: '612 345 678', email: 'carlos@empresa.com', rol: 'tecnico', activo: true },
+  ]);
+  const [showAddWorker, setShowAddWorker] = useState(false);
+
+  const [tarifas, setTarifas] = useState<TarifaItem[]>([
+    { id: '1', codigo: 'MO-001', familia: 'Mano de Obra', descripcion: 'Hora oficial de primera', precioBase: 35, unidad: 'h', activo: true },
+    { id: '2', codigo: 'MO-002', familia: 'Mano de Obra', descripcion: 'Hora ayudante', precioBase: 25, unidad: 'h', activo: true },
+    { id: '3', codigo: 'FON-001', familia: 'Fontanería', descripcion: 'Grifo monomando cocina estándar', precioBase: 65, unidad: 'ud', activo: true },
+    { id: '4', codigo: 'ELE-001', familia: 'Electricidad', descripcion: 'Punto de luz empotrado LED', precioBase: 45, unidad: 'ud', activo: true },
+    { id: '5', codigo: 'REF-001', familia: 'Reformas', descripcion: 'Alicatado porcelánico', precioBase: 28, unidad: 'm²', activo: true },
+  ]);
+  const [showAddTarifa, setShowAddTarifa] = useState(false);
+  const [newWorkerDraft, setNewWorkerDraft] = useState({ nombre: '', telefono: '', email: '', rol: 'tecnico' as TrabajadorItem['rol'] });
+  const [newTarifaDraft, setNewTarifaDraft] = useState({ codigo: '', familia: 'General', descripcion: '', precioBase: 0, unidad: 'ud' });
+  const [tarifaFilter, setTarifaFilter] = useState('');
 
   // ================= SIMULACIONES DE IA =================
   const [voiceStep, setVoiceStep] = useState<'idle' | 'listening' | 'transcribing' | 'thinking' | 'done'>('idle');
@@ -2555,19 +2613,369 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= DESKTOP: SETTINGS SCREEN =================
   function ScreenSettings() {
+    const inp = "w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 p-2.5 rounded-lg text-slate-800 dark:text-white text-xs focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500";
+    const lbl = "text-[9px] uppercase font-mono block text-slate-400 mb-1";
+    const sec = "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5 rounded-xl space-y-4";
+    const secTitle = "font-display font-bold uppercase text-xs text-slate-400 font-mono pb-2 border-b border-slate-100 dark:border-slate-800";
+
+    const FAMILIAS = ['Mano de Obra','Fontanería','Electricidad','Reformas','Climatización','Madera / Carpintería','Cerrajería','Pintura','Albañilería','General'];
+    const UNIDADES = ['ud','h','m','m²','m³','kg','l','ml','par','jgo'];
+    const ROL_LABELS: Record<TrabajadorItem['rol'], string> = { tecnico: 'Técnico', admin: 'Admin', comercial: 'Comercial' };
+
+    const filteredTarifas = tarifas.filter(t =>
+      t.descripcion.toLowerCase().includes(tarifaFilter.toLowerCase()) ||
+      t.familia.toLowerCase().includes(tarifaFilter.toLowerCase()) ||
+      t.codigo.toLowerCase().includes(tarifaFilter.toLowerCase())
+    );
+
+    const handleSaveFiscal = async () => {
+      if (!isLiveMode || !orgId) { showToast('Datos guardados (demo)', 'success'); return; }
+      const { error } = await supabase.from('trade_organizations').update({
+        nombre: empresaAjustes.nombre,
+        nif: empresaAjustes.nif,
+        email: empresaAjustes.email,
+        telefono_fijo: empresaAjustes.telefonoFijo,
+        telefono_movil: empresaAjustes.telefonoMovil,
+        direccion: empresaAjustes.direccion,
+        localidad: empresaAjustes.localidad,
+        cp: empresaAjustes.cp,
+        provincia: empresaAjustes.provincia,
+        pais: empresaAjustes.pais,
+        iva_default: empresaAjustes.ivaDefault,
+      }).eq('id', orgId);
+      if (error) showToast('Error al guardar: ' + error.message, 'error');
+      else showToast('Datos fiscales guardados ✓', 'success');
+    };
+
+    const handleAddWorker = async () => {
+      if (!newWorkerDraft.nombre.trim()) return;
+      const newW: TrabajadorItem = { id: Date.now().toString(), ...newWorkerDraft, activo: true };
+      setTrabajadores(prev => [...prev, newW]);
+      if (isLiveMode && orgId) {
+        await supabase.from('trade_workers').insert({ org_id: orgId, nombre: newW.nombre, telefono: newW.telefono, email: newW.email, rol: newW.rol });
+      }
+      setNewWorkerDraft({ nombre: '', telefono: '', email: '', rol: 'tecnico' });
+      setShowAddWorker(false);
+      showToast('Trabajador añadido ✓', 'success');
+    };
+
+    const handleDeleteWorker = async (id: string) => {
+      setTrabajadores(prev => prev.filter(w => w.id !== id));
+      if (isLiveMode) await supabase.from('trade_workers').delete().eq('id', id);
+    };
+
+    const handleAddTarifa = async () => {
+      if (!newTarifaDraft.descripcion.trim()) return;
+      const newT: TarifaItem = { id: Date.now().toString(), ...newTarifaDraft, activo: true };
+      setTarifas(prev => [...prev, newT]);
+      if (isLiveMode && orgId) {
+        await supabase.from('trade_tarifas').insert({ org_id: orgId, codigo: newT.codigo, familia: newT.familia, descripcion: newT.descripcion, precio_base: newT.precioBase, unidad: newT.unidad });
+      }
+      setNewTarifaDraft({ codigo: '', familia: 'General', descripcion: '', precioBase: 0, unidad: 'ud' });
+      setShowAddTarifa(false);
+      showToast('Tarifa añadida ✓', 'success');
+    };
+
+    const handleDeleteTarifa = async (id: string) => {
+      setTarifas(prev => prev.filter(t => t.id !== id));
+      if (isLiveMode) await supabase.from('trade_tarifas').delete().eq('id', id);
+    };
+
     return (
-      <div className="bg-white dark:bg-slate-900 border p-5 rounded-2xl text-xs space-y-4">
-        <h3 className="font-display font-bold uppercase text-xs text-slate-400 font-mono">Ajustes Fiscales</h3>
-        <div className="space-y-3">
-          <div className="space-y-1">
-            <span className="text-[9px] uppercase font-mono block text-slate-400">Razón Social</span>
-            <input type="text" value={empresaAjustes.nombre} onChange={(e) => setEmpresaAjustes(prev => ({ ...prev, nombre: e.target.value }))} className="w-full bg-slate-50 dark:bg-slate-950 border p-2.5 rounded-xl text-slate-800 dark:text-white" />
+      <div className="space-y-5">
+
+        {/* ── 1. Datos fiscales ── */}
+        <div className={sec}>
+          <h3 className={secTitle}>Datos Fiscales y de Empresa</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <span className={lbl}>Razón Social / Nombre autónomo</span>
+              <input type="text" className={inp} value={empresaAjustes.nombre}
+                onChange={e => setEmpresaAjustes(p => ({ ...p, nombre: e.target.value }))} />
+            </div>
+            <div>
+              <span className={lbl}>NIF / CIF</span>
+              <input type="text" className={`${inp} font-mono uppercase`} value={empresaAjustes.nif}
+                onChange={e => setEmpresaAjustes(p => ({ ...p, nif: e.target.value }))} />
+            </div>
+            <div>
+              <span className={lbl}>Email de contacto</span>
+              <input type="email" className={inp} value={empresaAjustes.email}
+                onChange={e => setEmpresaAjustes(p => ({ ...p, email: e.target.value }))} />
+            </div>
+            <div>
+              <span className={lbl}>IVA por defecto (%)</span>
+              <input type="number" min={0} max={100} className={`${inp} font-mono`} value={empresaAjustes.ivaDefault}
+                onChange={e => setEmpresaAjustes(p => ({ ...p, ivaDefault: Number(e.target.value) }))} />
+            </div>
+            <div>
+              <span className={lbl}>Teléfono fijo</span>
+              <input type="tel" className={inp} placeholder="954 000 000" value={empresaAjustes.telefonoFijo}
+                onChange={e => setEmpresaAjustes(p => ({ ...p, telefonoFijo: e.target.value }))} />
+            </div>
+            <div>
+              <span className={lbl}>Teléfono móvil (WhatsApp)</span>
+              <input type="tel" className={inp} placeholder="600 000 000" value={empresaAjustes.telefonoMovil}
+                onChange={e => setEmpresaAjustes(p => ({ ...p, telefonoMovil: e.target.value }))} />
+            </div>
+            <div className="sm:col-span-2">
+              <span className={lbl}>Dirección (calle y número)</span>
+              <input type="text" className={inp} placeholder="Calle Mayor 1" value={empresaAjustes.direccion}
+                onChange={e => setEmpresaAjustes(p => ({ ...p, direccion: e.target.value }))} />
+            </div>
+            <div>
+              <span className={lbl}>Localidad</span>
+              <input type="text" className={inp} value={empresaAjustes.localidad}
+                onChange={e => setEmpresaAjustes(p => ({ ...p, localidad: e.target.value }))} />
+            </div>
+            <div>
+              <span className={lbl}>Código Postal</span>
+              <input type="text" className={`${inp} font-mono`} maxLength={5} value={empresaAjustes.cp}
+                onChange={e => setEmpresaAjustes(p => ({ ...p, cp: e.target.value }))} />
+            </div>
+            <div>
+              <span className={lbl}>Provincia</span>
+              <input type="text" className={inp} value={empresaAjustes.provincia}
+                onChange={e => setEmpresaAjustes(p => ({ ...p, provincia: e.target.value }))} />
+            </div>
+            <div>
+              <span className={lbl}>País</span>
+              <input type="text" className={inp} value={empresaAjustes.pais}
+                onChange={e => setEmpresaAjustes(p => ({ ...p, pais: e.target.value }))} />
+            </div>
           </div>
-          <div className="space-y-1">
-            <span className="text-[9px] uppercase font-mono block text-slate-400">NIF/CIF</span>
-            <input type="text" value={empresaAjustes.nif} onChange={(e) => setEmpresaAjustes(prev => ({ ...prev, nif: e.target.value }))} className="w-full bg-slate-50 dark:bg-slate-950 border p-2.5 rounded-xl font-mono text-slate-800 dark:text-white" />
+          <button onClick={handleSaveFiscal}
+            className="mt-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-lg transition-colors cursor-pointer">
+            Guardar datos fiscales
+          </button>
+        </div>
+
+        {/* ── 2. Trabajadores ── */}
+        <div className={sec}>
+          <div className="flex items-center justify-between">
+            <h3 className={secTitle}>Trabajadores y Técnicos</h3>
+            <button onClick={() => setShowAddWorker(p => !p)}
+              className="flex items-center gap-1 text-blue-500 hover:text-blue-400 text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-colors">
+              <Plus className="h-3 w-3" />
+              {showAddWorker ? 'Cancelar' : 'Añadir'}
+            </button>
+          </div>
+
+          {trabajadores.length > 0 && (
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="border-b border-slate-100 dark:border-slate-800">
+                    {['Nombre','Móvil','Email','Rol','Estado',''].map(h => (
+                      <th key={h} className="text-left text-[9px] uppercase font-mono text-slate-400 pb-2 pr-3 whitespace-nowrap">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
+                  {trabajadores.map(w => (
+                    <tr key={w.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                      <td className="py-2 pr-3 font-semibold text-slate-800 dark:text-white whitespace-nowrap">{w.nombre}</td>
+                      <td className="py-2 pr-3 text-slate-500 font-mono whitespace-nowrap">{w.telefono || '—'}</td>
+                      <td className="py-2 pr-3 text-slate-500 max-w-[140px] truncate">{w.email || '—'}</td>
+                      <td className="py-2 pr-3">
+                        <span className="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap">
+                          {ROL_LABELS[w.rol]}
+                        </span>
+                      </td>
+                      <td className="py-2 pr-3">
+                        <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap ${w.activo ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400' : 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400'}`}>
+                          {w.activo ? 'Activo' : 'Inactivo'}
+                        </span>
+                      </td>
+                      <td className="py-2">
+                        <button onClick={() => handleDeleteWorker(w.id)} className="text-red-400 hover:text-red-300 cursor-pointer transition-colors">
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {trabajadores.length === 0 && !showAddWorker && (
+            <p className="text-slate-400 text-xs text-center py-4">No hay trabajadores registrados. Añade el primer técnico.</p>
+          )}
+
+          {showAddWorker && (
+            <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 space-y-3 border border-slate-200 dark:border-slate-700">
+              <span className="text-[9px] uppercase font-mono text-slate-400 font-bold">Nuevo trabajador</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <span className={lbl}>Nombre completo *</span>
+                  <input type="text" className={inp} placeholder="Ej. Antonio Ruiz"
+                    value={newWorkerDraft.nombre} onChange={e => setNewWorkerDraft(p => ({ ...p, nombre: e.target.value }))} />
+                </div>
+                <div>
+                  <span className={lbl}>Teléfono móvil (app)</span>
+                  <input type="tel" className={inp} placeholder="600 000 000"
+                    value={newWorkerDraft.telefono} onChange={e => setNewWorkerDraft(p => ({ ...p, telefono: e.target.value }))} />
+                </div>
+                <div>
+                  <span className={lbl}>Email (login TradeFlow)</span>
+                  <input type="email" className={inp} placeholder="tecnico@empresa.com"
+                    value={newWorkerDraft.email} onChange={e => setNewWorkerDraft(p => ({ ...p, email: e.target.value }))} />
+                </div>
+                <div>
+                  <span className={lbl}>Rol</span>
+                  <select className={inp} value={newWorkerDraft.rol}
+                    onChange={e => setNewWorkerDraft(p => ({ ...p, rol: e.target.value as TrabajadorItem['rol'] }))}>
+                    <option value="tecnico">Técnico (en obra)</option>
+                    <option value="admin">Administrador</option>
+                    <option value="comercial">Comercial</option>
+                  </select>
+                </div>
+              </div>
+              <div className="flex gap-2 pt-1">
+                <button onClick={handleAddWorker} disabled={!newWorkerDraft.nombre.trim()}
+                  className="bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-colors cursor-pointer">
+                  Añadir trabajador
+                </button>
+                <button onClick={() => setShowAddWorker(false)}
+                  className="border border-slate-200 dark:border-slate-600 text-slate-500 text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* ── 3. Tarifas ── */}
+        <div className={sec}>
+          <div className="flex items-center justify-between">
+            <h3 className={secTitle}>Tarifas / Catálogo de Precios</h3>
+            <button onClick={() => setShowAddTarifa(p => !p)}
+              className="flex items-center gap-1 text-blue-500 hover:text-blue-400 text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-colors">
+              <Plus className="h-3 w-3" />
+              {showAddTarifa ? 'Cancelar' : 'Añadir tarifa'}
+            </button>
+          </div>
+
+          {tarifas.length > 4 && (
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+              <input type="text" placeholder="Buscar por código, familia o descripción..."
+                className={`${inp} pl-8`} value={tarifaFilter}
+                onChange={e => setTarifaFilter(e.target.value)} />
+            </div>
+          )}
+
+          {filteredTarifas.length > 0 && (
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="border-b border-slate-100 dark:border-slate-800">
+                    {['Código','Familia','Descripción','Precio base','Ud.',''].map(h => (
+                      <th key={h} className="text-left text-[9px] uppercase font-mono text-slate-400 pb-2 pr-3 whitespace-nowrap">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
+                  {filteredTarifas.map(t => (
+                    <tr key={t.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                      <td className="py-2 pr-3 font-mono text-blue-600 dark:text-blue-400 whitespace-nowrap">{t.codigo || '—'}</td>
+                      <td className="py-2 pr-3 whitespace-nowrap">
+                        <span className="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded text-[9px] font-bold">{t.familia}</span>
+                      </td>
+                      <td className="py-2 pr-3 text-slate-700 dark:text-slate-300">{t.descripcion}</td>
+                      <td className="py-2 pr-3 font-mono font-bold text-slate-800 dark:text-white whitespace-nowrap">{t.precioBase.toFixed(2)} €</td>
+                      <td className="py-2 pr-3 text-slate-400 font-mono whitespace-nowrap">{t.unidad}</td>
+                      <td className="py-2">
+                        <button onClick={() => handleDeleteTarifa(t.id)} className="text-red-400 hover:text-red-300 cursor-pointer transition-colors">
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {filteredTarifas.length === 0 && !showAddTarifa && (
+            <p className="text-slate-400 text-xs text-center py-4">
+              {tarifaFilter ? 'Sin resultados para ese filtro.' : 'Sin tarifas definidas. Añade materiales y mano de obra.'}
+            </p>
+          )}
+
+          {showAddTarifa && (
+            <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 space-y-3 border border-slate-200 dark:border-slate-700">
+              <span className="text-[9px] uppercase font-mono text-slate-400 font-bold">Nueva tarifa</span>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <div>
+                  <span className={lbl}>Código</span>
+                  <input type="text" className={`${inp} font-mono`} placeholder="FON-001"
+                    value={newTarifaDraft.codigo}
+                    onChange={e => setNewTarifaDraft(p => ({ ...p, codigo: e.target.value.toUpperCase() }))} />
+                </div>
+                <div>
+                  <span className={lbl}>Familia *</span>
+                  <select className={inp} value={newTarifaDraft.familia}
+                    onChange={e => setNewTarifaDraft(p => ({ ...p, familia: e.target.value }))}>
+                    {FAMILIAS.map(f => <option key={f} value={f}>{f}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <span className={lbl}>Unidad</span>
+                  <select className={inp} value={newTarifaDraft.unidad}
+                    onChange={e => setNewTarifaDraft(p => ({ ...p, unidad: e.target.value }))}>
+                    {UNIDADES.map(u => <option key={u} value={u}>{u}</option>)}
+                  </select>
+                </div>
+                <div className="col-span-2">
+                  <span className={lbl}>Descripción *</span>
+                  <input type="text" className={inp} placeholder="Ej. Grifo monomando cocina premium"
+                    value={newTarifaDraft.descripcion}
+                    onChange={e => setNewTarifaDraft(p => ({ ...p, descripcion: e.target.value }))} />
+                </div>
+                <div>
+                  <span className={lbl}>Precio base (€)</span>
+                  <input type="number" step="0.01" min="0" className={`${inp} font-mono`}
+                    value={newTarifaDraft.precioBase}
+                    onChange={e => setNewTarifaDraft(p => ({ ...p, precioBase: Number(e.target.value) }))} />
+                </div>
+              </div>
+              <div className="flex gap-2 pt-1">
+                <button onClick={handleAddTarifa} disabled={!newTarifaDraft.descripcion.trim()}
+                  className="bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-colors cursor-pointer">
+                  Añadir tarifa
+                </button>
+                <button onClick={() => setShowAddTarifa(false)}
+                  className="border border-slate-200 dark:border-slate-600 text-slate-500 text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          )}
+
+          {tarifas.length > 0 && (
+            <div className="border-t border-slate-100 dark:border-slate-800 pt-3 flex items-center justify-between text-[10px] text-slate-400 font-mono">
+              <span>{tarifas.length} tarifa{tarifas.length !== 1 ? 's' : ''}</span>
+              <span>{[...new Set(tarifas.map(t => t.familia))].length} familia{[...new Set(tarifas.map(t => t.familia))].length !== 1 ? 's' : ''}</span>
+            </div>
+          )}
+        </div>
+
+        {/* ── 4. Suscripción ── */}
+        <div className={sec}>
+          <h3 className={secTitle}>Suscripción</h3>
+          <div className="flex items-center justify-between">
+            <div>
+              <span className="text-xs font-bold text-slate-700 dark:text-white">{empresaAjustes.planSuscripcion}</span>
+              <p className="text-[10px] text-slate-400 mt-0.5">Período de prueba activo — sin cargo hasta el 4º mes</p>
+            </div>
+            <span className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-[9px] font-bold uppercase px-2 py-1 rounded">
+              Activo
+            </span>
           </div>
         </div>
+
       </div>
     );
   }
