@@ -3488,17 +3488,29 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       );
     }
 
-    // Handlers inline (no hooks — only closures sobre estado del padre)
+    // Helpers inline
+    const flattenCatalog = (): TradeTarifa[] =>
+      catalogProducts.map(p => {
+        const pref = p.trade_catalog_variants?.find(v => v.is_preferred && v.activo)
+          ?? p.trade_catalog_variants?.find(v => v.activo);
+        return {
+          id: p.id, org_id: p.org_id, codigo: undefined,
+          familia: `${p.oficio} — ${p.familia}`,
+          descripcion: p.nombre_generico,
+          precio_base: pref?.precio_venta ?? 0,
+          unidad: p.unidad, activo: p.activo,
+          created_at: p.created_at, updated_at: p.updated_at,
+        };
+      });
+
     const handleExportCatalogFromTab = async () => {
-      let items: TradeTarifa[];
-      if (isLiveMode && orgId) {
-        items = await exportCatalog(orgId);
-      } else {
-        items = tarifas.map(t => ({ id: t.id, org_id: orgId ?? '', codigo: t.codigo || undefined, familia: t.familia, descripcion: t.descripcion, precio_base: t.precioBase, unidad: t.unidad, activo: t.activo, created_at: '', updated_at: '' }));
-      }
+      const items = catalogProducts.length > 0
+        ? flattenCatalog()
+        : isLiveMode && orgId ? await exportCatalog(orgId) : [];
+      if (items.length === 0) { showToast('No hay productos para exportar', 'info'); return; }
       const wb = generateExportWorkbook(items);
       downloadWorkbook(wb, `catalogo-trabflow-${new Date().toISOString().split('T')[0]}.xlsx`);
-      showToast('Catálogo exportado ✓', 'success');
+      showToast(`Catálogo exportado: ${items.length} productos ✓`, 'success');
     };
 
     return (
@@ -3791,7 +3803,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
     const handleExportCatalog = async () => {
       let items: TradeTarifa[];
-      if (isLiveMode && orgId) {
+      if (catalogProducts.length > 0) {
+        items = catalogProducts.map(p => {
+          const pref = p.trade_catalog_variants?.find(v => v.is_preferred && v.activo)
+            ?? p.trade_catalog_variants?.find(v => v.activo);
+          return {
+            id: p.id, org_id: p.org_id, codigo: undefined,
+            familia: `${p.oficio} — ${p.familia}`,
+            descripcion: p.nombre_generico,
+            precio_base: pref?.precio_venta ?? 0,
+            unidad: p.unidad, activo: p.activo,
+            created_at: p.created_at, updated_at: p.updated_at,
+          };
+        });
+      } else if (isLiveMode && orgId) {
         items = await exportCatalog(orgId);
       } else {
         items = tarifas.map(t => ({
@@ -4025,42 +4050,61 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           )}
         </div>
 
-        {/* ── 3. Tarifas ── */}
+        {/* ── 3. Catálogo de precios ── */}
         <div className={sec}>
-          <div className="flex flex-wrap items-center gap-2">
-            <h3 className={`${secTitle} mr-auto`}>Tarifas / Catálogo de Precios</h3>
+          <h3 className={secTitle}>Catálogo de Productos</h3>
+
+          {/* Banner explicativo */}
+          <div className="flex items-start gap-3 bg-blue-50 dark:bg-blue-950/25 border border-blue-200 dark:border-blue-800/40 rounded-xl p-4">
+            <Package className="h-8 w-8 text-blue-500 shrink-0 mt-0.5" />
+            <div className="flex-1 min-w-0 space-y-1">
+              <p className="text-xs font-bold text-slate-800 dark:text-white">
+                {catalogProducts.length > 0
+                  ? `${catalogProducts.length} productos · ${catalogProducts.reduce((s, p) => s + (p.trade_catalog_variants?.length ?? 0), 0)} variantes cargados`
+                  : 'Catálogo vacío — inicia sesión para cargar tus productos'}
+              </p>
+              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                Tu catálogo IA tiene productos con <strong>3 variantes de calidad</strong> (Económico · Preferido · Premium).
+                La IA usa el catálogo al generar presupuestos por voz — los precios que ves son los que se aplican automáticamente.
+                Gestiona precios, variante preferida e importa/exporta desde el tab <strong>Catálogo</strong>.
+              </p>
+            </div>
             <button
-              onClick={() => setShowCatalogImport(true)}
-              className="flex items-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
-              title="Importar desde Excel"
+              onClick={() => setActiveTab('catalog')}
+              className="shrink-0 flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-[9px] font-bold uppercase tracking-wider px-3 py-2 rounded-lg cursor-pointer transition-colors"
             >
-              <Upload className="h-3 w-3" />
-              Importar Excel
-            </button>
-            <button
-              onClick={handleExportCatalog}
-              className="flex items-center gap-1 bg-slate-700 hover:bg-slate-600 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
-              title="Exportar a Excel"
-            >
-              <FileText className="h-3 w-3" />
-              Exportar Excel
-            </button>
-            <button
-              onClick={handleDownloadTemplate}
-              className="flex items-center gap-1 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
-              title="Descargar plantilla vacía"
-            >
-              <FilePlus className="h-3 w-3" />
-              Plantilla
-            </button>
-            <button onClick={() => setShowAddTarifa(p => !p)}
-              className="flex items-center gap-1 text-blue-500 hover:text-blue-400 text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-colors px-1 py-1">
-              <Plus className="h-3 w-3" />
-              {showAddTarifa ? 'Cancelar' : 'Añadir'}
+              Ir al catálogo →
             </button>
           </div>
 
-          {/* Modal importación Excel */}
+          {/* Accesos rápidos import/export */}
+          <div>
+            <span className="text-[9px] font-mono font-bold uppercase text-slate-400 block mb-2">Importar / Exportar desde Excel</span>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setShowCatalogImport(true)}
+                className="flex items-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+              >
+                <Upload className="h-3 w-3" />
+                Importar Excel
+              </button>
+              <button
+                onClick={handleExportCatalog}
+                className="flex items-center gap-1 bg-slate-700 hover:bg-slate-600 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+              >
+                <FileText className="h-3 w-3" />
+                Exportar Excel
+              </button>
+              <button
+                onClick={handleDownloadTemplate}
+                className="flex items-center gap-1 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+              >
+                <FilePlus className="h-3 w-3" />
+                Descargar plantilla
+              </button>
+            </div>
+          </div>
+
           {showCatalogImport && (
             <CatalogImportModal
               orgId={orgId}
@@ -4068,110 +4112,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               onDone={handleCatalogImportDone}
               onClose={() => setShowCatalogImport(false)}
             />
-          )}
-
-          {tarifas.length > 4 && (
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
-              <input type="text" placeholder="Buscar por código, familia o descripción..."
-                className={`${inp} pl-8`} value={tarifaFilter}
-                onChange={e => setTarifaFilter(e.target.value)} />
-            </div>
-          )}
-
-          {filteredTarifas.length > 0 && (
-            <div className="overflow-x-auto">
-              <table className="w-full text-xs">
-                <thead>
-                  <tr className="border-b border-slate-100 dark:border-slate-800">
-                    {['Código','Familia','Descripción','Precio base','Ud.',''].map(h => (
-                      <th key={h} className="text-left text-[9px] uppercase font-mono text-slate-400 pb-2 pr-3 whitespace-nowrap">{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
-                  {filteredTarifas.map(t => (
-                    <tr key={t.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                      <td className="py-2 pr-3 font-mono text-blue-600 dark:text-blue-400 whitespace-nowrap">{t.codigo || '—'}</td>
-                      <td className="py-2 pr-3 whitespace-nowrap">
-                        <span className="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded text-[9px] font-bold">{t.familia}</span>
-                      </td>
-                      <td className="py-2 pr-3 text-slate-700 dark:text-slate-300">{t.descripcion}</td>
-                      <td className="py-2 pr-3 font-mono font-bold text-slate-800 dark:text-white whitespace-nowrap">{t.precioBase.toFixed(2)} €</td>
-                      <td className="py-2 pr-3 text-slate-400 font-mono whitespace-nowrap">{t.unidad}</td>
-                      <td className="py-2">
-                        <button onClick={() => handleDeleteTarifa(t.id)} className="text-red-400 hover:text-red-300 cursor-pointer transition-colors">
-                          <Trash2 className="h-3.5 w-3.5" />
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-
-          {filteredTarifas.length === 0 && !showAddTarifa && (
-            <p className="text-slate-400 text-xs text-center py-4">
-              {tarifaFilter ? 'Sin resultados para ese filtro.' : 'Sin tarifas definidas. Añade materiales y mano de obra.'}
-            </p>
-          )}
-
-          {showAddTarifa && (
-            <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 space-y-3 border border-slate-200 dark:border-slate-700">
-              <span className="text-[9px] uppercase font-mono text-slate-400 font-bold">Nueva tarifa</span>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                <div>
-                  <span className={lbl}>Código</span>
-                  <input type="text" className={`${inp} font-mono`} placeholder="FON-001"
-                    value={newTarifaDraft.codigo}
-                    onChange={e => setNewTarifaDraft(p => ({ ...p, codigo: e.target.value.toUpperCase() }))} />
-                </div>
-                <div>
-                  <span className={lbl}>Familia *</span>
-                  <select className={inp} value={newTarifaDraft.familia}
-                    onChange={e => setNewTarifaDraft(p => ({ ...p, familia: e.target.value }))}>
-                    {FAMILIAS.map(f => <option key={f} value={f}>{f}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <span className={lbl}>Unidad</span>
-                  <select className={inp} value={newTarifaDraft.unidad}
-                    onChange={e => setNewTarifaDraft(p => ({ ...p, unidad: e.target.value }))}>
-                    {UNIDADES.map(u => <option key={u} value={u}>{u}</option>)}
-                  </select>
-                </div>
-                <div className="col-span-2">
-                  <span className={lbl}>Descripción *</span>
-                  <input type="text" className={inp} placeholder="Ej. Grifo monomando cocina premium"
-                    value={newTarifaDraft.descripcion}
-                    onChange={e => setNewTarifaDraft(p => ({ ...p, descripcion: e.target.value }))} />
-                </div>
-                <div>
-                  <span className={lbl}>Precio base (€)</span>
-                  <input type="number" step="0.01" min="0" className={`${inp} font-mono`}
-                    value={newTarifaDraft.precioBase}
-                    onChange={e => setNewTarifaDraft(p => ({ ...p, precioBase: Number(e.target.value) }))} />
-                </div>
-              </div>
-              <div className="flex gap-2 pt-1">
-                <button onClick={handleAddTarifa} disabled={!newTarifaDraft.descripcion.trim()}
-                  className="bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-colors cursor-pointer">
-                  Añadir tarifa
-                </button>
-                <button onClick={() => setShowAddTarifa(false)}
-                  className="border border-slate-200 dark:border-slate-600 text-slate-500 text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
-                  Cancelar
-                </button>
-              </div>
-            </div>
-          )}
-
-          {tarifas.length > 0 && (
-            <div className="border-t border-slate-100 dark:border-slate-800 pt-3 flex items-center justify-between text-[10px] text-slate-400 font-mono">
-              <span>{tarifas.length} tarifa{tarifas.length !== 1 ? 's' : ''}</span>
-              <span>{[...new Set(tarifas.map(t => t.familia))].length} familia{[...new Set(tarifas.map(t => t.familia))].length !== 1 ? 's' : ''}</span>
-            </div>
           )}
         </div>
 
