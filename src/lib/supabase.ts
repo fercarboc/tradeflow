@@ -433,6 +433,52 @@ export async function deleteTarifa(id: string): Promise<void> {
   await supabase.from('trade_tarifas').update({ activo: false }).eq('id', id);
 }
 
+// ── Clientes ──────────────────────────────────────────────────────────────
+
+export async function addClient(
+  orgId: string,
+  client: Pick<TradeClient, 'nombre' | 'telefono' | 'email' | 'direccion'>,
+): Promise<TradeClient> {
+  const { data, error } = await supabase
+    .from('trade_clients')
+    .insert({ org_id: orgId, ...client })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as TradeClient;
+}
+
+export async function updateClient(
+  id: string,
+  data: Partial<Pick<TradeClient, 'nombre' | 'telefono' | 'email' | 'direccion' | 'ciudad' | 'nif' | 'notas'>>,
+): Promise<void> {
+  const { error } = await supabase.from('trade_clients').update(data).eq('id', id);
+  if (error) throw error;
+}
+
+// ── Facturas ──────────────────────────────────────────────────────────────
+
+export async function markInvoicePaid(id: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_invoices')
+    .update({ estado: 'Pagada', paid_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+// ── Presupuestos ──────────────────────────────────────────────────────────
+
+export async function updateQuoteStatus(
+  id: string,
+  estado: TradeQuote['estado'],
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_quotes')
+    .update({ estado })
+    .eq('id', id);
+  if (error) throw error;
+}
+
 // ── Datos fiscales ────────────────────────────────────────────────────────
 
 export async function saveFiscalData(

@@ -45,7 +45,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 
@@ -572,7 +572,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setShowFloatingMenu(false);
   };
 
-  const handleNextWizardStep = () => {
+  const handleNextWizardStep = async () => {
     if (wizardStep === 1 && !wizardQuote.nombreCliente) {
       showToast('Selecciona un cliente para continuar', 'error');
       return;
@@ -585,15 +585,28 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     if (wizardStep < 5) {
       setWizardStep(prev => prev + 1);
     } else {
-      // Guardar y enviar
       const finalQuote = wizardQuote as Presupuesto;
-      setPresupuestos(prev => [finalQuote, ...prev]);
-      
-      // Lanzar modal de WhatsApp
-      setTargetQuoteForWhatsApp(finalQuote);
+      let savedQuote = finalQuote;
+
+      if (isLiveMode && orgId && finalQuote.partidas?.length) {
+        const client = clientes.find(c => c.nombre === finalQuote.nombreCliente);
+        if (client) {
+          try {
+            const dbQuote = await saveQuote(
+              orgId, client.id, finalQuote.descripcion ?? '',
+              (finalQuote.partidas ?? []).map(p => ({ descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precio_unitario: p.precioUnitario })),
+            );
+            savedQuote = { ...finalQuote, id: dbQuote.numero, total: dbQuote.total_neto, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
+          } catch (e) {
+            console.error('Error guardando presupuesto:', e);
+          }
+        }
+      }
+
+      setPresupuestos(prev => [savedQuote, ...prev]);
+      setTargetQuoteForWhatsApp(savedQuote);
       setWhatsAppStep('confirm');
       setShowWhatsAppModal(true);
-      
       setWizardActive(false);
       setMobileTab('presupuestos');
     }
@@ -645,7 +658,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     showToast(`¡Factura ${facNumber} creada!`, 'success');
   };
 
-  const handlePayInvoice = (id: string) => {
+  const handlePayInvoice = async (id: string) => {
+    if (isLiveMode) {
+      try {
+        await markInvoicePaid(id);
+      } catch (e: any) {
+        showToast('Error al registrar pago: ' + e.message, 'error');
+        return;
+      }
+    }
     setFacturas(prev => prev.map(f => f.id === id ? { ...f, estado: 'Pagada' } : f));
     showToast('Pago registrado correctamente', 'success');
   };
@@ -761,12 +782,26 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     });
   };
 
-  const saveCurrentQuote = () => {
-    if (!editingQuote.nombreCliente) {
-      showToast('Selecciona un cliente', 'error');
-      return;
+  const saveCurrentQuote = async () => {
+    if (!editingQuote.nombreCliente) { showToast('Selecciona un cliente', 'error'); return; }
+    if (editingQuote.partidas.length === 0) { showToast('Añade al menos una partida', 'error'); return; }
+
+    let saved: Presupuesto;
+
+    if (isLiveMode && orgId) {
+      const client = clientes.find(c => c.nombre === editingQuote.nombreCliente);
+      if (!client) { showToast('Cliente no encontrado en CRM', 'error'); return; }
+      try {
+        const dbQuote = await saveQuote(
+          orgId, client.id, editingQuote.descripcion,
+          editingQuote.partidas.map(p => ({ descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precio_unitario: p.precioUnitario })),
+        );
+        saved = { id: dbQuote.numero, nombreCliente: editingQuote.nombreCliente, descripcion: dbQuote.descripcion ?? '', partidas: editingQuote.partidas, total: dbQuote.total_neto, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], telefonoCliente: editingQuote.telefonoCliente, emailCliente: editingQuote.emailCliente };
+      } catch (e: any) { showToast('Error al guardar: ' + e.message, 'error'); return; }
+    } else {
+      saved = { ...editingQuote, id: `P-2026-00${presupuestos.length + 1}` };
     }
-    const saved: Presupuesto = { ...editingQuote, id: `P-2026-00${presupuestos.length + 1}` };
+
     setPresupuestos(prev => [saved, ...prev]);
     setSelectedQuoteForPreview(saved);
     setActiveTab('preview');
@@ -787,9 +822,23 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   void setShowConfetti;
-  void isClientModalOpen;
-  void newClient;
   void triggerWhatsAppShare;
+
+  const handleAddClient = async () => {
+    if (!newClient.nombre?.trim()) return;
+    if (isLiveMode && orgId) {
+      try {
+        const saved = await addClient(orgId, { nombre: newClient.nombre!, telefono: newClient.telefono ?? '', email: newClient.email ?? '', direccion: newClient.direccion ?? '' });
+        setClientes(prev => [...prev, { id: saved.id, nombre: saved.nombre, telefono: saved.telefono ?? '', email: saved.email ?? '', direccion: saved.direccion ?? '', obrasActivas: 0, totalFacturado: 0 }]);
+        showToast('Cliente añadido ✓', 'success');
+      } catch (e: any) { showToast('Error al guardar: ' + e.message, 'error'); return; }
+    } else {
+      setClientes(prev => [...prev, { id: Date.now().toString(), nombre: newClient.nombre!, telefono: newClient.telefono ?? '', email: newClient.email ?? '', direccion: newClient.direccion ?? '', obrasActivas: 0, totalFacturado: 0 }]);
+      showToast('Cliente añadido (demo) ✓', 'success');
+    }
+    setNewClient({ nombre: '', telefono: '', email: '', direccion: '' });
+    setIsClientModalOpen(false);
+  };
 
   return (
     <div className={`font-sans transition-colors duration-300 ${
@@ -1583,19 +1632,53 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   function MobileScreenClientes() {
     return (
       <div className="space-y-3">
-        {/* Buscador táctil */}
-        <div className="relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-          <input
-            type="text"
-            placeholder="Buscar cliente..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 rounded-2xl pl-9 pr-4 py-2.5 text-xs text-slate-800 dark:text-white focus:outline-none"
-          />
+        {/* Buscador + botón nuevo cliente */}
+        <div className="flex gap-2">
+          <div className="relative flex-1">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Buscar cliente..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 rounded-2xl pl-9 pr-4 py-2.5 text-xs text-slate-800 dark:text-white focus:outline-none"
+            />
+          </div>
+          <button
+            onClick={() => { setNewClient({ nombre: '', telefono: '', email: '', direccion: '' }); setIsClientModalOpen(true); }}
+            className="bg-blue-600 text-white rounded-2xl px-3.5 py-2.5 flex items-center justify-center cursor-pointer shrink-0"
+          >
+            <Plus className="w-4 h-4" />
+          </button>
         </div>
 
         <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">Libreta de Contactos:</span>
+
+        {/* Modal nuevo cliente (accesible desde móvil) */}
+        {isClientModalOpen && (
+          <div className="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-4">
+            <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 w-full max-w-md space-y-4 shadow-2xl">
+              <div className="flex justify-between items-center">
+                <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white">Nuevo Cliente</h3>
+                <button onClick={() => setIsClientModalOpen(false)} className="text-slate-400 cursor-pointer"><X className="w-5 h-5" /></button>
+              </div>
+              {([['nombre','Nombre *','text','Juan García'],['telefono','Teléfono','tel','600 000 000'],['email','Email','email','cliente@email.com'],['direccion','Dirección','text','Calle Mayor 1']] as const).map(([field, label, type, ph]) => (
+                <div key={field}>
+                  <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">{label}</label>
+                  <input type={type} placeholder={ph} value={(newClient as any)[field] ?? ''} onChange={(e) => setNewClient(prev => ({ ...prev, [field]: e.target.value }))}
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+              ))}
+              <div className="flex gap-3">
+                <button onClick={() => setIsClientModalOpen(false)} className="flex-1 py-3 border border-slate-200 rounded-xl text-sm font-bold text-slate-600 cursor-pointer">Cancelar</button>
+                <button onClick={handleAddClient} className="flex-1 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl text-sm font-bold text-white cursor-pointer">Guardar</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+
 
         {/* Lista expandible */}
         <div className="space-y-2">
@@ -2646,17 +2729,88 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // ================= DESKTOP: CRM SCREEN =================
   function ScreenCRM() {
     return (
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 p-5 rounded-2xl space-y-4">
-        <h3 className="font-display font-bold uppercase text-xs text-slate-400 font-mono">Fichas de Clientes CRM</h3>
-        <div className="grid grid-cols-2 gap-4">
-          {clientes.map(c => (
-            <div key={c.id} className="p-4 bg-slate-50 dark:bg-slate-950 border rounded-2xl">
-              <h4 className="font-bold text-xs text-slate-900 dark:text-white uppercase truncate">{c.nombre}</h4>
-              <p className="text-[10px] text-slate-500 mt-2">📍 {c.direccion}</p>
-              <p className="text-[10px] text-slate-500">📞 {c.telefono}</p>
+      <div className="space-y-4">
+        {/* Cabecera: buscador + botón nuevo cliente */}
+        <div className="flex gap-3 items-center">
+          <div className="relative flex-1">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Buscar por nombre o teléfono..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
+            />
+          </div>
+          <button
+            onClick={() => { setNewClient({ nombre: '', telefono: '', email: '', direccion: '' }); setIsClientModalOpen(true); }}
+            className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2 font-bold uppercase tracking-wider text-[10px] cursor-pointer shrink-0"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            Nuevo Cliente
+          </button>
+        </div>
+
+        {/* Lista de clientes */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {filteredClientes.map(c => (
+            <div key={c.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl space-y-2">
+              <div className="flex justify-between items-start gap-2">
+                <h4 className="font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wide truncate">{c.nombre}</h4>
+                <button
+                  onClick={() => { setEditingQuote(prev => ({ ...prev, nombreCliente: c.nombre, telefonoCliente: c.telefono, emailCliente: c.email })); setActiveTab('create_quote'); }}
+                  className="text-[9px] text-blue-600 hover:underline font-bold uppercase tracking-wider cursor-pointer whitespace-nowrap"
+                >
+                  + Presupuesto
+                </button>
+              </div>
+              <div className="text-[10px] text-slate-500 space-y-0.5">
+                {c.telefono && <p>📞 {c.telefono}</p>}
+                {c.email && <p>✉ {c.email}</p>}
+                {c.direccion && <p>📍 {c.direccion}</p>}
+              </div>
+              <div className="flex gap-4 pt-2 border-t border-slate-100 dark:border-slate-800">
+                <div>
+                  <span className="text-[9px] text-slate-400 uppercase font-mono block">Obras activas</span>
+                  <span className="text-xs font-bold text-slate-800 dark:text-white">{c.obrasActivas}</span>
+                </div>
+                <div>
+                  <span className="text-[9px] text-slate-400 uppercase font-mono block">Total facturado</span>
+                  <span className="text-xs font-bold font-mono text-emerald-600">{c.totalFacturado.toFixed(0)}€</span>
+                </div>
+              </div>
             </div>
           ))}
+          {filteredClientes.length === 0 && (
+            <div className="col-span-2 text-center py-10 text-slate-400 text-xs">
+              {searchQuery ? 'No se encontraron clientes con ese criterio.' : 'No hay clientes aún. Crea el primero con el botón de arriba.'}
+            </div>
+          )}
         </div>
+
+        {/* Modal nuevo cliente */}
+        {isClientModalOpen && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+            <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-md space-y-4 shadow-2xl">
+              <div className="flex justify-between items-center">
+                <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white">Nuevo Cliente</h3>
+                <button onClick={() => setIsClientModalOpen(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer"><X className="w-5 h-5" /></button>
+              </div>
+              {([['nombre','Nombre *','text','Juan García Instalaciones'],['telefono','Teléfono','tel','600 000 000'],['email','Email','email','cliente@email.com'],['direccion','Dirección','text','Calle Mayor 1, Madrid']] as const).map(([field, label, type, ph]) => (
+                <div key={field}>
+                  <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">{label}</label>
+                  <input type={type} placeholder={ph} value={(newClient as any)[field] ?? ''} onChange={(e) => setNewClient(prev => ({ ...prev, [field]: e.target.value }))}
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+              ))}
+              <div className="flex gap-3 pt-2">
+                <button onClick={() => setIsClientModalOpen(false)} className="flex-1 py-2.5 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 cursor-pointer hover:border-slate-400">Cancelar</button>
+                <button onClick={handleAddClient} className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-bold text-white cursor-pointer">Guardar Cliente</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
