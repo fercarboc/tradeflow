@@ -45,8 +45,8 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid } from '../lib/supabase';
-import type { TradeWorker, TradeTarifa } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, loadCatalogProducts, matchProductForAI } from '../lib/supabase';
+import type { TradeWorker, TradeTarifa, TradeCatalogProduct } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 
 const InvoiceIcon = FileText;
@@ -127,12 +127,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           provincia:    (org as any).provincia ?? prev.provincia,
           pais:         (org as any).pais ?? prev.pais,
         }));
-        const [workersRes, tarifasRes] = await Promise.all([
+        const [workersRes, tarifasRes, catalogRes] = await Promise.all([
           loadWorkers(org.id),
           loadTarifas(org.id),
+          loadCatalogProducts(org.id),
         ]);
         setTrabajadores(workersRes.map((w: TradeWorker) => ({ id: w.id, nombre: w.nombre, telefono: w.telefono ?? '', email: w.email ?? '', rol: w.rol as TrabajadorItem['rol'], activo: w.activo })));
         setTarifas(tarifasRes.map((t: TradeTarifa) => ({ id: t.id, codigo: t.codigo ?? '', familia: t.familia, descripcion: t.descripcion, precioBase: t.precio_base, unidad: t.unidad, activo: t.activo })));
+        setCatalogProducts(catalogRes);
       }
       showToast(`Datos reales cargados ✓`, 'success');
     } catch (e) {
@@ -385,6 +387,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     { id: '4', codigo: 'ELE-001', familia: 'Electricidad', descripcion: 'Punto de luz empotrado LED', precioBase: 45, unidad: 'ud', activo: true },
     { id: '5', codigo: 'REF-001', familia: 'Reformas', descripcion: 'Alicatado porcelánico', precioBase: 28, unidad: 'm²', activo: true },
   ]);
+  const [catalogProducts, setCatalogProducts] = useState<TradeCatalogProduct[]>([]);
   const [showAddTarifa, setShowAddTarifa] = useState(false);
   const [newWorkerDraft, setNewWorkerDraft] = useState({ nombre: '', telefono: '', email: '', rol: 'tecnico' as TrabajadorItem['rol'] });
   const [newTarifaDraft, setNewTarifaDraft] = useState({ codigo: '', familia: 'General', descripcion: '', precioBase: 0, unidad: 'ud' });
@@ -509,13 +512,31 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     items: Array<{ descripcion: string; tipo: string; cantidad: number; unidad: string }>,
   ) => {
     const partidas: PartidaPresupuesto[] = items.map(item => {
+      const cantidad = item.cantidad ?? 1;
+
+      // Buscar primero en el catálogo con variantes preferidas
+      const catalogMatch = catalogProducts.length > 0
+        ? matchProductForAI(item.descripcion, catalogProducts)
+        : null;
+
+      if (catalogMatch) {
+        const precioUnitario = catalogMatch.variant.precio_venta;
+        return {
+          descripcion: `${catalogMatch.product.nombre_generico} (${catalogMatch.variant.marca})`,
+          tipo: 'material' as PartidaPresupuesto['tipo'],
+          cantidad,
+          precioUnitario,
+          total: precioUnitario * cantidad,
+        };
+      }
+
+      // Fallback: buscar en tarifas manuales
       const lowerDesc = item.descripcion.toLowerCase();
       const matched = tarifas.find(t => {
         const lowerT = t.descripcion.toLowerCase();
         return lowerDesc.includes(lowerT.slice(0, 6)) || lowerT.includes(lowerDesc.slice(0, 6));
       });
       const precioUnitario = matched?.precioBase ?? 0;
-      const cantidad = item.cantidad ?? 1;
       return {
         descripcion: item.descripcion,
         tipo: (item.tipo === 'mano_de_obra' ? 'mano_de_obra' : 'material') as PartidaPresupuesto['tipo'],

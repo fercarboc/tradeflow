@@ -496,3 +496,142 @@ export async function saveFiscalData(
     .eq('id', orgId);
   if (error) throw error;
 }
+
+// ── Catálogo de productos con variantes ───────────────────────────────────────
+
+export interface TradeCatalogProduct {
+  id: string;
+  org_id: string;
+  oficio: string;
+  familia: string;
+  subfamilia?: string;
+  nombre_generico: string;
+  descripcion?: string;
+  unidad: string;
+  activo: boolean;
+  created_at: string;
+  updated_at: string;
+  trade_catalog_variants?: TradeCatalogVariant[];
+}
+
+export interface TradeCatalogVariant {
+  id: string;
+  product_id: string;
+  org_id: string;
+  marca: string;
+  modelo?: string;
+  medidas?: string;
+  proveedor?: string;
+  precio_material: number;
+  precio_mano_obra: number;
+  margen_pct: number;
+  precio_venta: number;
+  calidad: 'economico' | 'medio' | 'premium';
+  is_preferred: boolean;
+  activo: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function loadCatalogProducts(orgId: string): Promise<TradeCatalogProduct[]> {
+  const { data } = await supabase
+    .from('trade_catalog_products')
+    .select('*, trade_catalog_variants(*)')
+    .eq('org_id', orgId)
+    .eq('activo', true)
+    .order('oficio')
+    .order('familia')
+    .order('nombre_generico');
+  return (data ?? []) as TradeCatalogProduct[];
+}
+
+export async function getPreferredVariant(
+  productId: string,
+  orgId: string,
+): Promise<TradeCatalogVariant | null> {
+  const { data } = await supabase
+    .from('trade_catalog_variants')
+    .select('*')
+    .eq('product_id', productId)
+    .eq('org_id', orgId)
+    .eq('is_preferred', true)
+    .eq('activo', true)
+    .single();
+  return data ?? null;
+}
+
+export async function setPreferredVariant(
+  variantId: string,
+  productId: string,
+  orgId: string,
+): Promise<void> {
+  await supabase
+    .from('trade_catalog_variants')
+    .update({ is_preferred: false })
+    .eq('product_id', productId)
+    .eq('org_id', orgId);
+  const { error } = await supabase
+    .from('trade_catalog_variants')
+    .update({ is_preferred: true })
+    .eq('id', variantId);
+  if (error) throw error;
+}
+
+export async function updateCatalogVariant(
+  id: string,
+  data: Partial<Pick<TradeCatalogVariant, 'precio_material' | 'precio_mano_obra' | 'margen_pct' | 'proveedor' | 'is_preferred'>>,
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_catalog_variants')
+    .update(data)
+    .eq('id', id);
+  if (error) throw error;
+}
+
+/**
+ * Fuzzy match del texto detectado por IA contra el catálogo cargado.
+ * Devuelve el producto + variante preferida más similar, o null si no hay match.
+ */
+export function matchProductForAI(
+  detectedText: string,
+  catalog: TradeCatalogProduct[],
+): { product: TradeCatalogProduct; variant: TradeCatalogVariant } | null {
+  const lower = detectedText.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+  let bestProduct: TradeCatalogProduct | null = null;
+  let bestScore = 0;
+
+  for (const product of catalog) {
+    const nombre = product.nombre_generico.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const familia = product.familia.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+    // Tokeniza ambos y calcula solapamiento
+    const tokensQuery = lower.split(/\s+/).filter(t => t.length > 2);
+    const tokensNombre = nombre.split(/\s+/).filter(t => t.length > 2);
+    const tokensAll = [...tokensNombre, ...familia.split(/\s+/).filter(t => t.length > 2)];
+
+    let matches = 0;
+    for (const tq of tokensQuery) {
+      if (tokensAll.some(tn => tn.includes(tq) || tq.includes(tn))) matches++;
+    }
+
+    // También chequeamos coincidencia exacta de subcadena
+    const substringBonus = nombre.includes(lower.slice(0, 8)) || lower.includes(nombre.slice(0, 8)) ? 2 : 0;
+    const score = matches + substringBonus;
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestProduct = product;
+    }
+  }
+
+  if (!bestProduct || bestScore === 0) return null;
+
+  const preferred = bestProduct.trade_catalog_variants?.find(v => v.is_preferred && v.activo)
+    ?? bestProduct.trade_catalog_variants?.find(v => v.activo)
+    ?? null;
+
+  if (!preferred) return null;
+
+  return { product: bestProduct, variant: preferred };
+}
