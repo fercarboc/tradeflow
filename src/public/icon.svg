@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#2563EB"/>
+  <rect x="128" y="148" width="256" height="216" rx="24" fill="white" opacity="0.15"/>
+  <rect x="148" y="168" width="216" height="176" rx="16" fill="none" stroke="white" stroke-width="14"/>
+  <!-- Líneas que simulan partidas de presupuesto -->
+  <rect x="176" y="210" width="100" height="10" rx="5" fill="white"/>
+  <rect x="176" y="232" width="80" height="10" rx="5" fill="white" opacity="0.7"/>
+  <rect x="176" y="254" width="120" height="10" rx="5" fill="white" opacity="0.7"/>
+  <rect x="176" y="276" width="60" height="10" rx="5" fill="white" opacity="0.5"/>
+  <!-- Precio destacado en esquina inferior derecha -->
+  <rect x="270" y="296" width="74" height="28" rx="8" fill="white" opacity="0.25"/>
+  <rect x="276" y="302" width="62" height="16" rx="4" fill="white"/>
+  <!-- Micrófono: indicador IA -->
+  <circle cx="360" cy="168" r="36" fill="#1D4ED8"/>
+  <rect x="351" y="148" width="18" height="26" rx="9" fill="white"/>
+  <path d="M344 168 Q344 183 360 183 Q376 183 376 168" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/>
+  <line x1="360" y1="183" x2="360" y2="192" stroke="white" stroke-width="4" stroke-linecap="round"/>
+  <line x1="352" y1="192" x2="368" y2="192" stroke="white" stroke-width="4" stroke-linecap="round"/>
+</svg>
