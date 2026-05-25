@@ -394,6 +394,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     { id: '5', codigo: 'REF-001', familia: 'Reformas', descripcion: 'Alicatado porcelánico', precioBase: 28, unidad: 'm²', activo: true },
   ]);
   const [catalogProducts, setCatalogProducts] = useState<TradeCatalogProduct[]>([]);
+  const [catalogFilter, setCatalogFilter] = useState('');
+  const [editingVariant, setEditingVariant] = useState<{ id: string; field: 'precio_venta' | 'margen_pct'; value: string } | null>(null);
+  const [savingVariant, setSavingVariant] = useState<string | null>(null);
+  const [filterEstado, setFilterEstado] = useState<'todas' | 'Pendiente' | 'Pagada' | 'Vencida'>('todas');
   const [showAddTarifa, setShowAddTarifa] = useState(false);
   const [newWorkerDraft, setNewWorkerDraft] = useState({ nombre: '', telefono: '', email: '', rol: 'tecnico' as TrabajadorItem['rol'] });
   const [newTarifaDraft, setNewTarifaDraft] = useState({ codigo: '', familia: 'General', descripcion: '', precioBase: 0, unidad: 'ud' });
@@ -2616,10 +2620,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {icon}
           <span>{label}</span>
           {isActive && (
-            <motion.div 
-              layoutId="activeTabIndicator"
-              className="absolute right-2 w-1.5 h-1.5 bg-white rounded-full"
-            />
+            <span className="absolute right-2 w-1.5 h-1.5 bg-white rounded-full" />
           )}
         </button>
       );
@@ -3286,8 +3287,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ── Pantalla Facturas (desktop) ───────────────────────────────────────────────
   function ScreenInvoices() {
-    const [filterEstado, setFilterEstado] = React.useState<'todas' | 'Pendiente' | 'Pagada' | 'Vencida'>('todas');
-
     const pendiente = facturas.filter(f => f.estado !== 'Pagada').reduce((s, f) => s + f.importe * 1.21, 0);
     const cobradoMes = facturas
       .filter(f => f.estado === 'Pagada')
@@ -3402,10 +3401,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= DESKTOP: CATALOG SCREEN =================
   function ScreenCatalog() {
-    const [catalogFilter, setCatalogFilter] = useState('');
-    const [editingVariant, setEditingVariant] = useState<{ id: string; field: 'precio_venta' | 'margen_pct'; value: string } | null>(null);
-    const [savingVariant, setSavingVariant] = useState<string | null>(null);
-
     const calidades: Record<TradeCatalogVariant['calidad'], { label: string; cls: string }> = {
       economico: { label: 'Económico', cls: 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300' },
       medio:     { label: 'Preferido', cls: 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' },
