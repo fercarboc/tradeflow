@@ -45,7 +45,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, loadCatalogProducts, matchProductForAI } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 
@@ -760,15 +760,48 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     }, 120);
   };
 
-  // Convertir a factura (one-tap mobile)
-  const handleQuickConvertInvoice = (presupuesto: Presupuesto) => {
+  // Convertir a factura (one-tap — live: DB, demo: local)
+  const handleQuickConvertInvoice = async (presupuesto: Presupuesto) => {
+    if (isLiveMode && orgId) {
+      // Buscar la quote en DB por número para obtener el objeto TradeQuote completo
+      const { data: dbQuote } = await supabase
+        .from('trade_quotes')
+        .select('*, trade_quote_items(*)')
+        .eq('org_id', orgId)
+        .eq('numero', presupuesto.id)
+        .single();
+
+      if (dbQuote) {
+        try {
+          const inv = await convertToInvoice(dbQuote, orgId);
+          const clienteNombre = clientes.find(c => c.id === inv.client_id)?.nombre ?? presupuesto.nombreCliente;
+          setFacturas(prev => [{
+            id: inv.id,
+            numeroFactura: inv.numero,
+            nombreCliente: clienteNombre,
+            idPresupuesto: presupuesto.id,
+            importe: inv.subtotal,
+            fecha: inv.fecha,
+            fechaVencimiento: inv.fecha_vencimiento ?? '',
+            estado: inv.estado as Factura['estado'],
+          }, ...prev]);
+          setPresupuestos(prev => prev.map(p => p.id === presupuesto.id ? { ...p, estado: 'Facturado' } : p));
+          showToast(`Factura ${inv.numero} creada ✓`, 'success');
+          return;
+        } catch (e: any) {
+          showToast('Error al crear factura: ' + e.message, 'error');
+          return;
+        }
+      }
+    }
+    // Demo / fallback local
     const nextNum = facturas.length + 1;
-    const facNumber = `F-2026-00${nextNum}`;
+    const facNumber = `FAC-${new Date().getFullYear()}-${String(nextNum).padStart(3, '0')}`;
     const today = new Date().toISOString().split('T')[0];
     const dueDate = new Date();
     dueDate.setDate(dueDate.getDate() + 30);
-    
-    const nuevaFactura: Factura = {
+    setPresupuestos(prev => prev.map(p => p.id === presupuesto.id ? { ...p, estado: 'Facturado' } : p));
+    setFacturas(prev => [{
       id: `fac-${Date.now()}`,
       numeroFactura: facNumber,
       nombreCliente: presupuesto.nombreCliente,
@@ -776,12 +809,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       importe: presupuesto.total,
       fecha: today,
       fechaVencimiento: dueDate.toISOString().split('T')[0],
-      estado: 'Pendiente'
-    };
-
-    setPresupuestos(prev => prev.map(p => p.id === presupuesto.id ? { ...p, estado: 'Facturado' } : p));
-    setFacturas(prev => [nuevaFactura, ...prev]);
-    showToast(`¡Factura ${facNumber} creada!`, 'success');
+      estado: 'Pendiente',
+    }, ...prev]);
+    showToast(`Factura ${facNumber} creada`, 'success');
   };
 
   const handlePayInvoice = async (id: string) => {
@@ -1902,30 +1932,44 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </div>
             </div>
 
-            {/* Acciones One-tap para cobro y vencimientos si no está pagada */}
-            {f.estado !== 'Pagada' ? (
-              <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100 dark:border-slate-850">
-                <button
-                  onClick={() => handlePayInvoice(f.id)}
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[9.5px] uppercase cursor-pointer"
-                >
-                  <span>Registrar Pago 💰</span>
-                </button>
-                <button
-                  onClick={() => handleRemindInvoice(f)}
-                  className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[9.5px] uppercase cursor-pointer"
-                >
-                  <span>Recordatorio 💬</span>
-                </button>
-              </div>
-            ) : (
-              <div className="text-center pt-2 border-t border-slate-100 dark:border-slate-850">
-                <span className="text-[9.5px] font-mono text-slate-450 uppercase flex items-center justify-center gap-1">
-                  <Check className="w-3.5 h-3.5 text-emerald-500" />
-                  <span>Cobrado en cuenta el {f.fecha}</span>
-                </span>
-              </div>
-            )}
+            {/* Acciones One-tap */}
+            <div className={`pt-2 border-t border-slate-100 dark:border-slate-850 ${f.estado !== 'Pagada' ? 'grid grid-cols-3 gap-2' : 'flex justify-between items-center'}`}>
+              {f.estado !== 'Pagada' ? (
+                <>
+                  <button
+                    onClick={() => handlePayInvoice(f.id)}
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[9.5px] uppercase cursor-pointer"
+                  >
+                    💰 Cobrar
+                  </button>
+                  <button
+                    onClick={() => handleRemindInvoice(f)}
+                    className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold p-2.5 rounded-xl flex items-center justify-center text-[9.5px] uppercase cursor-pointer"
+                  >
+                    💬 WA
+                  </button>
+                  <button
+                    onClick={() => printInvoice(f)}
+                    className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[9.5px] uppercase cursor-pointer"
+                  >
+                    <FileText className="w-3.5 h-3.5" />PDF
+                  </button>
+                </>
+              ) : (
+                <>
+                  <span className="text-[9.5px] font-mono text-slate-450 uppercase flex items-center gap-1">
+                    <Check className="w-3.5 h-3.5 text-emerald-500" />
+                    Cobrada · {f.fecha}
+                  </span>
+                  <button
+                    onClick={() => printInvoice(f)}
+                    className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold p-2 rounded-xl flex items-center gap-1 text-[9px] uppercase cursor-pointer"
+                  >
+                    <FileText className="w-3 h-3" />PDF
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         ))}
       </div>
@@ -2813,13 +2857,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     return (
       <div className="space-y-6">
         <div className="bg-white dark:bg-slate-900 border p-4 rounded-2xl flex justify-between items-center">
-          <div className="flex gap-2">
-            <button onClick={() => triggerWhatsAppShare(selectedQuoteForPreview)} className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer">
-              WhatsApp 💬
+          <div className="flex gap-2 flex-wrap">
+            <button onClick={() => triggerWhatsAppShare(selectedQuoteForPreview)} className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer flex items-center gap-1.5">
+              💬 WhatsApp
             </button>
-            <button onClick={() => convertQuoteToInvoice(selectedQuoteForPreview)} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer">
-              Convertir en Factura 🧾
+            <button onClick={() => printQuote(selectedQuoteForPreview)} className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer">
+              <FileText className="w-3.5 h-3.5" />
+              PDF
             </button>
+            {selectedQuoteForPreview.estado !== 'Facturado' && (
+              <button onClick={() => convertQuoteToInvoice(selectedQuoteForPreview)} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer flex items-center gap-1.5">
+                <FileText className="w-3.5 h-3.5" />
+                Convertir en Factura
+              </button>
+            )}
           </div>
         </div>
 
@@ -2944,28 +2995,259 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }
 
   // ================= DESKTOP: INVOICES SCREEN =================
+  // ── Generador de PDF (HTML nativo + window.print) ────────────────────────────
+  function buildDocumentHTML(opts: {
+    tipo: 'presupuesto' | 'factura';
+    numero: string;
+    fecha: string;
+    fechaVencimiento?: string;
+    clienteNombre: string;
+    empresa: typeof empresaAjustes;
+    partidas: PartidaPresupuesto[];
+    total: number;
+    iva: number;
+    estado?: string;
+  }) {
+    const totalIVA = opts.total * (opts.iva / 100);
+    const totalConIVA = opts.total + totalIVA;
+    const rows = opts.partidas.map(p => `
+      <tr>
+        <td style="padding:8px 4px;border-bottom:1px solid #e2e8f0;font-size:11px;color:#334155">${p.descripcion}</td>
+        <td style="padding:8px 4px;border-bottom:1px solid #e2e8f0;font-size:11px;text-align:center;color:#64748b">${p.cantidad}</td>
+        <td style="padding:8px 4px;border-bottom:1px solid #e2e8f0;font-size:11px;text-align:right;color:#334155">${p.precioUnitario.toFixed(2)}€</td>
+        <td style="padding:8px 4px;border-bottom:1px solid #e2e8f0;font-size:11px;text-align:right;font-weight:700;color:#0f172a">${p.total.toFixed(2)}€</td>
+      </tr>`).join('');
+
+    return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+      <title>${opts.tipo === 'presupuesto' ? 'Presupuesto' : 'Factura'} ${opts.numero}</title>
+      <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:Arial,sans-serif;color:#0f172a;background:#fff;padding:40px;max-width:760px;margin:auto}
+        @media print{body{padding:20px}button{display:none!important}}
+        .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #2563eb}
+        .brand{font-size:22px;font-weight:800;letter-spacing:-0.5px;color:#0f172a}
+        .brand span{color:#2563eb}
+        .doc-type{font-size:28px;font-weight:700;color:#2563eb;text-align:right}
+        .doc-num{font-size:12px;color:#64748b;text-align:right;font-family:monospace}
+        .cols{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:28px}
+        .label{font-size:9px;text-transform:uppercase;color:#94a3b8;font-weight:700;letter-spacing:1px;margin-bottom:4px}
+        .val{font-size:12px;color:#1e293b;line-height:1.5}
+        table{width:100%;border-collapse:collapse;margin-bottom:24px}
+        thead th{background:#f8fafc;padding:8px 4px;font-size:9px;text-transform:uppercase;color:#64748b;font-weight:700;letter-spacing:1px;border-bottom:2px solid #e2e8f0}
+        .totals{text-align:right}
+        .totals table{width:240px;margin-left:auto}
+        .totals td{padding:4px 0;font-size:12px;color:#475569}
+        .totals td:last-child{font-family:monospace;font-weight:600;text-align:right;padding-left:16px}
+        .total-final{font-size:16px!important;font-weight:800!important;color:#0f172a!important}
+        .footer{margin-top:48px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8;text-align:center}
+        .badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+        .badge-pending{background:#fef9c3;color:#854d0e}
+        .badge-paid{background:#dcfce7;color:#166534}
+        .badge-draft{background:#f1f5f9;color:#475569}
+        .print-btn{position:fixed;top:16px;right:16px;background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
+      </style>
+    </head><body>
+      <button class="print-btn" onclick="window.print()">Descargar PDF</button>
+      <div class="header">
+        <div>
+          <div class="brand">Trab<span>Flow</span> AI</div>
+          <div style="font-size:13px;font-weight:700;margin-top:6px">${opts.empresa.nombre || 'Mi Empresa'}</div>
+          ${opts.empresa.nif ? `<div style="font-size:11px;color:#64748b">NIF: ${opts.empresa.nif}</div>` : ''}
+          ${opts.empresa.direccion ? `<div style="font-size:11px;color:#64748b">${opts.empresa.direccion}${opts.empresa.localidad ? `, ${opts.empresa.localidad}` : ''}</div>` : ''}
+          ${opts.empresa.email ? `<div style="font-size:11px;color:#64748b">${opts.empresa.email}</div>` : ''}
+          ${opts.empresa.telefonoMovil ? `<div style="font-size:11px;color:#64748b">Tel: ${opts.empresa.telefonoMovil}</div>` : ''}
+        </div>
+        <div>
+          <div class="doc-type">${opts.tipo === 'presupuesto' ? 'PRESUPUESTO' : 'FACTURA'}</div>
+          <div class="doc-num">${opts.numero}</div>
+          <div style="font-size:11px;color:#64748b;text-align:right;margin-top:4px">Fecha: ${opts.fecha}</div>
+          ${opts.fechaVencimiento ? `<div style="font-size:11px;color:#64748b;text-align:right">Vencimiento: ${opts.fechaVencimiento}</div>` : ''}
+          ${opts.estado ? `<div style="text-align:right;margin-top:6px"><span class="badge ${opts.estado === 'Pagada' ? 'badge-paid' : opts.estado === 'Pendiente' ? 'badge-pending' : 'badge-draft'}">${opts.estado}</span></div>` : ''}
+        </div>
+      </div>
+      <div class="cols">
+        <div>
+          <div class="label">Datos del Emisor</div>
+          <div class="val">${opts.empresa.nombre || '—'}</div>
+          ${opts.empresa.nif ? `<div class="val" style="color:#64748b">NIF: ${opts.empresa.nif}</div>` : ''}
+        </div>
+        <div>
+          <div class="label">Cliente</div>
+          <div class="val">${opts.clienteNombre}</div>
+        </div>
+      </div>
+      <table>
+        <thead><tr>
+          <th style="text-align:left;width:50%">Descripción</th>
+          <th style="text-align:center;width:10%">Cant.</th>
+          <th style="text-align:right;width:20%">Precio unit.</th>
+          <th style="text-align:right;width:20%">Total</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <div class="totals">
+        <table>
+          <tr><td>Base imponible</td><td>${opts.total.toFixed(2)}€</td></tr>
+          <tr><td>IVA (${opts.iva}%)</td><td>${totalIVA.toFixed(2)}€</td></tr>
+          <tr><td class="total-final">TOTAL</td><td class="total-final">${totalConIVA.toFixed(2)}€</td></tr>
+        </table>
+      </div>
+      <div class="footer">Documento generado por TrabFlow AI · trabflow.com</div>
+    </body></html>`;
+  }
+
+  function printDocument(html: string) {
+    const win = window.open('', '_blank', 'width=900,height=700');
+    if (!win) { showToast('Permite ventanas emergentes para generar el PDF', 'error'); return; }
+    win.document.write(html);
+    win.document.close();
+    win.focus();
+    setTimeout(() => win.print(), 500);
+  }
+
+  function printQuote(presupuesto: Presupuesto) {
+    const html = buildDocumentHTML({
+      tipo: 'presupuesto',
+      numero: presupuesto.id,
+      fecha: presupuesto.fecha,
+      clienteNombre: presupuesto.nombreCliente,
+      empresa: empresaAjustes,
+      partidas: presupuesto.partidas,
+      total: presupuesto.total,
+      iva: empresaAjustes.ivaDefault || 21,
+      estado: presupuesto.estado,
+    });
+    printDocument(html);
+  }
+
+  function printInvoice(factura: Factura) {
+    const html = buildDocumentHTML({
+      tipo: 'factura',
+      numero: factura.numeroFactura,
+      fecha: factura.fecha,
+      fechaVencimiento: factura.fechaVencimiento,
+      clienteNombre: factura.nombreCliente,
+      empresa: empresaAjustes,
+      partidas: presupuestos.find(p => p.id === factura.idPresupuesto)?.partidas ?? [],
+      total: factura.importe,
+      iva: empresaAjustes.ivaDefault || 21,
+      estado: factura.estado,
+    });
+    printDocument(html);
+  }
+
+  // ── Pantalla Facturas (desktop) ───────────────────────────────────────────────
   function ScreenInvoices() {
+    const [filterEstado, setFilterEstado] = React.useState<'todas' | 'Pendiente' | 'Pagada' | 'Vencida'>('todas');
+
+    const pendiente = facturas.filter(f => f.estado !== 'Pagada').reduce((s, f) => s + f.importe * 1.21, 0);
+    const cobradoMes = facturas
+      .filter(f => f.estado === 'Pagada')
+      .reduce((s, f) => s + f.importe * 1.21, 0);
+    const vencidas = facturas.filter(f => f.estado === 'Vencida').length;
+
+    const filtered = filterEstado === 'todas' ? facturas : facturas.filter(f => f.estado === filterEstado);
+    const sorted = [...filtered].sort((a, b) => {
+      const order: Record<string, number> = { Vencida: 0, Pendiente: 1, Pagada: 2 };
+      return (order[a.estado] ?? 1) - (order[b.estado] ?? 1);
+    });
+
+    const estadoBadge = (estado: string) => {
+      if (estado === 'Pagada') return 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20';
+      if (estado === 'Vencida') return 'bg-red-500/10 text-red-500 border border-red-500/20';
+      return 'bg-amber-500/10 text-amber-600 border border-amber-500/20';
+    };
+
     return (
-      <div className="bg-white dark:bg-slate-900 border p-5 rounded-2xl space-y-4">
-        <h3 className="font-display font-bold uppercase text-xs text-slate-400 font-mono">Facturas Emitidas</h3>
-        <div className="space-y-2">
-          {facturas.map(f => (
-            <div key={f.id} className="p-4 bg-slate-50 dark:bg-slate-950 border rounded-2xl flex justify-between items-center text-xs">
-              <div>
-                <span className="font-bold block font-mono">{f.numeroFactura}</span>
-                <span className="text-slate-500">{f.nombreCliente}</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="font-mono font-bold">{(f.importe * 1.21).toFixed(0)}€</span>
-                {f.estado !== 'Pagada' && (
-                  <button onClick={() => handlePayInvoice(f.id)} className="bg-emerald-600 text-white font-bold py-1 px-3 rounded-lg text-[9px] uppercase">
-                    Cobrar
-                  </button>
-                )}
-              </div>
+      <div className="space-y-5">
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-4">
+          {[
+            { label: 'Pendiente de cobro', value: `${pendiente.toFixed(0)}€`, color: 'text-amber-600' },
+            { label: 'Total cobrado', value: `${cobradoMes.toFixed(0)}€`, color: 'text-emerald-600' },
+            { label: 'Vencidas', value: String(vencidas), color: vencidas > 0 ? 'text-red-500' : 'text-slate-400' },
+          ].map(s => (
+            <div key={s.label} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+              <span className="text-[9px] font-mono font-bold uppercase text-slate-400 block mb-1">{s.label}</span>
+              <span className={`text-2xl font-bold font-mono ${s.color}`}>{s.value}</span>
             </div>
           ))}
         </div>
+
+        {/* Filtros */}
+        <div className="flex gap-2">
+          {(['todas', 'Pendiente', 'Pagada', 'Vencida'] as const).map(f => (
+            <button
+              key={f}
+              onClick={() => setFilterEstado(f)}
+              className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all ${
+                filterEstado === f
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-white dark:bg-slate-900 border text-slate-500 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              {f === 'todas' ? `Todas (${facturas.length})` : `${f} (${facturas.filter(x => x.estado === f).length})`}
+            </button>
+          ))}
+        </div>
+
+        {/* Lista */}
+        {sorted.length === 0 ? (
+          <div className="text-center py-12 text-slate-400 text-xs">
+            {filterEstado === 'todas' ? 'No hay facturas aún. Convierte un presupuesto aceptado en factura.' : `No hay facturas con estado "${filterEstado}".`}
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {sorted.map(f => (
+              <div key={f.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+                <div className="flex items-start justify-between gap-4">
+                  {/* Info */}
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="font-mono font-bold text-xs text-slate-900 dark:text-white">{f.numeroFactura}</span>
+                      <span className={`text-[8px] font-bold uppercase px-2 py-0.5 rounded-full ${estadoBadge(f.estado)}`}>{f.estado}</span>
+                    </div>
+                    <span className="font-semibold text-xs text-slate-700 dark:text-slate-300 block truncate">{f.nombreCliente}</span>
+                    <div className="flex gap-3 mt-1 text-[10px] text-slate-400 font-mono">
+                      <span>Emitida: {f.fecha}</span>
+                      {f.fechaVencimiento && <span>Vence: {f.fechaVencimiento}</span>}
+                    </div>
+                  </div>
+                  {/* Importe */}
+                  <div className="text-right shrink-0">
+                    <span className="text-[9px] text-slate-400 block font-mono uppercase">Total c/IVA</span>
+                    <span className="text-lg font-bold font-mono text-slate-900 dark:text-white">{(f.importe * 1.21).toFixed(2)}€</span>
+                    <span className="text-[9px] text-slate-400 block font-mono">{f.importe.toFixed(2)}€ + IVA</span>
+                  </div>
+                </div>
+                {/* Acciones */}
+                <div className="flex gap-2 mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                  <button
+                    onClick={() => printInvoice(f)}
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[9px] font-bold uppercase tracking-wider hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer transition-colors"
+                  >
+                    <FileText className="w-3.5 h-3.5" />
+                    PDF
+                  </button>
+                  <button
+                    onClick={() => handleRemindInvoice(f)}
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[9px] font-bold uppercase tracking-wider hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer transition-colors"
+                  >
+                    💬 WhatsApp
+                  </button>
+                  {f.estado !== 'Pagada' && (
+                    <button
+                      onClick={() => handlePayInvoice(f.id)}
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-bold uppercase tracking-wider cursor-pointer transition-colors ml-auto"
+                    >
+                      💰 Registrar Pago
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     );
   }
