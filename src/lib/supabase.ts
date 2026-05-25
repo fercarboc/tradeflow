@@ -741,3 +741,109 @@ export function matchProductForAI(
 
   return { product: bestProduct, variant: preferred };
 }
+
+// ── Catálogo simple (trade_tarifas) — helpers import/export ──────────────────
+// La tabla trade_tarifas tiene los campos: id, org_id, codigo, familia,
+// descripcion, precio_base, unidad, activo — lo que el usuario llama "trade_catalog".
+
+export async function exportCatalog(orgId: string): Promise<TradeTarifa[]> {
+  const { data } = await supabase
+    .from('trade_tarifas')
+    .select('*')
+    .eq('org_id', orgId)
+    .eq('activo', true)
+    .order('familia')
+    .order('descripcion');
+  return (data ?? []) as TradeTarifa[];
+}
+
+export async function deactivateCatalogItem(id: string): Promise<void> {
+  await supabase.from('trade_tarifas').update({ activo: false }).eq('id', id);
+}
+
+export async function deactivateAllCatalogItems(orgId: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_tarifas')
+    .update({ activo: false })
+    .eq('org_id', orgId);
+  if (error) throw error;
+}
+
+export interface CatalogImportItem {
+  codigo: string;
+  familia: string;
+  descripcion: string;
+  precio_base: number;
+  unidad: string;
+}
+
+export async function importCatalogItems(
+  orgId: string,
+  items: CatalogImportItem[],
+  mode: 'add' | 'update' | 'replace',
+): Promise<{ inserted: number; updated: number; errors: string[] }> {
+  let inserted = 0;
+  let updated = 0;
+  const errors: string[] = [];
+
+  if (mode === 'replace') {
+    await deactivateAllCatalogItems(orgId);
+  }
+
+  // Fetch existing items (include inactive for replace mode to avoid ghost duplicates)
+  const { data: existing } = await supabase
+    .from('trade_tarifas')
+    .select('id, codigo, descripcion, activo')
+    .eq('org_id', orgId);
+
+  const byCodigo = new Map<string, string>();  // lowercase codigo → id
+  const byDesc   = new Map<string, string>();  // lowercase descripcion → id
+  for (const e of (existing ?? []) as Array<{ id: string; codigo?: string; descripcion: string; activo: boolean }>) {
+    if (e.codigo) byCodigo.set(e.codigo.toLowerCase(), e.id);
+    byDesc.set(e.descripcion.toLowerCase().trim(), e.id);
+  }
+
+  for (const item of items) {
+    try {
+      let existingId: string | undefined;
+      if (item.codigo) existingId = byCodigo.get(item.codigo.toLowerCase());
+      if (!existingId)  existingId = byDesc.get(item.descripcion.toLowerCase().trim());
+
+      if (mode === 'add' && existingId) continue; // skip existing
+
+      if (existingId && mode !== 'add') {
+        const { error } = await supabase
+          .from('trade_tarifas')
+          .update({
+            codigo:      item.codigo || null,
+            familia:     item.familia,
+            descripcion: item.descripcion,
+            precio_base: item.precio_base,
+            unidad:      item.unidad,
+            activo:      true,
+          })
+          .eq('id', existingId);
+        if (error) throw error;
+        updated++;
+      } else {
+        const { error } = await supabase
+          .from('trade_tarifas')
+          .insert({
+            org_id:      orgId,
+            codigo:      item.codigo || null,
+            familia:     item.familia,
+            descripcion: item.descripcion,
+            precio_base: item.precio_base,
+            unidad:      item.unidad,
+            activo:      true,
+          });
+        if (error) throw error;
+        inserted++;
+      }
+    } catch (e: unknown) {
+      errors.push(`"${item.descripcion}": ${(e as Error).message}`);
+    }
+  }
+
+  return { inserted, updated, errors };
+}

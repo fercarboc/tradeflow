@@ -50,9 +50,11 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
+import CatalogImportModal from './CatalogImportModal';
+import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } from '../lib/catalogExcel';
 
 const InvoiceIcon = FileText;
 
@@ -394,6 +396,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     { id: '5', codigo: 'REF-001', familia: 'Reformas', descripcion: 'Alicatado porcelánico', precioBase: 28, unidad: 'm²', activo: true },
   ]);
   const [catalogProducts, setCatalogProducts] = useState<TradeCatalogProduct[]>([]);
+  const [showCatalogImport, setShowCatalogImport] = useState(false);
   const [catalogFilter, setCatalogFilter] = useState('');
   const [editingVariant, setEditingVariant] = useState<{ id: string; field: 'precio_venta' | 'margen_pct'; value: string } | null>(null);
   const [savingVariant, setSavingVariant] = useState<string | null>(null);
@@ -3724,6 +3727,40 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       }
     };
 
+    const handleExportCatalog = async () => {
+      let items: TradeTarifa[];
+      if (isLiveMode && orgId) {
+        items = await exportCatalog(orgId);
+      } else {
+        items = tarifas.map(t => ({
+          id: t.id, org_id: orgId ?? '', codigo: t.codigo || undefined,
+          familia: t.familia, descripcion: t.descripcion, precio_base: t.precioBase,
+          unidad: t.unidad, activo: t.activo,
+          created_at: '', updated_at: '',
+        }));
+      }
+      const wb = generateExportWorkbook(items);
+      downloadWorkbook(wb, `catalogo-trabflow-${new Date().toISOString().split('T')[0]}.xlsx`);
+      showToast('Catálogo exportado ✓', 'success');
+    };
+
+    const handleDownloadTemplate = () => {
+      const wb = generateTemplateWorkbook();
+      downloadWorkbook(wb, 'plantilla-catalogo-trabflow.xlsx');
+      showToast('Plantilla descargada ✓', 'success');
+    };
+
+    const handleCatalogImportDone = async (inserted: number, updated: number, errors: number) => {
+      setShowCatalogImport(false);
+      showToast(`Catálogo importado: ${inserted} nuevos, ${updated} actualizados${errors > 0 ? `, ${errors} errores` : ''}`, errors > 0 ? 'info' : 'success');
+      if (isLiveMode && orgId) {
+        try {
+          const data = await loadTarifas(orgId);
+          setTarifas(data.map((t: TradeTarifa) => ({ id: t.id, codigo: t.codigo ?? '', familia: t.familia, descripcion: t.descripcion, precioBase: t.precio_base, unidad: t.unidad, activo: t.activo })));
+        } catch { /* no bloquear */ }
+      }
+    };
+
     return (
       <div className="space-y-5">
 
@@ -3928,14 +3965,48 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         {/* ── 3. Tarifas ── */}
         <div className={sec}>
-          <div className="flex items-center justify-between">
-            <h3 className={secTitle}>Tarifas / Catálogo de Precios</h3>
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className={`${secTitle} mr-auto`}>Tarifas / Catálogo de Precios</h3>
+            <button
+              onClick={() => setShowCatalogImport(true)}
+              className="flex items-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+              title="Importar desde Excel"
+            >
+              <Upload className="h-3 w-3" />
+              Importar Excel
+            </button>
+            <button
+              onClick={handleExportCatalog}
+              className="flex items-center gap-1 bg-slate-700 hover:bg-slate-600 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+              title="Exportar a Excel"
+            >
+              <FileText className="h-3 w-3" />
+              Exportar Excel
+            </button>
+            <button
+              onClick={handleDownloadTemplate}
+              className="flex items-center gap-1 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+              title="Descargar plantilla vacía"
+            >
+              <FilePlus className="h-3 w-3" />
+              Plantilla
+            </button>
             <button onClick={() => setShowAddTarifa(p => !p)}
-              className="flex items-center gap-1 text-blue-500 hover:text-blue-400 text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-colors">
+              className="flex items-center gap-1 text-blue-500 hover:text-blue-400 text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-colors px-1 py-1">
               <Plus className="h-3 w-3" />
-              {showAddTarifa ? 'Cancelar' : 'Añadir tarifa'}
+              {showAddTarifa ? 'Cancelar' : 'Añadir'}
             </button>
           </div>
+
+          {/* Modal importación Excel */}
+          {showCatalogImport && (
+            <CatalogImportModal
+              orgId={orgId}
+              isLiveMode={isLiveMode}
+              onDone={handleCatalogImportDone}
+              onClose={() => setShowCatalogImport(false)}
+            />
+          )}
 
           {tarifas.length > 4 && (
             <div className="relative">
