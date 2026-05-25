@@ -41,12 +41,17 @@ import {
   MessageSquare,
   ChevronDown,
   ChevronUp,
-  Shield
+  Shield,
+  Package,
+  Tag,
+  Star as StarIcon,
+  Edit3,
+  RotateCcw,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI } from '../lib/supabase';
-import type { TradeWorker, TradeTarifa, TradeCatalogProduct } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant } from '../lib/supabase';
+import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 
 const InvoiceIcon = FileText;
@@ -2506,6 +2511,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {SidebarBtn({ id: 'ai_scan', icon: <ImageIcon className="w-4 h-4" />, label: 'Escaneo Foto IA' })}
             {SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
             {SidebarBtn({ id: 'invoices', icon: <FileText className="w-4 h-4" />, label: 'Facturación' })}
+            {SidebarBtn({ id: 'catalog', icon: <Package className="w-4 h-4" />, label: 'Catálogo' })}
             {SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
@@ -2532,6 +2538,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'ai_scan' && 'Escáner Fotográfico IA'}
                 {activeTab === 'crm' && 'Clientes CRM'}
                 {activeTab === 'invoices' && 'Facturación'}
+                {activeTab === 'catalog' && 'Catálogo de Productos'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
               </h2>
@@ -2584,6 +2591,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'ai_scan' && ScreenAIScan()}
                 {activeTab === 'crm' && ScreenCRM()}
                 {activeTab === 'invoices' && ScreenInvoices()}
+                {activeTab === 'catalog' && ScreenCatalog()}
                 {activeTab === 'settings' && ScreenSettings()}
                 {activeTab === 'preview' && ScreenPreview()}
               </motion.div>
@@ -3388,6 +3396,247 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             ))}
           </div>
         )}
+      </div>
+    );
+  }
+
+  // ================= DESKTOP: CATALOG SCREEN =================
+  function ScreenCatalog() {
+    const [catalogFilter, setCatalogFilter] = useState('');
+    const [editingVariant, setEditingVariant] = useState<{ id: string; field: 'precio_venta' | 'margen_pct'; value: string } | null>(null);
+    const [savingVariant, setSavingVariant] = useState<string | null>(null);
+
+    const calidades: Record<TradeCatalogVariant['calidad'], { label: string; cls: string }> = {
+      economico: { label: 'Económico', cls: 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300' },
+      medio:     { label: 'Preferido', cls: 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' },
+      premium:   { label: 'Premium',   cls: 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400' },
+    };
+
+    const filtered = catalogProducts.filter(p =>
+      p.nombre_generico.toLowerCase().includes(catalogFilter.toLowerCase()) ||
+      p.familia.toLowerCase().includes(catalogFilter.toLowerCase()) ||
+      (p.subfamilia ?? '').toLowerCase().includes(catalogFilter.toLowerCase())
+    );
+
+    const byFamily = filtered.reduce<Record<string, TradeCatalogProduct[]>>((acc, p) => {
+      const key = `${p.oficio} › ${p.familia}`;
+      (acc[key] = acc[key] ?? []).push(p);
+      return acc;
+    }, {});
+
+    const handleSetPreferred = async (variantId: string, productId: string) => {
+      setSavingVariant(variantId);
+      try {
+        if (isLiveMode && orgId) {
+          await setPreferredVariant(variantId, productId, orgId);
+        }
+        setCatalogProducts(prev => prev.map(p => {
+          if (p.id !== productId) return p;
+          return {
+            ...p,
+            trade_catalog_variants: p.trade_catalog_variants?.map(v => ({
+              ...v, is_preferred: v.id === variantId,
+            })),
+          };
+        }));
+        showToast('Variante preferida actualizada ✓', 'success');
+      } catch (e: any) {
+        showToast('Error: ' + e.message, 'error');
+      }
+      setSavingVariant(null);
+    };
+
+    const handleSaveVariantPrice = async (variant: TradeCatalogVariant, newPrice: number) => {
+      setSavingVariant(variant.id);
+      try {
+        if (isLiveMode) {
+          await updateCatalogVariant(variant.id, { precio_material: newPrice });
+        }
+        setCatalogProducts(prev => prev.map(p => ({
+          ...p,
+          trade_catalog_variants: p.trade_catalog_variants?.map(v =>
+            v.id === variant.id ? { ...v, precio_venta: newPrice } : v
+          ),
+        })));
+        setEditingVariant(null);
+        showToast('Precio actualizado ✓', 'success');
+      } catch (e: any) {
+        showToast('Error al guardar: ' + e.message, 'error');
+      }
+      setSavingVariant(null);
+    };
+
+    if (!isLiveMode) {
+      return (
+        <div className="flex flex-col items-center justify-center h-full py-16 space-y-4 text-center px-8">
+          <Package className="h-12 w-12 text-slate-300 dark:text-slate-700" />
+          <h3 className="font-bold text-slate-700 dark:text-white text-sm uppercase tracking-wider">Catálogo de productos</h3>
+          <p className="text-slate-400 text-xs max-w-xs leading-relaxed">
+            Inicia sesión con tus datos reales para ver y gestionar tu catálogo de productos y precios.
+          </p>
+          <button
+            onClick={() => setShowLoginModal(true)}
+            className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase px-5 py-2.5 rounded-lg cursor-pointer"
+          >
+            Acceder con datos reales
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="p-5 space-y-5 overflow-y-auto h-full">
+
+        {/* Header barra */}
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="relative flex-1 min-w-[200px] max-w-sm">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+            <input
+              type="text"
+              placeholder="Buscar producto, familia..."
+              value={catalogFilter}
+              onChange={e => setCatalogFilter(e.target.value)}
+              className="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+            />
+          </div>
+          <span className="text-[10px] text-slate-400 font-mono">{filtered.length} productos · {catalogProducts.reduce((s, p) => s + (p.trade_catalog_variants?.length ?? 0), 0)} variantes</span>
+        </div>
+
+        {catalogProducts.length === 0 && (
+          <div className="text-center py-12">
+            <Package className="h-10 w-10 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
+            <p className="text-slate-400 text-xs">No hay productos en el catálogo todavía.</p>
+          </div>
+        )}
+
+        {Object.entries(byFamily).map(([family, products]) => (
+          <div key={family} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+            {/* Cabecera familia */}
+            <div className="bg-slate-50 dark:bg-slate-800/60 px-4 py-2.5 flex items-center gap-2 border-b border-slate-200 dark:border-slate-700">
+              <Tag className="h-3.5 w-3.5 text-slate-400" />
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">{family}</span>
+              <span className="ml-auto text-[9px] text-slate-400 font-mono">{products.length} productos</span>
+            </div>
+
+            <div className="divide-y divide-slate-100 dark:divide-slate-800">
+              {products.map(product => {
+                const variants = product.trade_catalog_variants ?? [];
+                return (
+                  <div key={product.id} className="px-4 py-3">
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <span className="font-semibold text-xs text-slate-800 dark:text-white">{product.nombre_generico}</span>
+                        {product.subfamilia && (
+                          <span className="ml-2 text-[9px] text-slate-400 font-mono">{product.subfamilia}</span>
+                        )}
+                      </div>
+                      <span className="text-[9px] text-slate-400 font-mono">{product.unidad}</span>
+                    </div>
+
+                    {/* Variantes */}
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                      {(['economico', 'medio', 'premium'] as TradeCatalogVariant['calidad'][]).map(cal => {
+                        const v = variants.find(vv => vv.calidad === cal);
+                        if (!v) return null;
+                        const { label, cls } = calidades[cal];
+                        const isEditing = editingVariant?.id === v.id;
+                        const isSaving = savingVariant === v.id;
+
+                        return (
+                          <div
+                            key={v.id}
+                            className={`border rounded-lg p-2.5 space-y-1.5 transition-all ${
+                              v.is_preferred
+                                ? 'border-blue-400 dark:border-blue-600 bg-blue-50/50 dark:bg-blue-900/10'
+                                : 'border-slate-200 dark:border-slate-700'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <span className={`text-[8.5px] font-bold uppercase px-1.5 py-0.5 rounded ${cls}`}>{label}</span>
+                              {v.is_preferred && (
+                                <span className="flex items-center gap-0.5 text-[8px] text-blue-500 font-bold">
+                                  <StarIcon className="h-2.5 w-2.5 fill-blue-500" /> Preferido
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="text-[9px] text-slate-400 truncate font-mono">{v.marca}{v.modelo ? ` · ${v.modelo}` : ''}</div>
+
+                            {/* Precio editable */}
+                            <div className="flex items-center gap-1.5">
+                              {isEditing ? (
+                                <>
+                                  <input
+                                    type="number"
+                                    step="0.01"
+                                    autoFocus
+                                    defaultValue={v.precio_venta}
+                                    onBlur={e => {
+                                      const val = parseFloat(e.target.value);
+                                      if (!isNaN(val) && val !== v.precio_venta) handleSaveVariantPrice(v, val);
+                                      else setEditingVariant(null);
+                                    }}
+                                    onKeyDown={e => {
+                                      if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+                                      if (e.key === 'Escape') setEditingVariant(null);
+                                    }}
+                                    className="w-20 bg-white dark:bg-slate-800 border border-blue-400 rounded px-2 py-1 text-xs font-bold font-mono text-slate-800 dark:text-white focus:outline-none"
+                                  />
+                                  <span className="text-[9px] text-slate-400">€</span>
+                                </>
+                              ) : (
+                                <>
+                                  <span className="font-bold font-mono text-sm text-slate-900 dark:text-white">
+                                    {v.precio_venta.toFixed(2)}€
+                                  </span>
+                                  <button
+                                    onClick={() => setEditingVariant({ id: v.id, field: 'precio_venta', value: String(v.precio_venta) })}
+                                    className="text-slate-400 hover:text-blue-500 cursor-pointer transition-colors p-0.5"
+                                    title="Editar precio"
+                                  >
+                                    <Edit3 className="h-3 w-3" />
+                                  </button>
+                                </>
+                              )}
+                              {isSaving && <RotateCcw className="h-3 w-3 text-blue-400 animate-spin" />}
+                            </div>
+
+                            {/* Desglose */}
+                            <div className="text-[8.5px] text-slate-400 space-y-0.5">
+                              <div className="flex justify-between">
+                                <span>Material</span>
+                                <span className="font-mono">{v.precio_material.toFixed(2)}€</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span>Mano obra</span>
+                                <span className="font-mono">{v.precio_mano_obra.toFixed(2)}€</span>
+                              </div>
+                              <div className="flex justify-between">
+                                <span>Margen</span>
+                                <span className="font-mono">{v.margen_pct}%</span>
+                              </div>
+                            </div>
+
+                            {/* Botón preferido */}
+                            {!v.is_preferred && (
+                              <button
+                                onClick={() => handleSetPreferred(v.id, product.id)}
+                                disabled={!!savingVariant}
+                                className="w-full text-[8.5px] font-bold uppercase text-slate-400 hover:text-blue-500 border border-slate-200 dark:border-slate-700 hover:border-blue-400 rounded py-1 cursor-pointer transition-all disabled:opacity-40"
+                              >
+                                Usar como preferido
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
     );
   }
