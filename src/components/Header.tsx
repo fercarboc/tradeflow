@@ -54,12 +54,12 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
         >
           <img
             src="/tradeflow.png"
-            alt="TradeFlow AI"
+            alt="TrabFlow AI"
             className="h-9 w-auto"
           />
           <div className="flex flex-col">
             <span className="font-display text-lg font-bold tracking-tight text-slate-900 uppercase">
-              TradeFlow <span className="text-blue-600">AI</span>
+              TrabFlow <span className="text-blue-600">AI</span>
             </span>
             <span className="text-[9px] font-bold tracking-widest text-slate-400 uppercase">Beta de Instaladores</span>
           </div>

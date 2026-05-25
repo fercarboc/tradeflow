@@ -33,7 +33,7 @@ export default function Footer({ setCurrentPage }: FooterProps) {
                 <Wrench className="h-5 w-5" />
               </div>
               <span className="font-display text-lg font-bold tracking-tight text-white">
-                TradeFlow <span className="text-emerald-400">AI</span>
+                TrabFlow <span className="text-emerald-400">AI</span>
               </span>
             </div>
             
@@ -124,9 +124,9 @@ export default function Footer({ setCurrentPage }: FooterProps) {
         </div>
 
         <div className="mt-12 border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <p>© {currentYear} TradeFlow AI. Todos los derechos reservados. Las marcas WhatsApp® y PDF® corresponden a sus respectivos propietarios.</p>
+          <p>© {currentYear} TrabFlow AI. Todos los derechos reservados. Las marcas WhatsApp® y PDF® corresponden a sus respectivos propietarios.</p>
           <div className="flex gap-4">
-            <span className="hover:text-slate-400 transition-colors">TradeFlow AI Beta 1.2.0</span>
+            <span className="hover:text-slate-400 transition-colors">TrabFlow AI Beta 1.2.0</span>
           </div>
         </div>
       </div>

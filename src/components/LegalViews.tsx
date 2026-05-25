@@ -43,10 +43,10 @@ export default function LegalViews({ page, setCurrentPage }: LegalViewProps) {
               En cumplimiento del deber de información recogido en el artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico (LSSI-CE), se facilitan los siguientes datos:
             </p>
             <ul className="list-disc pl-5 space-y-1.5 font-sans">
-              <li><strong>Titular:</strong> TradeFlow Technologies S.L. (Socio fundador en constitución para Beta)</li>
+              <li><strong>Titular:</strong> TrabFlow Technologies S.L. (Socio fundador en constitución para Beta)</li>
               <li><strong>NIF:</strong> B-00000000 (Provisional)</li>
               <li><strong>Domicilio Social:</strong> Paseo de la Castellana 124, 28046 Madrid, España</li>
-              <li><strong>Email de Contacto:</strong> <span className="text-blue-600 font-semibold font-mono">soporte@tradeflow.ai</span></li>
+              <li><strong>Email de Contacto:</strong> <span className="text-blue-600 font-semibold font-mono">soporte@trabflow.com</span></li>
               <li><strong>Actividad Social:</strong> Desarrollo de soluciones de software de productividad para instaladores.</li>
             </ul>
           </section>
@@ -61,7 +61,7 @@ export default function LegalViews({ page, setCurrentPage }: LegalViewProps) {
           <section className="space-y-3">
             <h2 className="text-md font-display font-bold uppercase tracking-wider text-slate-955">3. Uso de la Web y Limitaciones de la Beta</h2>
             <p>
-              <code className="bg-slate-100 text-slate-900 border border-slate-200 px-1.5 py-0.5 rounded text-xs font-mono">tradeflow.ai</code> proporciona el acceso a multitud de informaciones, servicios o datos pertenecientes a TradeFlow Technologies S.L. o a sus licenciantes a los que el USUARIO pueda tener acceso.
+              <code className="bg-slate-100 text-slate-900 border border-slate-200 px-1.5 py-0.5 rounded text-xs font-mono">trabflow.com</code> proporciona el acceso a multitud de informaciones, servicios o datos pertenecientes a TrabFlow Technologies S.L. o a sus licenciantes a los que el USUARIO pueda tener acceso.
             </p>
             <p>
               El USUARIO asume la responsabilidad del uso del portal de la beta. Dicha responsabilidad se extiende al registro de la lista de espera que fuese necesario para acceder a la beta limitada del servicio de presupuestación AI. En dicho registro el USUARIO será responsable de aportar información veraz y lícita correspondiente a su actividad profesional como instalador.
@@ -71,7 +71,7 @@ export default function LegalViews({ page, setCurrentPage }: LegalViewProps) {
           <section className="space-y-3">
             <h2 className="text-md font-display font-bold uppercase tracking-wider text-slate-955">4. Propiedad Intelectual e Industrial</h2>
             <p>
-              TradeFlow Technologies S.L. por sí o como cesionaria, es titular de todos los derechos de propiedad intelectual e industrial de su página web, así como de los elementos contenidos en la misma (a título enunciativo, imágenes, sonido, audio, vídeo, software o textos; marcas o logotipos, combinaciones de colores, estructura y diseño, selección de materiales usados, programas de ordenador necesarios para su funcionamiento, acceso y uso, etc.).
+              TrabFlow Technologies S.L. por sí o como cesionaria, es titular de todos los derechos de propiedad intelectual e industrial de su página web, así como de los elementos contenidos en la misma (a título enunciativo, imágenes, sonido, audio, vídeo, software o textos; marcas o logotipos, combinaciones de colores, estructura y diseño, selección de materiales usados, programas de ordenador necesarios para su funcionamiento, acceso y uso, etc.).
             </p>
             <p>
               Todos los derechos reservados. Quedan expresamente prohibidas la reproducción, la distribución y la comunicación pública, incluida su modalidad de puesta a disposición, de la totalidad o parte de los contenidos de esta página web, con fines comerciales, en cualquier soporte y por cualquier medio técnico, sin la autorización de la empresa.
@@ -85,7 +85,7 @@ export default function LegalViews({ page, setCurrentPage }: LegalViewProps) {
           <section className="space-y-3">
             <h2 className="text-md font-display font-bold uppercase tracking-wider text-slate-955">1. Responsable del Tratamiento</h2>
             <p>
-              El responsable de los datos es **TradeFlow Technologies S.L.**, titular de la marca y software **TradeFlow AI**. Sus datos recogidos a través del formulario de lista de espera serán tratados de forma ética, segura y transparente de acuerdo al Reglamento General de Protección de Datos (RGPD UE 2016/679) y la Ley Orgánica 3/2018 (LOPDGDD).
+              El responsable de los datos es **TrabFlow Technologies S.L.**, titular de la marca y software **TrabFlow AI**. Sus datos recogidos a través del formulario de lista de espera serán tratados de forma ética, segura y transparente de acuerdo al Reglamento General de Protección de Datos (RGPD UE 2016/679) y la Ley Orgánica 3/2018 (LOPDGDD).
             </p>
           </section>
 
@@ -95,7 +95,7 @@ export default function LegalViews({ page, setCurrentPage }: LegalViewProps) {
               Tratamos la información que nos facilitan las personas interesadas (instaladores profesionales) con las siguientes finalidades:
             </p>
             <ul className="list-disc pl-5 space-y-1.5 font-sans">
-              <li>Gestionar su suscripción y orden de prioridad en la **Lista de Espera de la Beta Cerrada** de TradeFlow AI.</li>
+              <li>Gestionar su suscripción y orden de prioridad en la **Lista de Espera de la Beta Cerrada** de TrabFlow AI.</li>
               <li>Validar que su perfil encaja en los oficios solicitados (fontaneros, electricistas, HVAC, cerrajeros) para modular el alcance del feedback del producto.</li>
               <li>Enviar comunicaciones informativas sobre el lanzamiento, demostraciones del uso de presupuestos por voz e instrucciones de descarga de la aplicación móvil.</li>
             </ul>
@@ -119,7 +119,7 @@ export default function LegalViews({ page, setCurrentPage }: LegalViewProps) {
           <section className="space-y-3">
             <h2 className="text-md font-display font-bold uppercase tracking-wider text-slate-955">4. Derechos del Usuario</h2>
             <p>
-              Cualquier instalador inscrito tiene derecho a obtener confirmación sobre si en TradeFlow estamos tratando sus datos personales. Tiene derecho a acceder a sus datos personales, así como a solicitar la rectificación de los datos inexactos o, en su caso, solicitar su supresión cuando, entre otros motivos, los datos ya no sean necesarios para los fines que fueron recogidos. Puede solicitar la baja instantánea de nuestra lista de espera enviando un correo con el asunto "BAJA BETA" a <span className="text-blue-600 font-semibold font-mono">soporte@tradeflow.ai</span>.
+              Cualquier instalador inscrito tiene derecho a obtener confirmación sobre si en TrabFlow estamos tratando sus datos personales. Tiene derecho a acceder a sus datos personales, así como a solicitar la rectificación de los datos inexactos o, en su caso, solicitar su supresión cuando, entre otros motivos, los datos ya no sean necesarios para los fines que fueron recogidos. Puede solicitar la baja instantánea de nuestra lista de espera enviando un correo con el asunto "BAJA BETA" a <span className="text-blue-600 font-semibold font-mono">soporte@trabflow.com</span>.
             </p>
           </section>
         </div>
@@ -128,7 +128,7 @@ export default function LegalViews({ page, setCurrentPage }: LegalViewProps) {
       {page === ActivePage.Cookies && (
         <div className="space-y-6 leading-relaxed text-sm text-slate-600" id="cookies-content">
           <p>
-            En TradeFlow AI nos tomamos en serio tu privacidad. Esta web utiliza "cookies" propias y de terceros con el único fin de analizar el rendimiento de la landing page, recordar tus preferencias si te registraste para la beta, y optimizar tu velocidad de navegación.
+            En TrabFlow AI nos tomamos en serio tu privacidad. Esta web utiliza "cookies" propias y de terceros con el único fin de analizar el rendimiento de la landing page, recordar tus preferencias si te registraste para la beta, y optimizar tu velocidad de navegación.
           </p>
 
           <section className="space-y-3">
@@ -143,7 +143,7 @@ export default function LegalViews({ page, setCurrentPage }: LegalViewProps) {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-4">
               <div className="p-4 rounded border border-slate-200 bg-white shadow-xs">
                 <span className="font-bold text-slate-950 block text-xs uppercase tracking-wide mb-1">Cookies Técnicas (Esenciales)</span>
-                <p className="text-xs text-slate-500">Necesarias para la carga correcta del sitio de TradeFlow, el funcionamiento del cambio de pestañas de navegación, y el estado del formulario de suscripción.</p>
+                <p className="text-xs text-slate-500">Necesarias para la carga correcta del sitio de TrabFlow, el funcionamiento del cambio de pestañas de navegación, y el estado del formulario de suscripción.</p>
               </div>
               <div className="p-4 rounded border border-slate-200 bg-white shadow-xs">
                 <span className="font-bold text-slate-955 block text-xs uppercase tracking-wide mb-1">Cookies Analíticas (Opcionales)</span>

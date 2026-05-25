@@ -1,5 +1,5 @@
 {
-  "name": "TradeFlow AI",
+  "name": "TrabFlow AI",
   "description": "Plataforma de creación de presupuestos por voz y fotos para fontaneros, electricistas y técnicos HVAC. Diseñado para autónomos instaladores.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

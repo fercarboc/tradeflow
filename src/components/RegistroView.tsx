@@ -123,7 +123,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
           className="text-slate-500 hover:text-slate-900 text-sm font-medium flex items-center gap-1 cursor-pointer transition-colors"
         >
           <ChevronLeft className="h-4 w-4" />
-          <span className="font-bold tracking-tight">TradeFlow</span>
+          <span className="font-bold tracking-tight">TrabFlow</span>
         </button>
         {step < 4 && (
           <span className="text-xs text-slate-400 font-mono">Paso {step} de 3</span>

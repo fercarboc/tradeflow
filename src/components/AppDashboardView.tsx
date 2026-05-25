@@ -981,7 +981,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 bg-blue-600 rounded flex items-center justify-center font-bold text-white shadow-inner">TF</div>
           <span className="font-display font-bold tracking-tight uppercase">
-            Console TradeFlow <span className="text-blue-500">AI</span>
+            Console TrabFlow <span className="text-blue-500">AI</span>
           </span>
           <span className="bg-blue-500/10 border border-blue-500/30 text-blue-450 font-bold px-2 py-0.5 rounded-full text-[9px] uppercase tracking-wide flex items-center gap-1 animate-pulse">
             <Zap className="w-3.5 h-3.5 text-amber-400" />
@@ -1373,7 +1373,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </div>
 
               <div className="flex justify-between items-center text-[10px] text-slate-500">
-                <span>Obra: <strong className="text-slate-350 tracking-wider font-mono">TradeFlow Voice</strong></span>
+                <span>Obra: <strong className="text-slate-350 tracking-wider font-mono">TrabFlow Voice</strong></span>
                 
                 {(voiceStep === 'listening' || voiceStep === 'transcribing') && (
                   <button
@@ -1406,7 +1406,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
                 <div>
                   <h4 className="font-bold text-xs">{targetQuoteForWhatsApp.nombreCliente}</h4>
-                  <span className="text-[9px] opacity-80 block">En línea (TradeFlow WhatsApp Engine)</span>
+                  <span className="text-[9px] opacity-80 block">En línea (TrabFlow WhatsApp Engine)</span>
                 </div>
               </div>
 
@@ -1423,7 +1423,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         Importe: <strong>{(targetQuoteForWhatsApp.total * 1.21).toFixed(2)}€ (IVA incl.)</strong>. Puedes firmar online aquí:
                       </p>
                       <p className="text-blue-600 underline font-semibold mt-1">
-                        tradeflow.ai/p/{(targetQuoteForWhatsApp.id).toLowerCase()}
+                        trabflow.com/p/{(targetQuoteForWhatsApp.id).toLowerCase()}
                       </p>
                     </div>
 
@@ -1505,7 +1505,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <span className="text-white font-black text-[10px]">TF</span>
             </div>
             <span className={`font-display font-black tracking-tight uppercase text-slate-900 dark:text-white ${isNativeDevice ? 'text-base' : 'text-sm'}`}>
-              TradeFlow <span className="text-blue-500">AI</span>
+              TrabFlow <span className="text-blue-500">AI</span>
             </span>
           </div>
 
@@ -2340,7 +2340,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-850 px-6 py-4 flex items-center justify-between shrink-0">
             <div>
               <span className="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest block font-mono">
-                TradeFlow AI Operating System
+                TrabFlow AI Operating System
               </span>
               <h2 className="text-md sm:text-lg font-display font-bold text-slate-900 dark:text-white uppercase tracking-tight">
                 {activeTab === 'dashboard' && 'Panel de Control'}
@@ -2452,7 +2452,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </div>
               <div className="space-y-0.5">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] font-mono font-bold text-blue-455 uppercase tracking-widest">TradeFlow Smart Pricing</span>
+                  <span className="text-[10px] font-mono font-bold text-blue-455 uppercase tracking-widest">TrabFlow Smart Pricing</span>
                   <span className="bg-emerald-500/15 text-emerald-450 font-bold px-1.5 py-0.5 rounded text-[8px] uppercase tracking-wider font-mono">Recomendado</span>
                 </div>
                 <span className="font-bold text-xs text-slate-800 dark:text-white">Optimizar coste mano de obra en Sevilla</span>
@@ -3195,7 +3195,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     value={newWorkerDraft.telefono} onChange={e => setNewWorkerDraft(p => ({ ...p, telefono: e.target.value }))} />
                 </div>
                 <div>
-                  <span className={lbl}>Email (login TradeFlow)</span>
+                  <span className={lbl}>Email (login TrabFlow)</span>
                   <input type="email" className={inp} placeholder="tecnico@empresa.com"
                     value={newWorkerDraft.email} onChange={e => setNewWorkerDraft(p => ({ ...p, email: e.target.value }))} />
                 </div>

@@ -31,7 +31,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade, setIniti
       nombre: 'Manolo Rodríguez',
       oficio: 'Fontanero Autónomo',
       ciudad: 'Sevilla',
-      texto: 'Antes llegaba a casa a las 19:30 y me tocaba ponerme con la libreta a escribir presupuestos en un Excel hasta las 22:00. Ahora con TradeFlow, dicto el audio mientras voy en la furgoneta de vuelta. Para cuando llego, mi cliente ya lo ha aceptado por WhatsApp.',
+      texto: 'Antes llegaba a casa a las 19:30 y me tocaba ponerme con la libreta a escribir presupuestos en un Excel hasta las 22:00. Ahora con TrabFlow, dicto el audio mientras voy en la furgoneta de vuelta. Para cuando llego, mi cliente ya lo ha aceptado por WhatsApp.',
       rating: 5,
     },
     {
@@ -47,7 +47,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade, setIniti
       nombre: 'Lucía Benítez',
       oficio: 'Técnico de Climatización / HVAC',
       ciudad: 'Sabadell',
-      texto: 'Llevar presupuestos en papel era un horror de cara a la facturación de fin de mes. TradeFlow me permite guardar la ficha del aire acondicionado del cliente y pasarlo a factura en un botón. Un software sencillo que se agradece.',
+      texto: 'Llevar presupuestos en papel era un horror de cara a la facturación de fin de mes. TrabFlow me permite guardar la ficha del aire acondicionado del cliente y pasarlo a factura en un botón. Un software sencillo que se agradece.',
       rating: 5,
     },
   ];
@@ -107,7 +107,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade, setIniti
             </div>
             
             <h1 className="text-3.5xl sm:text-5xl font-display font-bold tracking-tight text-slate-950 leading-tight">
-              Habla. TradeFlow crea el presupuesto, lo manda por WhatsApp{' '}
+              Habla. TrabFlow crea el presupuesto, lo manda por WhatsApp{' '}
               <span className="text-blue-600">
                 y factura cuando el cliente acepta.
               </span>
@@ -258,7 +258,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade, setIniti
             La revolución del dictado
           </span>
           <h2 className="text-2.5xl sm:text-4xl font-display font-bold text-slate-950 tracking-tight leading-tight">
-            La solución de TradeFlow en 3 sencillos pasos
+            La solución de TrabFlow en 3 sencillos pasos
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 mt-2">Diseñada para técnicos que no quieren complicaciones tecnológicas ni ordenadores de oficina.</p>
         </div>
@@ -270,7 +270,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade, setIniti
             </div>
             <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide">1. Dicta el trabajo</h3>
             <p className="text-xs text-slate-500 leading-relaxed max-w-xs mx-auto">
-              Solo cuéntale a TradeFlow lo que hiciste y el material usado. Nuestra inteligencia artificial entiende la jerga de instalaciones y extrae precios.
+              Solo cuéntale a TrabFlow lo que hiciste y el material usado. Nuestra inteligencia artificial entiende la jerga de instalaciones y extrae precios.
             </p>
           </div>
 
@@ -280,7 +280,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade, setIniti
             </div>
             <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide">2. Revisa el presupuesto</h3>
             <p className="text-xs text-slate-500 leading-relaxed max-w-xs mx-auto">
-              TradeFlow crea un borrador PDF oficial y elegante con IVA regulado, mano de obra y materiales perfectamente categorizados automáticamente.
+              TrabFlow crea un borrador PDF oficial y elegante con IVA regulado, mano de obra y materiales perfectamente categorizados automáticamente.
             </p>
           </div>
 
@@ -435,7 +435,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade, setIniti
             <h2 className="text-2.5xl sm:text-4xl font-display font-bold text-slate-950 leading-tight tracking-tight">
               ¿Qué dicen otros autónomos que ya lo han probado?
             </h2>
-            <p className="text-slate-400 text-xs mt-2 italic">* Testimonios ficticios de demostración de viabilidad para el pilotaje TradeFlow.</p>
+            <p className="text-slate-400 text-xs mt-2 italic">* Testimonios ficticios de demostración de viabilidad para el pilotaje TrabFlow.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

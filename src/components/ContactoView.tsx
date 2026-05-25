@@ -87,7 +87,7 @@ export default function ContactoView({ initialPreselectedTrade }: ContactoViewPr
           Lista de Espera Abierta
         </span>
         <h1 className="text-3xl sm:text-4xl font-display font-bold text-slate-950 tracking-tight leading-tight">
-          Únete a la Beta de <span className="text-blue-600 font-bold">TradeFlow AI</span>
+          Únete a la Beta de <span className="text-blue-600 font-bold">TrabFlow AI</span>
         </h1>
         <p className="mt-3 text-sm sm:text-base text-slate-505 max-w-xl mx-auto leading-relaxed">
           Las plazas son limitadas y se asignan por orden de registro técnico. Completa tus datos de autónomo o empresa instaladora para reservar tu acceso prioritario.
@@ -108,7 +108,7 @@ export default function ContactoView({ initialPreselectedTrade }: ContactoViewPr
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-slate-900 border border-slate-800 text-emerald-400 font-mono text-xs font-bold">1</span>
                 <div>
                   <strong className="text-white block font-bold uppercase tracking-wide text-[10px] mb-0.5">Acceso gratuito ilimitado</strong>
-                  <span className="leading-relaxed">Usa todas las funcionalidades de TradeFlow AI gratis durante los 3 meses de período beta cerrado.</span>
+                  <span className="leading-relaxed">Usa todas las funcionalidades de TrabFlow AI gratis durante los 3 meses de período beta cerrado.</span>
                 </div>
               </li>
               <li className="flex gap-3">
@@ -142,9 +142,9 @@ export default function ContactoView({ initialPreselectedTrade }: ContactoViewPr
               Trabajamos para autónomos. Si tienes dudas sobre cómo capturamos los precios de los materiales o de las normativas de Hacienda, puedes hablarnos directamente por correo electrónico:
             </p>
             <div className="flex flex-col gap-2 pt-1 font-mono text-xs">
-              <a href="mailto:soporte@tradeflow.ai" className="flex items-center gap-2 font-bold text-blue-600 hover:text-blue-700 transition-colors">
+              <a href="mailto:soporte@trabflow.com" className="flex items-center gap-2 font-bold text-blue-600 hover:text-blue-700 transition-colors">
                 <Send className="h-4 w-4" />
-                <span>soporte@tradeflow.ai</span>
+                <span>soporte@trabflow.com</span>
               </a>
               <div className="flex items-center gap-2 text-slate-505">
                 <Phone className="h-4 w-4 flex-none" />
@@ -289,7 +289,7 @@ export default function ContactoView({ initialPreselectedTrade }: ContactoViewPr
                       className="mt-1 h-4 w-4 rounded border-slate-350 text-blue-650 focus:ring-blue-500 cursor-pointer"
                     />
                     <span className="text-xs text-slate-500 leading-normal">
-                      Acepto registrar mis datos profesionales en la lista de espera de TradeFlow AI y recibir instrucciones de acceso, de conformidad con la <span className="underline hover:text-slate-700">política de privacidad</span>.
+                      Acepto registrar mis datos profesionales en la lista de espera de TrabFlow AI y recibir instrucciones de acceso, de conformidad con la <span className="underline hover:text-slate-700">política de privacidad</span>.
                     </span>
                   </label>
                 </div>
@@ -334,7 +334,7 @@ export default function ContactoView({ initialPreselectedTrade }: ContactoViewPr
                 <div className="space-y-2">
                   <h3 className="text-xl font-display font-bold uppercase tracking-wider text-slate-950">¡Suscripción completada con éxito!</h3>
                   <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-                    Te hemos asignado tu turno prioritario. En las próximas 24-48 horas un especialista de TradeFlow revisará tu oficio y provincia para habilitarte el canal beta en WhatsApp.
+                    Te hemos asignado tu turno prioritario. En las próximas 24-48 horas un especialista de TrabFlow revisará tu oficio y provincia para habilitarte el canal beta en WhatsApp.
                   </p>
                 </div>
 

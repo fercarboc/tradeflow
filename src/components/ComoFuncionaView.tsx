@@ -51,7 +51,7 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
         iva: 32.55,
         total: 187.55
       },
-      whatsappText: 'Estimado Juan Gómez, te adjunto el presupuesto de fontanería para el cambio de grifo de cocina. Subtotal: 155,00€ + IVA. Puedes revisarlo en el siguiente PDF adjunto por TradeFlow: https://tradeflow.ai/view/pdf_83918'
+      whatsappText: 'Estimado Juan Gómez, te adjunto el presupuesto de fontanería para el cambio de grifo de cocina. Subtotal: 155,00€ + IVA. Puedes revisarlo en el siguiente PDF adjunto por TrabFlow: https://trabflow.com/view/pdf_83918'
     },
     'Electricidad': {
       oficio: 'Electricidad',
@@ -69,7 +69,7 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
         iva: 48.30,
         total: 278.30
       },
-      whatsappText: 'Buenas tardes, aquí tiene el presupuesto de electricidad para la instalación de focos LED y enchufes en Calle Alcalá 60. Subtotal: 230,00€ + IVA. Revise los detalles en el PDF adjunto: https://tradeflow.ai/view/pdf_93810'
+      whatsappText: 'Buenas tardes, aquí tiene el presupuesto de electricidad para la instalación de focos LED y enchufes en Calle Alcalá 60. Subtotal: 230,00€ + IVA. Revise los detalles en el PDF adjunto: https://trabflow.com/view/pdf_93810'
     },
     'Climatización / HVAC': {
       oficio: 'Climatización / HVAC',
@@ -87,7 +87,7 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
         iva: 41.48,
         total: 238.98
       },
-      whatsappText: 'Hola María Luisa, puedes ver aquí tu presupuesto de climatización para el mantenimiento del split. Desinfectado y cargado. Total: 238,98€ IVA incl. Pulse para ver PDF: https://tradeflow.ai/view/pdf_71620'
+      whatsappText: 'Hola María Luisa, puedes ver aquí tu presupuesto de climatización para el mantenimiento del split. Desinfectado y cargado. Total: 238,98€ IVA incl. Pulse para ver PDF: https://trabflow.com/view/pdf_71620'
     },
     'Cerrajería': {
       oficio: 'Cerrajería',
@@ -105,7 +105,7 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
         iva: 27.30,
         total: 157.30
       },
-      whatsappText: 'Presupuesto Cerrajería Urgente - Pedro Solares. Apertura y cambio de bombín de seguridad latonado. Total: 157,30€ IVA incl. PDF Oficial: https://tradeflow.ai/view/pdf_10821'
+      whatsappText: 'Presupuesto Cerrajería Urgente - Pedro Solares. Apertura y cambio de bombín de seguridad latonado. Total: 157,30€ IVA incl. PDF Oficial: https://trabflow.com/view/pdf_10821'
     },
     'Otros': {
       oficio: 'Otros',
@@ -123,7 +123,7 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
         iva: 33.60,
         total: 193.60
       },
-      whatsappText: 'Presupuesto de reparaciones - Seguros García. Arreglo persiana + Pintura techos. Subtotal: 160,00€ + IVA. PDF TradeFlow adjuntado: https://tradeflow.ai/view/pdf_55102'
+      whatsappText: 'Presupuesto de reparaciones - Seguros García. Arreglo persiana + Pintura techos. Subtotal: 160,00€ + IVA. PDF TrabFlow adjuntado: https://trabflow.com/view/pdf_55102'
     }
   };
 
@@ -166,10 +166,10 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
           Inteligencia diseñada para autónomos
         </span>
         <h1 className="text-3.5xl sm:text-5xl font-display font-bold text-slate-950 tracking-tight mt-3 leading-tight">
-          ¿Cómo funciona <span className="text-blue-600">TradeFlow AI</span>?
+          ¿Cómo funciona <span className="text-blue-600">TrabFlow AI</span>?
         </h1>
         <p className="mt-4 text-sm sm:text-base text-slate-505 leading-relaxed max-w-2xl mx-auto">
-          Hemos eliminado la complicación de usar ordenadores o rellenar tediosas bases de datos. TradeFlow entiende el lenguaje natural y tus notas de voz de WhatsApp para redactar presupuestos de forma mágica.
+          Hemos eliminado la complicación de usar ordenadores o rellenar tediosas bases de datos. TrabFlow entiende el lenguaje natural y tus notas de voz de WhatsApp para redactar presupuestos de forma mágica.
         </p>
       </div>
 
@@ -204,7 +204,7 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
           </div>
           <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide mb-2">3. Manda por WhatsApp</h3>
           <p className="text-xs text-slate-500 leading-relaxed">
-            TradeFlow redacta el texto formal y genera la URL del PDF profesional directamente listo para compartir. Tu cliente lo acepta Online con un click, notificándote de inmediato en el móvil.
+            TrabFlow redacta el texto formal y genera la URL del PDF profesional directamente listo para compartir. Tu cliente lo acepta Online con un click, notificándote de inmediato en el móvil.
           </p>
         </div>
       </div>
@@ -341,7 +341,7 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
               <span className="h-2.5 w-2.5 rounded-full bg-yellow-500"></span>
               <span className="h-2.5 w-2.5 rounded-full bg-green-500"></span>
             </div>
-            <span className="text-[10px] font-mono tracking-wider text-slate-500 uppercase">Pantalla de Trabajo TradeFlow Client</span>
+            <span className="text-[10px] font-mono tracking-wider text-slate-500 uppercase">Pantalla de Trabajo TrabFlow Client</span>
             <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">MOCKUP REAL</span>
           </div>
 
@@ -460,8 +460,8 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
         
         <div className="space-y-4 text-sm divide-y divide-slate-100">
           <div className="pt-4 first:pt-0 space-y-1.5">
-            <h4 className="font-bold text-slate-900">¿Tengo que saber de informática para usar TradeFlow?</h4>
-            <p className="text-slate-600 leading-normal">No. Si sabes mandar un audio por WhatsApp o hacer una foto con el móvil, sabes usar TradeFlow AI. No hay pantallas complejas ni menús en inglés.</p>
+            <h4 className="font-bold text-slate-900">¿Tengo que saber de informática para usar TrabFlow?</h4>
+            <p className="text-slate-600 leading-normal">No. Si sabes mandar un audio por WhatsApp o hacer una foto con el móvil, sabes usar TrabFlow AI. No hay pantallas complejas ni menús en inglés.</p>
           </div>
           <div className="pt-4 space-y-1.5">
             <h4 className="font-bold text-slate-900">¿De dónde saca la IA el precio de los materiales en la cotización?</h4>
@@ -469,7 +469,7 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
           </div>
           <div className="pt-4 space-y-1.5">
             <h4 className="font-bold text-slate-900">¿Qué pasa si mi cliente acepta el presupuesto por WhatsApp?</h4>
-            <p className="text-slate-600 leading-normal">Te mandamos una notificación instantánea indicando que el cliente ha aceptado. TradeFlow te permite pulsar un solo botón para convertir ese borrador aceptado en Factura numerada oficial lista para exportar.</p>
+            <p className="text-slate-600 leading-normal">Te mandamos una notificación instantánea indicando que el cliente ha aceptado. TrabFlow te permite pulsar un solo botón para convertir ese borrador aceptado en Factura numerada oficial lista para exportar.</p>
           </div>
         </div>
       </div>
