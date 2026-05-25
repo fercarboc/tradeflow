@@ -396,6 +396,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [audioWaveHeights, setAudioWaveHeights] = useState<number[]>([8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8]);
   const audioIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const streamTimeoutRef = useRef<NodeJS.Timeout[]>([]);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef = useRef<Blob[]>([]);
 
   const dictadoFicticio = [
     "Apunta", "instalación", "de", "caldera", "de", "gas", "Vaillant", "Turbomag", 
@@ -412,32 +414,51 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     "Generando catálogo de partidas..."
   ];
 
-  const startVoiceRecording = () => {
-    setVoiceStep('listening');
-    setVoiceText('');
-
+  const startWaveform = () => {
     audioIntervalRef.current = setInterval(() => {
       setAudioWaveHeights(Array.from({ length: 14 }, () => Math.floor(Math.random() * 40) + 6));
     }, 110);
+  };
 
-    let currentWordIndex = 0;
-    let accumulatedText = "";
+  const startVoiceRecording = async () => {
+    setVoiceStep('listening');
+    setVoiceText('');
 
-    const streamNextWord = () => {
-      if (currentWordIndex < dictadoFicticio.length) {
-        setVoiceStep('transcribing');
-        accumulatedText += (currentWordIndex === 0 ? "" : " ") + dictadoFicticio[currentWordIndex];
-        setVoiceText(accumulatedText);
-        currentWordIndex++;
-        const t = setTimeout(streamNextWord, 130);
-        streamTimeoutRef.current.push(t);
-      } else {
-        handleStartAIThinking();
+    if (isLiveMode) {
+      // Modo real: MediaRecorder
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 'audio/mp4';
+        const recorder = new MediaRecorder(stream, { mimeType });
+        mediaRecorderRef.current = recorder;
+        audioChunksRef.current = [];
+        recorder.ondataavailable = (e) => { if (e.data.size > 0) audioChunksRef.current.push(e.data); };
+        recorder.start(250);
+        startWaveform();
+      } catch {
+        showToast('No se puede acceder al micrófono', 'error');
+        setVoiceStep('idle');
       }
-    };
-
-    const tStart = setTimeout(streamNextWord, 1500);
-    streamTimeoutRef.current.push(tStart);
+    } else {
+      // Modo demo: simulación
+      startWaveform();
+      let currentWordIndex = 0;
+      let accumulatedText = '';
+      const streamNextWord = () => {
+        if (currentWordIndex < dictadoFicticio.length) {
+          setVoiceStep('transcribing');
+          accumulatedText += (currentWordIndex === 0 ? '' : ' ') + dictadoFicticio[currentWordIndex];
+          setVoiceText(accumulatedText);
+          currentWordIndex++;
+          const t = setTimeout(streamNextWord, 130);
+          streamTimeoutRef.current.push(t);
+        } else {
+          handleStartAIThinking();
+        }
+      };
+      const tStart = setTimeout(streamNextWord, 1500);
+      streamTimeoutRef.current.push(tStart);
+    }
   };
 
   const handleStartAIThinking = () => {
@@ -478,9 +499,93 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     showToast('Voz procesada por IA con éxito');
     setTimeout(() => {
       setVoiceStep('idle');
-      // Pasar automáticamente al paso de fotos/revisión
-      setWizardStep(3); 
+      setWizardStep(3);
     }, 800);
+  };
+
+  // Resultado real de la IA: mapea items al catálogo y actualiza el presupuesto
+  const handleVoiceResult = (
+    transcript: string,
+    items: Array<{ descripcion: string; tipo: string; cantidad: number; unidad: string }>,
+  ) => {
+    const partidas: PartidaPresupuesto[] = items.map(item => {
+      const lowerDesc = item.descripcion.toLowerCase();
+      const matched = tarifas.find(t => {
+        const lowerT = t.descripcion.toLowerCase();
+        return lowerDesc.includes(lowerT.slice(0, 6)) || lowerT.includes(lowerDesc.slice(0, 6));
+      });
+      const precioUnitario = matched?.precioBase ?? 0;
+      const cantidad = item.cantidad ?? 1;
+      return {
+        descripcion: item.descripcion,
+        tipo: (item.tipo === 'mano_de_obra' ? 'mano_de_obra' : 'material') as PartidaPresupuesto['tipo'],
+        cantidad,
+        precioUnitario,
+        total: precioUnitario * cantidad,
+      };
+    });
+    const total = partidas.reduce((s, p) => s + p.total, 0);
+    const desc = transcript.slice(0, 80);
+
+    setWizardQuote(prev => ({ ...prev, descripcion: desc, partidas, total, estado: 'Borrador' as const }));
+    setEditingQuote(prev => ({ ...prev, descripcion: desc, partidas, total }));
+    setVoiceText(transcript);
+    setVoiceStep('done');
+    mediaRecorderRef.current = null;
+    audioChunksRef.current = [];
+    showToast('Voz procesada por IA ✓');
+    setTimeout(() => {
+      setVoiceStep('idle');
+      setIsVoiceModalOpen(false);
+      setWizardStep(3);
+    }, 900);
+  };
+
+  // Parar grabación real y enviar a la edge function
+  const stopVoiceRecording = async () => {
+    if (!isLiveMode || !mediaRecorderRef.current) {
+      // Demo: saltar a la fase de pensamiento
+      streamTimeoutRef.current.forEach(t => clearTimeout(t));
+      streamTimeoutRef.current = [];
+      handleStartAIThinking();
+      return;
+    }
+
+    if (audioIntervalRef.current) { clearInterval(audioIntervalRef.current); audioIntervalRef.current = null; }
+    setVoiceStep('thinking');
+    setVoiceText('Transcribiendo con IA...');
+
+    await new Promise<void>(resolve => {
+      if (mediaRecorderRef.current) {
+        mediaRecorderRef.current.onstop = () => resolve();
+        mediaRecorderRef.current.stop();
+      } else { resolve(); }
+    });
+
+    mediaRecorderRef.current?.stream.getTracks().forEach(t => t.stop());
+
+    const blob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+    const formData = new FormData();
+    formData.append('audio', blob, 'audio.webm');
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-voice-to-quote`,
+        { method: 'POST', headers: { 'Authorization': `Bearer ${session?.access_token ?? ''}` }, body: formData },
+      );
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: 'Error del servidor' }));
+        throw new Error(err.error ?? `HTTP ${res.status}`);
+      }
+      const result: { transcript: string; items: Array<{ descripcion: string; tipo: string; cantidad: number; unidad: string }> } = await res.json();
+      handleVoiceResult(result.transcript, result.items);
+    } catch (e: any) {
+      showToast('Error al procesar audio: ' + e.message, 'error');
+      setVoiceStep('idle');
+      mediaRecorderRef.current = null;
+      audioChunksRef.current = [];
+    }
   };
 
   // Escaneo fotográfico
@@ -710,9 +815,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const cancelVoiceRecording = () => {
     streamTimeoutRef.current.forEach(t => clearTimeout(t));
     streamTimeoutRef.current = [];
-    if (audioIntervalRef.current) {
-      clearInterval(audioIntervalRef.current);
-      audioIntervalRef.current = null;
+    if (audioIntervalRef.current) { clearInterval(audioIntervalRef.current); audioIntervalRef.current = null; }
+    if (mediaRecorderRef.current) {
+      try { mediaRecorderRef.current.stop(); } catch { /* ignorar si ya parado */ }
+      mediaRecorderRef.current.stream.getTracks().forEach(t => t.stop());
+      mediaRecorderRef.current = null;
+      audioChunksRef.current = [];
     }
     setVoiceStep('idle');
     setVoiceText('');
@@ -1165,8 +1273,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {voiceStep === 'listening' || voiceStep === 'transcribing' ? (
                   <div className="relative z-10">
                     <div className="absolute inset-0 bg-red-500/20 rounded-full animate-ping scale-125 pointer-events-none" />
-                    <button 
-                      onClick={cancelVoiceRecording}
+                    <button
+                      onClick={stopVoiceRecording}
+                      title="Parar y procesar"
                       className="w-20 h-20 bg-gradient-to-r from-red-600 to-pink-500 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(239,68,68,0.3)] cursor-pointer"
                     >
                       <Mic className="w-8 h-8 text-white animate-pulse" />
@@ -1246,14 +1355,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <span>Obra: <strong className="text-slate-350 tracking-wider font-mono">TradeFlow Voice</strong></span>
                 
                 {(voiceStep === 'listening' || voiceStep === 'transcribing') && (
-                  <button 
-                    onClick={() => {
-                      streamTimeoutRef.current.forEach(t => clearTimeout(t));
-                      handleStartAIThinking();
-                    }}
+                  <button
+                    onClick={stopVoiceRecording}
                     className="bg-blue-600/20 hover:bg-blue-600 text-blue-450 hover:text-white border border-blue-500/20 px-3.5 py-1 rounded-full font-bold uppercase tracking-wider text-[9px] cursor-pointer"
                   >
-                    Procesar
+                    {isLiveMode ? 'Parar y procesar' : 'Procesar'}
                   </button>
                 )}
               </div>
@@ -1901,8 +2007,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {voiceStep === 'listening' || voiceStep === 'transcribing' ? (
                   <div className="relative">
                     <div className="absolute inset-0 bg-red-500/25 rounded-full animate-ping scale-125" />
-                    <button 
-                      onClick={cancelVoiceRecording}
+                    <button
+                      onClick={stopVoiceRecording}
+                      title="Parar y procesar"
                       className="w-20 h-20 bg-gradient-to-r from-red-650 to-pink-500 rounded-full flex items-center justify-center shadow-lg"
                     >
                       <Mic className="w-8 h-8 text-white animate-pulse" />
