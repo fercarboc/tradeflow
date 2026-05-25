@@ -127,6 +127,11 @@ export interface TradeSubscription {
 export interface AdminOrgRow extends TradeOrganization {
   subscription?: TradeSubscription;
   owner_email?: string;
+  // Datos de auth (rellenados por admin_get_trade_users RPC)
+  auth_email?: string;
+  email_confirmed?: boolean;
+  last_sign_in?: string;
+  user_created_at?: string;
 }
 
 // ── Helpers de API ─────────────────────────────────────────────────────────
@@ -240,15 +245,37 @@ export async function registerUser(params: {
 }
 
 export async function getAdminOrgs(): Promise<AdminOrgRow[]> {
-  const { data } = await supabase
-    .from('trade_organizations')
-    .select('*, trade_subscriptions(*)')
-    .order('created_at', { ascending: false });
+  const [orgsRes, authRes] = await Promise.all([
+    supabase
+      .from('trade_organizations')
+      .select('*, trade_subscriptions(*)')
+      .order('created_at', { ascending: false }),
+    supabase.rpc('admin_get_trade_users'),
+  ]);
 
-  return (data ?? []).map((row: TradeOrganization & { trade_subscriptions?: TradeSubscription[] }) => ({
-    ...row,
-    subscription: row.trade_subscriptions?.[0],
-  })) as AdminOrgRow[];
+  const authMap = new Map<string, { auth_email: string; email_confirmed: boolean; last_sign_in: string | null; user_created_at: string }>();
+  for (const row of (authRes.data ?? []) as Array<{ org_id: string; auth_email: string; email_confirmed: boolean; last_sign_in: string | null; user_created_at: string }>) {
+    authMap.set(row.org_id, row);
+  }
+
+  return (orgsRes.data ?? []).map((row: TradeOrganization & { trade_subscriptions?: TradeSubscription[] }) => {
+    const auth = authMap.get(row.id);
+    return {
+      ...row,
+      subscription: row.trade_subscriptions?.[0],
+      auth_email: auth?.auth_email,
+      email_confirmed: auth?.email_confirmed,
+      last_sign_in: auth?.last_sign_in ?? undefined,
+      user_created_at: auth?.user_created_at,
+    };
+  }) as AdminOrgRow[];
+}
+
+export async function adminSendPasswordReset(email: string): Promise<void> {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: 'https://trabflow.com/?reset=true',
+  });
+  if (error) throw error;
 }
 
 export async function adminUpdateOrgPlan(

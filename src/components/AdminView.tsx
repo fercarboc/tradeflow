@@ -5,11 +5,12 @@
 
 import { useState, useEffect } from 'react';
 import { ActivePage } from '../types';
-import { getAdminOrgs, adminUpdateOrgPlan, AdminOrgRow, TradeSubscription } from '../lib/supabase';
+import { getAdminOrgs, adminUpdateOrgPlan, adminSendPasswordReset, AdminOrgRow, TradeSubscription } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import {
   Users, CreditCard, TrendingUp, Clock, ArrowLeft, Search, RefreshCw,
   Shield, CheckCircle, AlertTriangle, Building2, ChevronDown,
+  Mail, KeyRound, Copy, CheckCheck,
 } from 'lucide-react';
 
 const ADMIN_EMAIL = 'fercarboc@gmail.com';
@@ -75,6 +76,25 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [resetSent, setResetSent] = useState<Set<string>>(new Set());
+  const [copied, setCopied] = useState<string | null>(null);
+
+  const handleCopyEmail = (email: string) => {
+    navigator.clipboard.writeText(email).catch(() => {});
+    setCopied(email);
+    setTimeout(() => setCopied(null), 2000);
+  };
+
+  const handleResetPassword = async (org: AdminOrgRow) => {
+    const email = org.auth_email ?? org.email ?? '';
+    if (!email) return;
+    try {
+      await adminSendPasswordReset(email);
+      setResetSent(prev => new Set(prev).add(org.id));
+    } catch (e: unknown) {
+      alert('Error al enviar reset: ' + (e instanceof Error ? e.message : String(e)));
+    }
+  };
 
   const isAdmin = session?.user?.email === ADMIN_EMAIL;
 
@@ -215,7 +235,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-slate-700">
-                  {['Empresa / Instalador', 'Oficio(s)', 'Plan', 'Estado', 'Prueba hasta', 'Ciclo', 'Alta'].map(h => (
+                  {['Empresa / Instalador', 'Email login', 'Oficio(s)', 'Plan', 'Estado', 'Último acceso', 'Alta', 'Acciones'].map(h => (
                     <th key={h} className="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
                       {h}
                     </th>
@@ -225,14 +245,14 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan={7} className="px-4 py-10 text-center text-slate-500 text-sm">
+                    <td colSpan={8} className="px-4 py-10 text-center text-slate-500 text-sm">
                       <RefreshCw className="h-4 w-4 animate-spin inline-block mr-2" />
                       Cargando datos...
                     </td>
                   </tr>
                 ) : filtered.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="px-4 py-10 text-center">
+                    <td colSpan={8} className="px-4 py-10 text-center">
                       <Building2 className="h-8 w-8 text-slate-700 mx-auto mb-2" />
                       <p className="text-slate-500 text-sm">No se encontraron registros</p>
                     </td>
@@ -240,38 +260,99 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                 ) : (
                   filtered.map(org => {
                     const sub = org.subscription;
+                    const loginEmail = org.auth_email ?? org.email ?? '—';
                     const trialEnd = sub?.trial_end
                       ? new Date(sub.trial_end).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' })
                       : '—';
                     const createdAt = new Date(org.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' });
+                    const lastSignIn = org.last_sign_in
+                      ? new Date(org.last_sign_in).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' })
+                      : 'Nunca';
+                    const isCopied = copied === loginEmail;
+                    const isResetSent = resetSent.has(org.id);
 
                     return (
                       <tr key={org.id} className="border-b border-slate-700/50 hover:bg-slate-800/60 transition-colors">
+                        {/* Empresa */}
                         <td className="px-4 py-3 max-w-[180px]">
                           <div className="font-semibold text-white text-sm truncate">{org.nombre}</div>
-                          {org.email && <div className="text-[11px] text-slate-400 truncate">{org.email}</div>}
+                          <div className="flex items-center gap-1 mt-0.5">
+                            {org.email_confirmed
+                              ? <CheckCircle className="h-3 w-3 text-emerald-400 shrink-0" />
+                              : <AlertTriangle className="h-3 w-3 text-yellow-400 shrink-0" />}
+                            <span className="text-[10px] text-slate-500">
+                              {org.email_confirmed ? 'Email confirmado' : 'Sin confirmar'}
+                            </span>
+                          </div>
                         </td>
+
+                        {/* Email login */}
+                        <td className="px-4 py-3 max-w-[200px]">
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs text-slate-300 font-mono truncate max-w-[160px]">{loginEmail}</span>
+                            <button
+                              onClick={() => handleCopyEmail(loginEmail)}
+                              title="Copiar email"
+                              className="shrink-0 text-slate-500 hover:text-white cursor-pointer transition-colors"
+                            >
+                              {isCopied ? <CheckCheck className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
+                            </button>
+                          </div>
+                        </td>
+
+                        {/* Oficio */}
                         <td className="px-4 py-3">
                           <span className="text-slate-300 text-xs">{org.oficio || '—'}</span>
                         </td>
+
+                        {/* Plan */}
                         <td className="px-4 py-3">
                           <PlanSelect org={org} onUpdate={loadOrgs} />
                         </td>
+
+                        {/* Estado suscripción */}
                         <td className="px-4 py-3">
                           <StatusBadge sub={sub} />
+                          {sub?.status === 'trial' && (
+                            <div className="text-[10px] text-yellow-300/70 mt-0.5">hasta {trialEnd}</div>
+                          )}
                         </td>
+
+                        {/* Último acceso */}
                         <td className="px-4 py-3">
-                          <span className={`text-xs ${sub?.status === 'trial' ? 'text-yellow-300' : 'text-slate-500'}`}>
-                            {sub?.status === 'trial' ? trialEnd : '—'}
-                          </span>
+                          <span className="text-xs text-slate-400 font-mono whitespace-nowrap">{lastSignIn}</span>
                         </td>
+
+                        {/* Alta */}
                         <td className="px-4 py-3">
-                          <span className="text-slate-400 text-xs capitalize">
-                            {sub?.billing_cycle === 'monthly' ? 'Mensual' : sub?.billing_cycle === 'yearly' ? 'Anual' : '—'}
-                          </span>
+                          <span className="text-slate-500 text-xs font-mono whitespace-nowrap">{createdAt}</span>
                         </td>
+
+                        {/* Acciones */}
                         <td className="px-4 py-3">
-                          <span className="text-slate-500 text-xs">{createdAt}</span>
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => handleResetPassword(org)}
+                              disabled={isResetSent}
+                              title="Enviar email de reset de contraseña"
+                              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all border ${
+                                isResetSent
+                                  ? 'bg-emerald-900/30 border-emerald-700 text-emerald-400 cursor-default'
+                                  : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-blue-700 hover:border-blue-600 hover:text-white'
+                              }`}
+                            >
+                              {isResetSent
+                                ? <><CheckCheck className="h-3 w-3" /> Enviado</>
+                                : <><KeyRound className="h-3 w-3" /> Reset pwd</>}
+                            </button>
+                            <a
+                              href={`mailto:${loginEmail}`}
+                              title="Enviar email"
+                              className="flex items-center justify-center h-7 w-7 rounded bg-slate-700 border border-slate-600 text-slate-400 hover:text-white hover:bg-slate-600 transition-colors"
+                            >
+                              <Mail className="h-3.5 w-3.5" />
+                            </a>
+                          </div>
                         </td>
                       </tr>
                     );
