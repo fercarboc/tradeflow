@@ -132,6 +132,9 @@ export interface AdminOrgRow extends TradeOrganization {
   email_confirmed?: boolean;
   last_sign_in?: string;
   user_created_at?: string;
+  // Estadísticas de uso
+  quotes_count?: number;
+  clients_count?: number;
 }
 
 // ── Helpers de API ─────────────────────────────────────────────────────────
@@ -245,17 +248,28 @@ export async function registerUser(params: {
 }
 
 export async function getAdminOrgs(): Promise<AdminOrgRow[]> {
-  const [orgsRes, authRes] = await Promise.all([
+  const [orgsRes, authRes, quotesRes, clientsRes] = await Promise.all([
     supabase
       .from('trade_organizations')
       .select('*, trade_subscriptions(*)')
       .order('created_at', { ascending: false }),
     supabase.rpc('admin_get_trade_users'),
+    supabase.from('trade_quotes').select('org_id'),
+    supabase.from('trade_clients').select('org_id'),
   ]);
 
   const authMap = new Map<string, { auth_email: string; email_confirmed: boolean; last_sign_in: string | null; user_created_at: string }>();
   for (const row of (authRes.data ?? []) as Array<{ org_id: string; auth_email: string; email_confirmed: boolean; last_sign_in: string | null; user_created_at: string }>) {
     authMap.set(row.org_id, row);
+  }
+
+  const quotesCount = new Map<string, number>();
+  for (const row of (quotesRes.data ?? []) as Array<{ org_id: string }>) {
+    quotesCount.set(row.org_id, (quotesCount.get(row.org_id) ?? 0) + 1);
+  }
+  const clientsCount = new Map<string, number>();
+  for (const row of (clientsRes.data ?? []) as Array<{ org_id: string }>) {
+    clientsCount.set(row.org_id, (clientsCount.get(row.org_id) ?? 0) + 1);
   }
 
   return (orgsRes.data ?? []).map((row: TradeOrganization & { trade_subscriptions?: TradeSubscription[] }) => {
@@ -267,8 +281,43 @@ export async function getAdminOrgs(): Promise<AdminOrgRow[]> {
       email_confirmed: auth?.email_confirmed,
       last_sign_in: auth?.last_sign_in ?? undefined,
       user_created_at: auth?.user_created_at,
+      quotes_count: quotesCount.get(row.id) ?? 0,
+      clients_count: clientsCount.get(row.id) ?? 0,
     };
   }) as AdminOrgRow[];
+}
+
+export async function adminExtendTrial(orgId: string, days = 30): Promise<void> {
+  const { data: sub } = await supabase
+    .from('trade_subscriptions')
+    .select('trial_end')
+    .eq('org_id', orgId)
+    .single();
+  if (!sub) throw new Error('Suscripción no encontrada');
+  const base = new Date(sub.trial_end) > new Date() ? new Date(sub.trial_end) : new Date();
+  base.setDate(base.getDate() + days);
+  const { error } = await supabase
+    .from('trade_subscriptions')
+    .update({ trial_end: base.toISOString(), status: 'trial' })
+    .eq('org_id', orgId);
+  if (error) throw error;
+}
+
+export async function adminCreateInstaller(params: {
+  email: string;
+  password: string;
+  nombre: string;
+  company_name?: string;
+  oficio: string;
+  plan: 'basico' | 'pro' | 'empresa';
+  billing_cycle: 'monthly' | 'yearly';
+  telefono?: string;
+  trial_days?: number;
+}): Promise<{ user_id: string; org_id: string }> {
+  const { data, error } = await supabase.functions.invoke('trade-admin-create-installer', { body: params });
+  if (error) throw new Error((error as { message?: string }).message ?? String(error));
+  if (!data?.ok) throw new Error(data?.error ?? 'Error desconocido al crear instalador');
+  return { user_id: data.user_id, org_id: data.org_id };
 }
 
 export async function adminSendPasswordReset(email: string): Promise<void> {
