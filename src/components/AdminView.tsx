@@ -5,7 +5,7 @@
 
 import { useState, useEffect } from 'react';
 import { ActivePage } from '../types';
-import { getAdminOrgs, adminUpdateOrgPlan, adminSendPasswordReset, AdminOrgRow, TradeSubscription } from '../lib/supabase';
+import { getAdminOrgs, adminUpdateOrgPlan, adminSendPasswordReset, adminSetPassword, AdminOrgRow, TradeSubscription } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import {
   Users, CreditCard, TrendingUp, Clock, ArrowLeft, Search, RefreshCw,
@@ -78,11 +78,32 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [resetSent, setResetSent] = useState<Set<string>>(new Set());
   const [copied, setCopied] = useState<string | null>(null);
+  const [setPwdOrg, setSetPwdOrg] = useState<AdminOrgRow | null>(null);
+  const [setPwdValue, setSetPwdValue] = useState('');
+  const [setPwdLoading, setSetPwdLoading] = useState(false);
+  const [setPwdError, setSetPwdError] = useState<string | null>(null);
 
   const handleCopyEmail = (email: string) => {
     navigator.clipboard.writeText(email).catch(() => {});
     setCopied(email);
     setTimeout(() => setCopied(null), 2000);
+  };
+
+  const handleSetPasswordSubmit = async () => {
+    if (!setPwdOrg) return;
+    if (setPwdValue.length < 8) { setSetPwdError('La contraseña debe tener al menos 8 caracteres'); return; }
+    setSetPwdLoading(true);
+    setSetPwdError(null);
+    try {
+      const target = setPwdOrg.owner_id ?? setPwdOrg.auth_email ?? setPwdOrg.email ?? '';
+      await adminSetPassword(target, setPwdValue);
+      setSetPwdOrg(null);
+      setSetPwdValue('');
+    } catch (e: unknown) {
+      setSetPwdError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setSetPwdLoading(false);
+    }
   };
 
   const handleResetPassword = async (org: AdminOrgRow) => {
@@ -345,6 +366,13 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                                 ? <><CheckCheck className="h-3 w-3" /> Enviado</>
                                 : <><KeyRound className="h-3 w-3" /> Reset pwd</>}
                             </button>
+                            <button
+                              onClick={() => { setSetPwdOrg(org); setSetPwdValue(''); setSetPwdError(null); }}
+                              title="Cambiar contraseña"
+                              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all border bg-slate-700 border-slate-600 text-slate-300 hover:bg-purple-700 hover:border-purple-600 hover:text-white"
+                            >
+                              <KeyRound className="h-3 w-3" /> Pwd
+                            </button>
                             <a
                               href={`mailto:${loginEmail}`}
                               title="Enviar email"
@@ -400,6 +428,47 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
           <p className="text-slate-600 text-xs mt-1">La integración con Stripe se configurará en la siguiente fase del proyecto.</p>
         </div>
       </div>
+
+      {/* Modal: cambiar contraseña */}
+      {setPwdOrg && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+          <div className="bg-slate-800 border border-slate-700 rounded-xl p-6 w-full max-w-sm mx-4 shadow-2xl">
+            <h3 className="text-white font-bold text-base mb-1">Cambiar contraseña</h3>
+            <p className="text-slate-400 text-xs mb-4">
+              {setPwdOrg.nombre} · <span className="font-mono">{setPwdOrg.auth_email ?? setPwdOrg.email}</span>
+            </p>
+            <input
+              type="password"
+              value={setPwdValue}
+              onChange={e => { setSetPwdValue(e.target.value); setSetPwdError(null); }}
+              placeholder="Nueva contraseña (mín. 8 caracteres)"
+              className="w-full bg-slate-700 border border-slate-600 rounded px-3 py-2 text-white text-sm placeholder-slate-500 focus:outline-none focus:border-blue-500 mb-3"
+              autoFocus
+              onKeyDown={e => e.key === 'Enter' && handleSetPasswordSubmit()}
+            />
+            {setPwdError && (
+              <p className="text-red-400 text-xs mb-3">{setPwdError}</p>
+            )}
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={() => { setSetPwdOrg(null); setSetPwdValue(''); setSetPwdError(null); }}
+                disabled={setPwdLoading}
+                className="px-4 py-2 rounded text-sm text-slate-400 hover:text-white cursor-pointer transition-colors disabled:opacity-50"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleSetPasswordSubmit}
+                disabled={setPwdLoading || setPwdValue.length < 8}
+                className="px-4 py-2 rounded text-sm font-semibold bg-purple-600 hover:bg-purple-500 text-white cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-default flex items-center gap-2"
+              >
+                {setPwdLoading ? <RefreshCw className="h-3.5 w-3.5 animate-spin" /> : <KeyRound className="h-3.5 w-3.5" />}
+                {setPwdLoading ? 'Guardando…' : 'Guardar'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

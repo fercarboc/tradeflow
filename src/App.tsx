@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ActivePage, TradeType } from './types';
 import { supabase } from './lib/supabase';
 import type { Session } from '@supabase/supabase-js';
@@ -18,6 +18,8 @@ import AppDashboardView from './components/AppDashboardView';
 import RegistroView from './components/RegistroView';
 import AdminView from './components/AdminView';
 
+const ADMIN_EMAIL = 'fercarboc@gmail.com';
+
 function isPWAMode(): boolean {
   if (typeof window === 'undefined') return false;
   const params = new URLSearchParams(window.location.search);
@@ -26,25 +28,42 @@ function isPWAMode(): boolean {
   return params.get('app') === 'true' || isStandalone;
 }
 
+
 export default function App() {
   const pwa = isPWAMode();
   const [currentPage, setCurrentPage] = useState<ActivePage>(
-    pwa ? ActivePage.AppDashboard : ActivePage.Home
+    pwa ? ActivePage.AppDashboard : ActivePage.Home,
   );
   const [preselectedTrade, setPreselectedTrade] = useState<TradeType>('Fontanería');
-  const [initialMobile, setInitialMobile] = useState<boolean>(pwa ? true : true);
+  const [initialMobile, setInitialMobile] = useState<boolean>(true);
   const [loginOnMount, setLoginOnMount] = useState<boolean>(pwa);
   const [session, setSession] = useState<Session | null>(null);
 
+  const routeSession = useCallback((s: Session | null) => {
+    setSession(s);
+    if (s) {
+      setLoginOnMount(false);
+      setCurrentPage(s.user.email === ADMIN_EMAIL ? ActivePage.Admin : ActivePage.AppDashboard);
+    }
+  }, []);
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      // Si el usuario ya tiene sesión activa al abrir en modo PWA, no mostrar el login modal
-      if (pwa && data.session) setLoginOnMount(false);
+      if (data.session) {
+        routeSession(data.session);
+      }
     });
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, s) => {
+      if (s) {
+        routeSession(s);
+      } else {
+        setSession(null);
+        setCurrentPage(pwa ? ActivePage.AppDashboard : ActivePage.Home);
+        if (pwa) setLoginOnMount(true);
+      }
+    });
     return () => subscription.unsubscribe();
-  }, []);
+  }, [routeSession, pwa]);
 
   const renderActiveView = () => {
     switch (currentPage) {
@@ -107,7 +126,12 @@ export default function App() {
   return (
     <div className={`min-h-screen flex flex-col ${isAppView ? 'bg-slate-900' : 'bg-slate-50/30'}`}>
       {!isAppView && (
-        <Header currentPage={currentPage} setCurrentPage={setCurrentPage} setInitialMobile={setInitialMobile} setLoginOnMount={setLoginOnMount} />
+        <Header
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          setInitialMobile={setInitialMobile}
+          setLoginOnMount={setLoginOnMount}
+        />
       )}
       <main className="flex-grow">{renderActiveView()}</main>
       {!isAppView && <Footer setCurrentPage={setCurrentPage} />}

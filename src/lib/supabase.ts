@@ -278,6 +278,32 @@ export async function adminSendPasswordReset(email: string): Promise<void> {
   if (error) throw error;
 }
 
+export async function adminSetPassword(userIdOrEmail: string, newPassword: string): Promise<void> {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) throw new Error('No hay sesión activa');
+  const body: Record<string, string> = { new_password: newPassword };
+  if (userIdOrEmail.includes('@')) {
+    body.email = userIdOrEmail;
+  } else {
+    body.user_id = userIdOrEmail;
+  }
+  const res = await fetch(
+    `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-admin-set-password`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.access_token}`,
+      },
+      body: JSON.stringify(body),
+    },
+  );
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error ?? `Error ${res.status}`);
+  }
+}
+
 export async function adminUpdateOrgPlan(
   orgId: string,
   plan: TradeSubscription['plan'],
