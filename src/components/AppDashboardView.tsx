@@ -509,7 +509,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // Resultado real de la IA: mapea items al catálogo y actualiza el presupuesto
   const handleVoiceResult = (
     transcript: string,
-    items: Array<{ descripcion: string; tipo: string; cantidad: number; unidad: string }>,
+    items: Array<{ descripcion: string; tipo: string; cantidad: number; unidad?: string; source_type?: string; confidence_score?: number; requires_review?: boolean }>,
   ) => {
     const partidas: PartidaPresupuesto[] = items.map(item => {
       const cantidad = item.cantidad ?? 1;
@@ -599,7 +599,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         const err = await res.json().catch(() => ({ error: 'Error del servidor' }));
         throw new Error(err.error ?? `HTTP ${res.status}`);
       }
-      const result: { transcript: string; items: Array<{ descripcion: string; tipo: string; cantidad: number; unidad: string }> } = await res.json();
+      const result: { transcript: string; template_code?: string; items: Array<{ descripcion: string; tipo: string; cantidad: number; source_type?: string; confidence_score?: number; requires_review?: boolean }> } = await res.json();
       handleVoiceResult(result.transcript, result.items);
     } catch (e: any) {
       showToast('Error al procesar audio: ' + e.message, 'error');
@@ -698,11 +698,43 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setShowFloatingMenu(false);
   };
 
-  const handleNextWizardStep = async () => {
-    if (wizardStep === 1 && !wizardQuote.nombreCliente) {
-      showToast('Selecciona un cliente para continuar', 'error');
-      return;
+  const [showQuickClientModal, setShowQuickClientModal] = useState(false);
+  const [quickClientName, setQuickClientName] = useState('');
+  const [quickClientPhone, setQuickClientPhone] = useState('');
+  const [quickClientEmail, setQuickClientEmail] = useState('');
+
+  const finishWizardAndSave = async (clientName: string, clientPhone: string) => {
+    const finalQuote = { ...wizardQuote, nombreCliente: clientName || 'Sin nombre', telefonoCliente: clientPhone } as Presupuesto;
+    let savedQuote = finalQuote;
+    if (isLiveMode && orgId && finalQuote.partidas?.length) {
+      const existingClient = clientes.find(c => c.nombre === clientName);
+      let clientId = existingClient?.id;
+      if (!clientId && clientName.trim()) {
+        try {
+          const nc = await addClient(orgId, { nombre: clientName.trim(), telefono: clientPhone.trim() || undefined, email: quickClientEmail.trim() || undefined });
+          if (nc) { clientId = nc.id; setClientes(prev => [nc as unknown as Cliente, ...prev]); }
+        } catch { /* skip */ }
+      }
+      if (clientId) {
+        try {
+          const dbQuote = await saveQuote(
+            orgId, clientId, finalQuote.descripcion ?? '',
+            (finalQuote.partidas ?? []).map(p => ({ descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precio_unitario: p.precioUnitario })),
+          );
+          savedQuote = { ...finalQuote, id: dbQuote.numero, total: dbQuote.total_neto, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
+        } catch (e) { console.error('Error guardando presupuesto:', e); }
+      }
     }
+    setPresupuestos(prev => [savedQuote, ...prev]);
+    setTargetQuoteForWhatsApp(savedQuote);
+    setWhatsAppStep('confirm');
+    setShowWhatsAppModal(true);
+    setWizardActive(false);
+    setShowQuickClientModal(false);
+    setMobileTab('presupuestos');
+  };
+
+  const handleNextWizardStep = async () => {
     if (wizardStep === 4 && (!wizardQuote.partidas || wizardQuote.partidas.length === 0)) {
       showToast('Añada al menos una partida de presupuesto', 'error');
       return;
@@ -711,30 +743,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     if (wizardStep < 5) {
       setWizardStep(prev => prev + 1);
     } else {
-      const finalQuote = wizardQuote as Presupuesto;
-      let savedQuote = finalQuote;
-
-      if (isLiveMode && orgId && finalQuote.partidas?.length) {
-        const client = clientes.find(c => c.nombre === finalQuote.nombreCliente);
-        if (client) {
-          try {
-            const dbQuote = await saveQuote(
-              orgId, client.id, finalQuote.descripcion ?? '',
-              (finalQuote.partidas ?? []).map(p => ({ descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precio_unitario: p.precioUnitario })),
-            );
-            savedQuote = { ...finalQuote, id: dbQuote.numero, total: dbQuote.total_neto, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
-          } catch (e) {
-            console.error('Error guardando presupuesto:', e);
-          }
-        }
+      if (wizardQuote.nombreCliente) {
+        await finishWizardAndSave(wizardQuote.nombreCliente, wizardQuote.telefonoCliente ?? '');
+      } else {
+        setQuickClientName('');
+        setQuickClientPhone('');
+        setQuickClientEmail('');
+        setShowQuickClientModal(true);
       }
-
-      setPresupuestos(prev => [savedQuote, ...prev]);
-      setTargetQuoteForWhatsApp(savedQuote);
-      setWhatsAppStep('confirm');
-      setShowWhatsAppModal(true);
-      setWizardActive(false);
-      setMobileTab('presupuestos');
     }
   };
 
@@ -2130,9 +2146,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {/* PASO 3: AÑADIR FOTOS */}
           {wizardStep === 3 && (
             <div className="space-y-4">
-              <div className="space-y-1">
-                <h3 className="text-sm font-display font-bold uppercase">Paso 3: Añadir Fotografía</h3>
-                <p className="text-[10.5px] text-slate-450 leading-relaxed font-sans">Toma fotos de equipos viejos o averías. La IA identificará los recambios automáticamente.</p>
+              <div className="flex items-start justify-between gap-2">
+                <div className="space-y-1">
+                  <h3 className="text-sm font-display font-bold uppercase">Paso 3: Añadir Fotografía</h3>
+                  <p className="text-[10.5px] text-slate-450 leading-relaxed font-sans">Opcional — Toma foto de equipos viejos o averías para que la IA identifique recambios.</p>
+                </div>
+                <button
+                  onClick={() => setWizardStep(4)}
+                  className="shrink-0 text-[9.5px] font-bold uppercase text-slate-400 hover:text-blue-500 cursor-pointer transition-colors whitespace-nowrap pt-0.5"
+                >
+                  Saltar →
+                </button>
               </div>
 
               {/* Preset selector */}
@@ -2330,14 +2354,62 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               Atrás
             </button>
           )}
-          
           <button
             onClick={handleNextWizardStep}
             className="flex-grow bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-2xl text-[10px] uppercase tracking-wider text-center block cursor-pointer shadow-sm transition-transform active:scale-99"
           >
-            {wizardStep === 5 ? 'Enviar por WhatsApp 💬' : 'Siguiente ➔'}
+            {wizardStep === 5 ? 'Guardar y enviar 💬' : 'Siguiente ➔'}
           </button>
         </div>
+
+        {/* Modal: asignar cliente al finalizar */}
+        {showQuickClientModal && (
+          <div className="absolute inset-0 z-50 flex items-end bg-black/50">
+            <div className="w-full bg-white dark:bg-slate-900 rounded-t-3xl p-5 space-y-4">
+              <div>
+                <h3 className="font-bold text-sm uppercase tracking-wide">¿A quién va este presupuesto?</h3>
+                <p className="text-[10.5px] text-slate-450 mt-0.5">Añade nombre y teléfono para enviarlo por WhatsApp.</p>
+              </div>
+              <div className="space-y-3">
+                <input
+                  type="text"
+                  placeholder="Nombre del cliente *"
+                  value={quickClientName}
+                  onChange={e => setQuickClientName(e.target.value)}
+                  className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+                />
+                <input
+                  type="tel"
+                  placeholder="Teléfono (WhatsApp)"
+                  value={quickClientPhone}
+                  onChange={e => setQuickClientPhone(e.target.value)}
+                  className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+                />
+                <input
+                  type="email"
+                  placeholder="Email (opcional)"
+                  value={quickClientEmail}
+                  onChange={e => setQuickClientEmail(e.target.value)}
+                  className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => finishWizardAndSave('Sin nombre', '')}
+                  className="flex-1 py-3 rounded-xl text-[10px] font-bold uppercase text-slate-500 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                >
+                  Saltar
+                </button>
+                <button
+                  onClick={() => finishWizardAndSave(quickClientName || 'Sin nombre', quickClientPhone)}
+                  className="flex-1 py-3 rounded-xl text-[10px] font-bold uppercase bg-blue-600 text-white cursor-pointer"
+                >
+                  Guardar y enviar 💬
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
       </div>
     );
