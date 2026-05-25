@@ -372,7 +372,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     provincia: 'Sevilla',
     pais: 'España',
     ivaDefault: 21,
-    planSuscripcion: 'Profesional (Pro)'
+    planSuscripcion: 'Profesional (Pro)',
+    valorHoraOperario: 45,
   });
 
   const [trabajadores, setTrabajadores] = useState<TrabajadorItem[]>([
@@ -957,6 +958,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     });
   };
 
+  const handleUpdateWizardItem = (idx: number, updates: Partial<PartidaPresupuesto>) => {
+    setWizardQuote(prev => {
+      const partidas = (prev.partidas || []).map((item, i) => {
+        if (i !== idx) return item;
+        const updated = { ...item, ...updates };
+        if ('cantidad' in updates || 'precioUnitario' in updates) {
+          updated.total = (updated.cantidad || 0) * (updated.precioUnitario || 0);
+        }
+        return updated;
+      });
+      return { ...prev, partidas, total: partidas.reduce((s, p) => s + p.total, 0) };
+    });
+  };
+
   const saveCurrentQuote = async () => {
     if (!editingQuote.nombreCliente) { showToast('Selecciona un cliente', 'error'); return; }
     if (editingQuote.partidas.length === 0) { showToast('Añade al menos una partida', 'error'); return; }
@@ -1149,7 +1164,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       {/* ================= NÚCLEO DEL CONTENEDOR DE LA APLICACIÓN ================= */}
       {isNativeDevice ? (
         /* ===== MODO NATIVO: fullscreen sin frame, sin console header ===== */
-        <AppContentMobile />
+        AppContentMobile()
       ) : (
       <div className="flex-grow flex items-center justify-center p-0 md:p-6 overflow-hidden">
 
@@ -1174,7 +1189,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
             {/* Pantalla del teléfono */}
             <div className="flex-grow overflow-y-auto flex flex-col bg-slate-50 dark:bg-slate-950 relative">
-              <AppContentMobile />
+              {AppContentMobile()}
             </div>
 
             {/* Indicador de inicio inferior del iPhone */}
@@ -1183,7 +1198,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         ) : (
           /* ================= VISTA COMPLETA DE ESCRITORIO ================= */
           <div className="w-full max-w-7xl h-[calc(100vh-120px)] min-h-[580px] bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-850 shadow-lg flex overflow-hidden">
-            <AppContentDesktop />
+            {AppContentDesktop()}
           </div>
         )}
       </div>
@@ -1529,7 +1544,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   function AppContentMobile() {
     // Si el Wizard paso a paso está activo
     if (wizardActive) {
-      return <MobileWizardView />;
+      return MobileWizardView();
     }
 
     return (
@@ -2239,31 +2254,84 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
               )}
 
-              {/* Listado simplificado de partidas */}
+              {/* Listado editable de partidas */}
               <div className="space-y-2">
                 {wizardQuote.partidas?.map((part, idx) => (
-                  <div 
+                  <div
                     key={idx}
-                    className="bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 p-3 rounded-2xl flex items-center justify-between text-xs"
+                    className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-2xl space-y-2 text-xs"
                   >
-                    <div className="pr-2 truncate w-[60%]">
-                      <span className="font-bold block truncate">{part.descripcion}</span>
-                      <span className="text-[9.5px] font-mono text-slate-400 uppercase">
-                        {part.tipo === 'material' ? '📦 Material' : '🛠️ Mano Obra'} x{part.cantidad}
-                      </span>
+                    {/* Descripción editable */}
+                    <div className="flex items-center gap-2">
+                      <span className="text-[9px] shrink-0">{part.tipo === 'material' ? '📦' : '🛠️'}</span>
+                      <input
+                        type="text"
+                        value={part.descripcion}
+                        onChange={e => handleUpdateWizardItem(idx, { descripcion: e.target.value })}
+                        className="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
+                      />
+                      <button onClick={() => handleRemoveItem(idx)} className="text-slate-400 hover:text-red-500 p-1 shrink-0">
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
                     </div>
 
-                    <div className="flex items-center gap-3 shrink-0 text-right">
-                      <div>
-                        <span className="text-[8.5px] font-mono block text-slate-400">Total:</span>
-                        <span className="font-bold font-mono text-slate-850 dark:text-white">{part.total.toFixed(0)}€</span>
-                      </div>
-                      <button 
-                        onClick={() => handleRemoveItem(idx)}
-                        className="text-slate-400 hover:text-red-500 p-1"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </button>
+                    {/* Controles cantidad / precio / total */}
+                    <div className="flex items-center gap-2">
+                      {part.tipo === 'mano_de_obra' ? (
+                        <>
+                          <div className="flex-1 flex items-center gap-1.5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-lg px-2.5 py-1.5">
+                            <input
+                              type="number"
+                              min="0.5"
+                              step="0.5"
+                              value={part.cantidad}
+                              onChange={e => handleUpdateWizardItem(idx, {
+                                cantidad: parseFloat(e.target.value) || 1,
+                                precioUnitario: empresaAjustes.valorHoraOperario,
+                              })}
+                              className="w-12 bg-transparent text-center text-xs font-bold text-amber-700 dark:text-amber-300 focus:outline-none"
+                            />
+                            <span className="text-[9px] text-amber-600 dark:text-amber-400 font-mono whitespace-nowrap">h × {empresaAjustes.valorHoraOperario}€/h</span>
+                          </div>
+                          <span className="text-[9px] text-slate-400">o precio manual:</span>
+                          <input
+                            type="number"
+                            step="0.01"
+                            value={part.precioUnitario || ''}
+                            placeholder="€/h"
+                            onChange={e => handleUpdateWizardItem(idx, { precioUnitario: parseFloat(e.target.value) || 0 })}
+                            className="w-16 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-right text-xs font-mono text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[9px] text-slate-400 whitespace-nowrap">Cant.</span>
+                            <input
+                              type="number"
+                              min="1"
+                              step="1"
+                              value={part.cantidad}
+                              onChange={e => handleUpdateWizardItem(idx, { cantidad: parseFloat(e.target.value) || 1 })}
+                              className="w-14 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-center text-xs font-bold text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
+                            />
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[9px] text-slate-400 whitespace-nowrap">P/ud</span>
+                            <input
+                              type="number"
+                              step="0.01"
+                              value={part.precioUnitario || ''}
+                              placeholder="0.00"
+                              onChange={e => handleUpdateWizardItem(idx, { precioUnitario: parseFloat(e.target.value) || 0 })}
+                              className="w-20 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-right text-xs font-mono text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
+                            />
+                          </div>
+                        </>
+                      )}
+                      <span className="ml-auto font-bold font-mono text-slate-900 dark:text-white whitespace-nowrap">
+                        {part.total.toFixed(2)}€
+                      </span>
                     </div>
                   </div>
                 ))}
@@ -3481,7 +3549,44 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </button>
         </div>
 
-        {/* ── 2. Trabajadores ── */}
+        {/* ── 2. Tarifas de mano de obra ── */}
+        <div className={sec}>
+          <h3 className={secTitle}>Tarifas de Mano de Obra</h3>
+          <p className="text-[10px] text-slate-400 leading-relaxed">
+            El asistente de voz usa estas tarifas para calcular automáticamente el coste de mano de obra en cada presupuesto. Puedes ajustar las horas y el importe manualmente en cada presupuesto.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/40 rounded-xl p-4 space-y-2">
+              <span className="text-[9px] font-mono font-bold text-amber-600 dark:text-amber-400 uppercase block">Tarifa hora operario</span>
+              <div className="flex items-center gap-2">
+                <input
+                  type="number"
+                  min={0}
+                  step={0.5}
+                  value={empresaAjustes.valorHoraOperario}
+                  onChange={e => setEmpresaAjustes(p => ({ ...p, valorHoraOperario: parseFloat(e.target.value) || 0 }))}
+                  className="w-20 bg-white dark:bg-slate-900 border border-amber-300 dark:border-amber-700 rounded-lg px-2.5 py-2 text-sm font-bold font-mono text-slate-800 dark:text-white focus:outline-none focus:border-amber-500"
+                />
+                <span className="text-xs text-slate-500 font-mono">€ / hora</span>
+              </div>
+              <p className="text-[9px] text-slate-400">Aplicado automáticamente a partidas de mano de obra en el asistente de voz.</p>
+            </div>
+            <div className="sm:col-span-2 bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-2">
+              <span className="text-[9px] font-mono font-bold text-slate-400 uppercase block">Cómo funciona</span>
+              <ul className="text-[10px] text-slate-500 space-y-1.5 leading-relaxed">
+                <li>• Dices "instalar grifo, 2 horas" → el asistente calcula <span className="font-mono font-bold text-amber-600 dark:text-amber-400">2 h × {empresaAjustes.valorHoraOperario}€ = {empresaAjustes.valorHoraOperario * 2}€</span></li>
+                <li>• En el paso 4 del presupuesto puedes ajustar las horas o poner un importe fijo manualmente.</li>
+                <li>• El precio del material siempre viene de tu catálogo de productos.</li>
+              </ul>
+            </div>
+          </div>
+          <button onClick={handleSaveFiscal}
+            className="mt-1 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-lg transition-colors cursor-pointer">
+            Guardar tarifa hora
+          </button>
+        </div>
+
+        {/* ── 3. Trabajadores ── */}
         <div className={sec}>
           <div className="flex items-center justify-between">
             <h3 className={secTitle}>Trabajadores y Técnicos</h3>
