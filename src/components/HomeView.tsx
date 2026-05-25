@@ -5,8 +5,8 @@
 
 import { useState } from 'react';
 import { ActivePage, TradeType, Testimonial } from '../types';
-import { Mic, Image as ImageIcon, FileText, Send, Smartphone, TrendingUp, AlertTriangle, CheckCircle, Clock, Users, ArrowRight, Star, ShieldCheck, HelpCircle } from 'lucide-react';
-import { motion } from 'motion/react';
+import { Mic, Image as ImageIcon, FileText, Send, Smartphone, TrendingUp, AlertTriangle, CheckCircle, Clock, Users, ArrowRight, Star, ShieldCheck, HelpCircle, X, Download } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface HomeViewProps {
   setCurrentPage: (page: ActivePage) => void;
@@ -16,6 +16,16 @@ interface HomeViewProps {
 
 export default function HomeView({ setCurrentPage, setPreselectedTrade, setInitialMobile }: HomeViewProps) {
   const [selectedTradeTab, setSelectedTradeTab] = useState<TradeType>('Fontanería');
+  const [showCartelModal, setShowCartelModal] = useState(false);
+
+  const handleDownloadCartel = () => {
+    const a = document.createElement('a');
+    a.href = '/cartel.png';
+    a.download = 'TrabFlow-cartel.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
 
   const handleGoToApp = (isMobile: boolean) => {
     if (setInitialMobile) {
@@ -154,7 +164,87 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade, setIniti
           </div>
 
           {/* Hero right visual asset */}
-          <div className="lg:col-span-5 relative mt-6 lg:mt-0 flex justify-center">
+          <div className="lg:col-span-5 relative mt-6 lg:mt-0 flex flex-col items-center gap-5">
+            {/* Cartel promotional card */}
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="w-full max-w-[305px] group cursor-pointer"
+              onClick={() => setShowCartelModal(true)}
+            >
+              <div className="relative rounded-lg overflow-hidden border-2 border-blue-200 shadow-md hover:shadow-xl transition-all hover:border-blue-400 hover:scale-[1.01]">
+                <img
+                  src="/cartel.png"
+                  alt="Cartel TrabFlow — haz clic para ampliar"
+                  className="w-full object-cover"
+                  style={{ maxHeight: '180px', objectPosition: 'top' }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent flex flex-col justify-end p-3 gap-2">
+                  <span className="text-white text-[10px] font-bold uppercase tracking-widest font-mono">Material de captación</span>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={e => { e.stopPropagation(); setShowCartelModal(true); }}
+                      className="flex-1 bg-white/20 backdrop-blur-sm hover:bg-white/35 border border-white/30 text-white text-[9px] font-bold uppercase tracking-wider py-1.5 px-2 rounded-lg transition-all cursor-pointer"
+                    >
+                      Ver cartel
+                    </button>
+                    <button
+                      onClick={e => { e.stopPropagation(); handleDownloadCartel(); }}
+                      className="flex-1 bg-blue-600/90 hover:bg-blue-600 border border-blue-500/50 text-white text-[9px] font-bold uppercase tracking-wider py-1.5 px-2 rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1"
+                    >
+                      <Download className="h-3 w-3" />
+                      Descargar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Modal cartel */}
+            <AnimatePresence>
+              {showCartelModal && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+                  onClick={() => setShowCartelModal(false)}
+                >
+                  <motion.div
+                    initial={{ scale: 0.92, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.92, opacity: 0 }}
+                    transition={{ type: 'spring', stiffness: 280, damping: 24 }}
+                    className="relative max-h-[90vh] max-w-[500px] w-full"
+                    onClick={e => e.stopPropagation()}
+                  >
+                    <img
+                      src="/cartel.png"
+                      alt="Cartel TrabFlow"
+                      className="w-full h-full object-contain rounded-xl shadow-2xl"
+                    />
+                    <div className="absolute top-3 right-3 flex gap-2">
+                      <button
+                        onClick={handleDownloadCartel}
+                        className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg shadow-lg cursor-pointer transition-colors"
+                        title="Descargar cartel"
+                      >
+                        <Download className="h-4 w-4" />
+                      </button>
+                      <button
+                        onClick={() => setShowCartelModal(false)}
+                        className="bg-white/10 hover:bg-white/20 text-white p-2 rounded-lg shadow-lg cursor-pointer transition-colors"
+                        title="Cerrar"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {/* Visual device canvas */}
             <div className="relative w-full max-w-[305px] bg-slate-50 rounded border border-slate-200 p-4 shadow-sm aspect-[9/16] overflow-hidden">
               {/* Simulated active App body */}

@@ -867,10 +867,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [selectedQuoteForPreview, setSelectedQuoteForPreview] = useState<Presupuesto | null>(null);
 
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const filteredClientes = clientes.filter(c =>
-    c.nombre.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    c.telefono.includes(searchQuery)
-  );
+  const filteredClientes = clientes.filter(c => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.toLowerCase().trim();
+    return (
+      c.nombre.toLowerCase().includes(q) ||
+      (c.telefono ?? '').toLowerCase().includes(q) ||
+      (c.email    ?? '').toLowerCase().includes(q) ||
+      (c.direccion ?? '').toLowerCase().includes(q)
+    );
+  });
 
   const [isClientModalOpen, setIsClientModalOpen] = useState<boolean>(false);
   const [newClient, setNewClient] = useState<Partial<Cliente>>({ nombre: '', telefono: '', email: '', direccion: '' });
@@ -3482,12 +3488,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       );
     }
 
+    // Handlers inline (no hooks — only closures sobre estado del padre)
+    const handleExportCatalogFromTab = async () => {
+      let items: TradeTarifa[];
+      if (isLiveMode && orgId) {
+        items = await exportCatalog(orgId);
+      } else {
+        items = tarifas.map(t => ({ id: t.id, org_id: orgId ?? '', codigo: t.codigo || undefined, familia: t.familia, descripcion: t.descripcion, precio_base: t.precioBase, unidad: t.unidad, activo: t.activo, created_at: '', updated_at: '' }));
+      }
+      const wb = generateExportWorkbook(items);
+      downloadWorkbook(wb, `catalogo-trabflow-${new Date().toISOString().split('T')[0]}.xlsx`);
+      showToast('Catálogo exportado ✓', 'success');
+    };
+
     return (
       <div className="p-5 space-y-5 overflow-y-auto h-full">
 
         {/* Header barra */}
         <div className="flex flex-wrap items-center gap-3">
-          <div className="relative flex-1 min-w-[200px] max-w-sm">
+          <div className="relative flex-1 min-w-[180px] max-w-sm">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
             <input
               type="text"
@@ -3498,7 +3517,50 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             />
           </div>
           <span className="text-[10px] text-slate-400 font-mono">{filtered.length} productos · {catalogProducts.reduce((s, p) => s + (p.trade_catalog_variants?.length ?? 0), 0)} variantes</span>
+          {/* Botones importar/exportar catálogo de tarifas */}
+          <div className="flex gap-2 ml-auto">
+            <button
+              onClick={() => setShowCatalogImport(true)}
+              className="flex items-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+              title="Importar desde Excel"
+            >
+              <Upload className="h-3 w-3" />
+              Importar
+            </button>
+            <button
+              onClick={handleExportCatalogFromTab}
+              className="flex items-center gap-1 bg-slate-700 hover:bg-slate-600 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+              title="Exportar a Excel"
+            >
+              <FileText className="h-3 w-3" />
+              Exportar
+            </button>
+            <button
+              onClick={() => { const wb = generateTemplateWorkbook(); downloadWorkbook(wb, 'plantilla-catalogo-trabflow.xlsx'); showToast('Plantilla descargada ✓', 'success'); }}
+              className="flex items-center gap-1 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+              title="Descargar plantilla Excel vacía"
+            >
+              <FilePlus className="h-3 w-3" />
+              Plantilla
+            </button>
+          </div>
         </div>
+
+        {/* Modal importación — comparte estado con ScreenSettings */}
+        {showCatalogImport && (
+          <CatalogImportModal
+            orgId={orgId}
+            isLiveMode={isLiveMode}
+            onDone={(inserted, updated, errors) => {
+              setShowCatalogImport(false);
+              showToast(`Catálogo importado: ${inserted} nuevos, ${updated} actualizados${errors > 0 ? `, ${errors} errores` : ''}`, errors > 0 ? 'info' : 'success');
+              if (isLiveMode && orgId) {
+                loadTarifas(orgId).then(data => setTarifas(data.map((t: TradeTarifa) => ({ id: t.id, codigo: t.codigo ?? '', familia: t.familia, descripcion: t.descripcion, precioBase: t.precio_base, unidad: t.unidad, activo: t.activo }))));
+              }
+            }}
+            onClose={() => setShowCatalogImport(false)}
+          />
+        )}
 
         {catalogProducts.length === 0 && (
           <div className="text-center py-12">
