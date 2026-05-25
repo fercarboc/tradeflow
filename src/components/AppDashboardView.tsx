@@ -1603,11 +1603,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               : '80px',
           }}
         >
-          {mobileTab === 'inicio' && <MobileScreenInicio />}
-          {mobileTab === 'presupuestos' && <MobileScreenPresupuestos />}
-          {mobileTab === 'clientes' && <MobileScreenClientes />}
-          {mobileTab === 'facturas' && <MobileScreenFacturas />}
-          {activeTab === 'settings' && isNativeDevice && <ScreenSettings />}
+          {mobileTab === 'inicio' && MobileScreenInicio()}
+          {mobileTab === 'presupuestos' && MobileScreenPresupuestos()}
+          {mobileTab === 'clientes' && MobileScreenClientes()}
+          {mobileTab === 'facturas' && MobileScreenFacturas()}
+          {activeTab === 'settings' && isNativeDevice && ScreenSettings()}
         </div>
 
         {/* BOTTOM TAB BAR + FAB */}
@@ -1619,8 +1619,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           }}
         >
           
-          <MobileTabButton tab="inicio" icon={<TrendingUp className="w-5 h-5" />} label="Inicio" />
-          <MobileTabButton tab="presupuestos" icon={<FileText className="w-5 h-5" />} label="Presupuestos" />
+          {MobileTabButton({ tab: 'inicio', icon: <TrendingUp className="w-5 h-5" />, label: 'Inicio' })}
+          {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
           
           {/* Botón Flotante + Nuevo */}
           <div className="absolute left-1/2 -translate-x-1/2 -top-5">
@@ -1634,8 +1634,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
           <div /> {/* Spacer para el botón flotante */}
 
-          <MobileTabButton tab="clientes" icon={<Users className="w-5 h-5" />} label="Clientes" />
-          <MobileTabButton tab="facturas" icon={<InvoiceIcon className="w-5 h-5" />} label="Facturas" />
+          {MobileTabButton({ tab: 'clientes', icon: <Users className="w-5 h-5" />, label: 'Clientes' })}
+          {MobileTabButton({ tab: 'facturas', icon: <InvoiceIcon className="w-5 h-5" />, label: 'Facturas' })}
         </div>
 
         {/* Menú Flotante inferior (Bottom Sheet) */}
@@ -2501,12 +2501,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
           {/* Enlaces sidebar */}
           <nav className="flex-grow p-4 space-y-1">
-            <SidebarBtn id="dashboard" icon={<TrendingUp className="w-4 h-4" />} label="Panel Control" />
-            <SidebarBtn id="create_quote" icon={<FilePlus className="w-4 h-4" />} label="Crear Presupuesto" />
-            <SidebarBtn id="ai_scan" icon={<ImageIcon className="w-4 h-4" />} label="Escaneo Foto IA" />
-            <SidebarBtn id="crm" icon={<Users className="w-4 h-4" />} label="Clientes CRM" />
-            <SidebarBtn id="invoices" icon={<FileText className="w-4 h-4" />} label="Facturación" />
-            <SidebarBtn id="settings" icon={<SettingsIcon className="w-4 h-4" />} label="Ajustes y Tarifas" />
+            {SidebarBtn({ id: 'dashboard', icon: <TrendingUp className="w-4 h-4" />, label: 'Panel Control' })}
+            {SidebarBtn({ id: 'create_quote', icon: <FilePlus className="w-4 h-4" />, label: 'Crear Presupuesto' })}
+            {SidebarBtn({ id: 'ai_scan', icon: <ImageIcon className="w-4 h-4" />, label: 'Escaneo Foto IA' })}
+            {SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
+            {SidebarBtn({ id: 'invoices', icon: <FileText className="w-4 h-4" />, label: 'Facturación' })}
+            {SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
           <div className="p-4 border-t border-slate-855 bg-slate-950/20 text-center space-y-2">
@@ -2579,13 +2579,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 className="h-full"
               >
-                {activeTab === 'dashboard' && <ScreenDashboard />}
-                {activeTab === 'create_quote' && <ScreenCreateQuote />}
-                {activeTab === 'ai_scan' && <ScreenAIScan />}
-                {activeTab === 'crm' && <ScreenCRM />}
-                {activeTab === 'invoices' && <ScreenInvoices />}
-                {activeTab === 'settings' && <ScreenSettings />}
-                {activeTab === 'preview' && <ScreenPreview />}
+                {activeTab === 'dashboard' && ScreenDashboard()}
+                {activeTab === 'create_quote' && ScreenCreateQuote()}
+                {activeTab === 'ai_scan' && ScreenAIScan()}
+                {activeTab === 'crm' && ScreenCRM()}
+                {activeTab === 'invoices' && ScreenInvoices()}
+                {activeTab === 'settings' && ScreenSettings()}
+                {activeTab === 'preview' && ScreenPreview()}
               </motion.div>
             </AnimatePresence>
           </div>
