@@ -45,7 +45,8 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData } from '../lib/supabase';
+import type { TradeWorker, TradeTarifa } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 
 const InvoiceIcon = FileText;
@@ -126,6 +127,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           provincia:    (org as any).provincia ?? prev.provincia,
           pais:         (org as any).pais ?? prev.pais,
         }));
+        const [workersRes, tarifasRes] = await Promise.all([
+          loadWorkers(org.id),
+          loadTarifas(org.id),
+        ]);
+        setTrabajadores(workersRes.map((w: TradeWorker) => ({ id: w.id, nombre: w.nombre, telefono: w.telefono ?? '', email: w.email ?? '', rol: w.rol as TrabajadorItem['rol'], activo: w.activo })));
+        setTarifas(tarifasRes.map((t: TradeTarifa) => ({ id: t.id, codigo: t.codigo ?? '', familia: t.familia, descripcion: t.descripcion, precioBase: t.precio_base, unidad: t.unidad, activo: t.activo })));
       }
       showToast(`Datos reales cargados ✓`, 'success');
     } catch (e) {
@@ -2719,36 +2726,54 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
     const handleAddWorker = async () => {
       if (!newWorkerDraft.nombre.trim()) return;
-      const newW: TrabajadorItem = { id: Date.now().toString(), ...newWorkerDraft, activo: true };
-      setTrabajadores(prev => [...prev, newW]);
       if (isLiveMode && orgId) {
-        await supabase.from('trade_workers').insert({ org_id: orgId, nombre: newW.nombre, telefono: newW.telefono, email: newW.email, rol: newW.rol });
+        try {
+          const saved = await addWorker(orgId, newWorkerDraft);
+          setTrabajadores(prev => [...prev, { id: saved.id, nombre: saved.nombre, telefono: saved.telefono ?? '', email: saved.email ?? '', rol: saved.rol as TrabajadorItem['rol'], activo: true }]);
+          showToast('Trabajador añadido ✓', 'success');
+        } catch (e: any) {
+          showToast('Error al guardar: ' + e.message, 'error');
+          return;
+        }
+      } else {
+        setTrabajadores(prev => [...prev, { id: Date.now().toString(), ...newWorkerDraft, activo: true }]);
+        showToast('Trabajador añadido (demo) ✓', 'success');
       }
       setNewWorkerDraft({ nombre: '', telefono: '', email: '', rol: 'tecnico' });
       setShowAddWorker(false);
-      showToast('Trabajador añadido ✓', 'success');
     };
 
     const handleDeleteWorker = async (id: string) => {
       setTrabajadores(prev => prev.filter(w => w.id !== id));
-      if (isLiveMode) await supabase.from('trade_workers').delete().eq('id', id);
+      if (isLiveMode) {
+        try { await deleteWorker(id); } catch { /* ignorar */ }
+      }
     };
 
     const handleAddTarifa = async () => {
       if (!newTarifaDraft.descripcion.trim()) return;
-      const newT: TarifaItem = { id: Date.now().toString(), ...newTarifaDraft, activo: true };
-      setTarifas(prev => [...prev, newT]);
       if (isLiveMode && orgId) {
-        await supabase.from('trade_tarifas').insert({ org_id: orgId, codigo: newT.codigo, familia: newT.familia, descripcion: newT.descripcion, precio_base: newT.precioBase, unidad: newT.unidad });
+        try {
+          const saved = await addTarifa(orgId, { codigo: newTarifaDraft.codigo, familia: newTarifaDraft.familia, descripcion: newTarifaDraft.descripcion, precio_base: newTarifaDraft.precioBase, unidad: newTarifaDraft.unidad });
+          setTarifas(prev => [...prev, { id: saved.id, codigo: saved.codigo ?? '', familia: saved.familia, descripcion: saved.descripcion, precioBase: saved.precio_base, unidad: saved.unidad, activo: true }]);
+          showToast('Tarifa añadida ✓', 'success');
+        } catch (e: any) {
+          showToast('Error al guardar: ' + e.message, 'error');
+          return;
+        }
+      } else {
+        setTarifas(prev => [...prev, { id: Date.now().toString(), ...newTarifaDraft, activo: true }]);
+        showToast('Tarifa añadida (demo) ✓', 'success');
       }
       setNewTarifaDraft({ codigo: '', familia: 'General', descripcion: '', precioBase: 0, unidad: 'ud' });
       setShowAddTarifa(false);
-      showToast('Tarifa añadida ✓', 'success');
     };
 
     const handleDeleteTarifa = async (id: string) => {
       setTarifas(prev => prev.filter(t => t.id !== id));
-      if (isLiveMode) await supabase.from('trade_tarifas').delete().eq('id', id);
+      if (isLiveMode) {
+        try { await deleteTarifa(id); } catch { /* ignorar */ }
+      }
     };
 
     return (

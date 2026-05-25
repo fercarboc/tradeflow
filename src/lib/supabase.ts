@@ -347,3 +347,106 @@ export async function submitWaitlist(entry: TradeWaitlistEntry): Promise<void> {
   const { error } = await supabase.from('trade_waitlist').insert(entry);
   if (error) throw error;
 }
+
+// ── Trabajadores ──────────────────────────────────────────────────────────
+
+export interface TradeWorker {
+  id: string;
+  org_id: string;
+  nombre: string;
+  telefono?: string;
+  email?: string;
+  rol: string;
+  activo: boolean;
+  notas?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function loadWorkers(orgId: string): Promise<TradeWorker[]> {
+  const { data } = await supabase
+    .from('trade_workers')
+    .select('*')
+    .eq('org_id', orgId)
+    .eq('activo', true)
+    .order('nombre');
+  return (data ?? []) as TradeWorker[];
+}
+
+export async function addWorker(
+  orgId: string,
+  worker: Pick<TradeWorker, 'nombre' | 'telefono' | 'email' | 'rol'>,
+): Promise<TradeWorker> {
+  const { data, error } = await supabase
+    .from('trade_workers')
+    .insert({ org_id: orgId, ...worker })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as TradeWorker;
+}
+
+export async function deleteWorker(id: string): Promise<void> {
+  await supabase.from('trade_workers').update({ activo: false }).eq('id', id);
+}
+
+// ── Tarifas ───────────────────────────────────────────────────────────────
+
+export interface TradeTarifa {
+  id: string;
+  org_id: string;
+  codigo?: string;
+  familia: string;
+  descripcion: string;
+  precio_base: number;
+  unidad: string;
+  activo: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function loadTarifas(orgId: string): Promise<TradeTarifa[]> {
+  const { data } = await supabase
+    .from('trade_tarifas')
+    .select('*')
+    .eq('org_id', orgId)
+    .eq('activo', true)
+    .order('familia')
+    .order('descripcion');
+  return (data ?? []) as TradeTarifa[];
+}
+
+export async function addTarifa(
+  orgId: string,
+  tarifa: Pick<TradeTarifa, 'codigo' | 'familia' | 'descripcion' | 'precio_base' | 'unidad'>,
+): Promise<TradeTarifa> {
+  const { data, error } = await supabase
+    .from('trade_tarifas')
+    .insert({ org_id: orgId, ...tarifa })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as TradeTarifa;
+}
+
+export async function deleteTarifa(id: string): Promise<void> {
+  await supabase.from('trade_tarifas').update({ activo: false }).eq('id', id);
+}
+
+// ── Datos fiscales ────────────────────────────────────────────────────────
+
+export async function saveFiscalData(
+  orgId: string,
+  data: {
+    nombre: string; nif?: string; email?: string;
+    telefono_fijo?: string; telefono_movil?: string;
+    direccion?: string; localidad?: string; cp?: string;
+    provincia?: string; pais?: string; iva_default?: number;
+  },
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_organizations')
+    .update(data)
+    .eq('id', orgId);
+  if (error) throw error;
+}
