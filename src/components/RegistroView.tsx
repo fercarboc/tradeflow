@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { ActivePage } from '../types';
-import { registerUser } from '../lib/supabase';
+import { registerUser, sendTrabflowEmail } from '../lib/supabase';
 import {
   Droplets, Zap, Hammer, Wind, TreeDeciduous, KeyRound, Paintbrush,
   Layers, Wrench, Building2, ChevronRight, ChevronLeft, Check,
@@ -109,6 +109,11 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
         return;
       }
       setStep(4);
+      sendTrabflowEmail({
+        type: 'welcome',
+        nombre: (businessType === 'empresa' ? form.companyName.trim() : form.fullName.trim()) || form.fullName.trim(),
+        email: form.email.trim(),
+      });
     } finally {
       setLoading(false);
     }

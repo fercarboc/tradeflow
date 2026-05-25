@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { TradeType, WaitlistFormInput } from '../types';
 import { Send, CheckCircle2, Server, HelpCircle, Phone, Database } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { submitWaitlist } from '../lib/supabase';
+import { submitWaitlist, sendTrabflowEmail } from '../lib/supabase';
 
 interface ContactoViewProps {
   initialPreselectedTrade?: TradeType;
@@ -50,6 +50,22 @@ export default function ContactoView({ initialPreselectedTrade }: ContactoViewPr
         oficio: formData.oficio,
         ciudad: formData.ciudad,
         presupuestos_al_mes: formData.presupuestosAlMes,
+      });
+
+      // Emails vía Resend (fire-and-forget, no bloquean el flujo)
+      sendTrabflowEmail({
+        type: 'waitlist_admin',
+        nombre: formData.nombre,
+        email: formData.email,
+        telefono: formData.telefono,
+        oficio: formData.oficio,
+        ciudad: formData.ciudad,
+        presupuestos_al_mes: formData.presupuestosAlMes,
+      });
+      sendTrabflowEmail({
+        type: 'waitlist_confirm',
+        nombre: formData.nombre,
+        email: formData.email,
       });
 
       setSavedEntries((prev: WaitlistFormInput[]) => [formData, ...prev]);

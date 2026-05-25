@@ -588,6 +588,25 @@ export async function updateCatalogVariant(
   if (error) throw error;
 }
 
+// ── Email via Resend (Edge Function trade-email) ──────────────────────────────
+
+export async function sendTrabflowEmail(payload: {
+  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome';
+  nombre?: string;
+  email?: string;
+  telefono?: string;
+  oficio?: string;
+  ciudad?: string;
+  presupuestos_al_mes?: string;
+}): Promise<void> {
+  await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-email`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  // Fire-and-forget: no lanzamos error si el email falla, para no bloquear el flujo UX
+}
+
 /**
  * Fuzzy match del texto detectado por IA contra el catálogo cargado.
  * Devuelve el producto + variante preferida más similar, o null si no hay match.
