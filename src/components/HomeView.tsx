@@ -96,7 +96,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
           }}
         />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-0 lg:pt-20">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6 pb-0 lg:pt-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-end">
 
             {/* ── Left ─────────────────────────────────── */}
@@ -144,7 +144,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
               </div>
 
               {/* badges row — text only */}
-              <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+              <div className="flex flex-wrap gap-5 justify-center lg:justify-start">
                 {['Fácil de usar', 'Ahorra tiempo', 'Más clientes'].map((label) => (
                   <span
                     key={label}
