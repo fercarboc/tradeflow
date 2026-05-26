@@ -75,6 +75,154 @@ const EMPTY_DRAFT = (): Partial<TradeJob> => ({
   direccion: '', localidad: '', cp: '', client_id: null,
 });
 
+// ── JobModalPanel (top-level component — NEVER define inside parent, causes focus loss on re-render) ──
+interface JobModalPanelProps {
+  draft: Partial<TradeJob>;
+  setDraft: (updater: (d: Partial<TradeJob>) => Partial<TradeJob>) => void;
+  editingJob: TradeJob | null;
+  clientes: Cliente[];
+  workers: Worker[];
+  selectedWorkerIds: Set<string>;
+  setSelectedWorkerIds: (updater: (prev: Set<string>) => Set<string>) => void;
+  saving: boolean;
+  onClose: () => void;
+  onSave: () => void;
+}
+
+function JobModalPanel({ draft, setDraft, editingJob, clientes, workers, selectedWorkerIds, setSelectedWorkerIds, saving, onClose, onSave }: JobModalPanelProps) {
+  return (
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={onClose}>
+      <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 w-full max-w-lg shadow-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white">
+            {editingJob ? 'Editar trabajo' : 'Nuevo trabajo'}
+          </h3>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-700 cursor-pointer"><X className="w-4 h-4" /></button>
+        </div>
+
+        <div className="space-y-3">
+          {/* Título */}
+          <div>
+            <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Título *</label>
+            <input value={draft.titulo ?? ''} onChange={e => setDraft(d => ({ ...d, titulo: e.target.value }))} placeholder="Ej: Instalación calentador eléctrico"
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
+          </div>
+
+          {/* Cliente */}
+          <div>
+            <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Cliente</label>
+            <select value={draft.client_id ?? ''} onChange={e => setDraft(d => ({ ...d, client_id: e.target.value || null }))}
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500">
+              <option value="">— Sin cliente —</option>
+              {clientes.map(c => <option key={c.id} value={c.id}>{c.nombre}</option>)}
+            </select>
+          </div>
+
+          {/* Fecha + Hora */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Fecha inicio</label>
+              <input type="date" value={draft.fecha_inicio ?? ''} onChange={e => setDraft(d => ({ ...d, fecha_inicio: e.target.value }))}
+                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Hora inicio</label>
+              <input type="time" value={draft.hora_inicio ?? ''} onChange={e => setDraft(d => ({ ...d, hora_inicio: e.target.value }))}
+                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
+            </div>
+          </div>
+
+          {/* Duración + Prioridad */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Duración (horas)</label>
+              <input type="number" step="0.5" min="0.5" value={draft.duracion_horas ?? ''} onChange={e => setDraft(d => ({ ...d, duracion_horas: parseFloat(e.target.value) || null }))}
+                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Prioridad</label>
+              <select value={draft.prioridad ?? 'normal'} onChange={e => setDraft(d => ({ ...d, prioridad: e.target.value as TradeJob['prioridad'] }))}
+                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500">
+                <option value="urgente">🔴 Urgente</option>
+                <option value="alta">🟠 Alta</option>
+                <option value="normal">⚪ Normal</option>
+                <option value="baja">🔵 Baja</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Dirección */}
+          <div>
+            <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Dirección</label>
+            <input value={draft.direccion ?? ''} onChange={e => setDraft(d => ({ ...d, direccion: e.target.value }))} placeholder="Calle Mayor 12"
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Localidad</label>
+              <input value={draft.localidad ?? ''} onChange={e => setDraft(d => ({ ...d, localidad: e.target.value }))} placeholder="Sevilla"
+                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">C.P.</label>
+              <input value={draft.cp ?? ''} onChange={e => setDraft(d => ({ ...d, cp: e.target.value }))} placeholder="41001"
+                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
+            </div>
+          </div>
+
+          {/* Estado (solo edición) */}
+          {editingJob && (
+            <div>
+              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Estado</label>
+              <select value={draft.estado ?? 'planificado'} onChange={e => setDraft(d => ({ ...d, estado: e.target.value as TradeJob['estado'] }))}
+                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500">
+                {Object.entries(ESTADO_CFG).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
+              </select>
+            </div>
+          )}
+
+          {/* Trabajadores */}
+          {workers.filter(w => w.activo).length > 0 && (
+            <div>
+              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-2">Trabajadores asignados</label>
+              <div className="space-y-1.5 max-h-32 overflow-y-auto">
+                {workers.filter(w => w.activo).map(w => (
+                  <label key={w.id} className="flex items-center gap-2 cursor-pointer group">
+                    <input type="checkbox" className="cursor-pointer"
+                      checked={selectedWorkerIds.has(w.id)}
+                      onChange={e => setSelectedWorkerIds(prev => {
+                        const next = new Set(prev);
+                        if (e.target.checked) next.add(w.id); else next.delete(w.id);
+                        return next;
+                      })} />
+                    <span className="text-xs text-slate-700 dark:text-slate-300">{w.nombre}</span>
+                    <span className="text-[9px] text-slate-400 font-mono">{w.rol}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Descripción */}
+          <div>
+            <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Notas / instrucciones</label>
+            <textarea rows={2} value={draft.descripcion ?? ''} onChange={e => setDraft(d => ({ ...d, descripcion: e.target.value }))} placeholder="Instrucciones para el técnico..."
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500 resize-none" />
+          </div>
+        </div>
+
+        <div className="flex gap-3 mt-4">
+          <button onClick={onClose} className="flex-1 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 cursor-pointer hover:border-slate-400">Cancelar</button>
+          <button onClick={onSave} disabled={saving}
+            className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 rounded-xl text-xs font-bold text-white cursor-pointer flex items-center justify-center gap-1.5">
+            {saving ? <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <><Check className="w-3.5 h-3.5" />{editingJob ? 'Guardar cambios' : 'Crear trabajo'}</>}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ScreenPlanificacion({
   jobs: propJobs, workers, clientes, orgId, isLiveMode,
   onCreateJob, onUpdateJob, onDeleteJob, onAssignWorker, onRemoveWorker, showToast,
@@ -296,139 +444,6 @@ export default function ScreenPlanificacion({
     </div>
   );
 
-  // ── Modal nuevo/editar trabajo ────────────────────────────────────────────
-  const JobModal = () => (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowModal(false)}>
-      <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 w-full max-w-lg shadow-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white">
-            {editingJob ? 'Editar trabajo' : 'Nuevo trabajo'}
-          </h3>
-          <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer"><X className="w-4 h-4" /></button>
-        </div>
-
-        <div className="space-y-3">
-          {/* Título */}
-          <div>
-            <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Título *</label>
-            <input value={draft.titulo ?? ''} onChange={e => setDraft(d => ({ ...d, titulo: e.target.value }))} placeholder="Ej: Instalación calentador eléctrico"
-              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
-          </div>
-
-          {/* Cliente */}
-          <div>
-            <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Cliente</label>
-            <select value={draft.client_id ?? ''} onChange={e => setDraft(d => ({ ...d, client_id: e.target.value || null }))}
-              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500">
-              <option value="">— Sin cliente —</option>
-              {clientes.map(c => <option key={c.id} value={c.id}>{c.nombre}</option>)}
-            </select>
-          </div>
-
-          {/* Fecha + Hora */}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Fecha inicio</label>
-              <input type="date" value={draft.fecha_inicio ?? ''} onChange={e => setDraft(d => ({ ...d, fecha_inicio: e.target.value }))}
-                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
-            </div>
-            <div>
-              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Hora inicio</label>
-              <input type="time" value={draft.hora_inicio ?? ''} onChange={e => setDraft(d => ({ ...d, hora_inicio: e.target.value }))}
-                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
-            </div>
-          </div>
-
-          {/* Duración + Prioridad */}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Duración (horas)</label>
-              <input type="number" step="0.5" min="0.5" value={draft.duracion_horas ?? ''} onChange={e => setDraft(d => ({ ...d, duracion_horas: parseFloat(e.target.value) || null }))}
-                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
-            </div>
-            <div>
-              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Prioridad</label>
-              <select value={draft.prioridad ?? 'normal'} onChange={e => setDraft(d => ({ ...d, prioridad: e.target.value as TradeJob['prioridad'] }))}
-                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500">
-                <option value="urgente">🔴 Urgente</option>
-                <option value="alta">🟠 Alta</option>
-                <option value="normal">⚪ Normal</option>
-                <option value="baja">🔵 Baja</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Dirección */}
-          <div>
-            <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Dirección</label>
-            <input value={draft.direccion ?? ''} onChange={e => setDraft(d => ({ ...d, direccion: e.target.value }))} placeholder="Calle Mayor 12"
-              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Localidad</label>
-              <input value={draft.localidad ?? ''} onChange={e => setDraft(d => ({ ...d, localidad: e.target.value }))} placeholder="Sevilla"
-                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
-            </div>
-            <div>
-              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">C.P.</label>
-              <input value={draft.cp ?? ''} onChange={e => setDraft(d => ({ ...d, cp: e.target.value }))} placeholder="41001"
-                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
-            </div>
-          </div>
-
-          {/* Estado (solo edición) */}
-          {editingJob && (
-            <div>
-              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Estado</label>
-              <select value={draft.estado ?? 'planificado'} onChange={e => setDraft(d => ({ ...d, estado: e.target.value as TradeJob['estado'] }))}
-                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500">
-                {Object.entries(ESTADO_CFG).map(([k, v]) => <option key={k} value={k}>{v.label}</option>)}
-              </select>
-            </div>
-          )}
-
-          {/* Trabajadores */}
-          {workers.filter(w => w.activo).length > 0 && (
-            <div>
-              <label className="text-[9px] font-mono uppercase text-slate-400 block mb-2">Trabajadores asignados</label>
-              <div className="space-y-1.5 max-h-32 overflow-y-auto">
-                {workers.filter(w => w.activo).map(w => (
-                  <label key={w.id} className="flex items-center gap-2 cursor-pointer group">
-                    <input type="checkbox" className="cursor-pointer"
-                      checked={selectedWorkerIds.has(w.id)}
-                      onChange={e => setSelectedWorkerIds(prev => {
-                        const next = new Set(prev);
-                        if (e.target.checked) next.add(w.id); else next.delete(w.id);
-                        return next;
-                      })} />
-                    <span className="text-xs text-slate-700 dark:text-slate-300">{w.nombre}</span>
-                    <span className="text-[9px] text-slate-400 font-mono">{w.rol}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Descripción */}
-          <div>
-            <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Notas / instrucciones</label>
-            <textarea rows={2} value={draft.descripcion ?? ''} onChange={e => setDraft(d => ({ ...d, descripcion: e.target.value }))} placeholder="Instrucciones para el técnico..."
-              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500 resize-none" />
-          </div>
-        </div>
-
-        <div className="flex gap-3 mt-4">
-          <button onClick={() => setShowModal(false)} className="flex-1 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 cursor-pointer hover:border-slate-400">Cancelar</button>
-          <button onClick={handleSave} disabled={saving}
-            className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 rounded-xl text-xs font-bold text-white cursor-pointer flex items-center justify-center gap-1.5">
-            {saving ? <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <><Check className="w-3.5 h-3.5" />{editingJob ? 'Guardar cambios' : 'Crear trabajo'}</>}
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-
   // ── Main render ───────────────────────────────────────────────────────────
   return (
     <div className="p-5 space-y-4 overflow-y-auto h-full">
@@ -556,7 +571,20 @@ export default function ScreenPlanificacion({
       )}
 
       {/* Modal */}
-      {showModal && <JobModal />}
+      {showModal && (
+        <JobModalPanel
+          draft={draft}
+          setDraft={setDraft}
+          editingJob={editingJob}
+          clientes={clientes}
+          workers={workers}
+          selectedWorkerIds={selectedWorkerIds}
+          setSelectedWorkerIds={setSelectedWorkerIds}
+          saving={saving}
+          onClose={() => setShowModal(false)}
+          onSave={handleSave}
+        />
+      )}
     </div>
   );
 }
