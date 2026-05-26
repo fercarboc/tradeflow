@@ -257,62 +257,125 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
           3. DEMO SECTION  (dark)
       ══════════════════════════════════════════════════════ */}
       <section id="demo-section" className="bg-[#020B16] py-20 px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="mx-auto max-w-7xl space-y-8">
 
-          {/* Mobile demo */}
-          <div className="rounded-2xl border border-white/25 bg-[#0d1f38] p-8 flex flex-col items-start gap-5">
-            <div>
-              <div className="text-[10px] font-black uppercase tracking-widest text-[#00CFE8] mb-2">Demo</div>
-              <h3 className="text-xl font-black uppercase tracking-tight text-white">Acceso a demo móvil</h3>
-              <p className="text-sm text-white/45 mt-2 leading-relaxed max-w-xs">
-                Lleva tu negocio en el bolsillo. Gestiona clientes, presupuestos y facturas desde cualquier lugar.
-              </p>
-            </div>
-
-            {/* phone screenshot */}
-            <div className="w-full flex justify-center">
-              <img
-                src="/movil_torcido.png"
-                alt="TRABFLOW app en móvil"
-                className="w-48 object-contain drop-shadow-2xl"
-              />
-            </div>
-
-            <button
-              onClick={() => go(ActivePage.AppDashboard, true)}
-              className="w-full rounded-xl bg-[#00CFE8] py-3 text-sm font-black uppercase tracking-widest text-[#020B16] hover:brightness-110 transition-all cursor-pointer shadow-lg shadow-[#00CFE8]/15"
-            >
-              Acceder a demo móvil
-            </button>
+          {/* Section header */}
+          <div className="text-center">
+            <span className="inline-block rounded-full border border-white/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white/45 mb-4">
+              Pruébalo ahora
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
+              Disponible en móvil y PC
+            </h2>
           </div>
 
-          {/* PC demo */}
-          <div className="rounded-2xl border border-white/25 bg-[#0d1f38] p-8 flex flex-col items-start gap-5">
-            <div>
-              <div className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Escritorio</div>
-              <h3 className="text-xl font-black uppercase tracking-tight text-white">Demo en PC</h3>
-              <p className="text-sm text-white/45 mt-2 leading-relaxed max-w-xs">
-                Accede desde tu ordenador y comprueba la herramienta completa. Prueba sin compromisos.
-              </p>
+          {/* 3-card grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            {/* ── Card 1: Móvil ─────────────────── */}
+            <div className="rounded-2xl border border-[#00CFE8]/35 bg-[#020B16] flex flex-col overflow-hidden">
+              <div className="px-6 pt-6 pb-4">
+                <div className="text-[10px] font-black uppercase tracking-widest text-[#00CFE8] mb-1.5">Demo móvil</div>
+                <h3 className="text-base font-black uppercase tracking-tight text-white leading-tight">
+                  Lleva TRABFLOW<br />en el bolsillo
+                </h3>
+                <p className="text-xs text-white/40 mt-2 leading-relaxed">
+                  Presupuestos, clientes y facturas desde el móvil. Sin papeles.
+                </p>
+              </div>
+
+              {/* image flush to bottom */}
+              <div className="flex-1 flex items-end justify-center overflow-hidden px-6">
+                <img
+                  src="/movil_torcido.png"
+                  alt="TRABFLOW app móvil"
+                  className="w-36 object-contain object-bottom"
+                />
+              </div>
+
+              <div className="px-4 pb-4 pt-3">
+                <button
+                  onClick={() => go(ActivePage.AppDashboard, true)}
+                  className="w-full rounded-xl bg-[#00CFE8] py-2.5 text-xs font-black uppercase tracking-widest text-[#020B16] hover:brightness-110 transition-all cursor-pointer"
+                >
+                  Acceder a demo móvil
+                </button>
+              </div>
             </div>
 
-            {/* ordenador image */}
-            <div className="w-full flex justify-center">
-              <img
-                src="/ORDENADOR.png"
-                alt="TRABFLOW en escritorio"
-                className="w-full max-w-sm object-contain drop-shadow-2xl"
-              />
+            {/* ── Card 2: PC ────────────────────── */}
+            <div className="rounded-2xl border border-white/20 bg-[#020B16] flex flex-col overflow-hidden">
+              <div className="px-6 pt-6 pb-4">
+                <div className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5">Demo escritorio</div>
+                <h3 className="text-base font-black uppercase tracking-tight text-white leading-tight">
+                  Panel completo<br />desde el ordenador
+                </h3>
+                <p className="text-xs text-white/40 mt-2 leading-relaxed">
+                  Gestión de obras, clientes, facturación y estadísticas en un solo lugar.
+                </p>
+              </div>
+
+              <div className="flex-1 flex items-end justify-center overflow-hidden px-4">
+                <img
+                  src="/ORDENADOR.png"
+                  alt="TRABFLOW escritorio"
+                  className="w-full object-contain object-bottom"
+                />
+              </div>
+
+              <div className="px-4 pb-4 pt-3">
+                <button
+                  onClick={() => go(ActivePage.AppDashboard, false)}
+                  className="w-full rounded-xl border border-white/25 py-2.5 text-xs font-black uppercase tracking-widest text-white/65 hover:border-white/50 hover:text-white transition-colors cursor-pointer"
+                >
+                  Ver demo en PC
+                </button>
+              </div>
             </div>
 
-            <button
-              onClick={() => go(ActivePage.AppDashboard, false)}
-              className="w-full rounded-xl border border-white/30 py-3 text-sm font-black uppercase tracking-widest text-white/70 hover:border-white/60 hover:text-white transition-colors cursor-pointer"
-            >
-              Ver demo en PC
-            </button>
+            {/* ── Card 3: Resultados ────────────── */}
+            <div className="rounded-2xl border border-[#FFC400]/30 bg-[#020B16] flex flex-col overflow-hidden">
+              <div className="px-6 pt-6 pb-4">
+                <div className="text-[10px] font-black uppercase tracking-widest text-[#FFC400] mb-1.5">Resultados reales</div>
+                <h3 className="text-base font-black uppercase tracking-tight text-white leading-tight">
+                  Lo que consiguen<br />nuestros instaladores
+                </h3>
+
+                {/* Stats grid */}
+                <div className="grid grid-cols-2 gap-2 mt-4">
+                  {[
+                    { val: '3h', label: 'ahorradas al día' },
+                    { val: '+120', label: 'instaladores activos' },
+                    { val: '90s', label: 'por presupuesto' },
+                    { val: '4.9★', label: 'valoración media' },
+                  ].map((s) => (
+                    <div key={s.label} className="rounded-xl bg-white/5 border border-white/8 px-3 py-2.5 text-center">
+                      <div className="text-lg font-black text-[#FFC400] leading-none">{s.val}</div>
+                      <div className="text-[9px] text-white/35 uppercase tracking-wider mt-0.5 leading-tight">{s.label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex-1 flex items-end justify-center overflow-hidden px-6">
+                <img
+                  src="/movil_recto.png"
+                  alt="TRABFLOW app resultados"
+                  className="w-32 object-contain object-bottom"
+                />
+              </div>
+
+              <div className="px-4 pb-4 pt-3">
+                <button
+                  onClick={() => go(ActivePage.Registro)}
+                  className="w-full rounded-xl bg-[#FFC400] py-2.5 text-xs font-black uppercase tracking-widest text-[#020B16] hover:brightness-110 transition-all cursor-pointer"
+                >
+                  Empieza gratis 15 días
+                </button>
+              </div>
+            </div>
+
           </div>
-
         </div>
       </section>
 
