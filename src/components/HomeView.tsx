@@ -30,11 +30,11 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
   /* ─── data ─────────────────────────────────────── */
 
   const steps = [
-    { n: '1', label: 'DICTAS', sub: 'Dices o dictas lo que necesitan.', icon: <Mic className="h-6 w-6" /> },
-    { n: '2', label: 'IA LO PREPARA', sub: 'La IA entiende y prepara tu presupuesto al instante.', icon: <Zap className="h-6 w-6" /> },
-    { n: '3', label: 'ENVÍAS', sub: 'Envías por WhatsApp, email o con un click.', icon: <Send className="h-6 w-6" /> },
-    { n: '4', label: 'APRUEBAN', sub: 'Tu cliente aprueba desde el móvil con un clic.', icon: <CheckCircle className="h-6 w-6" /> },
-    { n: '5', label: 'FACTURAS', sub: 'Se factura solo. Sin escribir nada. Así de fácil.', icon: <FileText className="h-6 w-6" /> },
+    { n: '1', label: 'DICTAS', sub: 'Dices o dictas lo que necesitan.', icon: <Mic className="h-7 w-7" /> },
+    { n: '2', label: 'IA LO PREPARA', sub: 'La IA entiende y prepara tu presupuesto al instante.', icon: <Zap className="h-7 w-7" /> },
+    { n: '3', label: 'ENVÍAS', sub: 'Envías por WhatsApp, email o con un click.', icon: <Send className="h-7 w-7" /> },
+    { n: '4', label: 'APRUEBAN', sub: 'Tu cliente aprueba desde el móvil con un clic.', icon: <CheckCircle className="h-7 w-7" /> },
+    { n: '5', label: 'FACTURAS', sub: 'Se factura solo. Sin escribir nada. Así de fácil.', icon: <FileText className="h-7 w-7" /> },
   ];
 
   const features = [
@@ -157,8 +157,12 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.65, delay: 0.1 }}
-              className="relative flex justify-center lg:justify-end items-end"
+              className="relative flex justify-center lg:justify-end items-end overflow-hidden"
             >
+              {/* blend top edge of image into section bg */}
+              <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#020B16] to-transparent z-10 pointer-events-none" />
+              {/* blend left edge on desktop */}
+              <div className="absolute top-0 left-0 inset-y-0 w-16 bg-gradient-to-r from-[#020B16] to-transparent z-10 pointer-events-none hidden lg:block" />
               <img
                 src="/instalador.png"
                 alt="TRABFLOW en acción"
@@ -175,64 +179,77 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
       {/* ══════════════════════════════════════════════════════
           2. ASÍ DE FÁCIL  (white)
       ══════════════════════════════════════════════════════ */}
-      <section id="steps-section" className="bg-white py-20 px-4 sm:px-6 lg:px-8">
+      <section id="steps-section" className="bg-white py-24 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
 
-          <div className="text-center mb-12">
-            <span className="inline-block rounded-full bg-[#020B16] px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#00CFE8] mb-4">
+          {/* Header */}
+          <div className="text-center mb-16">
+            <span className="inline-block rounded-full bg-[#020B16] px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#00CFE8] mb-5">
               Así de fácil
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-[#020B16] uppercase tracking-tight">
-              Sin complicaciones. Sin papel.
+            <h2 className="text-4xl sm:text-5xl font-black text-[#020B16] uppercase tracking-tight leading-tight">
+              Sin complicaciones.<br className="sm:hidden" /> Sin papel.
             </h2>
+            <p className="text-slate-400 text-base mt-4 max-w-lg mx-auto">
+              De la voz al presupuesto en segundos. Sin formularios, sin errores, sin pérdida de tiempo.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          {/* 5 steps — big cards */}
+          <div className="relative mb-12">
+            {/* connecting line desktop */}
+            <div className="absolute top-[2.6rem] left-[12%] right-[12%] h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent pointer-events-none hidden lg:block" />
 
-            {/* 5 steps */}
-            <div className="lg:col-span-2 space-y-0">
-              <div className="grid grid-cols-5 gap-0">
-                {steps.map((step, i) => (
-                  <div key={step.n} className="flex flex-col items-center text-center relative">
-                    {/* arrow connector (except last) */}
-                    {i < steps.length - 1 && (
-                      <div className="absolute top-6 left-[calc(50%+28px)] right-0 flex items-center z-10 pointer-events-none hidden sm:flex">
-                        <div className="h-px flex-1 bg-gradient-to-r from-slate-300 to-transparent" />
-                      </div>
-                    )}
-                    <div className="relative z-20 h-12 w-12 flex items-center justify-center rounded-2xl bg-[#020B16] text-[#00CFE8] shadow-md mb-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+              {steps.map((step) => (
+                <div key={step.n} className="group flex flex-col items-center text-center gap-3 relative">
+                  {/* icon with numbered badge */}
+                  <div className="relative">
+                    <div className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-[#00CFE8] text-[#020B16] text-[9px] font-black flex items-center justify-center z-10 shadow-sm">
+                      {step.n}
+                    </div>
+                    <div className="h-[4.5rem] w-[4.5rem] flex items-center justify-center rounded-2xl bg-[#020B16] text-[#00CFE8] shadow-lg shadow-[#020B16]/15 group-hover:scale-105 transition-transform">
                       {step.icon}
                     </div>
-                    <span className="text-[10px] font-black text-[#00CFE8] uppercase tracking-widest leading-tight">{step.n}. {step.label}</span>
-                    <p className="text-[10px] text-slate-500 mt-1 leading-snug max-w-[100px]">{step.sub}</p>
                   </div>
-                ))}
+                  <span className="text-[10px] font-black text-[#00CFE8] uppercase tracking-widest leading-tight">{step.label}</span>
+                  <p className="text-xs text-slate-400 leading-snug max-w-[110px]">{step.sub}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Features — dark full-width card */}
+          <div className="rounded-2xl bg-[#020B16] p-8 sm:p-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div className="space-y-3">
+                <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white leading-tight">
+                  Todo lo que necesitas,<br />
+                  <span className="text-[#FFC400]">en una sola herramienta</span>
+                </h3>
+                <p className="text-sm text-white/45 leading-relaxed">
+                  Sin aprendizajes complicados. Sin instalaciones. Solo dicta y TRABFLOW genera el presupuesto al instante.
+                </p>
+              </div>
+              <div className="space-y-4">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {features.map((f) => (
+                    <li key={f} className="flex items-center gap-2.5">
+                      <CheckCircle className="h-4 w-4 text-[#00CFE8] shrink-0" />
+                      <span className="text-sm text-white/65">{f}</span>
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  onClick={() => go(ActivePage.Registro)}
+                  className="w-full rounded-xl bg-[#FFC400] py-3 text-sm font-black uppercase tracking-widest text-[#020B16] hover:brightness-110 transition-all cursor-pointer shadow-lg shadow-[#FFC400]/15"
+                >
+                  Empieza hoy gratis
+                </button>
               </div>
             </div>
-
-            {/* Features dark box */}
-            <div className="rounded-2xl bg-[#020B16] p-6 space-y-4 h-full">
-              <h3 className="text-sm font-black uppercase tracking-wide text-white leading-tight">
-                Todo lo que necesitas,<br />
-                <span className="text-[#FFC400]">en una sola herramienta</span>
-              </h3>
-              <ul className="space-y-2.5">
-                {features.map((f) => (
-                  <li key={f} className="flex items-center gap-2.5">
-                    <CheckCircle className="h-4 w-4 text-[#00CFE8] shrink-0" />
-                    <span className="text-sm text-white/65">{f}</span>
-                  </li>
-                ))}
-              </ul>
-              <button
-                onClick={() => go(ActivePage.Registro)}
-                className="w-full rounded-xl bg-[#FFC400] py-2.5 text-sm font-black uppercase tracking-wider text-[#020B16] hover:brightness-110 transition-all cursor-pointer mt-2"
-              >
-                Empieza hoy gratis
-              </button>
-            </div>
-
           </div>
+
         </div>
       </section>
 
@@ -243,7 +260,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
         <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-6">
 
           {/* Mobile demo */}
-          <div className="rounded-2xl border border-white/10 bg-[#0d1f38] p-8 flex flex-col items-start gap-5">
+          <div className="rounded-2xl border border-white/25 bg-[#0d1f38] p-8 flex flex-col items-start gap-5">
             <div>
               <div className="text-[10px] font-black uppercase tracking-widest text-[#00CFE8] mb-2">Demo</div>
               <h3 className="text-xl font-black uppercase tracking-tight text-white">Acceso a demo móvil</h3>
@@ -270,7 +287,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
           </div>
 
           {/* PC demo */}
-          <div className="rounded-2xl border border-white/10 bg-[#0d1f38] p-8 flex flex-col items-start gap-5">
+          <div className="rounded-2xl border border-white/25 bg-[#0d1f38] p-8 flex flex-col items-start gap-5">
             <div>
               <div className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Escritorio</div>
               <h3 className="text-xl font-black uppercase tracking-tight text-white">Demo en PC</h3>
@@ -279,25 +296,18 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
               </p>
             </div>
 
-            {/* laptop screenshot */}
-            <div className="w-full rounded-xl border border-white/10 overflow-hidden">
-              <div className="flex items-center gap-1.5 px-3 py-2 bg-[#08111e]">
-                <div className="h-2 w-2 rounded-full bg-red-500/60" />
-                <div className="h-2 w-2 rounded-full bg-yellow-500/60" />
-                <div className="h-2 w-2 rounded-full bg-green-500/60" />
-                <span className="ml-2 text-[9px] text-white/25 font-mono">trabflow.app</span>
-              </div>
+            {/* ordenador image */}
+            <div className="w-full flex justify-center">
               <img
-                src="/Screenshot_20260524_182756.jpg"
+                src="/ORDENADOR.png"
                 alt="TRABFLOW en escritorio"
-                className="w-full object-cover object-top"
-                style={{ maxHeight: '180px' }}
+                className="w-full max-w-sm object-contain drop-shadow-2xl"
               />
             </div>
 
             <button
               onClick={() => go(ActivePage.AppDashboard, false)}
-              className="w-full rounded-xl border border-white/20 py-3 text-sm font-black uppercase tracking-widest text-white/70 hover:border-white/50 hover:text-white transition-colors cursor-pointer"
+              className="w-full rounded-xl border border-white/30 py-3 text-sm font-black uppercase tracking-widest text-white/70 hover:border-white/60 hover:text-white transition-colors cursor-pointer"
             >
               Ver demo en PC
             </button>
