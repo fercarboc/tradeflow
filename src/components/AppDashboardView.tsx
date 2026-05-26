@@ -635,6 +635,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [realPhotoFile, setRealPhotoFile] = useState<File | null>(null);
   const [realPhotoPreviewUrl, setRealPhotoPreviewUrl] = useState<string | null>(null);
   const photoInputRef = useRef<HTMLInputElement>(null);
+  const photoCameraRef = useRef<HTMLInputElement>(null);
 
   const presetPhotos: PresetPhoto[] = [
     {
@@ -2273,14 +2274,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </button>
               </div>
 
-              {/* Input de cámara oculto (solo live mode) */}
-              <input
-                ref={photoInputRef}
-                type="file"
-                accept="image/*"
-                capture="environment"
-                className="hidden"
-                onChange={e => {
+              {/* Inputs ocultos: galería (sin capture) y cámara (con capture) */}
+              {(() => {
+                const onFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
                   const file = e.target.files?.[0];
                   if (file) {
                     setRealPhotoFile(file);
@@ -2288,19 +2284,39 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     setSelectedPhotoPreset(null);
                   }
                   e.target.value = '';
-                }}
-              />
+                };
+                return (
+                  <>
+                    <input ref={photoInputRef}   type="file" accept="image/*" className="hidden" onChange={onFileSelected} />
+                    <input ref={photoCameraRef}  type="file" accept="image/*" capture="environment" className="hidden" onChange={onFileSelected} />
+                  </>
+                );
+              })()}
 
-              {/* Live mode: botón de cámara real */}
+              {/* Live mode: botones cámara + galería */}
               {isLiveMode && !realPhotoFile && (
-                <button
-                  onClick={() => photoInputRef.current?.click()}
-                  className="w-full bg-slate-800 border-2 border-dashed border-blue-600/50 hover:border-blue-500 rounded-2xl p-5 text-center cursor-pointer transition-colors"
-                >
-                  <Camera className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-                  <span className="text-xs font-bold text-white block">📷 Tomar foto o subir imagen</span>
-                  <span className="text-[10px] text-slate-400 block mt-1">GPT-4o Vision detectará materiales automáticamente</span>
-                </button>
+                <div className="space-y-2">
+                  <button
+                    onClick={() => photoCameraRef.current?.click()}
+                    className="w-full bg-slate-800 border-2 border-blue-600/50 hover:border-blue-500 rounded-2xl p-4 text-center cursor-pointer transition-colors flex items-center justify-center gap-3"
+                  >
+                    <Camera className="w-6 h-6 text-blue-400 shrink-0" />
+                    <div className="text-left">
+                      <span className="text-xs font-bold text-white block">Tomar foto con cámara</span>
+                      <span className="text-[10px] text-slate-400">Abre la cámara directamente</span>
+                    </div>
+                  </button>
+                  <button
+                    onClick={() => photoInputRef.current?.click()}
+                    className="w-full bg-slate-800 border-2 border-dashed border-slate-600 hover:border-blue-500 rounded-2xl p-4 text-center cursor-pointer transition-colors flex items-center justify-center gap-3"
+                  >
+                    <ImageIcon className="w-6 h-6 text-slate-400 shrink-0" />
+                    <div className="text-left">
+                      <span className="text-xs font-bold text-white block">Subir desde galería</span>
+                      <span className="text-[10px] text-slate-400">Elige una foto ya tomada</span>
+                    </div>
+                  </button>
+                </div>
               )}
 
               {/* Preview foto real + botón analizar */}
@@ -3139,40 +3155,124 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= DESKTOP: ESCANER FOTO SCREEN =================
   function ScreenAIScan() {
+    const onFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        setRealPhotoFile(file);
+        setRealPhotoPreviewUrl(URL.createObjectURL(file));
+        setSelectedPhotoPreset(null);
+      }
+      e.target.value = '';
+    };
+
     return (
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-5 space-y-6">
-        <div>
-          <h3 className="text-md font-display font-bold uppercase text-slate-905 dark:text-white">Escaneo de Foto con IA (Escritorio)</h3>
+        <div className="flex items-center justify-between">
+          <h3 className="text-md font-display font-bold uppercase text-slate-905 dark:text-white">
+            Escáner Fotográfico IA
+          </h3>
+          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isLiveMode ? 'bg-emerald-900/40 text-emerald-300' : 'bg-slate-700 text-slate-400'}`}>
+            {isLiveMode ? '● REAL' : '● DEMO'}
+          </span>
         </div>
 
-        <div className="grid grid-cols-3 gap-2">
-          {presetPhotos.map(p => (
-            <div key={p.id} onClick={() => handleSelectPresetPhoto(p)} className={`p-2 bg-slate-50 dark:bg-slate-950 border rounded-2xl cursor-pointer ${selectedPhotoPreset?.id === p.id ? 'border-blue-600' : 'border-slate-200 dark:border-slate-800'}`}>
-              <img src={p.url} alt={p.name} className="w-full h-24 rounded-xl object-cover" />
-              <span className="text-[10px] font-bold mt-1.5 block text-center truncate">{p.name}</span>
-            </div>
-          ))}
-        </div>
+        {/* ── MODO REAL ── */}
+        {isLiveMode && (
+          <div className="space-y-4">
+            {/* Inputs ocultos */}
+            <input ref={photoInputRef}  type="file" accept="image/*" className="hidden" onChange={onFileSelected} />
+            <input ref={photoCameraRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={onFileSelected} />
 
-        {selectedPhotoPreset && (
-          <div className="grid grid-cols-2 gap-4">
-            <div className="relative rounded-2xl overflow-hidden aspect-video bg-slate-950 flex items-center justify-center">
-              <img src={selectedPhotoPreset.url} alt="Worksite" className="max-h-full max-w-full object-contain" />
-              {isScanning && (
-                <div className="absolute left-0 right-0 h-1 bg-emerald-400 shadow-[0_0_15px_#34d399] z-20" style={{ top: `${scanProgress}%` }} />
-              )}
-            </div>
-            
-            <div className="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-850 flex flex-col justify-between">
-              <div>
-                <span className="text-[10px] font-bold text-slate-400 block font-mono uppercase">Materiales extraídos por IA</span>
-                <p className="text-xs text-slate-400 italic mt-4">Por favor, inicia el escaneo con IA.</p>
+            {!realPhotoFile ? (
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  onClick={() => photoCameraRef.current?.click()}
+                  className="bg-slate-50 dark:bg-slate-800 border-2 border-blue-600/40 hover:border-blue-500 rounded-2xl p-6 text-center cursor-pointer transition-colors"
+                >
+                  <Camera className="w-8 h-8 text-blue-400 mx-auto mb-2" />
+                  <span className="text-xs font-bold text-slate-800 dark:text-white block">Tomar foto</span>
+                  <span className="text-[10px] text-slate-400 block mt-1">Abre la cámara</span>
+                </button>
+                <button
+                  onClick={() => photoInputRef.current?.click()}
+                  className="bg-slate-50 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-600 hover:border-blue-500 rounded-2xl p-6 text-center cursor-pointer transition-colors"
+                >
+                  <ImageIcon className="w-8 h-8 text-slate-400 mx-auto mb-2" />
+                  <span className="text-xs font-bold text-slate-800 dark:text-white block">Subir imagen</span>
+                  <span className="text-[10px] text-slate-400 block mt-1">Desde tu equipo</span>
+                </button>
               </div>
-              <button onClick={startPhotoAnalysis} className="w-full bg-emerald-600 text-white font-bold p-3 rounded-xl text-[10px] uppercase">
-                Iniciar Escaneo Láser IA
-              </button>
-            </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-4">
+                <div className="relative rounded-2xl overflow-hidden aspect-video bg-slate-950 flex items-center justify-center">
+                  <img src={realPhotoPreviewUrl!} alt="Preview" className="max-h-full max-w-full object-contain" />
+                  {isScanning && (
+                    <div className="absolute left-0 right-0 h-1 bg-emerald-400 shadow-[0_0_15px_#34d399] z-20"
+                      style={{ top: `${scanProgress}%`, transition: 'top 200ms linear' }} />
+                  )}
+                  <button
+                    onClick={() => { setRealPhotoFile(null); setRealPhotoPreviewUrl(null); }}
+                    className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white text-[9px] font-bold px-2 py-1 rounded-lg cursor-pointer"
+                  >
+                    ✕ Cambiar
+                  </button>
+                </div>
+                <div className="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+                  <div>
+                    <span className="text-[10px] font-bold text-slate-400 block font-mono uppercase mb-2">GPT-4o Vision</span>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 italic">
+                      {isScanning ? `Analizando imagen... ${scanProgress}%` : 'Pulsa para detectar materiales y trabajos.'}
+                    </p>
+                  </div>
+                  {!isScanning ? (
+                    <button onClick={startPhotoAnalysis}
+                      className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold p-3 rounded-xl text-[10px] uppercase cursor-pointer transition-colors">
+                      Analizar con IA 📷
+                    </button>
+                  ) : (
+                    <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                      <div className="bg-emerald-500 h-2 transition-all duration-200" style={{ width: `${scanProgress}%` }} />
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
+        )}
+
+        {/* ── MODO DEMO ── */}
+        {!isLiveMode && (
+          <>
+            <div className="grid grid-cols-3 gap-2">
+              {presetPhotos.map(p => (
+                <div key={p.id} onClick={() => handleSelectPresetPhoto(p)}
+                  className={`p-2 bg-slate-50 dark:bg-slate-950 border rounded-2xl cursor-pointer ${selectedPhotoPreset?.id === p.id ? 'border-blue-600' : 'border-slate-200 dark:border-slate-800'}`}>
+                  <img src={p.url} alt={p.name} className="w-full h-24 rounded-xl object-cover" />
+                  <span className="text-[10px] font-bold mt-1.5 block text-center truncate">{p.name}</span>
+                </div>
+              ))}
+            </div>
+
+            {selectedPhotoPreset && (
+              <div className="grid grid-cols-2 gap-4">
+                <div className="relative rounded-2xl overflow-hidden aspect-video bg-slate-950 flex items-center justify-center">
+                  <img src={selectedPhotoPreset.url} alt="Worksite" className="max-h-full max-w-full object-contain" />
+                  {isScanning && (
+                    <div className="absolute left-0 right-0 h-1 bg-emerald-400 shadow-[0_0_15px_#34d399] z-20" style={{ top: `${scanProgress}%` }} />
+                  )}
+                </div>
+                <div className="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-850 flex flex-col justify-between">
+                  <div>
+                    <span className="text-[10px] font-bold text-slate-400 block font-mono uppercase">Materiales extraídos por IA</span>
+                    <p className="text-xs text-slate-400 italic mt-4">Por favor, inicia el escaneo con IA.</p>
+                  </div>
+                  <button onClick={startPhotoAnalysis} className="w-full bg-emerald-600 text-white font-bold p-3 rounded-xl text-[10px] uppercase cursor-pointer">
+                    Iniciar Escaneo Láser IA
+                  </button>
+                </div>
+              </div>
+            )}
+          </>
         )}
       </div>
     );
