@@ -18,14 +18,21 @@ auth.users
     │
     └── trade_organizations (1 por cuenta, owner_id → auth.uid())
             │
-            ├── trade_clients          (CRM: clientes del instalador)
-            ├── trade_quotes           (presupuestos)
+            ├── trade_clients              (CRM: clientes del instalador)
+            ├── trade_quotes               (presupuestos)
             │       └── trade_quote_items  (partidas de cada presupuesto)
-            ├── trade_invoices         (facturas generadas)
-            ├── trade_voice_recordings (archivos de voz para IA)
-            └── trade_photo_scans      (fotos escaneadas por IA)
+            ├── trade_invoices             (facturas generadas al cliente final)
+            ├── trade_subscriptions        (plan SaaS: trial/active/cancelled/expired)
+            ├── trade_platform_invoices    (facturas que TradeFlow emite al instalador)
+            ├── trade_voice_recordings     (archivos de voz para IA)
+            └── trade_photo_scans          (fotos escaneadas por IA)
 
 trade_waitlist  (tabla pública, sin auth requerido)
+
+Admin: fercarboc@gmail.com → AdminView (sección F4)
+     ├── RPC admin_get_trade_users()           (SECURITY DEFINER, lee auth.users)
+     ├── RPC admin_get_platform_invoices()     (SECURITY DEFINER)
+     └── RPC admin_set_subscription_active()   (SECURITY DEFINER)
 ```
 
 ---
@@ -734,4 +741,276 @@ Al usar el proyecto `GestionDebacuPro` existente se ahorran los ~$25/mes del pla
 
 ---
 
-*Generado por Claude Code — TradeFlow AI — Mayo 2026*
+---
+
+## 13. Panel de Administración — F4 (AdminView)
+
+Accesible solo para `fercarboc@gmail.com`. Se carga automáticamente al hacer login con ese email.
+
+### 13.1 Tablas nuevas
+
+#### `trade_subscriptions`
+```sql
+CREATE TABLE trade_subscriptions (
+  id                    uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id                uuid NOT NULL REFERENCES trade_organizations(id) ON DELETE CASCADE,
+  plan                  text NOT NULL DEFAULT 'pro',
+  -- 'basico' | 'pro' | 'empresa'
+  billing_cycle         text NOT NULL DEFAULT 'monthly',
+  -- 'monthly' | 'yearly'
+  status                text NOT NULL DEFAULT 'trial',
+  -- 'trial' | 'active' | 'cancelled' | 'expired'
+  trial_start           timestamptz NOT NULL DEFAULT now(),
+  trial_end             timestamptz NOT NULL DEFAULT (now() + interval '90 days'),
+  stripe_customer_id    text,
+  stripe_subscription_id text,
+  current_period_start  timestamptz,
+  current_period_end    timestamptz,
+  cancelled_at          timestamptz,
+  created_at            timestamptz NOT NULL DEFAULT now(),
+  updated_at            timestamptz NOT NULL DEFAULT now()
+);
+```
+
+#### `trade_platform_invoices`
+Facturas que TradeFlow emite al instalador (generadas por Stripe o manualmente).
+```sql
+CREATE TABLE trade_platform_invoices (
+  id                uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id            uuid NOT NULL REFERENCES trade_organizations(id) ON DELETE CASCADE,
+  period_start      date NOT NULL,
+  period_end        date NOT NULL,
+  amount_cents      integer NOT NULL DEFAULT 0,
+  status            text NOT NULL DEFAULT 'draft',
+  -- 'draft' | 'sent' | 'paid'
+  stripe_invoice_id text,
+  created_at        timestamptz NOT NULL DEFAULT now()
+);
+
+ALTER TABLE trade_platform_invoices ENABLE ROW LEVEL SECURITY;
+-- Acceso solo vía RPC SECURITY DEFINER (no hay política directa para usuarios normales)
+```
+
+#### Campos extra en `trade_organizations`
+```sql
+ALTER TABLE trade_organizations
+  ADD COLUMN IF NOT EXISTS force_password_change boolean NOT NULL DEFAULT false;
+```
+
+### 13.2 RPCs SECURITY DEFINER (para el admin)
+
+```sql
+-- Lee auth.users y cruza con trade_organizations
+CREATE OR REPLACE FUNCTION admin_get_trade_users()
+RETURNS TABLE (org_id uuid, auth_email text, email_confirmed boolean,
+               last_sign_in timestamptz, user_created_at timestamptz)
+LANGUAGE sql SECURITY DEFINER SET search_path = public
+AS $$
+  SELECT o.id, u.email, u.email_confirmed_at IS NOT NULL,
+         u.last_sign_in_at, u.created_at
+  FROM auth.users u
+  JOIN public.trade_organizations o ON o.owner_id = u.id;
+$$;
+
+-- Lee trade_platform_invoices (sin exponer la tabla directamente)
+CREATE OR REPLACE FUNCTION admin_get_platform_invoices()
+RETURNS SETOF trade_platform_invoices
+LANGUAGE sql SECURITY DEFINER SET search_path = public
+AS $$ SELECT * FROM trade_platform_invoices ORDER BY created_at DESC; $$;
+
+-- Activa/cancela una suscripción
+CREATE OR REPLACE FUNCTION admin_set_subscription_active(p_org_id uuid, p_active boolean)
+RETURNS void LANGUAGE plpgsql SECURITY DEFINER SET search_path = public
+AS $$
+BEGIN
+  UPDATE trade_subscriptions
+  SET status = CASE WHEN p_active THEN 'active' ELSE 'cancelled' END,
+      updated_at = now()
+  WHERE org_id = p_org_id;
+END;
+$$;
+
+-- Los tres solo accesibles por authenticated (la verificación de email admin se hace en el cliente)
+GRANT EXECUTE ON FUNCTION admin_get_trade_users() TO authenticated;
+GRANT EXECUTE ON FUNCTION admin_get_platform_invoices() TO authenticated;
+GRANT EXECUTE ON FUNCTION admin_set_subscription_active(uuid, boolean) TO authenticated;
+```
+
+### 13.3 Funciones frontend — `src/lib/supabase.ts`
+
+| Función | Descripción |
+|---|---|
+| `getAdminOrgs()` | Todas las orgs con suscripción + stats auth (quotes, clients) |
+| `adminUpdateOrgPlan(orgId, plan, cycle)` | Cambia plan en org + suscripción |
+| `adminExtendTrial(orgId, days)` | Extiende `trial_end` desde la fecha actual |
+| `adminCreateInstaller(params)` | Llama edge function `trade-admin-create-installer` |
+| `adminSendPasswordReset(email)` | Envía email de reset vía Supabase Auth |
+| `adminSetPassword(userIdOrEmail, pwd)` | Llama edge function `trade-admin-set-password` |
+| `setSubscriptionActive(orgId, active)` | RPC `admin_set_subscription_active` |
+| `loadAdminStats()` | Alias de `getAdminOrgs()` → `{ orgs, subscriptions }` |
+| `loadPlatformInvoices()` | RPC `admin_get_platform_invoices` |
+
+### 13.4 Componente `src/components/AdminView.tsx`
+
+- **Acceso:** solo `session.user.email === 'fercarboc@gmail.com'`; cualquier otro ve "Acceso denegado"
+- **Enrutamiento:** `App.tsx` detecta el email admin en `onAuthStateChange` y setea `ActivePage.Admin`
+
+**Secciones:**
+
+| Tab | Contenido |
+|---|---|
+| **Clientes** | Stats (total, en prueba, activos, MRR). Tabla: empresa, email, oficio, uso (presupuestos/clientes), plan editable, estado, último acceso, alta. Acciones: Reset pwd, Pwd, ON/OFF suscripción, Link Stripe Checkout, Portal Stripe, Email |
+| **Facturas plataforma** | Tabla `trade_platform_invoices`: organización, periodo, importe, estado (Borrador/Enviada/Pagada), Stripe invoice ID |
+
+**Modales:**
+- **Cambiar contraseña**: input directo → edge function `trade-admin-set-password`
+- **Extender prueba**: botones +7/+15/+30/+60/+90 días → `adminExtendTrial()`
+- **Nuevo instalador**: formulario completo → edge function `trade-admin-create-installer`
+
+---
+
+## 14. Integración Stripe — F4 Resto
+
+### 14.1 Edge Functions desplegadas
+
+| Función | JWT | URL |
+|---|---|---|
+| `trade-stripe-webhook` | ❌ (firma HMAC propia) | `https://dqqjaujnulutinskmqsu.supabase.co/functions/v1/trade-stripe-webhook` |
+| `trade-stripe-portal` | ✓ | `https://dqqjaujnulutinskmqsu.supabase.co/functions/v1/trade-stripe-portal` |
+| `trade-stripe-checkout` | ✓ | `https://dqqjaujnulutinskmqsu.supabase.co/functions/v1/trade-stripe-checkout` |
+
+### 14.2 trade-stripe-webhook
+
+Registrar esta URL en **Stripe Dashboard → Developers → Webhooks**.
+
+Eventos manejados:
+
+| Evento Stripe | Acción en DB |
+|---|---|
+| `invoice.paid` | `trade_subscriptions.status = 'active'`, crea fila en `trade_platform_invoices` con `status='paid'` |
+| `customer.subscription.deleted` | `trade_subscriptions.status = 'cancelled'` |
+| `invoice.payment_failed` | `trade_subscriptions.status = 'expired'` |
+
+La verificación de firma usa **HMAC-SHA256 con Web Crypto API** (nativo en Deno, sin dependencia del SDK de Stripe). Rechaza webhooks con timestamp > 5 minutos.
+
+Cuerpo del fichero: `supabase/functions/trade-stripe-webhook/index.ts`
+
+### 14.3 trade-stripe-portal
+
+Genera una sesión de Stripe Billing Portal para un `org_id`.
+
+- Requiere que la org tenga `stripe_customer_id` en `trade_subscriptions`
+- Devuelve `{ url: string }` — el admin abre esa URL o la reenvía al cliente
+
+### 14.4 trade-stripe-checkout
+
+Genera una Stripe Checkout Session para iniciar o cambiar suscripción.
+
+- Si la org no tiene `stripe_customer_id`, crea el cliente en Stripe automáticamente y lo guarda en `trade_subscriptions`
+- Lee los Price IDs desde variables de entorno (`STRIPE_PRICE_*`)
+- Devuelve `{ url: string }`
+
+### 14.5 Secrets a configurar en Supabase
+
+**Supabase Dashboard → Edge Functions → Secrets** (o `supabase secrets set`):
+
+| Variable | Valor | Dónde obtenerlo |
+|---|---|---|
+| `STRIPE_SECRET_KEY` | `sk_live_…` o `sk_test_…` | Stripe Dashboard → Developers → API Keys |
+| `STRIPE_WEBHOOK_SECRET` | `whsec_…` | Stripe Dashboard → Webhooks → signing secret |
+| `STRIPE_PRICE_BASICO_MONTHLY` | `price_…` | Stripe Dashboard → Products |
+| `STRIPE_PRICE_BASICO_YEARLY` | `price_…` | Stripe Dashboard → Products |
+| `STRIPE_PRICE_PRO_MONTHLY` | `price_…` | Stripe Dashboard → Products |
+| `STRIPE_PRICE_PRO_YEARLY` | `price_…` | Stripe Dashboard → Products |
+| `STRIPE_PRICE_EMPRESA_MONTHLY` | `price_…` | Stripe Dashboard → Products |
+| `STRIPE_PRICE_EMPRESA_YEARLY` | `price_…` | Stripe Dashboard → Products |
+
+```bash
+# Ejemplo con CLI de Supabase
+supabase secrets set STRIPE_SECRET_KEY=sk_test_... --project-ref dqqjaujnulutinskmqsu
+supabase secrets set STRIPE_WEBHOOK_SECRET=whsec_... --project-ref dqqjaujnulutinskmqsu
+```
+
+### 14.6 Precios configurados en la app
+
+Definidos en `AdminView.tsx` y usados para calcular el MRR estimado:
+
+| Plan | Mensual | Anual (por mes) |
+|---|---|---|
+| Básico | 29 €/mes | 23 €/mes |
+| Pro | 49 €/mes | 39 €/mes |
+| Empresa | 89 €/mes | 71 €/mes |
+
+### 14.7 Funciones frontend para Stripe — `src/lib/supabase.ts`
+
+```typescript
+// Genera URL del portal de cliente (admin lo abre o lo copia para el instalador)
+getStripePortalUrl(orgId: string): Promise<string>
+
+// Genera URL de Stripe Checkout (admin copia el link y lo manda al instalador)
+getStripeCheckoutUrl(orgId: string, plan?: string, billingCycle?: string): Promise<string>
+```
+
+### 14.8 Flujo completo de activación de pago
+
+```
+Admin (AdminView)
+  └─ pulsa "Link" (botón violeta) → getStripeCheckoutUrl(org_id)
+       └─ edge function trade-stripe-checkout
+            ├─ crea/reutiliza Stripe Customer
+            ├─ crea Checkout Session con el Price ID del plan
+            └─ devuelve URL de Checkout
+  └─ copia URL → envía al instalador por email/WhatsApp
+
+Instalador
+  └─ abre URL → rellena tarjeta en Stripe
+       └─ Stripe llama a trade-stripe-webhook con evento invoice.paid
+            ├─ trade_subscriptions.status → 'active'
+            └─ trade_platform_invoices → nueva fila con status='paid'
+```
+
+### 14.9 Archivos modificados / creados (Stripe)
+
+| Archivo | Cambio |
+|---|---|
+| `supabase/functions/trade-stripe-webhook/index.ts` | NUEVO — webhook handler |
+| `supabase/functions/trade-stripe-portal/index.ts` | NUEVO — portal session |
+| `supabase/functions/trade-stripe-checkout/index.ts` | NUEVO — checkout session |
+| `src/lib/supabase.ts` | Añadidas: `getStripePortalUrl`, `getStripeCheckoutUrl` |
+| `src/components/AdminView.tsx` | Añadidos: botón "Link" (checkout) y botón "Portal" por fila |
+
+---
+
+## 15. Checklist F4 — Admin + Stripe
+
+### Infraestructura (ya aplicado)
+- [x] Tabla `trade_subscriptions` creada con RLS
+- [x] Tabla `trade_platform_invoices` creada con RLS
+- [x] Campo `force_password_change` en `trade_organizations`
+- [x] RPCs `admin_get_trade_users`, `admin_get_platform_invoices`, `admin_set_subscription_active`
+- [x] Edge function `trade-stripe-webhook` desplegada (sin JWT, auth por firma)
+- [x] Edge function `trade-stripe-portal` desplegada (con JWT)
+- [x] Edge function `trade-stripe-checkout` desplegada (con JWT)
+- [x] Edge function `trade-admin-set-password` desplegada
+- [x] Edge function `trade-admin-create-installer` desplegada
+
+### Pendiente de configurar
+- [ ] Añadir `STRIPE_SECRET_KEY` en Supabase Secrets
+- [ ] Añadir `STRIPE_WEBHOOK_SECRET` en Supabase Secrets
+- [ ] Crear los 6 productos/precios en Stripe Dashboard
+- [ ] Añadir los 6 `STRIPE_PRICE_*` en Supabase Secrets
+- [ ] Registrar webhook URL en Stripe Dashboard
+- [ ] Probar flujo completo en modo test (Stripe CLI: `stripe listen --forward-to ...`)
+
+### Verificación rápida
+```bash
+# Probar webhook local con Stripe CLI
+stripe listen --forward-to https://dqqjaujnulutinskmqsu.supabase.co/functions/v1/trade-stripe-webhook
+
+# Simular pago de factura
+stripe trigger invoice.paid
+```
+
+---
+
+*Actualizado por Claude Code — TradeFlow AI — Mayo 2026 (F4: Admin Panel + Stripe)*

@@ -5,7 +5,8 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { ActivePage, TradeType } from './types';
-import { supabase } from './lib/supabase';
+import { supabase, loadWorkerByEmail } from './lib/supabase';
+import type { WorkerProfile } from './lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import Header from './components/Header';
 import HomeView from './components/HomeView';
@@ -17,6 +18,7 @@ import Footer from './components/Footer';
 import AppDashboardView from './components/AppDashboardView';
 import RegistroView from './components/RegistroView';
 import AdminView from './components/AdminView';
+import ScreenWorkerView from './components/ScreenWorkerView';
 
 const ADMIN_EMAIL = 'fercarboc@gmail.com';
 
@@ -38,12 +40,27 @@ export default function App() {
   const [initialMobile, setInitialMobile] = useState<boolean>(true);
   const [loginOnMount, setLoginOnMount] = useState<boolean>(pwa);
   const [session, setSession] = useState<Session | null>(null);
+  const [workerProfile, setWorkerProfile] = useState<WorkerProfile | null>(null);
 
-  const routeSession = useCallback((s: Session | null) => {
+  const routeSession = useCallback(async (s: Session | null) => {
     setSession(s);
     if (s) {
       setLoginOnMount(false);
-      setCurrentPage(s.user.email === ADMIN_EMAIL ? ActivePage.Admin : ActivePage.AppDashboard);
+      if (s.user.email === ADMIN_EMAIL) {
+        setCurrentPage(ActivePage.Admin);
+        return;
+      }
+      try {
+        const wp = await loadWorkerByEmail(s.user.email ?? '');
+        if (wp) {
+          setWorkerProfile(wp);
+          setCurrentPage(ActivePage.Worker);
+          return;
+        }
+      } catch { /* no worker — normal instalador */ }
+      setCurrentPage(ActivePage.AppDashboard);
+    } else {
+      setWorkerProfile(null);
     }
   }, []);
 
@@ -108,6 +125,8 @@ export default function App() {
         return <RegistroView setCurrentPage={setCurrentPage} />;
       case ActivePage.Admin:
         return <AdminView setCurrentPage={setCurrentPage} session={session} />;
+      case ActivePage.Worker:
+        return <ScreenWorkerView workerProfile={workerProfile} session={session} setCurrentPage={setCurrentPage} />;
       default:
         return (
           <HomeView
@@ -121,7 +140,8 @@ export default function App() {
 
   const isAppView = currentPage === ActivePage.AppDashboard
     || currentPage === ActivePage.Registro
-    || currentPage === ActivePage.Admin;
+    || currentPage === ActivePage.Admin
+    || currentPage === ActivePage.Worker;
 
   return (
     <div className={`min-h-screen flex flex-col ${isAppView ? 'bg-slate-900' : 'bg-slate-50/30'}`}>

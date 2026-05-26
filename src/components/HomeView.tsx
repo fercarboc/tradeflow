@@ -3,10 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
-import { ActivePage, TradeType, Testimonial } from '../types';
-import { Mic, Image as ImageIcon, FileText, Send, Smartphone, TrendingUp, AlertTriangle, CheckCircle, Clock, Users, ArrowRight, Star, ShieldCheck, HelpCircle, X, Download } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
+import { ActivePage, TradeType } from '../types';
+import {
+  Mic, FileText, Send, CheckCircle, ArrowRight,
+  Zap, Wind, Wrench, Hammer, Paintbrush, KeyRound, HardHat,
+  Smartphone, Monitor, Star, ShieldCheck, Clock, Users, TrendingUp
+} from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface HomeViewProps {
   setCurrentPage: (page: ActivePage) => void;
@@ -14,584 +17,583 @@ interface HomeViewProps {
   setInitialMobile?: (isMobile: boolean) => void;
 }
 
-export default function HomeView({ setCurrentPage, setPreselectedTrade, setInitialMobile }: HomeViewProps) {
-  const [selectedTradeTab, setSelectedTradeTab] = useState<TradeType>('Fontanería');
-  const [showCartelModal, setShowCartelModal] = useState(false);
-
-  const handleDownloadCartel = () => {
-    const a = document.createElement('a');
-    a.href = '/cartel.png';
-    a.download = 'TrabFlow-cartel.png';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  };
-
+export default function HomeView({ setCurrentPage, setPreselectedTrade: _setPreselectedTrade, setInitialMobile }: HomeViewProps) {
   const handleGoToApp = (isMobile: boolean) => {
-    if (setInitialMobile) {
-      setInitialMobile(isMobile);
-    }
+    setInitialMobile?.(isMobile);
     setCurrentPage(ActivePage.AppDashboard);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const testimonials: Testimonial[] = [
-    {
-      id: '1',
-      nombre: 'Manolo Rodríguez',
-      oficio: 'Fontanero Autónomo',
-      ciudad: 'Sevilla',
-      texto: 'Antes llegaba a casa a las 19:30 y me tocaba ponerme con la libreta a escribir presupuestos en un Excel hasta las 22:00. Ahora con TrabFlow, dicto el audio mientras voy en la furgoneta de vuelta. Para cuando llego, mi cliente ya lo ha aceptado por WhatsApp.',
-      rating: 5,
-    },
-    {
-      id: '2',
-      nombre: 'Alejandro Sanz',
-      oficio: 'Electricista Instalador',
-      ciudad: 'Madrid',
-      texto: 'La función de hacer una foto del cuadro eléctrico del cliente y que la IA extraiga los interruptores automáticos necesarios me ahorra comprar materiales de más. Mis clientes se quedan alucinados con la velocidad del PDF.',
-      rating: 5,
-    },
-    {
-      id: '3',
-      nombre: 'Lucía Benítez',
-      oficio: 'Técnico de Climatización / HVAC',
-      ciudad: 'Sabadell',
-      texto: 'Llevar presupuestos en papel era un horror de cara a la facturación de fin de mes. TrabFlow me permite guardar la ficha del aire acondicionado del cliente y pasarlo a factura en un botón. Un software sencillo que se agradece.',
-      rating: 5,
-    },
-  ];
+  const handleGoToRegister = () => {
+    setCurrentPage(ActivePage.Registro);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-  const targetAudiences = [
-    {
-      oficio: 'Fontanería' as TradeType,
-      desc: 'Para desatascos, reformas de baños, griferías, instalaciones de ósmosis y calderas.',
-      example: '"Pon cambio de bajante general y latiguillos, material cien euros, mano de obra dos horas a treinta euros."',
-      emoji: '🚰',
-    },
-    {
-      oficio: 'Electricidad' as TradeType,
-      desc: 'Boletines de luz, reubicación de focos, cableado, termos eléctricos y cuadros de automáticos.',
-      example: '"Colocar seis tomas de corriente en el salón Simón 27 y tres focos LED ledvance, mano de obra ochenta euros."',
-      emoji: '⚡',
-    },
-    {
-      oficio: 'Climatización / HVAC' as TradeType,
-      desc: 'Montaje de splits, desinfección de conductos, recargas de gas y contratos de calefacción.',
-      example: '"Limpieza y saneamiento de filtros de split de dormitorio, cincuenta euros todo incluido."',
-      emoji: '❄️',
-    },
-    {
-      oficio: 'Cerrajería' as TradeType,
-      desc: 'Aperturas de puertas de emergencia, cambios de bombín urgente, cerrojos secundarios y persianas.',
-      example: '"Apertura de puerta blindada urgente en Calle Mayor, cien euros de tarifa plana."',
-      emoji: '🔑',
-    },
-  ];
-
-  const handleGoToWaitlist = (trade?: TradeType) => {
-    if (trade) {
-      setPreselectedTrade(trade);
-    }
+  const handleGoToWaitlist = () => {
     setCurrentPage(ActivePage.Contacto);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleGoToHowItWorks = () => {
-    setCurrentPage(ActivePage.ComoFunciona);
+  const handleGoToPricing = () => {
+    setCurrentPage(ActivePage.Precios);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const steps = [
+    { n: '1', label: 'DICTAS', sub: 'Dices o dictas lo que necesitan.', icon: <Mic className="h-6 w-6" /> },
+    { n: '2', label: 'IA LO PREPARA', sub: 'La IA entiende y prepara tu presupuesto al instante.', icon: <Zap className="h-6 w-6" /> },
+    { n: '3', label: 'ENVÍAS', sub: 'Envías por WhatsApp, email o con un click.', icon: <Send className="h-6 w-6" /> },
+    { n: '4', label: 'APRUEBAN', sub: 'Tu cliente aprueba desde el móvil con un clic.', icon: <CheckCircle className="h-6 w-6" /> },
+    { n: '5', label: 'FACTURAS', sub: 'Se factura solo. Sin escribir nada. Así de fácil.', icon: <FileText className="h-6 w-6" /> },
+  ];
+
+  const trades = [
+    { label: 'Reformas y construcción', icon: <HardHat className="h-6 w-6" /> },
+    { label: 'Fontanería', icon: <Wrench className="h-6 w-6" /> },
+    { label: 'Electricidad', icon: <Zap className="h-6 w-6" /> },
+    { label: 'Aire acondicionado y climatización', icon: <Wind className="h-6 w-6" /> },
+    { label: 'Carpinteros y aluminio', icon: <Hammer className="h-6 w-6" /> },
+    { label: 'Pintura', icon: <Paintbrush className="h-6 w-6" /> },
+    { label: 'Cerrajería', icon: <KeyRound className="h-6 w-6" /> },
+  ];
+
+  const features = [
+    'Dicta con IA',
+    'Presupuesto en segundos',
+    'Envío por WhatsApp y email',
+    'Control total de tu negocio',
+    'Más tiempo para ti',
+  ];
+
+  const basicFeatures = [
+    'Presupuestos con IA',
+    'Envío por WhatsApp y Email',
+    'PDF profesional',
+    'Gestión clientes y pagos',
+  ];
+
+  const proFeatures = [
+    'Todo lo del plan Básico',
+    'Trabajadores y equipos',
+    'Agenda de obras',
+    'Recordatorios y vencimientos',
+  ];
+
+  const empresaFeatures = [
+    'Todo lo del plan Profesional',
+    'Multiempresa',
+    'Gestión avanzada de permisos',
+    'Integraciones y API',
+  ];
+
+  const empresaHighlights = [
+    'Sin permanencia',
+    'Actualizaciones incluidas',
+    'Soporte cercano',
+    'Prueba gratis 15 días',
+  ];
+
   return (
-    <div className="font-sans space-y-20 pb-16" id="home-view-container">
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-white border border-slate-200 rounded-lg p-6 sm:p-12 lg:p-16 shadow-xs" id="home-hero-section">
-        {/* Subtle grid pattern background */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-35" />
+    <div className="font-sans" id="home-view-container">
 
-        <div className="relative z-10 mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Hero left text content */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-            <div className="inline-flex items-center gap-1.5 rounded bg-slate-100 px-3 py-1 text-[10px] font-bold text-slate-600 border border-slate-200 uppercase tracking-widest">
-              🚀 BETA PÚBLICA DE LANZAMIENTO
-            </div>
-            
-            <h1 className="text-3.5xl sm:text-5xl font-display font-bold tracking-tight text-slate-950 leading-tight">
-              Habla. TrabFlow crea el presupuesto, lo manda por WhatsApp{' '}
-              <span className="text-blue-600">
-                y factura cuando el cliente acepta.
-              </span>
-            </h1>
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECCIÓN 1 — HERO (dark)
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section
+        id="home-hero-section"
+        className="relative bg-[#020B16] overflow-hidden"
+        style={{ background: 'radial-gradient(ellipse 120% 80% at 70% 30%, #0a1f3a 0%, #020B16 65%)' }}
+      >
+        {/* Subtle grid overlay */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
+            backgroundSize: '48px 48px',
+          }}
+        />
 
-            <p className="text-sm sm:text-base text-slate-500 max-w-xl mx-auto lg:mx-0 leading-relaxed font-sans">
-              La primera app inteligente e intuitiva para fontaneros, electricistas y técnicos HVAC de España. Diseña PDFs profesionales de obra al vuelo y deshazte del papeleo nocturno.
-            </p>
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-20 lg:pt-24 lg:pb-28">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 pt-2">
-              <button
-                onClick={() => handleGoToApp(true)}
-                className="group flex w-full sm:w-auto items-center justify-center gap-2 rounded bg-blue-600 px-6 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white hover:bg-blue-700 transition-colors shadow-sm cursor-pointer"
-                id="hero-cta-button-mobile-app"
-              >
-                <span>Probar en Móvil 📱</span>
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </button>
-              
-              <button
-                onClick={() => handleGoToApp(false)}
-                className="flex w-full sm:w-auto items-center justify-center gap-2 rounded bg-slate-900 border border-slate-800 px-6 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white hover:bg-slate-850 transition-colors cursor-pointer shadow-sm"
-                id="hero-cta-button-desktop-app"
-              >
-                <span>Probar en PC 💻</span>
-              </button>
-            </div>
-
-            {/* Micro proof badges */}
-            <div className="pt-6 border-t border-slate-200 flex flex-wrap items-center justify-center lg:justify-start gap-y-2 gap-x-6 text-[10px] font-mono uppercase tracking-wider text-slate-500">
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                <span>Beta 100% Gratuita</span>
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="h-4 w-4 text-emerald-600" />
-                <span>Ahorra 2-3 horas diarias</span>
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Users className="h-4 w-4 text-emerald-600" />
-                <span>+120 autónomos inscritos</span>
-              </span>
-            </div>
-          </div>
-
-          {/* Hero right visual asset */}
-          <div className="lg:col-span-5 relative mt-6 lg:mt-0 flex flex-col items-center gap-5">
-            {/* Cartel promotional card */}
+            {/* Left column */}
             <motion.div
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="w-full max-w-[305px] group cursor-pointer"
-              onClick={() => setShowCartelModal(true)}
+              transition={{ duration: 0.6 }}
+              className="space-y-7"
             >
-              <div className="relative rounded-lg overflow-hidden border-2 border-blue-200 shadow-md hover:shadow-xl transition-all hover:border-blue-400 hover:scale-[1.01]">
+              {/* Beta badge */}
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#00CFE8]/30 bg-[#00CFE8]/10 px-4 py-1.5">
+                <div className="h-1.5 w-1.5 rounded-full bg-[#00CFE8] animate-pulse" />
+                <span className="text-[11px] font-bold uppercase tracking-widest text-[#00CFE8]">Beta pública · Prueba gratis 15 días</span>
+              </div>
+
+              {/* Headline */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.05] uppercase">
+                DICTAS.<br />
+                <span className="text-[#FFC400]">TRABFLOW</span><br />
+                HACE EL RESTO.
+              </h1>
+
+              {/* Subtext */}
+              <p className="text-base sm:text-lg text-white/55 max-w-lg leading-relaxed">
+                Menos escribir. Más trabajar. Más clientes.<br />Más tiempo para ti.
+              </p>
+
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-3 pt-1">
+                <button
+                  onClick={handleGoToRegister}
+                  className="group flex items-center justify-center gap-2.5 rounded-xl bg-[#FFC400] px-7 py-3.5 text-sm font-black uppercase tracking-widest text-[#020B16] hover:bg-[#ffd740] transition-colors shadow-xl shadow-[#FFC400]/25 cursor-pointer"
+                  id="hero-cta-register"
+                >
+                  Prueba gratis 15 días
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </button>
+                <button
+                  onClick={() => handleGoToApp(false)}
+                  className="flex items-center justify-center gap-2 rounded-xl border border-white/20 px-7 py-3.5 text-sm font-bold uppercase tracking-widest text-white/80 hover:border-white/50 hover:text-white transition-colors cursor-pointer"
+                  id="hero-cta-demo"
+                >
+                  <Monitor className="h-4 w-4" />
+                  Ver Demo
+                </button>
+              </div>
+
+              {/* Trust badges */}
+              <div className="flex flex-wrap gap-x-6 gap-y-2 pt-2">
+                {[
+                  { icon: <Zap className="h-4 w-4 text-[#FFC400]" />, label: 'Inteligencia Artificial' },
+                  { icon: <Clock className="h-4 w-4 text-[#00CFE8]" />, label: 'Ahorra tiempo' },
+                  { icon: <TrendingUp className="h-4 w-4 text-[#FFC400]" />, label: 'Más clientes, más ingresos' },
+                  { icon: <ShieldCheck className="h-4 w-4 text-[#00CFE8]" />, label: 'Seguro y confiable' },
+                ].map((b) => (
+                  <span key={b.label} className="flex items-center gap-1.5 text-[11px] font-semibold text-white/50 uppercase tracking-wider">
+                    {b.icon}
+                    {b.label}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Right column — device mockup */}
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="relative flex justify-center items-start"
+            >
+              {/* Desktop card behind */}
+              <div className="hidden lg:block absolute top-8 right-0 w-[68%] rounded-2xl border border-white/10 bg-[#0d1f38] shadow-2xl overflow-hidden">
+                <div className="flex items-center gap-1.5 px-4 py-3 bg-[#08111e] border-b border-white/10">
+                  <div className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
+                  <div className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
+                  <div className="h-2.5 w-2.5 rounded-full bg-green-500/70" />
+                  <span className="ml-3 text-[10px] text-white/30 font-mono">trabflow.app</span>
+                </div>
                 <img
-                  src="/cartel.png"
-                  alt="Cartel TrabFlow — haz clic para ampliar"
-                  className="w-full object-cover"
-                  style={{ maxHeight: '180px', objectPosition: 'top' }}
+                  src="/Screenshot_20260524_182756.jpg"
+                  alt="TRABFLOW en escritorio"
+                  className="w-full object-cover object-top"
+                  style={{ maxHeight: '280px' }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent flex flex-col justify-end p-3 gap-2">
-                  <span className="text-white text-[10px] font-bold uppercase tracking-widest font-mono">Material de captación</span>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={e => { e.stopPropagation(); setShowCartelModal(true); }}
-                      className="flex-1 bg-white/20 backdrop-blur-sm hover:bg-white/35 border border-white/30 text-white text-[9px] font-bold uppercase tracking-wider py-1.5 px-2 rounded-lg transition-all cursor-pointer"
-                    >
-                      Ver cartel
-                    </button>
-                    <button
-                      onClick={e => { e.stopPropagation(); handleDownloadCartel(); }}
-                      className="flex-1 bg-blue-600/90 hover:bg-blue-600 border border-blue-500/50 text-white text-[9px] font-bold uppercase tracking-wider py-1.5 px-2 rounded-lg transition-all cursor-pointer flex items-center justify-center gap-1"
-                    >
-                      <Download className="h-3 w-3" />
-                      Descargar
-                    </button>
-                  </div>
+              </div>
+
+              {/* Phone frame in front */}
+              <div className="relative z-10 w-44 sm:w-52 rounded-[2rem] border-4 border-[#1a2a40] bg-[#08111e] shadow-2xl overflow-hidden lg:translate-x-[-30%] lg:translate-y-8">
+                <div className="flex justify-center pt-3 pb-1">
+                  <div className="h-1.5 w-12 rounded-full bg-white/20" />
+                </div>
+                <img
+                  src="/Screenshot_20260524_182738.jpg"
+                  alt="TRABFLOW en móvil"
+                  className="w-full object-cover object-top"
+                  style={{ maxHeight: '320px' }}
+                />
+              </div>
+
+              {/* Floating stat badge */}
+              <div className="absolute bottom-6 right-4 rounded-xl border border-[#FFC400]/30 bg-[#020B16]/80 backdrop-blur-sm px-4 py-3 shadow-xl">
+                <div className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Por cobrar</div>
+                <div className="text-2xl font-black text-[#FFC400]">1.437€</div>
+                <div className="flex items-center gap-1 text-[10px] text-emerald-400 font-semibold">
+                  <TrendingUp className="h-3 w-3" />
+                  +18% este mes
                 </div>
               </div>
             </motion.div>
 
-            {/* Modal cartel */}
-            <AnimatePresence>
-              {showCartelModal && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-                  onClick={() => setShowCartelModal(false)}
-                >
-                  <motion.div
-                    initial={{ scale: 0.92, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.92, opacity: 0 }}
-                    transition={{ type: 'spring', stiffness: 280, damping: 24 }}
-                    className="relative max-h-[90vh] max-w-[500px] w-full"
-                    onClick={e => e.stopPropagation()}
-                  >
-                    <img
-                      src="/cartel.png"
-                      alt="Cartel TrabFlow"
-                      className="w-full h-full object-contain rounded-xl shadow-2xl"
-                    />
-                    <div className="absolute top-3 right-3 flex gap-2">
-                      <button
-                        onClick={handleDownloadCartel}
-                        className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg shadow-lg cursor-pointer transition-colors"
-                        title="Descargar cartel"
-                      >
-                        <Download className="h-4 w-4" />
-                      </button>
-                      <button
-                        onClick={() => setShowCartelModal(false)}
-                        className="bg-white/10 hover:bg-white/20 text-white p-2 rounded-lg shadow-lg cursor-pointer transition-colors"
-                        title="Cerrar"
-                      >
-                        <X className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Visual device canvas */}
-            <div className="relative w-full max-w-[305px] bg-slate-50 rounded border border-slate-200 p-4 shadow-sm aspect-[9/16] overflow-hidden">
-              {/* Simulated active App body */}
-              <div className="bg-white h-full w-full rounded border border-slate-200 p-4 flex flex-col justify-between text-xs font-sans text-slate-600">
-                <div className="space-y-4">
-                  {/* Active call banner */}
-                  <div className="flex justify-between items-center text-[10px] bg-blue-50/50 p-2.5 rounded border border-blue-100">
-                    <span className="text-blue-700 font-bold uppercase animate-pulse">● Estado: Dictando</span>
-                    <span className="font-mono text-blue-600 font-semibold">0:12</span>
-                  </div>
-
-                  {/* Speech bubble */}
-                  <div className="bg-slate-50 p-3 rounded border border-slate-200 text-slate-700">
-                    <span className="text-[9px] font-bold text-slate-400 block uppercase mb-1">Tu voz en tiempo real:</span>
-                    <p className="italic text-[10px] leading-tight">
-                      "Apunta cambio de grifería de cobre para el fregadero de Juan Lorenzo en Calle Madrid..."
-                    </p>
-                  </div>
-
-                  {/* AI Extractor block */}
-                  <div className="bg-emerald-50/40 p-3 rounded border border-emerald-150 space-y-1.5">
-                    <span className="text-[9px] font-mono font-bold text-emerald-700 block uppercase">Estructura Generada:</span>
-                    <div className="grid grid-cols-2 text-[10px] gap-2">
-                      <div className="bg-white p-1.5 rounded border border-emerald-100">
-                        <strong className="text-slate-700 block text-[9px] uppercase text-slate-400 font-mono">Repuesto:</strong> 
-                        <span className="text-slate-800 font-medium">Grifería cobre</span>
-                      </div>
-                      <div className="bg-white p-1.5 rounded border border-emerald-100">
-                        <strong className="text-slate-700 block text-[9px] uppercase text-slate-400 font-mono">Precio:</strong> 
-                        <span className="text-emerald-700 font-bold">65,00€</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* WhatsApp preview bubble at phone bottom */}
-                <div className="bg-slate-50 p-3 rounded border border-slate-200 space-y-2">
-                  <div className="flex justify-between items-center text-[10px]">
-                    <span className="font-bold text-blue-600 block text-[9px] uppercase font-mono">✓ PDF LISTO</span>
-                    <span className="font-bold text-slate-800 font-mono text-xs">187,00€ Subtotal</span>
-                  </div>
-                  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded text-[10px] uppercase tracking-wider text-center block cursor-pointer">
-                    Mandar por WhatsApp
-                  </button>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* 2. THE PROBLEM */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" id="problem-section">
-        <div className="bg-red-50/10 rounded-lg border border-red-200/60 p-6 sm:p-10 lg:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div className="lg:col-span-7 space-y-4">
-            <span className="inline-flex items-center gap-1 rounded bg-red-100 text-red-800 border border-red-200 px-3 py-1 text-[10px] font-bold uppercase tracking-wider">
-              El verdadero problema del instalador
-            </span>
-            <h2 className="text-2.5xl sm:text-4xl font-display font-bold text-slate-950 tracking-tight leading-tight">
-              ¿Por qué los instaladores autónomos pierden hasta 3 horas al día?
-            </h2>
-            
-            <p className="text-slate-500 text-sm leading-relaxed">
-              Trabajas duro todo el día en el tajo, reparando tuberías o cableando locales. Pero el trabajo no acaba al volver a casa. Te toca lidiar con el lío de facturas, cuadernos arrugados en la furgoneta y presupuestos pendientes que tus clientes de WhatsApp te reclaman insistentes.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-              <div className="bg-white p-4 rounded border border-slate-200/80 space-y-1">
-                <span className="text-sm font-bold text-slate-900 block">Facturas olvidadas</span>
-                <p className="text-xs text-slate-500 leading-normal">Un tique que dejas en el salpicadero es dinero que pierdes al deducir IVA a fin de mes.</p>
-              </div>
-              <div className="bg-white p-4 rounded border border-slate-200/80 space-y-1">
-                <span className="text-sm font-bold text-slate-900 block">Clientes que se enfrían</span>
-                <p className="text-xs text-slate-500 leading-normal">Si tardas más de 24 horas en enviar el presupuesto del grifo, llaman a otro fontanero.</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-5 bg-white p-6 rounded border border-slate-200/80 shadow-xs flex flex-col justify-between space-y-4 text-center lg:text-left">
-            <div className="flex justify-center lg:justify-start">
-              <div className="h-10 w-10 rounded bg-red-50 text-red-700 flex items-center justify-center border border-red-100">
-                <AlertTriangle className="h-5 w-5" />
-              </div>
-            </div>
-            
-            <span className="text-4xl font-display font-bold text-slate-950">
-              -15% <span className="text-[10px] text-red-700 font-mono font-bold block uppercase tracking-wider mt-1">pérdida de facturación anual</span>
-            </span>
-
-            <p className="text-xs text-slate-500 leading-relaxed font-sans">
-              Estudios sectoriales indican que los instaladores que no presupuestan digitalmente incurren en pérdidas por redondeo de material y demoras de aceptación.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. STEP INSTRUCTION */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center" id="steps-section">
-        <div className="max-w-2xl mx-auto mb-12">
-          <span className="inline-flex items-center gap-1 rounded bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 text-[10px] font-bold uppercase tracking-wider mb-2">
-            La revolución del dictado
-          </span>
-          <h2 className="text-2.5xl sm:text-4xl font-display font-bold text-slate-950 tracking-tight leading-tight">
-            La solución de TrabFlow en 3 sencillos pasos
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-500 mt-2">Diseñada para técnicos que no quieren complicaciones tecnológicas ni ordenadores de oficina.</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white p-6 border border-slate-200 rounded-lg shadow-xs space-y-4">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded bg-blue-50 text-blue-600 border border-blue-100 shadow-xs">
-              <Mic className="h-5 w-5" />
-            </div>
-            <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide">1. Dicta el trabajo</h3>
-            <p className="text-xs text-slate-500 leading-relaxed max-w-xs mx-auto">
-              Solo cuéntale a TrabFlow lo que hiciste y el material usado. Nuestra inteligencia artificial entiende la jerga de instalaciones y extrae precios.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 border border-slate-200 rounded-lg shadow-xs space-y-4">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded bg-emerald-50 text-emerald-600 border border-emerald-100 shadow-xs">
-              <CheckCircle className="h-5 w-5" />
-            </div>
-            <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide">2. Revisa el presupuesto</h3>
-            <p className="text-xs text-slate-500 leading-relaxed max-w-xs mx-auto">
-              TrabFlow crea un borrador PDF oficial y elegante con IVA regulado, mano de obra y materiales perfectamente categorizados automáticamente.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 border border-slate-200 rounded-lg shadow-xs space-y-4">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded bg-amber-50 text-amber-600 border border-amber-100 shadow-xs">
-              <Send className="h-5 w-5" />
-            </div>
-            <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide">3. Envíalo por WhatsApp</h3>
-            <p className="text-xs text-slate-500 leading-relaxed max-w-xs mx-auto">
-              Compártelo instantáneamente con tu cliente en WhatsApp. Tu cliente lo puede firmar y aceptar directamente online desde su propio teléfono.
-            </p>
-          </div>
-        </div>
-
-        <div className="pt-8">
-          <button
-            onClick={handleGoToHowItWorks}
-            className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-blue-600 hover:text-blue-700 transition-colors cursor-pointer"
-          >
-            <span>Ver cómo funciona con ejemplos de instalación</span>
-            <ArrowRight className="h-4 w-4" />
-          </button>
-        </div>
-      </section>
-
-      {/* 4. KEY FEATURES (Funcionalidades) */}
-      <section className="bg-slate-50 border border-slate-200 py-16 rounded-lg px-4 sm:px-6 lg:px-8" id="features-section">
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECCIÓN 2 — ASÍ DE FÁCIL (light)
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section id="steps-section" className="bg-white py-20 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-2.5xl sm:text-4xl font-display font-bold text-slate-950 leading-tight tracking-tight">
-              Funcionalidades pensadas en el autónomo real
+
+          <div className="text-center mb-14">
+            <span className="inline-block rounded-full bg-[#020B16] px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#00CFE8] mb-4">
+              Así de fácil
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-[#020B16] uppercase tracking-tight">
+              Sin complicaciones. Sin papel.
             </h2>
-            <p className="text-slate-500 text-xs sm:text-sm mt-3">Todas las herramientas que necesitas para olvidarte del papeleo de una vez por todas.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* V1 */}
-            <div className="bg-white p-6 rounded border border-slate-200 shadow-xs space-y-4">
-              <div className="h-10 w-10 rounded bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-105">
-                <Mic className="h-5 w-5" />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+
+            {/* 5 Steps */}
+            <div className="lg:col-span-2">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-0">
+                {steps.map((step, i) => (
+                  <div key={step.n} className="flex flex-row sm:flex-col items-start sm:items-center sm:text-center gap-4 sm:gap-3 flex-1 min-w-[120px] py-4 sm:py-0">
+                    {/* Icon circle */}
+                    <div className="shrink-0 flex flex-col sm:flex-row items-center gap-0">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#020B16] text-[#00CFE8] shadow-lg shadow-[#020B16]/20">
+                        {step.icon}
+                      </div>
+                      {i < steps.length - 1 && (
+                        <ArrowRight className="hidden sm:block h-5 w-5 text-slate-300 mx-1 shrink-0" />
+                      )}
+                    </div>
+                    <div className="space-y-1">
+                      <div className="text-[10px] font-bold text-[#00CFE8] uppercase tracking-widest">{step.n}. {step.label}</div>
+                      <p className="text-xs text-slate-500 leading-relaxed max-w-[140px] mx-auto">{step.sub}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide">Presupuestos por voz</h3>
-              <p className="text-xs text-slate-505 leading-relaxed">
-                Habla de forma natural. Sin rellenar formularios en pantallas pequeñas. La IA capta conceptos e IVA en segundos.
-              </p>
             </div>
 
-            {/* V2 */}
-            <div className="bg-white p-6 rounded border border-slate-200 shadow-xs space-y-4">
-              <div className="h-10 w-10 rounded bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-105">
-                <ImageIcon className="h-5 w-5" />
-              </div>
-              <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide">Foto del trabajo</h3>
-              <p className="text-xs text-slate-550 leading-relaxed">
-                Toma fotos de equipos, piezas viejas o notas manuscritas e incorpóralas a la ficha del presupuesto para dar confianza.
-              </p>
-            </div>
-
-            {/* V3 */}
-            <div className="bg-white p-6 rounded border border-slate-200 shadow-xs space-y-4">
-              <div className="h-10 w-10 rounded bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-105">
-                <FileText className="h-5 w-5" />
-              </div>
-              <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide">PDF profesional</h3>
-              <p className="text-xs text-slate-550 leading-relaxed">
-                Estilo limpio y moderno. Cumple estrictamente el formato normativo español para que des una imagen impecable de cara al cliente.
-              </p>
-            </div>
-
-            {/* V4 */}
-            <div className="bg-white p-6 rounded border border-slate-200 shadow-xs space-y-4">
-              <div className="h-10 w-10 rounded bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-105">
-                <Smartphone className="h-5 w-5" />
-              </div>
-              <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide">Envío por WhatsApp</h3>
-              <p className="text-xs text-slate-550 leading-relaxed">
-                Notificación directa por chat. Tu cliente puede ver el PDF interactivo y aceptar online con su dedo desde el móvil.
-              </p>
-            </div>
-
-            {/* V5 */}
-            <div className="bg-white p-6 rounded border border-slate-200 shadow-xs space-y-4">
-              <div className="h-10 w-10 rounded bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-105">
-                <CheckCircle className="h-5 w-5" />
-              </div>
-              <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide">Conversión a factura</h3>
-              <p className="text-xs text-slate-550 leading-relaxed">
-                Cuando el cliente te dé el ok, convierte el presupuesto en factura numerada en un toque, lista para cobro bancario.
-              </p>
-            </div>
-
-            {/* V6 */}
-            <div className="bg-white p-6 rounded border border-slate-200 shadow-xs space-y-4">
-              <div className="h-10 w-10 rounded bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-105">
-                <TrendingUp className="h-5 w-5" />
-              </div>
-              <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide">Exportación para asesor</h3>
-              <p className="text-xs text-slate-550 leading-relaxed">
-                Descarga de forma ordenada los ficheros de ingresos para tu trimestre fiscal de autónomo, ahorrándole horas a tu gestor.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. AUDIENCE / PUBLICO OBJETIV        <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="inline-flex items-center gap-1 rounded bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 text-[10px] font-bold uppercase tracking-wider mb-2">
-            Sectores Admitidos
-          </span>
-          <h2 className="text-2.5xl sm:text-4xl font-display font-bold text-slate-950 tracking-tight leading-tight">
-            Hecho a medida para instaladores profesionales
-          </h2>
-          <p className="text-slate-500 text-xs sm:text-sm mt-3">Diseñamos bases de datos de materiales ajustados a las necesidades reales de cada profesión técnica:</p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {targetAudiences.map((item, index) => {
-            return (
-              <div
-                key={index}
-                className="bg-white p-6 rounded border border-slate-200 shadow-xs hover:border-blue-300 transition-colors flex flex-col justify-between space-y-4"
-                id={`target-audience-${index}`}
+            {/* Features list */}
+            <div className="rounded-2xl bg-[#020B16] p-6 space-y-5">
+              <h3 className="text-sm font-black uppercase tracking-widest text-white">
+                Todo lo que necesitas,<br />
+                <span className="text-[#FFC400]">en una sola herramienta</span>
+              </h3>
+              <ul className="space-y-3">
+                {features.map((f) => (
+                  <li key={f} className="flex items-center gap-2.5">
+                    <CheckCircle className="h-4 w-4 text-[#00CFE8] shrink-0" />
+                    <span className="text-sm text-white/70">{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={handleGoToRegister}
+                className="mt-2 w-full rounded-xl bg-[#FFC400] py-3 text-sm font-black uppercase tracking-wider text-[#020B16] hover:bg-[#ffd740] transition-colors cursor-pointer"
               >
-                <div className="space-y-2">
-                  <div className="text-3xl">{item.emoji}</div>
-                  <h3 className="text-sm font-display font-semibold text-slate-950 uppercase tracking-wide">{item.oficio}</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed">{item.desc}</p>
-                </div>
+                Empieza hoy gratis
+              </button>
+            </div>
 
-                <div className="bg-slate-50 p-3 rounded border border-slate-150 text-[10px] text-slate-600 space-y-1">
-                  <span className="font-bold text-slate-400 block uppercase font-mono text-[9px]">Ejemplo Dictado:</span>
-                  <p className="italic leading-relaxed">"{item.example}"</p>
-                </div>
-
-                <button
-                  onClick={() => handleGoToWaitlist(item.oficio)}
-                  className="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 text-[10px] uppercase tracking-wider font-bold py-2.5 rounded transition-colors cursor-pointer text-center block"
-                >
-                  Unirse Beta {item.oficio}
-                </button>
-              </div>
-            );
-          })}
+          </div>
         </div>
       </section>
 
-      {/* 6. TESTIMONIOS (Placeholders marked) */}
-      <section className="bg-slate-50 py-16 rounded-lg px-4 sm:px-6 lg:px-8 border border-slate-200" id="testimonials-section">
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECCIÓN 3 — DEMO (dark)
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section id="demo-section" className="bg-[#020B16] py-20 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest block mb-1">PROBADORES DE CONFIANZA</span>
-            <h2 className="text-2.5xl sm:text-4xl font-display font-bold text-slate-950 leading-tight tracking-tight">
-              ¿Qué dicen otros autónomos que ya lo han probado?
+
+          <div className="text-center mb-14">
+            <span className="inline-block rounded-full border border-white/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white/50 mb-4">
+              Pruébalo ahora
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
+              Elige cómo probarlo
             </h2>
-            <p className="text-slate-400 text-xs mt-2 italic">* Testimonios ficticios de demostración de viabilidad para el pilotaje TrabFlow.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((test) => {
-              return (
-                <div
-                  key={test.id}
-                  className="bg-white p-6 rounded border border-slate-200 shadow-xs relative flex flex-col justify-between"
-                  id={`testimonial-card-${test.id}`}
-                >
-                  <div className="space-y-3.5">
-                    {/* Stars group */}
-                    <div className="flex gap-0.5">
-                      {[...Array(test.rating)].map((_, sIdx) => (
-                        <Star key={sIdx} className="h-4.5 w-4.5 fill-amber-400 text-amber-400" />
-                      ))}
-                    </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                    <p className="text-xs text-slate-600 leading-relaxed font-sans italic">
-                      "{test.texto}"
-                    </p>
-                  </div>
+            {/* Mobile Demo */}
+            <div className="rounded-2xl border border-white/10 bg-[#0d1f38] p-8 flex flex-col items-center text-center gap-6">
+              <div className="h-14 w-14 rounded-2xl bg-[#FFC400]/10 border border-[#FFC400]/20 flex items-center justify-center">
+                <Smartphone className="h-7 w-7 text-[#FFC400]" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-lg font-black uppercase tracking-widest text-white">Acceso a demo móvil</h3>
+                <p className="text-sm text-white/50 leading-relaxed max-w-xs">
+                  Lleva tu negocio en el bolsillo. Gestiona clientes, presupuestos y facturas desde cualquier lugar.
+                </p>
+              </div>
+              <div className="w-36 rounded-[1.5rem] border-4 border-[#1a2a40] overflow-hidden shadow-xl">
+                <img
+                  src="/Screenshot_20260524_182738.jpg"
+                  alt="Demo móvil TRABFLOW"
+                  className="w-full object-cover object-top"
+                  style={{ maxHeight: '220px' }}
+                />
+              </div>
+              <button
+                onClick={() => handleGoToApp(true)}
+                className="w-full rounded-xl bg-[#FFC400] py-3 text-sm font-black uppercase tracking-widest text-[#020B16] hover:bg-[#ffd740] transition-colors cursor-pointer shadow-lg shadow-[#FFC400]/15"
+              >
+                Acceder a demo móvil
+              </button>
+            </div>
 
-                  <div className="flex items-center gap-2.5 pt-5 mt-5 border-t border-slate-250">
-                    <div className="h-9 w-9 bg-slate-100 border border-slate-200 rounded-sm flex items-center justify-center font-bold text-xs text-slate-700 uppercase">
-                      {test.nombre.substring(0, 2)}
-                    </div>
-                    <div>
-                      <span className="font-semibold text-slate-950 text-xs block">{test.nombre}</span>
-                      <span className="text-[10px] text-slate-400 block">{test.oficio} • {test.ciudad}</span>
-                    </div>
-                  </div>
+            {/* PC Demo */}
+            <div className="rounded-2xl border border-white/10 bg-[#0d1f38] p-8 flex flex-col items-center text-center gap-6">
+              <div className="h-14 w-14 rounded-2xl bg-[#00CFE8]/10 border border-[#00CFE8]/20 flex items-center justify-center">
+                <Monitor className="h-7 w-7 text-[#00CFE8]" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-lg font-black uppercase tracking-widest text-white">Demo en PC</h3>
+                <p className="text-sm text-white/50 leading-relaxed max-w-xs">
+                  Accede desde tu ordenador y contrasta la herramienta completa. Prueba sin compromisos.
+                </p>
+              </div>
+              <div className="w-full rounded-xl border-2 border-[#1a2a40] overflow-hidden shadow-xl">
+                <div className="flex items-center gap-1.5 px-3 py-2 bg-[#08111e]">
+                  <div className="h-2 w-2 rounded-full bg-red-500/60" />
+                  <div className="h-2 w-2 rounded-full bg-yellow-500/60" />
+                  <div className="h-2 w-2 rounded-full bg-green-500/60" />
+                  <span className="ml-2 text-[9px] text-white/30 font-mono">trabflow.app</span>
                 </div>
-              );
-            })}
+                <img
+                  src="/Screenshot_20260524_182756.jpg"
+                  alt="Demo escritorio TRABFLOW"
+                  className="w-full object-cover object-top"
+                  style={{ maxHeight: '180px' }}
+                />
+              </div>
+              <button
+                onClick={() => handleGoToApp(false)}
+                className="w-full rounded-xl border border-[#00CFE8]/40 py-3 text-sm font-black uppercase tracking-widest text-[#00CFE8] hover:bg-[#00CFE8]/10 transition-colors cursor-pointer"
+              >
+                Ver demo en PC
+              </button>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* 7. PREVIEW MINI PRICING SECTION */}
-      <section className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center" id="quick-pricing-ad-section">
-        <div className="bg-slate-950 text-white rounded-lg p-8 sm:p-12 border border-slate-800 space-y-6">
-          <h2 className="text-2xl sm:text-3.5xl font-display font-bold uppercase tracking-tight">Acceso Preferencial temporalmente GRATIS</h2>
-          <p className="text-slate-300 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
-            Planes desde 29€/mes diseñados para adaptarse a autónomos en solitario y cuadrillas de técnicos. Únete hoy a la beta para usar la aplicación de forma gratuita durante 3 meses enteros.
-          </p>
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECCIÓN 4 — PRECIOS (dark navy)
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section id="pricing-section" className="bg-[#030d1e] py-20 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
 
-          <div className="flex flex-wrap items-center justify-center gap-y-2 gap-x-8 text-[11px] text-slate-450 font-mono uppercase tracking-wider">
-            <span>Básico 29€/mes</span>
-            <span className="text-slate-700">•</span>
-            <span>Profesional (Pro) 49€/mes</span>
-            <span className="text-slate-700">•</span>
-            <span>Empresa 89€/mes</span>
+          <div className="text-center mb-14">
+            <span className="inline-block rounded-full border border-white/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white/50 mb-4">
+              Elige tu plan
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
+              Sin letra pequeña
+            </h2>
+            <p className="text-white/40 text-sm mt-3 max-w-md mx-auto">
+              Planes diseñados para autónomos en solitario y empresas instaladoras. Prueba 15 días sin tarjeta.
+            </p>
           </div>
 
-          <div className="pt-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
+
+            {/* Básico */}
+            <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-7 flex flex-col gap-6">
+              <div>
+                <div className="text-xs font-black uppercase tracking-widest text-white/40 mb-1">Básico</div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl font-black text-white">29€</span>
+                  <span className="text-sm text-white/40 font-medium">/mes</span>
+                </div>
+                <p className="text-xs text-white/40 mt-1">Individual · 1 usuario</p>
+              </div>
+              <ul className="space-y-2.5 flex-1">
+                {basicFeatures.map((f) => (
+                  <li key={f} className="flex items-center gap-2 text-sm text-white/70">
+                    <CheckCircle className="h-4 w-4 text-[#00CFE8] shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={handleGoToRegister}
+                className="w-full rounded-xl border border-white/20 py-3 text-sm font-bold uppercase tracking-wider text-white/70 hover:border-white/40 hover:text-white transition-colors cursor-pointer"
+              >
+                Empezar
+              </button>
+            </div>
+
+            {/* Profesional */}
+            <div className="rounded-2xl bg-[#0d1f38] border border-[#00CFE8]/30 p-7 flex flex-col gap-6 relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <span className="rounded-full bg-[#00CFE8] px-3 py-0.5 text-[10px] font-black uppercase tracking-widest text-[#020B16]">
+                  Más popular
+                </span>
+              </div>
+              <div>
+                <div className="text-xs font-black uppercase tracking-widest text-[#00CFE8] mb-1">Profesional</div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl font-black text-white">49€</span>
+                  <span className="text-sm text-white/40 font-medium">/mes</span>
+                </div>
+                <p className="text-xs text-white/40 mt-1">3-5 trabajadores</p>
+              </div>
+              <ul className="space-y-2.5 flex-1">
+                {proFeatures.map((f) => (
+                  <li key={f} className="flex items-center gap-2 text-sm text-white/70">
+                    <CheckCircle className="h-4 w-4 text-[#00CFE8] shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={handleGoToRegister}
+                className="w-full rounded-xl border border-[#00CFE8]/50 bg-[#00CFE8]/10 py-3 text-sm font-bold uppercase tracking-wider text-[#00CFE8] hover:bg-[#00CFE8]/20 transition-colors cursor-pointer"
+              >
+                Empezar
+              </button>
+            </div>
+
+            {/* Empresa — highlighted yellow */}
+            <div className="rounded-2xl bg-[#FFC400] p-7 flex flex-col gap-6 relative shadow-xl shadow-[#FFC400]/20">
+              <div>
+                <div className="text-xs font-black uppercase tracking-widest text-[#020B16]/60 mb-1">Empresa</div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-4xl font-black text-[#020B16]">89€</span>
+                  <span className="text-sm text-[#020B16]/60 font-medium">/mes</span>
+                </div>
+                <p className="text-xs text-[#020B16]/60 mt-1">6-10 trabajadores</p>
+              </div>
+              <ul className="space-y-2.5 flex-1">
+                {empresaFeatures.map((f) => (
+                  <li key={f} className="flex items-center gap-2 text-sm text-[#020B16]/80">
+                    <CheckCircle className="h-4 w-4 text-[#020B16] shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <div className="border-t border-[#020B16]/15 pt-4 space-y-1.5">
+                {empresaHighlights.map((h) => (
+                  <div key={h} className="flex items-center gap-2 text-xs font-bold text-[#020B16]">
+                    <div className="h-1.5 w-1.5 rounded-full bg-[#020B16]" />
+                    {h}
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={handleGoToRegister}
+                className="w-full rounded-xl bg-[#020B16] py-3 text-sm font-black uppercase tracking-widest text-[#FFC400] hover:bg-[#020B16]/80 transition-colors cursor-pointer shadow-md"
+              >
+                Prueba gratis 15 días
+              </button>
+            </div>
+
+          </div>
+
+          <div className="mt-8 text-center">
             <button
-              onClick={() => handleGoToWaitlist()}
-              className="group inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-widest px-6 py-3 rounded cursor-pointer transition-colors shadow-sm"
+              onClick={handleGoToPricing}
+              className="text-xs font-bold uppercase tracking-widest text-white/40 hover:text-white/70 transition-colors cursor-pointer"
             >
-              <span>Acceder a la lista de espera</span>
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              Ver todos los detalles de precios →
             </button>
           </div>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECCIÓN 5 — PROFESIONALES (light)
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section id="trades-section" className="bg-slate-50 py-20 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+
+          <div className="text-center mb-14">
+            <span className="inline-block rounded-full bg-[#020B16] px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#FFC400] mb-4">
+              Ideal para profesionales de:
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-[#020B16] uppercase tracking-tight">
+              Hecho para tu oficio
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {trades.map((trade) => (
+              <div
+                key={trade.label}
+                className="group flex flex-col items-center gap-3 rounded-2xl border border-slate-200 bg-white p-6 text-center hover:border-[#FFC400]/50 hover:shadow-lg transition-all cursor-default"
+              >
+                <div className="h-12 w-12 rounded-xl bg-[#020B16] text-[#00CFE8] flex items-center justify-center group-hover:bg-[#FFC400] group-hover:text-[#020B16] transition-colors">
+                  {trade.icon}
+                </div>
+                <span className="text-xs font-bold text-[#020B16] uppercase tracking-wide leading-tight">{trade.label}</span>
+              </div>
+            ))}
+            <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-slate-300 bg-transparent p-6 text-center">
+              <div className="h-12 w-12 rounded-xl border border-dashed border-slate-300 flex items-center justify-center text-2xl">
+                ➕
+              </div>
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wide">Y muchos más</span>
+            </div>
+          </div>
+
+          {/* Social proof */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-8">
+            <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-6 py-4">
+              <div className="flex gap-0.5">
+                {[1,2,3,4,5].map(i => <Star key={i} className="h-4 w-4 fill-[#FFC400] text-[#FFC400]" />)}
+              </div>
+              <div>
+                <div className="text-sm font-black text-[#020B16]">4.9 / 5.0</div>
+                <div className="text-[10px] text-slate-400 uppercase tracking-wider font-medium">Valoraciones</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-6 py-4">
+              <Users className="h-6 w-6 text-[#00CFE8]" />
+              <div>
+                <div className="text-sm font-black text-[#020B16]">+120 instaladores</div>
+                <div className="text-[10px] text-slate-400 uppercase tracking-wider font-medium">Beta activa</div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-6 py-4">
+              <ShieldCheck className="h-6 w-6 text-[#FFC400]" />
+              <div>
+                <div className="text-sm font-black text-[#020B16]">RGPD compliant</div>
+                <div className="text-[10px] text-slate-400 uppercase tracking-wider font-medium">100% legal España</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          SECCIÓN 6 — CTA FINAL (dark)
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section id="final-cta-section" className="bg-[#020B16] py-20 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center space-y-6">
+          <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
+            Empieza hoy.<br />
+            <span className="text-[#FFC400]">Sin compromisos.</span>
+          </h2>
+          <p className="text-white/50 text-base leading-relaxed">
+            15 días gratis, sin tarjeta. Cancela cuando quieras. Más de 120 instaladores ya lo usan.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+            <button
+              onClick={handleGoToRegister}
+              className="group flex items-center justify-center gap-2.5 rounded-xl bg-[#FFC400] px-8 py-4 text-sm font-black uppercase tracking-widest text-[#020B16] hover:bg-[#ffd740] transition-colors shadow-xl shadow-[#FFC400]/25 cursor-pointer"
+            >
+              Prueba gratis 15 días
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <button
+              onClick={handleGoToWaitlist}
+              className="flex items-center justify-center gap-2 rounded-xl border border-white/20 px-8 py-4 text-sm font-bold uppercase tracking-widest text-white/70 hover:border-white/40 hover:text-white transition-colors cursor-pointer"
+            >
+              Contactar con ventas
+            </button>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

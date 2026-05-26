@@ -944,3 +944,117 @@ export async function removeWorkerFromJob(jobId: string, workerId: string): Prom
     .eq('worker_id', workerId);
   if (error) throw error;
 }
+
+// ── F5: Worker (empleado de campo) ───────────────────────────────────────────
+
+export interface WorkerProfile {
+  id: string;
+  org_id: string;
+  nombre: string;
+  rol: string;
+  email?: string | null;
+  telefono?: string | null;
+}
+
+export async function loadWorkerByEmail(email: string): Promise<WorkerProfile | null> {
+  const { data, error } = await supabase
+    .from('trade_workers')
+    .select('id, org_id, nombre, rol, email, telefono')
+    .eq('email', email)
+    .eq('activo', true)
+    .maybeSingle();
+  if (error) throw error;
+  return data as WorkerProfile | null;
+}
+
+export async function loadWorkerJobs(workerId: string, orgId: string): Promise<TradeJob[]> {
+  const { data, error } = await supabase
+    .from('trade_jobs')
+    .select('*, trade_clients(nombre, telefono), trade_job_workers!inner(id, worker_id, rol)')
+    .eq('org_id', orgId)
+    .eq('trade_job_workers.worker_id', workerId)
+    .neq('estado', 'cancelado')
+    .order('fecha_inicio', { ascending: true })
+    .order('hora_inicio', { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as TradeJob[];
+}
+
+export async function workerSetJobStatus(
+  jobId: string,
+  workerId: string,
+  estado: TradeJob['estado'],
+  notas?: string,
+): Promise<void> {
+  const updates: Partial<TradeJob> = { estado };
+  if (estado === 'completado') {
+    updates.completado_por = workerId;
+    updates.completado_at = new Date().toISOString();
+    if (notas) updates.notas_cierre = notas;
+  }
+  const { error } = await supabase.from('trade_jobs').update(updates).eq('id', jobId);
+  if (error) throw error;
+}
+
+// ── Admin: Platform Invoices ──────────────────────────────────────────────────
+
+export interface TradePlatformInvoice {
+  id: string;
+  org_id: string;
+  period_start: string;
+  period_end: string;
+  amount_cents: number;
+  status: 'draft' | 'sent' | 'paid';
+  stripe_invoice_id?: string;
+  created_at: string;
+}
+
+export async function loadAdminStats(): Promise<{ orgs: AdminOrgRow[]; subscriptions: TradeSubscription[] }> {
+  const orgs = await getAdminOrgs();
+  const subscriptions = orgs.map(o => o.subscription).filter(Boolean) as TradeSubscription[];
+  return { orgs, subscriptions };
+}
+
+export async function loadPlatformInvoices(): Promise<TradePlatformInvoice[]> {
+  const { data, error } = await supabase.rpc('admin_get_platform_invoices');
+  if (error) throw error;
+  return (data ?? []) as TradePlatformInvoice[];
+}
+
+export async function setSubscriptionActive(orgId: string, active: boolean): Promise<void> {
+  const { error } = await supabase.rpc('admin_set_subscription_active', {
+    p_org_id: orgId,
+    p_active: active,
+  });
+  if (error) throw error;
+}
+
+export async function getStripePortalUrl(orgId: string): Promise<string> {
+  const { data: { session } } = await supabase.auth.getSession();
+  const token = session?.access_token;
+  if (!token) throw new Error('No autenticado');
+
+  const res = await supabase.functions.invoke('trade-stripe-portal', {
+    body: { org_id: orgId, return_url: window.location.origin },
+  });
+  if (res.error) throw new Error(res.error.message ?? 'Error portal Stripe');
+  const data = res.data as { url?: string; error?: string };
+  if (data.error) throw new Error(data.error);
+  return data.url!;
+}
+
+export async function getStripeCheckoutUrl(orgId: string, plan?: string, billingCycle?: string): Promise<string> {
+  const res = await supabase.functions.invoke('trade-stripe-checkout', {
+    body: {
+      org_id:        orgId,
+      plan:          plan,
+      billing_cycle: billingCycle,
+      success_url:   `${window.location.origin}/?checkout=success`,
+      cancel_url:    `${window.location.origin}/`,
+    },
+  });
+  if (res.error) throw new Error(res.error.message ?? 'Error checkout Stripe');
+  const data = res.data as { url?: string; error?: string };
+  if (data.error) throw new Error(data.error);
+  return data.url!;
+}

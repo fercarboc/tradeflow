@@ -7,8 +7,9 @@ import { useState, useEffect } from 'react';
 import { ActivePage } from '../types';
 import {
   getAdminOrgs, adminUpdateOrgPlan, adminSendPasswordReset, adminSetPassword,
-  adminExtendTrial, adminCreateInstaller,
-  AdminOrgRow, TradeSubscription,
+  adminExtendTrial, adminCreateInstaller, loadPlatformInvoices, setSubscriptionActive,
+  getStripePortalUrl, getStripeCheckoutUrl,
+  AdminOrgRow, TradeSubscription, TradePlatformInvoice,
 } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import {
@@ -117,6 +118,18 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [newError, setNewError] = useState<string | null>(null);
   const [newSuccess, setNewSuccess] = useState<string | null>(null);
 
+  // Sección activa
+  const [section, setSection] = useState<'orgs' | 'invoices'>('orgs');
+
+  // Platform invoices
+  const [invoices, setInvoices] = useState<TradePlatformInvoice[]>([]);
+  const [invoicesLoading, setInvoicesLoading] = useState(false);
+  const [toggleLoading, setToggleLoading] = useState<string | null>(null);
+
+  // Stripe
+  const [stripeLoading, setStripeLoading] = useState<string | null>(null);
+  const [checkoutCopied, setCheckoutCopied] = useState<string | null>(null);
+
   const handleCopyEmail = (email: string) => {
     navigator.clipboard.writeText(email).catch(() => {});
     setCopied(email);
@@ -207,6 +220,61 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     setOrgs(data);
     setLoading(false);
   };
+
+  const loadInvoices = async () => {
+    setInvoicesLoading(true);
+    try {
+      const data = await loadPlatformInvoices();
+      setInvoices(data);
+    } catch {
+      setInvoices([]);
+    } finally {
+      setInvoicesLoading(false);
+    }
+  };
+
+  const handleToggleSubscription = async (org: AdminOrgRow) => {
+    const isActive = org.subscription?.status === 'active';
+    setToggleLoading(org.id);
+    try {
+      await setSubscriptionActive(org.id, !isActive);
+      await loadOrgs();
+    } catch (e: unknown) {
+      alert('Error al cambiar suscripción: ' + (e instanceof Error ? e.message : String(e)));
+    } finally {
+      setToggleLoading(null);
+    }
+  };
+
+  const handleOpenPortal = async (org: AdminOrgRow) => {
+    setStripeLoading(`portal-${org.id}`);
+    try {
+      const url = await getStripePortalUrl(org.id);
+      window.open(url, '_blank', 'noopener');
+    } catch (e: unknown) {
+      alert('Error portal Stripe: ' + (e instanceof Error ? e.message : String(e)));
+    } finally {
+      setStripeLoading(null);
+    }
+  };
+
+  const handleCopyCheckout = async (org: AdminOrgRow) => {
+    setStripeLoading(`checkout-${org.id}`);
+    try {
+      const url = await getStripeCheckoutUrl(org.id);
+      await navigator.clipboard.writeText(url);
+      setCheckoutCopied(org.id);
+      setTimeout(() => setCheckoutCopied(null), 3000);
+    } catch (e: unknown) {
+      alert('Error checkout Stripe: ' + (e instanceof Error ? e.message : String(e)));
+    } finally {
+      setStripeLoading(null);
+    }
+  };
+
+  useEffect(() => {
+    if (isAdmin && section === 'invoices') loadInvoices();
+  }, [isAdmin, section]);
 
   if (!isAdmin) {
     return (
@@ -307,6 +375,28 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
           ))}
         </div>
 
+        {/* Section tabs */}
+        <div className="flex gap-1 mb-6 bg-slate-800/50 border border-slate-700 rounded-lg p-1 w-fit">
+          {([
+            { id: 'orgs', label: 'Clientes', Icon: Users },
+            { id: 'invoices', label: 'Facturas plataforma', Icon: CreditCard },
+          ] as const).map(({ id, label, Icon }) => (
+            <button
+              key={id}
+              onClick={() => setSection(id)}
+              className={`flex items-center gap-1.5 px-4 py-2 rounded text-xs font-semibold transition-all cursor-pointer ${
+                section === id
+                  ? 'bg-blue-600 text-white'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Icon className="h-3.5 w-3.5" />
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {section === 'orgs' && (<>
         {/* Toolbar */}
         <div className="flex flex-wrap items-center gap-3 mb-4">
           <div className="relative flex-1 min-w-[200px] max-w-sm">
@@ -481,6 +571,46 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                                 <CalendarPlus className="h-3 w-3" /> +Trial
                               </button>
                             )}
+                            <button
+                              onClick={() => handleToggleSubscription(org)}
+                              disabled={toggleLoading === org.id}
+                              title={org.subscription?.status === 'active' ? 'Desactivar plan' : 'Activar plan'}
+                              className={`flex items-center gap-1 px-2 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all border disabled:opacity-50 ${
+                                org.subscription?.status === 'active'
+                                  ? 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-red-900/40 hover:border-red-700 hover:text-red-300'
+                                  : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-emerald-900/40 hover:border-emerald-700 hover:text-emerald-300'
+                              }`}
+                            >
+                              {toggleLoading === org.id
+                                ? <RefreshCw className="h-3 w-3 animate-spin" />
+                                : org.subscription?.status === 'active'
+                                  ? <><CheckCircle className="h-3 w-3" /> ON</>
+                                  : <><CheckCircle className="h-3 w-3" /> OFF</>}
+                            </button>
+                            <button
+                              onClick={() => handleCopyCheckout(org)}
+                              disabled={stripeLoading === `checkout-${org.id}`}
+                              title="Copiar link de pago Stripe"
+                              className="flex items-center gap-1 px-2 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all border bg-slate-700 border-slate-600 text-slate-300 hover:bg-violet-700 hover:border-violet-600 hover:text-white disabled:opacity-50"
+                            >
+                              {stripeLoading === `checkout-${org.id}`
+                                ? <RefreshCw className="h-3 w-3 animate-spin" />
+                                : checkoutCopied === org.id
+                                  ? <><CheckCheck className="h-3 w-3 text-emerald-400" /> Copiado</>
+                                  : <><CreditCard className="h-3 w-3" /> Link</>}
+                            </button>
+                            {org.subscription?.stripe_customer_id && (
+                              <button
+                                onClick={() => handleOpenPortal(org)}
+                                disabled={stripeLoading === `portal-${org.id}`}
+                                title="Abrir portal de cliente Stripe"
+                                className="flex items-center gap-1 px-2 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all border bg-slate-700 border-slate-600 text-slate-300 hover:bg-indigo-700 hover:border-indigo-600 hover:text-white disabled:opacity-50"
+                              >
+                                {stripeLoading === `portal-${org.id}`
+                                  ? <RefreshCw className="h-3 w-3 animate-spin" />
+                                  : <><CreditCard className="h-3 w-3" /> Portal</>}
+                              </button>
+                            )}
                             <a
                               href={`mailto:${loginEmail}`}
                               title="Enviar email"
@@ -529,12 +659,95 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
           </div>
         )}
 
-        {/* Stripe placeholder */}
-        <div className="border border-dashed border-slate-700 rounded-lg p-6 text-center">
-          <CreditCard className="h-6 w-6 text-slate-600 mx-auto mb-2" />
-          <p className="text-slate-500 text-sm font-semibold">Gestión de pagos Stripe</p>
-          <p className="text-slate-600 text-xs mt-1">La integración con Stripe se configurará en la siguiente fase del proyecto.</p>
-        </div>
+        </>)}
+
+        {/* ── Sección: Facturas plataforma ─────────────────────────────── */}
+        {section === 'invoices' && (
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden">
+            <div className="flex items-center justify-between px-5 py-3 border-b border-slate-700">
+              <div className="flex items-center gap-2">
+                <CreditCard className="h-4 w-4 text-purple-400" />
+                <span className="text-sm font-semibold text-white">Facturas de plataforma</span>
+              </div>
+              <button
+                onClick={loadInvoices}
+                title="Recargar"
+                className="h-7 w-7 rounded border border-slate-700 flex items-center justify-center hover:bg-slate-700 cursor-pointer transition-colors"
+              >
+                <RefreshCw className={`h-3.5 w-3.5 text-slate-400 ${invoicesLoading ? 'animate-spin' : ''}`} />
+              </button>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-slate-700">
+                    {['Organización', 'Periodo', 'Importe', 'Estado', 'Stripe ID', 'Creada'].map(h => (
+                      <th key={h} className="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {invoicesLoading ? (
+                    <tr>
+                      <td colSpan={6} className="px-4 py-10 text-center text-slate-500 text-sm">
+                        <RefreshCw className="h-4 w-4 animate-spin inline-block mr-2" />
+                        Cargando facturas...
+                      </td>
+                    </tr>
+                  ) : invoices.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="px-4 py-10 text-center">
+                        <CreditCard className="h-8 w-8 text-slate-700 mx-auto mb-2" />
+                        <p className="text-slate-500 text-sm">No hay facturas de plataforma aún</p>
+                        <p className="text-slate-600 text-xs mt-1">Se generarán automáticamente cuando haya clientes activos</p>
+                      </td>
+                    </tr>
+                  ) : (
+                    invoices.map(inv => {
+                      const org = orgs.find(o => o.id === inv.org_id);
+                      const statusCfg = {
+                        draft:  { cls: 'bg-slate-700 text-slate-300 border-slate-600', label: 'Borrador' },
+                        sent:   { cls: 'bg-blue-900/40 text-blue-300 border-blue-800', label: 'Enviada' },
+                        paid:   { cls: 'bg-emerald-900/40 text-emerald-300 border-emerald-800', label: 'Pagada' },
+                      };
+                      const { cls, label } = statusCfg[inv.status];
+                      return (
+                        <tr key={inv.id} className="border-b border-slate-700/50 hover:bg-slate-800/60 transition-colors">
+                          <td className="px-4 py-3">
+                            <span className="text-white text-sm font-medium">{org?.nombre ?? inv.org_id.slice(0, 8)}</span>
+                          </td>
+                          <td className="px-4 py-3 font-mono text-xs text-slate-400 whitespace-nowrap">
+                            {new Date(inv.period_start).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' })}
+                            {' – '}
+                            {new Date(inv.period_end).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' })}
+                          </td>
+                          <td className="px-4 py-3">
+                            <span className="text-white font-semibold">{(inv.amount_cents / 100).toFixed(2)} €</span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <span className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${cls}`}>
+                              {label}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <span className="text-slate-500 text-xs font-mono">{inv.stripe_invoice_id ?? '—'}</span>
+                          </td>
+                          <td className="px-4 py-3">
+                            <span className="text-slate-500 text-xs font-mono whitespace-nowrap">
+                              {new Date(inv.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' })}
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ── Modal: cambiar contraseña ─────────────────────────────────────────── */}

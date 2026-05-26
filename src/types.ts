@@ -13,7 +13,8 @@ export enum ActivePage {
   Cookies = 'cookies',
   AppDashboard = 'app-dashboard',
   Registro = 'registro',
-  Admin = 'admin'
+  Admin = 'admin',
+  Worker = 'worker',
 }
 
 export type TradeType =

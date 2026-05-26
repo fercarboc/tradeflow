@@ -48,10 +48,11 @@ import {
   Edit3,
   RotateCcw,
   Calendar,
+  Camera,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import CatalogImportModal from './CatalogImportModal';
@@ -631,6 +632,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [selectedPhotoPreset, setSelectedPhotoPreset] = useState<PresetPhoto | null>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [scanProgress, setScanProgress] = useState(0);
+  const [realPhotoFile, setRealPhotoFile] = useState<File | null>(null);
+  const [realPhotoPreviewUrl, setRealPhotoPreviewUrl] = useState<string | null>(null);
+  const photoInputRef = useRef<HTMLInputElement>(null);
 
   const presetPhotos: PresetPhoto[] = [
     {
@@ -655,42 +659,111 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     }
   ];
 
-  const startPhotoAnalysis = () => {
+  const startPhotoAnalysis = async () => {
+    // ── Modo real: foto real → edge function GPT-4o Vision ─────────────
+    if (isLiveMode && realPhotoFile) {
+      setIsScanning(true);
+      setScanProgress(20);
+      try {
+        const base64 = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = e => {
+            const r = e.target?.result as string;
+            resolve(r.split(',')[1]);
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(realPhotoFile);
+        });
+        setScanProgress(50);
+        const { data: { session } } = await supabase.auth.getSession();
+        const res = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-photo-scan`,
+          {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${session?.access_token ?? ''}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ image_base64: base64, mime_type: realPhotoFile.type }),
+          },
+        );
+        setScanProgress(85);
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({ error: 'Error del servidor' }));
+          throw new Error(err.error ?? `HTTP ${res.status}`);
+        }
+        const result = await res.json() as { items: Array<{ descripcion: string; tipo: string; cantidad: number; unidad?: string }> };
+        setScanProgress(100);
+        setIsScanning(false);
+
+        const partidas: PartidaPresupuesto[] = result.items.map(item => {
+          const catalogMatch = catalogProducts.length > 0 ? matchProductForAI(item.descripcion, catalogProducts) : null;
+          if (catalogMatch) {
+            return {
+              descripcion: `${catalogMatch.product.nombre_generico} (${catalogMatch.variant.marca})`,
+              tipo: 'material' as const,
+              cantidad: item.cantidad ?? 1,
+              precioUnitario: catalogMatch.variant.precio_venta,
+              total: catalogMatch.variant.precio_venta * (item.cantidad ?? 1),
+            };
+          }
+          const matched = tarifas.find(t => item.descripcion.toLowerCase().includes(t.descripcion.toLowerCase().slice(0, 5)));
+          const precioUnitario = matched?.precioBase ?? 0;
+          return {
+            descripcion: item.descripcion,
+            tipo: (item.tipo === 'mano_de_obra' ? 'mano_de_obra' : 'material') as PartidaPresupuesto['tipo'],
+            cantidad: item.cantidad ?? 1,
+            precioUnitario,
+            total: precioUnitario * (item.cantidad ?? 1),
+          };
+        });
+
+        const addedTotal = partidas.reduce((s, p) => s + p.total, 0);
+        setWizardQuote(prev => ({
+          ...prev,
+          partidas: [...(prev.partidas || []), ...partidas],
+          total: (prev.total || 0) + addedTotal,
+        }));
+        setRealPhotoFile(null);
+        setRealPhotoPreviewUrl(null);
+        showToast(`Foto analizada: ${partidas.length} elementos detectados ✓`, 'success');
+        setWizardStep(4);
+      } catch (e: unknown) {
+        showToast('Error al analizar foto: ' + (e as Error).message, 'error');
+        setIsScanning(false);
+      }
+      return;
+    }
+
+    // ── Modo demo: preset con barra de progreso fake ─────────────────────
     if (!selectedPhotoPreset) return;
     setIsScanning(true);
     setScanProgress(0);
-
     const interval = setInterval(() => {
       setScanProgress(prev => {
         if (prev >= 100) {
           clearInterval(interval);
           setIsScanning(false);
-          
           const resultItems: PartidaPresupuesto[] = selectedPhotoPreset.detections.map(det => ({
             descripcion: det.label,
-            tipo: det.type,
-            quantity: 1, // compatible
+            tipo: det.type as PartidaPresupuesto['tipo'],
             cantidad: 1,
             precioUnitario: det.price,
-            total: det.price
+            total: det.price,
           }));
-          
-          const labor = selectedPhotoPreset.category === 'Electricidad' 
+          const labor = selectedPhotoPreset.category === 'Electricidad'
             ? { descripcion: 'Mano de obra conexionado y montaje', tipo: 'mano_de_obra' as const, cantidad: 2, precioUnitario: 42, total: 84 }
             : { descripcion: 'Mano de obra fontanero instalación desagüe', tipo: 'mano_de_obra' as const, cantidad: 1, precioUnitario: 39, total: 39 };
-
           const finalItems = [...resultItems, labor];
           const addedTotal = finalItems.reduce((acc, curr) => acc + curr.total, 0);
-
           setWizardQuote(prev => ({
             ...prev,
             partidas: [...(prev.partidas || []), ...finalItems],
-            total: (prev.total || 0) + addedTotal
+            total: (prev.total || 0) + addedTotal,
           }));
-
           showToast('Análisis fotográfico finalizado');
           setSelectedPhotoPreset(null);
-          setWizardStep(4); // Avanzar a revisión
+          setWizardStep(4);
           return 100;
         }
         return prev + 10;
@@ -772,26 +845,52 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     }
   };
 
-  // Simulación de WhatsApp envio
-  const handleSendWhatsAppNow = () => {
-    setWhatsAppStep('sending');
-    setWhatsAppProgress(0);
+  // Construir URL wa.me con mensaje pre-rellenado
+  const buildWaLink = (phone: string | undefined | null, text: string) => {
+    const clean = (phone ?? '').replace(/[\s\-\(\)]/g, '').replace(/^\+/, '');
+    const num = clean ? (clean.startsWith('34') ? clean : `34${clean}`) : '';
+    return num
+      ? `https://wa.me/${num}?text=${encodeURIComponent(text)}`
+      : `https://wa.me/?text=${encodeURIComponent(text)}`;
+  };
 
-    const interval = setInterval(() => {
-      setWhatsAppProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setWhatsAppStep('success');
-          
-          // Actualizar estado del presupuesto a 'Enviado'
-          if (targetQuoteForWhatsApp) {
-            setPresupuestos(prevQ => prevQ.map(q => q.id === targetQuoteForWhatsApp.id ? { ...q, estado: 'Enviado' } : q));
-          }
-          return 100;
-        }
-        return prev + 10;
-      });
-    }, 120);
+  const buildQuoteMessage = (q: Presupuesto) => {
+    const iva = empresaAjustes.ivaDefault || 21;
+    const ivaAmt = q.total * (iva / 100);
+    const totalConIVA = q.total + ivaAmt;
+    const lines = q.partidas.map(p =>
+      `• ${p.descripcion}: ${p.cantidad} × ${p.precioUnitario.toFixed(2)}€ = *${p.total.toFixed(2)}€*`
+    );
+    return [
+      `Hola ${q.nombreCliente}, te envío el presupuesto *${q.id}*.`,
+      `_${q.descripcion}_`,
+      '',
+      ...lines,
+      '',
+      `Base imponible: ${q.total.toFixed(2)}€`,
+      `IVA (${iva}%): ${ivaAmt.toFixed(2)}€`,
+      `*TOTAL: ${totalConIVA.toFixed(2)}€*`,
+      '',
+      'Quedo a tu disposición para cualquier consulta.',
+      ...(empresaAjustes.nombre ? [empresaAjustes.nombre] : []),
+      ...(empresaAjustes.telefonoMovil ? [empresaAjustes.telefonoMovil] : []),
+    ].join('\n');
+  };
+
+  const handleSendWhatsAppNow = () => {
+    if (!targetQuoteForWhatsApp) return;
+    const msg = buildQuoteMessage(targetQuoteForWhatsApp);
+    window.open(buildWaLink(targetQuoteForWhatsApp.telefonoCliente, msg), '_blank');
+    setPresupuestos(prev => prev.map(q =>
+      q.id === targetQuoteForWhatsApp.id ? { ...q, estado: 'Enviado' as const } : q
+    ));
+    if (isLiveMode && orgId) {
+      supabase.from('trade_quotes').update({ estado: 'enviado' }).eq('numero', targetQuoteForWhatsApp.id);
+    }
+    setShowWhatsAppModal(false);
+    setTargetQuoteForWhatsApp(null);
+    setWhatsAppStep('confirm');
+    showToast('WhatsApp abierto — envía el mensaje al cliente ✓', 'success');
   };
 
   // Convertir a factura (one-tap — live: DB, demo: local)
@@ -862,7 +961,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   const handleRemindInvoice = (f: Factura) => {
-    showToast(`Recordatorio de cobro enviado por WhatsApp a ${f.nombreCliente}`, 'info');
+    const totalConIVA = (f.importe * 1.21).toFixed(2);
+    const msg = [
+      `Hola ${f.nombreCliente}, te recuerdo el pago pendiente de la factura *${f.numeroFactura}*.`,
+      '',
+      `Importe: *${totalConIVA}€* (IVA incluido)`,
+      ...(f.fechaVencimiento ? [`Vencimiento: ${f.fechaVencimiento}`] : []),
+      '',
+      'Por favor, confirma cuando realices el pago o contacta conmigo si tienes alguna consulta.',
+      ...(empresaAjustes.nombre ? [empresaAjustes.nombre] : []),
+      ...(empresaAjustes.telefonoMovil ? [empresaAjustes.telefonoMovil] : []),
+    ].join('\n');
+    const phone = clientes.find(c => c.nombre === f.nombreCliente)?.telefono;
+    window.open(buildWaLink(phone, msg), '_blank');
+    showToast('WhatsApp abierto para recordatorio ✓', 'info');
   };
 
   // --- Estado faltante completado ---
@@ -1498,58 +1610,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 
                 {whatsAppStep === 'confirm' && (
                   <div className="space-y-4">
-                    <div className="bg-white p-3 rounded-2xl rounded-tl-xs shadow-xs text-xs max-w-[85%] self-start relative">
-                      <span className="text-[8px] font-mono font-bold text-slate-400 block uppercase mb-1">Previsualización mensaje:</span>
-                      <p className="leading-relaxed">
-                        Hola <strong>{targetQuoteForWhatsApp.nombreCliente}</strong>, te adjunto el presupuesto <strong>{targetQuoteForWhatsApp.id}</strong> para <em>{targetQuoteForWhatsApp.descripcion}</em>.
-                      </p>
-                      <p className="mt-1 leading-relaxed">
-                        Importe: <strong>{(targetQuoteForWhatsApp.total * 1.21).toFixed(2)}€ (IVA incl.)</strong>. Puedes firmar online aquí:
-                      </p>
-                      <p className="text-blue-600 underline font-semibold mt-1">
-                        trabflow.com/p/{(targetQuoteForWhatsApp.id).toLowerCase()}
-                      </p>
+                    <div className="bg-white p-3 rounded-2xl rounded-tl-xs shadow-xs text-xs max-w-[90%] self-start relative">
+                      <span className="text-[8px] font-mono font-bold text-slate-400 block uppercase mb-1.5">Vista previa del mensaje:</span>
+                      <pre className="whitespace-pre-wrap font-sans text-[10px] text-slate-700 leading-relaxed">{buildQuoteMessage(targetQuoteForWhatsApp)}</pre>
                     </div>
 
-                    <div className="text-[10px] text-slate-500 text-center italic py-2">
-                      "Revisa y envía" — ¿Listo para enviar por chat?
-                    </div>
+                    {!targetQuoteForWhatsApp.telefonoCliente && (
+                      <p className="text-[9px] text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-2 py-1.5 text-center">
+                        Sin teléfono guardado — podrás elegir el contacto en WhatsApp
+                      </p>
+                    )}
 
-                    <button 
+                    <button
                       onClick={handleSendWhatsAppNow}
                       className="w-full bg-[#25d366] hover:bg-[#128c7e] text-white font-bold py-3.5 rounded-2xl text-xs uppercase tracking-wider text-center block cursor-pointer shadow-sm"
                     >
-                      Enviar Ahora 💬
-                    </button>
-                  </div>
-                )}
-
-                {whatsAppStep === 'sending' && (
-                  <div className="space-y-4 py-8 text-center">
-                    <div className="w-10 h-10 border-2 border-t-[#075e54] border-slate-350 rounded-full animate-spin mx-auto" />
-                    <span className="text-xs font-bold text-slate-650 uppercase font-mono block">Enviando presupuesto a través de WhatsApp Cloud...</span>
-                  </div>
-                )}
-
-                {whatsAppStep === 'success' && (
-                  <div className="space-y-5 py-4 text-center">
-                    <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-inner">
-                      <Check className="w-7 h-7" />
-                    </div>
-                    <div className="space-y-1">
-                      <h4 className="font-bold text-sm text-slate-905 uppercase">¡Enviado con Éxito!</h4>
-                      <p className="text-[10px] text-slate-500 leading-normal">Tu cliente ha recibido el presupuesto para firmarlo.</p>
-                    </div>
-
-                    <button 
-                      onClick={() => {
-                        setShowWhatsAppModal(false);
-                        setTargetQuoteForWhatsApp(null);
-                        setWhatsAppStep('confirm');
-                      }}
-                      className="w-full bg-slate-900 text-white font-bold py-3 rounded-xl text-xs uppercase tracking-wider block cursor-pointer"
-                    >
-                      Volver a Inicio
+                      Abrir WhatsApp y Enviar 💬
                     </button>
                   </div>
                 )}
@@ -2197,58 +2273,111 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </button>
               </div>
 
-              {/* Preset selector */}
-              <div className="grid grid-cols-2 gap-2">
-                {presetPhotos.map(p => (
-                  <div
-                    key={p.id}
-                    onClick={() => handleSelectPresetPhoto(p)}
-                    className={`p-2 rounded-2xl border-2 cursor-pointer transition-all flex flex-col items-center gap-2 bg-white dark:bg-slate-900 ${
-                      selectedPhotoPreset?.id === p.id ? 'border-blue-600' : 'border-slate-200 dark:border-slate-850'
-                    }`}
-                  >
-                    <img src={p.url} alt={p.name} className="w-full h-16 rounded-xl object-cover" />
-                    <span className="font-bold text-[9.5px] text-slate-800 dark:text-slate-200 block text-center truncate w-full">{p.name}</span>
-                  </div>
-                ))}
-              </div>
+              {/* Input de cámara oculto (solo live mode) */}
+              <input
+                ref={photoInputRef}
+                type="file"
+                accept="image/*"
+                capture="environment"
+                className="hidden"
+                onChange={e => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    setRealPhotoFile(file);
+                    setRealPhotoPreviewUrl(URL.createObjectURL(file));
+                    setSelectedPhotoPreset(null);
+                  }
+                  e.target.value = '';
+                }}
+              />
 
-              {selectedPhotoPreset ? (
-                <div className="space-y-3 pt-2">
-                  <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 aspect-video flex items-center justify-center">
-                    <img src={selectedPhotoPreset.url} alt="Scan preview" className="max-h-full max-w-full object-contain" />
+              {/* Live mode: botón de cámara real */}
+              {isLiveMode && !realPhotoFile && (
+                <button
+                  onClick={() => photoInputRef.current?.click()}
+                  className="w-full bg-slate-800 border-2 border-dashed border-blue-600/50 hover:border-blue-500 rounded-2xl p-5 text-center cursor-pointer transition-colors"
+                >
+                  <Camera className="w-8 h-8 text-blue-400 mx-auto mb-2" />
+                  <span className="text-xs font-bold text-white block">📷 Tomar foto o subir imagen</span>
+                  <span className="text-[10px] text-slate-400 block mt-1">GPT-4o Vision detectará materiales automáticamente</span>
+                </button>
+              )}
+
+              {/* Preview foto real + botón analizar */}
+              {isLiveMode && realPhotoFile && realPhotoPreviewUrl && (
+                <div className="space-y-3">
+                  <div className="relative rounded-2xl overflow-hidden border border-blue-600 aspect-video bg-slate-950">
+                    <img src={realPhotoPreviewUrl} alt="Preview" className="w-full h-full object-cover" />
                     {isScanning && (
-                      <div 
-                        className="absolute left-0 right-0 h-1 bg-emerald-400 shadow-[0_0_15px_#34d399] z-20"
-                        style={{ top: `${scanProgress}%`, transition: 'top 100ms linear' }}
-                      />
+                      <div className="absolute left-0 right-0 h-1 bg-emerald-400 shadow-[0_0_15px_#34d399] z-20"
+                        style={{ top: `${scanProgress}%`, transition: 'top 200ms linear' }} />
                     )}
+                    <button
+                      onClick={() => { setRealPhotoFile(null); setRealPhotoPreviewUrl(null); }}
+                      className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white text-[9px] font-bold px-2 py-1 rounded-lg cursor-pointer"
+                    >
+                      ✕ Cambiar
+                    </button>
                   </div>
-
-                  <div className="flex justify-between items-center text-xs">
-                    <span className="text-slate-450 font-mono text-[9px]">{selectedPhotoPreset.name}</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-[9px] text-slate-400 font-mono truncate max-w-[60%]">{realPhotoFile.name}</span>
                     {!isScanning ? (
-                      <button
-                        onClick={startPhotoAnalysis}
-                        className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-lg text-[9px] uppercase cursor-pointer"
-                      >
+                      <button onClick={startPhotoAnalysis}
+                        className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-1.5 rounded-lg text-[9px] uppercase cursor-pointer">
                         Analizar con IA 📷
                       </button>
                     ) : (
-                      <span className="text-emerald-450 font-bold font-mono text-[9px] animate-pulse">Escaneando... {scanProgress}%</span>
+                      <span className="text-emerald-400 font-bold font-mono text-[9px] animate-pulse">Analizando... {scanProgress}%</span>
                     )}
                   </div>
                 </div>
-              ) : (
-                <div className="bg-white dark:bg-slate-900 border-2 border-dashed border-slate-200 dark:border-slate-850 rounded-2xl p-8 text-center space-y-3">
-                  <div className="w-10 h-10 bg-slate-100 dark:bg-slate-850 text-slate-400 rounded-full flex items-center justify-center mx-auto border border-slate-200 dark:border-slate-800">
-                    <Upload className="w-5 h-5 text-slate-500" />
+              )}
+
+              {/* Demo mode: preset selector */}
+              {!isLiveMode && (
+                <>
+                  <div className="grid grid-cols-2 gap-2">
+                    {presetPhotos.map(p => (
+                      <div key={p.id} onClick={() => handleSelectPresetPhoto(p)}
+                        className={`p-2 rounded-2xl border-2 cursor-pointer transition-all flex flex-col items-center gap-2 bg-white dark:bg-slate-900 ${selectedPhotoPreset?.id === p.id ? 'border-blue-600' : 'border-slate-200 dark:border-slate-850'}`}>
+                        <img src={p.url} alt={p.name} className="w-full h-16 rounded-xl object-cover" />
+                        <span className="font-bold text-[9.5px] text-slate-800 dark:text-slate-200 block text-center truncate w-full">{p.name}</span>
+                      </div>
+                    ))}
                   </div>
-                  <div>
-                    <span className="text-xs font-bold text-slate-800 dark:text-white block">Haz foto o selecciona un preset</span>
-                    <span className="text-[10px] text-slate-450 block mt-1 leading-normal">Optimizado para operar en obra con la cámara del móvil.</span>
-                  </div>
-                </div>
+                  {selectedPhotoPreset ? (
+                    <div className="space-y-3 pt-2">
+                      <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 aspect-video flex items-center justify-center">
+                        <img src={selectedPhotoPreset.url} alt="Scan preview" className="max-h-full max-w-full object-contain" />
+                        {isScanning && (
+                          <div className="absolute left-0 right-0 h-1 bg-emerald-400 shadow-[0_0_15px_#34d399] z-20"
+                            style={{ top: `${scanProgress}%`, transition: 'top 100ms linear' }} />
+                        )}
+                      </div>
+                      <div className="flex justify-between items-center text-xs">
+                        <span className="text-slate-450 font-mono text-[9px]">{selectedPhotoPreset.name}</span>
+                        {!isScanning ? (
+                          <button onClick={startPhotoAnalysis}
+                            className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-lg text-[9px] uppercase cursor-pointer">
+                            Analizar con IA 📷
+                          </button>
+                        ) : (
+                          <span className="text-emerald-450 font-bold font-mono text-[9px] animate-pulse">Escaneando... {scanProgress}%</span>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="bg-white dark:bg-slate-900 border-2 border-dashed border-slate-200 dark:border-slate-850 rounded-2xl p-8 text-center space-y-3">
+                      <div className="w-10 h-10 bg-slate-100 dark:bg-slate-850 text-slate-400 rounded-full flex items-center justify-center mx-auto border border-slate-200 dark:border-slate-800">
+                        <Upload className="w-5 h-5 text-slate-500" />
+                      </div>
+                      <div>
+                        <span className="text-xs font-bold text-slate-800 dark:text-white block">Selecciona un preset de ejemplo</span>
+                        <span className="text-[10px] text-slate-450 block mt-1 leading-normal">Modo demo — activa modo real para usar tu cámara.</span>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           )}
@@ -2621,9 +2750,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     isLiveMode={isLiveMode}
                     isDarkMode={isDarkMode}
                     onCreateJob={async (job) => {
-                      if (!orgId) return;
+                      if (!orgId) throw new Error('Sin organización');
                       const saved = await createJob(orgId, job);
                       setJobs(prev => [...prev, saved]);
+                      return saved;
                     }}
                     onUpdateJob={async (id, updates) => {
                       await updateJob(id, updates);
@@ -2635,6 +2765,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     }}
                     onAssignWorker={async (jobId, workerId, rol) => {
                       await assignWorkerToJob(jobId, workerId, rol as 'responsable' | 'asignado' | 'apoyo');
+                      await loadJobs(orgId!).then(setJobs);
+                    }}
+                    onRemoveWorker={async (jobId, workerId) => {
+                      await removeWorkerFromJob(jobId, workerId);
+                      await loadJobs(orgId!).then(setJobs);
                     }}
                     showToast={showToast}
                   />

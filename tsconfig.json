@@ -27,6 +27,7 @@
   "exclude": [
     "mobile",
     "node_modules",
-    "dist"
+    "dist",
+    "supabase/functions"
   ]
 }

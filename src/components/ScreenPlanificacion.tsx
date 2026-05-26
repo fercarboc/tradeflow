@@ -16,10 +16,11 @@ export interface ScreenPlanificacionProps {
   orgId: string | null;
   isLiveMode: boolean;
   isDarkMode: boolean;
-  onCreateJob: (job: Omit<TradeJob, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_clients' | 'trade_job_workers'>) => Promise<void>;
+  onCreateJob: (job: Omit<TradeJob, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_clients' | 'trade_job_workers'>) => Promise<TradeJob>;
   onUpdateJob: (id: string, updates: Partial<TradeJob>) => Promise<void>;
   onDeleteJob: (id: string) => Promise<void>;
   onAssignWorker: (jobId: string, workerId: string, rol: string) => Promise<void>;
+  onRemoveWorker: (jobId: string, workerId: string) => Promise<void>;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
 }
 
@@ -76,19 +77,20 @@ const EMPTY_DRAFT = (): Partial<TradeJob> => ({
 
 export default function ScreenPlanificacion({
   jobs: propJobs, workers, clientes, orgId, isLiveMode,
-  onCreateJob, onUpdateJob, onDeleteJob, showToast,
+  onCreateJob, onUpdateJob, onDeleteJob, onAssignWorker, onRemoveWorker, showToast,
 }: ScreenPlanificacionProps) {
   const jobs = isLiveMode ? propJobs : DEMO_JOBS;
   const today = new Date().toISOString().split('T')[0];
 
-  const [viewMode, setViewMode]         = useState<ViewMode>('dia');
-  const [selectedDate, setSelectedDate] = useState(today);
-  const [filterEstado, setFilterEstado] = useState<FilterEstado>('todos');
-  const [showRoute, setShowRoute]       = useState(false);
-  const [showModal, setShowModal]       = useState(false);
-  const [editingJob, setEditingJob]     = useState<TradeJob | null>(null);
-  const [draft, setDraft]               = useState<Partial<TradeJob>>(EMPTY_DRAFT());
-  const [saving, setSaving]             = useState(false);
+  const [viewMode, setViewMode]               = useState<ViewMode>('dia');
+  const [selectedDate, setSelectedDate]       = useState(today);
+  const [filterEstado, setFilterEstado]       = useState<FilterEstado>('todos');
+  const [showRoute, setShowRoute]             = useState(false);
+  const [showModal, setShowModal]             = useState(false);
+  const [editingJob, setEditingJob]           = useState<TradeJob | null>(null);
+  const [draft, setDraft]                     = useState<Partial<TradeJob>>(EMPTY_DRAFT());
+  const [saving, setSaving]                   = useState(false);
+  const [selectedWorkerIds, setSelectedWorkerIds] = useState<Set<string>>(new Set());
 
   // ── Computed ──────────────────────────────────────────────────────────────
   const weekDays = Array.from({ length: 7 }, (_, i) => {
@@ -114,12 +116,14 @@ export default function ScreenPlanificacion({
   const openCreate = () => {
     setEditingJob(null);
     setDraft({ ...EMPTY_DRAFT(), fecha_inicio: selectedDate });
+    setSelectedWorkerIds(new Set());
     setShowModal(true);
   };
 
   const openEdit = (job: TradeJob) => {
     setEditingJob(job);
     setDraft({ ...job });
+    setSelectedWorkerIds(new Set(job.trade_job_workers?.map(jw => jw.worker_id) ?? []));
     setShowModal(true);
   };
 
@@ -129,9 +133,17 @@ export default function ScreenPlanificacion({
     try {
       if (editingJob) {
         await onUpdateJob(editingJob.id, draft);
+        const prevIds = new Set(editingJob.trade_job_workers?.map(jw => jw.worker_id) ?? []);
+        const toAdd = [...selectedWorkerIds].filter(id => !prevIds.has(id));
+        const toRemove = [...prevIds].filter(id => !selectedWorkerIds.has(id));
+        await Promise.all([
+          ...toAdd.map(id => onAssignWorker(editingJob.id, id, 'asignado')),
+          ...toRemove.map(id => onRemoveWorker(editingJob.id, id)),
+        ]);
         showToast('Trabajo actualizado ✓', 'success');
       } else {
-        await onCreateJob(draft as Omit<TradeJob, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_clients' | 'trade_job_workers'>);
+        const saved = await onCreateJob(draft as Omit<TradeJob, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_clients' | 'trade_job_workers'>);
+        await Promise.all([...selectedWorkerIds].map(id => onAssignWorker(saved.id, id, 'asignado')));
         showToast('Trabajo creado ✓', 'success');
       }
       setShowModal(false);
@@ -384,7 +396,12 @@ export default function ScreenPlanificacion({
                 {workers.filter(w => w.activo).map(w => (
                   <label key={w.id} className="flex items-center gap-2 cursor-pointer group">
                     <input type="checkbox" className="cursor-pointer"
-                      defaultChecked={editingJob?.trade_job_workers?.some(jw => jw.worker_id === w.id)} />
+                      checked={selectedWorkerIds.has(w.id)}
+                      onChange={e => setSelectedWorkerIds(prev => {
+                        const next = new Set(prev);
+                        if (e.target.checked) next.add(w.id); else next.delete(w.id);
+                        return next;
+                      })} />
                     <span className="text-xs text-slate-700 dark:text-slate-300">{w.nombre}</span>
                     <span className="text-[9px] text-slate-400 font-mono">{w.rol}</span>
                   </label>
