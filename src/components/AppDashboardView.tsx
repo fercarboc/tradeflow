@@ -47,14 +47,16 @@ import {
   Star as StarIcon,
   Edit3,
   RotateCcw,
+  Calendar,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog } from '../lib/supabase';
-import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob } from '../lib/supabase';
+import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import CatalogImportModal from './CatalogImportModal';
 import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } from '../lib/catalogExcel';
+import ScreenPlanificacion from './ScreenPlanificacion';
 
 const InvoiceIcon = FileText;
 
@@ -134,14 +136,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           provincia:    (org as any).provincia ?? prev.provincia,
           pais:         (org as any).pais ?? prev.pais,
         }));
-        const [workersRes, tarifasRes, catalogRes] = await Promise.all([
+        const [workersRes, tarifasRes, catalogRes, jobsRes] = await Promise.all([
           loadWorkers(org.id),
           loadTarifas(org.id),
           loadCatalogProducts(org.id),
+          loadJobs(org.id),
         ]);
         setTrabajadores(workersRes.map((w: TradeWorker) => ({ id: w.id, nombre: w.nombre, telefono: w.telefono ?? '', email: w.email ?? '', rol: w.rol as TrabajadorItem['rol'], activo: w.activo })));
         setTarifas(tarifasRes.map((t: TradeTarifa) => ({ id: t.id, codigo: t.codigo ?? '', familia: t.familia, descripcion: t.descripcion, precioBase: t.precio_base, unidad: t.unidad, activo: t.activo })));
         setCatalogProducts(catalogRes);
+        setJobs(jobsRes);
       }
       showToast(`Datos reales cargados ✓`, 'success');
     } catch (e) {
@@ -396,6 +400,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     { id: '5', codigo: 'REF-001', familia: 'Reformas', descripcion: 'Alicatado porcelánico', precioBase: 28, unidad: 'm²', activo: true },
   ]);
   const [catalogProducts, setCatalogProducts] = useState<TradeCatalogProduct[]>([]);
+  const [jobs, setJobs] = useState<TradeJob[]>([]);
   const [showCatalogImport, setShowCatalogImport] = useState(false);
   const [catalogFilter, setCatalogFilter] = useState('');
   const [editingVariant, setEditingVariant] = useState<{ id: string; field: 'precio_venta' | 'margen_pct'; value: string } | null>(null);
@@ -2525,6 +2530,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
             {SidebarBtn({ id: 'invoices', icon: <FileText className="w-4 h-4" />, label: 'Facturación' })}
             {SidebarBtn({ id: 'catalog', icon: <Package className="w-4 h-4" />, label: 'Catálogo' })}
+            {SidebarBtn({ id: 'planificacion', icon: <Calendar className="w-4 h-4" />, label: 'Planificación' })}
             {SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
@@ -2552,6 +2558,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'crm' && 'Clientes CRM'}
                 {activeTab === 'invoices' && 'Facturación'}
                 {activeTab === 'catalog' && 'Catálogo de Productos'}
+                {activeTab === 'planificacion' && 'Planificación de Trabajos'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
               </h2>
@@ -2605,6 +2612,33 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'crm' && ScreenCRM()}
                 {activeTab === 'invoices' && ScreenInvoices()}
                 {activeTab === 'catalog' && ScreenCatalog()}
+                {activeTab === 'planificacion' && (
+                  <ScreenPlanificacion
+                    jobs={jobs}
+                    workers={trabajadores}
+                    clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono }))}
+                    orgId={orgId}
+                    isLiveMode={isLiveMode}
+                    isDarkMode={isDarkMode}
+                    onCreateJob={async (job) => {
+                      if (!orgId) return;
+                      const saved = await createJob(orgId, job);
+                      setJobs(prev => [...prev, saved]);
+                    }}
+                    onUpdateJob={async (id, updates) => {
+                      await updateJob(id, updates);
+                      setJobs(prev => prev.map(j => j.id === id ? { ...j, ...updates } : j));
+                    }}
+                    onDeleteJob={async (id) => {
+                      await deleteJob(id);
+                      setJobs(prev => prev.filter(j => j.id !== id));
+                    }}
+                    onAssignWorker={async (jobId, workerId, rol) => {
+                      await assignWorkerToJob(jobId, workerId, rol as 'responsable' | 'asignado' | 'apoyo');
+                    }}
+                    showToast={showToast}
+                  />
+                )}
                 {activeTab === 'settings' && ScreenSettings()}
                 {activeTab === 'preview' && ScreenPreview()}
               </motion.div>
@@ -3090,16 +3124,26 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         {/* Lista de clientes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {filteredClientes.map(c => (
-            <div key={c.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl space-y-2">
+          {filteredClientes.map(c => {
+            const isExpanded = expandedClientMobileId === c.id;
+            const clientQuotes = presupuestos.filter(p => p.nombreCliente === c.nombre);
+            return (
+            <div
+              key={c.id}
+              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl space-y-2 cursor-pointer hover:border-blue-300 dark:hover:border-blue-600 transition-colors"
+              onClick={() => setExpandedClientMobileId(isExpanded ? null : c.id)}
+            >
               <div className="flex justify-between items-start gap-2">
                 <h4 className="font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wide truncate">{c.nombre}</h4>
-                <button
-                  onClick={() => { setEditingQuote(prev => ({ ...prev, nombreCliente: c.nombre, telefonoCliente: c.telefono, emailCliente: c.email })); setActiveTab('create_quote'); }}
-                  className="text-[9px] text-blue-600 hover:underline font-bold uppercase tracking-wider cursor-pointer whitespace-nowrap"
-                >
-                  + Presupuesto
-                </button>
+                <div className="flex items-center gap-2 shrink-0">
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setEditingQuote(prev => ({ ...prev, nombreCliente: c.nombre, telefonoCliente: c.telefono, emailCliente: c.email })); setActiveTab('create_quote'); }}
+                    className="text-[9px] text-blue-600 hover:underline font-bold uppercase tracking-wider cursor-pointer whitespace-nowrap"
+                  >
+                    + Presupuesto
+                  </button>
+                  <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
+                </div>
               </div>
               <div className="text-[10px] text-slate-500 space-y-0.5">
                 {c.telefono && <p>📞 {c.telefono}</p>}
@@ -3115,9 +3159,42 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <span className="text-[9px] text-slate-400 uppercase font-mono block">Total facturado</span>
                   <span className="text-xs font-bold font-mono text-emerald-600">{c.totalFacturado.toFixed(0)}€</span>
                 </div>
+                <div>
+                  <span className="text-[9px] text-slate-400 uppercase font-mono block">Presupuestos</span>
+                  <span className="text-xs font-bold text-slate-800 dark:text-white">{clientQuotes.length}</span>
+                </div>
               </div>
+
+              {/* Detalle expandido: presupuestos del cliente */}
+              {isExpanded && (
+                <div className="mt-1 pt-3 border-t border-slate-100 dark:border-slate-800 space-y-1.5" onClick={e => e.stopPropagation()}>
+                  <p className="text-[9px] font-bold uppercase font-mono text-slate-400 mb-2">Presupuestos enviados</p>
+                  {clientQuotes.length === 0 ? (
+                    <p className="text-[10px] text-slate-400 italic">Sin presupuestos todavía.</p>
+                  ) : (
+                    clientQuotes.map(p => (
+                      <div key={p.id} className="flex items-center justify-between bg-slate-50 dark:bg-slate-800/60 rounded-lg px-3 py-2 gap-2">
+                        <div className="min-w-0">
+                          <span className="text-[10px] font-bold text-slate-700 dark:text-slate-200 font-mono">{p.id}</span>
+                          {p.descripcion && <span className="ml-1.5 text-[9px] text-slate-400 truncate">{p.descripcion.slice(0, 40)}{p.descripcion.length > 40 ? '…' : ''}</span>}
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${
+                            p.estado === 'Aceptado'  ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400' :
+                            p.estado === 'Facturado' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400' :
+                            p.estado === 'Enviado'   ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400' :
+                                                       'bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-slate-400'
+                          }`}>{p.estado}</span>
+                          <span className="text-[10px] font-mono font-bold text-slate-800 dark:text-white">{p.total.toFixed(0)}€</span>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
             </div>
-          ))}
+            );
+          })}
           {filteredClientes.length === 0 && (
             <div className="col-span-2 text-center py-10 text-slate-400 text-xs">
               {searchQuery ? 'No se encontraron clientes con ese criterio.' : 'No hay clientes aún. Crea el primero con el botón de arriba.'}
@@ -3488,6 +3565,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       );
     }
 
+    // User's custom price list (trade_tarifas — imported via Excel)
+    const activeTarifas = tarifas.filter(t => t.activo);
+    const filteredTarifas = activeTarifas.filter(t =>
+      t.descripcion.toLowerCase().includes(catalogFilter.toLowerCase()) ||
+      t.familia.toLowerCase().includes(catalogFilter.toLowerCase()) ||
+      (t.codigo ?? '').toLowerCase().includes(catalogFilter.toLowerCase())
+    );
+    const tarifasByFamily = filteredTarifas.reduce<Record<string, TarifaItem[]>>((acc, t) => {
+      (acc[t.familia] = acc[t.familia] ?? []).push(t);
+      return acc;
+    }, {});
+    const hasTarifas = activeTarifas.length > 0;
+
     // Helpers inline
     const flattenCatalog = (): TradeTarifa[] =>
       catalogProducts.map(p => {
@@ -3504,9 +3594,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       });
 
     const handleExportCatalogFromTab = async () => {
-      const items = catalogProducts.length > 0
-        ? flattenCatalog()
-        : isLiveMode && orgId ? await exportCatalog(orgId) : [];
+      let items: TradeTarifa[];
+      if (hasTarifas) {
+        items = activeTarifas.map(t => ({
+          id: t.id, org_id: orgId ?? '', codigo: t.codigo || undefined,
+          familia: t.familia, descripcion: t.descripcion,
+          precio_base: t.precioBase, unidad: t.unidad, activo: t.activo,
+          created_at: '', updated_at: '',
+        }));
+      } else {
+        items = catalogProducts.length > 0 ? flattenCatalog() : [];
+      }
       if (items.length === 0) { showToast('No hay productos para exportar', 'info'); return; }
       const wb = generateExportWorkbook(items);
       downloadWorkbook(wb, `catalogo-trabflow-${new Date().toISOString().split('T')[0]}.xlsx`);
@@ -3528,8 +3626,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               className="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
             />
           </div>
-          <span className="text-[10px] text-slate-400 font-mono">{filtered.length} productos · {catalogProducts.reduce((s, p) => s + (p.trade_catalog_variants?.length ?? 0), 0)} variantes</span>
-          {/* Botones importar/exportar catálogo de tarifas */}
+          <span className="text-[10px] text-slate-400 font-mono">
+            {hasTarifas
+              ? `${filteredTarifas.length} referencias`
+              : `${filtered.length} productos · ${catalogProducts.reduce((s, p) => s + (p.trade_catalog_variants?.length ?? 0), 0)} variantes`}
+          </span>
           <div className="flex gap-2 ml-auto">
             <button
               onClick={() => setShowCatalogImport(true)}
@@ -3558,7 +3659,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         </div>
 
-        {/* Modal importación — comparte estado con ScreenSettings */}
+        {/* Modal importación */}
         {showCatalogImport && (
           <CatalogImportModal
             orgId={orgId}
@@ -3574,141 +3675,165 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           />
         )}
 
-        {catalogProducts.length === 0 && (
+        {/* Mi catálogo de precios — productos importados vía Excel (trade_tarifas) */}
+        {hasTarifas && Object.entries(tarifasByFamily).map(([family, items]) => (
+          <div key={family} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+            <div className="bg-slate-50 dark:bg-slate-800/60 px-4 py-2.5 flex items-center gap-2 border-b border-slate-200 dark:border-slate-700">
+              <Tag className="h-3.5 w-3.5 text-slate-400" />
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">{family}</span>
+              <span className="ml-auto text-[9px] text-slate-400 font-mono">{items.length} referencias</span>
+            </div>
+            <div className="divide-y divide-slate-100 dark:divide-slate-800">
+              {items.map(t => (
+                <div key={t.id} className="px-4 py-2.5 flex items-center gap-3">
+                  {t.codigo && <span className="text-[9px] font-mono text-slate-400 w-20 shrink-0 truncate">{t.codigo}</span>}
+                  <span className="flex-1 text-xs text-slate-800 dark:text-white truncate">{t.descripcion}</span>
+                  <span className="font-bold font-mono text-sm text-slate-900 dark:text-white whitespace-nowrap">{t.precioBase.toFixed(2)} €</span>
+                  <span className="text-[9px] text-slate-400 w-8 text-right shrink-0">{t.unidad}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        {/* Catálogo base IA TradeFlow (trade_catalog_products) — sección colapsable */}
+        {catalogProducts.length > 0 && (
+          <details className="group">
+            {hasTarifas && (
+              <summary className="cursor-pointer list-none flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono py-2 select-none hover:text-slate-600 dark:hover:text-slate-300 border-t border-slate-200 dark:border-slate-800 pt-4">
+                <Sparkles className="h-3.5 w-3.5 text-blue-400 shrink-0" />
+                Catálogo base IA TradeFlow ({catalogProducts.length} productos con variantes)
+                <span className="ml-auto text-[9px] normal-case font-normal">Mostrar / ocultar ▾</span>
+              </summary>
+            )}
+            <div className="space-y-3 mt-2">
+              {Object.entries(byFamily).map(([family, products]) => (
+                <div key={family} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+                  <div className="bg-slate-50 dark:bg-slate-800/60 px-4 py-2.5 flex items-center gap-2 border-b border-slate-200 dark:border-slate-700">
+                    <Tag className="h-3.5 w-3.5 text-slate-400" />
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">{family}</span>
+                    <span className="ml-auto text-[9px] text-slate-400 font-mono">{products.length} productos</span>
+                  </div>
+                  <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                    {products.map(product => {
+                      const variants = product.trade_catalog_variants ?? [];
+                      return (
+                        <div key={product.id} className="px-4 py-3">
+                          <div className="flex items-start justify-between mb-2">
+                            <div>
+                              <span className="font-semibold text-xs text-slate-800 dark:text-white">{product.nombre_generico}</span>
+                              {product.subfamilia && (
+                                <span className="ml-2 text-[9px] text-slate-400 font-mono">{product.subfamilia}</span>
+                              )}
+                            </div>
+                            <span className="text-[9px] text-slate-400 font-mono">{product.unidad}</span>
+                          </div>
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                            {(['economico', 'medio', 'premium'] as TradeCatalogVariant['calidad'][]).map(cal => {
+                              const v = variants.find(vv => vv.calidad === cal);
+                              if (!v) return null;
+                              const { label, cls } = calidades[cal];
+                              const isEditing = editingVariant?.id === v.id;
+                              const isSaving = savingVariant === v.id;
+                              return (
+                                <div
+                                  key={v.id}
+                                  className={`border rounded-lg p-2.5 space-y-1.5 transition-all ${
+                                    v.is_preferred
+                                      ? 'border-blue-400 dark:border-blue-600 bg-blue-50/50 dark:bg-blue-900/10'
+                                      : 'border-slate-200 dark:border-slate-700'
+                                  }`}
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <span className={`text-[8.5px] font-bold uppercase px-1.5 py-0.5 rounded ${cls}`}>{label}</span>
+                                    {v.is_preferred && (
+                                      <span className="flex items-center gap-0.5 text-[8px] text-blue-500 font-bold">
+                                        <StarIcon className="h-2.5 w-2.5 fill-blue-500" /> Preferido
+                                      </span>
+                                    )}
+                                  </div>
+                                  <div className="text-[9px] text-slate-400 truncate font-mono">{v.marca}{v.modelo ? ` · ${v.modelo}` : ''}</div>
+                                  <div className="flex items-center gap-1.5">
+                                    {isEditing ? (
+                                      <>
+                                        <input
+                                          type="number"
+                                          step="0.01"
+                                          autoFocus
+                                          defaultValue={v.precio_venta}
+                                          onBlur={e => {
+                                            const val = parseFloat(e.target.value);
+                                            if (!isNaN(val) && val !== v.precio_venta) handleSaveVariantPrice(v, val);
+                                            else setEditingVariant(null);
+                                          }}
+                                          onKeyDown={e => {
+                                            if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+                                            if (e.key === 'Escape') setEditingVariant(null);
+                                          }}
+                                          className="w-20 bg-white dark:bg-slate-800 border border-blue-400 rounded px-2 py-1 text-xs font-bold font-mono text-slate-800 dark:text-white focus:outline-none"
+                                        />
+                                        <span className="text-[9px] text-slate-400">€</span>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <span className="font-bold font-mono text-sm text-slate-900 dark:text-white">
+                                          {v.precio_venta.toFixed(2)}€
+                                        </span>
+                                        <button
+                                          onClick={() => setEditingVariant({ id: v.id, field: 'precio_venta', value: String(v.precio_venta) })}
+                                          className="text-slate-400 hover:text-blue-500 cursor-pointer transition-colors p-0.5"
+                                          title="Editar precio"
+                                        >
+                                          <Edit3 className="h-3 w-3" />
+                                        </button>
+                                      </>
+                                    )}
+                                    {isSaving && <RotateCcw className="h-3 w-3 text-blue-400 animate-spin" />}
+                                  </div>
+                                  <div className="text-[8.5px] text-slate-400 space-y-0.5">
+                                    <div className="flex justify-between">
+                                      <span>Material</span>
+                                      <span className="font-mono">{v.precio_material.toFixed(2)}€</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span>Mano obra</span>
+                                      <span className="font-mono">{v.precio_mano_obra.toFixed(2)}€</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span>Margen</span>
+                                      <span className="font-mono">{v.margen_pct}%</span>
+                                    </div>
+                                  </div>
+                                  {!v.is_preferred && (
+                                    <button
+                                      onClick={() => handleSetPreferred(v.id, product.id)}
+                                      disabled={!!savingVariant}
+                                      className="w-full text-[8.5px] font-bold uppercase text-slate-400 hover:text-blue-500 border border-slate-200 dark:border-slate-700 hover:border-blue-400 rounded py-1 cursor-pointer transition-all disabled:opacity-40"
+                                    >
+                                      Usar como preferido
+                                    </button>
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </details>
+        )}
+
+        {/* Estado vacío */}
+        {!hasTarifas && catalogProducts.length === 0 && (
           <div className="text-center py-12">
             <Package className="h-10 w-10 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
             <p className="text-slate-400 text-xs">No hay productos en el catálogo todavía.</p>
           </div>
         )}
-
-        {Object.entries(byFamily).map(([family, products]) => (
-          <div key={family} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-            {/* Cabecera familia */}
-            <div className="bg-slate-50 dark:bg-slate-800/60 px-4 py-2.5 flex items-center gap-2 border-b border-slate-200 dark:border-slate-700">
-              <Tag className="h-3.5 w-3.5 text-slate-400" />
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">{family}</span>
-              <span className="ml-auto text-[9px] text-slate-400 font-mono">{products.length} productos</span>
-            </div>
-
-            <div className="divide-y divide-slate-100 dark:divide-slate-800">
-              {products.map(product => {
-                const variants = product.trade_catalog_variants ?? [];
-                return (
-                  <div key={product.id} className="px-4 py-3">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <span className="font-semibold text-xs text-slate-800 dark:text-white">{product.nombre_generico}</span>
-                        {product.subfamilia && (
-                          <span className="ml-2 text-[9px] text-slate-400 font-mono">{product.subfamilia}</span>
-                        )}
-                      </div>
-                      <span className="text-[9px] text-slate-400 font-mono">{product.unidad}</span>
-                    </div>
-
-                    {/* Variantes */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                      {(['economico', 'medio', 'premium'] as TradeCatalogVariant['calidad'][]).map(cal => {
-                        const v = variants.find(vv => vv.calidad === cal);
-                        if (!v) return null;
-                        const { label, cls } = calidades[cal];
-                        const isEditing = editingVariant?.id === v.id;
-                        const isSaving = savingVariant === v.id;
-
-                        return (
-                          <div
-                            key={v.id}
-                            className={`border rounded-lg p-2.5 space-y-1.5 transition-all ${
-                              v.is_preferred
-                                ? 'border-blue-400 dark:border-blue-600 bg-blue-50/50 dark:bg-blue-900/10'
-                                : 'border-slate-200 dark:border-slate-700'
-                            }`}
-                          >
-                            <div className="flex items-center justify-between">
-                              <span className={`text-[8.5px] font-bold uppercase px-1.5 py-0.5 rounded ${cls}`}>{label}</span>
-                              {v.is_preferred && (
-                                <span className="flex items-center gap-0.5 text-[8px] text-blue-500 font-bold">
-                                  <StarIcon className="h-2.5 w-2.5 fill-blue-500" /> Preferido
-                                </span>
-                              )}
-                            </div>
-
-                            <div className="text-[9px] text-slate-400 truncate font-mono">{v.marca}{v.modelo ? ` · ${v.modelo}` : ''}</div>
-
-                            {/* Precio editable */}
-                            <div className="flex items-center gap-1.5">
-                              {isEditing ? (
-                                <>
-                                  <input
-                                    type="number"
-                                    step="0.01"
-                                    autoFocus
-                                    defaultValue={v.precio_venta}
-                                    onBlur={e => {
-                                      const val = parseFloat(e.target.value);
-                                      if (!isNaN(val) && val !== v.precio_venta) handleSaveVariantPrice(v, val);
-                                      else setEditingVariant(null);
-                                    }}
-                                    onKeyDown={e => {
-                                      if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
-                                      if (e.key === 'Escape') setEditingVariant(null);
-                                    }}
-                                    className="w-20 bg-white dark:bg-slate-800 border border-blue-400 rounded px-2 py-1 text-xs font-bold font-mono text-slate-800 dark:text-white focus:outline-none"
-                                  />
-                                  <span className="text-[9px] text-slate-400">€</span>
-                                </>
-                              ) : (
-                                <>
-                                  <span className="font-bold font-mono text-sm text-slate-900 dark:text-white">
-                                    {v.precio_venta.toFixed(2)}€
-                                  </span>
-                                  <button
-                                    onClick={() => setEditingVariant({ id: v.id, field: 'precio_venta', value: String(v.precio_venta) })}
-                                    className="text-slate-400 hover:text-blue-500 cursor-pointer transition-colors p-0.5"
-                                    title="Editar precio"
-                                  >
-                                    <Edit3 className="h-3 w-3" />
-                                  </button>
-                                </>
-                              )}
-                              {isSaving && <RotateCcw className="h-3 w-3 text-blue-400 animate-spin" />}
-                            </div>
-
-                            {/* Desglose */}
-                            <div className="text-[8.5px] text-slate-400 space-y-0.5">
-                              <div className="flex justify-between">
-                                <span>Material</span>
-                                <span className="font-mono">{v.precio_material.toFixed(2)}€</span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span>Mano obra</span>
-                                <span className="font-mono">{v.precio_mano_obra.toFixed(2)}€</span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span>Margen</span>
-                                <span className="font-mono">{v.margen_pct}%</span>
-                              </div>
-                            </div>
-
-                            {/* Botón preferido */}
-                            {!v.is_preferred && (
-                              <button
-                                onClick={() => handleSetPreferred(v.id, product.id)}
-                                disabled={!!savingVariant}
-                                className="w-full text-[8.5px] font-bold uppercase text-slate-400 hover:text-blue-500 border border-slate-200 dark:border-slate-700 hover:border-blue-400 rounded py-1 cursor-pointer transition-all disabled:opacity-40"
-                              >
-                                Usar como preferido
-                              </button>
-                            )}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
       </div>
     );
   }

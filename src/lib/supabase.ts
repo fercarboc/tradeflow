@@ -847,3 +847,100 @@ export async function importCatalogItems(
 
   return { inserted, updated, errors };
 }
+
+// ── Trabajos / Agenda (trade_jobs) ────────────────────────────────────────────
+
+export interface TradeJob {
+  id: string;
+  org_id: string;
+  quote_id?: string | null;
+  client_id?: string | null;
+  titulo: string;
+  descripcion?: string | null;
+  estado: 'planificado' | 'en_curso' | 'completado' | 'cancelado' | 'pendiente_material';
+  prioridad: 'urgente' | 'alta' | 'normal' | 'baja';
+  fecha_inicio?: string | null;
+  hora_inicio?: string | null;
+  fecha_fin?: string | null;
+  hora_fin?: string | null;
+  duracion_horas?: number | null;
+  direccion?: string | null;
+  localidad?: string | null;
+  cp?: string | null;
+  latitud?: number | null;
+  longitud?: number | null;
+  completado_por?: string | null;
+  completado_at?: string | null;
+  notas_cierre?: string | null;
+  created_at: string;
+  updated_at: string;
+  trade_clients?: { nombre: string; telefono?: string | null } | null;
+  trade_job_workers?: TradeJobWorker[];
+}
+
+export interface TradeJobWorker {
+  id: string;
+  job_id: string;
+  worker_id: string;
+  rol: 'responsable' | 'asignado' | 'apoyo';
+  notificado: boolean;
+  aceptado?: boolean | null;
+  created_at: string;
+  trade_workers?: { nombre: string; rol: string } | null;
+}
+
+export async function loadJobs(orgId: string, fecha?: string): Promise<TradeJob[]> {
+  let q = supabase
+    .from('trade_jobs')
+    .select('*, trade_clients(nombre, telefono), trade_job_workers(*, trade_workers(nombre, rol))')
+    .eq('org_id', orgId)
+    .order('fecha_inicio', { ascending: true })
+    .order('hora_inicio', { ascending: true });
+  if (fecha) q = q.eq('fecha_inicio', fecha);
+  const { data, error } = await q;
+  if (error) throw error;
+  return (data ?? []) as TradeJob[];
+}
+
+export async function createJob(
+  orgId: string,
+  job: Omit<TradeJob, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_clients' | 'trade_job_workers'>,
+): Promise<TradeJob> {
+  const { data, error } = await supabase
+    .from('trade_jobs')
+    .insert({ ...job, org_id: orgId })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as TradeJob;
+}
+
+export async function updateJob(id: string, updates: Partial<Omit<TradeJob, 'trade_clients' | 'trade_job_workers'>>): Promise<void> {
+  const { error } = await supabase.from('trade_jobs').update(updates).eq('id', id);
+  if (error) throw error;
+}
+
+export async function deleteJob(id: string): Promise<void> {
+  const { error } = await supabase.from('trade_jobs').delete().eq('id', id);
+  if (error) throw error;
+}
+
+export async function assignWorkerToJob(
+  jobId: string,
+  workerId: string,
+  rol: TradeJobWorker['rol'] = 'asignado',
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_job_workers')
+    .upsert({ job_id: jobId, worker_id: workerId, rol }, { onConflict: 'job_id,worker_id' });
+  if (error) throw error;
+}
+
+export async function removeWorkerFromJob(jobId: string, workerId: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_job_workers')
+    .delete()
+    .eq('job_id', jobId)
+    .eq('worker_id', workerId);
+  if (error) throw error;
+}
