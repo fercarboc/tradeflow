@@ -7,7 +7,7 @@ import { ActivePage, TradeType } from '../types';
 import {
   Mic, FileText, Send, CheckCircle, ArrowRight,
   Zap,
-  Smartphone, Monitor, Star, ShieldCheck, Users, Phone, Mail,
+  Monitor, Star, ShieldCheck, Users, Phone,
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -96,15 +96,15 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
           }}
         />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-8 lg:pt-20 lg:pb-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-0 lg:pt-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-end">
 
             {/* ── Left ─────────────────────────────────── */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55 }}
-              className="space-y-6 text-center lg:text-left"
+              className="space-y-5 text-center lg:text-left pb-12 lg:pb-20 lg:pt-8"
             >
               {/* headline */}
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black uppercase leading-[1.0] tracking-tight">
@@ -116,6 +116,11 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
               {/* subtitle */}
               <p className="text-white/55 text-base sm:text-lg leading-relaxed max-w-md mx-auto lg:mx-0">
                 Menos escribir. Más trabajar. Más clientes.<br />Más tiempo para ti.
+              </p>
+
+              {/* feature description */}
+              <p className="text-white/40 text-sm leading-relaxed max-w-md mx-auto lg:mx-0 border-l-2 border-[#00CFE8]/40 pl-3">
+                La IA te prepara el presupuesto con todos los precios de tus tarifas y mano de obra — o súbele una foto y te lo prepara por partidas. Cuando lo confirmas, se envía automáticamente por WhatsApp al cliente.
               </p>
 
               {/* CTA buttons */}
@@ -157,17 +162,17 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.65, delay: 0.1 }}
-              className="relative flex justify-center lg:justify-end items-end overflow-hidden"
+              className="relative flex justify-center lg:justify-end items-end overflow-hidden pb-0"
             >
-              {/* blend top edge of image into section bg */}
-              <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-[#020B16] to-transparent z-10 pointer-events-none" />
+              {/* blend top edge */}
+              <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-[#020B16] to-transparent z-10 pointer-events-none" />
               {/* blend left edge on desktop */}
-              <div className="absolute top-0 left-0 inset-y-0 w-16 bg-gradient-to-r from-[#020B16] to-transparent z-10 pointer-events-none hidden lg:block" />
+              <div className="absolute top-0 left-0 inset-y-0 w-20 bg-gradient-to-r from-[#020B16] to-transparent z-10 pointer-events-none hidden lg:block" />
               <img
                 src="/instalador.png"
                 alt="TRABFLOW en acción"
-                className="w-full max-w-xl object-contain object-bottom"
-                style={{ maxHeight: '520px' }}
+                className="w-full max-w-2xl object-contain object-bottom"
+                style={{ maxHeight: '600px' }}
                 id="hero-instalador-img"
               />
             </motion.div>

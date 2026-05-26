@@ -58,6 +58,9 @@ const PLANS = [
 
 type Step = 1 | 2 | 3 | 4;
 
+const inputClass =
+  'w-full pl-9 pr-3 py-2.5 rounded-xl border border-white/10 bg-white/5 text-sm text-white placeholder:text-white/25 focus:border-[#00CFE8]/50 focus:outline-none transition-all';
+
 export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
   const [step, setStep] = useState<Step>(1);
   const [selectedTrades, setSelectedTrades] = useState<string[]>([]);
@@ -120,29 +123,38 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-start py-12 px-4 font-sans">
+    <div className="min-h-screen bg-[#020B16] flex flex-col items-center justify-start py-12 px-4 font-sans">
+
       {/* Top bar */}
       <div className="w-full max-w-2xl mb-8 flex items-center justify-between">
         <button
           onClick={() => setCurrentPage(ActivePage.Home)}
-          className="text-slate-500 hover:text-slate-900 text-sm font-medium flex items-center gap-1 cursor-pointer transition-colors"
+          className="text-white/50 hover:text-white text-sm font-bold flex items-center gap-1 cursor-pointer transition-colors"
         >
           <ChevronLeft className="h-4 w-4" />
-          <span className="font-bold tracking-tight">TrabFlow</span>
+          <img src="/tradeflow.png" alt="TRABFLOW" className="h-6 w-auto" />
+          <span className="text-[#FFC400] font-black tracking-widest uppercase text-xs">TRABFLOW</span>
         </button>
         {step < 4 && (
-          <span className="text-xs text-slate-400 font-mono">Paso {step} de 3</span>
+          <span className="text-xs text-white/30 font-mono uppercase tracking-widest">Paso {step} de 3</span>
         )}
       </div>
 
       {/* Progress bar */}
       {step < 4 && (
-        <div className="w-full max-w-2xl mb-8">
-          <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden">
+        <div className="w-full max-w-2xl mb-10">
+          <div className="h-1 bg-white/8 rounded-full overflow-hidden">
             <div
-              className="h-full bg-blue-600 rounded-full transition-all duration-500"
+              className="h-full bg-[#00CFE8] rounded-full transition-all duration-500 shadow-sm shadow-[#00CFE8]/40"
               style={{ width: `${(step / 3) * 100}%` }}
             />
+          </div>
+          <div className="flex justify-between mt-2">
+            {['Sector', 'Plan', 'Cuenta'].map((label, i) => (
+              <span key={label} className={`text-[10px] uppercase tracking-widest font-bold ${step > i ? 'text-[#00CFE8]' : 'text-white/25'}`}>
+                {label}
+              </span>
+            ))}
           </div>
         </div>
       )}
@@ -151,8 +163,8 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
       {step === 1 && (
         <div className="w-full max-w-2xl">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-display font-bold text-slate-900 tracking-tight">¿En qué sector trabajas?</h1>
-            <p className="text-slate-500 mt-2 text-sm">Selecciona tu oficio o especialidad. Puedes elegir varios.</p>
+            <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">¿En qué sector trabajas?</h1>
+            <p className="text-white/40 mt-2 text-sm">Selecciona tu oficio o especialidad. Puedes elegir varios.</p>
           </div>
 
           {/* Business type */}
@@ -161,10 +173,10 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
               <button
                 key={val}
                 onClick={() => setBusinessType(val)}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded border text-sm font-semibold cursor-pointer transition-all ${
+                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold cursor-pointer transition-all border ${
                   businessType === val
-                    ? 'bg-slate-900 text-white border-slate-900'
-                    : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+                    ? 'bg-[#00CFE8] text-[#020B16] border-[#00CFE8]'
+                    : 'bg-white/5 text-white/60 border-white/15 hover:border-white/35 hover:text-white'
                 }`}
               >
                 <Icon className="h-4 w-4" />
@@ -181,15 +193,15 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
                 <button
                   key={id}
                   onClick={() => toggleTrade(id)}
-                  className={`relative flex flex-col items-center gap-2 p-4 rounded border-2 text-sm font-semibold cursor-pointer transition-all ${
+                  className={`relative flex flex-col items-center gap-2 p-4 rounded-xl border-2 text-sm font-semibold cursor-pointer transition-all ${
                     selected
-                      ? 'border-blue-600 bg-blue-50 text-blue-700'
-                      : 'border-slate-200 bg-white text-slate-600 hover:border-slate-400 hover:bg-slate-50'
+                      ? 'border-[#00CFE8] bg-[#00CFE8]/10 text-[#00CFE8]'
+                      : 'border-white/10 bg-white/5 text-white/50 hover:border-white/30 hover:text-white'
                   }`}
                 >
                   {selected && (
-                    <span className="absolute top-2 right-2 h-4 w-4 bg-blue-600 rounded-full flex items-center justify-center">
-                      <Check className="h-2.5 w-2.5 text-white" />
+                    <span className="absolute top-2 right-2 h-4 w-4 bg-[#00CFE8] rounded-full flex items-center justify-center">
+                      <Check className="h-2.5 w-2.5 text-[#020B16]" />
                     </span>
                   )}
                   <Icon className="h-6 w-6" />
@@ -202,7 +214,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
           <button
             onClick={() => setStep(2)}
             disabled={!canProceedStep1}
-            className="w-full py-3.5 rounded bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 text-white font-bold uppercase tracking-wider text-sm flex items-center justify-center gap-2 cursor-pointer transition-colors"
+            className="w-full py-3.5 rounded-xl bg-[#FFC400] hover:brightness-110 disabled:opacity-30 disabled:cursor-not-allowed text-[#020B16] font-black uppercase tracking-widest text-sm flex items-center justify-center gap-2 cursor-pointer transition-all shadow-lg shadow-[#FFC400]/15"
           >
             Siguiente <ChevronRight className="h-4 w-4" />
           </button>
@@ -213,32 +225,33 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
       {step === 2 && (
         <div className="w-full max-w-3xl">
           <div className="text-center mb-6">
-            <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded px-3 py-1.5 text-xs font-bold text-emerald-700 mb-3">
+            <div className="inline-flex items-center gap-2 bg-[#FFC400]/10 border border-[#FFC400]/25 rounded-xl px-3 py-1.5 text-xs font-bold text-[#FFC400] mb-3">
               <Gift className="h-3.5 w-3.5" />
               3 meses completamente gratis
             </div>
-            <h1 className="text-3xl font-display font-bold text-slate-900 tracking-tight">Elige tu plan</h1>
-            <p className="text-slate-500 mt-2 text-sm">Sin tarjeta hasta el 4º mes. Cancela cuando quieras en plan mensual.</p>
+            <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">Elige tu plan</h1>
+            <p className="text-white/40 mt-2 text-sm">Sin tarjeta hasta el 4º mes. Cancela cuando quieras.</p>
           </div>
 
           {/* Billing toggle */}
           <div className="flex justify-center mb-6">
-            <div className="flex items-center bg-slate-100 p-1 rounded border border-slate-200">
+            <div className="flex items-center bg-white/5 border border-white/10 p-1 rounded-full gap-1">
               <button
                 onClick={() => setBillingCycle('monthly')}
-                className={`px-4 py-2 rounded text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all ${
-                  billingCycle === 'monthly' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-900'
+                className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest cursor-pointer transition-all ${
+                  billingCycle === 'monthly' ? 'bg-white text-[#020B16]' : 'text-white/50 hover:text-white'
                 }`}
               >
                 Mensual
               </button>
               <button
                 onClick={() => setBillingCycle('yearly')}
-                className={`px-4 py-2 rounded text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all flex items-center gap-1.5 ${
-                  billingCycle === 'yearly' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-900'
+                className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest cursor-pointer transition-all ${
+                  billingCycle === 'yearly' ? 'bg-white text-[#020B16]' : 'text-white/50 hover:text-white'
                 }`}
               >
-                Anual <span className="bg-emerald-600 text-white text-[9px] px-1.5 py-0.5 rounded">-20%</span>
+                Anual
+                <span className="bg-[#FFC400] text-[#020B16] text-[9px] font-black px-1.5 py-0.5 rounded-full">-20%</span>
               </button>
             </div>
           </div>
@@ -252,30 +265,34 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
                 <button
                   key={plan.id}
                   onClick={() => setSelectedPlan(plan.id)}
-                  className={`relative flex flex-col p-5 rounded border-2 text-left cursor-pointer transition-all ${
-                    selected ? 'border-blue-600 bg-blue-50/30' : 'border-slate-200 bg-white hover:border-slate-400'
+                  className={`relative flex flex-col p-5 rounded-2xl border-2 text-left cursor-pointer transition-all ${
+                    selected
+                      ? 'border-[#FFC400] bg-[#FFC400]/8'
+                      : 'border-white/10 bg-white/5 hover:border-white/25'
                   }`}
                 >
                   {plan.popular && (
-                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wider whitespace-nowrap">
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-[#00CFE8] text-[#020B16] text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider whitespace-nowrap">
                       Más popular
                     </span>
                   )}
                   {selected && (
-                    <span className="absolute top-3 right-3 h-5 w-5 bg-blue-600 rounded-full flex items-center justify-center">
-                      <Check className="h-3 w-3 text-white" />
+                    <span className="absolute top-3 right-3 h-5 w-5 bg-[#FFC400] rounded-full flex items-center justify-center">
+                      <Check className="h-3 w-3 text-[#020B16]" />
                     </span>
                   )}
-                  <div className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">{plan.name}</div>
-                  <div className="flex items-baseline gap-0.5 mb-1">
-                    <span className="text-3xl font-display font-bold text-slate-900">{price}€</span>
-                    <span className="text-[10px] text-slate-400 font-mono">/mes+IVA</span>
+                  <div className={`text-[10px] font-black uppercase tracking-wider mb-1 ${selected ? 'text-[#FFC400]' : 'text-white/40'}`}>
+                    {plan.name}
                   </div>
-                  <p className="text-[11px] text-slate-500 mb-3 leading-relaxed">{plan.desc}</p>
+                  <div className="flex items-baseline gap-0.5 mb-1">
+                    <span className="text-3xl font-black text-white leading-none">{price}€</span>
+                    <span className="text-[10px] text-white/35 ml-1">/mes+IVA</span>
+                  </div>
+                  <p className="text-[11px] text-white/40 mb-3 leading-relaxed">{plan.desc}</p>
                   <ul className="space-y-1.5">
                     {plan.features.map((f, i) => (
-                      <li key={i} className="flex items-center gap-1.5 text-[11px] text-slate-600">
-                        <Check className="h-3 w-3 text-emerald-600 shrink-0" />
+                      <li key={i} className="flex items-center gap-1.5 text-[11px] text-white/55">
+                        <Check className="h-3 w-3 text-[#00CFE8] shrink-0" />
                         {f}
                       </li>
                     ))}
@@ -288,13 +305,13 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
           <div className="flex gap-3">
             <button
               onClick={() => setStep(1)}
-              className="px-6 py-3.5 rounded border border-slate-200 text-slate-600 font-bold text-sm flex items-center gap-2 cursor-pointer hover:border-slate-400 transition-colors"
+              className="px-6 py-3.5 rounded-xl border border-white/15 text-white/60 font-bold text-sm flex items-center gap-2 cursor-pointer hover:border-white/35 hover:text-white transition-colors"
             >
               <ChevronLeft className="h-4 w-4" /> Atrás
             </button>
             <button
               onClick={() => setStep(3)}
-              className="flex-1 py-3.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase tracking-wider text-sm flex items-center justify-center gap-2 cursor-pointer transition-colors"
+              className="flex-1 py-3.5 rounded-xl bg-[#FFC400] hover:brightness-110 text-[#020B16] font-black uppercase tracking-widest text-sm flex items-center justify-center gap-2 cursor-pointer transition-all shadow-lg shadow-[#FFC400]/15"
             >
               Continuar con {PLANS.find(p => p.id === selectedPlan)?.name}
               <ChevronRight className="h-4 w-4" />
@@ -307,173 +324,115 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
       {step === 3 && (
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-display font-bold text-slate-900 tracking-tight">Crea tu cuenta</h1>
-            <p className="text-slate-500 mt-2 text-sm">Empezarás tu período de prueba gratuito de 3 meses.</p>
+            <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">Crea tu cuenta</h1>
+            <p className="text-white/40 mt-2 text-sm">Empezarás tu período de prueba gratuito de 3 meses.</p>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-lg p-6 space-y-4">
-            {/* Full name */}
+          <div className="rounded-2xl border border-white/10 bg-[#0d1f38] p-6 space-y-4">
+
             <div>
-              <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider block mb-1.5">
+              <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">
                 {businessType === 'empresa' ? 'Nombre de contacto' : 'Nombre completo'}
               </label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                <input
-                  type="text"
-                  placeholder="Ej. Juan García"
-                  value={form.fullName}
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/25" />
+                <input type="text" placeholder="Ej. Juan García" value={form.fullName}
                   onChange={e => setForm(f => ({ ...f, fullName: e.target.value }))}
-                  className="w-full pl-9 pr-3 py-2.5 border border-slate-200 rounded text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                />
+                  className={inputClass} />
               </div>
             </div>
 
-            {/* Company name (empresa only) */}
             {businessType === 'empresa' && (
               <div>
-                <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider block mb-1.5">Nombre de empresa</label>
+                <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">Nombre de empresa</label>
                 <div className="relative">
-                  <Building className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                  <input
-                    type="text"
-                    placeholder="Ej. Instalaciones García S.L."
-                    value={form.companyName}
+                  <Building className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/25" />
+                  <input type="text" placeholder="Ej. Instalaciones García S.L." value={form.companyName}
                     onChange={e => setForm(f => ({ ...f, companyName: e.target.value }))}
-                    className="w-full pl-9 pr-3 py-2.5 border border-slate-200 rounded text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                  />
+                    className={inputClass} />
                 </div>
               </div>
             )}
 
-            {/* Email */}
             <div>
-              <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider block mb-1.5">Email</label>
+              <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">Email</label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                <input
-                  type="email"
-                  placeholder="tucorreo@ejemplo.com"
-                  value={form.email}
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/25" />
+                <input type="email" placeholder="tucorreo@ejemplo.com" value={form.email}
                   onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                  className="w-full pl-9 pr-3 py-2.5 border border-slate-200 rounded text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                />
+                  className={inputClass} />
               </div>
             </div>
 
-            {/* Phone */}
             <div>
-              <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider block mb-1.5">
-                Teléfono <span className="text-slate-400 normal-case font-normal">(opcional)</span>
+              <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">
+                Teléfono <span className="text-white/25 normal-case font-normal">(opcional)</span>
               </label>
               <div className="relative">
-                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                <input
-                  type="tel"
-                  placeholder="+34 600 000 000"
-                  value={form.phone}
+                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/25" />
+                <input type="tel" placeholder="+34 600 000 000" value={form.phone}
                   onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
-                  className="w-full pl-9 pr-3 py-2.5 border border-slate-200 rounded text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                />
+                  className={inputClass} />
               </div>
             </div>
 
-            {/* Password */}
             <div>
-              <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider block mb-1.5">Contraseña</label>
+              <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">Contraseña</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="Mínimo 8 caracteres"
-                  value={form.password}
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/25" />
+                <input type={showPassword ? 'text' : 'password'} placeholder="Mínimo 8 caracteres" value={form.password}
                   onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
-                  className="w-full pl-9 pr-9 py-2.5 border border-slate-200 rounded text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(p => !p)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
-                >
+                  className={inputClass + ' pr-9'} />
+                <button type="button" onClick={() => setShowPassword(p => !p)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 cursor-pointer">
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
             </div>
 
-            {/* Confirm password */}
             <div>
-              <label className="text-xs font-semibold text-slate-600 uppercase tracking-wider block mb-1.5">Confirmar contraseña</label>
+              <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">Confirmar contraseña</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-                <input
-                  type={showConfirm ? 'text' : 'password'}
-                  placeholder="Repite la contraseña"
-                  value={form.confirmPassword}
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/25" />
+                <input type={showConfirm ? 'text' : 'password'} placeholder="Repite la contraseña" value={form.confirmPassword}
                   onChange={e => setForm(f => ({ ...f, confirmPassword: e.target.value }))}
-                  className={`w-full pl-9 pr-9 py-2.5 border rounded text-sm focus:outline-none focus:ring-1 ${
-                    form.confirmPassword && form.password !== form.confirmPassword
-                      ? 'border-red-400 focus:border-red-500 focus:ring-red-500'
-                      : 'border-slate-200 focus:border-blue-500 focus:ring-blue-500'
-                  }`}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirm(p => !p)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
-                >
+                  className={inputClass + ' pr-9 ' + (form.confirmPassword && form.password !== form.confirmPassword ? 'border-red-500/50' : '')} />
+                <button type="button" onClick={() => setShowConfirm(p => !p)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 cursor-pointer">
                   {showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
               {form.confirmPassword && form.password !== form.confirmPassword && (
-                <p className="text-red-500 text-[11px] mt-1">Las contraseñas no coinciden</p>
+                <p className="text-red-400 text-[11px] mt-1">Las contraseñas no coinciden</p>
               )}
             </div>
 
-            {/* Terms */}
             <label className="flex items-start gap-2.5 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={form.acceptTerms}
+              <input type="checkbox" checked={form.acceptTerms}
                 onChange={e => setForm(f => ({ ...f, acceptTerms: e.target.checked }))}
-                className="mt-0.5 accent-blue-600"
-              />
-              <span className="text-xs text-slate-500 leading-relaxed">
+                className="mt-0.5 accent-[#00CFE8]" />
+              <span className="text-xs text-white/35 leading-relaxed">
                 Acepto los{' '}
-                <button
-                  type="button"
-                  onClick={() => setCurrentPage(ActivePage.AvisoLegal)}
-                  className="text-blue-600 hover:underline cursor-pointer"
-                >
-                  Términos de servicio
-                </button>{' '}
-                y la{' '}
-                <button
-                  type="button"
-                  onClick={() => setCurrentPage(ActivePage.Privacidad)}
-                  className="text-blue-600 hover:underline cursor-pointer"
-                >
-                  Política de privacidad
-                </button>
+                <button type="button" onClick={() => setCurrentPage(ActivePage.AvisoLegal)}
+                  className="text-[#00CFE8] hover:underline cursor-pointer">Términos de servicio</button>
+                {' '}y la{' '}
+                <button type="button" onClick={() => setCurrentPage(ActivePage.Privacidad)}
+                  className="text-[#00CFE8] hover:underline cursor-pointer">Política de privacidad</button>
               </span>
             </label>
 
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded p-3 text-xs text-red-700">{error}</div>
+              <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-xs text-red-400">{error}</div>
             )}
           </div>
 
           <div className="flex gap-3 mt-4">
-            <button
-              onClick={() => setStep(2)}
-              className="px-6 py-3.5 rounded border border-slate-200 text-slate-600 font-bold text-sm flex items-center gap-2 cursor-pointer hover:border-slate-400 transition-colors"
-            >
+            <button onClick={() => setStep(2)}
+              className="px-6 py-3.5 rounded-xl border border-white/15 text-white/60 font-bold text-sm flex items-center gap-2 cursor-pointer hover:border-white/35 hover:text-white transition-colors">
               <ChevronLeft className="h-4 w-4" /> Atrás
             </button>
-            <button
-              onClick={handleSubmit}
-              disabled={!canProceedStep3 || loading}
-              className="flex-1 py-3.5 rounded bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 text-white font-bold uppercase tracking-wider text-sm flex items-center justify-center gap-2 cursor-pointer transition-colors"
-            >
+            <button onClick={handleSubmit} disabled={!canProceedStep3 || loading}
+              className="flex-1 py-3.5 rounded-xl bg-[#FFC400] hover:brightness-110 disabled:opacity-30 disabled:cursor-not-allowed text-[#020B16] font-black uppercase tracking-widest text-sm flex items-center justify-center gap-2 cursor-pointer transition-all shadow-lg shadow-[#FFC400]/15">
               {loading ? (
                 <span className="flex items-center gap-2">
                   <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
@@ -488,12 +447,10 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
             </button>
           </div>
 
-          <p className="text-center text-xs text-slate-400 mt-4">
+          <p className="text-center text-xs text-white/30 mt-4">
             ¿Ya tienes cuenta?{' '}
-            <button
-              onClick={() => setCurrentPage(ActivePage.AppDashboard)}
-              className="text-blue-600 hover:underline cursor-pointer font-semibold"
-            >
+            <button onClick={() => setCurrentPage(ActivePage.AppDashboard)}
+              className="text-[#00CFE8] hover:underline cursor-pointer font-bold">
               Inicia sesión
             </button>
           </p>
@@ -503,31 +460,31 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
       {/* ── Step 4: Success ── */}
       {step === 4 && (
         <div className="w-full max-w-md text-center">
-          <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-emerald-100 mb-6">
-            <Check className="h-8 w-8 text-emerald-600" />
+          <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-[#00CFE8]/15 border border-[#00CFE8]/30 mb-6">
+            <Check className="h-8 w-8 text-[#00CFE8]" />
           </div>
-          <h1 className="text-3xl font-display font-bold text-slate-900 tracking-tight mb-3">¡Cuenta creada!</h1>
-          <p className="text-slate-500 text-sm leading-relaxed mb-2">
-            Tu período de prueba gratuito de <strong>3 meses</strong> ha comenzado.
+          <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mb-3">¡Cuenta creada!</h1>
+          <p className="text-white/45 text-sm leading-relaxed mb-2">
+            Tu período de prueba gratuito de <strong className="text-white">3 meses</strong> ha comenzado.
           </p>
-          <p className="text-slate-400 text-xs mb-8">
+          <p className="text-white/30 text-xs mb-8">
             Si tu proveedor requiere verificación, revisa tu bandeja de entrada antes de continuar.
           </p>
 
-          <div className="bg-white border border-slate-200 rounded-lg p-4 mb-6 text-left space-y-2">
-            <div className="flex items-center gap-2 text-xs text-slate-600">
-              <Shield className="h-4 w-4 text-emerald-600 shrink-0" />
+          <div className="rounded-2xl border border-white/10 bg-[#0d1f38] p-5 mb-6 text-left space-y-3">
+            <div className="flex items-center gap-2.5 text-xs text-white/55">
+              <Shield className="h-4 w-4 text-[#00CFE8] shrink-0" />
               3 meses gratis — sin tarjeta de crédito requerida
             </div>
-            <div className="flex items-center gap-2 text-xs text-slate-600">
-              <Gift className="h-4 w-4 text-blue-600 shrink-0" />
-              Plan {PLANS.find(p => p.id === selectedPlan)?.name} activado
+            <div className="flex items-center gap-2.5 text-xs text-white/55">
+              <Gift className="h-4 w-4 text-[#FFC400] shrink-0" />
+              {PLANS.find(p => p.id === selectedPlan)?.name} activado
             </div>
           </div>
 
           <button
             onClick={() => setCurrentPage(ActivePage.AppDashboard)}
-            className="w-full py-3.5 rounded bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase tracking-wider text-sm flex items-center justify-center gap-2 cursor-pointer transition-colors"
+            className="w-full py-3.5 rounded-xl bg-[#FFC400] hover:brightness-110 text-[#020B16] font-black uppercase tracking-widest text-sm flex items-center justify-center gap-2 cursor-pointer transition-all shadow-lg shadow-[#FFC400]/15"
           >
             Ir al panel <ArrowRight className="h-4 w-4" />
           </button>
