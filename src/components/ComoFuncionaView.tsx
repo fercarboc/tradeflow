@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { ActivePage, TradeType } from '../types';
-import { Mic, CheckSquare, MessageSquare, FileText, HelpCircle, ArrowRight, Play, Sparkles, AlertCircle, RefreshCw } from 'lucide-react';
+import { Mic, CheckSquare, MessageSquare, HelpCircle, ArrowRight, Play, Sparkles, AlertCircle, RefreshCw } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface ComoFuncionaViewProps {
@@ -43,15 +43,15 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
         cliente: 'Juan Gómez (Calle Mayor 12)',
         items: [
           { desc: 'Grifo monomando cocina premium', cant: 1, precio: 70.00, total: 70.00 },
-          { desc: 'Latiguillos de cobre reforzado 3/8', cant: 2, precio: 7.50, total: 15.00 }
+          { desc: 'Latiguillos de cobre reforzado 3/8', cant: 2, precio: 7.50, total: 15.00 },
         ],
         totalMateriales: 85.00,
         manoDeObra: { horas: 2, tarifa: 35.00, total: 70.00 },
         subtotal: 155.00,
         iva: 32.55,
-        total: 187.55
+        total: 187.55,
       },
-      whatsappText: 'Estimado Juan Gómez, te adjunto el presupuesto de fontanería para el cambio de grifo de cocina. Subtotal: 155,00€ + IVA. Puedes revisarlo en el siguiente PDF adjunto por TrabFlow: https://trabflow.com/view/pdf_83918'
+      whatsappText: 'Estimado Juan Gómez, te adjunto el presupuesto de fontanería para el cambio de grifo de cocina. Subtotal: 155,00€ + IVA. Revísalo en: https://trabflow.com/view/pdf_83918',
     },
     'Electricidad': {
       oficio: 'Electricidad',
@@ -61,70 +61,70 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
         cliente: 'Reformas SL (Calle Alcalá 60)',
         items: [
           { desc: 'Focos LED empotrados de bajo consumo', cant: 6, precio: 12.00, total: 72.00 },
-          { desc: 'Bases de enchufe Simón 27 blancas', cant: 3, precio: 6.00, total: 18.00 }
+          { desc: 'Bases de enchufe Simón 27 blancas', cant: 3, precio: 6.00, total: 18.00 },
         ],
         totalMateriales: 90.00,
         manoDeObra: { horas: 3.5, tarifa: 40.00, total: 140.00 },
         subtotal: 230.00,
         iva: 48.30,
-        total: 278.30
+        total: 278.30,
       },
-      whatsappText: 'Buenas tardes, aquí tiene el presupuesto de electricidad para la instalación de focos LED y enchufes en Calle Alcalá 60. Subtotal: 230,00€ + IVA. Revise los detalles en el PDF adjunto: https://trabflow.com/view/pdf_93810'
+      whatsappText: 'Buenas tardes, aquí tiene el presupuesto de electricidad para la instalación de focos LED y enchufes. Subtotal: 230,00€ + IVA. PDF adjunto: https://trabflow.com/view/pdf_93810',
     },
     'Climatización / HVAC': {
       oficio: 'Climatización / HVAC',
       title: 'Limpieza y Carga de Aire Acondicionado',
-      voiceText: 'Presupuesto para María Luisa en Avenida de Burgos. Mantenimiento de aire acondicionado split que incluye recarga de gas refrigerante cien euros, limpieza de filtros y desinfección treinta euros. Mano de obra una hora y media a cuarenta y cinco euros.',
+      voiceText: 'Presupuesto para María Luisa en Avenida de Burgos. Mantenimiento de aire acondicionado split: recarga de gas refrigerante cien euros, limpieza de filtros y desinfección treinta euros. Mano de obra una hora y media a cuarenta y cinco euros.',
       extractedData: {
         cliente: 'María Luisa (Avenida de Burgos)',
         items: [
           { desc: 'Gas refrigerante ecológico R32 (Carga)', cant: 1, precio: 100.00, total: 100.00 },
-          { desc: 'Líquido desinfectante y limpieza filtros split', cant: 1, precio: 30.00, total: 30.00 }
+          { desc: 'Líquido desinfectante y limpieza filtros split', cant: 1, precio: 30.00, total: 30.00 },
         ],
         totalMateriales: 130.00,
         manoDeObra: { horas: 1.5, tarifa: 45.00, total: 67.50 },
         subtotal: 197.50,
         iva: 41.48,
-        total: 238.98
+        total: 238.98,
       },
-      whatsappText: 'Hola María Luisa, puedes ver aquí tu presupuesto de climatización para el mantenimiento del split. Desinfectado y cargado. Total: 238,98€ IVA incl. Pulse para ver PDF: https://trabflow.com/view/pdf_71620'
+      whatsappText: 'Hola María Luisa, aquí tu presupuesto de climatización para el mantenimiento del split. Total: 238,98€ IVA incl. Ver PDF: https://trabflow.com/view/pdf_71620',
     },
     'Cerrajería': {
       oficio: 'Cerrajería',
       title: 'Apertura de puerta y bombín',
-      voiceText: 'Presupuesto de cerrajería urgente para Pedro Solares en Calle Luna nueve. Apertura de puerta simple ochenta euros. Cambio de bombín de seguridad de latón cincuenta euros. Un único concepto global.',
+      voiceText: 'Presupuesto de cerrajería urgente para Pedro Solares en Calle Luna nueve. Apertura de puerta simple ochenta euros. Cambio de bombín de seguridad de latón cincuenta euros.',
       extractedData: {
         cliente: 'Pedro Solares (Calle Luna 9)',
         items: [
           { desc: 'Apertura de puerta simple urgente (Sin daño)', cant: 1, precio: 80.00, total: 80.00 },
-          { desc: 'Bombín de seguridad reforzado latón 70mm', cant: 1, precio: 50.00, total: 50.00 }
+          { desc: 'Bombín de seguridad reforzado latón 70mm', cant: 1, precio: 50.00, total: 50.00 },
         ],
         totalMateriales: 130.00,
         manoDeObra: { horas: 0, tarifa: 0, total: 0 },
         subtotal: 130.00,
         iva: 27.30,
-        total: 157.30
+        total: 157.30,
       },
-      whatsappText: 'Presupuesto Cerrajería Urgente - Pedro Solares. Apertura y cambio de bombín de seguridad latonado. Total: 157,30€ IVA incl. PDF Oficial: https://trabflow.com/view/pdf_10821'
+      whatsappText: 'Presupuesto Cerrajería Urgente - Pedro Solares. Apertura y cambio de bombín. Total: 157,30€ IVA incl. PDF: https://trabflow.com/view/pdf_10821',
     },
     'Otros': {
       oficio: 'Otros',
       title: 'Arreglo de persiana y pintura',
-      voiceText: 'Presupuesto para oficina de Seguros García. Arreglo de persiana de aluminio desgastada cuarenta euros. Pintura blanca plástica de techos treinta euros. Mano de obra tres horas a treinta euros.',
+      voiceText: 'Presupuesto para oficina de Seguros García. Arreglo de persiana de aluminio cuarenta euros. Pintura blanca plástica de techos treinta euros. Mano de obra tres horas a treinta euros.',
       extractedData: {
         cliente: 'Seguros García (Oficina)',
         items: [
           { desc: 'Lamas y cinta para persiana de aluminio', cant: 1, precio: 40.00, total: 40.00 },
-          { desc: 'Pintura plástica blanca techos antihumedad', cant: 1, precio: 30.00, total: 30.00 }
+          { desc: 'Pintura plástica blanca techos antihumedad', cant: 1, precio: 30.00, total: 30.00 },
         ],
         totalMateriales: 70.00,
         manoDeObra: { horas: 3, tarifa: 30.00, total: 90.00 },
         subtotal: 160.00,
         iva: 33.60,
-        total: 193.60
+        total: 193.60,
       },
-      whatsappText: 'Presupuesto de reparaciones - Seguros García. Arreglo persiana + Pintura techos. Subtotal: 160,00€ + IVA. PDF TrabFlow adjuntado: https://trabflow.com/view/pdf_55102'
-    }
+      whatsappText: 'Presupuesto - Seguros García. Arreglo persiana + Pintura techos. Subtotal: 160,00€ + IVA. PDF adjunto: https://trabflow.com/view/pdf_55102',
+    },
   };
 
   const currentPreset = (presets[activeTab] ?? presets['Fontanería'])!;
@@ -132,346 +132,326 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
   const runSimulation = () => {
     setSimulationState('typing');
     setTypingIndex(0);
-    
-    // Simulate speech-to-text typing animation
     let i = 0;
     const interval = setInterval(() => {
       i += 8;
       if (i >= currentPreset.voiceText.length) {
         clearInterval(interval);
         setSimulationState('parsing');
-        
-        // Parsing artificial intelligence delay
-        setTimeout(() => {
-          setSimulationState('done');
-        }, 1500);
+        setTimeout(() => setSimulationState('done'), 1500);
       } else {
         setTypingIndex(i);
       }
     }, 40);
   };
 
-  const handleJoinBetaWithSelected = () => {
+  const handleJoinBeta = () => {
     setPreselectedTrade(activeTab);
     setCurrentPage(ActivePage.Contacto);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const steps = [
+    {
+      n: '01',
+      icon: <Mic className="h-6 w-6" />,
+      title: '1. Dicta tu trabajo',
+      body: 'Graba una nota de voz contando lo que has hecho, el cliente y el material. También puedes subir una foto del lugar del trabajo.',
+    },
+    {
+      n: '02',
+      icon: <CheckSquare className="h-6 w-6" />,
+      title: '2. Revisa el borrador',
+      body: 'La IA extrae los materiales, precios y horas de mano de obra en segundos. Ajusta el IVA y descuentos con un solo toque.',
+    },
+    {
+      n: '03',
+      icon: <MessageSquare className="h-6 w-6" />,
+      title: '3. Manda por WhatsApp',
+      body: 'TrabFlow redacta el mensaje formal y genera el PDF. Tu cliente acepta online desde el móvil con un click.',
+    },
+  ];
+
+  const faqs = [
+    {
+      q: '¿Tengo que saber de informática para usar TRABFLOW?',
+      a: 'No. Si sabes mandar un audio por WhatsApp o hacer una foto con el móvil, sabes usar TRABFLOW. No hay pantallas complejas ni menús en inglés.',
+    },
+    {
+      q: '¿De dónde saca la IA el precio de los materiales?',
+      a: 'Puedes definir tus precios en la configuración o dictárselos de viva voz en el audio ("material setenta euros"). La IA los mapea al vuelo.',
+    },
+    {
+      q: '¿Qué pasa si mi cliente acepta el presupuesto?',
+      a: 'Recibes una notificación instantánea. Un botón convierte el borrador en Factura numerada oficial lista para exportar.',
+    },
+  ];
+
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 font-sans" id="como-funciona-container">
-      {/* Title */}
-      <div className="text-center max-w-3xl mx-auto mb-16">
-        <span className="inline-flex items-center gap-1 hover:opacity-90 transition-opacity rounded bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 text-[10px] font-bold uppercase tracking-widest">
-          <Sparkles className="h-3 w-3 text-emerald-500" />
-          Inteligencia diseñada para autónomos
-        </span>
-        <h1 className="text-3.5xl sm:text-5xl font-display font-bold text-slate-950 tracking-tight mt-3 leading-tight">
-          ¿Cómo funciona <span className="text-blue-600">TrabFlow AI</span>?
-        </h1>
-        <p className="mt-4 text-sm sm:text-base text-slate-505 leading-relaxed max-w-2xl mx-auto">
-          Hemos eliminado la complicación de usar ordenadores o rellenar tediosas bases de datos. TrabFlow entiende el lenguaje natural y tus notas de voz de WhatsApp para redactar presupuestos de forma mágica.
-        </p>
-      </div>
+    <div className="bg-[#020B16] min-h-screen font-sans" id="como-funciona-container">
 
-      {/* 3 Step Visual Path */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-        <div className="bg-white p-6 rounded border border-slate-200 shadow-xs relative overflow-hidden" id="step-card-1">
-          <div className="absolute top-4 right-4 text-5xl font-bold font-display text-slate-105 select-none animate-none font-mono">01</div>
-          <div className="inline-flex h-11 w-11 items-center justify-center rounded bg-blue-50 text-blue-600 border border-blue-105 mb-4 shadow-xs">
-            <Mic className="h-5 w-5" />
-          </div>
-          <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide mb-2">1. Dicta tu trabajo</h3>
-          <p className="text-xs text-slate-500 leading-relaxed">
-            Graba una nota de voz relatando lo que has hecho o necesitas cobrar, el cliente, y el material. También puedes subir una foto manuscrita o del lugar del trabajo para que evaluemos modelos.
-          </p>
-        </div>
-
-        <div className="bg-white p-6 rounded border border-slate-200 shadow-xs relative overflow-hidden" id="step-card-2">
-          <div className="absolute top-4 right-4 text-5xl font-bold font-display text-slate-105 select-none animate-none font-mono">02</div>
-          <div className="inline-flex h-11 w-11 items-center justify-center rounded bg-emerald-50 text-emerald-600 border border-emerald-105 mb-4 shadow-xs">
-            <CheckSquare className="h-5 w-5" />
-          </div>
-          <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide mb-2">2. Revisa el borrador</h3>
-          <p className="text-xs text-slate-500 leading-relaxed">
-            Nuestra IA estructurada extrae los nombres de repuestos, precios y horas de mano de obra en segundos. Compara totales, añade descuentos o ajusta el IVA en un toque visual e intuitivo.
-          </p>
-        </div>
-
-        <div className="bg-white p-6 rounded border border-slate-200 shadow-xs relative overflow-hidden" id="step-card-3">
-          <div className="absolute top-4 right-4 text-5xl font-bold font-display text-slate-105 select-none animate-none font-mono">03</div>
-          <div className="inline-flex h-11 w-11 items-center justify-center rounded bg-amber-50 text-amber-600 border border-amber-105 mb-4 shadow-xs">
-            <MessageSquare className="h-5 w-5" />
-          </div>
-          <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide mb-2">3. Manda por WhatsApp</h3>
-          <p className="text-xs text-slate-500 leading-relaxed">
-            TrabFlow redacta el texto formal y genera la URL del PDF profesional directamente listo para compartir. Tu cliente lo acepta Online con un click, notificándote de inmediato en el móvil.
+      {/* ── Hero header ─────────────────────────────── */}
+      <div className="border-b border-white/10 py-16 px-4 sm:px-6 lg:px-8 text-center">
+        <div className="mx-auto max-w-3xl space-y-4">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white/45">
+            <Sparkles className="h-3.5 w-3.5 text-[#00CFE8]" />
+            Inteligencia diseñada para instaladores
+          </span>
+          <h1 className="text-4xl sm:text-5xl font-black uppercase tracking-tight text-white leading-tight">
+            ¿Cómo funciona <span className="text-[#FFC400]">TRABFLOW</span>?
+          </h1>
+          <p className="text-white/45 text-base leading-relaxed max-w-2xl mx-auto">
+            Hemos eliminado la complicación de usar ordenadores o rellenar bases de datos. TRABFLOW entiende el lenguaje natural y tus notas de voz para redactar presupuestos al instante.
           </p>
         </div>
       </div>
 
-      {/* Simulator Headline */}
-      <div className="text-center max-w-2xl mx-auto mb-8">
-        <h2 className="text-2xl font-display font-bold text-slate-950 uppercase tracking-wide">Prueba el Simulador de Inteligencia</h2>
-        <p className="text-xs text-slate-500 mt-2">Selecciona tu sector técnico y dale al play para ver cómo nuestra IA procesa e interpreta tus dictados de voz:</p>
-      </div>
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 space-y-20">
 
-      {/* Interactive Dictation Simulator Sandbox */}
-      <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch mb-20" id="visual-simulator-console">
-        
-        {/* Left Console: Controls and text */}
-        <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
-          <div className="space-y-4">
-            {/* Tab selector */}
-            <div className="flex flex-wrap gap-1 bg-white p-1 rounded border border-slate-200">
-              {(Object.keys(presets) as TradeType[]).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => {
-                    setActiveTab(tab);
-                    setSimulationState('idle');
-                    setTypingIndex(0);
-                  }}
-                  className={`px-3 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all ${
-                    activeTab === tab 
-                      ? 'bg-blue-600 text-white shadow-xs'
-                      : 'text-slate-650 hover:text-slate-900 hover:bg-slate-100'
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
+        {/* ── 3 Steps ─────────────────────────────────── */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {steps.map((s) => (
+            <div key={s.n} className="relative rounded-2xl bg-[#0d1f38] border border-white/10 p-7 overflow-hidden">
+              <div className="absolute top-4 right-5 text-6xl font-black text-white/[0.04] select-none leading-none">{s.n}</div>
+              <div className="h-12 w-12 rounded-2xl bg-[#020B16] text-[#00CFE8] flex items-center justify-center mb-5 shadow-md">
+                {s.icon}
+              </div>
+              <h3 className="text-sm font-black uppercase tracking-wide text-white mb-2">{s.title}</h3>
+              <p className="text-sm text-white/50 leading-relaxed">{s.body}</p>
             </div>
+          ))}
+        </div>
 
-            {/* Voice Dictation Simulation Box */}
-            <div className="bg-white rounded border border-slate-200 p-5 shadow-xs space-y-3 relative">
-              <span className="text-[9px] font-mono font-bold tracking-wider text-slate-400 uppercase block font-mono">Audio Recibido (Dictado de voz)</span>
-              
-              <div className="flex items-center gap-2.5 bg-slate-50 p-3 rounded border border-slate-150">
-                <div className={`h-8 w-8 rounded flex items-center justify-center ${simulationState === 'typing' ? 'bg-red-500 text-white shadow-xs animate-pulse' : 'bg-slate-200 text-slate-600'}`}>
-                  <Mic className="h-4 w-4" />
+        {/* ── Simulator ───────────────────────────────── */}
+        <div>
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-black uppercase tracking-tight text-white">Prueba el simulador</h2>
+            <p className="text-white/40 text-sm mt-2">Selecciona tu sector y dale a Simular para ver cómo la IA procesa tu dictado:</p>
+          </div>
+
+          <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-4 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+            {/* Left panel */}
+            <div className="lg:col-span-5 flex flex-col justify-between gap-6">
+              <div className="space-y-4">
+                {/* tabs */}
+                <div className="flex flex-wrap gap-1.5 bg-[#020B16] p-1.5 rounded-xl border border-white/10">
+                  {(Object.keys(presets) as TradeType[]).map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => { setActiveTab(tab); setSimulationState('idle'); setTypingIndex(0); }}
+                      className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all ${
+                        activeTab === tab
+                          ? 'bg-[#FFC400] text-[#020B16]'
+                          : 'text-white/40 hover:text-white hover:bg-white/5'
+                      }`}
+                    >
+                      {tab}
+                    </button>
+                  ))}
                 </div>
-                <div className="flex-1 flex items-center gap-1">
-                  {simulationState === 'typing' ? (
-                    <div className="flex items-center gap-0.5 h-6">
-                      <div className="w-[3px] bg-red-500 h-2 rounded animate-[bounce_0.6s_infinite]" />
-                      <div className="w-[3px] bg-red-500 h-4 rounded animate-[bounce_0.6s_infinite_0.1s]" />
-                      <div className="w-[3px] bg-red-500 h-5 rounded animate-[bounce_0.6s_infinite_0.2s]" />
-                      <div className="w-[3px] bg-red-500 h-3 rounded animate-[bounce_0.6s_infinite_0.3s]" />
-                      <div className="w-[3px] bg-red-500 h-1.5 rounded animate-[bounce_0.6s_infinite_0.4s]" />
+
+                {/* Voice box */}
+                <div className="rounded-xl bg-[#020B16] border border-white/10 p-5 space-y-3">
+                  <span className="text-[9px] font-mono font-bold tracking-wider text-white/30 uppercase">Audio recibido (dictado de voz)</span>
+
+                  <div className="flex items-center gap-2.5 bg-white/5 p-3 rounded-lg border border-white/10">
+                    <div className={`h-8 w-8 rounded-lg flex items-center justify-center ${simulationState === 'typing' ? 'bg-red-500 text-white animate-pulse' : 'bg-white/10 text-white/40'}`}>
+                      <Mic className="h-4 w-4" />
                     </div>
-                  ) : (
-                    <span className="text-[9px] font-mono uppercase tracking-wider font-bold text-slate-400">Nota de voz procesada</span>
-                  )}
-                  <span className="text-[9px] text-slate-400 font-mono ml-auto">0:18 min</span>
+                    <div className="flex-1 flex items-center gap-1">
+                      {simulationState === 'typing' ? (
+                        <div className="flex items-center gap-0.5 h-6">
+                          {[0,1,2,3,4].map(i => (
+                            <div key={i} className="w-[3px] bg-red-500 rounded animate-bounce" style={{ height: `${[8,16,20,12,6][i]}px`, animationDelay: `${i*0.1}s` }} />
+                          ))}
+                        </div>
+                      ) : (
+                        <span className="text-[9px] font-mono uppercase tracking-wider text-white/30">Nota de voz procesada · 0:18 min</span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="min-h-[80px] bg-white/[0.03] p-3 rounded-lg text-xs leading-relaxed italic border border-white/8 text-white/55">
+                    {simulationState === 'idle' && (
+                      <span className="text-white/25">Presiona "Simular dictado" para iniciar la simulación…</span>
+                    )}
+                    {simulationState === 'typing' && (
+                      <span>{currentPreset.voiceText.substring(0, typingIndex)}<span className="animate-ping">|</span></span>
+                    )}
+                    {(simulationState === 'parsing' || simulationState === 'done') && (
+                      <span>"{currentPreset.voiceText}"</span>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              {/* Typed text or parsed */}
-              <div className="min-h-[80px] bg-slate-50/60 p-3 rounded text-slate-750 text-xs leading-relaxed font-sans italic border border-slate-150">
+              {/* Action buttons */}
+              <div className="space-y-2.5">
                 {simulationState === 'idle' && (
-                  <span className="text-slate-400">Presiona "Reproducir Dictado de Voz" abajo para iniciar la simulación...</span>
+                  <button
+                    onClick={runSimulation}
+                    className="w-full flex items-center justify-center gap-2 bg-[#FFC400] text-[#020B16] py-3 rounded-xl text-xs font-black uppercase tracking-widest cursor-pointer hover:brightness-110 transition-all"
+                  >
+                    <Play className="h-4 w-4 fill-[#020B16]" />
+                    Simular dictado de voz
+                  </button>
                 )}
                 {simulationState === 'typing' && (
-                  <span>{currentPreset.voiceText.substring(0, typingIndex)}<span className="animate-ping">|</span></span>
+                  <div className="w-full flex items-center justify-center gap-2 bg-white/5 text-white/35 py-3 rounded-xl text-xs font-bold uppercase tracking-wider border border-white/10">
+                    <RefreshCw className="h-4 w-4 animate-spin" />
+                    Transcribiendo voz a texto…
+                  </div>
                 )}
-                {(simulationState === 'parsing' || simulationState === 'done') && (
-                  <span>"{currentPreset.voiceText}"</span>
+                {simulationState === 'parsing' && (
+                  <div className="w-full flex items-center justify-center gap-2 bg-[#00CFE8]/10 border border-[#00CFE8]/20 text-[#00CFE8] py-3 rounded-xl text-xs font-bold uppercase tracking-wider animate-pulse">
+                    <Sparkles className="h-4 w-4" />
+                    IA extrayendo conceptos…
+                  </div>
                 )}
-              </div>
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            {simulationState === 'idle' && (
-              <button
-                onClick={runSimulation}
-                className="w-full flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white py-3 rounded text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer"
-              >
-                <Play className="h-4 w-4 fill-white text-white" />
-                <span>Simular Dictado de Voz</span>
-              </button>
-            )}
-
-            {simulationState === 'typing' && (
-              <div className="w-full flex items-center justify-center gap-2 bg-slate-100 text-slate-400 py-3 rounded text-xs font-bold uppercase tracking-wider border border-slate-200">
-                <RefreshCw className="h-4 w-4 animate-spin" />
-                <span>Transcribiendo voz a texto en vivo...</span>
-              </div>
-            )}
-
-            {simulationState === 'parsing' && (
-              <div className="w-full flex items-center justify-center gap-2 bg-emerald-50 text-emerald-800 border border-emerald-200 py-3 rounded text-xs font-bold uppercase tracking-wider animate-pulse">
-                <Sparkles className="h-4 w-4 text-emerald-500" />
-                <span>IA extrayendo conceptos y repuestos para presupuesto...</span>
-              </div>
-            )}
-
-            {simulationState === 'done' && (
-              <div className="space-y-2">
-                <div className="p-3 bg-emerald-50 text-emerald-800 border border-emerald-150 rounded text-xs flex items-center gap-2 font-bold uppercase tracking-wide">
-                  <CheckSquare className="h-4 w-4 text-emerald-600 shrink-0" />
-                  <span>¡Datos estructurados creados sin errores!</span>
-                </div>
+                {simulationState === 'done' && (
+                  <div className="space-y-2">
+                    <div className="p-3 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-xl text-xs flex items-center gap-2 font-bold uppercase">
+                      <CheckSquare className="h-4 w-4 shrink-0" />
+                      ¡Datos estructurados sin errores!
+                    </div>
+                    <button onClick={runSimulation} className="w-full flex items-center justify-center gap-1.5 text-xs text-white/35 hover:text-white/60 transition-colors py-2 cursor-pointer">
+                      <RefreshCw className="h-3.5 w-3.5" />
+                      Reiniciar simulación
+                    </button>
+                  </div>
+                )}
                 <button
-                  onClick={runSimulation}
-                  className="w-full flex items-center justify-center gap-1.5 text-xs text-slate-550 hover:text-slate-800 hover:underline transition-colors py-2 cursor-pointer"
+                  onClick={handleJoinBeta}
+                  className="w-full flex items-center justify-center gap-2 border border-[#00CFE8]/30 bg-[#00CFE8]/10 text-[#00CFE8] font-bold uppercase tracking-widest text-xs py-3 rounded-xl cursor-pointer hover:bg-[#00CFE8]/20 transition-all"
                 >
-                  <RefreshCw className="h-3.5 w-3.5" />
-                  <span>Reiniciar simulación</span>
+                  Me gusta, quiero registrarme
+                  <ArrowRight className="h-4 w-4" />
                 </button>
               </div>
-            )}
-
-            <button
-              onClick={handleJoinBetaWithSelected}
-              className="w-full flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase tracking-widest text-xs py-3.5 rounded cursor-pointer shadow-sm transition-colors"
-            >
-              <span>Me gusta, quiero registrarme</span>
-              <ArrowRight className="h-4 w-4" />
-            </button>
-          </div>
-        </div>
-
-        {/* Right Console: Result Preview Mockup */}
-        <div className="lg:col-span-7 flex flex-col justify-start bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden relative min-h-[400px]">
-          {/* Mockup Header */}
-          <div className="bg-slate-950 px-4 py-3 border-b border-slate-800/60 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-500"></span>
-              <span className="h-2.5 w-2.5 rounded-full bg-yellow-500"></span>
-              <span className="h-2.5 w-2.5 rounded-full bg-green-500"></span>
             </div>
-            <span className="text-[10px] font-mono tracking-wider text-slate-500 uppercase">Pantalla de Trabajo TrabFlow Client</span>
-            <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">MOCKUP REAL</span>
-          </div>
 
-          <AnimatePresence mode="wait">
-            {simulationState === 'idle' || simulationState === 'typing' ? (
-              <motion.div
-                key="simulate-pending-screen"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex-1 flex flex-col items-center justify-center text-center p-6 text-slate-500 space-y-3"
-              >
-                <AlertCircle className="h-10 w-10 text-slate-700 animate-bounce" />
-                <div>
-                  <span className="text-slate-300 font-display font-bold text-sm block">Esperando procesamiento del dictado</span>
-                  <p className="text-slate-500 text-xs mt-1 max-w-xs leading-normal">
-                    La IA se activa cuando reproduces el dictado. Verás el desglose tributario y la factura en tiempo real.
-                  </p>
+            {/* Right panel — result */}
+            <div className="lg:col-span-7 flex flex-col bg-slate-950 rounded-2xl border border-white/10 overflow-hidden min-h-[400px]">
+              <div className="bg-[#08111e] px-4 py-3 border-b border-white/10 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <div className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
+                  <div className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
+                  <div className="h-2.5 w-2.5 rounded-full bg-green-500/70" />
                 </div>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="simulated-result-screen"
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                className="p-4 sm:p-6 flex-1 flex flex-col justify-between space-y-5"
-              >
-                {/* Simulated PDF / Quote Card */}
-                <div className="bg-white rounded-xl shadow-lg text-slate-900 text-xs overflow-hidden border border-slate-200">
-                  {/* Header PDF */}
-                  <div className="bg-slate-50 border-b border-slate-100 p-3 sm:px-4 flex justify-between items-center">
+                <span className="text-[10px] font-mono text-white/30 uppercase tracking-wider">TRABFLOW · Vista previa</span>
+                <span className="text-[9px] font-mono text-[#00CFE8] bg-[#00CFE8]/10 px-2 py-0.5 rounded border border-[#00CFE8]/20">MOCKUP</span>
+              </div>
+
+              <AnimatePresence mode="wait">
+                {simulationState === 'idle' || simulationState === 'typing' ? (
+                  <motion.div
+                    key="waiting"
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    className="flex-1 flex flex-col items-center justify-center text-center p-6 space-y-3"
+                  >
+                    <AlertCircle className="h-10 w-10 text-white/20 animate-bounce" />
                     <div>
-                      <span className="font-bold text-slate-800 text-[10px] block uppercase">AUTÓNOMO EMISOR</span>
-                      <span className="text-slate-500 text-[9px] font-mono">Presupuesto #BETA-{activeTab.substring(0, 3).toUpperCase()}</span>
+                      <span className="text-white/50 font-bold text-sm block">Esperando procesamiento</span>
+                      <p className="text-white/25 text-xs mt-1 max-w-xs leading-normal">La IA se activa al reproducir el dictado. Verás el desglose y la factura en tiempo real.</p>
                     </div>
-                    <span className="bg-blue-100 text-blue-800 text-[9px] font-bold px-2 py-0.5 rounded uppercase">Borrador IA</span>
-                  </div>
-
-                  {/* Body PDF info */}
-                  <div className="p-3 sm:p-4 space-y-3">
-                    <div className="flex justify-between text-[10px] border-b border-slate-100 pb-2">
-                      <span className="text-slate-550"><strong>Cliente:</strong> {currentPreset.extractedData.cliente}</span>
-                      <span className="text-slate-550 font-mono">Fecha: 23/05/2026</span>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="result"
+                    initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+                    className="p-4 sm:p-6 flex-1 flex flex-col justify-between gap-4"
+                  >
+                    {/* PDF card */}
+                    <div className="bg-white rounded-xl shadow-xl text-slate-900 text-xs overflow-hidden border border-slate-200 flex-1">
+                      <div className="bg-slate-50 border-b border-slate-100 px-4 py-2.5 flex justify-between items-center">
+                        <div>
+                          <span className="font-bold text-slate-700 text-[10px] uppercase tracking-wide block">AUTÓNOMO EMISOR</span>
+                          <span className="text-slate-400 text-[9px] font-mono">Presupuesto #BETA-{activeTab.substring(0,3).toUpperCase()}</span>
+                        </div>
+                        <span className="bg-blue-100 text-blue-700 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase">Borrador IA</span>
+                      </div>
+                      <div className="p-4 space-y-3">
+                        <div className="flex justify-between text-[10px] border-b border-slate-100 pb-2">
+                          <span className="text-slate-600"><strong>Cliente:</strong> {currentPreset.extractedData.cliente}</span>
+                          <span className="text-slate-400 font-mono">23/05/2026</span>
+                        </div>
+                        <table className="w-full text-left">
+                          <thead>
+                            <tr className="border-b border-slate-100 text-[9px] text-slate-400 uppercase font-semibold">
+                              <th className="py-1">Material / Concepto</th>
+                              <th className="py-1 text-center">Cant.</th>
+                              <th className="py-1 text-right">Precio</th>
+                              <th className="py-1 text-right">Total</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-slate-50">
+                            {currentPreset.extractedData.items.map((item, i) => (
+                              <tr key={i} className="text-[10px] text-slate-700">
+                                <td className="py-1.5">{item.desc}</td>
+                                <td className="py-1.5 text-center font-mono">{item.cant}</td>
+                                <td className="py-1.5 text-right font-mono">{item.precio.toFixed(2)}€</td>
+                                <td className="py-1.5 text-right font-mono font-bold">{item.total.toFixed(2)}€</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                        {currentPreset.extractedData.manoDeObra.horas > 0 && (
+                          <div className="p-2 rounded-lg bg-amber-50 border border-amber-100 flex justify-between text-[10px]">
+                            <span className="text-amber-700 font-medium">🧑‍🔧 Mano de obra:</span>
+                            <span className="font-mono text-slate-700 font-bold">{currentPreset.extractedData.manoDeObra.total.toFixed(2)}€</span>
+                          </div>
+                        )}
+                        <div className="border-t border-slate-100 pt-2 flex flex-col items-end gap-1">
+                          <div className="flex justify-between w-full max-w-[180px] text-[10px] text-slate-500">
+                            <span>Subtotal:</span><span className="font-mono">{currentPreset.extractedData.subtotal.toFixed(2)}€</span>
+                          </div>
+                          <div className="flex justify-between w-full max-w-[180px] text-[10px] text-slate-400">
+                            <span>IVA 21%:</span><span className="font-mono">{currentPreset.extractedData.iva.toFixed(2)}€</span>
+                          </div>
+                          <div className="flex justify-between w-full max-w-[180px] text-xs font-black text-blue-700 border-t border-slate-100 pt-1">
+                            <span>TOTAL:</span><span className="font-mono">{currentPreset.extractedData.total.toFixed(2)}€</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Table row */}
-                    <table className="w-full text-left border-collapse">
-                      <thead>
-                        <tr className="border-b border-slate-100 text-[9px] text-slate-400 uppercase font-semibold">
-                          <th className="py-1">Conc. / Material</th>
-                          <th className="py-1 text-center">Cant.</th>
-                          <th className="py-1 text-right">Precio</th>
-                          <th className="py-1 text-right">Total</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-slate-50">
-                        {currentPreset.extractedData.items.map((item, idx) => (
-                          <tr key={idx} className="text-[10px] text-slate-750 font-medium">
-                            <td className="py-1.5">{item.desc}</td>
-                            <td className="py-1.5 text-center font-mono">{item.cant}</td>
-                            <td className="py-1.5 text-right font-mono">{item.precio.toFixed(2)}€</td>
-                            <td className="py-1.5 text-right font-mono font-bold text-slate-900">{item.total.toFixed(2)}€</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-
-                    {/* Labor row if exists */}
-                    {currentPreset.extractedData.manoDeObra.horas > 0 && (
-                      <div className="p-2 rounded-lg bg-amber-50 border border-amber-100/60 flex justify-between items-center text-[10px]">
-                        <span className="text-amber-800 font-medium">🧑‍🔧 Mano de Obra Estimada:</span>
-                        <span className="font-mono text-slate-850">
-                          {currentPreset.extractedData.manoDeObra.horas} hs x {currentPreset.extractedData.manoDeObra.tarifa}€/h = <strong className="text-slate-900 font-bold">{currentPreset.extractedData.manoDeObra.total.toFixed(2)}€</strong>
-                        </span>
-                      </div>
-                    )}
-
-                    {/* Totals table */}
-                    <div className="border-t border-slate-100 pt-3 flex flex-col items-end space-y-1">
-                      <div className="flex justify-between w-full max-w-[180px] text-[10px] text-slate-600">
-                        <span>Suma Conceptos:</span>
-                        <span className="font-mono font-semibold">{currentPreset.extractedData.subtotal.toFixed(2)}€</span>
-                      </div>
-                      <div className="flex justify-between w-full max-w-[180px] text-[10px] text-slate-500">
-                        <span>IVA Regulado (21%):</span>
-                        <span className="font-mono">{currentPreset.extractedData.iva.toFixed(2)}€</span>
-                      </div>
-                      <div className="flex justify-between w-full max-w-[180px] text-xs font-bold text-slate-950 border-t border-slate-100 pt-1.5">
-                        <span className="text-blue-700">Importe Total:</span>
-                        <span className="font-mono text-blue-700">{currentPreset.extractedData.total.toFixed(2)}€</span>
+                    {/* WhatsApp bubble */}
+                    <div className="bg-[#020B16] p-3 rounded-xl border border-white/10 flex items-start gap-2.5 shrink-0">
+                      <div className="h-7 w-7 rounded-lg bg-emerald-500 flex items-center justify-center font-black text-xs text-white shrink-0">WA</div>
+                      <div className="flex-1 min-w-0">
+                        <span className="text-[9px] font-bold tracking-wider text-emerald-400 uppercase block mb-1">Mensaje listo para WhatsApp:</span>
+                        <p className="text-[10px] text-white/55 italic leading-snug line-clamp-2">"{currentPreset.whatsappText}"</p>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
-                {/* Simulated WhatsApp bubble bottom */}
-                <div className="bg-slate-950/80 p-3 sm:p-4 rounded-xl border border-slate-800 flex items-start gap-2.5">
-                  <div className="h-7 w-7 rounded-lg bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow">WA</div>
-                  <div className="flex-1 space-y-1">
-                    <span className="text-[10px] font-bold tracking-wider text-emerald-400 block uppercase">Mensaje listo para enviar por WhatsApp:</span>
-                    <p className="text-[10px] text-slate-300 italic font-sans leading-normal bg-slate-900/60 p-2 rounded-lg border border-slate-800/80">
-                      "{currentPreset.whatsappText}"
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </div>
-
-      {/* Pre-Beta Faq section specifically built for Tradesmen */}
-      <div className="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 max-w-4xl mx-auto space-y-6" id="faq-tradesmen-section">
-        <h2 className="text-2xl font-display font-bold text-slate-950 text-center mb-4">Preguntas Frecuentes de la Beta</h2>
-        
-        <div className="space-y-4 text-sm divide-y divide-slate-100">
-          <div className="pt-4 first:pt-0 space-y-1.5">
-            <h4 className="font-bold text-slate-900">¿Tengo que saber de informática para usar TrabFlow?</h4>
-            <p className="text-slate-600 leading-normal">No. Si sabes mandar un audio por WhatsApp o hacer una foto con el móvil, sabes usar TrabFlow AI. No hay pantallas complejas ni menús en inglés.</p>
-          </div>
-          <div className="pt-4 space-y-1.5">
-            <h4 className="font-bold text-slate-900">¿De dónde saca la IA el precio de los materiales en la cotización?</h4>
-            <p className="text-slate-600 leading-normal">Tú puedes definir tus precios de materiales frecuentes en la configuración o dictárselo de viva voz en el mismo audio ("material setenta euros"). La IA mapea estos valores al vuelo.</p>
-          </div>
-          <div className="pt-4 space-y-1.5">
-            <h4 className="font-bold text-slate-900">¿Qué pasa si mi cliente acepta el presupuesto por WhatsApp?</h4>
-            <p className="text-slate-600 leading-normal">Te mandamos una notificación instantánea indicando que el cliente ha aceptado. TrabFlow te permite pulsar un solo botón para convertir ese borrador aceptado en Factura numerada oficial lista para exportar.</p>
           </div>
         </div>
+
+        {/* ── FAQ ─────────────────────────────────────── */}
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl font-black uppercase tracking-tight text-white text-center mb-8">
+            Preguntas frecuentes
+          </h2>
+          <div className="space-y-4">
+            {faqs.map((faq, i) => (
+              <div key={i} className="rounded-2xl bg-[#0d1f38] border border-white/10 p-6">
+                <div className="flex items-start gap-3">
+                  <HelpCircle className="h-5 w-5 text-[#00CFE8] shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-sm font-black text-white mb-1.5">{faq.q}</h4>
+                    <p className="text-sm text-white/50 leading-relaxed">{faq.a}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </div>
   );

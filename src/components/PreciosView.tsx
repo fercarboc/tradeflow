@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { ActivePage, TradeType } from '../types';
-import { Check, ArrowRight, ShieldCheck, Gift } from 'lucide-react';
+import { CheckCircle, ArrowRight, ShieldCheck } from 'lucide-react';
 
 interface PreciosViewProps {
   setCurrentPage: (page: ActivePage) => void;
@@ -13,204 +13,236 @@ interface PreciosViewProps {
 }
 
 export default function PreciosView({ setCurrentPage }: PreciosViewProps) {
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
+  const [cycle, setCycle] = useState<'monthly' | 'yearly'>('monthly');
 
-  const plans = [
-    {
-      name: 'Plan Básico',
-      price: billingCycle === 'monthly' ? 29 : 23,
-      desc: 'Ideal para autónomos técnicos que realizan trabajos puntuales y quieren simplificar.',
-      features: [
-        'Creación de presupuestos por voz ilimitados',
-        'Hasta 15 presupuestos PDF al mes',
-        'Conversión básica a factura (1 click)',
-        'Envío inmediato por WhatsApp',
-        'Soporte técnico básico por Email',
-      ],
-      cta: 'Empezar gratis 3 meses',
-      popular: false,
-    },
-    {
-      name: 'Plan Profesional (Pro)',
-      price: billingCycle === 'monthly' ? 49 : 39,
-      desc: 'Pensado para autónomos de alto volumen y microempresas instaladoras con operarios.',
-      features: [
-        'Presupuestos por voz e imagen (Foto del lugar)',
-        'Presupuestos PDF ilimitados oficiales',
-        'Control de aceptación online del cliente',
-        'Exportación automatizada para asesor contable',
-        'Módulo de gastos (Foto de tíquets de compra)',
-        'Soporte prioritario 1-on-1 por WhatsApp',
-      ],
-      cta: 'Empezar gratis 3 meses',
-      popular: true,
-    },
-    {
-      name: 'Plan Empresa',
-      price: billingCycle === 'monthly' ? 89 : 71,
-      desc: 'Para instaladoras en crecimiento con oficinas y varios operarios en calle.',
-      features: [
-        'Todo lo incluido en el Plan Pro',
-        'Multi-operario (Hasta 5 cuentas de técnicos)',
-        'Sincronización de tarifas grupales en la nube',
-        'Panel de estadísticas financieras avanzadas',
-        'Módulo de contratos de mantenimiento',
-        'Revisión legal de facturas por gestor asignado',
-      ],
-      cta: 'Empezar gratis 3 meses',
-      popular: false,
-    },
-  ];
-
-  const handleSelectPlan = () => {
-    setCurrentPage(ActivePage.Registro);
+  const go = (page: ActivePage) => {
+    setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const disc = cycle === 'yearly';
+
+  const plans = [
+    {
+      key: 'basico',
+      name: 'Básico',
+      price: disc ? 23 : 29,
+      users: '1 usuario',
+      desc: 'Ideal para autónomos que quieren simplificar presupuestos y facturas.',
+      features: [
+        'Presupuestos con IA por voz ilimitados',
+        'Hasta 15 presupuestos PDF al mes',
+        'Envío por WhatsApp y Email',
+        'PDF profesional',
+        'Gestión clientes y pagos',
+        'Soporte por Email',
+      ],
+      popular: false,
+      highlight: false,
+      cta: 'Empezar',
+    },
+    {
+      key: 'profesional',
+      name: 'Profesional',
+      price: disc ? 39 : 49,
+      users: '3-5 usuarios',
+      desc: 'Para autónomos de alto volumen y microempresas instaladoras.',
+      features: [
+        'Todo lo del plan Básico',
+        'Presupuestos por voz e imagen sin límite',
+        'Trabajadores y equipos',
+        'Agenda de obras',
+        'Recordatorios y vencimientos',
+        'Soporte prioritario WhatsApp',
+      ],
+      popular: true,
+      highlight: false,
+      cta: 'Empezar',
+    },
+    {
+      key: 'empresa',
+      name: 'Empresa',
+      price: disc ? 71 : 89,
+      users: '6-10 usuarios',
+      desc: 'Para instaladoras en crecimiento con varios operarios en campo.',
+      features: [
+        'Todo lo del plan Profesional',
+        'Multiempresa',
+        'Gestión avanzada de permisos',
+        'Panel de estadísticas avanzadas',
+        'Módulo de contratos de mantenimiento',
+        'Integraciones y API',
+      ],
+      popular: false,
+      highlight: true,
+      cta: 'Prueba gratis 15 días',
+      badges: ['Sin permanencia', 'Actualizaciones incluidas', 'Soporte cercano'],
+    },
+  ];
+
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 font-sans" id="precios-view-container">
-      {/* Header */}
-      <div className="text-center max-w-3xl mx-auto mb-12">
-        <span className="inline-flex items-center gap-1 bg-slate-100 text-slate-705 border border-slate-200 rounded px-3 py-1 text-[10px] font-bold uppercase tracking-wider mb-3">
-          Precios transparentes
-        </span>
-        <h1 className="text-3.5xl sm:text-5xl font-display font-bold text-slate-905 tracking-tight leading-tight">
-          Planes adaptados a tu ritmo de trabajo
-        </h1>
-        <p className="mt-3 text-sm sm:text-base text-slate-500 max-w-xl mx-auto">
-          Sin contratos de exclusividad ni tarifas ocultas. Elige el plan que mejor se adapte al volumen de tu negocio instalador.
-        </p>
+    <div className="bg-[#030d1e] min-h-screen font-sans" id="precios-view-container">
 
-        {/* 3-month free trial banner */}
-        <div className="mt-6 inline-flex flex-col sm:flex-row items-center gap-3 bg-emerald-50/70 border border-emerald-200 rounded p-4 max-w-2xl text-left">
-          <div className="h-8 w-8 rounded bg-emerald-100 flex items-center justify-center shrink-0">
-            <Gift className="h-4 w-4 text-emerald-700" />
-          </div>
-          <div className="text-xs text-emerald-900 leading-normal">
-            <strong>3 meses completamente gratis</strong> — Sin tarjeta de crédito hasta el 4º mes. Sin permanencias en plan mensual. Cancela cuando quieras.
-          </div>
-        </div>
+      {/* Hero header */}
+      <div className="bg-[#020B16] border-b border-white/10 py-16 px-4 sm:px-6 lg:px-8 text-center">
+        <div className="mx-auto max-w-3xl space-y-4">
+          <span className="inline-block rounded-full border border-white/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white/45">
+            Precios transparentes
+          </span>
+          <h1 className="text-4xl sm:text-5xl font-black uppercase tracking-tight text-white leading-tight">
+            Sin letra pequeña
+          </h1>
+          <p className="text-white/45 text-base leading-relaxed max-w-xl mx-auto">
+            Sin contratos de exclusividad ni tarifas ocultas. Elige el plan que mejor se adapte a tu negocio instalador.
+          </p>
 
-        {/* Billing Toggle button */}
-        <div className="mt-10 flex justify-center" id="billing-toggle-container">
-          <div className="relative flex items-center bg-slate-100 p-1 rounded border border-slate-200 shadow-xs">
-            <button
-              onClick={() => setBillingCycle('monthly')}
-              className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wider rounded transition-all cursor-pointer ${
-                billingCycle === 'monthly'
-                  ? 'bg-blue-650 text-white shadow-sm'
-                  : 'text-slate-500 hover:text-slate-900'
-              }`}
-            >
-              Pago Mensual
-            </button>
-            <button
-              onClick={() => setBillingCycle('yearly')}
-              className={`px-4 py-2 text-[10px] font-bold uppercase tracking-wider rounded transition-all cursor-pointer flex items-center gap-1.5 ${
-                billingCycle === 'yearly'
-                  ? 'bg-blue-650 text-white shadow-sm'
-                  : 'text-slate-500 hover:text-slate-900'
-              }`}
-            >
-              <span>Pago Anual</span>
-              <span className="bg-emerald-600 text-white font-bold text-[9px] px-1.5 py-0.5 rounded tracking-wide">
-                -20%
-              </span>
-            </button>
+          {/* Free trial banner */}
+          <div className="inline-flex items-center gap-3 rounded-2xl bg-[#FFC400]/10 border border-[#FFC400]/25 px-6 py-3 mt-2">
+            <span className="text-[#FFC400] text-lg">🎁</span>
+            <span className="text-sm font-bold text-white/80">
+              <span className="text-[#FFC400]">15 días gratis</span> — Sin tarjeta de crédito. Cancela cuando quieras.
+            </span>
+          </div>
+
+          {/* Billing toggle */}
+          <div className="flex justify-center pt-4">
+            <div className="flex items-center rounded-full bg-white/5 border border-white/10 p-1 gap-1">
+              <button
+                onClick={() => setCycle('monthly')}
+                className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all cursor-pointer ${
+                  cycle === 'monthly' ? 'bg-white text-[#020B16]' : 'text-white/50 hover:text-white'
+                }`}
+              >
+                Mensual
+              </button>
+              <button
+                onClick={() => setCycle('yearly')}
+                className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all cursor-pointer ${
+                  cycle === 'yearly' ? 'bg-white text-[#020B16]' : 'text-white/50 hover:text-white'
+                }`}
+              >
+                Anual
+                <span className="bg-[#FFC400] text-[#020B16] text-[9px] font-black px-1.5 py-0.5 rounded-full">
+                  -20%
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Pricing Grids */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-16" id="pricing-matrix">
-        {plans.map((plan, idx) => {
-          return (
+      {/* Cards */}
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          {plans.map((plan) => (
             <div
-              key={idx}
-              className={`rounded border bg-white p-6 sm:p-8 flex flex-col justify-between relative shadow-xs hover:border-slate-350 transition-colors h-full ${
-                plan.popular 
-                  ? 'border-2 border-blue-600 scale-100 md:scale-105 z-10' 
-                  : 'border-slate-200'
+              key={plan.key}
+              id={`pricing-card-${plan.key}`}
+              className={`relative rounded-2xl p-8 flex flex-col gap-6 transition-all ${
+                plan.highlight
+                  ? 'bg-[#FFC400] shadow-2xl shadow-[#FFC400]/20'
+                  : plan.popular
+                  ? 'bg-[#0d1f38] border border-[#00CFE8]/30'
+                  : 'bg-[#0d1f38] border border-white/10'
               }`}
-              id={`pricing-card-${idx}`}
             >
               {plan.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-[9px] font-bold px-3 py-1 rounded uppercase tracking-wider font-mono">
-                  El más elegido ★
-                </span>
-              )}
-
-              <div className="space-y-5">
-                <div>
-                  <h3 className="text-md font-display font-bold text-slate-950 uppercase tracking-wide">{plan.name}</h3>
-                  <p className="text-xs text-slate-550 mt-1 leading-relaxed">{plan.desc}</p>
-                </div>
-
-                {/* Price tag */}
-                <div id={`card-price-container-${idx}`}>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-display font-bold text-slate-950 tracking-tight">
-                      {plan.price}€
-                    </span>
-                    <span className="text-slate-400 font-bold uppercase text-[9px] font-mono tracking-wider">/mes + IVA</span>
-                  </div>
-                  <span className="mt-1.5 inline-block bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold text-[10px] px-2 py-0.5 rounded">
-                    Gratis los primeros 3 meses
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap">
+                  <span className="rounded-full bg-[#00CFE8] px-4 py-1 text-[10px] font-black uppercase tracking-widest text-[#020B16]">
+                    Más popular
                   </span>
                 </div>
+              )}
 
-                {/* Separator */}
-                <div className="h-px bg-slate-150" />
+              {/* Plan name + price */}
+              <div>
+                <div className={`text-[10px] font-black uppercase tracking-widest mb-2 ${
+                  plan.highlight ? 'text-[#020B16]/55' : plan.popular ? 'text-[#00CFE8]' : 'text-white/40'
+                }`}>
+                  {plan.name}
+                </div>
+                <div className="flex items-end gap-1.5">
+                  <span className={`text-5xl font-black leading-none ${plan.highlight ? 'text-[#020B16]' : 'text-white'}`}>
+                    {plan.price}€
+                  </span>
+                  <span className={`text-sm mb-1 font-medium ${plan.highlight ? 'text-[#020B16]/50' : 'text-white/35'}`}>
+                    /mes
+                  </span>
+                </div>
+                <p className={`text-xs mt-1 ${plan.highlight ? 'text-[#020B16]/50' : 'text-white/35'}`}>
+                  {plan.users}
+                </p>
+                <p className={`text-sm mt-3 leading-relaxed ${plan.highlight ? 'text-[#020B16]/70' : 'text-white/50'}`}>
+                  {plan.desc}
+                </p>
+              </div>
 
-                {/* Features item checklist */}
-                <ul className="space-y-3.5 text-xs text-slate-600" id={`feature-list-${idx}`}>
-                  {plan.features.map((feat, fIdx) => (
-                    <li key={fIdx} className="flex items-start gap-2.5">
-                      <div className="h-4.5 w-4.5 rounded bg-slate-100 border border-slate-200 text-slate-600 flex items-center justify-center shrink-0 mt-0.5">
-                        <Check className="h-3.5 w-3.5" />
-                      </div>
-                      <span className="leading-relaxed">{feat}</span>
-                    </li>
+              {/* Features */}
+              <ul className="space-y-3 flex-1">
+                {plan.features.map((f) => (
+                  <li key={f} className="flex items-start gap-2.5">
+                    <CheckCircle className={`h-4 w-4 mt-0.5 shrink-0 ${
+                      plan.highlight ? 'text-[#020B16]' : 'text-[#00CFE8]'
+                    }`} />
+                    <span className={`text-sm leading-snug ${plan.highlight ? 'text-[#020B16]/80' : 'text-white/65'}`}>
+                      {f}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Highlight badges (Empresa only) */}
+              {plan.badges && (
+                <div className="rounded-xl bg-[#020B16]/10 p-4 space-y-2">
+                  {plan.badges.map((b) => (
+                    <div key={b} className="flex items-center gap-2 text-xs font-bold text-[#020B16]">
+                      <CheckCircle className="h-3.5 w-3.5 shrink-0" />
+                      {b}
+                    </div>
                   ))}
-                </ul>
-              </div>
+                </div>
+              )}
 
-              {/* Action buttons */}
-              <div className="pt-6 mt-6 border-t border-slate-150">
-                <button
-                  onClick={handleSelectPlan}
-                  className={`w-full py-3.5 px-4 rounded flex items-center justify-center gap-1.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer ${
-                    plan.popular
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white'
-                      : 'bg-slate-900 hover:bg-slate-800 text-white'
-                  }`}
-                  id={`pricing-btn-${idx}`}
-                >
-                  <span>{plan.cta}</span>
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-                <span className="text-[10px] text-center text-slate-405 block mt-2.5 font-mono">
-                  {billingCycle === 'monthly' ? 'Sin permanencias · Cancela cuando quieras' : 'Facturación anual · Incluye 3 meses gratis'}
-                </span>
-              </div>
+              {/* CTA button */}
+              <button
+                onClick={() => go(ActivePage.Registro)}
+                className={`w-full rounded-xl py-3.5 text-sm font-black uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-all ${
+                  plan.highlight
+                    ? 'bg-[#020B16] text-[#FFC400] hover:bg-[#020B16]/80 shadow-md'
+                    : plan.popular
+                    ? 'bg-[#00CFE8]/15 border border-[#00CFE8]/40 text-[#00CFE8] hover:bg-[#00CFE8]/25'
+                    : 'border border-white/20 text-white/60 hover:border-white/40 hover:text-white'
+                }`}
+              >
+                {plan.cta}
+                <ArrowRight className="h-4 w-4" />
+              </button>
             </div>
-          );
-        })}
-      </div>
+          ))}
+        </div>
 
-      {/* Compliance banner */}
-      <div className="rounded border border-slate-200 bg-slate-50/50 p-6 flex flex-col md:flex-row items-center justify-between gap-4 max-w-4xl mx-auto">
-        <div className="flex items-start gap-3">
-          <div className="h-10 w-10 bg-white border border-slate-200 rounded flex items-center justify-center text-emerald-600 shrink-0">
-            <ShieldCheck className="h-5 w-5 text-emerald-600" />
+        <p className="text-center text-xs text-white/30 mt-6">
+          {disc
+            ? 'Facturación anual · Los precios no incluyen IVA · Cancela cuando quieras'
+            : 'Prueba gratis 15 días sin tarjeta de crédito · Sin permanencias · Cancela cuando quieras'}
+        </p>
+
+        {/* Compliance banner */}
+        <div className="mt-12 rounded-2xl bg-[#0d1f38] border border-white/10 p-6 flex flex-col md:flex-row items-center gap-5 max-w-4xl mx-auto">
+          <div className="h-12 w-12 rounded-xl bg-[#00CFE8]/10 border border-[#00CFE8]/20 flex items-center justify-center shrink-0">
+            <ShieldCheck className="h-6 w-6 text-[#00CFE8]" />
           </div>
-          <div className="space-y-0.5">
-            <span className="font-display font-bold uppercase tracking-wide text-slate-900 text-xs">Facturación segura bajo Ley de Presupuestos de España</span>
-            <p className="text-xs text-slate-500 leading-relaxed">Nuestros PDFs y codificaciones cumplen estrictamente la Ley Antifraude y los formatos tributarios de la Agencia Tributaria Española.</p>
+          <div className="space-y-1 text-center md:text-left">
+            <div className="text-sm font-black uppercase tracking-wide text-white">
+              Facturación segura — Ley Antifraude España
+            </div>
+            <p className="text-xs text-white/45 leading-relaxed">
+              PDFs y formatos que cumplen con la normativa tributaria de la Agencia Tributaria Española. RGPD compliant.
+            </p>
           </div>
         </div>
-        <div className="text-[10px] font-mono text-slate-400 uppercase tracking-widest whitespace-nowrap">Secured Cloud Ingress</div>
       </div>
+
     </div>
   );
 }

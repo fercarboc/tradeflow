@@ -6,7 +6,7 @@
 import { ActivePage, TradeType } from '../types';
 import {
   Mic, FileText, Send, CheckCircle, ArrowRight,
-  Zap, Wind, Wrench, Hammer, Paintbrush, KeyRound, HardHat,
+  Zap,
   Smartphone, Monitor, Star, ShieldCheck, Users, Phone, Mail,
 } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -73,15 +73,6 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
     'Prueba gratis 15 días',
   ];
 
-  const trades = [
-    { label: 'Reformas y construcción', icon: <HardHat className="h-6 w-6" /> },
-    { label: 'Fontanería', icon: <Wrench className="h-6 w-6" /> },
-    { label: 'Electricidad', icon: <Zap className="h-6 w-6" /> },
-    { label: 'Aire acondicionado y climatización', icon: <Wind className="h-6 w-6" /> },
-    { label: 'Carpinteros y aluminio', icon: <Hammer className="h-6 w-6" /> },
-    { label: 'Pintura', icon: <Paintbrush className="h-6 w-6" /> },
-    { label: 'Cerrajería', icon: <KeyRound className="h-6 w-6" /> },
-  ];
 
   /* ─── render ────────────────────────────────────── */
 
@@ -147,14 +138,17 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
                 </button>
               </div>
 
-              {/* botones1.png — badges row */}
-              <div className="flex justify-center lg:justify-start">
-                <img
-                  src="/botones1.png"
-                  alt="Fácil de usar · Ahorra tiempo · Más clientes"
-                  className="h-16 w-auto object-contain"
-                  id="hero-badges-img"
-                />
+              {/* badges row — text only */}
+              <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
+                {['Fácil de usar', 'Ahorra tiempo', 'Más clientes'].map((label) => (
+                  <span
+                    key={label}
+                    className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-bold uppercase tracking-widest text-white/65"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#00CFE8] shrink-0" />
+                    {label}
+                  </span>
+                ))}
               </div>
             </motion.div>
 
@@ -258,32 +252,13 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
               </p>
             </div>
 
-            {/* stats widget */}
-            <div className="w-full rounded-xl border border-white/10 bg-[#020B16] p-4 space-y-3">
-              <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-lg bg-[#FFC400]/15 flex items-center justify-center shrink-0">
-                  <span className="text-[#FFC400] font-black text-xs">TF</span>
-                </div>
-                <div>
-                  <div className="text-[10px] font-black text-white uppercase tracking-wider">TRABFLOW</div>
-                  <div className="text-[9px] text-white/35">Presupuestos</div>
-                </div>
-              </div>
-              <div className="text-center py-2">
-                <div className="text-[10px] text-white/40 uppercase tracking-wider font-bold mb-1">Por cobrar</div>
-                <div className="text-3xl font-black text-[#FFC400]">1.450,00 €</div>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <div className="rounded-lg bg-white/5 p-2 text-center">
-                  <div className="text-[9px] text-white/35 uppercase tracking-wider">Aprobado</div>
-                  <div className="text-sm font-black text-emerald-400">✓</div>
-                </div>
-                <div className="rounded-lg bg-white/5 p-2 text-center">
-                  <div className="text-[9px] text-white/35 uppercase tracking-wider">Enviado</div>
-                  <div className="text-sm font-black text-[#00CFE8]">WhatsApp</div>
-                </div>
-              </div>
-              <div className="text-[9px] text-white/30 text-center">Factura en proceso…</div>
+            {/* phone screenshot */}
+            <div className="w-full flex justify-center">
+              <img
+                src="/movil_torcido.png"
+                alt="TRABFLOW app en móvil"
+                className="w-48 object-contain drop-shadow-2xl"
+              />
             </div>
 
             <button
@@ -454,29 +429,13 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
       <section id="trades-section" className="bg-slate-50 py-20 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
 
-          <div className="text-center mb-10">
-            <span className="inline-block rounded-full bg-[#020B16] px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#FFC400] mb-4">
-              Ideal para profesionales de:
-            </span>
-          </div>
-
-          {/* Trade icons row */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4 mb-12">
-            {trades.map((trade) => (
-              <div
-                key={trade.label}
-                className="group flex flex-col items-center gap-2.5 rounded-2xl border border-slate-200 bg-white p-5 text-center hover:border-[#FFC400]/50 hover:shadow-md transition-all"
-              >
-                <div className="h-11 w-11 rounded-xl bg-[#020B16] text-[#00CFE8] flex items-center justify-center group-hover:bg-[#FFC400] group-hover:text-[#020B16] transition-colors">
-                  {trade.icon}
-                </div>
-                <span className="text-[10px] font-bold text-[#020B16] uppercase tracking-wide leading-tight">{trade.label}</span>
-              </div>
-            ))}
-            <div className="flex flex-col items-center justify-center gap-2.5 rounded-2xl border border-dashed border-slate-300 p-5 text-center">
-              <span className="text-2xl">➕</span>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Y muchos más</span>
-            </div>
+          {/* botones_profesionales.png — banner completo */}
+          <div className="mb-12">
+            <img
+              src="/botones_profesionales.png"
+              alt="Ideal para profesionales de: Reformas, Fontanería, Electricidad, Aire acondicionado, Carpintería, Pintura y muchos más"
+              className="w-full object-contain rounded-2xl"
+            />
           </div>
 
           {/* Google reviews + social proof */}

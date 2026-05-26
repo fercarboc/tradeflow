@@ -916,20 +916,47 @@ Genera una Stripe Checkout Session para iniciar o cambiar suscripción.
 
 | Variable | Valor | Dónde obtenerlo |
 |---|---|---|
-| `STRIPE_SECRET_KEY` | `sk_live_…` o `sk_test_…` | Stripe Dashboard → Developers → API Keys |
-| `STRIPE_WEBHOOK_SECRET` | `whsec_…` | Stripe Dashboard → Webhooks → signing secret |
-| `STRIPE_PRICE_BASICO_MONTHLY` | `price_…` | Stripe Dashboard → Products |
-| `STRIPE_PRICE_BASICO_YEARLY` | `price_…` | Stripe Dashboard → Products |
-| `STRIPE_PRICE_PRO_MONTHLY` | `price_…` | Stripe Dashboard → Products |
-| `STRIPE_PRICE_PRO_YEARLY` | `price_…` | Stripe Dashboard → Products |
-| `STRIPE_PRICE_EMPRESA_MONTHLY` | `price_…` | Stripe Dashboard → Products |
-| `STRIPE_PRICE_EMPRESA_YEARLY` | `price_…` | Stripe Dashboard → Products |
+| `STRIPE_TRABFLOW_SECRET_KEY` | `sk_live_…` o `sk_test_…` | Stripe Dashboard → Developers → API Keys (**ya creado**) |
+| `STRIPE_WEBHOOK_TRABFLOW_SECRET` | `whsec_…` | Stripe Dashboard → Webhooks → signing secret |
 
 ```bash
-# Ejemplo con CLI de Supabase
-supabase secrets set STRIPE_SECRET_KEY=sk_test_... --project-ref dqqjaujnulutinskmqsu
-supabase secrets set STRIPE_WEBHOOK_SECRET=whsec_... --project-ref dqqjaujnulutinskmqsu
+supabase secrets set STRIPE_WEBHOOK_TRABFLOW_SECRET=whsec_... --project-ref dqqjaujnulutinskmqsu
 ```
+
+**URL del webhook a registrar en Stripe Dashboard:**
+```
+https://dqqjaujnulutinskmqsu.supabase.co/functions/v1/trade-stripe-webhook
+```
+
+> Los price IDs **no son secrets** — se almacenan en `trade_stripe_prices` (ver sección 14.5b).
+
+### 14.5b Tabla `trade_stripe_prices` — price IDs en BD
+
+Los price IDs se guardan en la BD para poder actualizarlos sin redesplegar la edge function.
+
+```sql
+-- Ver precios actuales
+SELECT plan, billing_cycle, stripe_price_id, active FROM trade_stripe_prices ORDER BY plan, billing_cycle;
+
+-- Actualizar un precio (ej: si Stripe cambia el ID)
+UPDATE trade_stripe_prices
+SET stripe_price_id = 'price_NUEVO', updated_at = now()
+WHERE plan = 'pro' AND billing_cycle = 'monthly';
+
+-- Desactivar un precio (la función devuelve error si no hay precio activo)
+UPDATE trade_stripe_prices SET active = false WHERE plan = 'basico' AND billing_cycle = 'yearly';
+```
+
+**Precios actuales insertados (Mayo 2026):**
+
+| Plan | Ciclo | Stripe Price ID |
+|---|---|---|
+| basico | monthly | `price_1TbM5hEBDOoWck8qntzTr07R` |
+| basico | yearly | `price_1TbM6WEBDOoWck8qQcuCnVXs` |
+| pro | monthly | `price_1TbM7dEBDOoWck8qxIysJ08O` |
+| pro | yearly | `price_1TbM87EBDOoWck8qdX25uwfX` |
+| empresa | monthly | `price_1TbM91EBDOoWck8qWhtbNz9r` |
+| empresa | yearly | `price_1TbM9QEBDOoWck8ql0CSkHfH` |
 
 ### 14.6 Precios configurados en la app
 
@@ -994,12 +1021,13 @@ Instalador
 - [x] Edge function `trade-admin-set-password` desplegada
 - [x] Edge function `trade-admin-create-installer` desplegada
 
-### Pendiente de configurar
-- [ ] Añadir `STRIPE_SECRET_KEY` en Supabase Secrets
-- [ ] Añadir `STRIPE_WEBHOOK_SECRET` en Supabase Secrets
-- [ ] Crear los 6 productos/precios en Stripe Dashboard
-- [ ] Añadir los 6 `STRIPE_PRICE_*` en Supabase Secrets
-- [ ] Registrar webhook URL en Stripe Dashboard
+### Configuración completada ✅
+
+- [x] `STRIPE_TRABFLOW_SECRET_KEY` en Supabase Secrets
+- [x] `STRIPE_WEBHOOK_TRABFLOW_SECRET` en Supabase Secrets
+- [x] 6 price IDs insertados en `trade_stripe_prices`
+- [x] Webhook registrado en Stripe Dashboard — URL: `https://dqqjaujnulutinskmqsu.supabase.co/functions/v1/trade-stripe-webhook`
+- [x] Eventos Stripe activos: `invoice.paid`, `invoice.payment_failed`, `customer.subscription.deleted`
 - [ ] Probar flujo completo en modo test (Stripe CLI: `stripe listen --forward-to ...`)
 
 ### Verificación rápida
