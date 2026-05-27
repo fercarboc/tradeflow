@@ -52,6 +52,7 @@ import {
   UserPlus,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
 import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription } from '../lib/supabase';
@@ -1294,7 +1295,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" />
                 Datos Reales
               </span>
-              {session?.user?.email === 'fercarboc@gmail.com' && (
+              {session?.user?.email === ADMIN_EMAIL && (
                 <button
                   onClick={() => setCurrentPage(ActivePage.Admin)}
                   className="flex items-center gap-1.5 bg-blue-700/80 hover:bg-blue-600 px-3 py-1.5 rounded font-bold uppercase tracking-wider text-[10px] text-white transition-colors cursor-pointer"

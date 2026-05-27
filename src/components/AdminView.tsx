@@ -6,6 +6,7 @@
 import { useState, useEffect } from 'react';
 import { ActivePage } from '../types';
 import {
+  supabase,
   getAdminOrgs, adminUpdateOrgPlan, adminSendPasswordReset, adminSetPassword,
   adminExtendTrial, adminCreateInstaller, loadPlatformInvoices, setSubscriptionActive,
   getStripePortalUrl, getStripeCheckoutUrl,
@@ -13,16 +14,16 @@ import {
   AdminOrgRow, TradeSubscription, TradePlatformInvoice, TradeWaitlistLead,
   WaitlistEstado, WaitlistPrioridad,
 } from '../lib/supabase';
+import { ADMIN_EMAIL } from '../lib/constants';
+import { exportToCsv } from '../lib/exportCsv';
 import type { Session } from '@supabase/supabase-js';
 import {
   Users, CreditCard, TrendingUp, Clock, ArrowLeft, Search, RefreshCw,
   Shield, CheckCircle, AlertTriangle, Building2, ChevronDown,
   Mail, KeyRound, Copy, CheckCheck, UserPlus, CalendarPlus,
   FileText, Contact, Phone, MessageCircle, Star, Trash2, UserCheck,
-  Inbox, Filter,
+  Inbox, Filter, LogOut, Download, WifiOff,
 } from 'lucide-react';
-
-const ADMIN_EMAIL = 'fercarboc@gmail.com';
 
 const PLAN_PRICES: Record<string, { monthly: number; yearly: number }> = {
   basico: { monthly: 29, yearly: 23 },
@@ -583,13 +584,48 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
           </div>
           <h2 className="text-white font-bold text-xl mb-2">Acceso denegado</h2>
           <p className="text-slate-400 text-sm mb-6">No tienes permisos de administrador.</p>
-          <button onClick={() => setCurrentPage(ActivePage.AppDashboard)} className="text-blue-400 hover:text-blue-300 text-sm cursor-pointer transition-colors">← Volver al panel</button>
+          <button onClick={() => setCurrentPage(ActivePage.Home)} className="text-blue-400 hover:text-blue-300 text-sm cursor-pointer transition-colors">← Volver a la web</button>
         </div>
       </div>
     );
   }
 
-  // ── Stats clientes ─────────────────────────────────────────────────────
+  // ── Exportaciones ──────────────────────────────────────────────────────
+  const handleExportClients = () => {
+    const rows = filteredOrgs.map(o => ({
+      Nombre: o.nombre,
+      Email: o.auth_email ?? o.email ?? '',
+      Oficio: o.oficio ?? '',
+      Plan: o.subscription?.plan ?? '',
+      Estado: o.subscription?.status ?? '',
+      'Fecha alta': new Date(o.created_at).toLocaleDateString('es-ES'),
+      'Último acceso': o.last_sign_in ? new Date(o.last_sign_in).toLocaleDateString('es-ES') : 'Nunca',
+      'Último presupuesto': o.last_quote_at ? new Date(o.last_quote_at).toLocaleDateString('es-ES') : 'Nunca',
+      Presupuestos: o.quotes_count ?? 0,
+      Clientes: o.clients_count ?? 0,
+      'Email confirmado': o.email_confirmed ? 'Sí' : 'No',
+    }));
+    exportToCsv(rows, `tradeflow_clientes_${new Date().toISOString().slice(0, 10)}`);
+  };
+
+  const handleExportLeads = () => {
+    const rows = filteredLeads.map(l => ({
+      Nombre: l.nombre,
+      Email: l.email,
+      Teléfono: l.telefono ?? '',
+      Oficio: l.oficio ?? '',
+      Ciudad: l.ciudad ?? '',
+      'Presup./mes': l.presupuestos_al_mes ?? '',
+      Estado: l.estado,
+      Prioridad: l.prioridad,
+      Fuente: l.fuente ?? '',
+      'Fecha alta': new Date(l.created_at).toLocaleDateString('es-ES'),
+      Notas: l.notas ?? '',
+    }));
+    exportToCsv(rows, `tradeflow_leads_${new Date().toISOString().slice(0, 10)}`);
+  };
+
+  // ── Stats clientes ──────────────────────────────────────────────────────
   const totalOrgs = orgs.length;
   const trialing  = orgs.filter(o => o.subscription?.status === 'trial').length;
   const active    = orgs.filter(o => o.subscription?.status === 'active').length;
@@ -640,9 +676,9 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
       {/* Header */}
       <div className="border-b border-slate-800 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <button onClick={() => setCurrentPage(ActivePage.AppDashboard)}
+          <button onClick={() => setCurrentPage(ActivePage.Home)}
             className="flex items-center gap-2 text-slate-400 hover:text-white text-sm cursor-pointer transition-colors">
-            <ArrowLeft className="h-4 w-4" /> Panel
+            <ArrowLeft className="h-4 w-4" /> Volver a la web
           </button>
           <div className="h-4 w-px bg-slate-700" />
           <div className="flex items-center gap-2">
@@ -659,6 +695,15 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
           <button onClick={section === 'leads' ? loadLeads : loadOrgs} title="Recargar"
             className="h-8 w-8 rounded border border-slate-700 flex items-center justify-center hover:bg-slate-800 cursor-pointer transition-colors">
             <RefreshCw className={`h-3.5 w-3.5 text-slate-400 ${(loading || leadsLoading) ? 'animate-spin' : ''}`} />
+          </button>
+          <button
+            onClick={async () => {
+              await supabase.auth.signOut();
+              setCurrentPage(ActivePage.Home);
+            }}
+            title="Cerrar sesión"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold border border-slate-700 text-slate-400 hover:text-white hover:border-red-700 hover:bg-red-900/20 cursor-pointer transition-colors">
+            <LogOut className="h-3.5 w-3.5" /> Cerrar sesión
           </button>
         </div>
       </div>
@@ -717,6 +762,10 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
               <option value="expired">Expirados</option>
             </select>
             <span className="text-xs text-slate-500 ml-auto">{filteredOrgs.length} registros</span>
+            <button onClick={handleExportClients} title="Exportar CSV"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold border border-slate-700 text-slate-400 hover:text-white hover:border-emerald-700 hover:bg-emerald-900/20 cursor-pointer transition-colors">
+              <Download className="h-3.5 w-3.5" /> CSV
+            </button>
           </div>
 
           <div className="bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden mb-6">
@@ -724,7 +773,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-slate-700">
-                    {['Empresa / Instalador', 'Email login', 'Oficio(s)', 'Uso', 'Plan', 'Estado', 'Último acceso', 'Alta', 'Acciones'].map(h => (
+                    {['Empresa / Instalador', 'Email login', 'Oficio(s)', 'Uso', 'Últ. presup.', 'Plan', 'Estado', 'Último acceso', 'Alta', 'Acciones'].map(h => (
                       <th key={h} className="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">{h}</th>
                     ))}
                   </tr>
@@ -773,6 +822,34 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                             <span className="flex items-center gap-1 text-xs text-slate-400" title="Presupuestos"><FileText className="h-3 w-3 text-slate-500" />{org.quotes_count ?? 0}</span>
                             <span className="flex items-center gap-1 text-xs text-slate-400" title="Clientes"><Contact className="h-3 w-3 text-slate-500" />{org.clients_count ?? 0}</span>
                           </div>
+                        </td>
+                        <td className="px-4 py-3">
+                          {(() => {
+                            const daysSinceLogin = org.last_sign_in
+                              ? Math.floor((Date.now() - new Date(org.last_sign_in).getTime()) / 86400000)
+                              : null;
+                            const lastQuote = org.last_quote_at
+                              ? new Date(org.last_quote_at).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' })
+                              : null;
+                            return (
+                              <div className="flex flex-col gap-1">
+                                <span className="text-xs text-slate-400 font-mono whitespace-nowrap">
+                                  {lastQuote ?? <span className="text-slate-600 italic">Ninguno</span>}
+                                </span>
+                                {(daysSinceLogin === null || daysSinceLogin > 30) && (
+                                  <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-red-900/30 border border-red-800 text-red-400 w-fit">
+                                    <WifiOff className="h-2.5 w-2.5" />
+                                    {daysSinceLogin === null ? 'Nunca' : `${daysSinceLogin}d`}
+                                  </span>
+                                )}
+                                {daysSinceLogin !== null && daysSinceLogin > 15 && daysSinceLogin <= 30 && (
+                                  <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-yellow-900/30 border border-yellow-800 text-yellow-400 w-fit">
+                                    <WifiOff className="h-2.5 w-2.5" />{daysSinceLogin}d
+                                  </span>
+                                )}
+                              </div>
+                            );
+                          })()}
                         </td>
                         <td className="px-4 py-3"><PlanSelect org={org} onUpdate={loadOrgs} /></td>
                         <td className="px-4 py-3">
@@ -903,6 +980,10 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
               <option value="baja">⚪ Baja</option>
             </select>
             <span className="text-xs text-slate-500 ml-auto flex items-center gap-1"><Filter className="h-3 w-3" />{filteredLeads.length} leads</span>
+            <button onClick={handleExportLeads} title="Exportar CSV"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold border border-slate-700 text-slate-400 hover:text-white hover:border-emerald-700 hover:bg-emerald-900/20 cursor-pointer transition-colors">
+              <Download className="h-3.5 w-3.5" /> CSV
+            </button>
           </div>
 
           {/* Tabla de leads */}

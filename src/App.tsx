@@ -8,6 +8,7 @@ import { ActivePage, TradeType } from './types';
 import { supabase, loadWorkerByEmail } from './lib/supabase';
 import type { WorkerProfile } from './lib/supabase';
 import type { Session } from '@supabase/supabase-js';
+import { ADMIN_EMAIL } from './lib/constants';
 import Header from './components/Header';
 import HomeView from './components/HomeView';
 import ComoFuncionaView from './components/ComoFuncionaView';
@@ -24,8 +25,6 @@ import AuthActivateView from './components/auth/AuthActivateView';
 import AuthCallbackView from './components/auth/AuthCallbackView';
 import AuthResetPasswordView from './components/auth/AuthResetPasswordView';
 import UpdatePasswordView from './components/auth/UpdatePasswordView';
-
-const ADMIN_EMAIL = 'fercarboc@gmail.com';
 
 // Páginas que pertenecen al flujo de autenticación — no deben ser sobreescritas por onAuthStateChange
 const AUTH_FLOW_PAGES = new Set<ActivePage>([

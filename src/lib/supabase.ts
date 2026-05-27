@@ -155,6 +155,7 @@ export interface AdminOrgRow extends TradeOrganization {
   // Estadísticas de uso
   quotes_count?: number;
   clients_count?: number;
+  last_quote_at?: string | null;
 }
 
 // ── Helpers de API ─────────────────────────────────────────────────────────
@@ -278,7 +279,7 @@ export async function registerUser(params: {
 }
 
 export async function getAdminOrgs(): Promise<AdminOrgRow[]> {
-  const [orgsRes, authRes, quotesRes, clientsRes] = await Promise.all([
+  const [orgsRes, authRes, quotesRes, clientsRes, lastQuoteRes] = await Promise.all([
     supabase
       .from('trade_organizations')
       .select('*, trade_subscriptions(*)')
@@ -286,6 +287,7 @@ export async function getAdminOrgs(): Promise<AdminOrgRow[]> {
     supabase.rpc('admin_get_trade_users'),
     supabase.from('trade_quotes').select('org_id'),
     supabase.from('trade_clients').select('org_id'),
+    supabase.from('trade_quotes').select('org_id, created_at').order('created_at', { ascending: false }),
   ]);
 
   const authMap = new Map<string, { auth_email: string; email_confirmed: boolean; last_sign_in: string | null; user_created_at: string }>();
@@ -301,6 +303,11 @@ export async function getAdminOrgs(): Promise<AdminOrgRow[]> {
   for (const row of (clientsRes.data ?? []) as Array<{ org_id: string }>) {
     clientsCount.set(row.org_id, (clientsCount.get(row.org_id) ?? 0) + 1);
   }
+  // Primer resultado por org_id ya es el más reciente (orden DESC)
+  const lastQuoteMap = new Map<string, string>();
+  for (const row of (lastQuoteRes.data ?? []) as Array<{ org_id: string; created_at: string }>) {
+    if (!lastQuoteMap.has(row.org_id)) lastQuoteMap.set(row.org_id, row.created_at);
+  }
 
   return (orgsRes.data ?? []).map((row: TradeOrganization & { trade_subscriptions?: TradeSubscription[] }) => {
     const auth = authMap.get(row.id);
@@ -313,6 +320,7 @@ export async function getAdminOrgs(): Promise<AdminOrgRow[]> {
       user_created_at: auth?.user_created_at,
       quotes_count: quotesCount.get(row.id) ?? 0,
       clients_count: clientsCount.get(row.id) ?? 0,
+      last_quote_at: lastQuoteMap.get(row.id) ?? null,
     };
   }) as AdminOrgRow[];
 }
