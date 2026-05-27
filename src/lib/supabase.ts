@@ -159,6 +159,13 @@ export interface AdminOrgRow extends TradeOrganization {
 
 // ── Helpers de API ─────────────────────────────────────────────────────────
 
+export async function getOwnOrg(): Promise<TradeOrganization | null> {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return null;
+  const { data } = await supabase.from('trade_organizations').select('*').eq('owner_id', user.id).maybeSingle();
+  return data ?? null;
+}
+
 export async function getOrCreateOrg(): Promise<TradeOrganization | null> {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) return null;
@@ -167,7 +174,7 @@ export async function getOrCreateOrg(): Promise<TradeOrganization | null> {
     .from('trade_organizations')
     .select('*')
     .eq('owner_id', user.id)
-    .single();
+    .maybeSingle();
 
   if (existing) return existing;
 
@@ -1131,6 +1138,11 @@ export async function setSubscriptionActive(orgId: string, active: boolean): Pro
   if (error) throw error;
 }
 
+export async function loadOrgById(orgId: string): Promise<TradeOrganization | null> {
+  const { data } = await supabase.from('trade_organizations').select('*').eq('id', orgId).maybeSingle();
+  return data ?? null;
+}
+
 export async function loadOrgSubscription(orgId: string): Promise<TradeSubscription | null> {
   const { data } = await supabase
     .from('trade_subscriptions')
@@ -1143,6 +1155,15 @@ export async function loadOrgSubscription(orgId: string): Promise<TradeSubscript
 // ── Push notifications ────────────────────────────────────────────────────────
 
 
+function urlBase64ToUint8Array(base64String: string): Uint8Array {
+  const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const raw = atob(base64);
+  const output = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) output[i] = raw.charCodeAt(i);
+  return output;
+}
+
 export async function subscribePush(workerId: string, orgId: string): Promise<boolean> {
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) return false;
   const vapidKey = import.meta.env.VITE_VAPID_PUBLIC_KEY;
@@ -1154,7 +1175,7 @@ export async function subscribePush(workerId: string, orgId: string): Promise<bo
 
   const sub = await reg.pushManager.subscribe({
     userVisibleOnly: true,
-    applicationServerKey: vapidKey,
+    applicationServerKey: urlBase64ToUint8Array(vapidKey).buffer as ArrayBuffer,
   });
 
   const json = sub.toJSON() as { endpoint: string; keys: { p256dh: string; auth: string } };

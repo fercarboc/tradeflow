@@ -97,7 +97,12 @@ export default function App() {
       const wp = await loadWorkerByEmail(s.user.email ?? '');
       if (wp) {
         setWorkerProfile(wp);
-        setCurrentPage(ActivePage.Worker);
+        // Admin/owner role → full dashboard; field workers → limited worker view
+        if (wp.rol === 'admin') {
+          setCurrentPage(ActivePage.AppDashboard);
+        } else {
+          setCurrentPage(ActivePage.Worker);
+        }
         return;
       }
     } catch { /* usuario normal, no es worker */ }
@@ -189,6 +194,7 @@ export default function App() {
             initialMobile={initialMobile}
             session={session}
             loginOnMount={loginOnMount}
+            workerOrgId={workerProfile?.org_id ?? null}
           />
         );
       case ActivePage.Registro:

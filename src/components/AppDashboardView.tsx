@@ -53,7 +53,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import CatalogImportModal from './CatalogImportModal';
@@ -67,6 +67,7 @@ interface AppDashboardViewProps {
   initialMobile?: boolean;
   session?: Session | null;
   loginOnMount?: boolean;
+  workerOrgId?: string | null;
 }
 
 interface TrabajadorItem {
@@ -96,7 +97,7 @@ interface PresetPhoto {
   detections: { label: string; x: number; y: number; w: number; h: number; price: number; type: 'material' | 'mano_de_obra'; confidence: number }[];
 }
 
-export default function AppDashboardView({ setCurrentPage, initialMobile = true, session, loginOnMount = false }: AppDashboardViewProps) {
+export default function AppDashboardView({ setCurrentPage, initialMobile = true, session, loginOnMount = false, workerOrgId }: AppDashboardViewProps) {
   // Auth & data loading
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
@@ -117,7 +118,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   const loadLiveData = async (s: Session) => {
     try {
-      const org = await getOrCreateOrg();
+      // Workers with admin role: they belong to an existing org (workerOrgId), never create a new one.
+      // Regular installers: getOrCreateOrg may create one if it doesn't exist yet.
+      let org = workerOrgId
+        ? (await getOwnOrg() ?? await loadOrgById(workerOrgId))
+        : await getOrCreateOrg();
       if (!org) return;
       loadOrgSubscription(org.id).then(sub => setSubscription(sub)).catch(() => {});
       const data = await loadDashboard(org.id);
