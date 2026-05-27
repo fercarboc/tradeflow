@@ -1672,7 +1672,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </span>
           </div>
 
-          {/* Derecha: estado sesión + ajustes */}
+          {/* Derecha: estado sesión + ajustes + logout */}
           <div className="flex items-center gap-2">
             {isLiveMode ? (
               <span className="flex items-center gap-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold px-2 py-1 rounded-full text-[9px] uppercase tracking-wider">
@@ -1684,12 +1684,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 Demo
               </span>
             )}
-            {isNativeDevice && (
+            <button
+              onClick={() => { setActiveTab('settings'); }}
+              className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 active:bg-slate-200 dark:active:bg-slate-700"
+            >
+              <SettingsIcon className="w-4 h-4" />
+            </button>
+            {isLiveMode && (
               <button
-                onClick={() => { setActiveTab('settings'); }}
-                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 active:bg-slate-200 dark:active:bg-slate-700"
+                onClick={handleLogout}
+                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-red-500 dark:text-red-400 active:bg-red-100 dark:active:bg-red-900/30"
+                title="Cerrar sesión"
               >
-                <SettingsIcon className="w-4 h-4" />
+                <LogOut className="w-4 h-4" />
               </button>
             )}
           </div>
@@ -1713,20 +1720,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         </div>
 
         {/* BOTTOM TAB BAR + FAB */}
-        <div
-          className="absolute bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 grid grid-cols-4 select-none z-30"
-          style={{
-            paddingBottom: isNativeDevice ? 'env(safe-area-inset-bottom, 0px)' : '0px',
-            minHeight: isNativeDevice ? 'calc(64px + env(safe-area-inset-bottom, 0px))' : '64px',
-          }}
-        >
-          
-          {MobileTabButton({ tab: 'inicio', icon: <TrendingUp className="w-5 h-5" />, label: 'Inicio' })}
-          {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
-          
-          {/* Botón Flotante + Nuevo */}
-          <div className="absolute left-1/2 -translate-x-1/2 -top-5">
-            <button 
+        <div className="absolute bottom-0 left-0 right-0 z-30">
+
+          {/* FAB — flotante centrado sobre la barra */}
+          <div className="absolute left-1/2 -translate-x-1/2 -top-7 z-10">
+            <button
               onClick={() => setShowFloatingMenu(!showFloatingMenu)}
               className="w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center shadow-lg border-4 border-white dark:border-slate-950 transition-transform active:scale-95 cursor-pointer"
             >
@@ -1734,10 +1732,40 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </button>
           </div>
 
-          <div /> {/* Spacer para el botón flotante */}
+          {/* Tab bar — carrusel horizontal deslizable */}
+          <div
+            className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex overflow-x-auto select-none"
+            style={{
+              paddingBottom: isNativeDevice ? 'env(safe-area-inset-bottom, 0px)' : '0px',
+              minHeight: isNativeDevice ? 'calc(64px + env(safe-area-inset-bottom, 0px))' : '64px',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+            }}
+          >
+            {/* Espacio izquierdo */}
+            <div className="w-3 flex-none" />
 
-          {MobileTabButton({ tab: 'clientes', icon: <Users className="w-5 h-5" />, label: 'Clientes' })}
-          {MobileTabButton({ tab: 'facturas', icon: <InvoiceIcon className="w-5 h-5" />, label: 'Facturas' })}
+            {MobileTabButton({ tab: 'inicio', icon: <TrendingUp className="w-5 h-5" />, label: 'Inicio' })}
+            {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
+
+            {/* Hueco central para el FAB */}
+            <div className="w-16 flex-none" />
+
+            {/* Planificación — navega a vista de trabajos */}
+            <button
+              onClick={() => { setShowFloatingMenu(false); setCurrentPage(ActivePage.Worker); }}
+              className="flex-none flex flex-col items-center justify-center gap-0.5 px-4 text-slate-450 dark:text-slate-500 cursor-pointer transition-colors hover:text-blue-500 dark:hover:text-blue-400"
+            >
+              <Calendar className="w-5 h-5" />
+              <span className="text-[10px] font-medium">Trabajos</span>
+            </button>
+
+            {MobileTabButton({ tab: 'clientes', icon: <Users className="w-5 h-5" />, label: 'Clientes' })}
+            {MobileTabButton({ tab: 'facturas', icon: <InvoiceIcon className="w-5 h-5" />, label: 'Facturas' })}
+
+            {/* Espacio derecho */}
+            <div className="w-3 flex-none" />
+          </div>
         </div>
 
         {/* Menú Flotante inferior (Bottom Sheet) */}
@@ -1797,7 +1825,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             setMobileTab(tab);
             setShowFloatingMenu(false);
           }}
-          className={`flex flex-col items-center justify-center gap-0.5 cursor-pointer transition-colors ${
+          className={`flex-none flex flex-col items-center justify-center gap-0.5 px-4 cursor-pointer transition-colors ${
             isActive ? 'text-blue-500' : 'text-slate-450 dark:text-slate-500'
           }`}
         >
