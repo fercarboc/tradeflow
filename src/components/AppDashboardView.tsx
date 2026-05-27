@@ -222,6 +222,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // CRM Mobile detail active
   const [expandedClientMobileId, setExpandedClientMobileId] = useState<string | null>(null);
 
+  // Mobile filters
+  const [presupuestoFilter, setPresupuestoFilter] = useState<'all' | 'month'>('month');
+  const [presupuestoClientFilter, setPresupuestoClientFilter] = useState('');
+  const [facturaFilter, setFacturaFilter] = useState<'all' | 'month'>('month');
+  const [facturaClientFilter, setFacturaClientFilter] = useState('');
+
+  // Pay method bottom sheet
+  const [payMethodInvoiceId, setPayMethodInvoiceId] = useState<string | null>(null);
+
   // Notificaciones flotantes
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'info' | 'error'; id: number } | null>(null);
   const [notificationProgress, setNotificationProgress] = useState(100);
@@ -689,13 +698,35 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       setScanProgress(20);
       try {
         const base64 = await new Promise<string>((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = e => {
-            const r = e.target?.result as string;
-            resolve(r.split(',')[1]);
+          const img = new Image();
+          const url = URL.createObjectURL(realPhotoFile);
+          img.onload = () => {
+            URL.revokeObjectURL(url);
+            const MAX_PX = 2000;
+            let w = img.width; let h = img.height;
+            if (w > MAX_PX || h > MAX_PX) {
+              if (w >= h) { h = Math.round(h * MAX_PX / w); w = MAX_PX; }
+              else { w = Math.round(w * MAX_PX / h); h = MAX_PX; }
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = w; canvas.height = h;
+            const ctx = canvas.getContext('2d')!;
+            ctx.drawImage(img, 0, 0, w, h);
+            let quality = 0.85;
+            const tryExport = () => {
+              const dataUrl = canvas.toDataURL('image/jpeg', quality);
+              const b64 = dataUrl.split(',')[1];
+              if (b64.length * 0.75 > 4 * 1024 * 1024 && quality > 0.4) {
+                quality -= 0.15;
+                tryExport();
+              } else {
+                resolve(b64);
+              }
+            };
+            tryExport();
           };
-          reader.onerror = reject;
-          reader.readAsDataURL(realPhotoFile);
+          img.onerror = reject;
+          img.src = url;
         });
         setScanProgress(50);
         const { data: { session } } = await supabase.auth.getSession();
@@ -707,7 +738,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               'Authorization': `Bearer ${session?.access_token ?? ''}`,
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ image_base64: base64, mime_type: realPhotoFile.type }),
+            body: JSON.stringify({ image_base64: base64, mime_type: 'image/jpeg' }),
           },
         );
         setScanProgress(85);
@@ -802,11 +833,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     const finalQuote = { ...wizardQuote, nombreCliente: clientName || 'Sin nombre', telefonoCliente: clientPhone } as Presupuesto;
     let savedQuote = finalQuote;
     if (isLiveMode && orgId && finalQuote.partidas?.length) {
-      const existingClient = clientes.find(c => c.nombre === clientName);
+      const phone = clientPhone.trim().replace(/\s/g, '');
+      const existingClient = phone
+        ? clientes.find(c => (c.telefono ?? '').replace(/\s/g, '') === phone)
+        : clientes.find(c => c.nombre === clientName);
       let clientId = existingClient?.id;
-      if (!clientId && clientName.trim()) {
+      if (existingClient) {
+        showToast(`Cliente existente: ${existingClient.nombre}`, 'info');
+      } else if (clientName.trim()) {
         try {
-          const nc = await addClient(orgId, { nombre: clientName.trim(), telefono: clientPhone.trim() || undefined, email: quickClientEmail.trim() || undefined });
+          const nc = await addClient(orgId, { nombre: clientName.trim(), telefono: phone || undefined, email: quickClientEmail.trim() || undefined });
           if (nc) { clientId = nc.id; setClientes(prev => [nc as unknown as Cliente, ...prev]); }
         } catch { /* skip */ }
       }
@@ -1911,16 +1947,46 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= MÓVIL: PRESUPUESTOS LIST SCREEN =================
   function MobileScreenPresupuestos() {
+    const now = new Date();
+    const filtered = presupuestos.filter(p => {
+      const matchClient = !presupuestoClientFilter || p.nombreCliente?.toLowerCase().includes(presupuestoClientFilter.toLowerCase());
+      if (!matchClient) return false;
+      if (presupuestoFilter === 'month') {
+        const d = new Date(p.fecha ?? '');
+        return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+      }
+      return true;
+    });
+
     return (
       <div className="space-y-3">
-        <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">Presupuestos Generados:</span>
-        
-        {presupuestos.map(p => (
+        {/* Filtros */}
+        <div className="flex gap-2">
+          <div className="relative flex-1">
+            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Filtrar por cliente..."
+              value={presupuestoClientFilter}
+              onChange={e => setPresupuestoClientFilter(e.target.value)}
+              className="w-full bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 rounded-2xl pl-8 pr-3 py-2 text-[11px] text-slate-800 dark:text-white focus:outline-none"
+            />
+          </div>
+          <button
+            onClick={() => setPresupuestoFilter(f => f === 'month' ? 'all' : 'month')}
+            className={`px-3 py-2 rounded-2xl text-[10px] font-bold uppercase border cursor-pointer shrink-0 ${presupuestoFilter === 'month' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white dark:bg-slate-900 text-slate-500 border-slate-200 dark:border-slate-850'}`}
+          >
+            {presupuestoFilter === 'month' ? 'Este mes' : 'Todos'}
+          </button>
+        </div>
+
+        <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">{filtered.length} presupuesto{filtered.length !== 1 ? 's' : ''}:</span>
+
+        {filtered.map(p => (
           <div
             key={p.id}
             onClick={() => {
               setSelectedQuoteForPreview(p);
-              // Activar visualización móvil del PDF
               setWizardQuote(p);
               setWizardStep(5);
               setWizardActive(true);
@@ -1941,13 +2007,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {p.estado}
               </span>
             </div>
-
             <div className="flex justify-between items-baseline pt-2 border-t border-slate-100 dark:border-slate-850 text-xs">
               <span className="text-slate-400 font-mono text-[9px] uppercase">Importe (+IVA):</span>
               <span className="font-bold font-mono text-slate-905 dark:text-white">{(p.total * 1.21).toFixed(2)}€</span>
             </div>
           </div>
         ))}
+        {filtered.length === 0 && (
+          <div className="text-center py-8 text-slate-400 text-[11px]">
+            {presupuestoFilter === 'month' ? 'No hay presupuestos este mes' : 'No hay presupuestos'}
+          </div>
+        )}
       </div>
     );
   }
@@ -2024,34 +2094,55 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   {isExpanded ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
                 </div>
 
-                {isExpanded && (
-                  <div className="px-4 pb-4 border-t border-slate-100 dark:border-slate-850 pt-3 bg-slate-50/50 dark:bg-slate-950/20 text-xs space-y-3">
-                    <div className="text-[10px] text-slate-500 leading-normal space-y-1">
-                      <p>📍 Dirección: {c.direccion}</p>
-                      <p>✉️ Email: {c.email}</p>
-                      <p>💼 Obras Activas: {c.obrasActivas}</p>
-                      <p>💰 Cobros Totales: <strong className="font-mono text-emerald-500">{c.totalFacturado}€</strong></p>
-                    </div>
+                {isExpanded && (() => {
+                  const clientQuotes = presupuestos.filter(p => p.nombreCliente === c.nombre);
+                  return (
+                    <div className="px-4 pb-4 border-t border-slate-100 dark:border-slate-850 pt-3 bg-slate-50/50 dark:bg-slate-950/20 text-xs space-y-3">
+                      <div className="text-[10px] text-slate-500 leading-normal space-y-1">
+                        {c.direccion && <p>📍 {c.direccion}</p>}
+                        {c.email && <p>✉️ {c.email}</p>}
+                        <p>💰 Total facturado: <strong className="font-mono text-emerald-500">{c.totalFacturado}€</strong></p>
+                      </div>
 
-                    {/* Botones de acción grandes a un toque */}
-                    <div className="grid grid-cols-2 gap-2">
-                      <a 
-                        href={`tel:${c.telefono}`} 
-                        className="bg-slate-900 dark:bg-slate-800 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[10px] uppercase cursor-pointer"
-                      >
-                        <Phone className="w-3.5 h-3.5" />
-                        <span>Llamar</span>
-                      </a>
-                      <button 
-                        onClick={() => showToast('Mensaje de contacto iniciado por WhatsApp')}
-                        className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[10px] uppercase cursor-pointer"
-                      >
-                        <MessageSquare className="w-3.5 h-3.5" />
-                        <span>WhatsApp</span>
-                      </button>
+                      {/* Botones de acción */}
+                      <div className="grid grid-cols-2 gap-2">
+                        <a
+                          href={`tel:${c.telefono}`}
+                          className="bg-slate-900 dark:bg-slate-800 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[10px] uppercase cursor-pointer"
+                        >
+                          <Phone className="w-3.5 h-3.5" /><span>Llamar</span>
+                        </a>
+                        <a
+                          href={`https://wa.me/${(c.telefono ?? '').replace(/\D/g, '')}`}
+                          target="_blank" rel="noreferrer"
+                          className="bg-emerald-600 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[10px] uppercase cursor-pointer"
+                        >
+                          <MessageSquare className="w-3.5 h-3.5" /><span>WhatsApp</span>
+                        </a>
+                      </div>
+
+                      {/* Presupuestos del cliente */}
+                      {clientQuotes.length > 0 && (
+                        <div className="space-y-1.5">
+                          <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400 font-mono block">Presupuestos ({clientQuotes.length}):</span>
+                          {clientQuotes.slice(0, 5).map(q => (
+                            <div
+                              key={q.id}
+                              onClick={() => { setWizardQuote(q); setWizardStep(5); setWizardActive(true); }}
+                              className="flex justify-between items-center bg-white dark:bg-slate-900 rounded-xl px-3 py-2 border border-slate-200 dark:border-slate-800 cursor-pointer"
+                            >
+                              <div className="truncate pr-2">
+                                <span className="text-[10px] text-slate-700 dark:text-slate-200 font-medium block truncate">{q.descripcion || 'Sin descripción'}</span>
+                                <span className="text-[9px] text-slate-400 font-mono">{q.fecha}</span>
+                              </div>
+                              <span className="text-[10px] font-mono font-bold text-slate-900 dark:text-white shrink-0">{(q.total * 1.21).toFixed(0)}€</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
               </div>
             );
           })}
@@ -2062,22 +2153,58 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= MÓVIL: FACTURAS SCREEN =================
   function MobileScreenFacturas() {
-    // Ordenar facturas por cobro pendiente primero
-    const sortedFacturas = [...facturas].sort((a, b) => {
-      if (a.estado !== 'Pagada' && b.estado === 'Pagada') return -1;
-      if (a.estado === 'Pagada' && b.estado !== 'Pagada') return 1;
-      return 0;
-    });
+    const now = new Date();
+    const sorted = [...facturas]
+      .filter(f => {
+        const matchClient = !facturaClientFilter || f.nombreCliente?.toLowerCase().includes(facturaClientFilter.toLowerCase());
+        if (!matchClient) return false;
+        if (facturaFilter === 'month') {
+          const d = new Date(f.fecha ?? '');
+          return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+        }
+        return true;
+      })
+      .sort((a, b) => {
+        if (a.estado !== 'Pagada' && b.estado === 'Pagada') return -1;
+        if (a.estado === 'Pagada' && b.estado !== 'Pagada') return 1;
+        return 0;
+      });
+
+    const pendiente = sorted.filter(f => f.estado !== 'Pagada').reduce((s, f) => s + f.importe * 1.21, 0);
 
     return (
       <div className="space-y-3">
-        <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">Facturas y Vencimientos:</span>
-        
-        {sortedFacturas.map(f => (
-          <div
-            key={f.id}
-            className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 p-4 rounded-2xl space-y-3 shadow-xs"
+        {/* Filtros */}
+        <div className="flex gap-2">
+          <div className="relative flex-1">
+            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Filtrar por cliente..."
+              value={facturaClientFilter}
+              onChange={e => setFacturaClientFilter(e.target.value)}
+              className="w-full bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 rounded-2xl pl-8 pr-3 py-2 text-[11px] text-slate-800 dark:text-white focus:outline-none"
+            />
+          </div>
+          <button
+            onClick={() => setFacturaFilter(f => f === 'month' ? 'all' : 'month')}
+            className={`px-3 py-2 rounded-2xl text-[10px] font-bold uppercase border cursor-pointer shrink-0 ${facturaFilter === 'month' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white dark:bg-slate-900 text-slate-500 border-slate-200 dark:border-slate-850'}`}
           >
+            {facturaFilter === 'month' ? 'Este mes' : 'Todas'}
+          </button>
+        </div>
+
+        {pendiente > 0 && (
+          <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl px-4 py-2.5 flex justify-between items-center">
+            <span className="text-[10px] font-bold uppercase text-amber-600 dark:text-amber-400">Pendiente de cobro:</span>
+            <span className="font-mono font-bold text-amber-600 dark:text-amber-400 text-sm">{pendiente.toFixed(0)}€</span>
+          </div>
+        )}
+
+        <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">{sorted.length} factura{sorted.length !== 1 ? 's' : ''}:</span>
+
+        {sorted.map(f => (
+          <div key={f.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 p-4 rounded-2xl space-y-3 shadow-xs">
             <div className="flex justify-between items-start gap-2">
               <div>
                 <div className="flex items-center gap-1.5">
@@ -2092,19 +2219,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
                 <span className="font-semibold text-xs text-slate-800 dark:text-slate-350 block mt-1">{f.nombreCliente}</span>
               </div>
-
               <div className="text-right">
                 <span className="text-[8px] font-mono text-slate-400 block uppercase">Total cobro:</span>
                 <span className="text-xs font-mono font-bold text-slate-900 dark:text-white">{(f.importe * 1.21).toFixed(0)}€</span>
               </div>
             </div>
 
-            {/* Acciones One-tap */}
             <div className={`pt-2 border-t border-slate-100 dark:border-slate-850 ${f.estado !== 'Pagada' ? 'grid grid-cols-3 gap-2' : 'flex justify-between items-center'}`}>
               {f.estado !== 'Pagada' ? (
                 <>
                   <button
-                    onClick={() => handlePayInvoice(f.id)}
+                    onClick={() => setPayMethodInvoiceId(f.id)}
                     className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[9.5px] uppercase cursor-pointer"
                   >
                     💰 Cobrar
@@ -2139,6 +2264,35 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           </div>
         ))}
+
+        {sorted.length === 0 && (
+          <div className="text-center py-8 text-slate-400 text-[11px]">
+            {facturaFilter === 'month' ? 'No hay facturas este mes' : 'No hay facturas'}
+          </div>
+        )}
+
+        {/* Bottom sheet: método de cobro */}
+        {payMethodInvoiceId && (
+          <div className="fixed inset-0 bg-black/60 z-50 flex items-end justify-center" onClick={() => setPayMethodInvoiceId(null)}>
+            <div className="bg-white dark:bg-slate-900 rounded-t-3xl w-full max-w-md p-6 space-y-4" onClick={e => e.stopPropagation()}>
+              <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white text-center">¿Cómo se ha cobrado?</h3>
+              {(['Efectivo', 'Bizum', 'Transferencia'] as const).map(method => (
+                <button
+                  key={method}
+                  onClick={() => {
+                    handlePayInvoice(payMethodInvoiceId);
+                    showToast(`Factura cobrada por ${method} ✓`, 'success');
+                    setPayMethodInvoiceId(null);
+                  }}
+                  className="w-full py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-bold text-slate-800 dark:text-white cursor-pointer transition-colors"
+                >
+                  {method === 'Efectivo' ? '💵' : method === 'Bizum' ? '📱' : '🏦'} {method}
+                </button>
+              ))}
+              <button onClick={() => setPayMethodInvoiceId(null)} className="w-full py-3 text-slate-400 text-sm cursor-pointer">Cancelar</button>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
