@@ -1264,3 +1264,60 @@ export async function adminConvertLeadToInstaller(
 
   return result;
 }
+
+// ── Catálogo: aprender precio de una partida IA ───────────────────────────────
+
+export async function learnPriceToCatalog(
+  orgId: string,
+  descripcion: string,
+  precioVenta: number,
+  tipo: 'material' | 'mano_de_obra',
+): Promise<void> {
+  if (!precioVenta || precioVenta <= 0) return;
+
+  const nombre = descripcion.trim().slice(0, 120);
+  if (!nombre) return;
+
+  // Buscar producto existente con nombre similar (exact ilike)
+  const { data: existing } = await supabase
+    .from('trade_catalog_products')
+    .select('id')
+    .eq('org_id', orgId)
+    .ilike('nombre_generico', nombre)
+    .limit(1)
+    .maybeSingle();
+
+  let productId: string;
+
+  if (existing?.id) {
+    productId = existing.id;
+  } else {
+    const { data: created, error } = await supabase
+      .from('trade_catalog_products')
+      .insert({
+        org_id: orgId,
+        oficio: 'General',
+        familia: tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material',
+        nombre_generico: nombre,
+        unidad: tipo === 'mano_de_obra' ? 'h' : 'ud',
+        activo: true,
+      })
+      .select('id')
+      .single();
+    if (error || !created) return;
+    productId = created.id;
+  }
+
+  // Añadir variante con precio. margen_pct=0 → precio_venta = precio_material
+  await supabase.from('trade_catalog_variants').insert({
+    product_id: productId,
+    org_id: orgId,
+    marca: 'Manual',
+    precio_material: precioVenta,
+    precio_mano_obra: tipo === 'mano_de_obra' ? precioVenta : 0,
+    margen_pct: 0,
+    calidad: 'medio' as const,
+    is_preferred: true,
+    activo: true,
+  });
+}

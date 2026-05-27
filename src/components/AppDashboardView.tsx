@@ -52,7 +52,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import CatalogImportModal from './CatalogImportModal';
@@ -711,15 +711,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           },
         );
         setScanProgress(85);
-        if (!res.ok) {
-          const err = await res.json().catch(() => ({ error: 'Error del servidor' }));
-          throw new Error(err.error ?? `HTTP ${res.status}`);
+        const json = await res.json().catch(() => ({})) as { quote?: AIQuote; error?: string };
+        if (!res.ok || !json.quote) {
+          throw new Error(json.error ?? `HTTP ${res.status} — respuesta inesperada del servidor`);
         }
-        const result = await res.json() as { quote: AIQuote };
+        const quote = json.quote;
+        if (!Array.isArray(quote.partidas)) quote.partidas = [];
         setScanProgress(100);
         setIsScanning(false);
 
-        const partidas: PartidaPresupuesto[] = quoteToPartidas(result.quote);
+        const partidas: PartidaPresupuesto[] = quoteToPartidas(quote);
 
         const addedTotal = partidas.reduce((s, p) => s + p.total, 0);
         setWizardQuote(prev => ({
@@ -1108,6 +1109,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       });
       return { ...prev, partidas, total: partidas.reduce((s, p) => s + p.total, 0) };
     });
+  };
+
+  const handleLearnPrice = async (idx: number) => {
+    const part = wizardQuote.partidas?.[idx];
+    if (!part?.requiere_precio || !part.precioUnitario || part.precioUnitario <= 0) return;
+    if (!orgId) return;
+    try {
+      await learnPriceToCatalog(orgId, part.descripcion, part.precioUnitario, part.tipo);
+      handleUpdateWizardItem(idx, { requiere_precio: false, aviso: '' });
+      showToast('Precio guardado en catálogo ✓', 'success');
+    } catch {
+      // silencioso — no bloquear al usuario
+    }
   };
 
   const saveCurrentQuote = async () => {
@@ -2473,6 +2487,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       </button>
                     </div>
 
+                    {/* Aviso sin precio en catálogo */}
+                    {part.requiere_precio && (
+                      <div className="flex items-center gap-1.5 bg-amber-50 dark:bg-amber-900/20 border border-amber-300/50 dark:border-amber-700/40 rounded-lg px-2.5 py-1.5 text-[10px] text-amber-700 dark:text-amber-400">
+                        <AlertTriangle className="w-3 h-3 shrink-0" />
+                        <span>Sin precio en catálogo — asigna el precio y se guardará automáticamente</span>
+                      </div>
+                    )}
+
                     {/* Controles cantidad / precio / total */}
                     <div className="flex items-center gap-2">
                       {part.tipo === 'mano_de_obra' ? (
@@ -2498,6 +2520,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                             value={part.precioUnitario || ''}
                             placeholder="€/h"
                             onChange={e => handleUpdateWizardItem(idx, { precioUnitario: parseFloat(e.target.value) || 0 })}
+                            onBlur={() => handleLearnPrice(idx)}
                             className="w-16 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-right text-xs font-mono text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
                           />
                         </>
@@ -2522,6 +2545,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                               value={part.precioUnitario || ''}
                               placeholder="0.00"
                               onChange={e => handleUpdateWizardItem(idx, { precioUnitario: parseFloat(e.target.value) || 0 })}
+                              onBlur={() => handleLearnPrice(idx)}
                               className="w-20 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-right text-xs font-mono text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
                             />
                           </div>
@@ -3249,7 +3273,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
                 <div className="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
                   <div>
-                    <span className="text-[10px] font-bold text-slate-400 block font-mono uppercase mb-2">GPT-4o Vision</span>
+                    <span className="text-[10px] font-bold text-slate-400 block font-mono uppercase mb-2">Claude AI Vision</span>
                     <p className="text-xs text-slate-500 dark:text-slate-400 italic">
                       {isScanning ? `Analizando imagen... ${scanProgress}%` : 'Pulsa para detectar materiales y trabajos.'}
                     </p>
