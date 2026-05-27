@@ -3,6 +3,7 @@ import {
   MapPin, Clock, User, Navigation, CheckCircle, Play,
   LogOut, RefreshCw, AlertTriangle, Phone, ChevronDown, ChevronUp, X, Check,
   Plus, Camera, Loader2, CalendarDays, Edit2, Route, Users, Trash2,
+  ChevronLeft, ChevronRight, List,
 } from 'lucide-react';
 import {
   supabase, loadWorkerJobs, workerSetJobStatus,
@@ -120,6 +121,86 @@ function TodaySummary({ jobs, onFocus }: TodaySummaryProps) {
           </div>
         </button>
       ) : null}
+    </div>
+  );
+}
+
+// ── WeekStrip ─────────────────────────────────────────────────────────────────
+
+const DAY_ABBR = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+
+function getWeekDays(weekOffset: number): string[] {
+  return Array.from({ length: 7 }, (_, i) => {
+    const now = new Date();
+    const dow = now.getDay();
+    const monday = new Date(now);
+    monday.setDate(now.getDate() - (dow === 0 ? 6 : dow - 1) + weekOffset * 7);
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    return d.toISOString().split('T')[0];
+  });
+}
+
+interface WeekStripProps {
+  jobs: TradeJob[];
+  selectedDate: string;
+  weekOffset: number;
+  onSelectDate: (date: string) => void;
+  onChangeWeek: (delta: number) => void;
+}
+
+function WeekStrip({ jobs, selectedDate, weekOffset, onSelectDate, onChangeWeek }: WeekStripProps) {
+  const today = new Date().toISOString().split('T')[0];
+  const weekDays = getWeekDays(weekOffset);
+
+  const from = new Date(weekDays[0] + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+  const to   = new Date(weekDays[6] + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+
+  return (
+    <div className="bg-slate-900 border-b border-slate-800 px-3 pt-2 pb-3 space-y-2">
+      <div className="flex items-center justify-between">
+        <button onClick={() => onChangeWeek(-1)} className="p-1.5 text-slate-400 hover:text-white transition cursor-pointer">
+          <ChevronLeft className="w-4 h-4" />
+        </button>
+        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+          {weekOffset === 0 ? 'Esta semana' : `${from} – ${to}`}
+        </span>
+        <button onClick={() => onChangeWeek(1)} className="p-1.5 text-slate-400 hover:text-white transition cursor-pointer">
+          <ChevronRight className="w-4 h-4" />
+        </button>
+      </div>
+
+      <div className="grid grid-cols-7 gap-1">
+        {weekDays.map((date, i) => {
+          const dayJobs = jobs.filter(j => j.fecha_inicio === date && j.estado !== 'cancelado');
+          const isToday    = date === today;
+          const isSelected = date === selectedDate;
+          const dayNum = new Date(date + 'T12:00:00').getDate();
+          const hasActive  = dayJobs.some(j => j.estado === 'en_curso');
+          const hasPending = dayJobs.some(j => j.estado === 'planificado' || j.estado === 'pendiente_material');
+          const dotColor   = hasActive ? 'bg-amber-500' : hasPending ? 'bg-blue-500' : dayJobs.length > 0 ? 'bg-emerald-500' : '';
+
+          return (
+            <button
+              key={date}
+              onClick={() => onSelectDate(date)}
+              className={`flex flex-col items-center py-2 rounded-xl transition-colors cursor-pointer ${
+                isSelected ? 'bg-blue-600' : isToday ? 'bg-slate-800 ring-1 ring-blue-500/40' : 'hover:bg-slate-800'
+              }`}
+            >
+              <span className={`text-[9px] font-bold uppercase mb-0.5 ${isSelected ? 'text-blue-200' : 'text-slate-500'}`}>
+                {DAY_ABBR[i]}
+              </span>
+              <span className={`text-sm font-bold leading-none ${isSelected ? 'text-white' : isToday ? 'text-blue-400' : 'text-slate-300'}`}>
+                {dayNum}
+              </span>
+              <div className="h-1.5 mt-1 flex items-center justify-center">
+                {dotColor && <div className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />}
+              </div>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -401,6 +482,9 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
   const [newJobOpen, setNewJobOpen]   = useState(false);
   const [clientes, setClientes]       = useState<TradeClient[]>([]);
   const [orgWorkers, setOrgWorkers]   = useState<WorkerProfile[]>([]);
+  const [calView, setCalView]         = useState<'lista' | 'semana'>('lista');
+  const [weekOffset, setWeekOffset]   = useState(0);
+  const [weekDay, setWeekDay]         = useState(() => new Date().toISOString().split('T')[0]);
   const photoInputRef                 = useRef<HTMLInputElement>(null);
   const activePhotoJobId              = useRef<string | null>(null);
 
@@ -448,9 +532,13 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
 
   const displayJobs = viewMode === 'todos' ? allJobs : jobs;
 
+  const baseJobs = calView === 'semana'
+    ? displayJobs.filter(j => j.fecha_inicio === weekDay)
+    : displayJobs;
+
   const filteredJobs = filterEstado === 'todos'
-    ? displayJobs
-    : displayJobs.filter(j => j.estado === filterEstado);
+    ? baseJobs
+    : baseJobs.filter(j => j.estado === filterEstado);
 
   const handleExpand = async (jobId: string) => {
     const next = expandedId === jobId ? null : jobId;
@@ -636,6 +724,19 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
           <button onClick={reload} className="p-1.5 text-slate-400 hover:text-white transition-colors cursor-pointer">
             <RefreshCw className="w-3.5 h-3.5" />
           </button>
+          <button
+            onClick={() => {
+              const next = calView === 'lista' ? 'semana' : 'lista';
+              setCalView(next);
+              if (next === 'semana') {
+                setWeekOffset(0);
+                setWeekDay(new Date().toISOString().split('T')[0]);
+              }
+            }}
+            className={`p-1.5 transition-colors cursor-pointer ${calView === 'semana' ? 'text-blue-400' : 'text-slate-400 hover:text-white'}`}
+          >
+            {calView === 'semana' ? <List className="w-3.5 h-3.5" /> : <CalendarDays className="w-3.5 h-3.5" />}
+          </button>
           <button onClick={handleLogout} className="p-1.5 text-slate-400 hover:text-red-400 transition-colors cursor-pointer">
             <LogOut className="w-3.5 h-3.5" />
           </button>
@@ -662,6 +763,17 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
             <Users className="w-3 h-3" /> Todos
           </button>
         </div>
+      )}
+
+      {/* Week strip */}
+      {calView === 'semana' && (
+        <WeekStrip
+          jobs={displayJobs}
+          selectedDate={weekDay}
+          weekOffset={weekOffset}
+          onSelectDate={setWeekDay}
+          onChangeWeek={delta => setWeekOffset(o => o + delta)}
+        />
       )}
 
       {/* Filter pills */}
@@ -698,6 +810,19 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
             <CheckCircle className="w-12 h-12 text-emerald-500 mx-auto mb-3" />
             <p className="text-white font-bold">¡Todo al día!</p>
             <p className="text-slate-400 text-sm mt-1">No hay trabajos asignados.</p>
+            {viewMode === 'mis' && (
+              <button
+                onClick={() => setNewJobOpen(true)}
+                className="mt-4 flex items-center gap-2 mx-auto bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl cursor-pointer transition-colors"
+              >
+                <Plus className="w-3.5 h-3.5" /> Crear trabajo
+              </button>
+            )}
+          </div>
+        ) : baseJobs.length === 0 && calView === 'semana' ? (
+          <div className="text-center py-16">
+            <CalendarDays className="w-10 h-10 text-slate-600 mx-auto mb-3" />
+            <p className="text-slate-400 text-sm">Sin trabajos para este día.</p>
             {viewMode === 'mis' && (
               <button
                 onClick={() => setNewJobOpen(true)}
