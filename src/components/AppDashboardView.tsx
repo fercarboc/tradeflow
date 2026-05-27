@@ -687,7 +687,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   ];
 
   const startPhotoAnalysis = async () => {
-    // ── Modo real: foto real → edge function GPT-4o Vision ─────────────
+    // ── Modo real: foto real → edge function Claude Vision ──────────────
     if (isLiveMode && realPhotoFile) {
       setIsScanning(true);
       setScanProgress(20);
