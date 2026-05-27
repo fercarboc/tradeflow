@@ -59,6 +59,8 @@ export interface PartidaPresupuesto {
   cantidad: number;
   precioUnitario: number;
   total: number;
+  requiere_precio?: boolean;
+  aviso?: string;
 }
 
 export interface Presupuesto {

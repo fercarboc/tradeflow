@@ -528,13 +528,24 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     }, 800);
   };
 
-  // Resultado real de la IA: mapea items al catálogo y actualiza el presupuesto
+  interface AIQuotePartida {
+    descripcion: string;
+    cantidad: number;
+    unidad: string;
+    categoria: string;
+    precio_unitario: number;
+    subtotal: number;
+    catalog_id: string | null;
+    del_catalogo: boolean;
+    requiere_precio: boolean;
+    aviso: string;
+  }
+
   interface AIQuote {
+    oficio: string;
     tipo_trabajo: string;
     resumen: string;
-    partidas: Array<{ descripcion: string; cantidad: number; unidad: string; precio_unitario: number; subtotal: number }>;
-    mano_obra: { horas: number; precio_hora: number; subtotal: number };
-    desplazamiento: number;
+    partidas: AIQuotePartida[];
     subtotal: number;
     iva: { tipo: number; importe: number };
     total: number;
@@ -543,55 +554,40 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }
 
   const quoteToPartidas = (quote: AIQuote): PartidaPresupuesto[] => {
-    const partidas: PartidaPresupuesto[] = quote.partidas.map(p => {
-      // Catalog match overrides AI price when available
+    const LABOR_CATS = ['mano de obra', 'desmontaje', 'gestión residuos', 'desplazamiento', 'instalación', 'retirada'];
+    return quote.partidas.map(p => {
+      const cat = p.categoria?.toLowerCase() ?? '';
+      const tipo: PartidaPresupuesto['tipo'] = LABOR_CATS.some(k => cat.includes(k)) ? 'mano_de_obra' : 'material';
+
+      // Catalog match → use installer's real price
       const catalogMatch = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
       if (catalogMatch) {
         const pu = catalogMatch.variant.precio_venta;
         return {
           descripcion: `${catalogMatch.product.nombre_generico} (${catalogMatch.variant.marca})`,
-          tipo: 'material' as PartidaPresupuesto['tipo'],
+          tipo,
           cantidad: p.cantidad,
           precioUnitario: pu,
           total: pu * p.cantidad,
         };
       }
+
       return {
         descripcion: p.descripcion,
-        tipo: 'material' as PartidaPresupuesto['tipo'],
+        tipo,
         cantidad: p.cantidad,
-        precioUnitario: p.precio_unitario,
-        total: p.subtotal,
+        precioUnitario: 0,
+        total: 0,
+        requiere_precio: true,
+        aviso: p.aviso || 'Sin precio en catálogo. Asigna precio.',
       };
     });
-
-    if (quote.mano_obra.subtotal > 0) {
-      partidas.push({
-        descripcion: `Mano de obra (${quote.mano_obra.horas}h × ${quote.mano_obra.precio_hora}€/h)`,
-        tipo: 'mano_de_obra',
-        cantidad: quote.mano_obra.horas,
-        precioUnitario: quote.mano_obra.precio_hora,
-        total: quote.mano_obra.subtotal,
-      });
-    }
-
-    if (quote.desplazamiento > 0) {
-      partidas.push({
-        descripcion: 'Desplazamiento',
-        tipo: 'mano_de_obra',
-        cantidad: 1,
-        precioUnitario: quote.desplazamiento,
-        total: quote.desplazamiento,
-      });
-    }
-
-    return partidas;
   };
 
   const handleVoiceResult = (transcript: string, quote: AIQuote) => {
     const partidas = quoteToPartidas(quote);
     const total = partidas.reduce((s, p) => s + p.total, 0);
-    const desc = (quote.resumen || quote.tipo_trabajo || transcript).slice(0, 80);
+    const desc = (quote.resumen || quote.tipo_trabajo || quote.oficio || transcript).slice(0, 80);
 
     setWizardQuote(prev => ({ ...prev, descripcion: desc, partidas, total, estado: 'Borrador' as const }));
     setEditingQuote(prev => ({ ...prev, descripcion: desc, partidas, total }));

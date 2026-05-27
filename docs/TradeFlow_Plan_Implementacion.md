@@ -863,3 +863,80 @@ src/components/AppDashboardView.tsx → ScreenSettings usa las funciones reales
 ---
 
 *Actualizado: Mayo 2026 — TradeFlow AI*
+
+---
+
+## Fase 5 — Mobile Completo + Push + Dark Theme ✅
+
+**Estado:** Completada — Mayo 2026
+
+### Resumen de cambios
+
+#### 5.1 Vista móvil del trabajador (ScreenWorkerView)
+- [x] **WeekStrip** — Navegación semanal: 7 tiles con dots de estado (amber/blue/green), flechas prev/next, ring "hoy"
+- [x] **Vista semana** — Toggle CalendarDays↔List en header; filtra trabajos por día seleccionado
+- [x] **Fotos por trabajo** — Botón `📷 Adjuntar foto` con `capture="environment"`, upload a Supabase Storage bucket `trade-job-photos`, miniaturas en card expandido
+- [x] **Crear trabajo** — FAB "+" fijo + bottom sheet con form (título, fecha, hora, dirección, cliente)
+- [x] **EditJobModal** — Editar fecha, hora, descripción desde móvil
+- [x] **Eliminar trabajo** — Inline confirm con `handleDeleteJob`
+- [x] **Tab Todos (admin)** — Carga todos los trabajos de la org para rol admin
+- [x] **Filter pills** — Filtrado por estado (planificado, en_curso, completado, pendiente_material)
+- [x] **Regla arquitectónica** — Todos los sub-componentes definidos a nivel módulo (no anidados en padre)
+
+#### 5.2 Push Notifications (Web Push VAPID)
+- [x] Tabla `trade_push_subscriptions` con RLS
+- [x] Funciones `subscribePush`, `unsubscribePush`, `isPushSubscribed` en `supabase.ts`
+- [x] sw.js v2 — eventos `push` (showNotification) y `notificationclick` (foco/apertura URL)
+- [x] Edge function `trade-push-notify` con VAPID nativo Deno (ECDSA P-256, sin librerías)
+- [x] Bell toggle en ScreenWorkerView (Bell/BellOff, amber cuando activo)
+- [x] `VITE_VAPID_PUBLIC_KEY` en `.env` y Vercel env vars
+
+#### 5.3 Catálogo Auto-seed
+- [x] Migración: catálogo global (org_id=NULL) con 33 productos + ~99 variantes
+- [x] RPC `seed_org_catalog(new_org_id)` — idempotente, copia plantillas globales a org nueva
+- [x] `registerUser()` y `getOrCreateOrg()` llaman al RPC automáticamente
+
+#### 5.4 Stripe Customer UI
+- [x] `loadOrgSubscription()` en supabase.ts
+- [x] Sección suscripción en AppDashboardView → Ajustes con datos reales
+- [x] Badge de estado dinámico (trial/active/cancelled/expired) con colores
+- [x] Días restantes en trial / fecha próxima factura cuando active
+- [x] Botón "Activar plan" (amarillo `#FFC400`) → Stripe Checkout
+- [x] Botón "Gestionar suscripción" (border) → Stripe Portal
+
+#### 5.5 Dark Theme — Páginas de Auth
+- [x] `App.tsx` — fondo unificado `bg-[#020B16]` para toda la app
+- [x] `LoginView.tsx` — dark theme completo con paleta TRABFLOW
+- [x] `AuthResetPasswordView.tsx` — dark theme
+- [x] `UpdatePasswordView.tsx` — dark theme, sin sub-componentes internos
+- [x] `AuthActivateView.tsx` — dark theme
+- [x] `AuthCallbackView.tsx` — dark theme
+- [x] `Footer.tsx` — "Prueba gratis 3 meses" (antes 15 días)
+
+#### 5.6 Edge Functions — Migración a Claude
+- [x] `trade-voice-to-quote` — migrado de `gpt-4o` a `claude-3-5-sonnet-20241022`
+- [x] `trade-photo-scan` — migrado de `gpt-4-vision-preview` a `claude-3-5-sonnet-20241022`
+
+### Pendientes externos (requieren acción manual)
+- [x] Supabase secrets: `VAPID_PRIVATE_KEY`, `VAPID_PUBLIC_KEY`, `VAPID_SUBJECT`
+- [x] Supabase Dashboard → Storage: bucket `trade-job-photos` creado
+- [x] `ANTHROPIC_API_KEY` en Supabase secrets ✅ verificado — Claude Haiku responde correctamente
+- [ ] Prueba push end-to-end: suscribir → enviar → recibir
+
+---
+
+## Fase 6 — Próximas mejoras planificadas
+
+### Alta prioridad
+- [ ] **Notificaciones automáticas** — Trigger DB o cron que llame a `trade-push-notify` al asignar trabajo
+- [ ] **Offline-first** — Cache de trabajos del día en sw.js para trabajar sin conexión
+- [ ] **Presupuestos desde móvil** — Ver y aprobar presupuestos en ScreenWorkerView
+
+### Media prioridad
+- [ ] **Chat interno** — Mensajería entre trabajadores y admin por trabajo
+- [ ] **Firma digital** — Firma del cliente al completar trabajo en móvil
+- [ ] **Reporte diario PDF** — Exportar resumen del día con fotos incluidas
+
+### Baja prioridad
+- [ ] **Integración calendario** — Exportar trabajos a Google Calendar / iCal
+- [ ] **Facturación automática** — Generar factura al marcar trabajo como completado

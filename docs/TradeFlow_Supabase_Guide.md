@@ -1284,3 +1284,686 @@ Redirect URLs:  https://www.trabflow.com/**
 - [ ] Prueba manual: reset password → email → clic → update password → dashboard
 
 *Actualizado por Claude Code — TradeFlow AI — Mayo 2026 (F4: Admin Panel + Stripe)*
+
+---
+
+## 18. Mobile Worker View — ScreenWorkerView
+
+### 18.1 Descripción general
+
+`src/components/ScreenWorkerView.tsx` es la vista principal para trabajadores en móvil. Diseñada como PWA instalable con todas las funciones que un técnico necesita en campo.
+
+### 18.2 Funcionalidades implementadas
+
+| Feature | Estado | Descripción |
+|---------|--------|-------------|
+| Ver trabajos propios del día | ✅ | Lista con filtros por estado |
+| Iniciar / Completar trabajo | ✅ | Actualización de estado con timestamp |
+| Pendiente material | ✅ | Estado especial con nota |
+| Link Google Maps por trabajo | ✅ | Abre Maps con la dirección |
+| Notas de cierre | ✅ | Texto libre al completar |
+| Crear nuevo trabajo | ✅ | FAB "+" → bottom sheet con form |
+| Subir/capturar foto de la obra | ✅ | `<input capture="environment">` → Supabase Storage |
+| Vista ruta del día | ✅ | TodaySummary + próxima parada |
+| Editar trabajo | ✅ | EditJobModal (fecha, hora, descripción) |
+| Ver todos los trabajos de la org | ✅ | Tab "Todos" para rol admin |
+| Asignar trabajadores | ✅ | WorkerPickerModal |
+| Filtrar por estado | ✅ | Filter pills |
+| Vista semana | ✅ | WeekStrip toggle en header |
+| Eliminar trabajo | ✅ | Inline confirm + handleDeleteJob |
+| Notificaciones push | ✅ | Bell icon toggle en header |
+
+### 18.3 Arquitectura de componentes
+
+**Regla crítica:** Todos los sub-componentes se definen a nivel de módulo (fuera del componente padre). Definirlos dentro causa re-mount en cada render y pérdida de foco en inputs.
+
+```typescript
+// ✅ Correcto — nivel de módulo
+const DAY_ABBR = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+
+function getWeekDays(weekOffset: number): string[] { ... }
+
+function WeekStrip({ weekOffset, selectedDay, onSelectDay, onPrevWeek, onNextWeek, jobs }: WeekStripProps) {
+  // 7-day tile navigator con dots de estado
+}
+
+// ❌ Incorrecto — dentro del padre
+function ScreenWorkerView() {
+  const WeekStrip = () => { ... }  // Re-mount en cada render
+}
+```
+
+### 18.4 Vista semana (WeekStrip)
+
+Componente de navegación semanal en el header de la vista móvil:
+
+- **7 tiles** con día abreviado (Lun–Dom) y número
+- **Dots de estado**: amber=`en_curso`, blue=`planificado`, green=`completado`
+- **Navegación**: flechas `ChevronLeft/ChevronRight` para semana anterior/siguiente
+- **Hoy**: anillo `ring-2 ring-[#00CFE8]`
+- **Día seleccionado**: fondo `bg-[#00CFE8]`
+- Toggle CalendarDays↔List en el header — azul cuando está activo
+- Al cambiar a lista: resetea `weekOffset=0` y `weekDay=hoy`
+
+**Estado:**
+```typescript
+const [calView, setCalView] = useState<'lista' | 'semana'>('lista');
+const [weekOffset, setWeekOffset] = useState(0);
+const [weekDay, setWeekDay] = useState<string>(todayStr); // 'YYYY-MM-DD'
+```
+
+### 18.5 Fotos por trabajo
+
+**Tabla:** `trade_job_photos`
+```sql
+CREATE TABLE trade_job_photos (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  job_id uuid NOT NULL REFERENCES trade_jobs(id) ON DELETE CASCADE,
+  org_id uuid NOT NULL,
+  uploaded_by_worker_id uuid REFERENCES trade_workers(id),
+  photo_url text NOT NULL,
+  caption text,
+  created_at timestamptz DEFAULT now()
+);
+
+ALTER TABLE trade_job_photos ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "workers see org photos" ON trade_job_photos
+  FOR SELECT USING (org_id = (SELECT org_id FROM trade_workers WHERE id = auth.uid()));
+CREATE POLICY "workers insert own org" ON trade_job_photos
+  FOR INSERT WITH CHECK (org_id = (SELECT org_id FROM trade_workers WHERE id = auth.uid()));
+```
+
+**Supabase Storage:** Bucket `trade-job-photos` ✅ creado en Supabase Dashboard → Storage.
+
+**Funciones en `supabase.ts`:**
+- `uploadJobPhoto(jobId, file, workerId, orgId)` — upload + insert en tabla
+- `loadJobPhotos(jobId)` — SELECT con `signed_url` (1h TTL)
+
+**UI en `ScreenWorkerView`:**
+- Botón "📷 Adjuntar foto" en cada trabajo expandido
+- `<input type="file" accept="image/*" capture="environment">` — abre cámara en móvil, galería en PC
+- Miniaturas en el card expandido
+
+### 18.6 Creación de trabajos desde móvil
+
+- **FAB "+"** fijo en bottom-right (`fixed bottom-20 right-4`)
+- **Bottom sheet** con form simplificado: título*, fecha*, hora, duración, dirección, cliente (dropdown)
+- Llama a `supabase.from('trade_jobs').insert(...)` directamente
+- Asigna el propio worker automáticamente como responsable
+- `ScreenWorkerView` recibe `clientes?: Cliente[]` como prop (opcional, si no se pasa los carga internamente)
+
+### 18.7 Checklist Mobile Worker View
+
+- [x] WeekStrip — navegación semanal con dots de estado
+- [x] Vista semana — filtrado de trabajos por día seleccionado
+- [x] Vista semana — estado vacío "Sin trabajos para este día"
+- [x] Fotos — botón adjuntar con `capture="environment"`
+- [x] Fotos — upload a Supabase Storage bucket `trade-job-photos`
+- [x] Fotos — miniaturas en card expandido
+- [x] Crear trabajo — FAB "+" + bottom sheet
+- [x] Editar trabajo — EditJobModal
+- [x] Eliminar trabajo — inline confirm
+- [x] Tab Todos (admin) — todos los trabajos de la org
+- [x] Push notifications — Bell toggle en header
+- [x] Filter pills — filtrado por estado
+- [x] Google Maps link — por dirección de trabajo
+
+---
+
+## 19. Push Notifications (Web Push + VAPID)
+
+### 19.1 Arquitectura
+
+```
+Browser (PWA)
+    └─ sw.js (Service Worker)
+           ├─ PushManager.subscribe() → guarda en trade_push_subscriptions
+           └─ self.addEventListener('push') → showNotification()
+
+Backend
+    └─ trade-push-notify (Edge Function)
+           ├─ Lee subscriptions de trade_push_subscriptions
+           └─ Envía push con VAPID auth (ECDSA P-256)
+```
+
+### 19.2 Tabla trade_push_subscriptions
+
+```sql
+CREATE TABLE trade_push_subscriptions (
+  id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  worker_id uuid NOT NULL REFERENCES trade_workers(id) ON DELETE CASCADE,
+  org_id uuid NOT NULL,
+  subscription jsonb NOT NULL,  -- { endpoint, keys: { p256dh, auth } }
+  created_at timestamptz DEFAULT now(),
+  UNIQUE(worker_id)
+);
+
+ALTER TABLE trade_push_subscriptions ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "worker manages own" ON trade_push_subscriptions
+  FOR ALL USING (worker_id = auth.uid());
+```
+
+### 19.3 VAPID Keys
+
+Generadas con `npx web-push generate-vapid-keys`:
+
+| Variable | Dónde se guarda |
+|----------|-----------------|
+| `VITE_VAPID_PUBLIC_KEY` | `.env`, Vercel env vars (con prefijo `VITE_`) |
+| `VAPID_PRIVATE_KEY` | Supabase edge function secrets únicamente |
+| `VAPID_PUBLIC_KEY` | Supabase edge function secrets (para la función) |
+| `VAPID_SUBJECT` | `mailto:hola@trabflow.com` en Supabase secrets |
+
+**Importante:** La clave privada NUNCA va en el frontend ni en Vercel.
+
+### 19.4 Funciones en supabase.ts
+
+```typescript
+// Suscribir este dispositivo a push
+subscribePush(workerId: string, orgId: string): Promise<void>
+// - Llama PushManager.subscribe({ userVisibleOnly: true, applicationServerKey: vapidKey })
+// - Guarda subscription JSON en trade_push_subscriptions
+// - applicationServerKey es string (no Uint8Array) — PushManager acepta ambos
+
+// Desuscribir
+unsubscribePush(workerId: string): Promise<void>
+// - Browser unsubscribe + DELETE from DB
+
+// Comprobar estado
+isPushSubscribed(): Promise<boolean>
+```
+
+### 19.5 Service Worker (public/sw.js)
+
+Cache name: `tradeflow-v2`. Eventos añadidos:
+
+```javascript
+// Recibir push del servidor
+self.addEventListener('push', e => {
+  const data = e.data?.json() ?? {};
+  e.waitUntil(self.registration.showNotification(data.title || 'TrabFlow', {
+    body: data.body || '',
+    icon: '/tradeflow_192.png',
+    badge: '/tradeflow_192.png',
+    data: data.url ? { url: data.url } : undefined,
+    vibrate: [200, 100, 200],
+  }));
+});
+
+// Clic en notificación → abrir URL o enfocar pestaña existente
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const url = e.notification.data?.url ?? '/';
+  e.waitUntil(clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+    const existing = list.find(c => c.url.includes(url));
+    if (existing) return existing.focus();
+    return clients.openWindow(url);
+  }));
+});
+```
+
+### 19.6 Edge Function trade-push-notify
+
+**Endpoint:** `POST /functions/v1/trade-push-notify`
+
+**Input:**
+```json
+{
+  "worker_ids": ["uuid1", "uuid2"],  // O bien...
+  "org_id": "uuid",                  // ...uno de los dos
+  "title": "Nuevo trabajo asignado",
+  "body_text": "Fontanería en C/ Mayor 5",
+  "url": "/worker"
+}
+```
+
+**Output:**
+```json
+{ "sent": 2, "failed": 0 }
+```
+
+La función firma el JWT VAPID nativamente en Deno usando Web Crypto API (ECDSA P-256). No depende de librerías externas.
+
+**Deploy:**
+```bash
+supabase functions deploy trade-push-notify
+```
+
+**Secrets necesarios:**
+```bash
+supabase secrets set VAPID_PRIVATE_KEY=<clave-privada>
+supabase secrets set VAPID_PUBLIC_KEY=<clave-publica>
+supabase secrets set VAPID_SUBJECT=mailto:hola@trabflow.com
+```
+
+### 19.7 UI en ScreenWorkerView
+
+- Icono Bell/BellOff en el header (solo si `'Notification' in window`)
+- Color amber cuando las notificaciones están activas
+- `handleTogglePush`: pide `Notification.requestPermission()` → llama `subscribePush`/`unsubscribePush`
+- En mount: `isPushSubscribed().then(setPushEnabled).catch(() => {})`
+
+### 19.8 Checklist Push Notifications
+
+- [x] Tabla `trade_push_subscriptions` + RLS
+- [x] Funciones `subscribePush`, `unsubscribePush`, `isPushSubscribed` en supabase.ts
+- [x] sw.js v2 — eventos `push` y `notificationclick`
+- [x] Edge function `trade-push-notify` con VAPID nativo
+- [x] Bell toggle en ScreenWorkerView
+- [x] `VITE_VAPID_PUBLIC_KEY` en `.env` y Vercel env vars
+- [x] Supabase secrets: `VAPID_PRIVATE_KEY`, `VAPID_PUBLIC_KEY`, `VAPID_SUBJECT`
+- [ ] Prueba: suscribir → enviar push desde edge function → recibir notificación
+
+---
+
+## 20. Catálogo Global y Auto-seed
+
+### 20.1 Problema resuelto
+
+Antes de esta implementación, cada organización nueva empezaba con catálogo vacío. El usuario debía crear todos los artículos manualmente.
+
+### 20.2 Catálogo global (org_id = NULL)
+
+Se seeda una vez con una migración DO block que copia los artículos de la primera organización que tenga datos, estableciendo `org_id = NULL` para que sean plantillas globales.
+
+**33 productos base + ~99 variantes** cubriendo:
+- Fontanería: tuberías, válvulas, bombas, sanitarios
+- Electricidad: cables, cuadros, luminarias
+- Climatización: splits, calderas, radiadores
+- Carpintería: puertas, ventanas, persianas
+- Pintura: pinturas, imprimaciones, rodillos
+
+### 20.3 RPC seed_org_catalog
+
+```sql
+CREATE OR REPLACE FUNCTION seed_org_catalog(new_org_id uuid)
+RETURNS void
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+BEGIN
+  -- Idempotente: no hace nada si la org ya tiene catálogo
+  IF EXISTS (SELECT 1 FROM trade_catalog WHERE org_id = new_org_id LIMIT 1) THEN
+    RETURN;
+  END IF;
+
+  -- Copiar productos globales
+  INSERT INTO trade_catalog (org_id, nombre, descripcion, unidad, activo)
+  SELECT new_org_id, nombre, descripcion, unidad, activo
+  FROM trade_catalog WHERE org_id IS NULL;
+
+  -- Copiar variantes globales
+  INSERT INTO trade_catalog_variants (catalog_id, nombre, precio_coste, margen_pct, activo)
+  SELECT tc_new.id, v.nombre, v.precio_coste, v.margen_pct, v.activo
+  FROM trade_catalog_variants v
+  JOIN trade_catalog tc_global ON tc_global.id = v.catalog_id AND tc_global.org_id IS NULL
+  JOIN trade_catalog tc_new ON tc_new.org_id = new_org_id AND tc_new.nombre = tc_global.nombre;
+END;
+$$;
+```
+
+### 20.4 Integración en registro
+
+Se llama automáticamente en dos lugares de `supabase.ts`:
+
+1. **`registerUser()`** — tras crear la suscripción:
+   ```typescript
+   await supabase.rpc('seed_org_catalog', { new_org_id: org.id });
+   ```
+
+2. **`getOrCreateOrg()`** — tras crear la org:
+   ```typescript
+   await supabase.rpc('seed_org_catalog', { new_org_id: org.id });
+   ```
+
+### 20.5 Nota sobre precio_venta
+
+`precio_venta` es una **columna generada** en `trade_catalog_variants` (calculada como `precio_coste * (1 + margen_pct/100)`). No se puede incluir en INSERT — el motor la calcula automáticamente.
+
+### 20.6 Checklist Catálogo Auto-seed
+
+- [x] Migración aplicada — catálogo global (org_id=NULL) con 33 productos y ~99 variantes
+- [x] RPC `seed_org_catalog(new_org_id)` creada y desplegada
+- [x] `registerUser()` llama al RPC tras crear org
+- [x] `getOrCreateOrg()` llama al RPC tras crear org
+- [x] RPC es idempotente (safe to call multiple times)
+
+---
+
+## 21. Stripe Customer UI (AppDashboardView)
+
+### 21.1 Sección de suscripción en Ajustes
+
+La pestaña Ajustes de `AppDashboardView` muestra el estado de suscripción en tiempo real cargado desde `trade_subscriptions`.
+
+**Estado cargado:**
+```typescript
+const [subscription, setSubscription] = useState<TradeSubscription | null>(null);
+
+// En loadLiveData:
+loadOrgSubscription(org.id).then(sub => setSubscription(sub)).catch(() => {});
+```
+
+### 21.2 Lógica de visualización
+
+| Estado (`status`) | Badge color | Botón principal |
+|-------------------|-------------|-----------------|
+| `trial` | Azul | "Activar plan" (`bg-[#FFC400]`) → Stripe Checkout |
+| `active` | Verde (emerald) | "Gestionar suscripción" (border) → Stripe Portal |
+| `cancelled` | Slate | "Activar plan" → Stripe Checkout |
+| `expired` | Rojo | "Activar plan" → Stripe Checkout |
+
+**Info adicional mostrada:**
+- Plan name: `basico`→"Básico", `pro`→"Profesional", `empresa`→"Empresa"
+- Ciclo: mensual / anual
+- Trial: días restantes calculados desde `trial_ends_at`
+- Active: próxima fecha de facturación desde `current_period_end`
+
+### 21.3 Funciones en supabase.ts
+
+```typescript
+loadOrgSubscription(orgId: string): Promise<TradeSubscription | null>
+// SELECT * FROM trade_subscriptions WHERE org_id = orgId LIMIT 1
+
+getStripeCheckoutUrl(orgId, planId, billingCycle): Promise<string>
+// Llama edge function trade-stripe-checkout → retorna checkout URL
+
+getStripePortalUrl(orgId): Promise<string>
+// Llama edge function trade-stripe-portal → retorna portal URL
+```
+
+### 21.4 Checklist Stripe Customer UI
+
+- [x] `loadOrgSubscription()` en supabase.ts
+- [x] Estado `subscription` en AppDashboardView
+- [x] Badge de estado con color dinámico
+- [x] Días restantes en trial
+- [x] Fecha próxima factura cuando active
+- [x] Botón "Activar plan" (amarillo) → Stripe Checkout
+- [x] Botón "Gestionar suscripción" (border) → Stripe Portal
+
+---
+
+## 22. Tema Visual TRABFLOW (Dark Theme)
+
+### 22.1 Paleta de colores
+
+| Token | Hex | Uso |
+|-------|-----|-----|
+| `bg-[#020B16]` | `#020B16` | Fondo principal de toda la app |
+| `bg-[#0d1f38]` | `#0d1f38` | Cards, modales, paneles |
+| `#00CFE8` | Cyan | Acento principal, focus rings, iconos activos |
+| `#FFC400` | Amarillo | CTAs primarios ("Activar plan", botones de conversión) |
+| `border-white/10` | blanco 10% | Bordes de cards e inputs |
+| `text-white/40` | blanco 40% | Texto secundario, links neutros |
+
+### 22.2 Páginas de auth con dark theme
+
+Todas las páginas de autenticación usan la paleta TRABFLOW:
+
+- **`LoginView.tsx`** — `bg-[#020B16]`, `bg-[#0d1f38]`, inputs `bg-white/5`, submit `bg-[#00CFE8]`
+- **`AuthResetPasswordView.tsx`** — mismo tratamiento, icono email en `#00CFE8`
+- **`UpdatePasswordView.tsx`** — barra de fortaleza `bg-white/10`, sin LoadingScreen interno
+- **`AuthActivateView.tsx`** — spinner `text-[#00CFE8]`, botón `bg-white/10`
+- **`AuthCallbackView.tsx`** — mismo tratamiento
+
+### 22.3 App.tsx — fondo unificado
+
+```typescript
+// Antes:
+<div className={`${isAppView || isAuthView ? 'bg-slate-900' : 'bg-slate-50/30'}`}>
+
+// Ahora:
+<div className="bg-[#020B16]">
+```
+
+Fondo uniforme `#020B16` para todas las páginas (landing, auth, dashboard).
+
+### 22.4 Footer — texto actualizado
+
+```typescript
+// Antes: "Prueba gratis 15 días"
+// Ahora: "Prueba gratis 3 meses"
+```
+
+---
+
+## 23. Edge Functions — Migración a Claude
+
+### 23.1 Cambio realizado
+
+Las edge functions que usaban OpenAI han sido migradas a Claude (Anthropic):
+
+| Función | Antes | Después |
+|---------|-------|---------|
+| `trade-voice-to-quote` | `gpt-4o` | `claude-3-5-sonnet-20241022` |
+| `trade-photo-scan` | `gpt-4-vision-preview` | `claude-3-5-sonnet-20241022` |
+
+### 23.2 Configuración requerida
+
+```bash
+# Supabase secrets
+supabase secrets set ANTHROPIC_API_KEY=<tu-clave-anthropic>
+```
+
+Las funciones ya no necesitan `OPENAI_API_KEY`.
+
+---
+
+## 24. Variables de Entorno — Resumen completo
+
+### 24.1 Frontend (.env / Vercel)
+
+```env
+VITE_SUPABASE_URL=https://dqqjaujnulutinskmqsu.supabase.co
+VITE_SUPABASE_ANON_KEY=<anon-key>
+VITE_VAPID_PUBLIC_KEY=<clave-publica-vapid>
+```
+
+### 24.2 Supabase Edge Function Secrets
+
+```bash
+# Stripe
+supabase secrets set STRIPE_SECRET_KEY=<stripe-secret>
+supabase secrets set STRIPE_WEBHOOK_SECRET=<webhook-secret>
+
+# Push notifications (VAPID)
+supabase secrets set VAPID_PRIVATE_KEY=<clave-privada>
+supabase secrets set VAPID_PUBLIC_KEY=<clave-publica>
+supabase secrets set VAPID_SUBJECT=mailto:hola@trabflow.com
+
+# AI
+supabase secrets set ANTHROPIC_API_KEY=<clave-anthropic>
+
+# Supabase (auto-disponibles en edge functions)
+# SUPABASE_URL y SUPABASE_SERVICE_ROLE_KEY están disponibles automáticamente
+```
+
+### 24.3 Checklist Variables
+
+- [x] `VITE_SUPABASE_URL` en Vercel
+- [x] `VITE_SUPABASE_ANON_KEY` en Vercel
+- [x] `VITE_VAPID_PUBLIC_KEY` en Vercel
+- [x] `STRIPE_SECRET_KEY` en Supabase secrets
+- [x] `STRIPE_WEBHOOK_SECRET` en Supabase secrets
+- [x] `VAPID_PRIVATE_KEY` en Supabase secrets
+- [x] `VAPID_PUBLIC_KEY` en Supabase secrets
+- [x] `VAPID_SUBJECT` en Supabase secrets
+- [x] `ANTHROPIC_API_KEY` en Supabase secrets
+
+---
+
+## 25. Motor de IA TradeFlow — Edge Functions v2
+
+### 25.1 Arquitectura
+
+El motor de IA funciona con **dos edge functions** desplegadas en Supabase:
+
+| Función | Versión | Entrada | Salida |
+|---|---|---|---|
+| `trade-voice-to-quote` | v16 | Audio (webm) | `{ transcript, quote }` |
+| `trade-photo-scan` | v9 | Imagen base64 | `{ quote }` |
+
+**Pipeline voz:**
+```
+Audio → Whisper (OpenAI STT, español) → transcript → Claude Haiku → quote JSON
+```
+
+**Pipeline foto:**
+```
+Imagen base64 → Claude Haiku Vision → quote JSON
+```
+
+Ambas requieren JWT válido (`verify_jwt: true`).
+
+---
+
+### 25.2 Principios del motor de IA
+
+#### Universal por oficio
+El motor detecta automáticamente el gremio sin configuración previa. Funciona para fontanería, electricidad, climatización, albañilería, reformas, carpintería, cerrajería, ventanas, pintura, suelos, cocinas, baños, jardinería, piscinas, energía solar, CCTV, automatización, mantenimiento industrial, talleres mecánicos, electrodomésticos, informática y cualquier otro oficio técnico.
+
+#### Sin precios de IA
+**La IA NO asigna precios nunca.** Todas las partidas salen con:
+- `precio_unitario: 0`
+- `subtotal: 0`
+- `requiere_precio: true`
+- `del_catalogo: false`
+- `aviso: "Sin precio en catálogo. El profesional debe asignar precio."`
+
+Los precios se asignan en el frontend mediante match contra el catálogo del instalador. Si hay coincidencia, se usa el precio real del catálogo. Si no, la partida queda en 0 esperando que el instalador la complete.
+
+#### Detección de sustituciones
+Cuando el usuario dice "cambiar X por Y" / "quitar X y poner Y", el motor genera automáticamente:
+1. Partida de **retirada/desmontaje** de X
+2. **Gestión de residuos/escombros** si aplica
+3. **Suministro e instalación** de Y
+4. **Adaptaciones** necesarias (fontanería, electricidad, remates, puesta en marcha)
+
+---
+
+### 25.3 Formato de respuesta (quote JSON)
+
+```json
+{
+  "oficio": "Fontanería",
+  "tipo_trabajo": "Sustitución de bañera por plato de ducha",
+  "resumen": "Cambio completo de bañera por plato de ducha con adaptación de fontanería",
+  "partidas": [
+    {
+      "descripcion": "Retirada de bañera existente",
+      "cantidad": 1,
+      "unidad": "ud",
+      "categoria": "Desmontaje",
+      "precio_unitario": 0,
+      "subtotal": 0,
+      "catalog_id": null,
+      "del_catalogo": false,
+      "requiere_precio": true,
+      "aviso": "Sin precio en catálogo. El profesional debe asignar precio."
+    },
+    {
+      "descripcion": "Gestión de residuos y escombros",
+      "cantidad": 1,
+      "unidad": "ud",
+      "categoria": "Gestión residuos",
+      "precio_unitario": 0,
+      "subtotal": 0,
+      "catalog_id": null,
+      "del_catalogo": false,
+      "requiere_precio": true,
+      "aviso": "Sin precio en catálogo. El profesional debe asignar precio."
+    }
+  ],
+  "subtotal": 0,
+  "iva": { "tipo": 21, "importe": 0 },
+  "total": 0,
+  "notas": "Incluye adaptación de desagüe y conexiones",
+  "nivel_confianza": "medio"
+}
+```
+
+**Campos del quote:**
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `oficio` | string | Gremio detectado automáticamente |
+| `tipo_trabajo` | string | Categoría general del trabajo |
+| `resumen` | string | Descripción breve del presupuesto |
+| `partidas` | array | Líneas del presupuesto |
+| `subtotal` | number | Suma sin IVA (siempre 0, lo calcula el frontend) |
+| `iva.tipo` | number | % IVA (21 por defecto) |
+| `total` | number | Total con IVA (siempre 0, lo calcula el frontend) |
+| `notas` | string | Observaciones técnicas |
+| `nivel_confianza` | "alto"\|"medio"\|"bajo" | Fiabilidad de la detección |
+
+**Campos por partida:**
+
+| Campo | Tipo | Descripción |
+|---|---|---|
+| `descripcion` | string | Descripción de la partida |
+| `cantidad` | number | Cantidad |
+| `unidad` | string | ud / m / m2 / m3 / h / kg / jornada / kit |
+| `categoria` | string | Material / Mano de obra / Desmontaje / Gestión residuos / Desplazamiento |
+| `precio_unitario` | number | Siempre 0 (precio viene del catálogo) |
+| `subtotal` | number | Siempre 0 |
+| `catalog_id` | string\|null | ID en catálogo si hay match |
+| `del_catalogo` | boolean | Si el precio viene del catálogo |
+| `requiere_precio` | boolean | Si el instalador debe asignar precio manualmente |
+| `aviso` | string | Mensaje de aviso al instalador |
+
+---
+
+### 25.4 Lógica de precios en el frontend (`AppDashboardView.tsx`)
+
+La función `quoteToPartidas(quote: AIQuote): PartidaPresupuesto[]` convierte el quote de la IA en partidas del wizard:
+
+```typescript
+// 1. Detecta tipo (material vs mano_de_obra) desde categoria
+const LABOR_CATS = ['mano de obra', 'desmontaje', 'gestión residuos', 'desplazamiento', 'instalación', 'retirada'];
+const tipo = LABOR_CATS.some(k => cat.includes(k)) ? 'mano_de_obra' : 'material';
+
+// 2. Intenta match en catálogo del instalador
+const catalogMatch = matchProductForAI(p.descripcion, catalogProducts);
+
+// 3a. Si hay match → precio real del catálogo
+if (catalogMatch) {
+  precioUnitario = catalogMatch.variant.precio_venta;
+}
+
+// 3b. Si no hay match → precio 0 + aviso
+else {
+  precioUnitario = 0;
+  requiere_precio = true;
+  aviso = "Sin precio en catálogo. Asigna precio.";
+}
+```
+
+---
+
+### 25.5 Tipo `PartidaPresupuesto` (types.ts)
+
+```typescript
+export interface PartidaPresupuesto {
+  descripcion: string;
+  tipo: 'material' | 'mano_de_obra';
+  cantidad: number;
+  precioUnitario: number;
+  total: number;
+  requiere_precio?: boolean;  // true si no hay precio en catálogo
+  aviso?: string;             // mensaje al instalador
+}
+```
+
+---
+
+### 25.6 Historial de versiones del motor
+
+| Versión | Fecha | Cambios |
+|---|---|---|
+| v1 (voice v10, photo v2) | 27/05/2026 | Motor inicial. Precios generados por IA (estimaciones de mercado). Mano de obra y desplazamiento como campos separados del JSON. |
+| v2 (voice v16, photo v9) | 27/05/2026 | Motor universal (todos los oficios). IA no genera precios → precios vienen del catálogo. Mano de obra y desplazamiento como partidas normales. Nuevos campos: `oficio`, `categoria`, `requiere_precio`, `aviso`, `del_catalogo`, `catalog_id`. Detección inteligente de sustituciones. Foto migrada de GPT-4o Vision a Claude Haiku Vision. |
+
+---
+
+*Actualizado por Claude Code — TradeFlow AI — Mayo 2026 (F5: Mobile + Push + Dark Theme + Stripe UI)*
