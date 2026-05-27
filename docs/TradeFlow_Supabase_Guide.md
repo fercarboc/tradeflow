@@ -1966,4 +1966,162 @@ export interface PartidaPresupuesto {
 
 ---
 
-*Actualizado por Claude Code — TradeFlow AI — Mayo 2026 (F5: Mobile + Push + Dark Theme + Stripe UI)*
+---
+
+## 26. Auditoría de Seguridad — Mayo 2026
+
+Auditoría completa de seguridad ejecutada el 27/05/2026 sobre el proyecto `dqqjaujnulutinskmqsu`. Se aplicaron 7 migraciones SQL y 2 cambios de configuración Auth.
+
+---
+
+### 26.1 Migraciones SQL aplicadas
+
+#### `security_revoke_admin_functions_from_public`
+Revocó EXECUTE de las funciones `admin_*` del rol `PUBLIC`/`anon`. Antes eran invocables por cualquier visitante sin sesión.
+
+```sql
+REVOKE EXECUTE ON FUNCTION public.admin_get_trade_users() FROM PUBLIC, anon;
+REVOKE EXECUTE ON FUNCTION public.admin_get_waitlist_leads() FROM PUBLIC, anon;
+REVOKE EXECUTE ON FUNCTION public.admin_invite_trade_user(text, uuid) FROM PUBLIC, anon;
+-- etc.
+```
+
+#### `security_revoke_dangerous_functions_from_public`
+Revocó `get_debacu_pepper` (clave HMAC) y `debacu_eval_*` de roles no autorizados.
+
+```sql
+REVOKE EXECUTE ON FUNCTION public.get_debacu_pepper() FROM authenticated, PUBLIC;
+REVOKE EXECUTE ON FUNCTION public.debacu_eval_is_admin() FROM PUBLIC;
+REVOKE EXECUTE ON FUNCTION public.debacu_eval_is_org_admin FROM PUBLIC;
+```
+
+#### `security_fix_rls_users_company_banks`
+Activó RLS y añadió políticas `is_admin()` sobre `users` y `company_banks` (eran accesibles a todo `authenticated`).
+
+```sql
+ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.company_banks ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "users_read_admin"  ON public.users FOR SELECT TO authenticated USING (is_admin());
+CREATE POLICY "users_write_admin" ON public.users FOR ALL    TO authenticated USING (is_admin()) WITH CHECK (is_admin());
+CREATE POLICY "company_banks_admin_only" ON public.company_banks FOR ALL TO authenticated USING (is_admin()) WITH CHECK (is_admin());
+```
+
+> **Nota:** `users` es la tabla de usuarios PIN del sistema hotel (debacu_eval). Su columna `id` es TEXT, no UUID — no se puede usar `id = auth.uid()`.
+
+#### `security_fix_rls_catalogues_apps_plans_sectors`
+Añadió políticas de solo lectura pública sobre las tablas catálogo y restringió escritura a `is_admin()`.
+
+```sql
+CREATE POLICY "apps_public_read"    ON public.apps    FOR SELECT TO public      USING (true);
+CREATE POLICY "apps_admin_write"    ON public.apps    FOR ALL    TO authenticated USING (is_admin()) WITH CHECK (is_admin());
+CREATE POLICY "plans_public_read"   ON public.plans   FOR SELECT TO public      USING (true);
+CREATE POLICY "plans_admin_write"   ON public.plans   FOR ALL    TO authenticated USING (is_admin()) WITH CHECK (is_admin());
+CREATE POLICY "sectors_public_read" ON public.sectors FOR SELECT TO public      USING (true);
+CREATE POLICY "sectors_admin_write" ON public.sectors FOR ALL    TO authenticated USING (is_admin()) WITH CHECK (is_admin());
+```
+
+#### `security_fix_search_path_trigger_functions`
+Fijó `search_path = public` en funciones con SECURITY DEFINER para prevenir inyección de esquema.
+
+```sql
+ALTER FUNCTION public.handle_new_trade_user() SET search_path = public;
+ALTER FUNCTION public.update_updated_at_column() SET search_path = public;
+-- etc.
+```
+
+#### `security_fix_storage_trade_job_photos`
+Restringió el listado del bucket `trade-job-photos` a usuarios autenticados. Anon solo puede acceder a URLs directas (CDN), no listar contenido.
+
+```sql
+CREATE POLICY "trade_job_photos_authenticated_list" ON storage.objects FOR SELECT TO authenticated
+  USING (bucket_id = 'trade-job-photos');
+CREATE POLICY "trade_job_photos_block_anon_list" ON storage.objects FOR SELECT TO anon
+  USING (bucket_id = 'trade-job-photos' AND name IS NULL);  -- bloqueo efectivo de listado
+```
+
+#### `security_fix_test_findings`
+Correcciones detectadas durante la ejecución de tests manuales (FASE 5):
+
+```sql
+-- Restaurar GRANTs sobre catálogos públicos (eliminados por migración anterior sin reponerlos)
+GRANT SELECT ON public.apps, public.plans, public.sectors TO anon, authenticated;
+
+-- seed_org_catalog no tenía check de is_admin → cualquier authenticated podía copiar el catálogo
+REVOKE EXECUTE ON FUNCTION public.seed_org_catalog(uuid) FROM authenticated, PUBLIC;
+
+-- Limpiar filas de test
+DELETE FROM public.trade_waitlist WHERE email IN ('test-anon-delete@test.com', 'test-anon-delete2@test.com');
+```
+
+#### `security_fix_trade_logos_bucket`
+Añadió políticas RLS al bucket `trade-logos` (antes sin ninguna política — cualquiera podía subir archivos).
+
+```sql
+CREATE POLICY "trade_logos_public_read"   ON storage.objects FOR SELECT TO public      USING (bucket_id = 'trade-logos');
+CREATE POLICY "trade_logos_owner_insert"  ON storage.objects FOR INSERT TO authenticated
+  WITH CHECK (bucket_id = 'trade-logos' AND (auth.uid())::text = (storage.foldername(name))[1]);
+CREATE POLICY "trade_logos_owner_update"  ON storage.objects FOR UPDATE TO authenticated
+  USING (bucket_id = 'trade-logos' AND (auth.uid())::text = (storage.foldername(name))[1]);
+CREATE POLICY "trade_logos_owner_delete"  ON storage.objects FOR DELETE TO authenticated
+  USING (bucket_id = 'trade-logos' AND (auth.uid())::text = (storage.foldername(name))[1]);
+```
+
+---
+
+### 26.2 Configuración Auth corregida (Management API)
+
+Cambios aplicados vía `PATCH https://api.supabase.com/v1/projects/dqqjaujnulutinskmqsu/config/auth`:
+
+| Campo | Antes | Después |
+|---|---|---|
+| `site_url` | `https://www.trabflow.com` | ✅ sin cambio (ya correcto) |
+| `mailer_autoconfirm` | `false` | ✅ sin cambio (ya correcto) |
+| `password_min_length` | `6` | **8** |
+| `uri_allow_list` | (sin `/update-password`) | + `https://www.trabflow.com/update-password` |
+| Template invite | URL `debacu.com` hardcodeada | **`trabflow.com`** |
+| Template recovery | Footer "Debacu Hotels" | **"TrabFlow"** |
+
+**`uri_allow_list` final:**
+```
+http://localhost:3000/auth/activate
+http://localhost:3000/auth/reset
+https://www.trabflow.com/auth/reset
+https://www.trabflow.com/auth/activate
+https://www.trabflow.com/auth/callback
+https://www.trabflow.com/update-password
+```
+
+---
+
+### 26.3 Tests manuales ejecutados y resultado
+
+| # | Test | Rol | Resultado |
+|---|------|-----|-----------|
+| 1 | `SELECT * FROM users` | anon | ✅ permission denied |
+| 2 | `SELECT * FROM company_banks` | anon | ✅ permission denied |
+| 3 | `SELECT admin_get_trade_users()` | anon | ✅ permission denied |
+| 4 | `SELECT admin_get_waitlist_leads()` | anon | ✅ permission denied |
+| 5 | `INSERT INTO apps` | anon | ✅ permission denied |
+| 6 | `SELECT FROM apps` | anon | ✅ devuelve filas (catálogo público) |
+| 7 | `INSERT INTO trade_waitlist` (sin RETURNING) | anon | ✅ INSERT OK |
+| 8 | `seed_org_catalog(uuid)` | authenticated | ✅ permission denied |
+| 9 | `get_debacu_pepper()` | authenticated | ✅ permission denied |
+| 10 | Filas de test borradas | — | ✅ 0 rows |
+
+> **Nota sobre trade_waitlist:** `INSERT … RETURNING id` falla para `anon` porque RETURNING requiere SELECT. El frontend no debe usar RETURNING en inserciones anónimas.
+
+---
+
+### 26.4 Riesgos residuales aceptados
+
+| Ítem | Justificación |
+|------|---------------|
+| `admin_get_trade_users` ejecutable por `authenticated` | Seguro: check interno `auth.email() = 'fercarboc@gmail.com'` |
+| `admin_get_waitlist_leads` ejecutable por `authenticated` | Seguro: mismo check interno |
+| `pg_net` en schema public | Falso positivo del linter de Supabase — extensión de sistema |
+| Bucket `trade-logos` público para lectura | Intencional: logos son assets públicos (no datos sensibles) |
+
+---
+
+*Actualizado por Claude Code — TradeFlow AI — Mayo 2026 (F5: Mobile + Push + Dark Theme + Stripe UI + Auditoría Seguridad)*
