@@ -2,12 +2,13 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import {
   MapPin, Clock, User, Navigation, CheckCircle, Play,
   LogOut, RefreshCw, AlertTriangle, Phone, ChevronDown, ChevronUp, X, Check,
-  Plus, Camera, Loader2, CalendarDays, Edit2, Route, Users,
+  Plus, Camera, Loader2, CalendarDays, Edit2, Route, Users, Trash2,
 } from 'lucide-react';
 import {
   supabase, loadWorkerJobs, workerSetJobStatus,
   loadJobPhotos, uploadJobPhoto, workerCreateJob, loadOrgClients,
   loadJobs, updateJob, loadOrgWorkers, assignWorkerToJob, removeWorkerFromJob,
+  deleteJob,
 } from '../lib/supabase';
 import type { WorkerProfile, TradeJob, TradeJobPhoto, TradeClient, TradeJobWorker } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
@@ -391,6 +392,7 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
   const [completeModal, setCompleteModal] = useState<TradeJob | null>(null);
   const [editModal, setEditModal]     = useState<TradeJob | null>(null);
   const [assigningJobId, setAssigningJobId] = useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
   const [closeNotes, setCloseNotes]   = useState('');
   const [saving, setSaving]           = useState(false);
   const [toast, setToast]             = useState<{ msg: string; type: 'success' | 'error' | 'info' } | null>(null);
@@ -562,6 +564,19 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
     );
     setNewJobOpen(false);
     showToast('Trabajo creado ✓');
+  };
+
+  const handleDeleteJob = async (jobId: string) => {
+    try {
+      await deleteJob(jobId);
+      const u = (prev: TradeJob[]) => prev.filter(j => j.id !== jobId);
+      setJobs(u); setAllJobs(u);
+      if (expandedId === jobId) setExpandedId(null);
+      setConfirmDeleteId(null);
+      showToast('Trabajo eliminado');
+    } catch (e: unknown) {
+      showToast('Error al eliminar: ' + (e as Error).message, 'error');
+    }
   };
 
   const handleLogout = async () => {
@@ -841,12 +856,28 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
                             )}
 
                             {!isDone && (
-                              <button
-                                onClick={() => setEditModal(job)}
-                                className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 hover:text-slate-300 transition-colors cursor-pointer"
-                              >
-                                <Edit2 className="w-3 h-3" /> Editar trabajo
-                              </button>
+                              <div className="flex items-center justify-between">
+                                <button
+                                  onClick={() => setEditModal(job)}
+                                  className="flex items-center gap-1.5 text-[10px] font-bold text-slate-500 hover:text-slate-300 transition-colors cursor-pointer"
+                                >
+                                  <Edit2 className="w-3 h-3" /> Editar
+                                </button>
+                                {confirmDeleteId === job.id ? (
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-[9px] text-slate-500">¿Eliminar?</span>
+                                    <button onClick={() => setConfirmDeleteId(null)} className="text-[9px] font-bold text-slate-400 hover:text-white cursor-pointer px-2 py-0.5">No</button>
+                                    <button onClick={() => handleDeleteJob(job.id)} className="text-[9px] font-bold text-red-400 hover:text-red-300 cursor-pointer border border-red-800/60 px-2 py-0.5 rounded-lg">Sí, eliminar</button>
+                                  </div>
+                                ) : (
+                                  <button
+                                    onClick={() => setConfirmDeleteId(job.id)}
+                                    className="flex items-center gap-1 text-[10px] font-bold text-slate-600 hover:text-red-400 transition-colors cursor-pointer"
+                                  >
+                                    <Trash2 className="w-3 h-3" /> Eliminar
+                                  </button>
+                                )}
+                              </div>
                             )}
 
                             {!isDone && (
@@ -881,6 +912,17 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
             ))}
           </>
         )}
+
+        {/* Logout button — visible at bottom of scroll */}
+        <div className="pt-4 mt-2">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold text-slate-600 hover:text-red-400 hover:bg-red-950/20 transition-colors cursor-pointer border border-slate-800/40"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            Cerrar sesión
+          </button>
+        </div>
       </div>
 
       {/* Hidden file input */}

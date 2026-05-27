@@ -221,7 +221,7 @@ export default function App() {
     || currentPage === ActivePage.UpdatePassword;
 
   return (
-    <div className={`min-h-screen flex flex-col ${isAppView || isAuthView ? 'bg-slate-900' : 'bg-slate-50/30'}`}>
+    <div className="min-h-screen flex flex-col bg-[#020B16]">
       {!isAppView && !isAuthView && (
         <Header
           currentPage={currentPage}

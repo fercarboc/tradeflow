@@ -168,7 +168,7 @@ export default function Footer({ setCurrentPage }: FooterProps) {
               onClick={() => handleNavigate(ActivePage.Registro)}
               className="w-full rounded-xl bg-[#FFC400] py-3 text-sm font-black uppercase tracking-widest text-[#020B16] hover:brightness-110 transition-all cursor-pointer shadow-lg shadow-[#FFC400]/15"
             >
-              Prueba gratis 15 días
+              Prueba gratis 3 meses
             </button>
           </div>
 

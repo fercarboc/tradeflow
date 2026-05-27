@@ -17,19 +17,16 @@ export default function UpdatePasswordView({ setCurrentPage }: UpdatePasswordVie
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    // Verifica que haya sesión activa antes de mostrar el formulario
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) {
         setScreen('form');
       } else {
-        // Supabase puede tardar un poco en procesar el hash del URL — espera el evento
         const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
           if (session && (event === 'SIGNED_IN' || event === 'PASSWORD_RECOVERY')) {
             setScreen('form');
             subscription.unsubscribe();
           }
         });
-        // Timeout si no llega sesión
         const timer = setTimeout(() => {
           subscription.unsubscribe();
           setScreen('no-session');
@@ -67,29 +64,39 @@ export default function UpdatePasswordView({ setCurrentPage }: UpdatePasswordVie
   const strengthLevel = getStrengthLevel(password);
 
   if (screen === 'loading') {
-    return <LoadingScreen />;
+    return (
+      <div className="min-h-screen bg-[#020B16] flex items-center justify-center px-4">
+        <div className="text-center">
+          <svg className="animate-spin h-10 w-10 text-[#00CFE8] mx-auto mb-4" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+          </svg>
+          <p className="text-white/40 text-sm">Verificando sesión…</p>
+        </div>
+      </div>
+    );
   }
 
   if (screen === 'no-session') {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-[#020B16] flex items-center justify-center px-4">
         <div className="w-full max-w-md text-center">
           <img src="/tradeflow.png" alt="TrabFlow" className="h-10 mx-auto mb-8" />
-          <div className="bg-slate-800 rounded-2xl border border-slate-700 p-10 shadow-2xl">
+          <div className="bg-[#0d1f38] rounded-2xl border border-white/10 p-10 shadow-2xl">
             <div className="flex justify-center mb-5">
-              <div className="h-16 w-16 rounded-full bg-amber-500/15 flex items-center justify-center">
+              <div className="h-16 w-16 rounded-full bg-amber-500/10 flex items-center justify-center">
                 <svg className="h-8 w-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
                 </svg>
               </div>
             </div>
             <h2 className="text-xl font-display font-bold text-white mb-2">Sesión no encontrada</h2>
-            <p className="text-slate-400 text-sm mb-6">
+            <p className="text-white/40 text-sm mb-6">
               El enlace expiró o ya fue usado. Solicita un nuevo enlace de recuperación.
             </p>
             <button
               onClick={() => setCurrentPage(ActivePage.AuthResetPassword)}
-              className="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-semibold transition"
+              className="px-6 py-2.5 bg-[#00CFE8] hover:brightness-110 text-[#020B16] rounded-xl text-sm font-bold transition"
             >
               Recuperar contraseña
             </button>
@@ -101,19 +108,19 @@ export default function UpdatePasswordView({ setCurrentPage }: UpdatePasswordVie
 
   if (screen === 'success') {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-[#020B16] flex items-center justify-center px-4">
         <div className="w-full max-w-md text-center">
           <img src="/tradeflow.png" alt="TrabFlow" className="h-10 mx-auto mb-8" />
-          <div className="bg-slate-800 rounded-2xl border border-slate-700 p-10 shadow-2xl">
+          <div className="bg-[#0d1f38] rounded-2xl border border-white/10 p-10 shadow-2xl">
             <div className="flex justify-center mb-5">
-              <div className="h-16 w-16 rounded-full bg-green-500/15 flex items-center justify-center">
+              <div className="h-16 w-16 rounded-full bg-green-500/10 flex items-center justify-center">
                 <svg className="h-8 w-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
             </div>
             <h2 className="text-xl font-display font-bold text-white mb-2">¡Contraseña creada!</h2>
-            <p className="text-slate-400 text-sm">Accediendo a tu panel…</p>
+            <p className="text-white/40 text-sm">Accediendo a tu panel…</p>
           </div>
         </div>
       </div>
@@ -121,18 +128,18 @@ export default function UpdatePasswordView({ setCurrentPage }: UpdatePasswordVie
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[#020B16] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <img src="/tradeflow.png" alt="TrabFlow" className="h-10 mx-auto mb-4" />
           <h1 className="text-2xl font-display font-bold text-white">Crea tu contraseña</h1>
-          <p className="text-slate-400 mt-1 text-sm">Elige una contraseña segura para tu cuenta</p>
+          <p className="text-white/40 mt-1 text-sm">Elige una contraseña segura para tu cuenta</p>
         </div>
 
-        <div className="bg-slate-800 rounded-2xl border border-slate-700 p-8 shadow-2xl">
+        <div className="bg-[#0d1f38] rounded-2xl border border-white/10 p-8 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-1.5">
+              <label className="block text-sm font-medium text-white/60 mb-1.5">
                 Nueva contraseña
               </label>
               <div className="relative">
@@ -143,12 +150,12 @@ export default function UpdatePasswordView({ setCurrentPage }: UpdatePasswordVie
                   required
                   autoComplete="new-password"
                   placeholder="Mínimo 8 caracteres"
-                  className="w-full px-4 py-2.5 pr-11 rounded-xl bg-slate-700 border border-slate-600 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                  className="w-full px-4 py-2.5 pr-11 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/25 focus:outline-none focus:ring-2 focus:ring-[#00CFE8] focus:border-transparent transition"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(v => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 transition"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition"
                 >
                   {showPassword ? (
                     <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -163,7 +170,6 @@ export default function UpdatePasswordView({ setCurrentPage }: UpdatePasswordVie
                 </button>
               </div>
 
-              {/* Barra de fortaleza */}
               {password.length > 0 && (
                 <div className="mt-2">
                   <div className="flex gap-1 mb-1">
@@ -176,12 +182,12 @@ export default function UpdatePasswordView({ setCurrentPage }: UpdatePasswordVie
                             : strengthLevel === 2 ? 'bg-amber-500'
                             : strengthLevel === 3 ? 'bg-yellow-400'
                             : 'bg-green-500'
-                            : 'bg-slate-600'
+                            : 'bg-white/10'
                         }`}
                       />
                     ))}
                   </div>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-white/30">
                     {strengthLevel <= 1 ? 'Muy débil' : strengthLevel === 2 ? 'Débil' : strengthLevel === 3 ? 'Buena' : 'Muy segura'}
                   </p>
                 </div>
@@ -189,7 +195,7 @@ export default function UpdatePasswordView({ setCurrentPage }: UpdatePasswordVie
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-1.5">
+              <label className="block text-sm font-medium text-white/60 mb-1.5">
                 Confirmar contraseña
               </label>
               <input
@@ -199,10 +205,10 @@ export default function UpdatePasswordView({ setCurrentPage }: UpdatePasswordVie
                 required
                 autoComplete="new-password"
                 placeholder="Repite la contraseña"
-                className={`w-full px-4 py-2.5 rounded-xl bg-slate-700 border text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:border-transparent transition ${
+                className={`w-full px-4 py-2.5 rounded-xl bg-white/5 border text-white placeholder-white/25 focus:outline-none focus:ring-2 focus:border-transparent transition ${
                   confirm && confirm !== password
-                    ? 'border-red-500 focus:ring-red-500'
-                    : 'border-slate-600 focus:ring-blue-500'
+                    ? 'border-red-500/60 focus:ring-red-500'
+                    : 'border-white/10 focus:ring-[#00CFE8]'
                 }`}
               />
               {confirm && confirm !== password && (
@@ -211,7 +217,7 @@ export default function UpdatePasswordView({ setCurrentPage }: UpdatePasswordVie
             </div>
 
             {error && (
-              <div className="flex items-start gap-2 bg-red-500/10 border border-red-500/30 rounded-xl px-4 py-3 text-sm text-red-400">
+              <div className="flex items-start gap-2 bg-red-500/10 border border-red-500/25 rounded-xl px-4 py-3 text-sm text-red-400">
                 <svg className="w-4 h-4 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                 </svg>
@@ -222,7 +228,7 @@ export default function UpdatePasswordView({ setCurrentPage }: UpdatePasswordVie
             <button
               type="submit"
               disabled={submitting || !password || password !== confirm}
-              className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-800 disabled:cursor-not-allowed text-white font-semibold rounded-xl transition flex items-center justify-center gap-2"
+              className="w-full py-3 px-4 bg-[#00CFE8] hover:brightness-110 disabled:opacity-40 disabled:cursor-not-allowed text-[#020B16] font-bold rounded-xl transition flex items-center justify-center gap-2"
             >
               {submitting ? (
                 <>
@@ -236,20 +242,6 @@ export default function UpdatePasswordView({ setCurrentPage }: UpdatePasswordVie
             </button>
           </form>
         </div>
-      </div>
-    </div>
-  );
-}
-
-function LoadingScreen() {
-  return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center px-4">
-      <div className="text-center">
-        <svg className="animate-spin h-10 w-10 text-blue-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24">
-          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-        </svg>
-        <p className="text-slate-400 text-sm">Verificando sesión…</p>
       </div>
     </div>
   );
