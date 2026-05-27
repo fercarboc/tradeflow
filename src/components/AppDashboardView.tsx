@@ -52,8 +52,8 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob } from '../lib/supabase';
-import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl } from '../lib/supabase';
+import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import CatalogImportModal from './CatalogImportModal';
 import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } from '../lib/catalogExcel';
@@ -118,6 +118,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     try {
       const org = await getOrCreateOrg();
       if (!org) return;
+      loadOrgSubscription(org.id).then(sub => setSubscription(sub)).catch(() => {});
       const data = await loadDashboard(org.id);
       if (data.clients.length)  setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
       if (data.quotes.length)   setPresupuestos(data.quotes.map(q => ({ id: q.numero, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '' })));
@@ -371,6 +372,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   ]);
 
   const [orgId, setOrgId] = useState<string | null>(null);
+  const [subscription, setSubscription] = useState<TradeSubscription | null>(null);
+  const [stripeLoading, setStripeLoading] = useState(false);
 
   const [empresaAjustes, setEmpresaAjustes] = useState({
     nombre: 'Sanz Instalaciones Técnicas',
@@ -526,46 +529,69 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   // Resultado real de la IA: mapea items al catálogo y actualiza el presupuesto
-  const handleVoiceResult = (
-    transcript: string,
-    items: Array<{ descripcion: string; tipo: string; cantidad: number; unidad?: string; source_type?: string; confidence_score?: number; requires_review?: boolean }>,
-  ) => {
-    const partidas: PartidaPresupuesto[] = items.map(item => {
-      const cantidad = item.cantidad ?? 1;
+  interface AIQuote {
+    tipo_trabajo: string;
+    resumen: string;
+    partidas: Array<{ descripcion: string; cantidad: number; unidad: string; precio_unitario: number; subtotal: number }>;
+    mano_obra: { horas: number; precio_hora: number; subtotal: number };
+    desplazamiento: number;
+    subtotal: number;
+    iva: { tipo: number; importe: number };
+    total: number;
+    notas: string;
+    nivel_confianza: string;
+  }
 
-      // Buscar primero en el catálogo con variantes preferidas
-      const catalogMatch = catalogProducts.length > 0
-        ? matchProductForAI(item.descripcion, catalogProducts)
-        : null;
-
+  const quoteToPartidas = (quote: AIQuote): PartidaPresupuesto[] => {
+    const partidas: PartidaPresupuesto[] = quote.partidas.map(p => {
+      // Catalog match overrides AI price when available
+      const catalogMatch = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
       if (catalogMatch) {
-        const precioUnitario = catalogMatch.variant.precio_venta;
+        const pu = catalogMatch.variant.precio_venta;
         return {
           descripcion: `${catalogMatch.product.nombre_generico} (${catalogMatch.variant.marca})`,
           tipo: 'material' as PartidaPresupuesto['tipo'],
-          cantidad,
-          precioUnitario,
-          total: precioUnitario * cantidad,
+          cantidad: p.cantidad,
+          precioUnitario: pu,
+          total: pu * p.cantidad,
         };
       }
-
-      // Fallback: buscar en tarifas manuales
-      const lowerDesc = item.descripcion.toLowerCase();
-      const matched = tarifas.find(t => {
-        const lowerT = t.descripcion.toLowerCase();
-        return lowerDesc.includes(lowerT.slice(0, 6)) || lowerT.includes(lowerDesc.slice(0, 6));
-      });
-      const precioUnitario = matched?.precioBase ?? 0;
       return {
-        descripcion: item.descripcion,
-        tipo: (item.tipo === 'mano_de_obra' ? 'mano_de_obra' : 'material') as PartidaPresupuesto['tipo'],
-        cantidad,
-        precioUnitario,
-        total: precioUnitario * cantidad,
+        descripcion: p.descripcion,
+        tipo: 'material' as PartidaPresupuesto['tipo'],
+        cantidad: p.cantidad,
+        precioUnitario: p.precio_unitario,
+        total: p.subtotal,
       };
     });
+
+    if (quote.mano_obra.subtotal > 0) {
+      partidas.push({
+        descripcion: `Mano de obra (${quote.mano_obra.horas}h × ${quote.mano_obra.precio_hora}€/h)`,
+        tipo: 'mano_de_obra',
+        cantidad: quote.mano_obra.horas,
+        precioUnitario: quote.mano_obra.precio_hora,
+        total: quote.mano_obra.subtotal,
+      });
+    }
+
+    if (quote.desplazamiento > 0) {
+      partidas.push({
+        descripcion: 'Desplazamiento',
+        tipo: 'mano_de_obra',
+        cantidad: 1,
+        precioUnitario: quote.desplazamiento,
+        total: quote.desplazamiento,
+      });
+    }
+
+    return partidas;
+  };
+
+  const handleVoiceResult = (transcript: string, quote: AIQuote) => {
+    const partidas = quoteToPartidas(quote);
     const total = partidas.reduce((s, p) => s + p.total, 0);
-    const desc = transcript.slice(0, 80);
+    const desc = (quote.resumen || quote.tipo_trabajo || transcript).slice(0, 80);
 
     setWizardQuote(prev => ({ ...prev, descripcion: desc, partidas, total, estado: 'Borrador' as const }));
     setEditingQuote(prev => ({ ...prev, descripcion: desc, partidas, total }));
@@ -618,8 +644,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         const err = await res.json().catch(() => ({ error: 'Error del servidor' }));
         throw new Error(err.error ?? `HTTP ${res.status}`);
       }
-      const result: { transcript: string; template_code?: string; items: Array<{ descripcion: string; tipo: string; cantidad: number; source_type?: string; confidence_score?: number; requires_review?: boolean }> } = await res.json();
-      handleVoiceResult(result.transcript, result.items);
+      const result: { transcript: string; quote: AIQuote } = await res.json();
+      handleVoiceResult(result.transcript, result.quote);
     } catch (e: any) {
       showToast('Error al procesar audio: ' + e.message, 'error');
       setVoiceStep('idle');
@@ -693,31 +719,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           const err = await res.json().catch(() => ({ error: 'Error del servidor' }));
           throw new Error(err.error ?? `HTTP ${res.status}`);
         }
-        const result = await res.json() as { items: Array<{ descripcion: string; tipo: string; cantidad: number; unidad?: string }> };
+        const result = await res.json() as { quote: AIQuote };
         setScanProgress(100);
         setIsScanning(false);
 
-        const partidas: PartidaPresupuesto[] = result.items.map(item => {
-          const catalogMatch = catalogProducts.length > 0 ? matchProductForAI(item.descripcion, catalogProducts) : null;
-          if (catalogMatch) {
-            return {
-              descripcion: `${catalogMatch.product.nombre_generico} (${catalogMatch.variant.marca})`,
-              tipo: 'material' as const,
-              cantidad: item.cantidad ?? 1,
-              precioUnitario: catalogMatch.variant.precio_venta,
-              total: catalogMatch.variant.precio_venta * (item.cantidad ?? 1),
-            };
-          }
-          const matched = tarifas.find(t => item.descripcion.toLowerCase().includes(t.descripcion.toLowerCase().slice(0, 5)));
-          const precioUnitario = matched?.precioBase ?? 0;
-          return {
-            descripcion: item.descripcion,
-            tipo: (item.tipo === 'mano_de_obra' ? 'mano_de_obra' : 'material') as PartidaPresupuesto['tipo'],
-            cantidad: item.cantidad ?? 1,
-            precioUnitario,
-            total: precioUnitario * (item.cantidad ?? 1),
-          };
-        });
+        const partidas: PartidaPresupuesto[] = quoteToPartidas(result.quote);
 
         const addedTotal = partidas.reduce((s, p) => s + p.total, 0);
         setWizardQuote(prev => ({
@@ -4478,15 +4484,82 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {/* ── 4. Suscripción ── */}
         <div className={sec}>
           <h3 className={secTitle}>Suscripción</h3>
-          <div className="flex items-center justify-between">
-            <div>
-              <span className="text-xs font-bold text-slate-700 dark:text-white">{empresaAjustes.planSuscripcion}</span>
-              <p className="text-[10px] text-slate-400 mt-0.5">Período de prueba activo — sin cargo hasta el 4º mes</p>
-            </div>
-            <span className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-[9px] font-bold uppercase px-2 py-1 rounded">
-              Activo
-            </span>
-          </div>
+          {subscription ? (() => {
+            const PLAN_LABEL: Record<string, string> = { basico: 'Básico', pro: 'Profesional', empresa: 'Empresa' };
+            const STATUS_CFG: Record<string, { label: string; cls: string }> = {
+              trial:     { label: 'Prueba',    cls: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' },
+              active:    { label: 'Activo',    cls: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400' },
+              cancelled: { label: 'Cancelado', cls: 'bg-slate-100 dark:bg-slate-800 text-slate-500' },
+              expired:   { label: 'Expirado',  cls: 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400' },
+            };
+            const cfg = STATUS_CFG[subscription.status] ?? STATUS_CFG.trial;
+            const trialEnd = subscription.trial_end ? new Date(subscription.trial_end) : null;
+            const daysLeft = trialEnd ? Math.max(0, Math.ceil((trialEnd.getTime() - Date.now()) / 86400000)) : null;
+            const nextBilling = subscription.current_period_end
+              ? new Date(subscription.current_period_end).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
+              : null;
+
+            return (
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="text-xs font-bold text-slate-700 dark:text-white">
+                      Plan {PLAN_LABEL[subscription.plan] ?? subscription.plan}
+                      {subscription.billing_cycle === 'yearly' ? ' · Anual' : ' · Mensual'}
+                    </span>
+                    {subscription.status === 'trial' && daysLeft !== null && (
+                      <p className="text-[10px] text-slate-400 mt-0.5">
+                        {daysLeft > 0 ? `${daysLeft} día${daysLeft !== 1 ? 's' : ''} restantes de prueba` : 'Período de prueba finalizado'}
+                      </p>
+                    )}
+                    {subscription.status === 'active' && nextBilling && (
+                      <p className="text-[10px] text-slate-400 mt-0.5">Próxima factura: {nextBilling}</p>
+                    )}
+                    {subscription.status === 'cancelled' && (
+                      <p className="text-[10px] text-slate-400 mt-0.5">Suscripción cancelada</p>
+                    )}
+                    {subscription.status === 'expired' && (
+                      <p className="text-[10px] text-red-400 mt-0.5">Acceso expirado — reactiva tu plan</p>
+                    )}
+                  </div>
+                  <span className={`text-[9px] font-bold uppercase px-2 py-1 rounded ${cfg.cls}`}>{cfg.label}</span>
+                </div>
+
+                <div className="flex gap-2 flex-wrap">
+                  {subscription.status === 'active' && subscription.stripe_customer_id && (
+                    <button
+                      onClick={async () => {
+                        setStripeLoading(true);
+                        try { window.open(await getStripePortalUrl(subscription.org_id), '_blank', 'noopener'); }
+                        catch { /* silent */ }
+                        finally { setStripeLoading(false); }
+                      }}
+                      disabled={stripeLoading}
+                      className="text-[10px] font-semibold px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition disabled:opacity-50"
+                    >
+                      Gestionar suscripción
+                    </button>
+                  )}
+                  {(subscription.status === 'trial' || subscription.status === 'expired' || subscription.status === 'cancelled') && (
+                    <button
+                      onClick={async () => {
+                        setStripeLoading(true);
+                        try { window.open(await getStripeCheckoutUrl(subscription.org_id), '_blank', 'noopener'); }
+                        catch { /* silent */ }
+                        finally { setStripeLoading(false); }
+                      }}
+                      disabled={stripeLoading}
+                      className="text-[10px] font-bold px-3 py-1.5 rounded-lg bg-[#FFC400] text-[#020B16] hover:brightness-105 transition disabled:opacity-50"
+                    >
+                      {subscription.status === 'trial' ? 'Activar plan' : 'Reactivar plan'}
+                    </button>
+                  )}
+                </div>
+              </div>
+            );
+          })() : (
+            <p className="text-[10px] text-slate-400">Cargando información de suscripción…</p>
+          )}
         </div>
 
       </div>

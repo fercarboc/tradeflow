@@ -1127,6 +1127,15 @@ export async function setSubscriptionActive(orgId: string, active: boolean): Pro
   if (error) throw error;
 }
 
+export async function loadOrgSubscription(orgId: string): Promise<TradeSubscription | null> {
+  const { data } = await supabase
+    .from('trade_subscriptions')
+    .select('*')
+    .eq('org_id', orgId)
+    .single();
+  return data ?? null;
+}
+
 export async function getStripePortalUrl(orgId: string): Promise<string> {
   const { data: { session } } = await supabase.auth.getSession();
   const token = session?.access_token;
