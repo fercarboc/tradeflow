@@ -10,6 +10,7 @@ import {
   Droplets, Zap, Hammer, Wind, TreeDeciduous, KeyRound, Paintbrush,
   Layers, Wrench, Building2, ChevronRight, ChevronLeft, Check,
   ArrowRight, Eye, EyeOff, User, Mail, Phone, Lock, Building, Gift, Shield,
+  Thermometer, Camera, Sun, Leaf, Wifi, Car, Sparkles, ArrowUpDown,
 } from 'lucide-react';
 
 interface RegistroViewProps {
@@ -19,13 +20,24 @@ interface RegistroViewProps {
 const TRADE_OPTIONS = [
   { id: 'Fontanería', label: 'Fontanería', Icon: Droplets },
   { id: 'Electricidad', label: 'Electricidad', Icon: Zap },
-  { id: 'Reformas', label: 'Reformas', Icon: Hammer },
   { id: 'Climatización / HVAC', label: 'Climatización', Icon: Wind },
-  { id: 'Madera / Carpintería', label: 'Madera / Carpintería', Icon: TreeDeciduous },
+  { id: 'Calefacción', label: 'Calefacción', Icon: Thermometer },
+  { id: 'Reformas', label: 'Reformas', Icon: Hammer },
+  { id: 'Albañilería', label: 'Albañilería', Icon: Layers },
+  { id: 'Carpintería / Ventanas', label: 'Carpintería', Icon: TreeDeciduous },
   { id: 'Cerrajería', label: 'Cerrajería', Icon: KeyRound },
   { id: 'Pintura', label: 'Pintura', Icon: Paintbrush },
-  { id: 'Albañilería', label: 'Albañilería', Icon: Layers },
-  { id: 'Otros', label: 'Otros oficios', Icon: Wrench },
+  { id: 'Suelos y Tarimas', label: 'Suelos y Tarimas', Icon: Building2 },
+  { id: 'Pladur / Escayola', label: 'Pladur / Escayola', Icon: Building },
+  { id: 'Jardinería', label: 'Jardinería', Icon: Leaf },
+  { id: 'Cristalería', label: 'Cristalería', Icon: Sparkles },
+  { id: 'Persianas / Cierres', label: 'Persianas', Icon: Shield },
+  { id: 'Telecomunicaciones', label: 'Telecom', Icon: Wifi },
+  { id: 'CCTV / Seguridad', label: 'CCTV / Seguridad', Icon: Camera },
+  { id: 'Energía Solar', label: 'Energía Solar', Icon: Sun },
+  { id: 'Ascensores', label: 'Ascensores', Icon: ArrowUpDown },
+  { id: 'Taller Mecánico', label: 'Taller Mecánico', Icon: Car },
+  { id: 'Limpieza Industrial', label: 'Limpieza Industrial', Icon: Wrench },
 ];
 
 const PLANS = [
@@ -227,10 +239,10 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
           <div className="text-center mb-6">
             <div className="inline-flex items-center gap-2 bg-[#FFC400]/10 border border-[#FFC400]/25 rounded-xl px-3 py-1.5 text-xs font-bold text-[#FFC400] mb-3">
               <Gift className="h-3.5 w-3.5" />
-              3 meses completamente gratis
+              15 días completamente gratis
             </div>
             <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">Elige tu plan</h1>
-            <p className="text-white/40 mt-2 text-sm">Sin tarjeta hasta el 4º mes. Cancela cuando quieras.</p>
+            <p className="text-white/40 mt-2 text-sm">Sin tarjeta de crédito. Cancela cuando quieras.</p>
           </div>
 
           {/* Billing toggle */}
@@ -325,7 +337,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">Crea tu cuenta</h1>
-            <p className="text-white/40 mt-2 text-sm">Empezarás tu período de prueba gratuito de 3 meses.</p>
+            <p className="text-white/40 mt-2 text-sm">Empezarás tu período de prueba gratuito de 15 días.</p>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-[#0d1f38] p-6 space-y-4">
@@ -465,7 +477,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
           </div>
           <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mb-3">¡Cuenta creada!</h1>
           <p className="text-white/45 text-sm leading-relaxed mb-2">
-            Tu período de prueba gratuito de <strong className="text-white">3 meses</strong> ha comenzado.
+            Tu período de prueba gratuito de <strong className="text-white">15 días</strong> ha comenzado.
           </p>
           <p className="text-white/30 text-xs mb-8">
             Si tu proveedor requiere verificación, revisa tu bandeja de entrada antes de continuar.
@@ -474,7 +486,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
           <div className="rounded-2xl border border-white/10 bg-[#0d1f38] p-5 mb-6 text-left space-y-3">
             <div className="flex items-center gap-2.5 text-xs text-white/55">
               <Shield className="h-4 w-4 text-[#00CFE8] shrink-0" />
-              3 meses gratis — sin tarjeta de crédito requerida
+              15 días gratis — sin tarjeta de crédito requerida
             </div>
             <div className="flex items-center gap-2.5 text-xs text-white/55">
               <Gift className="h-4 w-4 text-[#FFC400] shrink-0" />
