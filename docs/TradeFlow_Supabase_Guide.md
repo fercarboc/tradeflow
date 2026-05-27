@@ -343,10 +343,12 @@ En **Auth → Email Templates**, personalizar con branding de TradeFlow.
 
 En **Auth → URL Configuration**:
 ```
-Site URL:       https://tradeflow.ai   (o localhost:3000 en dev)
-Redirect URLs:  http://localhost:3000/**
-                https://tradeflow.ai/**
+Site URL:       https://www.trabflow.com
+Redirect URLs:  https://www.trabflow.com/**
+                http://localhost:3000/**
 ```
+
+> **Importante:** Nunca usar `https://www.debacu.com` en ninguna URL de redirect. Todo apunta a `https://www.trabflow.com`.
 
 ---
 
@@ -1040,5 +1042,245 @@ stripe trigger invoice.paid
 ```
 
 ---
+
+## 16. CRM — Solicitudes Beta + Precios
+
+### 16.1 BD: Migración `crm_waitlist_and_lead_id`
+
+**Columnas añadidas a `trade_waitlist`:**
+
+| Columna | Tipo | Default | Valores |
+|---|---|---|---|
+| `estado` | text | `'nuevo'` | nuevo, contactado, interesado, beta_activa, convertido, descartado |
+| `notas` | text | null | texto libre |
+| `fuente` | text | `'landing'` | landing, manual, referido… |
+| `prioridad` | text | `'media'` | alta, media, baja |
+| `contacted_at` | timestamptz | null | — |
+| `converted_at` | timestamptz | null | — |
+
+**Columna añadida a `trade_organizations`:** `lead_id uuid REFERENCES trade_waitlist(id) ON DELETE SET NULL` — trazabilidad lead → instalador.
+
+**Políticas RLS `trade_waitlist`:** anon INSERT (ya existía) + authenticated admin SELECT/UPDATE/DELETE con `auth.email() = 'fercarboc@gmail.com'`.
+
+**RPC nueva:** `admin_get_waitlist_leads()` — SECURITY DEFINER, devuelve leads ordenados por prioridad y fecha.
+
+### 16.2 supabase.ts — Helpers CRM
+
+| Función | Descripción |
+|---|---|
+| `adminLoadWaitlist()` | Llama al RPC, devuelve `TradeWaitlistLead[]` |
+| `adminUpdateWaitlistLead(id, updates)` | UPDATE waitlist (RLS bloquea a no-admin) |
+| `adminDeleteWaitlistLead(id)` | DELETE por id |
+| `adminConvertLeadToInstaller(lead, params)` | Crea instalador via edge function → actualiza lead a `convertido` → vincula `lead_id` en la organización |
+
+Tipos exportados: `TradeWaitlistLead`, `WaitlistEstado`, `WaitlistPrioridad`.
+
+### 16.3 AdminView — Pestaña "Solicitudes beta"
+
+- **3ª pestaña** con badge rojo del número de leads nuevos
+- **7 KPIs:** total, nuevos, contactados, beta activa, convertidos, tasa lead→beta, tasa beta→pago
+- **Filtros:** texto, estado, oficio, prioridad
+- **Acciones por fila:** estado editable, prioridad editable, WhatsApp prellenado, email, nota, convertir, descartar, eliminar
+- **Modales top-level** (sin focus-loss en inputs): `SetPwdModal`, `ExtendTrialModal`, `NewInstallerModal`, `LeadNoteModal`, `LeadConvertModal`
+- **Error email duplicado:** detecta "already registered" y muestra mensaje UX claro con instrucciones, en lugar de error técnico
+
+### 16.4 PreciosView — Correcciones
+
+| Campo | Antes | Después |
+|---|---|---|
+| Básico usuarios | "1 usuario" | "1 usuario" (sin cambio) — features: hasta 30 PDF/mes, sin agenda |
+| Profesional usuarios | "3-5 usuarios" | "1 usuario" — features: ilimitados + agenda y planificación |
+| Empresa usuarios | "6-10 usuarios" | "Hasta 5 usuarios" — features: + estadísticas + contratos mantenimiento |
+| Badge anual | "-20%" | "2 MESES GRATIS" |
+| Precio anual (big) | precio mensual descontado | total anual = mensual × 10 (ej. 290€/año) |
+| Precio anual (small) | — | equivalente mensual (ej. 24€/mes · facturado anualmente) |
+
+### 16.5 Flujo CRM completo
+
+```
+Landing → formulario → INSERT trade_waitlist (anon)
+    ↓
+Admin → Solicitudes beta → filtrar → priorizar
+    ↓
+WhatsApp / Email → marcar 'contactado' (auto contacted_at)
+    ↓ (seguimiento)
+'interesado' → 'beta_activa'
+    ↓
+"Convertir" → LeadConvertModal → adminConvertLeadToInstaller()
+    → edge function trade-admin-create-installer
+    → trade_organizations.lead_id = lead.id
+    → trade_waitlist.estado = 'convertido', converted_at = now()
+    ↓
+Admin → Clientes → gestionar plan / trial / Stripe
+```
+
+### 16.6 Checklist CRM
+
+- [x] Migración `crm_waitlist_and_lead_id` aplicada en prod
+- [x] Columnas CRM en `trade_waitlist`
+- [x] `lead_id` en `trade_organizations`
+- [x] RLS admin para SELECT/UPDATE/DELETE en waitlist
+- [x] RPC `admin_get_waitlist_leads()` con SECURITY DEFINER
+- [x] Helpers supabase.ts: adminLoadWaitlist, adminUpdateWaitlistLead, adminDeleteWaitlistLead, adminConvertLeadToInstaller
+- [x] AdminView: pestaña "Solicitudes beta" con CRM completo
+- [x] 7 KPIs de conversión
+- [x] Filtros: estado + oficio + prioridad + texto
+- [x] WhatsApp con mensaje prellenado
+- [x] Detección email duplicado con UX claro
+- [x] Modales top-level (sin focus-loss)
+- [x] PreciosView: planes corregidos + facturación anual 10 meses
+- [ ] Prueba manual: enviar lead desde landing → ver en admin → convertir
+
+---
+
+## 17. Flujo de Autenticación Completo — Invitaciones y Reset Password
+
+> Implementado en Mayo 2026. El proyecto es **Vite + React SPA** (no Next.js). Todo el flujo se gestiona leyendo `window.location` al cargar y navegando con el estado de `ActivePage`.
+
+### 17.1 Archivos creados
+
+| Archivo | Ruta URL que maneja |
+|---|---|
+| `src/components/auth/LoginView.tsx` | `/login` |
+| `src/components/auth/AuthActivateView.tsx` | `/auth/activate?token_hash=X&type=invite` |
+| `src/components/auth/AuthCallbackView.tsx` | `/auth/callback?code=X` (PKCE) |
+| `src/components/auth/AuthResetPasswordView.tsx` | `/auth/reset-password` |
+| `src/components/auth/UpdatePasswordView.tsx` | `/update-password` |
+| `vercel.json` | SPA routing: redirige todas las rutas a `index.html` |
+
+### 17.2 Archivos modificados
+
+| Archivo | Qué se añadió |
+|---|---|
+| `src/types.ts` | Valores `Login`, `AuthActivate`, `AuthCallback`, `AuthResetPassword`, `UpdatePassword` en el enum `ActivePage` |
+| `src/App.tsx` | `detectAuthRoute()` — lee `window.location.pathname` al cargar. `AUTH_FLOW_PAGES` Set — evita que `routeSession` sobreescriba una página de auth en curso. Manejo explícito del evento `PASSWORD_RECOVERY` en `onAuthStateChange`. |
+
+### 17.3 Flujo Invite (email de invitación)
+
+```
+Admin crea instalador → Supabase envía email con:
+https://www.trabflow.com/auth/activate?token_hash=XXX&type=invite&org_id=YYY
+
+Vercel sirve index.html (por vercel.json rewrite)
+    ↓
+App.tsx detecta pathname === '/auth/activate'
+    → setCurrentPage(ActivePage.AuthActivate)
+    ↓
+AuthActivateView monta → lee token_hash + type de URLSearchParams
+    → supabase.auth.verifyOtp({ token_hash, type: 'invite' })
+    → sesión creada → onAuthStateChange SIGNED_IN
+    → (AUTH_FLOW_PAGES guard impide navegar a AppDashboard)
+    → setCurrentPage(ActivePage.UpdatePassword)
+    ↓
+UpdatePasswordView → formulario nueva contraseña + confirmar
+    → supabase.auth.updateUser({ password })
+    → setCurrentPage(ActivePage.AppDashboard)
+```
+
+### 17.4 Flujo Reset Password
+
+```
+Usuario en /auth/reset-password → introduce email
+    → supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: 'https://www.trabflow.com/update-password'
+      })
+    → Supabase envía email con enlace
+
+Usuario hace clic → llega a /update-password
+    → App.tsx detecta pathname === '/update-password'
+    → setCurrentPage(ActivePage.UpdatePassword)
+
+UpdatePasswordView → comprueba sesión existente
+  Si no hay sesión: escucha onAuthStateChange hasta PASSWORD_RECOVERY
+    (App.tsx también lo intercepta y navega a UpdatePassword)
+    → formulario contraseña → supabase.auth.updateUser({ password })
+    → AppDashboard
+```
+
+### 17.5 Flujo Callback PKCE
+
+```
+URL: /auth/callback?code=XXXX
+    ↓
+AuthCallbackView → supabase.auth.exchangeCodeForSession(code)
+    → sesión creada
+    → si type=recovery → UpdatePassword
+    → si type=invite   → UpdatePassword
+    → else             → AppDashboard
+```
+
+### 17.6 Guard AUTH_FLOW_PAGES (App.tsx)
+
+Cuando el usuario llega a una URL de auth y Supabase dispara `SIGNED_IN` (tras `verifyOtp` o `exchangeCodeForSession`), el `onAuthStateChange` llamaría a `routeSession` que normalmente navega al dashboard. Para evitar esto:
+
+```typescript
+// Páginas que gestionan su propia navegación
+const AUTH_FLOW_PAGES = new Set<ActivePage>([
+  ActivePage.AuthActivate,
+  ActivePage.AuthCallback,
+  ActivePage.UpdatePassword,
+]);
+
+// En routeSession:
+if (AUTH_FLOW_PAGES.has(currentPageRef.current)) {
+  setSession(s); // actualiza sesión pero NO navega
+  return;
+}
+```
+
+### 17.7 Evento PASSWORD_RECOVERY
+
+Cuando el enlace de reset contiene el token en el hash (`#access_token=...&type=recovery`), Supabase JS lo procesa automáticamente y dispara `PASSWORD_RECOVERY` en `onAuthStateChange`. App.tsx lo captura directamente:
+
+```typescript
+if (event === 'PASSWORD_RECOVERY') {
+  setSession(s);
+  setCurrentPage(ActivePage.UpdatePassword);
+  return;
+}
+```
+
+### 17.8 vercel.json — SPA Routing
+
+Para que Vercel sirva `index.html` en rutas como `/auth/activate`, `/update-password`, etc.:
+
+```json
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+```
+
+Sin esto, Vercel devuelve 404 en esas rutas porque no hay archivos estáticos en esas paths.
+
+### 17.9 Configuración Supabase requerida
+
+**Authentication → URL Configuration:**
+```
+Site URL:       https://www.trabflow.com
+Redirect URLs:  https://www.trabflow.com/**
+                http://localhost:3000/**
+```
+
+**Email Templates** — verificar que las plantillas usan `{{ .ConfirmationURL }}` y que apuntan a las URLs correctas:
+
+- **Invite**: `https://www.trabflow.com/auth/activate?token_hash={{ .TokenHash }}&type=invite`
+- **Reset password**: `https://www.trabflow.com/update-password` (vía `redirectTo` en el código)
+
+### 17.10 Checklist Auth Flow
+
+- [x] `vercel.json` con SPA rewrite creado
+- [x] `src/types.ts` — 5 nuevos `ActivePage` para auth
+- [x] `src/App.tsx` — `detectAuthRoute()`, guard `AUTH_FLOW_PAGES`, evento `PASSWORD_RECOVERY`
+- [x] `LoginView.tsx` — email/password, errores en español, links a registro y reset
+- [x] `AuthActivateView.tsx` — `verifyOtp`, loading/success/error, redirect a UpdatePassword
+- [x] `AuthCallbackView.tsx` — PKCE `exchangeCodeForSession`, `verifyOtp` por token_hash, timeout fallback
+- [x] `AuthResetPasswordView.tsx` — solicitud de reset, estado "enviado", link de retorno
+- [x] `UpdatePasswordView.tsx` — barra de fortaleza, show/hide, validación, estados: loading/form/success/no-session
+- [ ] Verificar en Supabase Dashboard: Site URL = `https://www.trabflow.com`
+- [ ] Verificar en Supabase Dashboard: Redirect URLs incluyen `https://www.trabflow.com/**`
+- [ ] Prueba manual: crear usuario → recibir email → clic → activate → set password → dashboard
+- [ ] Prueba manual: reset password → email → clic → update password → dashboard
 
 *Actualizado por Claude Code — TradeFlow AI — Mayo 2026 (F4: Admin Panel + Stripe)*

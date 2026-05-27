@@ -15,6 +15,12 @@ export enum ActivePage {
   Registro = 'registro',
   Admin = 'admin',
   Worker = 'worker',
+  // Auth flow pages
+  Login = 'login',
+  AuthActivate = 'auth-activate',
+  AuthCallback = 'auth-callback',
+  AuthResetPassword = 'auth-reset-password',
+  UpdatePassword = 'update-password',
 }
 
 export type TradeType =

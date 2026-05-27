@@ -107,6 +107,26 @@ export interface TradeWaitlistEntry {
   presupuestos_al_mes?: string;
 }
 
+export type WaitlistEstado = 'nuevo' | 'contactado' | 'interesado' | 'beta_activa' | 'convertido' | 'descartado';
+export type WaitlistPrioridad = 'alta' | 'media' | 'baja';
+
+export interface TradeWaitlistLead {
+  id: string;
+  nombre: string;
+  telefono?: string;
+  email: string;
+  oficio?: string;
+  ciudad?: string;
+  presupuestos_al_mes?: string;
+  estado: WaitlistEstado;
+  notas?: string;
+  fuente: string;
+  prioridad: WaitlistPrioridad;
+  contacted_at?: string;
+  converted_at?: string;
+  created_at: string;
+}
+
 export interface TradeSubscription {
   id: string;
   org_id: string;
@@ -996,6 +1016,81 @@ export async function workerSetJobStatus(
   if (error) throw error;
 }
 
+// ── Job Photos (trade_job_photos) ─────────────────────────────────────────────
+
+export interface TradeJobPhoto {
+  id: string;
+  job_id: string;
+  org_id: string;
+  uploaded_by_worker_id?: string | null;
+  photo_url: string;
+  caption?: string | null;
+  created_at: string;
+}
+
+export async function loadOrgClients(orgId: string): Promise<TradeClient[]> {
+  const { data, error } = await supabase
+    .from('trade_clients')
+    .select('id, org_id, nombre, telefono')
+    .eq('org_id', orgId)
+    .order('nombre');
+  if (error) throw error;
+  return (data ?? []) as TradeClient[];
+}
+
+export async function loadOrgWorkers(orgId: string): Promise<WorkerProfile[]> {
+  const { data, error } = await supabase
+    .from('trade_workers')
+    .select('id, org_id, nombre, rol, email, telefono')
+    .eq('org_id', orgId)
+    .eq('activo', true)
+    .order('nombre');
+  if (error) throw error;
+  return (data ?? []) as WorkerProfile[];
+}
+
+export async function loadJobPhotos(jobId: string): Promise<TradeJobPhoto[]> {
+  const { data, error } = await supabase
+    .from('trade_job_photos')
+    .select('*')
+    .eq('job_id', jobId)
+    .order('created_at', { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as TradeJobPhoto[];
+}
+
+export async function uploadJobPhoto(
+  jobId: string,
+  file: File,
+  workerId: string,
+  orgId: string,
+): Promise<TradeJobPhoto> {
+  const ext = file.name.split('.').pop() ?? 'jpg';
+  const path = `${orgId}/${jobId}/${Date.now()}.${ext}`;
+  const { error: upErr } = await supabase.storage
+    .from('trade-job-photos')
+    .upload(path, file, { contentType: file.type, upsert: false });
+  if (upErr) throw upErr;
+  const { data: { publicUrl } } = supabase.storage.from('trade-job-photos').getPublicUrl(path);
+  const { data, error } = await supabase
+    .from('trade_job_photos')
+    .insert({ job_id: jobId, org_id: orgId, uploaded_by_worker_id: workerId, photo_url: publicUrl })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as TradeJobPhoto;
+}
+
+export async function workerCreateJob(
+  orgId: string,
+  workerId: string,
+  draft: Omit<TradeJob, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_clients' | 'trade_job_workers'>,
+): Promise<TradeJob> {
+  const job = await createJob(orgId, draft);
+  await assignWorkerToJob(job.id, workerId, 'responsable');
+  return job;
+}
+
 // ── Admin: Platform Invoices ──────────────────────────────────────────────────
 
 export interface TradePlatformInvoice {
@@ -1057,4 +1152,58 @@ export async function getStripeCheckoutUrl(orgId: string, plan?: string, billing
   const data = res.data as { url?: string; error?: string };
   if (data.error) throw new Error(data.error);
   return data.url!;
+}
+
+// ── CRM Waitlist ───────────────────────────────────────────────────────────
+
+export async function adminLoadWaitlist(): Promise<TradeWaitlistLead[]> {
+  const { data, error } = await supabase.rpc('admin_get_waitlist_leads');
+  if (error) throw error;
+  return (data ?? []) as TradeWaitlistLead[];
+}
+
+export async function adminUpdateWaitlistLead(
+  id: string,
+  updates: Partial<Pick<TradeWaitlistLead, 'estado' | 'notas' | 'prioridad' | 'contacted_at' | 'converted_at'>>,
+): Promise<void> {
+  const { error } = await supabase.from('trade_waitlist').update(updates).eq('id', id);
+  if (error) throw error;
+}
+
+export async function adminDeleteWaitlistLead(id: string): Promise<void> {
+  const { error } = await supabase.from('trade_waitlist').delete().eq('id', id);
+  if (error) throw error;
+}
+
+export async function adminConvertLeadToInstaller(
+  lead: TradeWaitlistLead,
+  params: {
+    email: string;
+    password: string;
+    plan: TradeSubscription['plan'];
+    billing_cycle: TradeSubscription['billing_cycle'];
+    trial_days: number;
+  },
+): Promise<{ user_id: string; org_id: string }> {
+  const result = await adminCreateInstaller({
+    email: params.email,
+    password: params.password,
+    nombre: lead.nombre,
+    company_name: lead.nombre,
+    oficio: lead.oficio || 'Otros',
+    plan: params.plan,
+    billing_cycle: params.billing_cycle,
+    telefono: lead.telefono,
+    trial_days: params.trial_days,
+  });
+
+  await Promise.all([
+    supabase.from('trade_waitlist').update({
+      estado: 'convertido',
+      converted_at: new Date().toISOString(),
+    }).eq('id', lead.id),
+    supabase.from('trade_organizations').update({ lead_id: lead.id }).eq('id', result.org_id),
+  ]);
+
+  return result;
 }
