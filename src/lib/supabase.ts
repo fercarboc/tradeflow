@@ -1136,6 +1136,58 @@ export async function loadOrgSubscription(orgId: string): Promise<TradeSubscript
   return data ?? null;
 }
 
+// ── Push notifications ────────────────────────────────────────────────────────
+
+function urlBase64ToUint8Array(b64: string): Uint8Array {
+  const pad = '='.repeat((4 - b64.length % 4) % 4);
+  const raw = atob((b64 + pad).replace(/-/g, '+').replace(/_/g, '/'));
+  const bytes = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+  return bytes;
+}
+
+export async function subscribePush(workerId: string, orgId: string): Promise<boolean> {
+  if (!('serviceWorker' in navigator) || !('PushManager' in window)) return false;
+  const vapidKey = import.meta.env.VITE_VAPID_PUBLIC_KEY;
+  if (!vapidKey) return false;
+
+  const reg = await navigator.serviceWorker.ready;
+  const existing = await reg.pushManager.getSubscription();
+  if (existing) await existing.unsubscribe();
+
+  const sub = await reg.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: urlBase64ToUint8Array(vapidKey),
+  });
+
+  const json = sub.toJSON() as { endpoint: string; keys: { p256dh: string; auth: string } };
+  const { error } = await supabase.from('trade_push_subscriptions').upsert({
+    worker_id: workerId,
+    org_id: orgId,
+    endpoint: json.endpoint,
+    subscription: json,
+  }, { onConflict: 'worker_id,endpoint' });
+
+  return !error;
+}
+
+export async function unsubscribePush(workerId: string): Promise<void> {
+  if (!('serviceWorker' in navigator)) return;
+  const reg = await navigator.serviceWorker.ready;
+  const sub = await reg.pushManager.getSubscription();
+  if (sub) {
+    await sub.unsubscribe();
+    await supabase.from('trade_push_subscriptions').delete().eq('worker_id', workerId);
+  }
+}
+
+export async function isPushSubscribed(): Promise<boolean> {
+  if (!('serviceWorker' in navigator) || !('PushManager' in window)) return false;
+  const reg = await navigator.serviceWorker.ready;
+  const sub = await reg.pushManager.getSubscription();
+  return !!sub;
+}
+
 export async function getStripePortalUrl(orgId: string): Promise<string> {
   const { data: { session } } = await supabase.auth.getSession();
   const token = session?.access_token;

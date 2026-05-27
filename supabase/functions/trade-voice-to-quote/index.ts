@@ -1,9 +1,9 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-const OPENAI_API_KEY     = Deno.env.get('OPENAI_API_KEY') ?? '';
-const ANTHROPIC_API_KEY  = Deno.env.get('ANTHROPIC_API_KEY') ?? '';
-const SUPABASE_URL        = Deno.env.get('SUPABASE_URL') ?? '';
+const OPENAI_API_KEY      = Deno.env.get('OPENAI_API_KEY') ?? '';
+const ANTHROPIC_API_KEY   = Deno.env.get('ANTHROPIC_API_KEY') ?? '';
+const SUPABASE_URL         = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 
 const CORS = {
@@ -11,38 +11,91 @@ const CORS = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const PARSING_PROMPT = `Eres un asistente de TradeFlow para instaladores españoles.
-Analiza la transcripción de voz y extrae información estructurada de trabajos de instalación.
+const AI_SYSTEM_PROMPT = `Eres el motor de IA de TradeFlow AI, una aplicación para instaladores autónomos (fontaneros, electricistas, climatización, cerrajeros y reformas).
 
-REGLA CRÍTICA: NO incluyas precios. Solo estructura las tareas y materiales.
-Los precios los aplica el sistema según el catálogo de la empresa.
+Tu trabajo es convertir descripciones por voz, texto o imágenes en presupuestos profesionales estructurados.
 
-Devuelve JSON EXACTAMENTE con esta estructura (sin markdown, solo JSON puro):
+# OBJETIVO PRINCIPAL
+
+Generar presupuestos claros, realistas y profesionales en menos de 10 segundos.
+
+Debes comportarte como un instalador senior con experiencia real en obras y reparaciones.
+
+---
+
+# COMPORTAMIENTO GENERAL
+
+- Detecta automáticamente:
+  - tipo de trabajo
+  - materiales necesarios
+  - mano de obra
+  - desplazamiento
+  - dificultad
+  - tiempo estimado
+
+- Usa lenguaje profesional y corto.
+- Nunca expliques razonamientos.
+- Nunca hables como chatbot.
+- Nunca digas "como IA".
+- Devuelve SIEMPRE estructura clara y usable.
+
+---
+
+# REGLAS IMPORTANTES
+
+## 1. ESTIMACIONES REALISTAS
+Usa precios de mercado español actuales para instaladores autónomos.
+Mano de obra: entre 35€/h y 60€/h según oficio y complejidad.
+Materiales: precios reales de fontanería, electricidad, climatización.
+
+## 2. PRIORIZAR VELOCIDAD
+El presupuesto debe salir rápido aunque no sea perfecto.
+
+## 3. EL INSTALADOR MANDA
+El usuario podrá añadir, eliminar o modificar partidas y precios.
+
+---
+
+# FORMATO DE RESPUESTA
+
+Responder SIEMPRE en JSON válido sin markdown ni texto adicional.
+
 {
-  "tasks": [
-    { "descripcion": "string", "tipo": "mano_de_obra", "cantidad": 1 }
+  "tipo_trabajo": "",
+  "resumen": "",
+  "partidas": [
+    {
+      "descripcion": "",
+      "cantidad": 1,
+      "unidad": "ud",
+      "precio_unitario": 0,
+      "subtotal": 0
+    }
   ],
-  "materials": [
-    { "descripcion": "string", "tipo": "material", "cantidad": 1, "unidad": "ud" }
-  ],
-  "urgency": "normal",
-  "notes": ""
+  "mano_obra": {
+    "horas": 0,
+    "precio_hora": 0,
+    "subtotal": 0
+  },
+  "desplazamiento": 0,
+  "subtotal": 0,
+  "iva": {
+    "tipo": 21,
+    "importe": 0
+  },
+  "total": 0,
+  "notas": "",
+  "nivel_confianza": "alto"
 }
 
-Reglas:
-- tasks: mano de obra, instalaciones, revisiones
-- materials: productos físicos, componentes, piezas
-- urgency: "urgente" | "alta" | "normal" | "baja"
-- unidades válidas: "ud" | "ml" | "m2" | "m3" | "h" | "kg" | "jornada"
-- Si no hay materials o tasks, deja el array vacío []
-- cantidad siempre número positivo`;
+Unidades válidas: "ud" | "ml" | "m2" | "m3" | "h" | "kg" | "jornada" | "kit"
+nivel_confianza: "alto" | "medio" | "bajo"`;
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: CORS });
   }
 
-  // Verify JWT
   const authHeader = req.headers.get('Authorization');
   if (!authHeader) {
     return new Response(JSON.stringify({ error: 'Sin autorización' }), { status: 401, headers: { ...CORS, 'Content-Type': 'application/json' } });
@@ -88,7 +141,7 @@ serve(async (req) => {
       });
     }
 
-    // ── Step 3: Structured extraction (Claude Haiku) ─────────────────────
+    // ── Step 3: Generate full quote (Claude Haiku) ───────────────────────
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -98,10 +151,11 @@ serve(async (req) => {
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 1024,
+        max_tokens: 2048,
+        system: AI_SYSTEM_PROMPT,
         messages: [{
           role: 'user',
-          content: `${PARSING_PROMPT}\n\nTexto del instalador: "${transcript}"`,
+          content: `El instalador dice: "${transcript}"`,
         }],
       }),
     });
@@ -114,33 +168,22 @@ serve(async (req) => {
     const claudeData = await claudeRes.json() as { content: Array<{ text: string }> };
     const rawText = claudeData.content[0]?.text ?? '{}';
 
-    let parsed: { tasks?: Array<{ descripcion: string; tipo: string; cantidad: number }>; materials?: Array<{ descripcion: string; tipo: string; cantidad: number; unidad?: string }> };
+    let quote: Record<string, unknown>;
     try {
-      // Strip markdown code blocks if present
       const clean = rawText.replace(/```json?\n?/g, '').replace(/```/g, '').trim();
-      parsed = JSON.parse(clean);
+      quote = JSON.parse(clean);
     } catch {
-      // Fallback: return transcript only, no items
-      parsed = { tasks: [], materials: [] };
+      quote = {
+        tipo_trabajo: '', resumen: transcript, partidas: [],
+        mano_obra: { horas: 0, precio_hora: 0, subtotal: 0 },
+        desplazamiento: 0, subtotal: 0,
+        iva: { tipo: 21, importe: 0 }, total: 0,
+        notas: '', nivel_confianza: 'bajo',
+      };
     }
 
-    // ── Step 4: Merge tasks + materials into flat items list ─────────────
-    const items = [
-      ...(parsed.tasks ?? []).map(t => ({
-        descripcion: t.descripcion,
-        tipo: 'mano_de_obra',
-        cantidad: Number(t.cantidad) || 1,
-      })),
-      ...(parsed.materials ?? []).map(m => ({
-        descripcion: m.descripcion,
-        tipo: 'material',
-        cantidad: Number(m.cantidad) || 1,
-        unidad: m.unidad ?? 'ud',
-      })),
-    ];
-
     return new Response(
-      JSON.stringify({ transcript, items }),
+      JSON.stringify({ transcript, quote }),
       { headers: { ...CORS, 'Content-Type': 'application/json' } },
     );
 

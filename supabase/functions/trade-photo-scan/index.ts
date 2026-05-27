@@ -1,7 +1,7 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-const OPENAI_API_KEY      = Deno.env.get('OPENAI_API_KEY') ?? '';
+const ANTHROPIC_API_KEY   = Deno.env.get('ANTHROPIC_API_KEY') ?? '';
 const SUPABASE_URL         = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 
@@ -10,38 +10,88 @@ const CORS = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const VISION_PROMPT = `Eres un asistente experto para instaladores españoles (fontaneros, electricistas, técnicos de climatización, etc.).
+const AI_SYSTEM_PROMPT = `Eres el motor de IA de TradeFlow AI, una aplicación para instaladores autónomos (fontaneros, electricistas, climatización, cerrajeros y reformas).
 
-Analiza la imagen y detecta:
-- Materiales o componentes visibles que puedan necesitar reparación, sustitución o instalación
-- Trabajos de mano de obra necesarios (instalación, sustitución, reparación)
-- Averías o problemas visibles
+Tu trabajo es convertir descripciones por voz, texto o imágenes en presupuestos profesionales estructurados.
 
-REGLA CRÍTICA: NO incluyas precios. Solo identifica materiales y tareas.
-Los precios los aplica el sistema según el catálogo del instalador.
+# OBJETIVO PRINCIPAL
 
-Devuelve JSON EXACTAMENTE con esta estructura (sin markdown, solo JSON puro):
+Generar presupuestos claros, realistas y profesionales en menos de 10 segundos.
+
+Debes comportarte como un instalador senior con experiencia real en obras y reparaciones.
+
+---
+
+# SI HAY FOTO
+
+Analiza visualmente:
+- daños o averías visibles
+- materiales y componentes detectados
+- complejidad de la instalación
+- elementos a sustituir o reparar
+- estado general de la instalación
+
+Sugiere partidas automáticamente basándote en lo que ves.
+
+NO describas la imagen. SOLO genera el presupuesto.
+
+---
+
+# REGLAS IMPORTANTES
+
+## 1. ESTIMACIONES REALISTAS
+Usa precios de mercado español actuales para instaladores autónomos.
+Mano de obra: entre 35€/h y 60€/h según oficio y complejidad.
+Materiales: precios reales de fontanería, electricidad, climatización.
+
+## 2. PRIORIZAR VELOCIDAD
+El presupuesto debe salir rápido aunque no sea perfecto.
+
+## 3. EL INSTALADOR MANDA
+El usuario podrá añadir, eliminar o modificar partidas y precios.
+
+---
+
+# FORMATO DE RESPUESTA
+
+Responder SIEMPRE en JSON válido sin markdown ni texto adicional.
+
 {
-  "items": [
-    { "descripcion": "string", "tipo": "material", "cantidad": 1, "unidad": "ud" },
-    { "descripcion": "string", "tipo": "mano_de_obra", "cantidad": 1, "unidad": "h" }
+  "tipo_trabajo": "",
+  "resumen": "",
+  "partidas": [
+    {
+      "descripcion": "",
+      "cantidad": 1,
+      "unidad": "ud",
+      "precio_unitario": 0,
+      "subtotal": 0
+    }
   ],
-  "notes": "observaciones opcionales sobre la instalación o avería"
+  "mano_obra": {
+    "horas": 0,
+    "precio_hora": 0,
+    "subtotal": 0
+  },
+  "desplazamiento": 0,
+  "subtotal": 0,
+  "iva": {
+    "tipo": 21,
+    "importe": 0
+  },
+  "total": 0,
+  "notas": "",
+  "nivel_confianza": "alto"
 }
 
-Reglas:
-- tipo: "material" para productos físicos | "mano_de_obra" para trabajos
-- unidades válidas: "ud" | "ml" | "m2" | "m3" | "h" | "kg" | "jornada"
-- cantidad siempre número positivo
-- Si no detectas nada relevante, devuelve items array vacío
-- Descripción en español, concisa y técnica (ej: "Grifo monomando cocina", "Diferencial 2P 40A", "Mano de obra sustitución calentador")`;
+Unidades válidas: "ud" | "ml" | "m2" | "m3" | "h" | "kg" | "jornada" | "kit"
+nivel_confianza: "alto" | "medio" | "bajo"`;
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: CORS });
   }
 
-  // Verificar JWT
   const authHeader = req.headers.get('Authorization');
   if (!authHeader) {
     return new Response(JSON.stringify({ error: 'Sin autorización' }), {
@@ -66,50 +116,62 @@ serve(async (req) => {
       });
     }
 
-    // Llamada a GPT-4o Vision
-    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+    // ── Claude Haiku Vision ──────────────────────────────────────────────
+    const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
-        'Content-Type': 'application/json',
+        'x-api-key': ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01',
+        'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4o',
-        max_tokens: 1024,
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 2048,
+        system: AI_SYSTEM_PROMPT,
         messages: [{
           role: 'user',
           content: [
-            { type: 'text', text: VISION_PROMPT },
             {
-              type: 'image_url',
-              image_url: {
-                url: `data:${mime_type};base64,${image_base64}`,
-                detail: 'high',
+              type: 'image',
+              source: {
+                type: 'base64',
+                media_type: mime_type,
+                data: image_base64,
               },
+            },
+            {
+              type: 'text',
+              text: 'Analiza esta imagen y genera el presupuesto completo.',
             },
           ],
         }],
       }),
     });
 
-    if (!res.ok) {
-      const err = await res.text();
-      throw new Error(`OpenAI Vision error ${res.status}: ${err}`);
+    if (!claudeRes.ok) {
+      const err = await claudeRes.text();
+      throw new Error(`Claude Vision error ${claudeRes.status}: ${err}`);
     }
 
-    const data = await res.json() as { choices: Array<{ message: { content: string } }> };
-    const rawText = data.choices[0]?.message?.content ?? '{}';
+    const claudeData = await claudeRes.json() as { content: Array<{ text: string }> };
+    const rawText = claudeData.content[0]?.text ?? '{}';
 
-    let parsed: { items?: Array<{ descripcion: string; tipo: string; cantidad: number; unidad?: string }>; notes?: string };
+    let quote: Record<string, unknown>;
     try {
       const clean = rawText.replace(/```json?\n?/g, '').replace(/```/g, '').trim();
-      parsed = JSON.parse(clean);
+      quote = JSON.parse(clean);
     } catch {
-      parsed = { items: [], notes: 'No se pudo parsear la respuesta' };
+      quote = {
+        tipo_trabajo: '', resumen: '', partidas: [],
+        mano_obra: { horas: 0, precio_hora: 0, subtotal: 0 },
+        desplazamiento: 0, subtotal: 0,
+        iva: { tipo: 21, importe: 0 }, total: 0,
+        notas: 'No se pudo analizar la imagen', nivel_confianza: 'bajo',
+      };
     }
 
     return new Response(
-      JSON.stringify({ items: parsed.items ?? [], notes: parsed.notes ?? '' }),
+      JSON.stringify({ quote }),
       { headers: { ...CORS, 'Content-Type': 'application/json' } },
     );
 

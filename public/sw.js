@@ -1,4 +1,4 @@
-const CACHE = 'tradeflow-v1';
+const CACHE = 'tradeflow-v2';
 
 const PRECACHE = [
   '/',
@@ -45,6 +45,31 @@ self.addEventListener('fetch', e => {
         return res;
       });
       return cached || network;
+    })
+  );
+});
+
+self.addEventListener('push', e => {
+  const data = e.data?.json() ?? {};
+  e.waitUntil(
+    self.registration.showNotification(data.title || 'TrabFlow', {
+      body:  data.body  || '',
+      icon:  '/tradeflow_192.png',
+      badge: '/tradeflow_192.png',
+      data:  data.url ? { url: data.url } : undefined,
+      vibrate: [200, 100, 200],
+    })
+  );
+});
+
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  const url = e.notification.data?.url ?? '/';
+  e.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+      const existing = list.find(c => c.url.includes(url));
+      if (existing) return existing.focus();
+      return clients.openWindow(url);
     })
   );
 });
