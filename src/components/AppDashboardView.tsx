@@ -524,7 +524,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     showToast('Voz procesada por IA con éxito');
     setTimeout(() => {
       setVoiceStep('idle');
-      setWizardStep(3);
+      setWizardStep(4);
     }, 800);
   };
 
@@ -599,7 +599,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setTimeout(() => {
       setVoiceStep('idle');
       setIsVoiceModalOpen(false);
-      setWizardStep(3);
+      setWizardStep(4);
     }, 900);
   };
 
@@ -1235,8 +1235,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {isDarkMode ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5 text-blue-400" />}
           </button>
 
-          {/* Botón Login / Live */}
-          {isLiveMode ? (
+          {/* Botón Login / Live — solo visible cuando ya hay sesión */}
+          {isLiveMode && (
             <div className="flex items-center gap-2">
               <span className="hidden sm:flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold px-2.5 py-1 rounded-full text-[9px] uppercase tracking-wider font-mono">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" />
@@ -1259,14 +1259,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <span>Cerrar sesión</span>
               </button>
             </div>
-          ) : (
-            <button
-              onClick={() => setShowLoginModal(true)}
-              className="flex items-center gap-1.5 bg-emerald-600/90 hover:bg-emerald-600 px-3.5 py-1.5 rounded font-bold uppercase tracking-wider text-[10px] text-white transition-colors cursor-pointer"
-            >
-              <Mail className="w-3.5 h-3.5" />
-              <span>Modo Real</span>
-            </button>
           )}
 
           {/* Botón Salir */}
@@ -4475,7 +4467,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <p className="text-xs font-bold text-slate-800 dark:text-white">
                 {catalogProducts.length > 0
                   ? `${catalogProducts.length} productos · ${catalogProducts.reduce((s, p) => s + (p.trade_catalog_variants?.length ?? 0), 0)} variantes cargados`
-                  : 'Catálogo vacío — inicia sesión para cargar tus productos'}
+                  : isLiveMode
+                    ? 'Catálogo vacío — importa tus productos o créalos desde el tab Catálogo'
+                    : '33 productos · 99 variantes (demo)'}
               </p>
               <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-relaxed">
                 Tu catálogo IA tiene productos con <strong>3 variantes de calidad</strong> (Económico · Preferido · Premium).
@@ -4496,15 +4490,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <span className="text-[9px] font-mono font-bold uppercase text-slate-400 block mb-2">Importar / Exportar desde Excel</span>
             <div className="flex flex-wrap gap-2">
               <button
-                onClick={() => setShowCatalogImport(true)}
-                className="flex items-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+                onClick={() => isLiveMode ? setShowCatalogImport(true) : showToast('Disponible solo con cuenta activa', 'info')}
+                className={`flex items-center gap-1 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg transition-colors ${isLiveMode ? 'bg-emerald-600 hover:bg-emerald-700 cursor-pointer' : 'bg-emerald-600/40 cursor-not-allowed'}`}
               >
                 <Upload className="h-3 w-3" />
                 Importar Excel
               </button>
               <button
-                onClick={handleExportCatalog}
-                className="flex items-center gap-1 bg-slate-700 hover:bg-slate-600 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+                onClick={() => isLiveMode ? handleExportCatalog() : showToast('Disponible solo con cuenta activa', 'info')}
+                className={`flex items-center gap-1 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg transition-colors ${isLiveMode ? 'bg-slate-700 hover:bg-slate-600 cursor-pointer' : 'bg-slate-700/40 cursor-not-allowed'}`}
               >
                 <FileText className="h-3 w-3" />
                 Exportar Excel
@@ -4605,8 +4599,28 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
               </div>
             );
-          })() : (
+          })() : isLiveMode ? (
             <p className="text-[10px] text-slate-400">Cargando información de suscripción…</p>
+          ) : (
+            /* Demo: mostrar plan Profesional de muestra */
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-xs font-bold text-slate-700 dark:text-white">Plan Profesional · Mensual</span>
+                  <p className="text-[10px] text-slate-400 mt-0.5">Demo — activa tu cuenta para ver tu suscripción real</p>
+                </div>
+                <span className="text-[9px] font-bold uppercase px-2 py-1 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">Activo</span>
+              </div>
+              <div className="flex gap-2 flex-wrap">
+                <button
+                  disabled
+                  className="text-[10px] font-semibold px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-400 dark:text-slate-500 opacity-50 cursor-not-allowed"
+                  title="Disponible con cuenta activa"
+                >
+                  Gestionar suscripción
+                </button>
+              </div>
+            </div>
           )}
         </div>
 
