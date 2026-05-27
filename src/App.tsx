@@ -180,7 +180,7 @@ export default function App() {
           />
         );
       case ActivePage.Contacto:
-        return <ContactoView initialPreselectedTrade={preselectedTrade} />;
+        return <ContactoView />;
       case ActivePage.AvisoLegal:
       case ActivePage.Privacidad:
       case ActivePage.Cookies:

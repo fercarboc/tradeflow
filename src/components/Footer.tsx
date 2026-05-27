@@ -4,7 +4,7 @@
  */
 
 import { ActivePage } from '../types';
-import { Phone, Mail, ShieldCheck, Zap, Wrench, Wind, Hammer } from 'lucide-react';
+import { Phone, Mail, ShieldCheck } from 'lucide-react';
 
 interface FooterProps {
   setCurrentPage: (page: ActivePage) => void;
@@ -18,11 +18,12 @@ export default function Footer({ setCurrentPage }: FooterProps) {
 
   const currentYear = new Date().getFullYear();
 
-  const tradeIcons = [
-    { icon: <Wrench className="h-3.5 w-3.5" />, label: 'Fontanería' },
-    { icon: <Zap className="h-3.5 w-3.5" />, label: 'Electricidad' },
-    { icon: <Wind className="h-3.5 w-3.5" />, label: 'Climatización' },
-    { icon: <Hammer className="h-3.5 w-3.5" />, label: 'Reformas' },
+  const trades = [
+    'Fontanería', 'Electricidad', 'Climatización', 'Reformas',
+    'Carpintería', 'Cerrajería', 'Pintura', 'Albañilería',
+    'Suelos y Tarimas', 'Pladur / Escayola', 'Jardinería', 'Cristalería',
+    'Persianas / Cierres', 'Telecomunicaciones', 'Energía Solar', 'Ascensores',
+    'Taller Mecánico', 'Limpieza Industrial', 'Impermeabilización', 'CCTV / Seguridad',
   ];
 
   return (
@@ -80,15 +81,14 @@ export default function Footer({ setCurrentPage }: FooterProps) {
               </a>
             </div>
 
-            {/* Mini trade icons */}
+            {/* Ideal para — 20 oficios */}
             <div className="pt-2 space-y-2">
               <div className="text-[9px] font-black uppercase tracking-widest text-white/30">Ideal para:</div>
-              <div className="flex flex-wrap gap-2">
-                {tradeIcons.map((t) => (
-                  <div key={t.label} className="flex items-center gap-1 rounded-lg border border-white/10 px-2 py-1 text-[9px] text-white/40">
-                    {t.icon}
-                    {t.label}
-                  </div>
+              <div className="flex flex-wrap gap-1.5">
+                {trades.map((t) => (
+                  <span key={t} className="rounded-md border border-white/8 px-2 py-0.5 text-[8.5px] text-white/35">
+                    {t}
+                  </span>
                 ))}
               </div>
             </div>
@@ -168,7 +168,7 @@ export default function Footer({ setCurrentPage }: FooterProps) {
               onClick={() => handleNavigate(ActivePage.Registro)}
               className="w-full rounded-xl bg-[#FFC400] py-3 text-sm font-black uppercase tracking-widest text-[#020B16] hover:brightness-110 transition-all cursor-pointer shadow-lg shadow-[#FFC400]/15"
             >
-              Prueba gratis 3 meses
+              Prueba gratis 15 días
             </button>
           </div>
 

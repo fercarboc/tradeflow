@@ -465,6 +465,27 @@ export async function submitWaitlist(entry: TradeWaitlistEntry): Promise<void> {
   if (error) throw error;
 }
 
+export async function submitContactMessage(data: {
+  nombre: string;
+  telefono: string;
+  email?: string;
+  motivo: string;
+  mensaje?: string;
+}): Promise<void> {
+  const { error } = await supabase.from('trade_waitlist').insert({
+    nombre: data.nombre,
+    telefono: data.telefono,
+    email: data.email ?? '',
+    oficio: data.motivo,
+    ciudad: '',
+    presupuestos_al_mes: 'Menos de 10',
+    notas: data.mensaje ?? '',
+    prioridad: 'normal',
+    estado: 'nuevo',
+  });
+  if (error) throw error;
+}
+
 // ── Trabajadores ──────────────────────────────────────────────────────────
 
 export interface TradeWorker {
@@ -712,7 +733,7 @@ export async function updateCatalogVariant(
 // ── Email via Resend (Edge Function trade-email) ──────────────────────────────
 
 export async function sendTrabflowEmail(payload: {
-  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome';
+  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome' | 'contact_admin' | 'support_admin';
   nombre?: string;
   email?: string;
   telefono?: string;

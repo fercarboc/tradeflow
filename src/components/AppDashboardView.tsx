@@ -53,7 +53,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import CatalogImportModal from './CatalogImportModal';
@@ -427,6 +427,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [savingVariant, setSavingVariant] = useState<string | null>(null);
   const [editingTarifaId, setEditingTarifaId] = useState<string | null>(null);
   const [savingTarifaId, setSavingTarifaId] = useState<string | null>(null);
+  const [catalogFamilyFilter, setCatalogFamilyFilter] = useState<Set<string>>(new Set());
+
+  // Support modal
+  const [showSupportModal, setShowSupportModal] = useState(false);
+  const [supportAsunto, setSupportAsunto] = useState('Consulta general');
+  const [supportMsg, setSupportMsg] = useState('');
+  const [supportSending, setSupportSending] = useState(false);
   const [filterEstado, setFilterEstado] = useState<'todas' | 'Pendiente' | 'Pagada' | 'Vencida'>('todas');
   const [showAddTarifa, setShowAddTarifa] = useState(false);
   const [newWorkerDraft, setNewWorkerDraft] = useState({ nombre: '', telefono: '', email: '', rol: 'tecnico' as TrabajadorItem['rol'] });
@@ -1638,6 +1645,75 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         )}
       </AnimatePresence>
+
+      {/* ================= MODAL SOPORTE ================= */}
+      {showSupportModal && (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4" onClick={() => setShowSupportModal(false)}>
+          <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-md space-y-4 shadow-2xl" onClick={e => e.stopPropagation()}>
+            <div className="flex justify-between items-center">
+              <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white">Contactar Soporte</h3>
+              <button onClick={() => setShowSupportModal(false)} className="text-slate-400 cursor-pointer"><X className="w-5 h-5" /></button>
+            </div>
+            <div>
+              <label className="text-[9px] font-bold uppercase tracking-widest text-slate-400 block mb-1">Asunto</label>
+              <select
+                value={supportAsunto}
+                onChange={e => setSupportAsunto(e.target.value)}
+                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none"
+              >
+                {['Consulta general', 'Error en la aplicación', 'Problema con facturación', 'Cómo usar una función', 'Solicitar nueva función', 'Otro'].map(a => <option key={a}>{a}</option>)}
+              </select>
+            </div>
+            <div>
+              <label className="text-[9px] font-bold uppercase tracking-widest text-slate-400 block mb-1">Descripción</label>
+              <textarea
+                rows={4}
+                placeholder="Describe tu consulta o problema..."
+                value={supportMsg}
+                onChange={e => setSupportMsg(e.target.value)}
+                className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none resize-none"
+              />
+            </div>
+            <div className="flex gap-3">
+              <button onClick={() => setShowSupportModal(false)} className="flex-1 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 cursor-pointer">Cancelar</button>
+              <button
+                disabled={supportSending || !supportMsg.trim()}
+                onClick={async () => {
+                  if (!supportMsg.trim()) return;
+                  setSupportSending(true);
+                  try {
+                    await submitContactMessage({
+                      nombre: empresaAjustes.nombre || 'Usuario App',
+                      telefono: empresaAjustes.telefonoMovil || '',
+                      email: empresaAjustes.email || '',
+                      motivo: `[SOPORTE] ${supportAsunto}`,
+                      mensaje: supportMsg,
+                    });
+                    sendTrabflowEmail({
+                      type: 'support_admin',
+                      nombre: empresaAjustes.nombre,
+                      email: empresaAjustes.email,
+                      telefono: empresaAjustes.telefonoMovil,
+                      oficio: supportAsunto,
+                      ciudad: supportMsg,
+                    });
+                    showToast('Mensaje enviado al soporte ✓', 'success');
+                    setShowSupportModal(false);
+                    setSupportMsg('');
+                    setSupportAsunto('Consulta general');
+                  } catch {
+                    showToast('Error al enviar. Escríbenos a info@trabflow.com', 'error');
+                  }
+                  setSupportSending(false);
+                }}
+                className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-bold text-white cursor-pointer disabled:opacity-50"
+              >
+                {supportSending ? 'Enviando...' : 'Enviar'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ================= MODAL SIMULACIÓN ENVÍO DE WHATSAPP ================= */}
       <AnimatePresence>
@@ -2893,6 +2969,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               Pro Beta Mode
             </div>
             <p className="text-[10px] text-slate-500 leading-normal font-sans">Facturación electrónica y presupuestos seguros.</p>
+            <button
+              onClick={() => setShowSupportModal(true)}
+              className="w-full mt-1 text-[9px] font-bold uppercase tracking-wider text-slate-400 hover:text-blue-400 border border-slate-700 hover:border-blue-500 rounded-lg py-1.5 cursor-pointer transition-colors"
+            >
+              💬 Contactar soporte
+            </button>
           </div>
         </aside>
 
@@ -4033,16 +4115,28 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
     // User's custom price list (trade_tarifas — imported via Excel)
     const activeTarifas = tarifas.filter(t => t.activo);
-    const filteredTarifas = activeTarifas.filter(t =>
-      t.descripcion.toLowerCase().includes(catalogFilter.toLowerCase()) ||
-      t.familia.toLowerCase().includes(catalogFilter.toLowerCase()) ||
-      (t.codigo ?? '').toLowerCase().includes(catalogFilter.toLowerCase())
-    );
+    const allFamilies = [...new Set(activeTarifas.map(t => t.familia))].sort();
+    const filteredTarifas = activeTarifas.filter(t => {
+      const matchText = !catalogFilter ||
+        t.descripcion.toLowerCase().includes(catalogFilter.toLowerCase()) ||
+        t.familia.toLowerCase().includes(catalogFilter.toLowerCase()) ||
+        (t.codigo ?? '').toLowerCase().includes(catalogFilter.toLowerCase());
+      const matchFamily = catalogFamilyFilter.size === 0 || catalogFamilyFilter.has(t.familia);
+      return matchText && matchFamily;
+    });
     const tarifasByFamily = filteredTarifas.reduce<Record<string, TarifaItem[]>>((acc, t) => {
       (acc[t.familia] = acc[t.familia] ?? []).push(t);
       return acc;
     }, {});
     const hasTarifas = activeTarifas.length > 0;
+
+    const toggleFamily = (f: string) => {
+      setCatalogFamilyFilter(prev => {
+        const next = new Set(prev);
+        if (next.has(f)) next.delete(f); else next.add(f);
+        return next;
+      });
+    };
 
     // Helpers inline
     const flattenCatalog = (): TradeTarifa[] =>
@@ -4097,6 +4191,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               ? `${filteredTarifas.length} referencias`
               : `${filtered.length} productos · ${catalogProducts.reduce((s, p) => s + (p.trade_catalog_variants?.length ?? 0), 0)} variantes`}
           </span>
+          {catalogFamilyFilter.size > 0 && (
+            <button onClick={() => setCatalogFamilyFilter(new Set())} className="text-[9px] text-blue-400 hover:text-blue-300 font-bold uppercase cursor-pointer underline whitespace-nowrap">
+              Limpiar filtro ({catalogFamilyFilter.size})
+            </button>
+          )}
           <div className="flex gap-2 ml-auto">
             <button
               onClick={() => setShowCatalogImport(true)}
@@ -4124,6 +4223,36 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </button>
           </div>
         </div>
+
+        {/* Filtro por familia/sector */}
+        {hasTarifas && allFamilies.length > 1 && (
+          <div className="space-y-2">
+            <div className="text-[9px] font-bold uppercase tracking-widest text-slate-400 font-mono">
+              Filtrar por sector / familia — selecciona los que quieres ver:
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              <button
+                onClick={() => setCatalogFamilyFilter(new Set())}
+                className={`px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase border cursor-pointer transition-all ${catalogFamilyFilter.size === 0 ? 'bg-blue-600 text-white border-blue-600' : 'bg-transparent text-slate-400 border-slate-200 dark:border-slate-700 hover:border-blue-400'}`}
+              >
+                Todos ({activeTarifas.length})
+              </button>
+              {allFamilies.map(f => {
+                const count = activeTarifas.filter(t => t.familia === f).length;
+                const active = catalogFamilyFilter.has(f);
+                return (
+                  <button
+                    key={f}
+                    onClick={() => toggleFamily(f)}
+                    className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border cursor-pointer transition-all ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-blue-400 hover:text-blue-500'}`}
+                  >
+                    {f} <span className="opacity-60">({count})</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Modal importación */}
         {showCatalogImport && (
