@@ -1138,13 +1138,6 @@ export async function loadOrgSubscription(orgId: string): Promise<TradeSubscript
 
 // ── Push notifications ────────────────────────────────────────────────────────
 
-function urlBase64ToUint8Array(b64: string): Uint8Array {
-  const pad = '='.repeat((4 - b64.length % 4) % 4);
-  const raw = atob((b64 + pad).replace(/-/g, '+').replace(/_/g, '/'));
-  const bytes = new Uint8Array(raw.length);
-  for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
-  return bytes;
-}
 
 export async function subscribePush(workerId: string, orgId: string): Promise<boolean> {
   if (!('serviceWorker' in navigator) || !('PushManager' in window)) return false;
@@ -1157,7 +1150,7 @@ export async function subscribePush(workerId: string, orgId: string): Promise<bo
 
   const sub = await reg.pushManager.subscribe({
     userVisibleOnly: true,
-    applicationServerKey: urlBase64ToUint8Array(vapidKey),
+    applicationServerKey: vapidKey,
   });
 
   const json = sub.toJSON() as { endpoint: string; keys: { p256dh: string; auth: string } };

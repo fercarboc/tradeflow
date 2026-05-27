@@ -3,13 +3,13 @@ import {
   MapPin, Clock, User, Navigation, CheckCircle, Play,
   LogOut, RefreshCw, AlertTriangle, Phone, ChevronDown, ChevronUp, X, Check,
   Plus, Camera, Loader2, CalendarDays, Edit2, Route, Users, Trash2,
-  ChevronLeft, ChevronRight, List,
+  ChevronLeft, ChevronRight, List, Bell, BellOff,
 } from 'lucide-react';
 import {
   supabase, loadWorkerJobs, workerSetJobStatus,
   loadJobPhotos, uploadJobPhoto, workerCreateJob, loadOrgClients,
   loadJobs, updateJob, loadOrgWorkers, assignWorkerToJob, removeWorkerFromJob,
-  deleteJob,
+  deleteJob, subscribePush, unsubscribePush, isPushSubscribed,
 } from '../lib/supabase';
 import type { WorkerProfile, TradeJob, TradeJobPhoto, TradeClient, TradeJobWorker } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
@@ -485,6 +485,8 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
   const [calView, setCalView]         = useState<'lista' | 'semana'>('lista');
   const [weekOffset, setWeekOffset]   = useState(0);
   const [weekDay, setWeekDay]         = useState(() => new Date().toISOString().split('T')[0]);
+  const [pushEnabled, setPushEnabled] = useState(false);
+  const [pushLoading, setPushLoading] = useState(false);
   const photoInputRef                 = useRef<HTMLInputElement>(null);
   const activePhotoJobId              = useRef<string | null>(null);
 
@@ -523,6 +525,10 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
     if (!isAdmin || !workerProfile) return;
     loadOrgWorkers(workerProfile.org_id).then(setOrgWorkers).catch(() => {});
   }, [isAdmin, workerProfile]);
+
+  useEffect(() => {
+    isPushSubscribed().then(setPushEnabled).catch(() => {});
+  }, []);
 
   const handleSetViewMode = (mode: 'mis' | 'todos') => {
     setViewMode(mode);
@@ -672,6 +678,28 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
     setCurrentPage(ActivePage.Home);
   };
 
+  const handleTogglePush = async () => {
+    if (!workerProfile) return;
+    setPushLoading(true);
+    try {
+      if (pushEnabled) {
+        await unsubscribePush(workerProfile.id);
+        setPushEnabled(false);
+        showToast('Notificaciones desactivadas', 'info');
+      } else {
+        const granted = await Notification.requestPermission();
+        if (granted !== 'granted') { showToast('Permiso denegado', 'error'); return; }
+        const ok = await subscribePush(workerProfile.id, workerProfile.org_id);
+        setPushEnabled(ok);
+        showToast(ok ? 'Notificaciones activadas' : 'Error al activar notificaciones', ok ? 'success' : 'error');
+      }
+    } catch {
+      showToast('Error con las notificaciones', 'error');
+    } finally {
+      setPushLoading(false);
+    }
+  };
+
   const today = new Date().toISOString().split('T')[0];
 
   const grouped = filteredJobs.reduce<Record<string, TradeJob[]>>((acc, job) => {
@@ -737,6 +765,16 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
           >
             {calView === 'semana' ? <List className="w-3.5 h-3.5" /> : <CalendarDays className="w-3.5 h-3.5" />}
           </button>
+          {'Notification' in window && (
+            <button
+              onClick={handleTogglePush}
+              disabled={pushLoading}
+              title={pushEnabled ? 'Desactivar notificaciones' : 'Activar notificaciones'}
+              className={`p-1.5 transition-colors cursor-pointer disabled:opacity-40 ${pushEnabled ? 'text-amber-400' : 'text-slate-400 hover:text-white'}`}
+            >
+              {pushEnabled ? <Bell className="w-3.5 h-3.5" /> : <BellOff className="w-3.5 h-3.5" />}
+            </button>
+          )}
           <button onClick={handleLogout} className="p-1.5 text-slate-400 hover:text-red-400 transition-colors cursor-pointer">
             <LogOut className="w-3.5 h-3.5" />
           </button>
