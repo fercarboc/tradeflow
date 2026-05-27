@@ -202,6 +202,8 @@ export async function getOrCreateOrg(): Promise<TradeOrganization | null> {
     trial_end: trialEnd.toISOString(),
   });
 
+  await supabase.rpc('seed_org_catalog', { new_org_id: created.id });
+
   return created;
 }
 
@@ -261,6 +263,7 @@ export async function registerUser(params: {
         trial_start: new Date().toISOString(),
         trial_end: trialEnd.toISOString(),
       });
+      await supabase.rpc('seed_org_catalog', { new_org_id: org.id });
     }
   }
 
