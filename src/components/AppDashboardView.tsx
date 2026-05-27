@@ -49,10 +49,11 @@ import {
   RotateCcw,
   Calendar,
   Camera,
+  UserPlus,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import CatalogImportModal from './CatalogImportModal';
@@ -120,9 +121,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       if (!org) return;
       loadOrgSubscription(org.id).then(sub => setSubscription(sub)).catch(() => {});
       const data = await loadDashboard(org.id);
-      if (data.clients.length)  setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
-      if (data.quotes.length)   setPresupuestos(data.quotes.map(q => ({ id: q.numero, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '' })));
-      if (data.invoices.length) setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : '', idPresupuesto: f.quote_id ?? '', importe: f.subtotal, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any })));
+      // Always replace demo clients with real data (even if empty list)
+      setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
+      setPresupuestos(data.quotes.map(q => ({ id: q.numero, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '' })));
+      setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : '', idPresupuesto: f.quote_id ?? '', importe: f.subtotal, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any })));
       if (org) {
         setOrgId(org.id);
         setEmpresaAjustes(prev => ({
@@ -418,6 +420,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [catalogFilter, setCatalogFilter] = useState('');
   const [editingVariant, setEditingVariant] = useState<{ id: string; field: 'precio_venta' | 'margen_pct'; value: string } | null>(null);
   const [savingVariant, setSavingVariant] = useState<string | null>(null);
+  const [editingTarifaId, setEditingTarifaId] = useState<string | null>(null);
+  const [savingTarifaId, setSavingTarifaId] = useState<string | null>(null);
   const [filterEstado, setFilterEstado] = useState<'todas' | 'Pendiente' | 'Pagada' | 'Vencida'>('todas');
   const [showAddTarifa, setShowAddTarifa] = useState(false);
   const [newWorkerDraft, setNewWorkerDraft] = useState({ nombre: '', telefono: '', email: '', rol: 'tecnico' as TrabajadorItem['rol'] });
@@ -3236,24 +3240,33 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-1">
             <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider font-mono">Cliente CRM</label>
-            <select
-              value={editingQuote.nombreCliente}
-              onChange={(e) => {
-                const cli = clientes.find(c => c.nombre === e.target.value);
-                setEditingQuote(prev => ({
-                  ...prev,
-                  nombreCliente: e.target.value,
-                  telefonoCliente: cli?.telefono || '',
-                  emailCliente: cli?.email || ''
-                }));
-              }}
-              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold text-slate-855 dark:text-white focus:outline-none"
-            >
-              <option value="">-- Buscar cliente --</option>
-              {clientes.map(c => (
-                <option key={c.id} value={c.nombre}>{c.nombre}</option>
-              ))}
-            </select>
+            <div className="flex gap-2">
+              <select
+                value={editingQuote.nombreCliente}
+                onChange={(e) => {
+                  const cli = clientes.find(c => c.nombre === e.target.value);
+                  setEditingQuote(prev => ({
+                    ...prev,
+                    nombreCliente: e.target.value,
+                    telefonoCliente: cli?.telefono || '',
+                    emailCliente: cli?.email || ''
+                  }));
+                }}
+                className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold text-slate-855 dark:text-white focus:outline-none"
+              >
+                <option value="">-- Seleccionar cliente --</option>
+                {clientes.map(c => (
+                  <option key={c.id} value={c.nombre}>{c.nombre} {c.telefono ? `· ${c.telefono}` : ''}</option>
+                ))}
+              </select>
+              <button
+                onClick={() => { setNewClient({ nombre: '', telefono: '', email: '', direccion: '' }); setIsClientModalOpen(true); }}
+                className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-3 flex items-center justify-center cursor-pointer shrink-0"
+                title="Añadir nuevo cliente"
+              >
+                <UserPlus className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
           <div className="space-y-1">
@@ -3982,6 +3995,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       setSavingVariant(null);
     };
 
+    const handleSaveTarifaPrice = async (id: string, newPrice: number) => {
+      setSavingTarifaId(id);
+      try {
+        if (isLiveMode) await updateTarifaPrice(id, newPrice);
+        setTarifas(prev => prev.map(t => t.id === id ? { ...t, precioBase: newPrice } : t));
+        showToast('Precio actualizado ✓', 'success');
+      } catch (e: any) {
+        showToast('Error al guardar: ' + e.message, 'error');
+      }
+      setEditingTarifaId(null);
+      setSavingTarifaId(null);
+    };
+
     if (!isLiveMode) {
       return (
         <div className="flex flex-col items-center justify-center h-full py-16 space-y-4 text-center px-8">
@@ -4120,10 +4146,40 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
             <div className="divide-y divide-slate-100 dark:divide-slate-800">
               {items.map(t => (
-                <div key={t.id} className="px-4 py-2.5 flex items-center gap-3">
+                <div key={t.id} className="px-4 py-2.5 flex items-center gap-3 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
                   {t.codigo && <span className="text-[9px] font-mono text-slate-400 w-20 shrink-0 truncate">{t.codigo}</span>}
                   <span className="flex-1 text-xs text-slate-800 dark:text-white truncate">{t.descripcion}</span>
-                  <span className="font-bold font-mono text-sm text-slate-900 dark:text-white whitespace-nowrap">{t.precioBase.toFixed(2)} €</span>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    {editingTarifaId === t.id ? (
+                      <>
+                        <input
+                          type="number"
+                          step="0.01"
+                          autoFocus
+                          defaultValue={t.precioBase}
+                          onBlur={e => {
+                            const val = parseFloat(e.target.value);
+                            if (!isNaN(val) && val !== t.precioBase) handleSaveTarifaPrice(t.id, val);
+                            else setEditingTarifaId(null);
+                          }}
+                          onKeyDown={e => {
+                            if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
+                            if (e.key === 'Escape') setEditingTarifaId(null);
+                          }}
+                          className="w-24 bg-white dark:bg-slate-800 border border-blue-400 rounded px-2 py-1 text-xs font-bold font-mono text-slate-800 dark:text-white focus:outline-none"
+                        />
+                        <span className="text-[9px] text-slate-400">€</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="font-bold font-mono text-sm text-slate-900 dark:text-white whitespace-nowrap">{t.precioBase.toFixed(2)} €</span>
+                        {savingTarifaId === t.id
+                          ? <RotateCcw className="h-3 w-3 text-blue-400 animate-spin" />
+                          : <button onClick={() => setEditingTarifaId(t.id)} className="text-slate-300 hover:text-blue-500 cursor-pointer transition-colors p-0.5" title="Editar precio"><Edit3 className="h-3 w-3" /></button>
+                        }
+                      </>
+                    )}
+                  </div>
                   <span className="text-[9px] text-slate-400 w-8 text-right shrink-0">{t.unidad}</span>
                 </div>
               ))}

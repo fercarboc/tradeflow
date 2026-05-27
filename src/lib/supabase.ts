@@ -543,6 +543,10 @@ export async function deleteTarifa(id: string): Promise<void> {
   await supabase.from('trade_tarifas').update({ activo: false }).eq('id', id);
 }
 
+export async function updateTarifaPrice(id: string, precio_base: number): Promise<void> {
+  await supabase.from('trade_tarifas').update({ precio_base }).eq('id', id);
+}
+
 // ── Clientes ──────────────────────────────────────────────────────────────
 
 export async function addClient(
@@ -1132,7 +1136,7 @@ export async function loadOrgSubscription(orgId: string): Promise<TradeSubscript
     .from('trade_subscriptions')
     .select('*')
     .eq('org_id', orgId)
-    .single();
+    .maybeSingle();
   return data ?? null;
 }
 
