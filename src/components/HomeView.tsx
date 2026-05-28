@@ -204,7 +204,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </button>
                 <button
-                  onClick={() => go(ActivePage.AppDashboard, false)}
+                  onClick={() => go(ActivePage.Demo)}
                   className="flex items-center justify-center gap-2 rounded-lg border border-white/25 px-6 py-3.5 text-sm font-bold uppercase tracking-widest text-white/80 hover:border-white/60 hover:text-white transition-colors cursor-pointer"
                   id="hero-cta-demo"
                 >
@@ -436,7 +436,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
 
               <div className="px-4 pb-4 pt-3 space-y-2">
                 <button
-                  onClick={() => go(ActivePage.AppDashboard, true)}
+                  onClick={() => go(ActivePage.Demo)}
                   className="w-full rounded-xl bg-[#00CFE8] py-2.5 text-xs font-black uppercase tracking-widest text-[#020B16] hover:brightness-110 transition-all cursor-pointer"
                 >
                   Acceder a demo móvil
@@ -479,7 +479,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
 
               <div className="px-4 pb-4 pt-3">
                 <button
-                  onClick={() => go(ActivePage.AppDashboard, false)}
+                  onClick={() => go(ActivePage.Demo)}
                   className="w-full rounded-xl border border-white/25 py-2.5 text-xs font-black uppercase tracking-widest text-white/65 hover:border-white/50 hover:text-white transition-colors cursor-pointer"
                 >
                   Ver demo en PC
