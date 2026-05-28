@@ -223,38 +223,53 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    // ── Step 1: Receive audio ────────────────────────────────────────────────
-    const formData = await req.formData();
-    const audioFile = formData.get('audio') as File | null;
-    if (!audioFile) {
-      return new Response(JSON.stringify({ error: 'Falta el campo "audio" en el formulario' }), {
-        status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+    // ── Demo/anon mode: accept JSON with text field directly ─────────────────
+    let transcript = '';
+    const contentType = req.headers.get('content-type') ?? '';
+
+    if (isAnonRequest && contentType.includes('application/json')) {
+      const body = await req.json() as { text?: string };
+      transcript = body.text?.trim() ?? '';
+      if (!transcript) {
+        return new Response(JSON.stringify({ error: 'El campo "text" está vacío' }), {
+          status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+        });
+      }
+    } else {
+      // ── Step 1: Receive audio ──────────────────────────────────────────────
+      const formData = await req.formData();
+      const audioFile = formData.get('audio') as File | null;
+      if (!audioFile) {
+        return new Response(JSON.stringify({ error: 'Falta el campo "audio" en el formulario' }), {
+          status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+        });
+      }
+
+      // ── Step 2: Transcription (OpenAI Whisper) ─────────────────────────────
+      const whisperForm = new FormData();
+      whisperForm.append('file', audioFile, 'audio.webm');
+      whisperForm.append('model', 'gpt-4o-mini-transcribe');
+      whisperForm.append('language', 'es');
+      whisperForm.append('prompt', 'Transcripción de un profesional describiendo trabajos técnicos, instalaciones, reparaciones o reformas. Español de España.');
+
+      const transcribeRes = await fetch('https://api.openai.com/v1/audio/transcriptions', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${OPENAI_API_KEY}` },
+        body: whisperForm,
       });
-    }
 
-    // ── Step 2: Transcription (OpenAI Whisper) ───────────────────────────────
-    const whisperForm = new FormData();
-    whisperForm.append('file', audioFile, 'audio.webm');
-    whisperForm.append('model', 'gpt-4o-mini-transcribe');
-    whisperForm.append('language', 'es');
-    whisperForm.append('prompt', 'Transcripción de un profesional describiendo trabajos técnicos, instalaciones, reparaciones o reformas. Español de España.');
+      if (!transcribeRes.ok) {
+        const err = await transcribeRes.text();
+        throw new Error(`OpenAI STT error ${transcribeRes.status}: ${err}`);
+      }
 
-    const transcribeRes = await fetch('https://api.openai.com/v1/audio/transcriptions', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${OPENAI_API_KEY}` },
-      body: whisperForm,
-    });
-
-    if (!transcribeRes.ok) {
-      const err = await transcribeRes.text();
-      throw new Error(`OpenAI STT error ${transcribeRes.status}: ${err}`);
-    }
-
-    const { text: transcript } = await transcribeRes.json() as { text: string };
-    if (!transcript?.trim()) {
-      return new Response(JSON.stringify({ error: 'No se detectó voz en el audio' }), {
-        status: 422, headers: { ...CORS, 'Content-Type': 'application/json' },
-      });
+      const { text: sttText } = await transcribeRes.json() as { text: string };
+      transcript = sttText ?? '';
+      if (!transcript.trim()) {
+        return new Response(JSON.stringify({ error: 'No se detectó voz en el audio' }), {
+          status: 422, headers: { ...CORS, 'Content-Type': 'application/json' },
+        });
+      }
     }
 
     // ── Step 3: Generate quote structure (Claude Haiku) ──────────────────────

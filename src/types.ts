@@ -21,6 +21,9 @@ IADisclaimer = 'ia-disclaimer',
 AppDashboard = 'app-dashboard',
 Registro = 'registro',
 
+// Demo interactiva
+Demo = 'demo',
+
 // Internal
 Admin = 'admin',
 Worker = 'worker',

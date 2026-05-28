@@ -4,6 +4,7 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 const ANTHROPIC_API_KEY   = Deno.env.get('ANTHROPIC_API_KEY') ?? '';
 const SUPABASE_URL         = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
+const SUPABASE_ANON_KEY    = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -208,17 +209,28 @@ Deno.serve(async (req: Request) => {
       status: 401, headers: { ...CORS, 'Content-Type': 'application/json' },
     });
   }
+  const token = authHeader.replace('Bearer ', '');
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
-  const { data: { user }, error: authErr } = await supabase.auth.getUser(authHeader.replace('Bearer ', ''));
-  if (authErr || !user) {
-    return new Response(JSON.stringify({ error: 'Token inválido' }), {
-      status: 401, headers: { ...CORS, 'Content-Type': 'application/json' },
-    });
+
+  // Anon key → modo demo (sin límites, sin tracking)
+  const isAnonRequest = SUPABASE_ANON_KEY && token === SUPABASE_ANON_KEY;
+
+  let orgId: string | null = null;
+  let plan: 'basico' | 'profesional' | 'empresa' | 'empresa_plus' = 'basico';
+
+  if (!isAnonRequest) {
+    const { data: { user }, error: authErr } = await supabase.auth.getUser(token);
+    if (authErr || !user) {
+      return new Response(JSON.stringify({ error: 'Token inválido' }), {
+        status: 401, headers: { ...CORS, 'Content-Type': 'application/json' },
+      });
+    }
+
+    // ── Verificar límite de plan ─────────────────────────────────────────────
+    ({ orgId, plan } = await resolveOrgAndPlan(supabase, user.id));
   }
 
-  // ── Verificar límite de plan ───────────────────────────────────────────────
-  const { orgId, plan } = await resolveOrgAndPlan(supabase, user.id);
-  const limit = PHOTO_LIMITS[plan] ?? 5;
+  const limit = isAnonRequest ? Infinity : (PHOTO_LIMITS[plan] ?? 5);
 
   if (orgId && limit !== Infinity) {
     const used = await countPhotoUsageThisMonth(supabase, orgId);

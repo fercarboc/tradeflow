@@ -21,6 +21,7 @@ import AppDashboardView from './components/AppDashboardView';
 import RegistroView from './components/RegistroView';
 import AdminView from './components/AdminView';
 import ScreenWorkerView from './components/ScreenWorkerView';
+import DemoView from './components/demo/DemoView';
 import LoginView from './components/auth/LoginView';
 import AuthActivateView from './components/auth/AuthActivateView';
 import AuthCallbackView from './components/auth/AuthCallbackView';
@@ -216,6 +217,10 @@ export default function App() {
           />
         );
 
+      // Demo interactiva
+      case ActivePage.Demo:
+        return <DemoView setCurrentPage={setCurrentPage} />;
+
       // App autenticada
       case ActivePage.AppDashboard:
         return (
@@ -256,6 +261,7 @@ export default function App() {
 
   const isAppView =
     currentPage === ActivePage.AppDashboard ||
+    currentPage === ActivePage.Demo ||
     currentPage === ActivePage.Registro ||
     currentPage === ActivePage.Admin ||
     currentPage === ActivePage.Worker;

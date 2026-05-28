@@ -22,7 +22,7 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
     { name: 'Inicio', page: ActivePage.Home },
     { name: 'Funciones', page: ActivePage.ComoFunciona },
     { name: 'Precios', page: ActivePage.Precios },
-    { name: 'Demo', page: ActivePage.AppDashboard },
+    { name: 'Demo', page: ActivePage.Demo },
     { name: 'Contacto', page: ActivePage.Contacto },
   ];
 
@@ -98,7 +98,7 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
             Iniciar sesión
           </button>
           <button
-            onClick={() => handleNavigate(ActivePage.AppDashboard, true)}
+            onClick={() => setCurrentPage(ActivePage.Demo)}
             className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#020B16] bg-[#00CFE8] rounded-lg hover:brightness-110 transition-all cursor-pointer flex items-center gap-1.5 shadow-lg shadow-[#00CFE8]/20"
             id="header-demo-button"
           >
@@ -147,7 +147,7 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
               })}
               <div className="pt-4 mt-2 border-t border-white/10 flex flex-col gap-2">
                 <button
-                  onClick={() => handleNavigate(ActivePage.AppDashboard, true)}
+                  onClick={() => { setCurrentPage(ActivePage.Demo); setMobileMenuOpen(false); }}
                   className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#00CFE8] py-3 font-bold text-sm text-[#020B16] cursor-pointer"
                   id="mobile-demo-btn"
                 >
