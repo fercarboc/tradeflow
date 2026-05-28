@@ -51,6 +51,7 @@ import {
   Camera,
   UserPlus,
   Globe,
+  Briefcase,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -177,7 +178,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const handleLogout = async () => {
     await supabase.auth.signOut();
     setIsLiveMode(false);
-    showToast('Sesión cerrada — volviendo a modo demo', 'info');
+    if (isNativeDevice) {
+      setIsSessionClosed(true);
+    } else {
+      showToast('Sesion cerrada', 'info');
+    }
   };
 
   // Simulador Config
@@ -202,7 +207,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }, [initialMobile]);
 
   // Tabs de navegación móvil
-  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes'>('inicio');
+  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos'>('inicio');
+  const [isSessionClosed, setIsSessionClosed] = useState(false);
   const [showFloatingMenu, setShowFloatingMenu] = useState<boolean>(false);
 
   // Pasos del Asistente Móvil (Wizard)
@@ -1813,6 +1819,31 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= RENDERIZADO MÓVIL REFACTORIZADO Y MEJORADO =================
   function AppContentMobile() {
+    // Sesión cerrada en dispositivo nativo — no mostrar demo
+    if (isNativeDevice && isSessionClosed && !isLiveMode) {
+      return (
+        <div
+          className="fixed inset-0 bg-[#0B0F14] flex flex-col items-center justify-center p-8 gap-8"
+          style={{ paddingTop: 'env(safe-area-inset-top, 0px)', paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+        >
+          <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/40">
+            <span className="text-white font-black text-xl">TF</span>
+          </div>
+          <div className="text-center space-y-2">
+            <h2 className="text-xl font-bold text-white">Sesion cerrada</h2>
+            <p className="text-sm text-slate-400">Inicia sesion para continuar usando TradeFlow AI</p>
+          </div>
+          <button
+            onClick={() => { setIsSessionClosed(false); setShowLoginModal(true); }}
+            className="w-full max-w-xs bg-blue-600 text-white font-bold py-4 rounded-2xl text-sm cursor-pointer active:opacity-80 transition-opacity"
+            style={{ boxShadow: '0 0 30px rgba(37,99,235,0.4)' }}
+          >
+            Iniciar sesion
+          </button>
+        </div>
+      );
+    }
+
     // Si el Wizard paso a paso está activo
     if (wizardActive) {
       return MobileWizardView();
@@ -1886,6 +1917,39 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {mobileTab === 'clientes' && MobileScreenClientes()}
           {mobileTab === 'facturas' && MobileScreenFacturas()}
           {mobileTab === 'ajustes' && ScreenSettings()}
+          {mobileTab === 'trabajos' && (
+            <ScreenPlanificacion
+              jobs={jobs}
+              workers={trabajadores}
+              clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono }))}
+              orgId={orgId}
+              isLiveMode={isLiveMode}
+              isDarkMode={isDarkMode}
+              onCreateJob={async (job) => {
+                if (!orgId) throw new Error('Sin organizacion');
+                const saved = await createJob(orgId, job);
+                setJobs(prev => [...prev, saved]);
+                return saved;
+              }}
+              onUpdateJob={async (id, updates) => {
+                await updateJob(id, updates);
+                setJobs(prev => prev.map(j => j.id === id ? { ...j, ...updates } : j));
+              }}
+              onDeleteJob={async (id) => {
+                await deleteJob(id);
+                setJobs(prev => prev.filter(j => j.id !== id));
+              }}
+              onAssignWorker={async (jobId, workerId, rol) => {
+                await assignWorkerToJob(jobId, workerId, rol as 'responsable' | 'asignado' | 'apoyo');
+                await loadJobs(orgId!).then(setJobs);
+              }}
+              onRemoveWorker={async (jobId, workerId) => {
+                await removeWorkerFromJob(jobId, workerId);
+                await loadJobs(orgId!).then(setJobs);
+              }}
+              showToast={showToast}
+            />
+          )}
         </div>
 
         {/* BOTTOM TAB BAR + FAB */}
@@ -1915,8 +1979,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {/* Hueco central para el FAB */}
             <div className="flex-1" />
 
+            {MobileTabButton({ tab: 'trabajos', icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
             {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
-            {MobileTabButton({ tab: 'facturas', icon: <InvoiceIcon className="w-5 h-5" />, label: 'Facturas' })}
             {MobileTabButton({ tab: 'ajustes', icon: <SettingsIcon className="w-5 h-5" />, label: 'Ajustes' })}
           </div>
         </div>
@@ -1970,7 +2034,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     );
 
     // Helpers botones navegación móvil
-    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes'; icon: React.ReactNode; label: string }) {
+    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos'; icon: React.ReactNode; label: string }) {
       const isActive = mobileTab === tab;
       return (
         <button
