@@ -11,11 +11,14 @@ import {
   adminExtendTrial, adminCreateInstaller, loadPlatformInvoices, setSubscriptionActive,
   getStripePortalUrl, getStripeCheckoutUrl,
   adminLoadWaitlist, adminUpdateWaitlistLead, adminDeleteWaitlistLead, adminConvertLeadToInstaller,
+  adminLoadWeeklyQuotes,
   AdminOrgRow, TradeSubscription, TradePlatformInvoice, TradeWaitlistLead,
   WaitlistEstado, WaitlistPrioridad,
 } from '../lib/supabase';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { exportToCsv } from '../lib/exportCsv';
+import { useToast, ToastContainer, ConfirmModal } from './ui/Toast';
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 import type { Session } from '@supabase/supabase-js';
 import {
   Users, CreditCard, TrendingUp, Clock, ArrowLeft, Search, RefreshCw,
@@ -142,13 +145,14 @@ interface ExtendTrialModalProps {
   org: AdminOrgRow;
   onClose: () => void;
   onSave: (days: number) => Promise<void>;
+  onError?: (msg: string) => void;
 }
-function ExtendTrialModal({ org, onClose, onSave }: ExtendTrialModalProps) {
+function ExtendTrialModal({ org, onClose, onSave, onError }: ExtendTrialModalProps) {
   const [days, setDays] = useState(30);
   const [loading, setLoading] = useState(false);
   const handleSave = async () => {
     setLoading(true);
-    try { await onSave(days); onClose(); } catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : String(e))); }
+    try { await onSave(days); onClose(); } catch (e: unknown) { onError?.(e instanceof Error ? e.message : String(e)); }
     finally { setLoading(false); }
   };
   return (
@@ -291,14 +295,15 @@ interface LeadNoteModalProps {
   lead: TradeWaitlistLead;
   onClose: () => void;
   onSave: (id: string, nota: string) => Promise<void>;
+  onError?: (msg: string) => void;
 }
-function LeadNoteModal({ lead, onClose, onSave }: LeadNoteModalProps) {
+function LeadNoteModal({ lead, onClose, onSave, onError }: LeadNoteModalProps) {
   const [nota, setNota] = useState(lead.notas ?? '');
   const [loading, setLoading] = useState(false);
   const handleSave = async () => {
     setLoading(true);
     try { await onSave(lead.id, nota); onClose(); }
-    catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : String(e))); }
+    catch (e: unknown) { onError?.(e instanceof Error ? e.message : String(e)); }
     finally { setLoading(false); }
   };
   return (
@@ -440,7 +445,11 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [showNewInstaller, setShowNewInstaller] = useState(false);
 
   // Sección activa
-  const [section, setSection] = useState<'orgs' | 'leads' | 'invoices'>('orgs');
+  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'invoices'>('dashboard');
+
+  // Dashboard — datos de gráficos
+  const [weeklyQuotes, setWeeklyQuotes] = useState<Array<{ week: string; count: number }>>([]);
+  const [weeklyQuotesLoading, setWeeklyQuotesLoading] = useState(false);
 
   // Platform invoices
   const [invoices, setInvoices]           = useState<TradePlatformInvoice[]>([]);
@@ -464,6 +473,8 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [copiedField, setCopiedField]     = useState<string | null>(null);
 
   const isAdmin = session?.user?.email === ADMIN_EMAIL;
+  const { toasts, toast, dismiss } = useToast();
+  const [confirmDelete, setConfirmDelete] = useState<TradeWaitlistLead | null>(null);
 
   // ── Load functions ─────────────────────────────────────────────────────
   const loadOrgs = async () => {
@@ -487,7 +498,14 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     finally { setInvoicesLoading(false); }
   };
 
-  useEffect(() => { if (isAdmin) loadOrgs(); }, [isAdmin]);
+  const loadWeeklyQuotes = async () => {
+    setWeeklyQuotesLoading(true);
+    try { setWeeklyQuotes(await adminLoadWeeklyQuotes()); }
+    catch { setWeeklyQuotes([]); }
+    finally { setWeeklyQuotesLoading(false); }
+  };
+
+  useEffect(() => { if (isAdmin) { loadOrgs(); loadWeeklyQuotes(); } }, [isAdmin]);
   useEffect(() => { if (isAdmin && section === 'leads') loadLeads(); }, [isAdmin, section]);
   useEffect(() => { if (isAdmin && section === 'invoices') loadInvoices(); }, [isAdmin, section]);
 
@@ -501,22 +519,22 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const handleResetPassword = async (org: AdminOrgRow) => {
     const email = org.auth_email ?? org.email ?? '';
     if (!email) return;
-    try { await adminSendPasswordReset(email); setResetSent(prev => new Set(prev).add(org.id)); }
-    catch (e: unknown) { alert('Error al enviar reset: ' + (e instanceof Error ? e.message : String(e))); }
+    try { await adminSendPasswordReset(email); setResetSent(prev => new Set(prev).add(org.id)); toast('success', `Email de reset enviado a ${email}`); }
+    catch (e: unknown) { toast('error', 'Error al enviar reset: ' + (e instanceof Error ? e.message : String(e))); }
   };
 
   const handleToggleSubscription = async (org: AdminOrgRow) => {
     const isActive = org.subscription?.status === 'active';
     setToggleLoading(org.id);
-    try { await setSubscriptionActive(org.id, !isActive); await loadOrgs(); }
-    catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : String(e))); }
+    try { await setSubscriptionActive(org.id, !isActive); await loadOrgs(); toast('success', `Suscripción ${isActive ? 'desactivada' : 'activada'}`); }
+    catch (e: unknown) { toast('error', 'Error: ' + (e instanceof Error ? e.message : String(e))); }
     finally { setToggleLoading(null); }
   };
 
   const handleOpenPortal = async (org: AdminOrgRow) => {
     setStripeLoading(`portal-${org.id}`);
     try { window.open(await getStripePortalUrl(org.id), '_blank', 'noopener'); }
-    catch (e: unknown) { alert('Error portal Stripe: ' + (e instanceof Error ? e.message : String(e))); }
+    catch (e: unknown) { toast('error', 'Error portal Stripe: ' + (e instanceof Error ? e.message : String(e))); }
     finally { setStripeLoading(null); }
   };
 
@@ -527,7 +545,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
       await navigator.clipboard.writeText(url);
       setCheckoutCopied(org.id);
       setTimeout(() => setCheckoutCopied(null), 3000);
-    } catch (e: unknown) { alert('Error checkout Stripe: ' + (e instanceof Error ? e.message : String(e))); }
+    } catch (e: unknown) { toast('error', 'Error checkout Stripe: ' + (e instanceof Error ? e.message : String(e))); }
     finally { setStripeLoading(null); }
   };
 
@@ -540,7 +558,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
 
   const handleWhatsApp = (lead: TradeWaitlistLead) => {
     const phone = (lead.telefono ?? '').replace(/\D/g, '');
-    if (!phone) { alert('Sin teléfono'); return; }
+    if (!phone) { toast('warning', 'Este lead no tiene teléfono registrado'); return; }
     const msg = encodeURIComponent(
       `Hola ${lead.nombre.split(' ')[0]}, soy Fernando de TrabFlow. Vi que solicitaste acceso a nuestra plataforma para instaladores. ¿Te parece si te comento cómo funciona? 👷`
     );
@@ -551,12 +569,12 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     const updates: Parameters<typeof adminUpdateWaitlistLead>[1] = { estado };
     if (estado === 'contactado' && !lead.contacted_at) updates.contacted_at = new Date().toISOString();
     try { await adminUpdateWaitlistLead(lead.id, updates); setLeads(prev => prev.map(l => l.id === lead.id ? { ...l, ...updates } : l)); }
-    catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : String(e))); }
+    catch (e: unknown) { toast('error', 'Error al actualizar estado: ' + (e instanceof Error ? e.message : String(e))); }
   };
 
   const handleLeadPrioridad = async (lead: TradeWaitlistLead, prioridad: WaitlistPrioridad) => {
     try { await adminUpdateWaitlistLead(lead.id, { prioridad }); setLeads(prev => prev.map(l => l.id === lead.id ? { ...l, prioridad } : l)); }
-    catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : String(e))); }
+    catch (e: unknown) { toast('error', 'Error al actualizar prioridad: ' + (e instanceof Error ? e.message : String(e))); }
   };
 
   const handleSaveNote = async (id: string, notas: string) => {
@@ -564,10 +582,16 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     setLeads(prev => prev.map(l => l.id === id ? { ...l, notas } : l));
   };
 
-  const handleDeleteLead = async (lead: TradeWaitlistLead) => {
-    if (!window.confirm(`¿Eliminar el lead de ${lead.nombre}? Esta acción no se puede deshacer.`)) return;
-    try { await adminDeleteWaitlistLead(lead.id); setLeads(prev => prev.filter(l => l.id !== lead.id)); }
-    catch (e: unknown) { alert('Error: ' + (e instanceof Error ? e.message : String(e))); }
+  const handleDeleteLead = (lead: TradeWaitlistLead) => {
+    setConfirmDelete(lead);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!confirmDelete) return;
+    const lead = confirmDelete;
+    setConfirmDelete(null);
+    try { await adminDeleteWaitlistLead(lead.id); setLeads(prev => prev.filter(l => l.id !== lead.id)); toast('success', `Lead de ${lead.nombre} eliminado`); }
+    catch (e: unknown) { toast('error', 'Error al eliminar: ' + (e instanceof Error ? e.message : String(e))); }
   };
 
   const handleOpenConvert = (lead: TradeWaitlistLead) => {
@@ -662,6 +686,32 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     return matchSearch && matchEstado && matchOficio && matchPrioridad;
   });
 
+  const arr  = mrr * 12;
+  const arpu = active > 0 ? Math.round(mrr / active) : 0;
+  const inactive30 = orgs.filter(o => {
+    if (!o.last_sign_in) return true;
+    return (Date.now() - new Date(o.last_sign_in).getTime()) > 30 * 86400000;
+  }).length;
+  const trialToPaidPct = (betaActiva + convertidos) > 0
+    ? Math.round(convertidos / (betaActiva + convertidos) * 100)
+    : 0;
+
+  // Altas por mes — últimos 12 meses
+  const monthlySignups = (() => {
+    const map = new Map<string, number>();
+    for (let i = 11; i >= 0; i--) {
+      const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() - i);
+      map.set(d.toISOString().slice(0, 7), 0);
+    }
+    for (const org of orgs) {
+      const key = org.created_at.slice(0, 7);
+      if (map.has(key)) map.set(key, (map.get(key) ?? 0) + 1);
+    }
+    return Array.from(map.entries()).map(([month, count]) => ({
+      month: month.slice(5), count,
+    }));
+  })();
+
   const STATS = [
     { label: 'Total clientes', value: totalOrgs, Icon: Users,      color: 'text-blue-400' },
     { label: 'En prueba',      value: trialing,  Icon: Clock,      color: 'text-yellow-400' },
@@ -669,16 +719,30 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     { label: 'MRR estimado',   value: `${mrr}€`, Icon: TrendingUp, color: 'text-purple-400' },
   ];
 
+  // ── NAV items ──────────────────────────────────────────────────────────
+  const NAV = [
+    { id: 'dashboard' as const, label: 'Dashboard',          Icon: TrendingUp },
+    { id: 'orgs'      as const, label: 'Clientes',           Icon: Users },
+    { id: 'leads'     as const, label: 'Leads beta',         Icon: Inbox,    badge: nuevosLeads },
+    { id: 'invoices'  as const, label: 'Facturación',        Icon: CreditCard },
+  ];
+
+  const reloadCurrent = () => {
+    if (section === 'leads') loadLeads();
+    else if (section === 'invoices') loadInvoices();
+    else { loadOrgs(); loadWeeklyQuotes(); }
+  };
+
   // ── Render ─────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-slate-900 text-white font-sans">
+    <div className="min-h-screen bg-slate-900 text-white font-sans flex flex-col">
 
       {/* Header */}
-      <div className="border-b border-slate-800 px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
+      <div className="border-b border-slate-800 px-4 py-3 flex items-center justify-between shrink-0">
+        <div className="flex items-center gap-3">
           <button onClick={() => setCurrentPage(ActivePage.Home)}
-            className="flex items-center gap-2 text-slate-400 hover:text-white text-sm cursor-pointer transition-colors">
-            <ArrowLeft className="h-4 w-4" /> Volver a la web
+            className="flex items-center gap-1.5 text-slate-400 hover:text-white text-xs cursor-pointer transition-colors">
+            <ArrowLeft className="h-3.5 w-3.5" /> Volver a la web
           </button>
           <div className="h-4 w-px bg-slate-700" />
           <div className="flex items-center gap-2">
@@ -686,21 +750,18 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
             <span className="font-bold text-sm uppercase tracking-wider text-white">Admin Panel</span>
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <span className="text-xs text-slate-500 hidden sm:block">{session?.user?.email}</span>
           <button onClick={() => { setShowNewInstaller(true); setLeadFromConvert(undefined); }}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white cursor-pointer transition-colors">
             <UserPlus className="h-3.5 w-3.5" /> Nuevo instalador
           </button>
-          <button onClick={section === 'leads' ? loadLeads : loadOrgs} title="Recargar"
+          <button onClick={reloadCurrent} title="Recargar"
             className="h-8 w-8 rounded border border-slate-700 flex items-center justify-center hover:bg-slate-800 cursor-pointer transition-colors">
-            <RefreshCw className={`h-3.5 w-3.5 text-slate-400 ${(loading || leadsLoading) ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`h-3.5 w-3.5 text-slate-400 ${(loading || leadsLoading || weeklyQuotesLoading) ? 'animate-spin' : ''}`} />
           </button>
           <button
-            onClick={async () => {
-              await supabase.auth.signOut();
-              setCurrentPage(ActivePage.Home);
-            }}
+            onClick={async () => { await supabase.auth.signOut(); setCurrentPage(ActivePage.Home); }}
             title="Cerrar sesión"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold border border-slate-700 text-slate-400 hover:text-white hover:border-red-700 hover:bg-red-900/20 cursor-pointer transition-colors">
             <LogOut className="h-3.5 w-3.5" /> Cerrar sesión
@@ -708,39 +769,173 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      {/* Body: sidebar + content */}
+      <div className="flex flex-1 min-h-0">
 
-        {/* Stats row */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-          {STATS.map(({ label, value, Icon, color }) => (
-            <div key={label} className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs text-slate-400 uppercase tracking-wider">{label}</span>
-                <Icon className={`h-4 w-4 ${color}`} />
-              </div>
-              <div className="text-2xl font-bold text-white">{value}</div>
-            </div>
-          ))}
-        </div>
+        {/* Sidebar */}
+        <aside className="hidden md:flex flex-col w-48 shrink-0 border-r border-slate-800 bg-slate-900/80 py-4 px-2">
+          <nav className="flex flex-col gap-0.5 flex-1">
+            {NAV.map(({ id, label, Icon, badge }) => (
+              <button key={id} onClick={() => setSection(id)}
+                className={`flex items-center gap-2.5 px-3 py-2 rounded text-xs font-semibold transition-all cursor-pointer w-full text-left ${
+                  section === id
+                    ? 'bg-blue-600 text-white'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                }`}>
+                <Icon className="h-3.5 w-3.5 shrink-0" />
+                <span className="flex-1">{label}</span>
+                {badge != null && badge > 0 && (
+                  <span className="bg-red-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none">{badge}</span>
+                )}
+              </button>
+            ))}
+          </nav>
+          <div className="px-3 pt-4 border-t border-slate-800 mt-4">
+            <p className="text-[10px] text-slate-500 truncate mb-2">{session?.user?.email}</p>
+            <button onClick={async () => { await supabase.auth.signOut(); setCurrentPage(ActivePage.Home); }}
+              className="flex items-center gap-2 text-xs text-slate-500 hover:text-red-400 cursor-pointer transition-colors w-full">
+              <LogOut className="h-3.5 w-3.5" /> Cerrar sesión
+            </button>
+          </div>
+        </aside>
 
-        {/* Section tabs */}
-        <div className="flex gap-1 mb-6 bg-slate-800/50 border border-slate-700 rounded-lg p-1 w-fit">
-          {([
-            { id: 'orgs',     label: 'Clientes',          Icon: Users },
-            { id: 'leads',    label: 'Solicitudes beta',   Icon: Inbox },
-            { id: 'invoices', label: 'Facturas plataforma',Icon: CreditCard },
-          ] as const).map(({ id, label, Icon }) => (
+        {/* Mobile tabs (solo visible en < md) */}
+        <div className="md:hidden flex gap-1 px-4 py-2 border-b border-slate-800 bg-slate-900 overflow-x-auto">
+          {NAV.map(({ id, label, Icon, badge }) => (
             <button key={id} onClick={() => setSection(id)}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded text-xs font-semibold transition-all cursor-pointer ${
+              className={`flex items-center gap-1 px-3 py-1.5 rounded text-xs font-semibold whitespace-nowrap cursor-pointer transition-colors ${
                 section === id ? 'bg-blue-600 text-white' : 'text-slate-400 hover:text-white'
               }`}>
-              <Icon className="h-3.5 w-3.5" /> {label}
-              {id === 'leads' && nuevosLeads > 0 && (
-                <span className="ml-1 bg-red-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full">{nuevosLeads}</span>
+              <Icon className="h-3 w-3" /> {label}
+              {badge != null && badge > 0 && (
+                <span className="bg-red-600 text-white text-[9px] font-black px-1 py-0.5 rounded-full">{badge}</span>
               )}
             </button>
           ))}
         </div>
+
+        {/* Main content */}
+        <main className="flex-1 min-w-0 overflow-y-auto">
+        <div className="max-w-6xl mx-auto px-5 py-6">
+
+        {/* ════════════════════════════════════════════════════════
+            SECCIÓN: DASHBOARD
+        ════════════════════════════════════════════════════════ */}
+        {section === 'dashboard' && (
+          <div className="space-y-6">
+
+            {/* KPI cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+              {[
+                { label: 'MRR',             value: `${mrr}€`,        color: 'text-purple-400',  Icon: TrendingUp },
+                { label: 'ARR',             value: `${arr}€`,        color: 'text-purple-300',  Icon: TrendingUp },
+                { label: 'ARPU',            value: `${arpu}€`,       color: 'text-blue-400',    Icon: Users },
+                { label: 'Activos pago',    value: active,           color: 'text-emerald-400', Icon: CheckCircle },
+                { label: 'En trial',        value: trialing,         color: 'text-yellow-400',  Icon: Clock },
+                { label: 'Sin actividad 30d', value: inactive30,     color: inactive30 > 0 ? 'text-red-400' : 'text-slate-400', Icon: WifiOff },
+              ].map(({ label, value, color, Icon }) => (
+                <div key={label} className="bg-slate-800/50 border border-slate-700 rounded-lg p-3">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[9px] text-slate-400 uppercase tracking-wider leading-tight">{label}</span>
+                    <Icon className={`h-3.5 w-3.5 ${color}`} />
+                  </div>
+                  <div className={`text-2xl font-bold ${color}`}>{value}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Segunda fila KPIs */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {[
+                { label: 'Total clientes',  value: totalOrgs,           color: 'text-slate-300' },
+                { label: 'Trial → pago %',  value: `${trialToPaidPct}%`,color: 'text-pink-400' },
+                { label: 'Leads nuevos',    value: nuevosLeads,         color: 'text-blue-400' },
+                { label: 'Leads convertidos', value: convertidos,       color: 'text-emerald-400' },
+              ].map(({ label, value, color }) => (
+                <div key={label} className="bg-slate-800/50 border border-slate-700 rounded-lg p-3">
+                  <div className="text-[9px] text-slate-400 uppercase tracking-wider mb-1">{label}</div>
+                  <div className={`text-xl font-bold ${color}`}>{value}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Gráficos */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+              {/* Altas por mes */}
+              <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Altas por mes (12 meses)</h3>
+                <ResponsiveContainer width="100%" height={180}>
+                  <BarChart data={monthlySignups} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                    <XAxis dataKey="month" tick={{ fill: '#94a3b8', fontSize: 10 }} />
+                    <YAxis tick={{ fill: '#94a3b8', fontSize: 10 }} allowDecimals={false} />
+                    <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 6, fontSize: 12 }} />
+                    <Bar dataKey="count" fill="#3b82f6" radius={[3, 3, 0, 0]} name="Altas" />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Presupuestos por semana */}
+              <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Presupuestos por semana (8 semanas)</h3>
+                {weeklyQuotesLoading ? (
+                  <div className="h-[180px] flex items-center justify-center">
+                    <RefreshCw className="h-4 w-4 text-slate-500 animate-spin" />
+                  </div>
+                ) : (
+                  <ResponsiveContainer width="100%" height={180}>
+                    <LineChart data={weeklyQuotes} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                      <XAxis dataKey="week" tick={{ fill: '#94a3b8', fontSize: 10 }}
+                        tickFormatter={(v: string) => v.slice(5)} />
+                      <YAxis tick={{ fill: '#94a3b8', fontSize: 10 }} allowDecimals={false} />
+                      <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 6, fontSize: 12 }} />
+                      <Line type="monotone" dataKey="count" stroke="#10b981" strokeWidth={2}
+                        dot={{ fill: '#10b981', r: 3 }} name="Presupuestos" />
+                    </LineChart>
+                  </ResponsiveContainer>
+                )}
+              </div>
+            </div>
+
+            {/* Trials urgentes */}
+            {orgs.some(o => {
+              if (o.subscription?.status !== 'trial') return false;
+              return Math.ceil((new Date(o.subscription.trial_end).getTime() - Date.now()) / 86400000) <= 7;
+            }) && (
+              <div className="bg-yellow-900/20 border border-yellow-800/50 rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <AlertTriangle className="h-4 w-4 text-yellow-400" />
+                  <span className="text-yellow-300 font-semibold text-sm">Trials próximos a vencer</span>
+                </div>
+                <div className="space-y-1.5">
+                  {orgs.filter(o => {
+                    if (o.subscription?.status !== 'trial') return false;
+                    return Math.ceil((new Date(o.subscription.trial_end).getTime() - Date.now()) / 86400000) <= 7;
+                  }).map(o => {
+                    const d = Math.ceil((new Date(o.subscription!.trial_end).getTime() - Date.now()) / 86400000);
+                    return (
+                      <div key={o.id} className="flex items-center gap-3">
+                        <span className="text-xs text-yellow-200/80 font-semibold w-40 truncate">{o.nombre}</span>
+                        <span className="text-xs text-yellow-300/60">{d <= 0 ? 'Vence hoy' : `${d} día${d !== 1 ? 's' : ''}`}</span>
+                        <button onClick={() => setExtendOrg(o)}
+                          className="flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-yellow-700/50 border border-yellow-700 text-yellow-200 hover:bg-yellow-600 cursor-pointer transition-colors">
+                          <CalendarPlus className="h-3 w-3" /> Extender
+                        </button>
+                        <button onClick={() => setSection('orgs')}
+                          className="text-[10px] text-slate-400 hover:text-white cursor-pointer transition-colors">
+                          Ver →
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+          </div>
+        )}
 
         {/* ════════════════════════════════════════════════════════
             SECCIÓN: CLIENTES
@@ -1208,7 +1403,9 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
           </div>
         )}
 
-      </div>
+        </div>{/* max-w-6xl */}
+        </main>
+      </div>{/* flex body */}
 
       {/* ── Modales ───────────────────────────────────────────────────────── */}
 
@@ -1227,7 +1424,8 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
         <ExtendTrialModal
           org={extendOrg}
           onClose={() => setExtendOrg(null)}
-          onSave={async (days) => { await adminExtendTrial(extendOrg.id, days); await loadOrgs(); }}
+          onSave={async (days) => { await adminExtendTrial(extendOrg.id, days); await loadOrgs(); toast('success', `Trial de ${extendOrg.nombre} extendido ${days} días`); }}
+          onError={(msg) => toast('error', msg)}
         />
       )}
 
@@ -1243,7 +1441,8 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
         <LeadNoteModal
           lead={noteModal}
           onClose={() => setNoteModal(null)}
-          onSave={handleSaveNote}
+          onSave={async (id, nota) => { await handleSaveNote(id, nota); toast('success', 'Nota guardada'); }}
+          onError={(msg) => toast('error', msg)}
         />
       )}
 
@@ -1251,9 +1450,20 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
         <LeadConvertModal
           lead={convertModal}
           onClose={() => setConvertModal(null)}
-          onConverted={() => { loadOrgs(); loadLeads(); }}
+          onConverted={() => { loadOrgs(); loadLeads(); toast('success', `Instalador creado desde lead`); }}
         />
       )}
+
+      {confirmDelete && (
+        <ConfirmModal
+          message={`¿Eliminar el lead de ${confirmDelete.nombre}? Esta acción no se puede deshacer.`}
+          danger
+          onConfirm={handleConfirmDelete}
+          onCancel={() => setConfirmDelete(null)}
+        />
+      )}
+
+      <ToastContainer toasts={toasts} dismiss={dismiss} />
 
     </div>
   );

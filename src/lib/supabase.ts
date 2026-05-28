@@ -1267,6 +1267,39 @@ export async function getStripeCheckoutUrl(orgId: string, plan?: string, billing
 
 // ── CRM Waitlist ───────────────────────────────────────────────────────────
 
+export async function adminLoadWeeklyQuotes(weeks = 8): Promise<Array<{ week: string; count: number }>> {
+  const since = new Date();
+  since.setDate(since.getDate() - weeks * 7);
+  const { data } = await supabase
+    .from('trade_quotes')
+    .select('created_at')
+    .gte('created_at', since.toISOString());
+
+  const weekMap = new Map<string, number>();
+  for (const row of (data ?? []) as Array<{ created_at: string }>) {
+    const d = new Date(row.created_at);
+    const day = d.getDay();
+    const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+    const monday = new Date(d);
+    monday.setDate(diff);
+    const key = monday.toISOString().slice(0, 10);
+    weekMap.set(key, (weekMap.get(key) ?? 0) + 1);
+  }
+
+  const result: Array<{ week: string; count: number }> = [];
+  for (let i = weeks - 1; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i * 7);
+    const day = d.getDay();
+    const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+    const monday = new Date(d);
+    monday.setDate(diff);
+    const key = monday.toISOString().slice(0, 10);
+    result.push({ week: key, count: weekMap.get(key) ?? 0 });
+  }
+  return result;
+}
+
 export async function adminLoadWaitlist(): Promise<TradeWaitlistLead[]> {
   const { data, error } = await supabase.rpc('admin_get_waitlist_leads');
   if (error) throw error;
