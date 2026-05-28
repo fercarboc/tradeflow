@@ -5,19 +5,19 @@ import type { OrgMember } from '../lib/supabase';
 import { useSession } from '../context/SessionContext';
 import type { Rol } from '../context/SessionContext';
 
-const ROL_META: Record<string, { label: string; className: string }> = {
-  owner:       { label: 'Propietario', className: 'bg-amber-500/15 text-amber-400 border border-amber-500/30' },
-  admin:       { label: 'Admin',       className: 'bg-purple-500/15 text-purple-400 border border-purple-500/30' },
-  comercial:   { label: 'Comercial',   className: 'bg-blue-500/15 text-blue-400 border border-blue-500/30' },
-  tecnico:     { label: 'Técnico',     className: 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30' },
-  visualizador:{ label: 'Visualizador',className: 'bg-slate-500/15 text-slate-400 border border-slate-500/30' },
+const ROL_META: Record<string, { label: string; badge: string }> = {
+  owner:        { label: 'Propietario', badge: 'bg-amber-100 text-amber-700 border border-amber-200' },
+  admin:        { label: 'Admin',       badge: 'bg-purple-100 text-purple-700 border border-purple-200' },
+  comercial:    { label: 'Comercial',   badge: 'bg-blue-100 text-blue-700 border border-blue-200' },
+  tecnico:      { label: 'Técnico',     badge: 'bg-emerald-100 text-emerald-700 border border-emerald-200' },
+  visualizador: { label: 'Visualizador',badge: 'bg-slate-100 text-slate-600 border border-slate-200' },
 };
 
 const INVITABLE_ROLES: { value: Rol; label: string }[] = [
-  { value: 'admin',       label: 'Admin' },
-  { value: 'comercial',   label: 'Comercial' },
-  { value: 'tecnico',     label: 'Técnico' },
-  { value: 'visualizador',label: 'Visualizador' },
+  { value: 'admin',        label: 'Admin' },
+  { value: 'comercial',    label: 'Comercial' },
+  { value: 'tecnico',      label: 'Técnico' },
+  { value: 'visualizador', label: 'Visualizador' },
 ];
 
 interface Props {
@@ -54,7 +54,7 @@ export default function ScreenEquipo({ showToast }: Props) {
         body: { email: inviteEmail.trim().toLowerCase(), rol: inviteRol, org_id: org.id },
       });
       if (error) throw new Error(error.message);
-      showToast('Invitacion enviada', 'success');
+      showToast('Invitación enviada', 'success');
       setInviteOpen(false);
       setInviteEmail('');
       const updated = await loadOrgMembers(org.id);
@@ -98,10 +98,7 @@ export default function ScreenEquipo({ showToast }: Props) {
 
       {/* Cabecera */}
       <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white">Equipo</h2>
-          <p className="text-sm text-slate-500">{members.length + 1} miembro{members.length !== 0 ? 's' : ''}</p>
-        </div>
+        <p className="text-sm text-slate-500">{members.length + 1} miembro{members.length !== 0 ? 's' : ''}</p>
         {canManage && (
           <button
             onClick={() => setInviteOpen(true)}
@@ -114,21 +111,21 @@ export default function ScreenEquipo({ showToast }: Props) {
       </div>
 
       {/* Lista de miembros */}
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden">
+      <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
 
-        {/* Fila del propietario (siempre primera) */}
-        <div className="flex items-center gap-4 px-5 py-4 border-b border-slate-100 dark:border-slate-800">
-          <div className="w-9 h-9 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-sm shrink-0">
+        {/* Fila del propietario */}
+        <div className="flex items-center gap-4 px-5 py-4 border-b border-slate-100">
+          <div className="w-9 h-9 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 font-bold text-sm shrink-0">
             {initials(user?.email ?? 'TF')}
           </div>
           <div className="flex-grow min-w-0">
-            <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">{user?.email}</p>
-            <p className="text-xs text-slate-400">Tu</p>
+            <p className="text-sm font-semibold text-slate-900 truncate">{user?.email}</p>
+            <p className="text-xs text-slate-400">Tú</p>
           </div>
-          <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${ROL_META.owner.className}`}>
+          <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${ROL_META.owner.badge}`}>
             {ROL_META.owner.label}
           </span>
-          <span className="text-xs text-emerald-400 font-medium w-16 text-right">Activo</span>
+          <span className="text-xs text-emerald-600 font-medium w-16 text-right">Activo</span>
         </div>
 
         {/* Miembros invitados */}
@@ -137,9 +134,9 @@ export default function ScreenEquipo({ showToast }: Props) {
         )}
         {!loading && members.length === 0 && (
           <div className="px-5 py-10 text-center">
-            <Users className="w-8 h-8 text-slate-600 mx-auto mb-2" />
-            <p className="text-sm text-slate-400">No hay miembros invitados.</p>
-            <p className="text-xs text-slate-500 mt-1">Invita a tu equipo para colaborar juntos.</p>
+            <Users className="w-8 h-8 text-slate-200 mx-auto mb-2" />
+            <p className="text-sm text-slate-500">No hay miembros invitados.</p>
+            <p className="text-xs text-slate-400 mt-1">Invita a tu equipo para colaborar juntos.</p>
           </div>
         )}
         {members.map((m, idx) => {
@@ -148,24 +145,23 @@ export default function ScreenEquipo({ showToast }: Props) {
           return (
             <div
               key={m.id}
-              className={`flex items-center gap-4 px-5 py-4 ${!isLast ? 'border-b border-slate-100 dark:border-slate-800' : ''}`}
+              className={`flex items-center gap-4 px-5 py-4 ${!isLast ? 'border-b border-slate-100' : ''}`}
             >
-              <div className="w-9 h-9 rounded-full bg-slate-700 flex items-center justify-center text-slate-300 font-bold text-sm shrink-0">
+              <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-sm shrink-0">
                 {initials(m.email ?? '??')}
               </div>
               <div className="flex-grow min-w-0">
-                <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">{m.email}</p>
-                <p className="text-xs text-slate-400">{m.activo ? 'Activo' : 'Invitacion pendiente'}</p>
+                <p className="text-sm font-semibold text-slate-900 truncate">{m.email}</p>
+                <p className="text-xs text-slate-400">{m.activo ? 'Activo' : 'Invitación pendiente'}</p>
               </div>
 
-              {/* Badge rol (clicable para cambiar) */}
               {editingId === m.id ? (
                 <select
                   autoFocus
                   defaultValue={m.rol}
                   onChange={e => handleChangeRol(m.id, e.target.value as Rol)}
                   onBlur={() => setEditingId(null)}
-                  className="text-xs bg-slate-800 border border-slate-600 rounded px-2 py-1 text-white cursor-pointer"
+                  className="text-xs bg-white border border-slate-300 rounded px-2 py-1 text-slate-900 cursor-pointer focus:outline-none focus:border-blue-500"
                 >
                   {INVITABLE_ROLES.map(r => (
                     <option key={r.value} value={r.value}>{r.label}</option>
@@ -175,23 +171,22 @@ export default function ScreenEquipo({ showToast }: Props) {
                 <button
                   onClick={() => canManage && setEditingId(m.id)}
                   disabled={!canManage}
-                  className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${meta.className} ${canManage ? 'cursor-pointer hover:opacity-80' : 'cursor-default'}`}
+                  className={`text-xs font-semibold px-2.5 py-1 rounded-full ${meta.badge} ${canManage ? 'cursor-pointer hover:opacity-80' : 'cursor-default'}`}
                   title={canManage ? 'Click para cambiar rol' : undefined}
                 >
                   {meta.label}
                 </button>
               )}
 
-              <span className={`text-xs font-medium w-20 text-right ${m.activo ? 'text-emerald-400' : 'text-amber-400'}`}>
+              <span className={`text-xs font-medium w-20 text-right ${m.activo ? 'text-emerald-600' : 'text-amber-600'}`}>
                 {m.activo ? 'Activo' : 'Pendiente'}
               </span>
 
-              {/* Revocar */}
               {canManage && (
                 <button
                   onClick={() => handleRevoke(m.id, m.email ?? '')}
                   disabled={revoking === m.id}
-                  className="p-1.5 rounded text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-colors cursor-pointer"
+                  className="p-1.5 rounded text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors cursor-pointer"
                   title="Revocar acceso"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -203,52 +198,52 @@ export default function ScreenEquipo({ showToast }: Props) {
       </div>
 
       {/* Panel informativo de roles */}
-      <div className="bg-blue-500/5 border border-blue-500/20 rounded-xl p-4 flex gap-3">
-        <Shield className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
-        <div className="text-sm text-slate-400 space-y-1">
-          <p><strong className="text-purple-400">Admin:</strong> Acceso completo excepto suscripcion y ajustes de empresa.</p>
-          <p><strong className="text-blue-400">Comercial:</strong> Crea presupuestos y gestiona clientes. Sin facturas.</p>
-          <p><strong className="text-emerald-400">Tecnico:</strong> Solo ve sus trabajos asignados en el planificador.</p>
-          <p><strong className="text-slate-300">Visualizador:</strong> Solo lectura, sin crear ni editar nada.</p>
+      <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3">
+        <Shield className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
+        <div className="text-sm space-y-1">
+          <p><strong className="text-purple-600">Admin:</strong> <span className="text-slate-600">Acceso completo excepto suscripción y ajustes de empresa.</span></p>
+          <p><strong className="text-blue-600">Comercial:</strong> <span className="text-slate-600">Crea presupuestos y gestiona clientes. Sin facturas.</span></p>
+          <p><strong className="text-emerald-600">Técnico:</strong> <span className="text-slate-600">Solo ve sus trabajos asignados en el planificador.</span></p>
+          <p><strong className="text-slate-500">Visualizador:</strong> <span className="text-slate-500">Solo lectura, sin crear ni editar nada.</span></p>
         </div>
       </div>
 
-      {/* Modal de invitacion */}
+      {/* Modal de invitación */}
       {inviteOpen && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md p-6 space-y-5">
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl w-full max-w-md p-6 space-y-5 shadow-xl">
             <div className="flex items-center justify-between">
-              <h3 className="text-white font-bold text-base">Invitar miembro</h3>
-              <button onClick={() => setInviteOpen(false)} className="text-slate-400 hover:text-white cursor-pointer">
+              <h3 className="text-slate-900 font-bold text-base">Invitar miembro</h3>
+              <button onClick={() => setInviteOpen(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
             <div className="space-y-4">
               <div>
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1.5">
                   Email
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                   <input
                     type="email"
                     value={inviteEmail}
                     onChange={e => setInviteEmail(e.target.value)}
                     placeholder="nombre@empresa.com"
-                    className="w-full pl-9 pr-4 py-2.5 bg-slate-800 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500"
+                    className="w-full pl-9 pr-4 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-900 text-sm focus:outline-none focus:border-blue-500"
                     onKeyDown={e => e.key === 'Enter' && handleInvite()}
                     autoFocus
                   />
                 </div>
               </div>
               <div>
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">
+                <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1.5">
                   Rol
                 </label>
                 <select
                   value={inviteRol}
                   onChange={e => setInviteRol(e.target.value as Rol)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg text-white text-sm px-3 py-2.5 focus:outline-none focus:border-blue-500 cursor-pointer"
+                  className="w-full bg-white border border-slate-300 rounded-lg text-slate-900 text-sm px-3 py-2.5 focus:outline-none focus:border-blue-500 cursor-pointer"
                 >
                   {INVITABLE_ROLES.map(r => (
                     <option key={r.value} value={r.value}>{r.label}</option>
@@ -259,7 +254,7 @@ export default function ScreenEquipo({ showToast }: Props) {
             <div className="flex gap-3 pt-1">
               <button
                 onClick={() => setInviteOpen(false)}
-                className="flex-1 py-2.5 rounded-lg border border-slate-700 text-slate-300 text-sm hover:bg-slate-800 transition-colors cursor-pointer"
+                className="flex-1 py-2.5 rounded-lg border border-slate-200 text-slate-600 text-sm hover:bg-slate-50 transition-colors cursor-pointer"
               >
                 Cancelar
               </button>
@@ -268,7 +263,7 @@ export default function ScreenEquipo({ showToast }: Props) {
                 disabled={inviting || !inviteEmail.trim()}
                 className="flex-1 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
-                {inviting ? 'Enviando...' : 'Enviar invitacion'}
+                {inviting ? 'Enviando...' : 'Enviar invitación'}
               </button>
             </div>
           </div>
