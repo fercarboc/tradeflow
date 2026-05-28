@@ -64,6 +64,7 @@ import CatalogImportModal from './CatalogImportModal';
 import GlobalCatalogModal from './GlobalCatalogModal';
 import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } from '../lib/catalogExcel';
 import ScreenPlanificacion from './ScreenPlanificacion';
+import ScreenEquipo from './ScreenEquipo';
 
 const InvoiceIcon = FileText;
 
@@ -92,6 +93,152 @@ interface TarifaItem {
   precioBase: number;
   unidad: string;
   activo: boolean;
+}
+
+// ── MobileCatalogScreen ───────────────────────────────────────────────────────
+interface MobileCatalogScreenProps {
+  tarifas: TarifaItem[];
+  isLiveMode: boolean;
+  onUpdatePrice: (id: string, price: number) => Promise<void>;
+  showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
+}
+
+function MobileCatalogScreen({ tarifas, isLiveMode, onUpdatePrice, showToast }: MobileCatalogScreenProps) {
+  const [search, setSearch]             = React.useState('');
+  const [familyFilter, setFamilyFilter] = React.useState('');
+  const [editingId, setEditingId]       = React.useState<string | null>(null);
+  const [editPrice, setEditPrice]       = React.useState('');
+  const [saving, setSaving]             = React.useState(false);
+
+  const active   = tarifas.filter(t => t.activo);
+  const families = [...new Set(active.map(t => t.familia))].filter(Boolean).sort();
+  const q        = search.toLowerCase();
+
+  const filtered = active.filter(t => {
+    const matchFamily = !familyFilter || t.familia === familyFilter;
+    const matchSearch = !q ||
+      t.descripcion.toLowerCase().includes(q) ||
+      t.codigo.toLowerCase().includes(q) ||
+      t.familia.toLowerCase().includes(q);
+    return matchFamily && matchSearch;
+  });
+
+  const handleSave = async (id: string) => {
+    const price = parseFloat(editPrice.replace(',', '.'));
+    if (isNaN(price) || price < 0) return;
+    setSaving(true);
+    try {
+      await onUpdatePrice(id, price);
+      showToast('Precio actualizado ✓', 'success');
+      setEditingId(null);
+    } catch {
+      showToast('Error al actualizar precio', 'error');
+    }
+    setSaving(false);
+  };
+
+  return (
+    <div className="space-y-3 pb-4">
+      {/* Buscador */}
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+        <input
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          placeholder="Buscar material, servicio o referencia..."
+          className="w-full pl-9 pr-3 py-2.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs placeholder-slate-400 text-slate-800 dark:text-white focus:outline-none focus:border-blue-500 transition"
+        />
+      </div>
+
+      {/* Filtros familia */}
+      {families.length > 0 && (
+        <div className="flex gap-1.5 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
+          <button
+            onClick={() => setFamilyFilter('')}
+            className={`shrink-0 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase transition-colors cursor-pointer ${
+              !familyFilter ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+            }`}
+          >
+            Todas
+          </button>
+          {families.map(f => (
+            <button
+              key={f}
+              onClick={() => setFamilyFilter(f === familyFilter ? '' : f)}
+              className={`shrink-0 px-2.5 py-1 rounded-full text-[9px] font-bold transition-colors cursor-pointer ${
+                f === familyFilter ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+              }`}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Lista artículos */}
+      {active.length === 0 ? (
+        <div className="text-center py-12">
+          <Package className="w-10 h-10 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
+          <p className="text-sm font-bold text-slate-500 dark:text-slate-400">Sin artículos en el catálogo</p>
+          <p className="text-xs text-slate-400 mt-1">Importa tu catálogo desde Ajustes → Catálogo.</p>
+        </div>
+      ) : filtered.length === 0 ? (
+        <p className="text-center text-xs text-slate-400 py-8">Sin resultados para "{search}"</p>
+      ) : (
+        <div className="space-y-1.5">
+          {filtered.slice(0, 150).map(t => (
+            <div key={t.id} className="flex items-center gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2.5">
+              <div className="flex-1 min-w-0">
+                <p className="text-[9px] font-mono font-bold text-blue-500 dark:text-blue-400 uppercase mb-0.5">{t.familia}</p>
+                <p className="text-xs font-semibold text-slate-800 dark:text-white leading-tight">{t.descripcion}</p>
+                {t.codigo && <p className="text-[9px] text-slate-400 mt-0.5">Ref: {t.codigo}</p>}
+              </div>
+              <div className="shrink-0 text-right">
+                {editingId === t.id ? (
+                  <div className="flex items-center gap-1">
+                    <input
+                      type="number"
+                      step="0.01"
+                      value={editPrice}
+                      onChange={e => setEditPrice(e.target.value)}
+                      onKeyDown={e => { if (e.key === 'Enter') handleSave(t.id); if (e.key === 'Escape') setEditingId(null); }}
+                      className="w-20 text-xs text-right bg-white dark:bg-slate-700 border border-blue-400 rounded-lg px-2 py-1 focus:outline-none"
+                      autoFocus
+                    />
+                    <button onClick={() => handleSave(t.id)} disabled={saving} className="p-1 text-emerald-500 hover:text-emerald-400 cursor-pointer disabled:opacity-50">
+                      <Check className="w-3.5 h-3.5" />
+                    </button>
+                    <button onClick={() => setEditingId(null)} className="p-1 text-slate-400 hover:text-slate-600 cursor-pointer">
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      if (!isLiveMode) { showToast('Activa el modo real para editar precios', 'info'); return; }
+                      setEditingId(t.id);
+                      setEditPrice(t.precioBase.toFixed(2));
+                    }}
+                    className="text-right group cursor-pointer"
+                  >
+                    <p className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-500 transition-colors">
+                      {t.precioBase.toFixed(2)} €
+                    </p>
+                    <p className="text-[9px] text-slate-400">/{t.unidad}</p>
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
+          {filtered.length > 150 && (
+            <p className="text-center text-[9px] text-slate-400 py-2">
+              Mostrando 150 de {filtered.length}. Usa el buscador para filtrar.
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
 }
 
 interface PresetPhoto {
@@ -210,7 +357,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }, [initialMobile]);
 
   // Tabs de navegación móvil
-  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos'>('inicio');
+  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo'>('inicio');
   const [isSessionClosed, setIsSessionClosed] = useState(false);
   const [showFloatingMenu, setShowFloatingMenu] = useState<boolean>(false);
 
@@ -1909,7 +2056,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         <div
           className="flex-grow overflow-y-auto overscroll-contain"
           style={{
-            padding: isNativeDevice ? '16px 16px 0' : '16px',
+            padding: mobileTab === 'trabajos' ? '0' : (isNativeDevice ? '16px 16px 0' : '16px'),
             paddingBottom: isNativeDevice
               ? 'calc(80px + env(safe-area-inset-bottom, 0px) + 8px)'
               : '80px',
@@ -1920,6 +2067,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {mobileTab === 'clientes' && MobileScreenClientes()}
           {mobileTab === 'facturas' && MobileScreenFacturas()}
           {mobileTab === 'ajustes' && ScreenSettings()}
+          {mobileTab === 'catalogo' && (
+            <MobileCatalogScreen
+              tarifas={tarifas}
+              isLiveMode={isLiveMode}
+              onUpdatePrice={async (id, price) => {
+                if (isLiveMode) await updateTarifaPrice(id, price);
+                setTarifas(prev => prev.map(t => t.id === id ? { ...t, precioBase: price } : t));
+              }}
+              showToast={showToast}
+            />
+          )}
           {mobileTab === 'trabajos' && (
             <ScreenPlanificacion
               jobs={jobs}
@@ -1977,12 +2135,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             }}
           >
             {MobileTabButton({ tab: 'inicio', icon: <TrendingUp className="w-5 h-5" />, label: 'Inicio' })}
+            {MobileTabButton({ tab: 'trabajos', icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
             {MobileTabButton({ tab: 'clientes', icon: <Users className="w-5 h-5" />, label: 'Clientes' })}
 
             {/* Hueco central para el FAB */}
             <div className="flex-1" />
 
-            {MobileTabButton({ tab: 'trabajos', icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
+            {MobileTabButton({ tab: 'catalogo', icon: <Package className="w-5 h-5" />, label: 'Catálogo' })}
             {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
             {MobileTabButton({ tab: 'ajustes', icon: <SettingsIcon className="w-5 h-5" />, label: 'Ajustes' })}
           </div>
@@ -2037,7 +2196,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     );
 
     // Helpers botones navegación móvil
-    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos'; icon: React.ReactNode; label: string }) {
+    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo'; icon: React.ReactNode; label: string }) {
       const isActive = mobileTab === tab;
       return (
         <button
@@ -3117,6 +3276,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <FileText className="w-4 h-4" />, label: 'Facturación' })}
             {can('catalog.manage') && SidebarBtn({ id: 'catalog', icon: <Package className="w-4 h-4" />, label: 'Catálogo' })}
             {can('jobs.view') && SidebarBtn({ id: 'planificacion', icon: <Calendar className="w-4 h-4" />, label: 'Planificación' })}
+            {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
@@ -3151,6 +3311,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'invoices' && 'Facturación'}
                 {activeTab === 'catalog' && 'Catálogo de Productos'}
                 {activeTab === 'planificacion' && 'Planificación de Trabajos'}
+                {activeTab === 'equipo' && 'Equipo y Permisos'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
               </h2>
@@ -3236,6 +3397,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     }}
                     showToast={showToast}
                   />
+                )}
+                {activeTab === 'equipo' && (
+                  <ScreenEquipo showToast={showToast} isLiveMode={isLiveMode} />
                 )}
                 {activeTab === 'settings' && ScreenSettings()}
                 {activeTab === 'preview' && ScreenPreview()}

@@ -1270,6 +1270,45 @@ export async function loadOrgSubscription(orgId: string): Promise<TradeSubscript
   return data ?? null;
 }
 
+// ── Equipo (miembros de la org) ───────────────────────────────────────────────
+
+export interface OrgMember {
+  id: string;
+  org_id: string;
+  user_id: string;
+  email: string;
+  rol: 'owner' | 'admin' | 'comercial' | 'tecnico' | 'visualizador';
+  activo: boolean;
+  invited_at: string | null;
+  created_at: string;
+}
+
+export async function loadOrgMembers(orgId: string): Promise<OrgMember[]> {
+  const { data, error } = await supabase
+    .from('trade_org_members')
+    .select('*')
+    .eq('org_id', orgId)
+    .order('created_at', { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as OrgMember[];
+}
+
+export async function updateMemberRol(memberId: string, rol: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_org_members')
+    .update({ rol })
+    .eq('id', memberId);
+  if (error) throw error;
+}
+
+export async function revokeMember(memberId: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_org_members')
+    .delete()
+    .eq('id', memberId);
+  if (error) throw error;
+}
+
 // ── Push notifications ────────────────────────────────────────────────────────
 
 

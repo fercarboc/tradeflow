@@ -74,6 +74,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         return;
       }
 
+      // Activar invitaciones pendientes para este usuario al entrar
+      await supabase
+        .from('trade_org_members')
+        .update({ activo: true })
+        .eq('user_id', user.id)
+        .eq('activo', false);
+
       let org: TradeOrganization | null = await getOwnOrg();
       let rol: Rol = 'owner';
       let memberId: string | null = null;
