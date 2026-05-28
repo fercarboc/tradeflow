@@ -1401,6 +1401,69 @@ export async function adminConvertLeadToInstaller(
   return result;
 }
 
+// ── Admin: sugerencias catálogo global ────────────────────────────────────────
+
+export interface TradeCatalogSuggestion {
+  id: string;
+  org_id: string;
+  descripcion: string;
+  oficio?: string;
+  familia?: string;
+  unidad: string;
+  precio_indicado?: number;
+  origen: 'voz' | 'foto' | 'manual';
+  estado: 'pendiente' | 'aprobado' | 'rechazado' | 'fusionado';
+  notas_admin?: string;
+  global_catalog_id?: string;
+  created_at: string;
+  // joined
+  org_nombre?: string;
+}
+
+export async function adminLoadCatalogSuggestions(estado?: string): Promise<TradeCatalogSuggestion[]> {
+  let q = supabase
+    .from('trade_catalog_suggestions')
+    .select('*, trade_organizations(nombre_empresa)')
+    .order('created_at', { ascending: false });
+  if (estado && estado !== 'todos') q = q.eq('estado', estado);
+  const { data } = await q;
+  return ((data ?? []) as unknown[]).map((r: unknown) => {
+    const row = r as Record<string, unknown>;
+    const org = row['trade_organizations'] as Record<string, unknown> | null;
+    return { ...row, org_nombre: org?.nombre_empresa ?? '—' } as TradeCatalogSuggestion;
+  });
+}
+
+export async function adminUpdateCatalogSuggestion(
+  id: string,
+  updates: { estado: TradeCatalogSuggestion['estado']; notas_admin?: string },
+): Promise<void> {
+  await supabase.from('trade_catalog_suggestions').update({ ...updates, updated_at: new Date().toISOString() }).eq('id', id);
+}
+
+export async function adminApproveSuggestionToGlobal(suggestion: TradeCatalogSuggestion): Promise<void> {
+  // Inserta en trade_global_catalog si no existe ya
+  const oficio = suggestion.oficio ?? 'General';
+  const familia = suggestion.familia ?? 'General';
+  const codigo = `SUG-${Date.now()}`;
+  const { data: inserted } = await supabase
+    .from('trade_global_catalog')
+    .insert({
+      oficio, familia, codigo,
+      descripcion: suggestion.descripcion,
+      unidad: suggestion.unidad ?? 'ud',
+      precio_referencia: suggestion.precio_indicado ?? 0,
+    })
+    .select('id')
+    .maybeSingle();
+
+  await supabase.from('trade_catalog_suggestions').update({
+    estado: 'aprobado',
+    global_catalog_id: inserted?.id ?? null,
+    updated_at: new Date().toISOString(),
+  }).eq('id', suggestion.id);
+}
+
 // ── Catálogo: aprender precio de una partida IA ───────────────────────────────
 
 export async function learnPriceToCatalog(
@@ -1408,6 +1471,7 @@ export async function learnPriceToCatalog(
   descripcion: string,
   precioVenta: number,
   tipo: 'material' | 'mano_de_obra',
+  origen: 'voz' | 'foto' | 'manual' = 'manual',
 ): Promise<void> {
   if (!precioVenta || precioVenta <= 0) return;
 
@@ -1456,4 +1520,15 @@ export async function learnPriceToCatalog(
     is_preferred: true,
     activo: true,
   });
+
+  // Sugerir al catálogo global para revisión del admin
+  await supabase.from('trade_catalog_suggestions').insert({
+    org_id: orgId,
+    descripcion: nombre,
+    familia: tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material',
+    unidad: tipo === 'mano_de_obra' ? 'h' : 'ud',
+    precio_indicado: precioVenta,
+    origen,
+    estado: 'pendiente',
+  }).then(() => {/* fire-and-forget */});
 }

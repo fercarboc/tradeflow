@@ -208,6 +208,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // Pasos del Asistente Móvil (Wizard)
   const [wizardActive, setWizardActive] = useState<boolean>(false);
   const [wizardStep, setWizardStep] = useState<number>(1);
+  const [wizardOrigin, setWizardOrigin] = useState<'voz' | 'foto' | 'manual'>('manual');
   const [wizardQuote, setWizardQuote] = useState<Partial<Presupuesto>>({
     id: '',
     nombreCliente: '',
@@ -828,6 +829,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // Iniciar asistente wizard
   const startWizard = (startingStep: number = 1) => {
+    setWizardOrigin(startingStep === 2 ? 'voz' : startingStep === 3 ? 'foto' : 'manual');
     setWizardQuote({
       id: `P-2026-00${presupuestos.length + 1}`,
       nombreCliente: '',
@@ -1172,7 +1174,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     if (!part?.requiere_precio || !part.precioUnitario || part.precioUnitario <= 0) return;
     if (!orgId) return;
     try {
-      await learnPriceToCatalog(orgId, part.descripcion, part.precioUnitario, part.tipo);
+      await learnPriceToCatalog(orgId, part.descripcion, part.precioUnitario, part.tipo, wizardOrigin);
       handleUpdateWizardItem(idx, { requiere_precio: false, aviso: '' });
       showToast('Precio guardado en catálogo ✓', 'success');
     } catch {

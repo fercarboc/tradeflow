@@ -12,8 +12,9 @@ import {
   getStripePortalUrl, getStripeCheckoutUrl,
   adminLoadWaitlist, adminUpdateWaitlistLead, adminDeleteWaitlistLead, adminConvertLeadToInstaller,
   adminLoadWeeklyQuotes,
+  adminLoadCatalogSuggestions, adminUpdateCatalogSuggestion, adminApproveSuggestionToGlobal,
   AdminOrgRow, TradeSubscription, TradePlatformInvoice, TradeWaitlistLead,
-  WaitlistEstado, WaitlistPrioridad,
+  WaitlistEstado, WaitlistPrioridad, TradeCatalogSuggestion,
 } from '../lib/supabase';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { exportToCsv } from '../lib/exportCsv';
@@ -25,7 +26,7 @@ import {
   Shield, CheckCircle, AlertTriangle, Building2, ChevronDown,
   Mail, KeyRound, Copy, CheckCheck, UserPlus, CalendarPlus,
   FileText, Contact, Phone, MessageCircle, Star, Trash2, UserCheck,
-  Inbox, Filter, LogOut, Download, WifiOff,
+  Inbox, Filter, LogOut, Download, WifiOff, Globe, ThumbsUp, ThumbsDown,
 } from 'lucide-react';
 
 const PLAN_PRICES: Record<string, { monthly: number; yearly: number }> = {
@@ -445,7 +446,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [showNewInstaller, setShowNewInstaller] = useState(false);
 
   // Sección activa
-  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'invoices'>('dashboard');
+  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'invoices' | 'suggestions'>('dashboard');
 
   // Dashboard — datos de gráficos
   const [weeklyQuotes, setWeeklyQuotes] = useState<Array<{ week: string; count: number }>>([]);
@@ -969,7 +970,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                 <thead>
                   <tr className="border-b border-slate-700">
                     {['Empresa / Instalador', 'Email login', 'Oficio(s)', 'Uso', 'Últ. presup.', 'Plan', 'Estado', 'Último acceso', 'Alta', 'Acciones'].map(h => (
-                      <th key={h} className="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">{h}</th>
+                      <th key={h} className="px-3 py-2 text-left text-[9px] font-bold uppercase tracking-wider text-slate-400 whitespace-nowrap">{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -994,31 +995,31 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
 
                     return (
                       <tr key={org.id} className="border-b border-slate-700/50 hover:bg-slate-800/60 transition-colors">
-                        <td className="px-4 py-3 max-w-[180px]">
-                          <div className="font-semibold text-white text-sm truncate">{org.nombre}</div>
-                          <div className="flex items-center gap-1 mt-0.5">
+                        <td className="px-3 py-1.5 max-w-[180px]">
+                          <div className="font-semibold text-white text-xs truncate">{org.nombre}</div>
+                          <div className="flex items-center gap-1">
                             {org.email_confirmed
-                              ? <CheckCircle className="h-3 w-3 text-emerald-400 shrink-0" />
-                              : <AlertTriangle className="h-3 w-3 text-yellow-400 shrink-0" />}
-                            <span className="text-[10px] text-slate-500">{org.email_confirmed ? 'Confirmado' : 'Sin confirmar'}</span>
+                              ? <CheckCircle className="h-2.5 w-2.5 text-emerald-400 shrink-0" />
+                              : <AlertTriangle className="h-2.5 w-2.5 text-yellow-400 shrink-0" />}
+                            <span className="text-[9px] text-slate-500">{org.email_confirmed ? 'Confirmado' : 'Sin confirmar'}</span>
                           </div>
                         </td>
-                        <td className="px-4 py-3 max-w-[200px]">
-                          <div className="flex items-center gap-1.5">
-                            <span className="text-xs text-slate-300 font-mono truncate max-w-[160px]">{loginEmail}</span>
+                        <td className="px-3 py-1.5 max-w-[200px]">
+                          <div className="flex items-center gap-1">
+                            <span className="text-xs text-slate-300 font-mono truncate max-w-[150px]">{loginEmail}</span>
                             <button onClick={() => handleCopyEmail(loginEmail)} title="Copiar email" className="shrink-0 text-slate-500 hover:text-white cursor-pointer">
-                              {isCopied ? <CheckCheck className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
+                              {isCopied ? <CheckCheck className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3" />}
                             </button>
                           </div>
                         </td>
-                        <td className="px-4 py-3"><span className="text-slate-300 text-xs">{org.oficio || '—'}</span></td>
-                        <td className="px-4 py-3">
-                          <div className="flex items-center gap-3">
-                            <span className="flex items-center gap-1 text-xs text-slate-400" title="Presupuestos"><FileText className="h-3 w-3 text-slate-500" />{org.quotes_count ?? 0}</span>
-                            <span className="flex items-center gap-1 text-xs text-slate-400" title="Clientes"><Contact className="h-3 w-3 text-slate-500" />{org.clients_count ?? 0}</span>
+                        <td className="px-3 py-1.5"><span className="text-slate-300 text-xs">{org.oficio || '—'}</span></td>
+                        <td className="px-3 py-1.5">
+                          <div className="flex items-center gap-2">
+                            <span className="flex items-center gap-0.5 text-xs text-slate-400" title="Presupuestos"><FileText className="h-3 w-3 text-slate-500" />{org.quotes_count ?? 0}</span>
+                            <span className="flex items-center gap-0.5 text-xs text-slate-400" title="Clientes"><Contact className="h-3 w-3 text-slate-500" />{org.clients_count ?? 0}</span>
                           </div>
                         </td>
-                        <td className="px-4 py-3">
+                        <td className="px-3 py-1.5">
                           {(() => {
                             const daysSinceLogin = org.last_sign_in
                               ? Math.floor((Date.now() - new Date(org.last_sign_in).getTime()) / 86400000)
@@ -1027,65 +1028,65 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                               ? new Date(org.last_quote_at).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' })
                               : null;
                             return (
-                              <div className="flex flex-col gap-1">
+                              <div className="flex flex-col gap-0.5">
                                 <span className="text-xs text-slate-400 font-mono whitespace-nowrap">
                                   {lastQuote ?? <span className="text-slate-600 italic">Ninguno</span>}
                                 </span>
                                 {(daysSinceLogin === null || daysSinceLogin > 30) && (
-                                  <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-red-900/30 border border-red-800 text-red-400 w-fit">
-                                    <WifiOff className="h-2.5 w-2.5" />
+                                  <span className="inline-flex items-center gap-0.5 text-[9px] font-bold uppercase px-1 py-px rounded bg-red-900/30 border border-red-800 text-red-400 w-fit">
+                                    <WifiOff className="h-2 w-2" />
                                     {daysSinceLogin === null ? 'Nunca' : `${daysSinceLogin}d`}
                                   </span>
                                 )}
                                 {daysSinceLogin !== null && daysSinceLogin > 15 && daysSinceLogin <= 30 && (
-                                  <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-yellow-900/30 border border-yellow-800 text-yellow-400 w-fit">
-                                    <WifiOff className="h-2.5 w-2.5" />{daysSinceLogin}d
+                                  <span className="inline-flex items-center gap-0.5 text-[9px] font-bold uppercase px-1 py-px rounded bg-yellow-900/30 border border-yellow-800 text-yellow-400 w-fit">
+                                    <WifiOff className="h-2 w-2" />{daysSinceLogin}d
                                   </span>
                                 )}
                               </div>
                             );
                           })()}
                         </td>
-                        <td className="px-4 py-3"><PlanSelect org={org} onUpdate={loadOrgs} /></td>
-                        <td className="px-4 py-3">
+                        <td className="px-3 py-1.5"><PlanSelect org={org} onUpdate={loadOrgs} /></td>
+                        <td className="px-3 py-1.5">
                           <StatusBadge sub={sub} />
-                          {sub?.status === 'trial' && <div className="text-[10px] text-yellow-300/70 mt-0.5">hasta {trialEnd}</div>}
+                          {sub?.status === 'trial' && <div className="text-[9px] text-yellow-300/70">hasta {trialEnd}</div>}
                         </td>
-                        <td className="px-4 py-3"><span className="text-xs text-slate-400 font-mono whitespace-nowrap">{lastSignIn}</span></td>
-                        <td className="px-4 py-3"><span className="text-slate-500 text-xs font-mono whitespace-nowrap">{createdAt}</span></td>
-                        <td className="px-4 py-3">
-                          <div className="flex items-center gap-1.5 flex-wrap">
+                        <td className="px-3 py-1.5"><span className="text-xs text-slate-400 font-mono whitespace-nowrap">{lastSignIn}</span></td>
+                        <td className="px-3 py-1.5"><span className="text-slate-500 text-xs font-mono whitespace-nowrap">{createdAt}</span></td>
+                        <td className="px-3 py-1.5">
+                          <div className="flex items-center gap-1 flex-wrap">
                             <button onClick={() => handleResetPassword(org)} disabled={isResetSent} title="Reset contraseña"
-                              className={`flex items-center gap-1 px-2 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all border ${isResetSent ? 'bg-emerald-900/30 border-emerald-700 text-emerald-400' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-blue-700 hover:border-blue-600 hover:text-white'}`}>
-                              {isResetSent ? <><CheckCheck className="h-3 w-3" /> Enviado</> : <><KeyRound className="h-3 w-3" /> Reset</>}
+                              className={`flex items-center gap-0.5 px-1.5 py-1 rounded text-[9px] font-bold uppercase cursor-pointer transition-all border ${isResetSent ? 'bg-emerald-900/30 border-emerald-700 text-emerald-400' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-blue-700 hover:border-blue-600 hover:text-white'}`}>
+                              {isResetSent ? <><CheckCheck className="h-2.5 w-2.5" /> OK</> : <><KeyRound className="h-2.5 w-2.5" /> Reset</>}
                             </button>
                             <button onClick={() => setSetPwdOrg(org)} title="Cambiar contraseña"
-                              className="flex items-center gap-1 px-2 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider cursor-pointer border bg-slate-700 border-slate-600 text-slate-300 hover:bg-purple-700 hover:border-purple-600 hover:text-white">
-                              <KeyRound className="h-3 w-3" /> Pwd
+                              className="flex items-center gap-0.5 px-1.5 py-1 rounded text-[9px] font-bold uppercase cursor-pointer border bg-slate-700 border-slate-600 text-slate-300 hover:bg-purple-700 hover:border-purple-600 hover:text-white">
+                              <KeyRound className="h-2.5 w-2.5" /> Pwd
                             </button>
                             {(sub?.status === 'trial' || sub?.status === 'expired') && (
                               <button onClick={() => setExtendOrg(org)} title="Extender trial"
-                                className="flex items-center gap-1 px-2 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider cursor-pointer border bg-slate-700 border-slate-600 text-slate-300 hover:bg-yellow-700 hover:border-yellow-600 hover:text-white">
-                                <CalendarPlus className="h-3 w-3" /> +Trial
+                                className="flex items-center gap-0.5 px-1.5 py-1 rounded text-[9px] font-bold uppercase cursor-pointer border bg-slate-700 border-slate-600 text-slate-300 hover:bg-yellow-700 hover:border-yellow-600 hover:text-white">
+                                <CalendarPlus className="h-2.5 w-2.5" /> +Trial
                               </button>
                             )}
                             <button onClick={() => handleToggleSubscription(org)} disabled={toggleLoading === org.id} title={sub?.status === 'active' ? 'Desactivar' : 'Activar'}
-                              className={`flex items-center gap-1 px-2 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider cursor-pointer border disabled:opacity-50 ${sub?.status === 'active' ? 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-red-900/40 hover:border-red-700 hover:text-red-300' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-emerald-900/40 hover:border-emerald-700 hover:text-emerald-300'}`}>
-                              {toggleLoading === org.id ? <RefreshCw className="h-3 w-3 animate-spin" /> : sub?.status === 'active' ? <><CheckCircle className="h-3 w-3" /> ON</> : <><CheckCircle className="h-3 w-3" /> OFF</>}
+                              className={`flex items-center gap-0.5 px-1.5 py-1 rounded text-[9px] font-bold uppercase cursor-pointer border disabled:opacity-50 ${sub?.status === 'active' ? 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-red-900/40 hover:border-red-700 hover:text-red-300' : 'bg-slate-700 border-slate-600 text-slate-300 hover:bg-emerald-900/40 hover:border-emerald-700 hover:text-emerald-300'}`}>
+                              {toggleLoading === org.id ? <RefreshCw className="h-2.5 w-2.5 animate-spin" /> : sub?.status === 'active' ? <><CheckCircle className="h-2.5 w-2.5" /> ON</> : <><CheckCircle className="h-2.5 w-2.5" /> OFF</>}
                             </button>
                             <button onClick={() => handleCopyCheckout(org)} disabled={stripeLoading === `checkout-${org.id}`} title="Copiar link de pago"
-                              className="flex items-center gap-1 px-2 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider cursor-pointer border bg-slate-700 border-slate-600 text-slate-300 hover:bg-violet-700 hover:border-violet-600 hover:text-white disabled:opacity-50">
-                              {stripeLoading === `checkout-${org.id}` ? <RefreshCw className="h-3 w-3 animate-spin" /> : checkoutCopied === org.id ? <><CheckCheck className="h-3 w-3 text-emerald-400" /> Copiado</> : <><CreditCard className="h-3 w-3" /> Link</>}
+                              className="flex items-center gap-0.5 px-1.5 py-1 rounded text-[9px] font-bold uppercase cursor-pointer border bg-slate-700 border-slate-600 text-slate-300 hover:bg-violet-700 hover:border-violet-600 hover:text-white disabled:opacity-50">
+                              {stripeLoading === `checkout-${org.id}` ? <RefreshCw className="h-2.5 w-2.5 animate-spin" /> : checkoutCopied === org.id ? <><CheckCheck className="h-2.5 w-2.5 text-emerald-400" /> OK</> : <><CreditCard className="h-2.5 w-2.5" /> Link</>}
                             </button>
                             {org.subscription?.stripe_customer_id && (
                               <button onClick={() => handleOpenPortal(org)} disabled={stripeLoading === `portal-${org.id}`} title="Portal Stripe"
-                                className="flex items-center gap-1 px-2 py-1.5 rounded text-[10px] font-bold uppercase tracking-wider cursor-pointer border bg-slate-700 border-slate-600 text-slate-300 hover:bg-indigo-700 hover:border-indigo-600 hover:text-white disabled:opacity-50">
-                                {stripeLoading === `portal-${org.id}` ? <RefreshCw className="h-3 w-3 animate-spin" /> : <><CreditCard className="h-3 w-3" /> Portal</>}
+                                className="flex items-center gap-0.5 px-1.5 py-1 rounded text-[9px] font-bold uppercase cursor-pointer border bg-slate-700 border-slate-600 text-slate-300 hover:bg-indigo-700 hover:border-indigo-600 hover:text-white disabled:opacity-50">
+                                {stripeLoading === `portal-${org.id}` ? <RefreshCw className="h-2.5 w-2.5 animate-spin" /> : <><CreditCard className="h-2.5 w-2.5" /> Portal</>}
                               </button>
                             )}
                             <a href={`mailto:${loginEmail}`} title="Enviar email"
-                              className="flex items-center justify-center h-7 w-7 rounded bg-slate-700 border border-slate-600 text-slate-400 hover:text-white hover:bg-slate-600 transition-colors">
-                              <Mail className="h-3.5 w-3.5" />
+                              className="flex items-center justify-center h-6 w-6 rounded bg-slate-700 border border-slate-600 text-slate-400 hover:text-white hover:bg-slate-600 transition-colors">
+                              <Mail className="h-3 w-3" />
                             </a>
                           </div>
                         </td>
