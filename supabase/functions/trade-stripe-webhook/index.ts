@@ -41,42 +41,120 @@ Deno.serve(async (req: Request) => {
   const event    = JSON.parse(body);
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
-  // ── checkout.session.completed — captura el plan elegido ─────────────────
+  // ── checkout.session.completed ────────────────────────────────────────────
+  // Captura plan + billing_cycle desde metadata del checkout (ahora siempre presentes)
   if (event.type === 'checkout.session.completed') {
-    const session    = event.data.object as { metadata?: Record<string, string>; customer?: string; subscription?: string };
-    const orgId      = session.metadata?.org_id;
-    const plan       = session.metadata?.plan;
+    const session = event.data.object as {
+      metadata?: Record<string, string>;
+      customer?: string;
+      subscription?: string;
+    };
+    const orgId        = session.metadata?.org_id;
+    const plan         = session.metadata?.plan;
     const billingCycle = session.metadata?.billing_cycle;
+
     if (orgId && plan) {
       const updates: Record<string, string> = {
         plan,
-        status:     'active',
-        updated_at: new Date().toISOString(),
+        billing_cycle: billingCycle ?? 'monthly',
+        status:        'active',
+        updated_at:    new Date().toISOString(),
       };
-      if (session.customer)     updates.stripe_customer_id      = session.customer;
-      if (session.subscription) updates.stripe_subscription_id  = session.subscription;
-      if (billingCycle)         updates.billing_cycle            = billingCycle;
+      if (session.customer)     updates.stripe_customer_id     = session.customer;
+      if (session.subscription) updates.stripe_subscription_id = session.subscription;
+
       await supabase.from('trade_subscriptions').update(updates).eq('org_id', orgId);
       await supabase.from('trade_organizations').update({ plan }).eq('id', orgId);
     }
   }
 
-  // ── customer.subscription.updated — cambio de plan desde portal ──────────
-  if (event.type === 'customer.subscription.updated') {
-    const sub        = event.data.object as { customer: string; metadata?: Record<string, string>; items?: { data: Array<{ price: { id: string } }> } };
+  // ── customer.subscription.created ─────────────────────────────────────────
+  // Complementario a checkout.session.completed; maneja creaciones directas vía API
+  if (event.type === 'customer.subscription.created') {
+    const sub = event.data.object as {
+      id: string;
+      customer: string;
+      metadata?: Record<string, string>;
+      current_period_start: number;
+      current_period_end: number;
+    };
     const customerId = sub.customer;
     const plan       = sub.metadata?.plan;
+
     if (plan) {
-      await supabase.from('trade_subscriptions').update({ plan, updated_at: new Date().toISOString() }).eq('stripe_customer_id', customerId);
-      const { data: orgSub } = await supabase.from('trade_subscriptions').select('org_id').eq('stripe_customer_id', customerId).maybeSingle();
-      if (orgSub?.org_id) await supabase.from('trade_organizations').update({ plan }).eq('id', orgSub.org_id);
+      await supabase.from('trade_subscriptions').update({
+        plan,
+        status:                 'active',
+        stripe_subscription_id: sub.id,
+        current_period_start:   new Date(sub.current_period_start * 1000).toISOString(),
+        current_period_end:     new Date(sub.current_period_end   * 1000).toISOString(),
+        updated_at:             new Date().toISOString(),
+      }).eq('stripe_customer_id', customerId);
+
+      const { data: orgSub } = await supabase
+        .from('trade_subscriptions').select('org_id')
+        .eq('stripe_customer_id', customerId).maybeSingle();
+      if (orgSub?.org_id) {
+        await supabase.from('trade_organizations').update({ plan }).eq('id', orgSub.org_id);
+      }
+    }
+  }
+
+  // ── customer.subscription.updated — cambio de plan desde portal ──────────
+  if (event.type === 'customer.subscription.updated') {
+    const sub = event.data.object as {
+      id: string;
+      customer: string;
+      status: string;
+      metadata?: Record<string, string>;
+      current_period_start: number;
+      current_period_end: number;
+      items?: { data: Array<{ price: { id: string; metadata?: Record<string, string> } }> };
+    };
+    const customerId = sub.customer;
+
+    // Plan desde metadata de la suscripción (seteado en subscription_data.metadata en checkout)
+    // Si no está en metadata (suscripción creada antes del fix), intentar derivar del price metadata
+    const plan = sub.metadata?.plan
+      ?? sub.items?.data[0]?.price?.metadata?.plan;
+
+    const updates: Record<string, unknown> = {
+      stripe_subscription_id: sub.id,
+      current_period_start:   new Date(sub.current_period_start * 1000).toISOString(),
+      current_period_end:     new Date(sub.current_period_end   * 1000).toISOString(),
+      updated_at:             new Date().toISOString(),
+    };
+
+    // Mapear estados Stripe → estados internos
+    if (sub.status === 'active')   updates.status = 'active';
+    if (sub.status === 'canceled') updates.status = 'cancelled';
+    if (sub.status === 'past_due') updates.status = 'expired';
+
+    if (plan) updates.plan = plan;
+
+    await supabase.from('trade_subscriptions').update(updates).eq('stripe_customer_id', customerId);
+
+    if (plan) {
+      const { data: orgSub } = await supabase
+        .from('trade_subscriptions').select('org_id')
+        .eq('stripe_customer_id', customerId).maybeSingle();
+      if (orgSub?.org_id) {
+        await supabase.from('trade_organizations').update({ plan }).eq('id', orgSub.org_id);
+      }
     }
   }
 
   // ── invoice.paid ──────────────────────────────────────────────────────────
   if (event.type === 'invoice.paid') {
-    const inv        = event.data.object;
-    const customerId = inv.customer as string;
+    const inv = event.data.object as {
+      id: string;
+      customer: string;
+      subscription: string;
+      amount_paid: number;
+      period_start: number;
+      period_end: number;
+    };
+    const customerId = inv.customer;
 
     const { data: sub } = await supabase
       .from('trade_subscriptions')
@@ -86,19 +164,19 @@ Deno.serve(async (req: Request) => {
 
     if (sub) {
       await supabase.from('trade_subscriptions').update({
-        status:               'active',
+        status:                 'active',
         stripe_subscription_id: inv.subscription,
-        current_period_start: new Date(inv.period_start * 1000).toISOString(),
-        current_period_end:   new Date(inv.period_end   * 1000).toISOString(),
-        updated_at:           new Date().toISOString(),
+        current_period_start:   new Date(inv.period_start * 1000).toISOString(),
+        current_period_end:     new Date(inv.period_end   * 1000).toISOString(),
+        updated_at:             new Date().toISOString(),
       }).eq('id', sub.id);
 
       await supabase.from('trade_platform_invoices').insert({
-        org_id:           sub.org_id,
-        period_start:     new Date(inv.period_start * 1000).toISOString().split('T')[0],
-        period_end:       new Date(inv.period_end   * 1000).toISOString().split('T')[0],
-        amount_cents:     inv.amount_paid as number,
-        status:           'paid',
+        org_id:            sub.org_id,
+        period_start:      new Date(inv.period_start * 1000).toISOString().split('T')[0],
+        period_end:        new Date(inv.period_end   * 1000).toISOString().split('T')[0],
+        amount_cents:      inv.amount_paid,
+        status:            'paid',
         stripe_invoice_id: inv.id,
       });
     }

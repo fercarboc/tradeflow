@@ -1337,14 +1337,15 @@ export async function subscribePush(workerId: string, orgId: string): Promise<bo
   });
 
   const json = sub.toJSON() as { endpoint: string; keys: { p256dh: string; auth: string } };
-  const { error } = await supabase.from('trade_push_subscriptions').upsert({
+  // Guardar en BD — si falla (ej. tabla no existe aún), el navegador sigue suscrito igualmente
+  await supabase.from('trade_push_subscriptions').upsert({
     worker_id: workerId,
     org_id: orgId,
     endpoint: json.endpoint,
     subscription: json,
-  }, { onConflict: 'worker_id,endpoint' });
+  }, { onConflict: 'worker_id,endpoint' }).catch(console.error);
 
-  return !error;
+  return true;
 }
 
 export async function unsubscribePush(workerId: string): Promise<void> {

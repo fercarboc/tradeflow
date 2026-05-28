@@ -97,8 +97,24 @@ Deno.serve(async (req: Request) => {
   sp.set('line_items[0][quantity]',             '1');
   sp.set('success_url',                         success_url ?? 'https://trabflow.com/?checkout=success');
   sp.set('cancel_url',                          cancel_url  ?? 'https://trabflow.com/');
-  sp.set('metadata[org_id]',                   org_id);
-  sp.set('subscription_data[metadata][org_id]', org_id);
+
+  // ── Metadata: plan y billing_cycle para que el webhook los capture ──────────
+  sp.set('metadata[org_id]',                          org_id);
+  sp.set('metadata[plan]',                            plan);
+  sp.set('metadata[billing_cycle]',                   cycle);
+  sp.set('subscription_data[metadata][org_id]',       org_id);
+  sp.set('subscription_data[metadata][plan]',         plan);
+  sp.set('subscription_data[metadata][billing_cycle]', cycle);
+
+  // ── Stripe Tax: IVA automático según país del cliente ───────────────────────
+  // Requiere: Tax activado en Dashboard + registro fiscal ES + tax_code en producto
+  sp.set('automatic_tax[enabled]',        'true');
+  sp.set('billing_address_collection',    'required');   // obliga a poner dirección → Stripe sabe el país
+  sp.set('customer_update[address]',      'auto');       // guarda la dirección en el customer para renovaciones
+  sp.set('customer_update[name]',         'auto');
+  sp.set('tax_id_collection[enabled]',    'true');       // permite al cliente poner su CIF/NIF/VAT
+
+  sp.set('allow_promotion_codes',         'true');
 
   const sr      = await fetch('https://api.stripe.com/v1/checkout/sessions', {
     method:  'POST',

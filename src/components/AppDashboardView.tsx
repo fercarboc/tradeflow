@@ -2156,21 +2156,21 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </button>
           </div>
 
-          {/* Tab bar */}
+          {/* Tab bar — carrusel horizontal, todos los tabs visibles */}
           <div
-            className="bg-[#0B0F14] border-t border-white/5 flex items-stretch select-none"
+            className="bg-[#0B0F14] border-t border-white/5 flex items-stretch select-none overflow-x-auto"
             style={{
               paddingBottom: isNativeDevice ? 'env(safe-area-inset-bottom, 0px)' : '0px',
               minHeight: isNativeDevice ? 'calc(60px + env(safe-area-inset-bottom, 0px))' : '60px',
-            }}
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+            } as React.CSSProperties}
           >
             {MobileTabButton({ tab: 'inicio', icon: <TrendingUp className="w-5 h-5" />, label: 'Inicio' })}
             {MobileTabButton({ tab: 'trabajos', icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
             {MobileTabButton({ tab: 'clientes', icon: <Users className="w-5 h-5" />, label: 'Clientes' })}
-
-            {/* Hueco central para el FAB */}
-            <div className="flex-1" />
-
+            {/* Espacio central para el FAB flotante */}
+            <div className="w-16 shrink-0" />
             {MobileTabButton({ tab: 'catalogo', icon: <Package className="w-5 h-5" />, label: 'Catálogo' })}
             {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
             {MobileTabButton({ tab: 'ajustes', icon: <SettingsIcon className="w-5 h-5" />, label: 'Ajustes' })}
@@ -2231,7 +2231,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       return (
         <button
           onClick={() => { setMobileTab(tab); setShowFloatingMenu(false); }}
-          className={`flex-none flex flex-col items-center justify-center gap-0.5 px-3.5 cursor-pointer transition-all ${
+          className={`flex-1 min-w-[56px] flex flex-col items-center justify-center gap-0.5 px-1 cursor-pointer transition-all ${
             isActive ? 'text-blue-400' : 'text-slate-500'
           }`}
           style={isActive ? { filter: 'drop-shadow(0 0 6px rgba(96,165,250,0.7))' } : {}}
@@ -5446,7 +5446,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       if (!s?.user) return;
                       const ok = await subscribePush(s.user.id, orgId);
                       setPushEnabled(ok);
-                      showToast(ok ? 'Notificaciones activadas ✓' : 'Error — comprueba la configuración VAPID', ok ? 'success' : 'error');
+                      showToast(ok ? 'Notificaciones activadas ✓' : 'No se pudieron activar las notificaciones', ok ? 'success' : 'error');
                     }
                   } catch { showToast('Error al configurar notificaciones', 'error'); }
                   finally { setPushLoading(false); }

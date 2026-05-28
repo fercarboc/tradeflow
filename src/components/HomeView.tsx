@@ -3,13 +3,19 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { useState, useEffect } from 'react';
 import { ActivePage, TradeType } from '../types';
 import {
   Mic, FileText, Send, CheckCircle, ArrowRight,
   Zap,
-  Monitor, Star, ShieldCheck, Users, Phone,
+  Monitor, Star, ShieldCheck, Users, Phone, Download, Share2,
 } from 'lucide-react';
 import { motion } from 'motion/react';
+
+interface BeforeInstallPromptEvent extends Event {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
 
 interface HomeViewProps {
   setCurrentPage: (page: ActivePage) => void;
@@ -25,6 +31,35 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
     }
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // PWA install
+  const [installPrompt, setInstallPrompt] = useState<BeforeInstallPromptEvent | null>(null);
+  const [isPWAInstalled, setIsPWAInstalled] = useState(false);
+  const [showIOSInstructions, setShowIOSInstructions] = useState(false);
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  useEffect(() => {
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setIsPWAInstalled(true);
+      return;
+    }
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setInstallPrompt(e as BeforeInstallPromptEvent);
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+    return () => window.removeEventListener('beforeinstallprompt', handler);
+  }, []);
+
+  const handleInstallAndroid = async () => {
+    if (!installPrompt) return;
+    await installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setIsPWAInstalled(true);
+      setInstallPrompt(null);
+    }
   };
 
   /* ─── data ─────────────────────────────────────── */
@@ -142,6 +177,72 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
                   Ver Demo
                 </button>
               </div>
+
+              {/* PWA install buttons */}
+              {!isPWAInstalled && (
+                <div className="flex flex-col gap-2">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-white/30 text-center lg:text-left">
+                    Instala la app gratis — sin tiendas
+                  </span>
+                  <div className="flex flex-wrap gap-2.5 justify-center lg:justify-start">
+                    {/* Android/Chrome — prompt nativo si disponible */}
+                    {installPrompt ? (
+                      <button
+                        onClick={handleInstallAndroid}
+                        className="flex items-center gap-3 rounded-xl border border-[#00CFE8]/40 bg-[#00CFE8]/10 px-4 py-2.5 hover:bg-[#00CFE8]/20 transition-all cursor-pointer"
+                        id="hero-install-android"
+                      >
+                        <Download className="h-5 w-5 text-[#00CFE8] shrink-0" />
+                        <div className="text-left leading-tight">
+                          <div className="text-[9px] text-white/45 uppercase tracking-wider">Android / Chrome</div>
+                          <div className="text-sm font-black text-white">Instalar app gratis</div>
+                        </div>
+                      </button>
+                    ) : !isIOS && (
+                      <div className="flex items-center gap-3 rounded-xl border border-white/15 bg-white/5 px-4 py-2.5">
+                        <Download className="h-5 w-5 text-white/40 shrink-0" />
+                        <div className="text-left leading-tight">
+                          <div className="text-[9px] text-white/35 uppercase tracking-wider">Android / Chrome</div>
+                          <div className="text-xs font-bold text-white/50">Abre en Chrome → Instalar</div>
+                        </div>
+                      </div>
+                    )}
+                    {/* iOS — instrucciones Share → Añadir a pantalla de inicio */}
+                    <button
+                      onClick={() => setShowIOSInstructions(!showIOSInstructions)}
+                      className="flex items-center gap-3 rounded-xl border border-white/20 bg-black/40 px-4 py-2.5 hover:border-white/45 hover:bg-black/60 transition-all cursor-pointer"
+                      id="hero-install-ios"
+                    >
+                      <svg viewBox="0 0 24 24" className="h-5 w-5 fill-white shrink-0">
+                        <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.4c1.38.07 2.33.75 3.13.8 1.19-.24 2.33-.98 3.6-.84 1.54.18 2.69.87 3.44 2.17-3.13 1.87-2.38 5.98.48 7.13-.57 1.35-1.32 2.69-2.65 3.62zm-2.97-15c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                      </svg>
+                      <div className="text-left leading-tight">
+                        <div className="text-[9px] text-white/45 uppercase tracking-wider">iPhone / iPad (iOS)</div>
+                        <div className="text-sm font-black text-white">Instalar en iOS</div>
+                      </div>
+                    </button>
+                  </div>
+                  {/* Instrucciones iOS desplegables */}
+                  {showIOSInstructions && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="rounded-xl border border-white/15 bg-white/5 px-4 py-3 space-y-1.5 text-xs text-white/65 max-w-xs"
+                    >
+                      <p className="font-bold text-white/80 text-[11px] uppercase tracking-wider mb-2">Cómo instalar en iPhone / iPad:</p>
+                      <p className="flex items-start gap-2"><Share2 className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[#00CFE8]" /> Pulsa el botón <strong className="text-white">Compartir</strong> de Safari (icono cuadrado con flecha)</p>
+                      <p className="flex items-start gap-2"><span className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[#00CFE8] text-center font-black">+</span> Selecciona <strong className="text-white">"Añadir a pantalla de inicio"</strong></p>
+                      <p className="flex items-start gap-2"><CheckCircle className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[#00CFE8]" /> Pulsa <strong className="text-white">Añadir</strong> — ¡listo!</p>
+                    </motion.div>
+                  )}
+                </div>
+              )}
+              {isPWAInstalled && (
+                <div className="flex items-center gap-2 text-xs text-emerald-400 font-bold">
+                  <CheckCircle className="h-4 w-4" />
+                  App instalada en tu dispositivo
+                </div>
+              )}
 
               {/* badges row — text only */}
               <div className="flex flex-wrap gap-5 justify-center lg:justify-start">
@@ -298,13 +399,26 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
                 />
               </div>
 
-              <div className="px-4 pb-4 pt-3">
+              <div className="px-4 pb-4 pt-3 space-y-2">
                 <button
                   onClick={() => go(ActivePage.AppDashboard, true)}
                   className="w-full rounded-xl bg-[#00CFE8] py-2.5 text-xs font-black uppercase tracking-widest text-[#020B16] hover:brightness-110 transition-all cursor-pointer"
                 >
                   Acceder a demo móvil
                 </button>
+                {installPrompt ? (
+                  <button
+                    onClick={handleInstallAndroid}
+                    className="w-full flex items-center justify-center gap-2 rounded-xl border border-[#00CFE8]/30 bg-[#00CFE8]/10 py-2 hover:bg-[#00CFE8]/20 transition-all cursor-pointer"
+                  >
+                    <Download className="h-3.5 w-3.5 text-[#00CFE8]" />
+                    <span className="text-[10px] font-bold text-[#00CFE8]">Instalar app en Android</span>
+                  </button>
+                ) : (
+                  <p className="text-center text-[9px] text-white/30 leading-relaxed">
+                    Android: Chrome → menú ⋮ → "Instalar app" · iOS: Safari → <Share2 className="inline h-2.5 w-2.5" /> → "Añadir a pantalla"
+                  </p>
+                )}
               </div>
             </div>
 
