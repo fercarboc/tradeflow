@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Plus, ChevronLeft, ChevronRight, MapPin, Clock, User, Users,
-  CheckCircle, Play, Trash2, Edit3, Navigation, Calendar,
-  AlertTriangle, X, Check,
+  CheckCircle, Play, Trash2, Edit3, Navigation, CalendarDays,
+  AlertTriangle, X, Check, Search, Package, Route,
 } from 'lucide-react';
-import type { TradeJob } from '../lib/supabase';
+import { loadTarifas, updateTarifaPrice } from '../lib/supabase';
+import type { TradeJob, TradeTarifa } from '../lib/supabase';
 
 interface Worker { id: string; nombre: string; rol: string; activo: boolean; }
 interface Cliente { id: string; nombre: string; telefono: string; }
@@ -24,15 +25,12 @@ export interface ScreenPlanificacionProps {
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
 }
 
-type ViewMode = 'dia' | 'semana';
-type FilterEstado = 'todos' | 'planificado' | 'en_curso' | 'completado' | 'cancelado';
-
 const ESTADO_CFG: Record<TradeJob['estado'], { label: string; cls: string; dot: string }> = {
-  planificado:        { label: 'Planificado',        cls: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300',     dot: 'bg-blue-500' },
-  en_curso:           { label: 'En curso',           cls: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300', dot: 'bg-amber-500' },
-  completado:         { label: 'Completado',         cls: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300', dot: 'bg-emerald-500' },
-  cancelado:          { label: 'Cancelado',          cls: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300',         dot: 'bg-red-500' },
-  pendiente_material: { label: 'Pdte. material',     cls: 'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300', dot: 'bg-orange-500' },
+  planificado:        { label: 'Planificado',    cls: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300',     dot: 'bg-blue-500' },
+  en_curso:           { label: 'En curso',       cls: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300', dot: 'bg-amber-500' },
+  completado:         { label: 'Completado',     cls: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300', dot: 'bg-emerald-500' },
+  cancelado:          { label: 'Cancelado',      cls: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300',         dot: 'bg-red-500' },
+  pendiente_material: { label: 'Pdte. material', cls: 'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300', dot: 'bg-orange-500' },
 };
 
 const PRIORIDAD_CFG: Record<TradeJob['prioridad'], { label: string; cls: string } | null> = {
@@ -57,15 +55,20 @@ const DEMO_JOBS: TradeJob[] = (() => {
   ] as TradeJob[];
 })();
 
-function fmt(dateStr: string): string {
-  const d = new Date(dateStr + 'T12:00:00');
-  return d.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
-}
-
 function addDays(dateStr: string, n: number): string {
   const d = new Date(dateStr + 'T12:00:00');
   d.setDate(d.getDate() + n);
   return d.toISOString().split('T')[0];
+}
+
+function fmtShort(dateStr: string): string {
+  const today    = new Date().toISOString().split('T')[0];
+  const tomorrow = addDays(today, 1);
+  if (dateStr === today)    return 'Hoy';
+  if (dateStr === tomorrow) return 'Mañana';
+  return new Date(dateStr + 'T12:00:00').toLocaleDateString('es-ES', {
+    weekday: 'short', day: 'numeric', month: 'short',
+  });
 }
 
 const EMPTY_DRAFT = (): Partial<TradeJob> => ({
@@ -75,7 +78,7 @@ const EMPTY_DRAFT = (): Partial<TradeJob> => ({
   direccion: '', localidad: '', cp: '', client_id: null,
 });
 
-// ── JobModalPanel (top-level component — NEVER define inside parent, causes focus loss on re-render) ──
+// ── JobModalPanel ─────────────────────────────────────────────────────────────
 interface JobModalPanelProps {
   draft: Partial<TradeJob>;
   setDraft: (updater: (d: Partial<TradeJob>) => Partial<TradeJob>) => void;
@@ -101,14 +104,11 @@ function JobModalPanel({ draft, setDraft, editingJob, clientes, workers, selecte
         </div>
 
         <div className="space-y-3">
-          {/* Título */}
           <div>
             <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Título *</label>
             <input value={draft.titulo ?? ''} onChange={e => setDraft(d => ({ ...d, titulo: e.target.value }))} placeholder="Ej: Instalación calentador eléctrico"
               className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
           </div>
-
-          {/* Cliente */}
           <div>
             <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Cliente</label>
             <select value={draft.client_id ?? ''} onChange={e => setDraft(d => ({ ...d, client_id: e.target.value || null }))}
@@ -117,8 +117,6 @@ function JobModalPanel({ draft, setDraft, editingJob, clientes, workers, selecte
               {clientes.map(c => <option key={c.id} value={c.id}>{c.nombre}</option>)}
             </select>
           </div>
-
-          {/* Fecha + Hora */}
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Fecha inicio</label>
@@ -131,8 +129,6 @@ function JobModalPanel({ draft, setDraft, editingJob, clientes, workers, selecte
                 className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
             </div>
           </div>
-
-          {/* Duración + Prioridad */}
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Duración (horas)</label>
@@ -150,8 +146,6 @@ function JobModalPanel({ draft, setDraft, editingJob, clientes, workers, selecte
               </select>
             </div>
           </div>
-
-          {/* Dirección */}
           <div>
             <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Dirección</label>
             <input value={draft.direccion ?? ''} onChange={e => setDraft(d => ({ ...d, direccion: e.target.value }))} placeholder="Calle Mayor 12"
@@ -169,8 +163,6 @@ function JobModalPanel({ draft, setDraft, editingJob, clientes, workers, selecte
                 className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
             </div>
           </div>
-
-          {/* Estado (solo edición) */}
           {editingJob && (
             <div>
               <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Estado</label>
@@ -180,8 +172,6 @@ function JobModalPanel({ draft, setDraft, editingJob, clientes, workers, selecte
               </select>
             </div>
           )}
-
-          {/* Trabajadores */}
           {workers.filter(w => w.activo).length > 0 && (
             <div>
               <label className="text-[9px] font-mono uppercase text-slate-400 block mb-2">Trabajadores asignados</label>
@@ -202,8 +192,6 @@ function JobModalPanel({ draft, setDraft, editingJob, clientes, workers, selecte
               </div>
             </div>
           )}
-
-          {/* Descripción */}
           <div>
             <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Notas / instrucciones</label>
             <textarea rows={2} value={draft.descripcion ?? ''} onChange={e => setDraft(d => ({ ...d, descripcion: e.target.value }))} placeholder="Instrucciones para el técnico..."
@@ -223,44 +211,431 @@ function JobModalPanel({ draft, setDraft, editingJob, clientes, workers, selecte
   );
 }
 
+// ── DayCarousel ───────────────────────────────────────────────────────────────
+const DAY_ABBR = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+
+function getWeekDays(weekOffset: number): string[] {
+  return Array.from({ length: 7 }, (_, i) => {
+    const now = new Date();
+    const dow = now.getDay();
+    const monday = new Date(now);
+    monday.setDate(now.getDate() - (dow === 0 ? 6 : dow - 1) + weekOffset * 7);
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    return d.toISOString().split('T')[0];
+  });
+}
+
+interface DayCarouselProps {
+  jobs: TradeJob[];
+  selectedDate: string;
+  weekOffset: number;
+  onSelectDate: (d: string) => void;
+  onChangeWeek: (delta: number) => void;
+}
+
+function DayCarousel({ jobs, selectedDate, weekOffset, onSelectDate, onChangeWeek }: DayCarouselProps) {
+  const today    = new Date().toISOString().split('T')[0];
+  const weekDays = getWeekDays(weekOffset);
+  const from = new Date(weekDays[0] + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+  const to   = new Date(weekDays[6] + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+
+  return (
+    <div className="space-y-2 pt-3 pb-3 border-b border-slate-200 dark:border-slate-800">
+      <div className="flex items-center justify-between">
+        <button
+          onClick={() => onChangeWeek(-1)}
+          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+        >
+          <ChevronLeft className="w-4 h-4" />
+        </button>
+        <span className="text-[10px] font-bold font-mono uppercase text-slate-400 tracking-wider">
+          {weekOffset === 0 ? 'Esta semana' : `${from} – ${to}`}
+        </span>
+        <button
+          onClick={() => onChangeWeek(1)}
+          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+        >
+          <ChevronRight className="w-4 h-4" />
+        </button>
+      </div>
+
+      <div className="grid grid-cols-7 gap-1">
+        {weekDays.map((date, i) => {
+          const dayJobs    = jobs.filter(j => j.fecha_inicio === date && j.estado !== 'cancelado');
+          const isToday    = date === today;
+          const isSelected = date === selectedDate;
+          const hasActive  = dayJobs.some(j => j.estado === 'en_curso');
+          const hasPending = dayJobs.some(j => j.estado === 'planificado' || j.estado === 'pendiente_material');
+          const dotColor   = hasActive ? 'bg-amber-500' : hasPending ? 'bg-blue-500' : dayJobs.length > 0 ? 'bg-emerald-500' : '';
+
+          return (
+            <button
+              key={date}
+              onClick={() => onSelectDate(date)}
+              className={`flex flex-col items-center py-2 rounded-xl transition-colors cursor-pointer ${
+                isSelected
+                  ? 'bg-blue-600'
+                  : isToday
+                    ? 'bg-slate-100 dark:bg-slate-800 ring-1 ring-blue-400/60'
+                    : 'hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+            >
+              <span className={`text-[9px] font-bold uppercase mb-0.5 ${isSelected ? 'text-blue-100' : 'text-slate-400'}`}>
+                {DAY_ABBR[i]}
+              </span>
+              <span className={`text-sm font-bold leading-none ${
+                isSelected ? 'text-white' : isToday ? 'text-blue-500 dark:text-blue-400' : 'text-slate-700 dark:text-slate-300'
+              }`}>
+                {new Date(date + 'T12:00:00').getDate()}
+              </span>
+              <div className="h-1.5 mt-1 flex items-center justify-center">
+                {dotColor && <div className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ── JobCard ───────────────────────────────────────────────────────────────────
+interface JobCardProps {
+  job: TradeJob;
+  onQuickStatus: (job: TradeJob, estado: TradeJob['estado']) => void;
+  onEdit: (job: TradeJob) => void;
+  onDelete: (job: TradeJob) => void;
+}
+
+function JobCard({ job, onQuickStatus, onEdit, onDelete }: JobCardProps) {
+  const est = ESTADO_CFG[job.estado];
+  const pri = PRIORIDAD_CFG[job.prioridad];
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    [job.direccion, job.localidad, job.cp].filter(Boolean).join(', '),
+  )}`;
+
+  return (
+    <div className={`bg-white dark:bg-slate-900 border rounded-xl p-3.5 space-y-2.5 transition-all ${job.estado === 'completado' ? 'opacity-60' : ''} border-slate-200 dark:border-slate-800`}>
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className={`w-2 h-2 rounded-full shrink-0 ${est.dot}`} />
+          <span className="font-semibold text-xs text-slate-900 dark:text-white truncate">{job.titulo}</span>
+        </div>
+        <div className="flex items-center gap-1.5 shrink-0">
+          {pri && <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${pri.cls}`}>{pri.label}</span>}
+          <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${est.cls}`}>{est.label}</span>
+        </div>
+      </div>
+
+      <div className="space-y-1">
+        {(job.hora_inicio || job.duracion_horas) && (
+          <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
+            <Clock className="w-3 h-3 shrink-0" />
+            <span>{job.hora_inicio ?? '--:--'}{job.duracion_horas ? ` · ${job.duracion_horas}h` : ''}</span>
+          </div>
+        )}
+        {job.trade_clients?.nombre && (
+          <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
+            <User className="w-3 h-3 shrink-0" />
+            <span>{job.trade_clients.nombre}{job.trade_clients.telefono ? ` · ${job.trade_clients.telefono}` : ''}</span>
+          </div>
+        )}
+        {(job.direccion || job.localidad) && (
+          <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
+            <MapPin className="w-3 h-3 shrink-0" />
+            <span className="truncate">{[job.direccion, job.localidad].filter(Boolean).join(', ')}</span>
+          </div>
+        )}
+        {(job.trade_job_workers?.length ?? 0) > 0 && (
+          <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
+            <Users className="w-3 h-3 shrink-0" />
+            <span>{job.trade_job_workers!.map(jw => jw.trade_workers?.nombre ?? '—').join(', ')}</span>
+          </div>
+        )}
+      </div>
+
+      <div className="flex items-center gap-1.5 pt-1 border-t border-slate-100 dark:border-slate-800">
+        {job.estado === 'planificado' && (
+          <button onClick={() => onQuickStatus(job, 'en_curso')}
+            className="flex items-center gap-1 bg-amber-500 hover:bg-amber-600 text-white text-[9px] font-bold uppercase px-2 py-1 rounded cursor-pointer transition-colors">
+            <Play className="w-2.5 h-2.5" /> Iniciar
+          </button>
+        )}
+        {job.estado === 'en_curso' && (
+          <button onClick={() => onQuickStatus(job, 'completado')}
+            className="flex items-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-bold uppercase px-2 py-1 rounded cursor-pointer transition-colors">
+            <CheckCircle className="w-2.5 h-2.5" /> Completar
+          </button>
+        )}
+        {(job.direccion || job.localidad) && (
+          <a href={mapsUrl} target="_blank" rel="noopener noreferrer"
+            className="flex items-center gap-1 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-blue-500 text-[9px] font-bold uppercase px-2 py-1 rounded cursor-pointer transition-colors">
+            <Navigation className="w-2.5 h-2.5" /> Maps
+          </a>
+        )}
+        <div className="ml-auto flex items-center gap-1">
+          <button onClick={() => onEdit(job)} className="p-1 text-slate-400 hover:text-blue-500 cursor-pointer transition-colors rounded">
+            <Edit3 className="w-3 h-3" />
+          </button>
+          <button onClick={() => onDelete(job)} className="p-1 text-slate-400 hover:text-red-500 cursor-pointer transition-colors rounded">
+            <Trash2 className="w-3 h-3" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── RouteView ─────────────────────────────────────────────────────────────────
+interface RouteViewProps {
+  jobs: TradeJob[];
+  selectedDate: string;
+}
+
+function RouteView({ jobs, selectedDate }: RouteViewProps) {
+  const todayJobs = jobs
+    .filter(j => j.fecha_inicio === selectedDate && j.estado !== 'cancelado')
+    .sort((a, b) => (a.hora_inicio ?? '').localeCompare(b.hora_inicio ?? ''));
+  const totalHoras = todayJobs.reduce((s, j) => s + (j.duracion_horas ?? 0), 0);
+  const mapsUrl = (job: TradeJob) =>
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([job.direccion, job.localidad, job.cp].filter(Boolean).join(', '))}`;
+
+  return (
+    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+      <div className="bg-slate-50 dark:bg-slate-800/60 px-4 py-2.5 flex items-center justify-between border-b border-slate-200 dark:border-slate-700">
+        <div className="flex items-center gap-2">
+          <Navigation className="w-3.5 h-3.5 text-blue-500" />
+          <span className="text-[10px] font-bold uppercase font-mono text-slate-500 dark:text-slate-400">
+            Ruta · {fmtShort(selectedDate)}
+          </span>
+        </div>
+        <span className="text-[9px] text-slate-400 font-mono">{todayJobs.length} trabajos · {totalHoras}h est.</span>
+      </div>
+      {todayJobs.length === 0 ? (
+        <p className="text-center text-xs text-slate-400 py-8">Sin trabajos para este día.</p>
+      ) : (
+        <div className="divide-y divide-slate-100 dark:divide-slate-800">
+          {todayJobs.map((job, i) => (
+            <div key={job.id} className="px-4 py-3 flex items-start gap-3">
+              <span className="text-[9px] font-mono font-bold text-slate-400 w-6 shrink-0 pt-0.5">{String(i + 1).padStart(2, '0')}</span>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="text-xs font-semibold text-slate-800 dark:text-white">{job.titulo}</span>
+                  {job.hora_inicio && <span className="text-[9px] font-mono text-slate-400">{job.hora_inicio}{job.duracion_horas ? ` (${job.duracion_horas}h)` : ''}</span>}
+                </div>
+                {job.trade_clients?.nombre && <p className="text-[10px] text-slate-500">{job.trade_clients.nombre}</p>}
+                {(job.direccion || job.localidad) && <p className="text-[10px] text-slate-500">{[job.direccion, job.localidad].filter(Boolean).join(', ')}</p>}
+              </div>
+              {(job.direccion || job.localidad) && (
+                <a href={mapsUrl(job)} target="_blank" rel="noopener noreferrer"
+                  className="flex items-center gap-1 text-[9px] font-bold text-blue-600 hover:text-blue-700 border border-blue-200 dark:border-blue-800 px-2 py-1 rounded cursor-pointer shrink-0">
+                  <Navigation className="w-2.5 h-2.5" /> Maps
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── CatalogPanel ──────────────────────────────────────────────────────────────
+interface CatalogPanelProps {
+  tarifas: TradeTarifa[];
+  loading: boolean;
+  onUpdatePrice: (id: string, price: number) => Promise<void>;
+}
+
+function CatalogPanel({ tarifas, loading, onUpdatePrice }: CatalogPanelProps) {
+  const [search, setSearch]             = useState('');
+  const [familyFilter, setFamilyFilter] = useState('');
+  const [editingId, setEditingId]       = useState<string | null>(null);
+  const [editPrice, setEditPrice]       = useState('');
+  const [saving, setSaving]             = useState(false);
+
+  const families = [...new Set(tarifas.map(t => t.familia))].filter(Boolean).sort();
+
+  const filtered = tarifas.filter(t => {
+    const matchFamily = !familyFilter || t.familia === familyFilter;
+    const q = search.toLowerCase();
+    const matchSearch = !q ||
+      t.descripcion.toLowerCase().includes(q) ||
+      (t.codigo ?? '').toLowerCase().includes(q) ||
+      t.familia.toLowerCase().includes(q);
+    return matchFamily && matchSearch;
+  });
+
+  const handleSavePrice = async (id: string) => {
+    const price = parseFloat(editPrice.replace(',', '.'));
+    if (isNaN(price) || price < 0) return;
+    setSaving(true);
+    await onUpdatePrice(id, price);
+    setSaving(false);
+    setEditingId(null);
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-10">
+        <div className="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      {/* Search */}
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+        <input
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          placeholder="Buscar material, servicio o referencia..."
+          className="w-full pl-9 pr-3 py-2.5 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs placeholder-slate-400 text-slate-800 dark:text-white focus:outline-none focus:border-blue-500 transition"
+        />
+      </div>
+
+      {/* Family filter pills */}
+      {families.length > 0 && (
+        <div className="flex gap-1.5 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
+          <button
+            onClick={() => setFamilyFilter('')}
+            className={`shrink-0 px-2.5 py-1 rounded-full text-[9px] font-bold uppercase transition-colors cursor-pointer ${
+              !familyFilter ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+            }`}
+          >
+            Todas
+          </button>
+          {families.map(f => (
+            <button
+              key={f}
+              onClick={() => setFamilyFilter(f === familyFilter ? '' : f)}
+              className={`shrink-0 px-2.5 py-1 rounded-full text-[9px] font-bold transition-colors cursor-pointer ${
+                f === familyFilter ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+              }`}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Items */}
+      <div className="space-y-1.5">
+        {tarifas.length === 0 ? (
+          <div className="text-center py-8">
+            <Package className="w-8 h-8 text-slate-300 dark:text-slate-700 mx-auto mb-2" />
+            <p className="text-xs text-slate-400">Sin artículos en el catálogo.</p>
+            <p className="text-[10px] text-slate-500 mt-1">Importa tu catálogo desde Ajustes → Catálogo.</p>
+          </div>
+        ) : filtered.length === 0 ? (
+          <p className="text-center text-xs text-slate-400 py-6">Sin resultados para "{search}"</p>
+        ) : (
+          <>
+            {filtered.slice(0, 100).map(t => (
+              <div key={t.id} className="flex items-center gap-3 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5">
+                <div className="flex-1 min-w-0">
+                  <p className="text-[9px] font-mono font-bold text-blue-500 dark:text-blue-400 uppercase mb-0.5">{t.familia}</p>
+                  <p className="text-xs font-semibold text-slate-800 dark:text-white leading-tight">{t.descripcion}</p>
+                  {t.codigo && <p className="text-[9px] text-slate-400 mt-0.5">Ref: {t.codigo}</p>}
+                </div>
+                <div className="shrink-0 text-right">
+                  {editingId === t.id ? (
+                    <div className="flex items-center gap-1">
+                      <input
+                        type="number"
+                        step="0.01"
+                        value={editPrice}
+                        onChange={e => setEditPrice(e.target.value)}
+                        onKeyDown={e => {
+                          if (e.key === 'Enter') handleSavePrice(t.id);
+                          if (e.key === 'Escape') setEditingId(null);
+                        }}
+                        className="w-20 text-xs text-right bg-white dark:bg-slate-700 border border-blue-400 rounded-lg px-2 py-1 focus:outline-none"
+                        autoFocus
+                      />
+                      <button
+                        onClick={() => handleSavePrice(t.id)}
+                        disabled={saving}
+                        className="p-1 text-emerald-500 hover:text-emerald-400 cursor-pointer disabled:opacity-50"
+                      >
+                        <Check className="w-3.5 h-3.5" />
+                      </button>
+                      <button onClick={() => setEditingId(null)} className="p-1 text-slate-400 hover:text-slate-600 cursor-pointer">
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => { setEditingId(t.id); setEditPrice(t.precio_base.toFixed(2)); }}
+                      className="text-right group cursor-pointer"
+                    >
+                      <p className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-500 transition-colors">
+                        {t.precio_base.toFixed(2)} €
+                      </p>
+                      <p className="text-[9px] text-slate-400">/{t.unidad}</p>
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+            {filtered.length > 100 && (
+              <p className="text-center text-[9px] text-slate-400 py-2">
+                Mostrando 100 de {filtered.length}. Usa el buscador para filtrar.
+              </p>
+            )}
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Main component ────────────────────────────────────────────────────────────
 export default function ScreenPlanificacion({
   jobs: propJobs, workers, clientes, orgId, isLiveMode,
   onCreateJob, onUpdateJob, onDeleteJob, onAssignWorker, onRemoveWorker, showToast,
 }: ScreenPlanificacionProps) {
-  const jobs = isLiveMode ? propJobs : DEMO_JOBS;
+  const jobs  = isLiveMode ? propJobs : DEMO_JOBS;
   const today = new Date().toISOString().split('T')[0];
 
-  const [viewMode, setViewMode]               = useState<ViewMode>('dia');
-  const [selectedDate, setSelectedDate]       = useState(today);
-  const [filterEstado, setFilterEstado]       = useState<FilterEstado>('todos');
-  const [showRoute, setShowRoute]             = useState(false);
-  const [showModal, setShowModal]             = useState(false);
-  const [editingJob, setEditingJob]           = useState<TradeJob | null>(null);
-  const [draft, setDraft]                     = useState<Partial<TradeJob>>(EMPTY_DRAFT());
-  const [saving, setSaving]                   = useState(false);
+  const [selectedDate, setSelectedDate]           = useState(today);
+  const [weekOffset, setWeekOffset]               = useState(0);
+  const [calendarOpen, setCalendarOpen]           = useState(true);
+  const [filterEstado, setFilterEstado]           = useState<'todos' | TradeJob['estado']>('todos');
+  const [showRoute, setShowRoute]                 = useState(false);
+  const [showModal, setShowModal]                 = useState(false);
+  const [editingJob, setEditingJob]               = useState<TradeJob | null>(null);
+  const [draft, setDraft]                         = useState<Partial<TradeJob>>(EMPTY_DRAFT());
+  const [saving, setSaving]                       = useState(false);
   const [selectedWorkerIds, setSelectedWorkerIds] = useState<Set<string>>(new Set());
+  const [catalogOpen, setCatalogOpen]             = useState(false);
+  const [tarifas, setTarifas]                     = useState<TradeTarifa[]>([]);
+  const [catalogLoading, setCatalogLoading]       = useState(false);
+  const catalogLoaded                             = tarifas.length > 0 || catalogLoading;
 
-  // ── Computed ──────────────────────────────────────────────────────────────
-  const weekDays = Array.from({ length: 7 }, (_, i) => {
-    const base = new Date(selectedDate + 'T12:00:00');
-    const diff = i - base.getDay() + 1; // Monday-based
-    const d = new Date(base); d.setDate(base.getDate() + diff);
-    return d.toISOString().split('T')[0];
-  });
+  // Load catalog on first open
+  useEffect(() => {
+    if (!catalogOpen || catalogLoaded || !orgId || !isLiveMode) return;
+    setCatalogLoading(true);
+    loadTarifas(orgId)
+      .then(setTarifas)
+      .catch(() => showToast('Error al cargar el catálogo', 'error'))
+      .finally(() => setCatalogLoading(false));
+  }, [catalogOpen, orgId, isLiveMode]);
 
-  const jobsForDate = (date: string) => jobs.filter(j => j.fecha_inicio === date);
+  const dayJobs = jobs.filter(j => j.fecha_inicio === selectedDate);
 
-  const visibleJobs = viewMode === 'dia' ? jobsForDate(selectedDate) : jobs.filter(j => weekDays.includes(j.fecha_inicio ?? ''));
+  const filtered = filterEstado === 'todos'
+    ? dayJobs
+    : dayJobs.filter(j => j.estado === filterEstado);
 
-  const filtered = filterEstado === 'todos' ? visibleJobs : visibleJobs.filter(j => j.estado === filterEstado);
+  const FILTER_STATES: Array<'todos' | TradeJob['estado']> = [
+    'todos', 'planificado', 'en_curso', 'pendiente_material', 'completado', 'cancelado',
+  ];
 
-  const todayJobs = jobsForDate(selectedDate)
-    .filter(j => j.estado !== 'cancelado')
-    .sort((a, b) => (a.hora_inicio ?? '').localeCompare(b.hora_inicio ?? ''));
-
-  const totalHoras = todayJobs.reduce((s, j) => s + (j.duracion_horas ?? 0), 0);
-
-  // ── Handlers ─────────────────────────────────────────────────────────────
   const openCreate = () => {
     setEditingJob(null);
     setDraft({ ...EMPTY_DRAFT(), fecha_inicio: selectedDate });
@@ -282,7 +657,7 @@ export default function ScreenPlanificacion({
       if (editingJob) {
         await onUpdateJob(editingJob.id, draft);
         const prevIds = new Set(editingJob.trade_job_workers?.map(jw => jw.worker_id) ?? []);
-        const toAdd = [...selectedWorkerIds].filter(id => !prevIds.has(id));
+        const toAdd    = [...selectedWorkerIds].filter(id => !prevIds.has(id));
         const toRemove = [...prevIds].filter(id => !selectedWorkerIds.has(id));
         await Promise.all([
           ...toAdd.map(id => onAssignWorker(editingJob.id, id, 'asignado')),
@@ -322,255 +697,183 @@ export default function ScreenPlanificacion({
     }
   };
 
-  const mapsUrl = (job: TradeJob) =>
-    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent([job.direccion, job.localidad, job.cp].filter(Boolean).join(', '))}`;
-
-  // ── Render helpers ────────────────────────────────────────────────────────
-  const JobCard = ({ job }: { job: TradeJob }) => {
-    const est = ESTADO_CFG[job.estado];
-    const pri = PRIORIDAD_CFG[job.prioridad];
-    return (
-      <div className={`bg-white dark:bg-slate-900 border rounded-xl p-3.5 space-y-2.5 transition-all ${job.estado === 'completado' ? 'opacity-60' : ''} border-slate-200 dark:border-slate-800`}>
-        {/* Header */}
-        <div className="flex items-start justify-between gap-2">
-          <div className="flex items-center gap-2 min-w-0">
-            <span className={`w-2 h-2 rounded-full shrink-0 ${est.dot}`} />
-            <span className="font-semibold text-xs text-slate-900 dark:text-white truncate">{job.titulo}</span>
-          </div>
-          <div className="flex items-center gap-1.5 shrink-0">
-            {pri && <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${pri.cls}`}>{pri.label}</span>}
-            <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${est.cls}`}>{est.label}</span>
-          </div>
-        </div>
-
-        {/* Info */}
-        <div className="space-y-1">
-          {(job.hora_inicio || job.duracion_horas) && (
-            <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
-              <Clock className="w-3 h-3 shrink-0" />
-              <span>{job.hora_inicio ?? '--:--'}{job.duracion_horas ? ` · ${job.duracion_horas}h` : ''}</span>
-            </div>
-          )}
-          {job.trade_clients?.nombre && (
-            <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
-              <User className="w-3 h-3 shrink-0" />
-              <span>{job.trade_clients.nombre}{job.trade_clients.telefono ? ` · ${job.trade_clients.telefono}` : ''}</span>
-            </div>
-          )}
-          {(job.direccion || job.localidad) && (
-            <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
-              <MapPin className="w-3 h-3 shrink-0" />
-              <span className="truncate">{[job.direccion, job.localidad].filter(Boolean).join(', ')}</span>
-            </div>
-          )}
-          {(job.trade_job_workers?.length ?? 0) > 0 && (
-            <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
-              <Users className="w-3 h-3 shrink-0" />
-              <span>{job.trade_job_workers!.map(jw => jw.trade_workers?.nombre ?? '—').join(', ')}</span>
-            </div>
-          )}
-        </div>
-
-        {/* Acciones */}
-        <div className="flex items-center gap-1.5 pt-1 border-t border-slate-100 dark:border-slate-800">
-          {job.estado === 'planificado' && (
-            <button onClick={() => handleQuickStatus(job, 'en_curso')}
-              className="flex items-center gap-1 bg-amber-500 hover:bg-amber-600 text-white text-[9px] font-bold uppercase px-2 py-1 rounded cursor-pointer transition-colors">
-              <Play className="w-2.5 h-2.5" /> Iniciar
-            </button>
-          )}
-          {job.estado === 'en_curso' && (
-            <button onClick={() => handleQuickStatus(job, 'completado')}
-              className="flex items-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-bold uppercase px-2 py-1 rounded cursor-pointer transition-colors">
-              <CheckCircle className="w-2.5 h-2.5" /> Completar
-            </button>
-          )}
-          {(job.direccion || job.localidad) && (
-            <a href={mapsUrl(job)} target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-1 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-blue-500 text-[9px] font-bold uppercase px-2 py-1 rounded cursor-pointer transition-colors">
-              <Navigation className="w-2.5 h-2.5" /> Maps
-            </a>
-          )}
-          <div className="ml-auto flex items-center gap-1">
-            <button onClick={() => openEdit(job)}
-              className="p-1 text-slate-400 hover:text-blue-500 cursor-pointer transition-colors rounded">
-              <Edit3 className="w-3 h-3" />
-            </button>
-            <button onClick={() => handleDelete(job)}
-              className="p-1 text-slate-400 hover:text-red-500 cursor-pointer transition-colors rounded">
-              <Trash2 className="w-3 h-3" />
-            </button>
-          </div>
-        </div>
-      </div>
-    );
+  const handleUpdatePrice = async (id: string, price: number) => {
+    await updateTarifaPrice(id, price);
+    setTarifas(prev => prev.map(t => t.id === id ? { ...t, precio_base: price } : t));
+    showToast('Precio actualizado ✓', 'success');
   };
 
-  // ── Vista ruta del día ────────────────────────────────────────────────────
-  const RouteView = () => (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-      <div className="bg-slate-50 dark:bg-slate-800/60 px-4 py-2.5 flex items-center justify-between border-b border-slate-200 dark:border-slate-700">
-        <div className="flex items-center gap-2">
-          <Navigation className="w-3.5 h-3.5 text-blue-500" />
-          <span className="text-[10px] font-bold uppercase font-mono text-slate-500 dark:text-slate-400">Ruta del día — {fmt(selectedDate)}</span>
-        </div>
-        <span className="text-[9px] text-slate-400 font-mono">{todayJobs.length} trabajos · {totalHoras}h estimadas</span>
-      </div>
-      {todayJobs.length === 0 ? (
-        <p className="text-center text-xs text-slate-400 py-8">Sin trabajos para este día.</p>
-      ) : (
-        <div className="divide-y divide-slate-100 dark:divide-slate-800">
-          {todayJobs.map((job, i) => (
-            <div key={job.id} className="px-4 py-3 flex items-start gap-3">
-              <span className="text-[9px] font-mono font-bold text-slate-400 w-8 shrink-0 pt-0.5">{String(i + 1).padStart(2, '0')}</span>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-0.5">
-                  <span className="text-xs font-semibold text-slate-800 dark:text-white">{job.titulo}</span>
-                  {job.hora_inicio && <span className="text-[9px] font-mono text-slate-400">{job.hora_inicio}{job.duracion_horas ? ` (${job.duracion_horas}h)` : ''}</span>}
-                </div>
-                {job.trade_clients?.nombre && <p className="text-[10px] text-slate-500">{job.trade_clients.nombre}{job.trade_clients.telefono ? ` · ${job.trade_clients.telefono}` : ''}</p>}
-                {(job.direccion || job.localidad) && <p className="text-[10px] text-slate-500">{[job.direccion, job.localidad, job.cp].filter(Boolean).join(', ')}</p>}
-              </div>
-              {(job.direccion || job.localidad) && (
-                <a href={mapsUrl(job)} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-[9px] font-bold text-blue-600 hover:text-blue-700 border border-blue-200 dark:border-blue-800 px-2 py-1 rounded cursor-pointer shrink-0">
-                  <Navigation className="w-2.5 h-2.5" /> Maps
-                </a>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+  const handleSelectDate = (date: string) => {
+    setSelectedDate(date);
+    setFilterEstado('todos');
+  };
 
-  // ── Main render ───────────────────────────────────────────────────────────
+  const selectedDateLabel = (() => {
+    if (selectedDate === today) return 'Hoy';
+    if (selectedDate === addDays(today, 1)) return 'Mañana';
+    return new Date(selectedDate + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'short' });
+  })();
+
   return (
-    <div className="p-5 space-y-4 overflow-y-auto h-full">
+    <div className="space-y-0 overflow-y-auto h-full pb-4">
 
-      {/* Barra de navegación */}
-      <div className="flex flex-wrap items-center gap-3">
-        {/* Vista día/semana */}
-        <div className="bg-slate-100 dark:bg-slate-800 p-0.5 rounded-lg flex text-[10px]">
-          {(['dia', 'semana'] as ViewMode[]).map(v => (
-            <button key={v} onClick={() => setViewMode(v)}
-              className={`px-3 py-1.5 rounded font-bold uppercase tracking-wider transition-all cursor-pointer ${viewMode === v ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-xs' : 'text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'}`}>
-              {v === 'dia' ? 'Día' : 'Semana'}
-            </button>
-          ))}
-        </div>
-
-        {/* Navegación de fecha */}
+      {/* ── Cabecera ─────────────────────────────────────────────────── */}
+      <div className="px-1 pt-1 pb-3">
         <div className="flex items-center gap-2">
-          <button onClick={() => setSelectedDate(d => addDays(d, viewMode === 'dia' ? -1 : -7))}
-            className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 hover:text-slate-800 dark:hover:text-white cursor-pointer transition-colors">
-            <ChevronLeft className="w-3.5 h-3.5" />
+          {/* Icono calendario — abre/cierra carrusel */}
+          <button
+            onClick={() => setCalendarOpen(o => !o)}
+            className={`p-2 rounded-xl transition-colors cursor-pointer ${calendarOpen ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white'}`}
+            title={calendarOpen ? 'Ocultar calendario' : 'Mostrar calendario'}
+          >
+            <CalendarDays className="w-4 h-4" />
           </button>
-          <button onClick={() => setSelectedDate(today)}
-            className="text-[10px] font-bold uppercase font-mono text-slate-600 dark:text-slate-300 hover:text-blue-600 cursor-pointer px-2">
-            Hoy
+
+          {/* Fecha seleccionada + nº trabajos */}
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-bold text-slate-800 dark:text-white capitalize leading-tight truncate">{selectedDateLabel}</p>
+            <p className="text-[9px] text-slate-400 font-mono">
+              {dayJobs.length > 0
+                ? `${dayJobs.length} trabajo${dayJobs.length > 1 ? 's' : ''}`
+                : 'Sin trabajos'}
+            </p>
+          </div>
+
+          {/* Ruta del día */}
+          <button
+            onClick={() => setShowRoute(r => !r)}
+            className={`p-2 rounded-xl transition-colors cursor-pointer ${showRoute ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white'}`}
+            title="Ruta del día"
+          >
+            <Route className="w-4 h-4" />
           </button>
-          <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono capitalize min-w-[180px] text-center">
-            {viewMode === 'dia' ? fmt(selectedDate) : `Sem. del ${fmt(weekDays[0])}`}
-          </span>
-          <button onClick={() => setSelectedDate(d => addDays(d, viewMode === 'dia' ? 1 : 7))}
-            className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-500 hover:text-slate-800 dark:hover:text-white cursor-pointer transition-colors">
-            <ChevronRight className="w-3.5 h-3.5" />
+
+          {/* Nuevo trabajo */}
+          <button
+            onClick={openCreate}
+            className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold uppercase px-3 py-2 rounded-xl cursor-pointer transition-colors"
+          >
+            <Plus className="w-3.5 h-3.5" /> Nuevo
           </button>
         </div>
 
-        {/* Acciones */}
-        <div className="flex items-center gap-2 ml-auto">
-          <button onClick={() => setShowRoute(!showRoute)}
-            className={`flex items-center gap-1 text-[9px] font-bold uppercase px-2.5 py-1.5 rounded-lg border cursor-pointer transition-colors ${showRoute ? 'bg-blue-600 text-white border-blue-600' : 'border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}`}>
-            <Navigation className="w-3 h-3" />
-            Ruta del día
-          </button>
-          <button onClick={openCreate}
-            className="flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-[9px] font-bold uppercase px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors">
-            <Plus className="w-3 h-3" />
-            Nuevo trabajo
-          </button>
-        </div>
+        {/* Carrusel semanal */}
+        {calendarOpen && (
+          <DayCarousel
+            jobs={jobs}
+            selectedDate={selectedDate}
+            weekOffset={weekOffset}
+            onSelectDate={handleSelectDate}
+            onChangeWeek={delta => {
+              const newOffset = weekOffset + delta;
+              setWeekOffset(newOffset);
+              // Al cambiar semana, seleccionar el lunes de esa semana
+              const days = getWeekDays(newOffset);
+              if (!days.includes(selectedDate)) setSelectedDate(days[0]);
+            }}
+          />
+        )}
       </div>
 
-      {/* Filtros estado */}
-      <div className="flex items-center gap-1.5 flex-wrap">
-        {(['todos', 'planificado', 'en_curso', 'completado', 'cancelado'] as FilterEstado[]).map(f => (
-          <button key={f} onClick={() => setFilterEstado(f)}
-            className={`text-[9px] font-bold uppercase px-2.5 py-1 rounded-full border cursor-pointer transition-all ${filterEstado === f ? 'bg-slate-800 dark:bg-white text-white dark:text-slate-900 border-transparent' : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-400'}`}>
-            {f === 'todos' ? 'Todos' : ESTADO_CFG[f as TradeJob['estado']].label}
-            <span className="ml-1 opacity-60">
-              {f === 'todos' ? visibleJobs.length : visibleJobs.filter(j => j.estado === f).length}
-            </span>
-          </button>
-        ))}
-      </div>
-
-      {/* Demo notice */}
-      {!isLiveMode && (
-        <div className="flex items-center gap-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl px-4 py-2.5">
-          <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" />
-          <p className="text-[10px] text-amber-700 dark:text-amber-300">Modo demo — datos de ejemplo. Activa el modo real para crear y gestionar trabajos.</p>
-        </div>
-      )}
-
-      {/* Vista ruta */}
-      {showRoute && <RouteView />}
-
-      {/* Vista semana */}
-      {viewMode === 'semana' && (
-        <div className="grid grid-cols-7 gap-2">
-          {weekDays.map(day => {
-            const dayJobs = filtered.filter(j => j.fecha_inicio === day);
-            const isToday = day === today;
+      {/* ── Filtros de estado ────────────────────────────────────────── */}
+      {dayJobs.length > 0 && (
+        <div className="flex gap-1.5 px-1 pb-3 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
+          {FILTER_STATES.map(f => {
+            const count = f === 'todos' ? dayJobs.length : dayJobs.filter(j => j.estado === f).length;
+            if (count === 0 && f !== 'todos') return null;
             return (
-              <div key={day} className={`rounded-xl border overflow-hidden ${isToday ? 'border-blue-400 dark:border-blue-600' : 'border-slate-200 dark:border-slate-800'}`}>
-                <div className={`px-2 py-1.5 text-center border-b ${isToday ? 'bg-blue-600 text-white border-blue-500' : 'bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}>
-                  <p className="text-[9px] font-bold uppercase font-mono">{new Date(day + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'short' })}</p>
-                  <p className="text-xs font-bold">{new Date(day + 'T12:00:00').getDate()}</p>
-                </div>
-                <div className="p-1.5 space-y-1 min-h-[80px]">
-                  {dayJobs.length === 0
-                    ? <p className="text-[9px] text-slate-300 dark:text-slate-700 text-center py-2">—</p>
-                    : dayJobs.map(job => (
-                        <div key={job.id} className="bg-slate-50 dark:bg-slate-800 rounded p-1.5 cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors" onClick={() => openEdit(job)}>
-                          <div className="flex items-center gap-1 mb-0.5">
-                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${ESTADO_CFG[job.estado].dot}`} />
-                            <span className="text-[8px] font-mono text-slate-400">{job.hora_inicio ?? ''}</span>
-                          </div>
-                          <p className="text-[9px] font-semibold text-slate-700 dark:text-slate-300 leading-tight truncate">{job.titulo}</p>
-                        </div>
-                      ))
-                  }
-                </div>
-              </div>
+              <button
+                key={f}
+                onClick={() => setFilterEstado(f)}
+                className={`shrink-0 text-[9px] font-bold uppercase px-2.5 py-1 rounded-full border cursor-pointer transition-all ${
+                  filterEstado === f
+                    ? 'bg-slate-800 dark:bg-white text-white dark:text-slate-900 border-transparent'
+                    : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                }`}
+              >
+                {f === 'todos' ? 'Todos' : ESTADO_CFG[f as TradeJob['estado']].label}
+                <span className="ml-1 opacity-60">{count}</span>
+              </button>
             );
           })}
         </div>
       )}
 
-      {/* Vista día */}
-      {viewMode === 'dia' && (
-        <div className="space-y-3">
-          {filtered.length === 0 ? (
-            <div className="text-center py-16">
-              <Calendar className="w-10 h-10 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
-              <p className="text-slate-400 text-xs mb-3">No hay trabajos para este día.</p>
-              <button onClick={openCreate}
-                className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase px-4 py-2 rounded-lg cursor-pointer">
-                <Plus className="w-3.5 h-3.5" /> Añadir trabajo
-              </button>
-            </div>
-          ) : (
-            filtered
-              .sort((a, b) => (a.hora_inicio ?? '').localeCompare(b.hora_inicio ?? ''))
-              .map(job => <JobCard key={job.id} job={job} />)
-          )}
+      {/* ── Demo notice ──────────────────────────────────────────────── */}
+      {!isLiveMode && (
+        <div className="mx-1 mb-3 flex items-center gap-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl px-4 py-2.5">
+          <AlertTriangle className="w-4 h-4 text-amber-500 shrink-0" />
+          <p className="text-[10px] text-amber-700 dark:text-amber-300">Modo demo — datos de ejemplo. Activa el modo real para gestionar trabajos.</p>
         </div>
       )}
 
-      {/* Modal */}
+      {/* ── Vista ruta ───────────────────────────────────────────────── */}
+      {showRoute && (
+        <div className="px-1 mb-3">
+          <RouteView jobs={jobs} selectedDate={selectedDate} />
+        </div>
+      )}
+
+      {/* ── Lista de trabajos ────────────────────────────────────────── */}
+      <div className="px-1 space-y-3">
+        {filtered.length === 0 ? (
+          <div className="text-center py-14">
+            <CalendarDays className="w-10 h-10 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
+            <p className="text-slate-400 text-xs mb-4">No hay trabajos para {selectedDateLabel.toLowerCase()}.</p>
+            <button
+              onClick={openCreate}
+              className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase px-4 py-2.5 rounded-xl cursor-pointer transition-colors"
+            >
+              <Plus className="w-3.5 h-3.5" /> Añadir trabajo
+            </button>
+          </div>
+        ) : (
+          filtered
+            .sort((a, b) => (a.hora_inicio ?? '').localeCompare(b.hora_inicio ?? ''))
+            .map(job => (
+              <JobCard
+                key={job.id}
+                job={job}
+                onQuickStatus={handleQuickStatus}
+                onEdit={openEdit}
+                onDelete={handleDelete}
+              />
+            ))
+        )}
+      </div>
+
+      {/* ── Catálogo de precios ──────────────────────────────────────── */}
+      <div className="px-1 mt-5">
+        <button
+          onClick={() => setCatalogOpen(o => !o)}
+          className="w-full flex items-center justify-between px-4 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition-colors cursor-pointer"
+        >
+          <div className="flex items-center gap-2.5">
+            <Package className={`w-4 h-4 ${catalogOpen ? 'text-blue-500' : 'text-slate-500'}`} />
+            <span className={`text-xs font-bold uppercase tracking-wide ${catalogOpen ? 'text-blue-500' : 'text-slate-600 dark:text-slate-300'}`}>
+              Catálogo de precios
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            {tarifas.length > 0 && (
+              <span className="text-[9px] font-mono text-slate-400">{tarifas.length} artículos</span>
+            )}
+            <ChevronRight className={`w-3.5 h-3.5 text-slate-400 transition-transform ${catalogOpen ? 'rotate-90' : ''}`} />
+          </div>
+        </button>
+
+        {catalogOpen && (
+          <div className="mt-3">
+            <CatalogPanel
+              tarifas={tarifas}
+              loading={catalogLoading}
+              onUpdatePrice={handleUpdatePrice}
+            />
+          </div>
+        )}
+      </div>
+
+      {/* ── Modal nuevo/editar trabajo ───────────────────────────────── */}
       {showModal && (
         <JobModalPanel
           draft={draft}

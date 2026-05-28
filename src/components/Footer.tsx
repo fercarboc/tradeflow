@@ -154,13 +154,13 @@ export default function Footer({ setCurrentPage }: FooterProps) {
                 <span className="font-semibold">672 336 572</span>
               </a>
               <a
-                href="mailto:info@trabflow.com"
+                href="mailto:contacto@trabflow.com"
                 className="flex items-center gap-2.5 text-sm text-white/50 hover:text-[#00CFE8] transition-colors group"
               >
                 <div className="h-8 w-8 rounded-lg bg-white/5 flex items-center justify-center shrink-0 group-hover:bg-[#00CFE8]/15 transition-colors">
                   <Mail className="h-4 w-4" />
                 </div>
-                <span>info@trabflow.com</span>
+                <span>contacto@trabflow.com</span>
               </a>
             </div>
 

@@ -95,7 +95,7 @@ export default function ContactoView() {
                     <span className="text-sm font-bold text-white">672 336 572</span>
                   </div>
                 </a>
-                <a href="mailto:info@trabflow.com" className="flex items-center gap-3 text-white/50 hover:text-[#00CFE8] transition-colors group">
+                <a href="mailto:contacto@trabflow.com" className="flex items-center gap-3 text-white/50 hover:text-[#00CFE8] transition-colors group">
                   <div className="h-9 w-9 rounded-lg bg-white/5 flex items-center justify-center shrink-0 group-hover:bg-[#00CFE8]/15 transition-colors">
                     <Mail className="h-4 w-4" />
                   </div>
