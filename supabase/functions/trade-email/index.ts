@@ -1,8 +1,8 @@
 import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
 
 const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
-const FROM = 'TRABFLOW <noreply@trabflow.com>';
-const ADMIN_EMAIL = 'info@trabflow.com';
+const FROM = 'TRABFLOW <contacto@trabflow.com>';
+const ADMIN_EMAIL = 'contacto@trabflow.com';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
