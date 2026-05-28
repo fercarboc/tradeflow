@@ -583,6 +583,55 @@ export async function updateTarifaPrice(id: string, precio_base: number): Promis
   await supabase.from('trade_tarifas').update({ precio_base }).eq('id', id);
 }
 
+// ── Catálogo global TradeFlow ─────────────────────────────────────────────
+
+export interface TradeGlobalCatalogItem {
+  id: string;
+  oficio: string;
+  familia: string;
+  codigo: string;
+  descripcion: string;
+  unidad: string;
+  precio_referencia: number;
+  marca_sugerida?: string;
+}
+
+export async function loadGlobalCatalog(oficios?: string[]): Promise<TradeGlobalCatalogItem[]> {
+  let q = supabase
+    .from('trade_global_catalog')
+    .select('id, oficio, familia, codigo, descripcion, unidad, precio_referencia')
+    .eq('activo', true)
+    .order('oficio')
+    .order('familia')
+    .order('descripcion');
+  if (oficios?.length) q = q.in('oficio', oficios);
+  const { data } = await q;
+  return (data ?? []) as TradeGlobalCatalogItem[];
+}
+
+export async function importFromGlobalCatalog(orgId: string, oficios?: string[], familias?: string[]): Promise<number> {
+  const { data, error } = await supabase.rpc('import_from_global_catalog', {
+    p_org_id: orgId,
+    p_oficios: oficios?.length ? oficios : null,
+    p_familias: familias?.length ? familias : null,
+  });
+  if (error) throw error;
+  return (data as number) ?? 0;
+}
+
+// ── Sugerencias catálogo ──────────────────────────────────────────────────
+
+export async function submitCatalogSuggestion(orgId: string, params: {
+  descripcion: string;
+  oficio?: string;
+  familia?: string;
+  unidad?: string;
+  precio_indicado?: number;
+  origen: 'voz' | 'foto' | 'manual';
+}): Promise<void> {
+  await supabase.from('trade_catalog_suggestions').insert({ org_id: orgId, ...params });
+}
+
 // ── Clientes ──────────────────────────────────────────────────────────────
 
 export async function addClient(

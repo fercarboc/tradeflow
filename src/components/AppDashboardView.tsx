@@ -50,6 +50,7 @@ import {
   Calendar,
   Camera,
   UserPlus,
+  Globe,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -58,6 +59,7 @@ import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWo
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import CatalogImportModal from './CatalogImportModal';
+import GlobalCatalogModal from './GlobalCatalogModal';
 import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } from '../lib/catalogExcel';
 import ScreenPlanificacion from './ScreenPlanificacion';
 
@@ -423,6 +425,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [catalogProducts, setCatalogProducts] = useState<TradeCatalogProduct[]>([]);
   const [jobs, setJobs] = useState<TradeJob[]>([]);
   const [showCatalogImport, setShowCatalogImport] = useState(false);
+  const [showGlobalCatalog, setShowGlobalCatalog] = useState(false);
   const [catalogFilter, setCatalogFilter] = useState('');
   const [editingVariant, setEditingVariant] = useState<{ id: string; field: 'precio_venta' | 'margen_pct'; value: string } | null>(null);
   const [savingVariant, setSavingVariant] = useState<string | null>(null);
@@ -4199,6 +4202,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           )}
           <div className="flex gap-2 ml-auto">
             <button
+              onClick={() => isLiveMode ? setShowGlobalCatalog(true) : showToast('Disponible solo con cuenta activa', 'info')}
+              className="flex items-center gap-1 bg-[#FFC400] hover:brightness-110 text-[#020B16] text-[9px] font-black uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+              title="Importar desde catálogo base TradeFlow"
+            >
+              <Globe className="h-3 w-3" />
+              Catálogo Base
+            </button>
+            <button
               onClick={() => setShowCatalogImport(true)}
               className="flex items-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
               title="Importar desde Excel"
@@ -4255,7 +4266,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         )}
 
-        {/* Modal importación */}
+        {/* Modales importación */}
         {showCatalogImport && (
           <CatalogImportModal
             orgId={orgId}
@@ -4268,6 +4279,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               }
             }}
             onClose={() => setShowCatalogImport(false)}
+          />
+        )}
+        {showGlobalCatalog && orgId && (
+          <GlobalCatalogModal
+            orgId={orgId}
+            onDone={(imported) => {
+              setShowGlobalCatalog(false);
+              showToast(imported > 0 ? `${imported} productos importados al catálogo ✓` : 'Todos los productos ya estaban en tu catálogo', imported > 0 ? 'success' : 'info');
+              if (imported > 0 && isLiveMode) {
+                loadTarifas(orgId).then(data => setTarifas(data.map((t: TradeTarifa) => ({ id: t.id, codigo: t.codigo ?? '', familia: t.familia, descripcion: t.descripcion, precioBase: t.precio_base, unidad: t.unidad, activo: t.activo }))));
+              }
+            }}
+            onClose={() => setShowGlobalCatalog(false)}
           />
         )}
 
@@ -4832,8 +4856,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
           {/* Accesos rápidos import/export */}
           <div>
-            <span className="text-[9px] font-mono font-bold uppercase text-slate-400 block mb-2">Importar / Exportar desde Excel</span>
+            <span className="text-[9px] font-mono font-bold uppercase text-slate-400 block mb-2">Importar / Exportar</span>
             <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => isLiveMode ? setShowGlobalCatalog(true) : showToast('Disponible solo con cuenta activa', 'info')}
+                className={`flex items-center gap-1 text-[#020B16] text-[9px] font-black uppercase tracking-wider px-2.5 py-1.5 rounded-lg transition-colors ${isLiveMode ? 'bg-[#FFC400] hover:brightness-110 cursor-pointer' : 'bg-[#FFC400]/40 cursor-not-allowed'}`}
+              >
+                <Globe className="h-3 w-3" />
+                Catálogo Base
+              </button>
               <button
                 onClick={() => isLiveMode ? setShowCatalogImport(true) : showToast('Disponible solo con cuenta activa', 'info')}
                 className={`flex items-center gap-1 text-white text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg transition-colors ${isLiveMode ? 'bg-emerald-600 hover:bg-emerald-700 cursor-pointer' : 'bg-emerald-600/40 cursor-not-allowed'}`}
@@ -4853,7 +4884,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 className="flex items-center gap-1 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
               >
                 <FilePlus className="h-3 w-3" />
-                Descargar plantilla
+                Plantilla Excel
               </button>
             </div>
           </div>
@@ -4864,6 +4895,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               isLiveMode={isLiveMode}
               onDone={handleCatalogImportDone}
               onClose={() => setShowCatalogImport(false)}
+            />
+          )}
+          {showGlobalCatalog && orgId && (
+            <GlobalCatalogModal
+              orgId={orgId}
+              onDone={(imported) => {
+                setShowGlobalCatalog(false);
+                showToast(`${imported > 0 ? `${imported} productos importados al catálogo ✓` : 'Todos los productos ya estaban en tu catálogo'}`, imported > 0 ? 'success' : 'info');
+                if (imported > 0 && isLiveMode) loadTarifas(orgId).then(data => setTarifas(data.map((t: TradeTarifa) => ({ id: t.id, codigo: t.codigo ?? '', familia: t.familia, descripcion: t.descripcion, precioBase: t.precio_base, unidad: t.unidad, activo: t.activo }))));
+              }}
+              onClose={() => setShowGlobalCatalog(false)}
             />
           )}
         </div>
