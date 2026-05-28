@@ -51,8 +51,8 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose }: Props
   }
 
   const currentPlan = subscription?.plan ?? 'basico';
-  const isPro     = currentPlan === 'pro'     && subscription?.status === 'active';
-  const isEmpresa = currentPlan === 'empresa' && subscription?.status === 'active';
+  const isPro     = currentPlan === 'profesional' && subscription?.status === 'active';
+  const isEmpresa = (currentPlan === 'empresa' || currentPlan === 'empresa_plus') && subscription?.status === 'active';
 
   return (
     <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
@@ -144,7 +144,7 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose }: Props
                   : 'bg-blue-600 hover:bg-blue-500 text-white disabled:opacity-60'
               }`}
             >
-              {loading === 'pro' ? 'Redirigiendo...' : isPro ? 'Plan actual' : 'Activar Pro'}
+              {loading === 'pro' ? 'Redirigiendo...' : isPro ? 'Plan actual' : 'Activar Profesional'}
             </button>
           </div>
 

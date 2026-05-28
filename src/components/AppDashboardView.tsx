@@ -3348,19 +3348,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           <div className="p-4 border-t border-slate-800 bg-slate-950/20 space-y-2">
             {(() => {
               const sub = subscription;
-              const planLabel = sub?.plan === 'empresa' ? 'Empresa' : sub?.plan === 'pro' ? 'Pro' : 'Basico';
+              const planNames: Record<string, string> = { basico: 'Básico', profesional: 'Profesional', empresa: 'Empresa', empresa_plus: 'Empresa+' };
+              const planLabel = planNames[sub?.plan ?? 'basico'] ?? 'Básico';
               const isTrialing = sub?.status === 'trial';
               const daysLeft = isTrialing && sub?.trial_end
                 ? Math.max(0, Math.ceil((new Date(sub.trial_end).getTime() - Date.now()) / 86400000))
                 : null;
-              const showUpgradeBtn = !sub || sub.status !== 'active' || sub.plan !== 'empresa';
+              const showUpgradeBtn = !sub || sub.status !== 'active' || (sub.plan !== 'empresa' && sub.plan !== 'empresa_plus');
               return (
                 <>
                   <div className="flex items-center justify-between">
                     <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full ${
-                      sub?.plan === 'empresa' ? 'bg-purple-500/15 text-purple-400 border border-purple-500/30' :
-                      sub?.plan === 'pro'     ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30' :
-                                               'bg-slate-700 text-slate-400 border border-slate-600'
+                      (sub?.plan === 'empresa' || sub?.plan === 'empresa_plus') ? 'bg-purple-500/15 text-purple-400 border border-purple-500/30' :
+                      sub?.plan === 'profesional' ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30' :
+                                                    'bg-slate-700 text-slate-400 border border-slate-600'
                     }`}>
                       {planLabel}
                     </span>

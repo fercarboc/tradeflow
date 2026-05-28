@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import {
   Mic, Camera, FileText, Users, BookOpen, Calendar, BarChart2, Lock,
   ChevronRight, ArrowLeft, CheckCircle, AlertCircle, Loader2,
