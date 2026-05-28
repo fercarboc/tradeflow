@@ -1,141 +1,245 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  View, 
-  Text, 
-  TouchableOpacity, 
-  StyleSheet, 
-  ActivityIndicator, 
-  Vibration 
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  ActivityIndicator,
+  Vibration,
+  Platform,
+  Alert,
 } from 'react-native';
-import { Mic, Check, Square, Sparkles } from 'lucide-react-native';
+import { Mic, Check, Square, Sparkles, AlertCircle } from 'lucide-react-native';
 import { COLORS, SHADOWS } from './Theme';
 
-interface MicButtonProps {
-  onTranscriptFound: (items: Array<{ description: string; quantity: number; unitPrice: number }>) => void;
-  trade: string; // Used to customize simulated outcome
+const SUPABASE_URL  = process.env.EXPO_PUBLIC_SUPABASE_URL ?? '';
+const SUPABASE_ANON = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY ?? '';
+
+export interface AIPartida {
+  concepto: string;
+  descripcion: string;
+  oficio: string;
+  tipo_partida: 'mano_obra' | 'material' | 'servicio';
+  unidad: string;
+  cantidad: number;
+  precio_unitario: number;
+  total: number;
+  requiere_revision: boolean;
 }
 
-export const MicButton: React.FC<MicButtonProps> = ({ onTranscriptFound, trade }) => {
-  const [status, setStatus] = useState<'idle' | 'listening' | 'processing' | 'done'>('idle');
+export interface AIQuoteResult {
+  resumen: {
+    texto_original: string;
+    tipo_presupuesto: string;
+    requiere_revision_general: boolean;
+    alertas: string[];
+  };
+  oficios_detectados: Array<{ oficio: string; tarifa_hora: { recomendado: number } }>;
+  partidas: AIPartida[];
+  calculos: { subtotal: number; iva: number; total: number };
+}
+
+interface MicButtonProps {
+  onQuoteReady: (partidas: AIPartida[], transcript: string) => void;
+  accessToken?: string;
+}
+
+export const MicButton: React.FC<MicButtonProps> = ({ onQuoteReady, accessToken }) => {
+  const [status, setStatus] = useState<'idle' | 'listening' | 'processing' | 'done' | 'error'>('idle');
   const [dots, setDots] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+
+  // Web recording refs
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const audioChunksRef   = useRef<Blob[]>([]);
+
+  // Native recording ref (expo-av)
+  const recordingRef = useRef<unknown>(null);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     if (status === 'listening') {
       interval = setInterval(() => {
-        setDots((prev) => (prev.length >= 3 ? '' : prev + '.'));
+        setDots(prev => (prev.length >= 3 ? '' : prev + '.'));
       }, 500);
     }
     return () => clearInterval(interval);
   }, [status]);
 
-  const handlePress = () => {
-    if (status === 'idle') {
-      // Start listening
-      setStatus('listening');
-      try { Vibration.vibrate(100); } catch (_) {}
-      
-      // Simulate listening for 3.5 seconds
-      setTimeout(() => {
-        setStatus('processing');
-        // Simulate speech recognition & LLM processing for 2 seconds
-        setTimeout(() => {
-          setStatus('done');
-          
-          // Generate realistic items based on selected trade
-          let simulatedItems: Array<{ description: string; quantity: number; unitPrice: number }> = [];
-          
-          if (trade === 'Fontanería') {
-            simulatedItems = [
-              { description: 'Mano de obra urgente: Localización y saneado de fuga', quantity: 1, unitPrice: 85 },
-              { description: 'Tubo de cobre 18mm más racores soldados de unión', quantity: 3, unitPrice: 12 },
-              { description: 'Llave de paso general bola 1/2 pulgada latón', quantity: 1, unitPrice: 24.50 }
-            ];
-          } else if (trade === 'Electricidad') {
-            simulatedItems = [
-              { description: 'Instalación cuadro eléctrico ICP + protección diferencial', quantity: 1, unitPrice: 175 },
-              { description: 'Magnetotérmico estrecho Siemens 16A Clase AC', quantity: 2, unitPrice: 18.20 },
-              { description: 'Mano de obra oficial técnico electricista autorizado', quantity: 3.5, unitPrice: 42 }
-            ];
-          } else if (trade === 'Climatización' || trade === 'HVAC') {
-            simulatedItems = [
-              { description: 'Carga completa de gas refrigerante R32 ecológico split', quantity: 1, unitPrice: 120 },
-              { description: 'Soporte metálico escuadra exterior con dampers antivibración', quantity: 1, unitPrice: 35 },
-              { description: 'Limpieza e higienización de filtros y conductos Clima', quantity: 1, unitPrice: 50 },
-              { description: 'Mano de obra especialista frigorista', quantity: 2, unitPrice: 45 }
-            ];
-          } else {
-            // General trade or others
-            simulatedItems = [
-              { description: 'Mano de obra especializada técnica', quantity: 4, unitPrice: 35 },
-              { description: 'Materiales varios de reposición y acoplamiento', quantity: 1, unitPrice: 48 },
-              { description: 'Desplazamiento técnico de urgencia', quantity: 1, unitPrice: 25 }
-            ];
-          }
+  const token = accessToken || SUPABASE_ANON;
 
-          onTranscriptFound(simulatedItems);
-          try { Vibration.vibrate([0, 100, 100, 100]); } catch (_) {}
+  // ── Enviar audio a la edge function ──────────────────────────────────────
+  const sendAudioToAPI = async (audioBlob: Blob, mimeType: string) => {
+    if (!SUPABASE_URL) {
+      throw new Error('EXPO_PUBLIC_SUPABASE_URL no configurada en .env');
+    }
+    const formData = new FormData();
+    const ext = mimeType.includes('mp4') || mimeType.includes('m4a') ? 'm4a' : 'webm';
+    formData.append('audio', audioBlob as unknown as Blob, `audio.${ext}`);
 
-          // Back to idle after showing success
-          setTimeout(() => {
-            setStatus('idle');
-          }, 2500);
+    const res = await fetch(`${SUPABASE_URL}/functions/v1/trade-voice-to-quote`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData,
+    });
 
-        }, 2000);
-      }, 3500);
-    } else if (status === 'listening') {
-      // Cancel/Stop early
-      setStatus('idle');
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: `Error ${res.status}` }));
+      throw new Error(err.error ?? `Error ${res.status}`);
+    }
+
+    return res.json() as Promise<{ transcript: string; quote: AIQuoteResult }>;
+  };
+
+  // ── Iniciar grabación ─────────────────────────────────────────────────────
+  const startRecording = async () => {
+    setStatus('listening');
+    setErrorMsg('');
+    try { Vibration.vibrate(80); } catch (_) {}
+
+    if (Platform.OS === 'web') {
+      // Web: MediaRecorder API
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 'audio/mp4';
+      const recorder = new MediaRecorder(stream, { mimeType });
+      mediaRecorderRef.current = recorder;
+      audioChunksRef.current = [];
+      recorder.ondataavailable = e => { if (e.data.size > 0) audioChunksRef.current.push(e.data); };
+      recorder.start(250);
+    } else {
+      // Native: expo-av (requiere: npx expo install expo-av)
+      try {
+        const { Audio } = await import('expo-av');
+        await Audio.requestPermissionsAsync();
+        await Audio.setAudioModeAsync({ allowsRecordingIOS: true, playsInSilentModeIOS: true });
+        const { recording } = await Audio.Recording.createAsync(
+          Audio.RecordingOptionsPresets.HIGH_QUALITY
+        );
+        recordingRef.current = recording;
+      } catch (e: unknown) {
+        const msg = (e as Error).message ?? '';
+        if (msg.includes('Cannot find module') || msg.includes('expo-av')) {
+          throw new Error('Instala expo-av: npx expo install expo-av');
+        }
+        throw e;
+      }
     }
   };
+
+  // ── Detener grabación y procesar ──────────────────────────────────────────
+  const stopAndProcess = async () => {
+    setStatus('processing');
+
+    let audioBlob: Blob;
+    let mimeType: string;
+
+    if (Platform.OS === 'web') {
+      const recorder = mediaRecorderRef.current;
+      if (!recorder) return;
+      mimeType = recorder.mimeType || 'audio/webm';
+      audioBlob = await new Promise<Blob>(resolve => {
+        recorder.onstop = () => resolve(new Blob(audioChunksRef.current, { type: mimeType }));
+        recorder.stop();
+        recorder.stream.getTracks().forEach(t => t.stop());
+      });
+    } else {
+      const { Audio } = await import('expo-av');
+      const recording = recordingRef.current as InstanceType<typeof Audio.Recording>;
+      await recording.stopAndUnloadAsync();
+      await Audio.setAudioModeAsync({ allowsRecordingIOS: false });
+      const uri = recording.getURI() ?? '';
+      const fileRes = await fetch(uri);
+      audioBlob = await fileRes.blob();
+      mimeType = 'audio/m4a';
+      recordingRef.current = null;
+    }
+
+    try {
+      const { transcript, quote } = await sendAudioToAPI(audioBlob, mimeType);
+      setStatus('done');
+      try { Vibration.vibrate([0, 80, 80, 80]); } catch (_) {}
+      onQuoteReady(quote.partidas ?? [], transcript);
+      setTimeout(() => setStatus('idle'), 2500);
+    } catch (e: unknown) {
+      const msg = (e as Error).message ?? 'Error al procesar el audio';
+      setErrorMsg(msg);
+      setStatus('error');
+      setTimeout(() => setStatus('idle'), 4000);
+    }
+  };
+
+  const handlePress = async () => {
+    if (status === 'idle' || status === 'error') {
+      try {
+        await startRecording();
+      } catch (e: unknown) {
+        const msg = (e as Error).message ?? 'No se puede acceder al micrófono';
+        setErrorMsg(msg);
+        setStatus('error');
+        setTimeout(() => setStatus('idle'), 4000);
+      }
+    } else if (status === 'listening') {
+      await stopAndProcess();
+    }
+  };
+
+  const buttonStyle = [
+    styles.button,
+    status === 'listening'  && styles.listening,
+    status === 'processing' && styles.processing,
+    status === 'done'       && styles.done,
+    status === 'error'      && styles.errorBtn,
+  ];
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={handlePress}
-        disabled={status === 'processing' || status === 'done'}
-        style={[
-          styles.button,
-          status === 'listening' ? styles.listening : null,
-          status === 'processing' ? styles.processing : null,
-          status === 'done' ? styles.done : null,
-        ]}
+        disabled={status === 'processing'}
+        style={buttonStyle}
         activeOpacity={0.8}
       >
-        {status === 'idle' && <Mic color={COLORS.white} size={28} />}
-        {status === 'listening' && <Square color={COLORS.white} size={24} />}
+        {status === 'idle'       && <Mic         color={COLORS.white} size={28} />}
+        {status === 'listening'  && <Square      color={COLORS.white} size={24} />}
         {status === 'processing' && <ActivityIndicator color={COLORS.white} size="small" />}
-        {status === 'done' && <Check color={COLORS.white} size={28} />}
+        {status === 'done'       && <Check       color={COLORS.white} size={28} />}
+        {status === 'error'      && <AlertCircle color={COLORS.white} size={24} />}
       </TouchableOpacity>
 
       <View style={styles.textContainer}>
         {status === 'idle' && (
           <View style={styles.row}>
             <Sparkles size={14} color={COLORS.secondary} style={{ marginRight: 4 }} />
-            <Text style={styles.label}>Simular dictado de voz por IA</Text>
+            <Text style={styles.label}>Dictado IA — pulsa y habla</Text>
           </View>
         )}
         {status === 'listening' && (
           <Text style={[styles.label, { color: COLORS.danger, fontWeight: 'bold' }]}>
-            Escuchando tu voz{dots}
+            Escuchando{dots}
           </Text>
         )}
         {status === 'processing' && (
           <Text style={[styles.label, { color: COLORS.warning, fontWeight: 'bold' }]}>
-            IA de TradeFlow estructurando datos...
+            IA detectando oficios y tarifas...
           </Text>
         )}
         {status === 'done' && (
           <Text style={[styles.label, { color: COLORS.success, fontWeight: 'bold' }]}>
-            ¡Líneas añadidas mágicamente!
+            ¡Partidas añadidas!
+          </Text>
+        )}
+        {status === 'error' && (
+          <Text style={[styles.label, { color: COLORS.danger, fontWeight: 'bold' }]}>
+            Error — toca para reintentar
           </Text>
         )}
 
         <Text style={styles.subLabel}>
-          {status === 'idle' && "Pulsa y habla: 'Fuga arreglada en cocina de Carlos, cambié llave paso y 3m de tubo'"}
-          {status === 'listening' && "Simulando micrófono activo. Di el trabajo hecho en voz alta..."}
-          {status === 'processing' && "Interpretando mano de obra, materiales y cantidades..."}
-          {status === 'done' && "Sincronizado con el presupuesto actual."}
+          {status === 'idle'       && "Di el trabajo: 'Cambio de grifo, 2h fontanería, y pintar salón 40m²'"}
+          {status === 'listening'  && "Pulsa el cuadrado para detener y procesar con IA"}
+          {status === 'processing' && "Transcribiendo y detectando oficios con tarifas..."}
+          {status === 'done'       && "Partidas con oficio y tarifa añadidas al presupuesto"}
+          {status === 'error'      && (errorMsg || 'Verifica el micrófono y vuelve a intentarlo')}
         </Text>
       </View>
     </View>
@@ -173,6 +277,9 @@ const styles = StyleSheet.create({
   },
   done: {
     backgroundColor: COLORS.success,
+  },
+  errorBtn: {
+    backgroundColor: COLORS.danger,
   },
   textContainer: {
     alignItems: 'center',

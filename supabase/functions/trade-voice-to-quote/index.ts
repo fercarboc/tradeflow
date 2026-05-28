@@ -5,6 +5,7 @@ const OPENAI_API_KEY      = Deno.env.get('OPENAI_API_KEY') ?? '';
 const ANTHROPIC_API_KEY   = Deno.env.get('ANTHROPIC_API_KEY') ?? '';
 const SUPABASE_URL         = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
+const SUPABASE_ANON_KEY    = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -13,9 +14,10 @@ const CORS = {
 
 // ── Límites por plan ──────────────────────────────────────────────────────────
 const PLAN_LIMITS = {
-  basico:  { quotes_month: 15 },
-  pro:     { quotes_month: Infinity },
-  empresa: { quotes_month: Infinity },
+  basico:       { quotes_month: 15 },
+  profesional:  { quotes_month: Infinity },
+  empresa:      { quotes_month: Infinity },
+  empresa_plus: { quotes_month: Infinity },
 };
 
 // ── Resuelve org_id + plan del usuario autenticado ────────────────────────────
@@ -33,7 +35,7 @@ async function resolveOrgAndPlan(supabase: ReturnType<typeof createClient>, user
     .eq('org_id', orgId)
     .maybeSingle();
 
-  const plan = (sub?.plan ?? 'basico') as 'basico' | 'pro' | 'empresa';
+  const plan = (sub?.plan ?? 'basico') as 'basico' | 'profesional' | 'empresa' | 'empresa_plus';
   return { orgId, plan };
 }
 
@@ -52,115 +54,123 @@ async function countQuotesThisMonth(supabase: ReturnType<typeof createClient>, o
   return count ?? 0;
 }
 
-const AI_SYSTEM_PROMPT = `Eres TradeFlow AI, un sistema inteligente universal de presupuestos para profesionales, instaladores, técnicos y empresas de servicios.
+const AI_SYSTEM_PROMPT = `Eres TradeFlow AI, sistema de presupuestos por voz para profesionales y técnicos de servicios.
 
-Tu función es interpretar voz o texto y convertirlos automáticamente en presupuestos profesionales editables.
-
-Funciona para CUALQUIER OFICIO: fontanería, electricidad, climatización, calefacción, albañilería, reformas, carpintería, cerrajería, ventanas, pintura, suelos, cocinas, baños, persianas, cubiertas, jardinería, piscinas, energía solar, telecomunicaciones, CCTV, automatización, mantenimiento industrial, limpieza, mudanzas, cristalería, pladur, escayola, impermeabilización, ascensores, talleres mecánicos, vehículos, electrodomésticos, informática y cualquier otro oficio técnico.
+Tu trabajo es interpretar dictados y convertirlos en presupuestos profesionales con partidas estructuradas, detectando el oficio correcto y aplicando tarifas del catálogo.
 
 ========================
-OBJETIVO
+CATÁLOGO DE OFICIOS (€/hora)
 ========================
 
-Analizar automáticamente descripciones y detectar:
-1. Oficio
-2. Tipo de trabajo
-3. Partidas reales de presupuesto (materiales y mano de obra)
+{
+  "limpieza":              { "min": 15, "recomendado": 20, "max": 28 },
+  "jardineria":            { "min": 18, "recomendado": 25, "max": 35 },
+  "electricidad":          { "min": 35, "recomendado": 50, "max": 70 },
+  "fontaneria":            { "min": 35, "recomendado": 50, "max": 75 },
+  "climatizacion":         { "min": 40, "recomendado": 60, "max": 85 },
+  "pintura":               { "min": 22, "recomendado": 32, "max": 45 },
+  "albanileria":           { "min": 28, "recomendado": 40, "max": 60 },
+  "carpinteria":           { "min": 30, "recomendado": 45, "max": 65 },
+  "cerrajeria":            { "min": 40, "recomendado": 60, "max": 90 },
+  "mecanica":              { "min": 35, "recomendado": 55, "max": 85 },
+  "mecanica_especializada":{ "min": 45, "recomendado": 65, "max": 95 },
+  "informatica":           { "min": 35, "recomendado": 60, "max": 95 },
+  "instalador_cctv":       { "min": 35, "recomendado": 50, "max": 75 },
+  "persianas":             { "min": 30, "recomendado": 45, "max": 65 },
+  "multiservicio":         { "min": 25, "recomendado": 38, "max": 55 }
+}
 
 ========================
-REGLA FUNDAMENTAL
+REGLAS DE DETECCIÓN
 ========================
 
-NO describes objetos. INTERPRETAS el trabajo profesional necesario.
-
-INCORRECTO: "Hay una bañera", "Se ve un cuadro eléctrico"
-CORRECTO: "Retirada de bañera existente", "Sustitución de protecciones en cuadro eléctrico"
+1. Un presupuesto puede tener varios oficios. Detecta uno por partida.
+2. Partidas de MANO DE OBRA: aplica precio_unitario = tarifa recomendada del catálogo (€/h).
+3. Partidas de MATERIAL o SUMINISTRO: precio_unitario = 0, requiere_revision = true.
+4. Si el oficio no existe en el catálogo: crea sugerencia en sugerencias_catalogo y marca nuevo_oficio: true.
+5. Nunca conviertas m² en horas directamente.
+6. Nunca inventes precios de materiales.
+7. Si hay m², personas y frecuencia (limpieza): calcula horas_mes = personas × horas_por_visita × dias_semana × 4.
 
 ========================
-DETECCIÓN DE SUSTITUCIÓN
+REGLAS PARA AUTOMOCIÓN
+========================
+
+Si detectas: correa distribución, embrague, turbo, frenos, motor, caja de cambios → crear partidas:
+- Desmontaje de [componente]
+- Suministro de [pieza] (precio_unitario = 0)
+- Instalación de [componente]
+- Revisión y prueba de funcionamiento
+
+Oficio: mecanica_especializada
+
+========================
+REGLAS PARA SUSTITUCIÓN
 ========================
 
 Cuando el usuario diga "cambiar X por Y", "sustituir X", "quitar X y poner Y":
-- X es lo existente → crea partida de RETIRADA/DESMONTAJE
-- Añade gestión de residuos/escombros si aplica
-- Crea partida de instalación/suministro de Y
-- Añade adaptaciones necesarias (fontanería, electricidad, albañilería, remates)
+- Crea partida de desmontaje/retirada
+- Crea partida de suministro (precio = 0 si no hay precio)
+- Crea partida de instalación/montaje
 
 ========================
-REGLA DE PRECIOS
-========================
-
-La IA NO asigna precios. Los precios vienen del catálogo del profesional.
-
-TODAS las partidas deben tener SIEMPRE:
-- precio_unitario = 0
-- subtotal = 0
-- requiere_precio = true
-- del_catalogo = false
-- catalog_id = null
-- aviso = "Sin precio en catálogo. El profesional debe asignar precio."
-
-========================
-REGLA ANTI DUPLICADOS
-========================
-
-Nunca repitas partidas similares. Agrupa trabajos equivalentes.
-
-========================
-REGLA DE CONFIANZA
-========================
-
-Nunca devuelvas listas vacías, 0 partidas o respuestas vagas.
-Si falta información, genera presupuesto estimado editable con nivel_confianza "bajo".
-
-========================
-SALIDA OBLIGATORIA
+FORMATO DE SALIDA OBLIGATORIO
 ========================
 
 JSON válido. Sin markdown. Sin texto fuera del JSON.
 
 {
-  "oficio": "",
-  "tipo_trabajo": "",
-  "resumen": "",
-  "partidas": [
+  "resumen": {
+    "texto_original": "",
+    "tipo_presupuesto": "",
+    "requiere_revision_general": false,
+    "alertas": []
+  },
+  "oficios_detectados": [
     {
-      "descripcion": "",
-      "cantidad": 1,
-      "unidad": "ud",
-      "categoria": "",
-      "precio_unitario": 0,
-      "subtotal": 0,
-      "catalog_id": null,
-      "del_catalogo": false,
-      "requiere_precio": true,
-      "aviso": "Sin precio en catálogo. El profesional debe asignar precio."
+      "oficio": "",
+      "existe_en_catalogo": true,
+      "nuevo_oficio": false,
+      "tarifa_hora": { "min": 0, "recomendado": 0, "max": 0 },
+      "motivo": ""
     }
   ],
-  "subtotal": 0,
-  "iva": {
-    "tipo": 21,
-    "importe": 0
+  "partidas": [
+    {
+      "concepto": "",
+      "descripcion": "",
+      "oficio": "",
+      "tipo_partida": "mano_obra",
+      "unidad": "hora",
+      "cantidad": 0,
+      "precio_unitario": 0,
+      "total": 0,
+      "precio_origen": "catalogo",
+      "requiere_revision": false,
+      "motivo_revision": ""
+    }
+  ],
+  "calculos": {
+    "subtotal": 0,
+    "iva_porcentaje": 21,
+    "iva": 0,
+    "total": 0
   },
-  "total": 0,
-  "notas": "",
-  "nivel_confianza": "medio"
+  "sugerencias_catalogo": []
 }
 
-Unidades válidas: "ud" | "ml" | "m" | "m2" | "m3" | "h" | "kg" | "jornada" | "kit"
-nivel_confianza: "alto" | "medio" | "bajo"
+tipo_partida: "mano_obra" | "material" | "servicio"
+unidad: "hora" | "unidad" | "m2" | "mes" | "servicio" | "jornada" | "kit"
+precio_origen: "catalogo" | "usuario" | "estimado" | "pendiente"
 
-Categorías de partida:
-- "Material" para suministros y componentes
-- "Mano de obra" para trabajos e instalaciones
-- "Desmontaje" para retiradas
-- "Gestión residuos" para escombros
-- "Desplazamiento" para transportes`;
+IMPORTANTE: Los calculos.subtotal, calculos.iva y calculos.total deben ser la suma real de todos los totales de partidas.`;
 
 const EMPTY_QUOTE = {
-  oficio: '', tipo_trabajo: '', resumen: '', partidas: [],
-  subtotal: 0, iva: { tipo: 21, importe: 0 }, total: 0,
-  notas: '', nivel_confianza: 'bajo',
+  resumen: { texto_original: '', tipo_presupuesto: '', requiere_revision_general: true, alertas: ['No se pudo interpretar el dictado'] },
+  oficios_detectados: [],
+  partidas: [],
+  calculos: { subtotal: 0, iva_porcentaje: 21, iva: 0, total: 0 },
+  sugerencias_catalogo: [],
 };
 
 Deno.serve(async (req: Request) => {
@@ -168,19 +178,36 @@ Deno.serve(async (req: Request) => {
     return new Response('ok', { headers: CORS });
   }
 
-  const authHeader = req.headers.get('Authorization');
-  if (!authHeader) {
+  const authHeader = req.headers.get('Authorization') ?? '';
+  const token = authHeader.replace('Bearer ', '');
+
+  if (!token) {
     return new Response(JSON.stringify({ error: 'Sin autorización' }), { status: 401, headers: { ...CORS, 'Content-Type': 'application/json' } });
   }
+
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
-  const { data: { user }, error: authErr } = await supabase.auth.getUser(authHeader.replace('Bearer ', ''));
-  if (authErr || !user) {
-    return new Response(JSON.stringify({ error: 'Token inválido' }), { status: 401, headers: { ...CORS, 'Content-Type': 'application/json' } });
+
+  // Anon key → modo demo (sin límites de plan, sin tracking)
+  const isAnonRequest = SUPABASE_ANON_KEY && token === SUPABASE_ANON_KEY;
+
+  let userId: string | null = null;
+  if (!isAnonRequest) {
+    const { data: { user }, error: authErr } = await supabase.auth.getUser(token);
+    if (authErr || !user) {
+      return new Response(JSON.stringify({ error: 'Token inválido' }), { status: 401, headers: { ...CORS, 'Content-Type': 'application/json' } });
+    }
+    userId = user.id;
   }
 
-  // ── Verificar límite de plan ───────────────────────────────────────────────
-  const { orgId, plan } = await resolveOrgAndPlan(supabase, user.id);
-  const limit = PLAN_LIMITS[plan]?.quotes_month ?? 15;
+  // ── Verificar límite de plan (solo usuarios autenticados) ─────────────────
+  let orgId: string | null = null;
+  let plan: 'basico' | 'profesional' | 'empresa' | 'empresa_plus' = 'basico';
+  let limit = PLAN_LIMITS.basico.quotes_month;
+
+  if (userId) {
+    ({ orgId, plan } = await resolveOrgAndPlan(supabase, userId));
+    limit = PLAN_LIMITS[plan]?.quotes_month ?? 15;
+  }
 
   if (orgId && limit !== Infinity) {
     const used = await countQuotesThisMonth(supabase, orgId);

@@ -18,11 +18,14 @@ import { COLORS, TYPOGRAPHY, SHADOWS, COMMON_STYLES } from '../components/Theme'
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 import { MicButton } from '../components/MicButton';
+import type { AIPartida } from '../components/MicButton';
 
 interface SimpleItem {
   description: string;
   quantity: number;
   unitPrice: number;
+  oficio?: string;
+  requiereRevision?: boolean;
 }
 
 export default function CreateQuoteScreen() {
@@ -81,9 +84,16 @@ export default function CreateQuoteScreen() {
     try { Alert.alert('Línea añadida', 'Se ha guardado tu línea de coste.'); } catch (_) {}
   };
 
-  // Append items found from MicButton transcription simulation
-  const handleMicTranscriptFound = (parsedItems: SimpleItem[]) => {
-    setItems((prev) => [...prev, ...parsedItems]);
+  // Recibe partidas de la IA y las convierte al formato interno
+  const handleMicTranscriptFound = (partidas: AIPartida[], _transcript: string) => {
+    const newItems: SimpleItem[] = partidas.map(p => ({
+      description: p.concepto || p.descripcion,
+      quantity: p.cantidad || 1,
+      unitPrice: p.precio_unitario,
+      oficio: p.oficio,
+      requiereRevision: p.requiere_revision,
+    }));
+    setItems(prev => [...prev, ...newItems]);
   };
 
   const handleRemoveItem = (index: number) => {
@@ -183,9 +193,8 @@ export default function CreateQuoteScreen() {
           {/* AI VOICE ROW */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>2. Dictado Rápido con IA (Recomendado)</Text>
-            <MicButton 
-              onTranscriptFound={handleMicTranscriptFound}
-              trade={organization?.trade || 'Fontanería'}
+            <MicButton
+              onQuoteReady={handleMicTranscriptFound}
             />
           </View>
 
@@ -202,8 +211,12 @@ export default function CreateQuoteScreen() {
                   <View key={index} style={styles.lineItem}>
                     <View style={{ flex: 1, paddingRight: 8 }}>
                       <Text style={styles.lineDesc}>{item.description}</Text>
+                      {item.oficio ? (
+                        <Text style={styles.lineOficio}>{item.oficio.replace(/_/g, ' ')}</Text>
+                      ) : null}
                       <Text style={styles.lineQtyPrice}>
                         {item.quantity} ud x {item.unitPrice.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
+                        {item.requiereRevision ? ' ⚠ revisar precio' : ''}
                       </Text>
                     </View>
                     <View style={{ alignItems: 'flex-end', minWidth: 80 }}>
@@ -424,6 +437,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
     color: COLORS.textPrimary,
+  },
+  lineOficio: {
+    fontSize: 10,
+    color: COLORS.secondary,
+    fontWeight: 'bold',
+    textTransform: 'capitalize',
+    marginTop: 1,
   },
   lineQtyPrice: {
     fontSize: 11,

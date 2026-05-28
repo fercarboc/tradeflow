@@ -13,14 +13,18 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "ai.tradeflow.mobile"
+      "bundleIdentifier": "ai.tradeflow.mobile",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "TradeFlow necesita acceso al micrófono para dictar presupuestos por voz."
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0F172A"
       },
-      "package": "ai.tradeflow.mobile"
+      "package": "ai.tradeflow.mobile",
+      "permissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {
       "favicon": "./assets/favicon.png",

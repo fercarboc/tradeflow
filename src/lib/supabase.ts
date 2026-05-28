@@ -130,7 +130,7 @@ export interface TradeWaitlistLead {
 export interface TradeSubscription {
   id: string;
   org_id: string;
-  plan: 'basico' | 'pro' | 'empresa';
+  plan: 'basico' | 'profesional' | 'empresa' | 'empresa_plus';
   billing_cycle: 'monthly' | 'yearly';
   status: 'trial' | 'active' | 'cancelled' | 'expired';
   trial_start: string;
@@ -240,7 +240,7 @@ export async function registerUser(params: {
   companyName?: string;
   phone?: string;
   tradeTypes: string[];
-  plan: 'basico' | 'pro' | 'empresa';
+  plan: 'basico' | 'profesional' | 'empresa' | 'empresa_plus';
   billingCycle: 'monthly' | 'yearly';
 }): Promise<{ error: string | null; needsConfirmation: boolean }> {
   const { data, error } = await supabase.auth.signUp({
@@ -366,7 +366,7 @@ export async function adminCreateInstaller(params: {
   nombre: string;
   company_name?: string;
   oficio: string;
-  plan: 'basico' | 'pro' | 'empresa';
+  plan: 'basico' | 'profesional' | 'empresa' | 'empresa_plus';
   billing_cycle: 'monthly' | 'yearly';
   telefono?: string;
   trial_days?: number;
@@ -397,7 +397,7 @@ export async function adminSetPassword(userIdOrEmail: string, newPassword: strin
 
 export async function adminUpdateOrgPlan(
   orgId: string,
-  plan: TradeSubscription['plan'],
+  plan: 'basico' | 'profesional' | 'empresa' | 'empresa_plus',
   billingCycle: TradeSubscription['billing_cycle'],
 ): Promise<void> {
   await supabase.from('trade_organizations').update({ plan }).eq('id', orgId);

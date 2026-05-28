@@ -12,9 +12,10 @@ const CORS = {
 
 // ── Límites por plan ──────────────────────────────────────────────────────────
 const PHOTO_LIMITS = {
-  basico:  5,
-  pro:     Infinity,
-  empresa: Infinity,
+  basico:       5,
+  profesional:  Infinity,
+  empresa:      Infinity,
+  empresa_plus: Infinity,
 };
 
 // ── Resuelve org_id + plan del usuario autenticado ────────────────────────────
@@ -32,7 +33,7 @@ async function resolveOrgAndPlan(supabase: ReturnType<typeof createClient>, user
     .eq('org_id', orgId)
     .maybeSingle();
 
-  const plan = (sub?.plan ?? 'basico') as 'basico' | 'pro' | 'empresa';
+  const plan = (sub?.plan ?? 'basico') as 'basico' | 'profesional' | 'empresa' | 'empresa_plus';
   return { orgId, plan };
 }
 

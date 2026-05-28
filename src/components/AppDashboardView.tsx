@@ -728,65 +728,84 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   interface AIQuotePartida {
+    concepto: string;
     descripcion: string;
-    cantidad: number;
+    oficio: string;
+    tipo_partida: 'mano_obra' | 'material' | 'servicio';
     unidad: string;
-    categoria: string;
+    cantidad: number;
     precio_unitario: number;
-    subtotal: number;
-    catalog_id: string | null;
-    del_catalogo: boolean;
-    requiere_precio: boolean;
-    aviso: string;
+    total: number;
+    precio_origen: 'catalogo' | 'usuario' | 'estimado' | 'pendiente';
+    requiere_revision: boolean;
+    motivo_revision: string;
   }
 
   interface AIQuote {
-    oficio: string;
-    tipo_trabajo: string;
-    resumen: string;
+    resumen: {
+      texto_original: string;
+      tipo_presupuesto: string;
+      requiere_revision_general: boolean;
+      alertas: string[];
+    };
+    oficios_detectados: Array<{
+      oficio: string;
+      existe_en_catalogo: boolean;
+      nuevo_oficio: boolean;
+      tarifa_hora: { min: number; recomendado: number; max: number };
+      motivo: string;
+    }>;
     partidas: AIQuotePartida[];
-    subtotal: number;
-    iva: { tipo: number; importe: number };
-    total: number;
-    notas: string;
-    nivel_confianza: string;
+    calculos: {
+      subtotal: number;
+      iva_porcentaje: number;
+      iva: number;
+      total: number;
+    };
+    sugerencias_catalogo: Array<{
+      oficio_sugerido: string;
+      min: number;
+      recomendado: number;
+      max: number;
+      motivo: string;
+    }>;
   }
 
   const quoteToPartidas = (quote: AIQuote): PartidaPresupuesto[] => {
-    const LABOR_CATS = ['mano de obra', 'desmontaje', 'gestión residuos', 'desplazamiento', 'instalación', 'retirada'];
     return quote.partidas.map(p => {
-      const cat = p.categoria?.toLowerCase() ?? '';
-      const tipo: PartidaPresupuesto['tipo'] = LABOR_CATS.some(k => cat.includes(k)) ? 'mano_de_obra' : 'material';
+      const tipo: PartidaPresupuesto['tipo'] = p.tipo_partida === 'material' ? 'material' : 'mano_de_obra';
 
-      // Catalog match → use installer's real price
-      const catalogMatch = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
-      if (catalogMatch) {
-        const pu = catalogMatch.variant.precio_venta;
-        return {
-          descripcion: `${catalogMatch.product.nombre_generico} (${catalogMatch.variant.marca})`,
-          tipo,
-          cantidad: p.cantidad,
-          precioUnitario: pu,
-          total: pu * p.cantidad,
-        };
+      // Para materiales sin precio: intentar match en catálogo del profesional
+      if (p.tipo_partida === 'material' && p.precio_unitario === 0 && catalogProducts.length > 0) {
+        const catalogMatch = matchProductForAI(p.concepto || p.descripcion, catalogProducts);
+        if (catalogMatch) {
+          const pu = catalogMatch.variant.precio_venta;
+          return {
+            descripcion: `${catalogMatch.product.nombre_generico} (${catalogMatch.variant.marca})`,
+            tipo,
+            cantidad: p.cantidad,
+            precioUnitario: pu,
+            total: pu * p.cantidad,
+          };
+        }
       }
 
       return {
-        descripcion: p.descripcion,
+        descripcion: p.concepto || p.descripcion,
         tipo,
         cantidad: p.cantidad,
-        precioUnitario: 0,
-        total: 0,
-        requiere_precio: true,
-        aviso: p.aviso || 'Sin precio en catálogo. Asigna precio.',
+        precioUnitario: p.precio_unitario,
+        total: p.total,
+        requiere_precio: p.requiere_revision,
+        aviso: p.motivo_revision || undefined,
       };
     });
   };
 
   const handleVoiceResult = (transcript: string, quote: AIQuote) => {
     const partidas = quoteToPartidas(quote);
-    const total = partidas.reduce((s, p) => s + p.total, 0);
-    const desc = (quote.resumen || quote.tipo_trabajo || quote.oficio || transcript).slice(0, 80);
+    const total = quote.calculos?.total ?? partidas.reduce((s, p) => s + p.total, 0);
+    const desc = (quote.resumen?.tipo_presupuesto || quote.resumen?.texto_original || transcript).slice(0, 80);
 
     setWizardQuote(prev => ({ ...prev, descripcion: desc, partidas, total, estado: 'Borrador' as const }));
     setEditingQuote(prev => ({ ...prev, descripcion: desc, partidas, total }));
@@ -1033,6 +1052,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   const finishWizardAndSave = async (clientName: string, clientPhone: string) => {
     const finalQuote = { ...wizardQuote, nombreCliente: clientName || 'Sin nombre', telefonoCliente: clientPhone } as Presupuesto;
+    // Aprender precios rellenados por el usuario antes de guardar
+    autoLearnPrices(finalQuote.partidas ?? [], wizardOrigin);
     let savedQuote = finalQuote;
     if (isLiveMode && orgId && finalQuote.partidas?.length) {
       const phone = clientPhone.trim().replace(/\s/g, '');
@@ -1362,6 +1383,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     }
   };
 
+  // Aprende automáticamente los precios de partidas que venían a 0 de la IA
+  // y el usuario rellenó antes de guardar. Fire-and-forget.
+  const autoLearnPrices = (partidas: PartidaPresupuesto[], origen: 'voz' | 'foto' | 'manual' = 'voz') => {
+    if (!isLiveMode || !orgId) return;
+    for (const p of partidas) {
+      if (p.requiere_precio && p.precioUnitario > 0) {
+        learnPriceToCatalog(orgId, p.descripcion, p.precioUnitario, p.tipo, origen).catch(() => {});
+      }
+    }
+  };
+
   const saveCurrentQuote = async () => {
     if (!editingQuote.nombreCliente) { showToast('Selecciona un cliente', 'error'); return; }
     if (editingQuote.partidas.length === 0) { showToast('Añade al menos una partida', 'error'); return; }
@@ -1382,6 +1414,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       saved = { ...editingQuote, id: `P-2026-00${presupuestos.length + 1}` };
     }
 
+    // Aprender precios rellenados por el usuario
+    autoLearnPrices(editingQuote.partidas, 'manual');
     setPresupuestos(prev => [saved, ...prev]);
     setSelectedQuoteForPreview(saved);
     setActiveTab('preview');

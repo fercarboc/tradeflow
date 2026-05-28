@@ -17,11 +17,10 @@ const PLANS = [
     key: 'basico',
     name: 'Básico',
     monthlyPrice: 29,
-    trialLabel: '15 días gratis',
     users: '1 usuario',
-    desc: 'Empieza gratis. Presupuestos por voz con IA, gestión de clientes y facturas básicas.',
+    desc: 'Para el autónomo ocasional que quiere digitalizar sus presupuestos sin complicaciones.',
     features: [
-      'Hasta 20 presupuestos/mes',
+      'Hasta 15 presupuestos/mes',
       'Presupuestos por voz con IA',
       'Hasta 50 clientes',
       'Hasta 5 facturas/mes',
@@ -33,11 +32,11 @@ const PLANS = [
     cta: 'Empezar gratis',
   },
   {
-    key: 'pro',
-    name: 'Pro',
+    key: 'profesional',
+    name: 'Profesional',
     monthlyPrice: 49,
     users: '1 usuario',
-    desc: 'Para el instalador autónomo con alta carga de trabajo que necesita todo sin límites.',
+    desc: 'Para el autónomo serio con alta carga de trabajo que necesita todo sin límites.',
     features: [
       'Presupuestos ilimitados',
       'Clientes ilimitados',
@@ -49,26 +48,43 @@ const PLANS = [
     ],
     popular: true,
     highlight: false,
-    cta: 'Activar Pro',
+    cta: 'Activar Profesional',
   },
   {
     key: 'empresa',
     name: 'Empresa',
     monthlyPrice: 89,
-    users: 'Hasta 10 usuarios',
-    desc: 'Para empresas instaladoras con equipo en campo que necesitan control total del negocio.',
+    users: 'Hasta 5 usuarios',
+    desc: 'Para microempresas instaladoras con equipo en campo que necesitan control total.',
     features: [
-      'Todo lo del plan Pro',
-      'Hasta 10 usuarios en equipo',
+      'Todo lo del plan Profesional',
+      'Hasta 5 usuarios en equipo',
       'Roles y permisos granulares',
       'Módulo Ingresos y rentabilidad',
-      'Módulo de Contratos y mantenimientos',
       'Panel Equipo y Permisos',
       'Soporte VIP',
     ],
     popular: false,
-    highlight: true,
+    highlight: false,
     cta: 'Activar Empresa',
+  },
+  {
+    key: 'empresa_plus',
+    name: 'Empresa+',
+    monthlyPrice: 179,
+    users: 'Hasta 15 usuarios',
+    desc: 'Para la empresa instaladora consolidada que necesita mantenimientos y gestión avanzada.',
+    features: [
+      'Todo lo del plan Empresa',
+      'Hasta 15 usuarios en equipo',
+      'Módulo Contratos y mantenimientos',
+      'Panel financiero avanzado',
+      'Soporte dedicado 1-on-1',
+      'Onboarding personalizado',
+    ],
+    popular: false,
+    highlight: true,
+    cta: 'Activar Empresa+',
     badges: ['Sin permanencia', 'Actualizaciones incluidas', 'Soporte cercano'],
   },
 ];
@@ -136,7 +152,7 @@ export default function PreciosView({ setCurrentPage }: PreciosViewProps) {
 
       {/* Cards */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
           {PLANS.map((plan) => {
             const annualTotal = plan.monthlyPrice * 10;
             const monthlyEquiv = Math.round(annualTotal / 12);
@@ -169,18 +185,7 @@ export default function PreciosView({ setCurrentPage }: PreciosViewProps) {
                     {plan.name}
                   </div>
 
-                  {plan.monthlyPrice === 0 ? (
-                    <div>
-                      <div className="flex items-end gap-1.5">
-                        <span className={`text-5xl font-black leading-none ${plan.highlight ? 'text-[#020B16]' : 'text-white'}`}>
-                          Gratis
-                        </span>
-                      </div>
-                      <p className={`text-xs mt-1.5 font-medium ${plan.highlight ? 'text-[#020B16]/60' : 'text-white/45'}`}>
-                        15 días de prueba · sin tarjeta
-                      </p>
-                    </div>
-                  ) : yearly ? (
+                  {yearly ? (
                     /* Annual: show total/año in big + monthly equivalent below */
                     <div>
                       <div className="flex items-end gap-1.5">

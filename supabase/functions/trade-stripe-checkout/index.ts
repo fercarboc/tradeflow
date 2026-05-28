@@ -72,7 +72,7 @@ Deno.serve(async (req: Request) => {
     }
   }
 
-  const plan  = body.plan          ?? sub?.plan          ?? 'pro';
+  const plan  = body.plan          ?? sub?.plan          ?? 'profesional';
   const cycle = body.billing_cycle ?? sub?.billing_cycle ?? 'monthly';
 
   // Leer price ID desde BD — si cambia el precio en Stripe, solo actualizar la tabla

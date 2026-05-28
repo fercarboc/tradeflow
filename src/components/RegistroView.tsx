@@ -47,15 +47,15 @@ const PLANS = [
     monthlyPrice: 29,
     yearlyPrice: 23,
     desc: 'Para autónomos con bajo volumen de trabajo.',
-    features: ['Hasta 15 presupuestos PDF al mes', 'Conversión a factura básica', 'Envío por WhatsApp', 'Soporte por Email'],
+    features: ['Hasta 15 presupuestos/mes', 'Escáner foto IA (5/mes)', 'PDF profesional', 'Soporte por Email'],
   },
   {
-    id: 'pro' as const,
-    name: 'Plan Pro',
+    id: 'profesional' as const,
+    name: 'Plan Profesional',
     monthlyPrice: 49,
     yearlyPrice: 39,
-    desc: 'Para autónomos de alto volumen y microempresas.',
-    features: ['Presupuestos por voz e imagen', 'PDFs ilimitados', 'Módulo de gastos', 'Soporte 1-on-1 WhatsApp'],
+    desc: 'Para autónomos serios de alto volumen.',
+    features: ['Presupuestos y facturas ilimitados', 'Voz + foto IA ilimitada', 'Planificación de trabajos', 'Soporte prioritario'],
     popular: true,
   },
   {
@@ -63,8 +63,16 @@ const PLANS = [
     name: 'Plan Empresa',
     monthlyPrice: 89,
     yearlyPrice: 71,
-    desc: 'Para instaladoras con varios técnicos.',
-    features: ['Todo lo del Plan Pro', 'Hasta 5 cuentas de técnicos', 'Panel financiero avanzado', 'Contratos de mantenimiento'],
+    desc: 'Para microempresas con hasta 5 técnicos.',
+    features: ['Todo lo del Plan Profesional', 'Hasta 5 usuarios en equipo', 'Roles y permisos', 'Soporte VIP'],
+  },
+  {
+    id: 'empresa_plus' as const,
+    name: 'Plan Empresa+',
+    monthlyPrice: 179,
+    yearlyPrice: 143,
+    desc: 'Para empresas consolidadas con hasta 15 técnicos.',
+    features: ['Todo lo del Plan Empresa', 'Hasta 15 usuarios', 'Módulo mantenimientos', 'Soporte 1-on-1 dedicado'],
   },
 ];
 
@@ -77,7 +85,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
   const [step, setStep] = useState<Step>(1);
   const [selectedTrades, setSelectedTrades] = useState<string[]>([]);
   const [businessType, setBusinessType] = useState<'autonomo' | 'empresa'>('autonomo');
-  const [selectedPlan, setSelectedPlan] = useState<'basico' | 'pro' | 'empresa'>('pro');
+  const [selectedPlan, setSelectedPlan] = useState<'basico' | 'profesional' | 'empresa' | 'empresa_plus'>('profesional');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
   const [form, setForm] = useState({
     fullName: '',
@@ -285,7 +293,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
           </div>
 
           {/* Plan cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {PLANS.map(plan => {
               const price = billingCycle === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice;
               const selected = selectedPlan === plan.id;
