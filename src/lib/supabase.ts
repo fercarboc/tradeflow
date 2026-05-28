@@ -1343,7 +1343,7 @@ export async function subscribePush(workerId: string, orgId: string): Promise<bo
     org_id: orgId,
     endpoint: json.endpoint,
     subscription: json,
-  }, { onConflict: 'worker_id,endpoint' }).catch(console.error);
+  }, { onConflict: 'worker_id,endpoint' }).match({}).then(null, console.error);
 
   return true;
 }

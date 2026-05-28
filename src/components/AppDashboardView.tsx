@@ -966,7 +966,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         const partidas: PartidaPresupuesto[] = quoteToPartidas(quote);
 
         const total = partidas.reduce((s, p) => s + p.total, 0);
-        const desc = (quote.resumen || quote.tipo_trabajo || quote.oficio || '').slice(0, 80);
+        const desc = (typeof quote.resumen === 'string' ? quote.resumen : quote.resumen?.texto_original || '').slice(0, 80);
         setWizardQuote(prev => ({
           ...prev,
           descripcion: desc || prev.descripcion,
@@ -3393,15 +3393,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         </aside>
 
         {/* CUERPO CENTRAL DE LA CONSOLA DESKTOP */}
-        <div className="flex-grow flex flex-col min-w-0 bg-slate-50 dark:bg-slate-950">
-          
+        <div className="flex-grow flex flex-col min-w-0 bg-slate-50">
+
           {/* Header de la sección */}
-          <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-850 px-6 py-4 flex items-center justify-between shrink-0">
+          <div className="bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between shrink-0">
             <div>
-              <span className="text-[9px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest block font-mono">
+              <span className="text-[9px] font-bold text-blue-600 uppercase tracking-widest block">
                 TrabFlow AI Operating System
               </span>
-              <h2 className="text-md sm:text-lg font-display font-bold text-slate-900 dark:text-white uppercase tracking-tight">
+              <h2 className="text-md sm:text-lg font-black font-bold text-slate-900 uppercase tracking-tight">
                 {activeTab === 'dashboard' && 'Panel de Control'}
                 {activeTab === 'create_quote' && 'Crear Presupuesto'}
                 {activeTab === 'ai_scan' && 'Escáner Fotográfico IA'}
@@ -3555,8 +3555,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <span className="text-[10px] font-mono font-bold text-blue-455 uppercase tracking-widest">TrabFlow Smart Pricing</span>
                   <span className="bg-emerald-500/15 text-emerald-450 font-bold px-1.5 py-0.5 rounded text-[8px] uppercase tracking-wider font-mono">Recomendado</span>
                 </div>
-                <span className="font-bold text-xs text-slate-800 dark:text-white">Optimizar coste mano de obra en Sevilla</span>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-normal max-w-lg">
+                <span className="font-bold text-xs text-slate-800">Optimizar coste mano de obra en Sevilla</span>
+                <p className="text-[11px] text-slate-500 leading-normal max-w-lg">
                   Has presupuestado la mano de obra a 45€/h. El promedio verificado de mercado para calderas Vaillant en Sevilla es de <strong>52€/h</strong>. ¿Deseas aplicar la tarifa recomendada?
                 </p>
               </div>
@@ -3569,9 +3569,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               >
                 Aplicar 52€/h (+{suggestedPricingInfo.diff}€)
               </button>
-              <button 
+              <button
                 onClick={() => setShowPricingSuggestion(false)}
-                className="bg-slate-200 dark:bg-slate-800 text-slate-655 dark:text-slate-400 hover:bg-slate-250 dark:hover:bg-slate-750 font-bold text-[10px] uppercase tracking-wider py-2.5 px-4 rounded-xl cursor-pointer"
+                className="bg-slate-200 text-slate-655 hover:bg-slate-250 font-bold text-[10px] uppercase tracking-wider py-2.5 px-4 rounded-xl cursor-pointer"
               >
                 Ignorar
               </button>
@@ -3581,33 +3581,33 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         {/* KPIs */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 p-4 rounded-2xl space-y-1">
-            <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-wider block">Trimestre Facturado</span>
-            <div className="text-xl sm:text-2xl font-display font-bold text-emerald-600 dark:text-emerald-450 tracking-tight">
+          <div className="bg-white border border-slate-200 p-4 rounded-xl space-y-1">
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Trimestre Facturado</span>
+            <div className="text-xl sm:text-2xl font-black text-emerald-600 tracking-tight">
               {totalFacturadoFacturas.toFixed(2)}€
             </div>
-            <span className="text-[10px] text-slate-400 block font-mono">✓ Cobro confirmado</span>
+            <span className="text-[10px] text-slate-400 block">✓ Cobro confirmado</span>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 p-4 rounded-2xl space-y-1">
-            <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-wider block">Pendiente Cobro</span>
-            <div className="text-xl sm:text-2xl font-display font-bold text-amber-500 tracking-tight">
+          <div className="bg-white border border-slate-200 p-4 rounded-xl space-y-1">
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Pendiente Cobro</span>
+            <div className="text-xl sm:text-2xl font-black text-amber-500 tracking-tight">
               {totalPendienteFacturas.toFixed(2)}€
             </div>
-            <span className="text-[10px] text-slate-400 block font-mono">⚠ En plazo de vencimiento</span>
+            <span className="text-[10px] text-slate-400 block">⚠ En plazo de vencimiento</span>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 p-4 rounded-2xl space-y-1">
-            <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-wider block">Borradores en Espera</span>
-            <div className="text-xl sm:text-2xl font-display font-bold text-blue-500 tracking-tight">
+          <div className="bg-white border border-slate-200 p-4 rounded-xl space-y-1">
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Borradores en Espera</span>
+            <div className="text-xl sm:text-2xl font-black text-blue-500 tracking-tight">
               {presupuestosPendientesCount}
             </div>
             <span className="text-[10px] text-slate-400 block">Presupuestos por firmar</span>
           </div>
 
-          <div className="bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 p-4 rounded-2xl space-y-1">
-            <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-wider block">Tasa de Aceptación</span>
-            <div className="text-xl sm:text-2xl font-display font-bold text-slate-905 dark:text-white tracking-tight">
+          <div className="bg-white border border-slate-200 p-4 rounded-xl space-y-1">
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Tasa de Aceptación</span>
+            <div className="text-xl sm:text-2xl font-black text-slate-905 tracking-tight">
               82.4%
             </div>
             <span className="text-[10px] text-slate-400 block">Optimizado por rapidez</span>
@@ -3634,43 +3634,43 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
               <Mic className="w-6 h-6 text-white" />
             </div>
-            <span className="font-display font-bold uppercase tracking-wider text-xs block">Presupuesto por Voz IA</span>
+            <span className="font-black uppercase tracking-wider text-xs block">Presupuesto por Voz IA</span>
             <p className="text-[10px] text-blue-105 leading-normal max-w-xs">Dicta en la furgoneta o en obra; creamos el presupuesto estructurado.</p>
           </button>
 
-          <button 
+          <button
             onClick={() => setActiveTab('ai_scan')}
-            className="bg-slate-900 dark:bg-slate-900 hover:bg-slate-850 dark:hover:bg-slate-850 border border-slate-250 dark:border-slate-800 text-slate-800 dark:text-white rounded-2xl p-5 text-center space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101"
+            className="bg-slate-900 hover:bg-slate-850 border border-slate-250 text-white rounded-2xl p-5 text-center space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101"
           >
             <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center border border-emerald-500/25">
               <ImageIcon className="w-6 h-6 text-emerald-450" />
             </div>
-            <span className="font-display font-bold uppercase tracking-wider text-xs block">Escaneo Foto de Obra</span>
+            <span className="font-black uppercase tracking-wider text-xs block">Escaneo Foto de Obra</span>
             <p className="text-[10px] text-slate-400 leading-normal max-w-xs">Identifica materiales y precios detectando calderas, tubos y componentes.</p>
           </button>
 
-          <button 
+          <button
             onClick={() => {
               setNewClient({ nombre: '', telefono: '', email: '', direccion: '' });
               setIsClientModalOpen(true);
             }}
-            className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-white rounded-2xl p-5 text-center space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101"
+            className="bg-white border border-slate-200 text-slate-800 rounded-2xl p-5 text-center space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101"
           >
-            <div className="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center justify-center border border-slate-200 dark:border-slate-750">
-              <Plus className="w-6 h-6 text-slate-600 dark:text-slate-400" />
+            <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center border border-slate-200">
+              <Plus className="w-6 h-6 text-slate-600" />
             </div>
-            <span className="font-display font-bold uppercase tracking-wider text-xs block">Registrar Cliente CRM</span>
+            <span className="font-black uppercase tracking-wider text-xs block">Registrar Cliente CRM</span>
             <p className="text-[10px] text-slate-455 leading-normal max-w-xs">Da de alta un cliente y guarda sus datos fiscales para futuros cobros.</p>
           </button>
         </div>
 
         {/* Evolución gráfica SVG */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 p-5 rounded-2xl lg:col-span-7 space-y-4">
+          <div className="bg-white border border-slate-200 p-5 rounded-xl lg:col-span-7 space-y-4">
             <div className="flex justify-between items-center">
               <div>
-                <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest block font-mono">Historial</span>
-                <h3 className="text-sm font-display font-bold text-slate-900 dark:text-white uppercase">Ingresos Recientes</h3>
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Historial</span>
+                <h3 className="text-sm font-black text-slate-900 uppercase">Ingresos Recientes</h3>
               </div>
             </div>
 
@@ -3683,11 +3683,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 { mes: 'May', valor: '2,850€', altura: '100%' }
               ].map((item, idx) => (
                 <div key={idx} className="flex flex-col items-center flex-1 h-full justify-end group">
-                  <div className="text-[9px] font-bold text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity mb-1 font-mono">{item.valor}</div>
+                  <div className="text-[9px] font-bold text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity mb-1 font-mono">{item.valor}</div>
                   {idx === 4 ? (
                     <div className="w-full bg-gradient-to-t from-blue-600 via-indigo-500 to-emerald-400 rounded-t-lg shadow-md" style={{ height: item.altura }} />
                   ) : (
-                    <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-t-lg" style={{ height: item.altura }} />
+                    <div className="w-full bg-slate-200 rounded-t-lg" style={{ height: item.altura }} />
                   )}
                   <span className="text-[9px] mt-2 font-mono text-slate-400">{item.mes}</span>
                 </div>
@@ -3696,10 +3696,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
 
           {/* Ultimos Presupuestos */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 p-5 rounded-2xl lg:col-span-5 space-y-4">
+          <div className="bg-white border border-slate-200 p-5 rounded-xl lg:col-span-5 space-y-4">
             <div>
-              <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest block">Lista</span>
-              <h3 className="text-sm font-display font-bold text-slate-900 dark:text-white uppercase">Presupuestos Recientes</h3>
+              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest block">Lista</span>
+              <h3 className="text-sm font-black text-slate-900 uppercase">Presupuestos Recientes</h3>
             </div>
 
             <div className="space-y-3">
@@ -3710,14 +3710,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     setSelectedQuoteForPreview(p);
                     setActiveTab('preview');
                   }}
-                  className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-950 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-850 cursor-pointer"
+                  className="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 rounded-xl border border-slate-200 cursor-pointer"
                 >
                   <div className="space-y-0.5 truncate pr-2">
-                    <span className="text-xs font-bold text-slate-800 dark:text-white block truncate">{p.nombreCliente}</span>
+                    <span className="text-xs font-bold text-slate-800 block truncate">{p.nombreCliente}</span>
                     <span className="text-[10px] text-slate-450 block truncate">{p.descripcion}</span>
                   </div>
                   <div className="text-right shrink-0">
-                    <span className="text-xs font-bold font-mono text-slate-800 dark:text-white">{p.total.toFixed(0)}€</span>
+                    <span className="text-xs font-bold font-mono text-slate-800">{p.total.toFixed(0)}€</span>
                   </div>
                 </div>
               ))}
@@ -3732,10 +3732,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // ================= DESKTOP: CREAR PRESUPUESTO SCREEN =================
   function ScreenCreateQuote() {
     return (
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-5 space-y-6">
-        <div className="flex justify-between items-center pb-4 border-b border-slate-200 dark:border-slate-850">
+      <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-6">
+        <div className="flex justify-between items-center pb-4 border-b border-slate-200">
           <div>
-            <h3 className="text-md font-display font-bold uppercase text-slate-900 dark:text-white">Borrador de Presupuesto</h3>
+            <h3 className="text-md font-black uppercase text-slate-900">Borrador de Presupuesto</h3>
           </div>
           <button 
             onClick={() => setIsVoiceModalOpen(true)}
@@ -3748,7 +3748,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-1">
-            <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider font-mono">Cliente CRM</label>
+            <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Cliente CRM</label>
             <div className="flex gap-2">
               <select
                 value={editingQuote.nombreCliente}
@@ -3761,7 +3761,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     emailCliente: cli?.email || ''
                   }));
                 }}
-                className="flex-1 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold text-slate-855 dark:text-white focus:outline-none"
+                className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-855 focus:outline-none"
               >
                 <option value="">-- Seleccionar cliente --</option>
                 {clientes.map(c => (
@@ -3779,33 +3779,33 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
 
           <div className="space-y-1">
-            <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider font-mono">Nombre Obra</label>
+            <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Nombre Obra</label>
             <input
               type="text"
               placeholder="Instalación termo, grifo..."
               value={editingQuote.descripcion}
               onChange={(e) => setEditingQuote(prev => ({ ...prev, descripcion: e.target.value }))}
-              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 dark:text-white focus:outline-none"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 focus:outline-none"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider font-mono">Fecha</label>
+            <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Fecha</label>
             <input
               type="date"
               value={editingQuote.fecha}
               onChange={(e) => setEditingQuote(prev => ({ ...prev, fecha: e.target.value }))}
-              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 dark:text-white focus:outline-none"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-800 focus:outline-none"
             />
           </div>
         </div>
 
         <div className="space-y-4">
           <div className="flex justify-between items-center">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">Partidas de Obra</h4>
-            <button 
+            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">Partidas de Obra</h4>
+            <button
               onClick={handleAddManualItem}
-              className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-750 font-bold uppercase tracking-wider text-[9px] py-1.5 px-3 rounded-lg cursor-pointer"
+              className="flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 font-bold uppercase tracking-wider text-[9px] py-1.5 px-3 rounded-lg cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Añadir Fila</span>
@@ -3814,19 +3814,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
           <div className="space-y-2">
             {editingQuote.partidas.map((item, idx) => (
-              <div key={idx} className="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-850 p-3 rounded-xl flex flex-wrap md:flex-nowrap gap-3 items-center">
+              <div key={idx} className="bg-slate-50 border border-slate-200 p-3 rounded-xl flex flex-wrap md:flex-nowrap gap-3 items-center">
                 <input
                   type="text"
                   value={item.descripcion}
                   placeholder="Concepto..."
                   onChange={(e) => handleUpdateItem(idx, { descripcion: e.target.value })}
-                  className="flex-grow bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 dark:text-white"
+                  className="flex-grow bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-800"
                 />
-                
+
                 <select
                   value={item.tipo}
                   onChange={(e) => handleUpdateItem(idx, { tipo: e.target.value as any })}
-                  className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 dark:text-white"
+                  className="bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-800"
                 >
                   <option value="material">Material 📦</option>
                   <option value="mano_de_obra">Mano Obra 🛠️</option>
@@ -3837,7 +3837,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   value={item.cantidad}
                   min="1"
                   onChange={(e) => handleUpdateItem(idx, { cantidad: parseInt(e.target.value) || 1 })}
-                  className="w-16 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-center text-xs text-slate-800 dark:text-white"
+                  className="w-16 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-center text-xs text-slate-800"
                 />
 
                 <input
@@ -3846,10 +3846,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   value={item.precioUnitario || ''}
                   placeholder="0.00"
                   onChange={(e) => handleUpdateItem(idx, { precioUnitario: parseFloat(e.target.value) || 0 })}
-                  className="w-24 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-2.5 py-1.5 text-right text-xs text-slate-800 dark:text-white"
+                  className="w-24 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-right text-xs text-slate-800"
                 />
 
-                <span className="w-16 text-right text-xs font-mono font-bold text-slate-900 dark:text-white">{item.total.toFixed(0)}€</span>
+                <span className="w-16 text-right text-xs font-mono font-bold text-slate-900">{item.total.toFixed(0)}€</span>
 
                 <button onClick={() => handleRemoveItem(idx)} className="text-slate-400 hover:text-red-500 p-1">
                   <Trash2 className="w-4 h-4" />
@@ -3859,10 +3859,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         </div>
 
-        <div className="border-t border-slate-200 dark:border-slate-850 pt-4 flex justify-between items-center">
+        <div className="border-t border-slate-200 pt-4 flex justify-between items-center">
           <div>
             <span className="text-[9px] text-slate-400 uppercase tracking-wider block font-mono">Total Neto</span>
-            <div className="text-xl font-bold font-mono text-slate-900 dark:text-white">{editingQuote.total.toFixed(2)}€</div>
+            <div className="text-xl font-bold font-mono text-slate-900">{editingQuote.total.toFixed(2)}€</div>
           </div>
           <button
             onClick={saveCurrentQuote}
@@ -3888,9 +3888,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     };
 
     return (
-      <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-5 space-y-6">
+      <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-6">
         <div className="flex items-center justify-between">
-          <h3 className="text-md font-display font-bold uppercase text-slate-905 dark:text-white">
+          <h3 className="text-md font-black uppercase text-slate-905">
             Escáner Fotográfico IA
           </h3>
           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isLiveMode ? 'bg-emerald-900/40 text-emerald-300' : 'bg-slate-700 text-slate-400'}`}>
@@ -3909,24 +3909,24 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => photoCameraRef.current?.click()}
-                  className="bg-slate-50 dark:bg-slate-800 border-2 border-blue-600/40 hover:border-blue-500 rounded-2xl p-6 text-center cursor-pointer transition-colors"
+                  className="bg-slate-50 border-2 border-blue-600/40 hover:border-blue-500 rounded-xl p-6 text-center cursor-pointer transition-colors"
                 >
                   <Camera className="w-8 h-8 text-blue-400 mx-auto mb-2" />
-                  <span className="text-xs font-bold text-slate-800 dark:text-white block">Tomar foto</span>
+                  <span className="text-xs font-bold text-slate-800 block">Tomar foto</span>
                   <span className="text-[10px] text-slate-400 block mt-1">Abre la cámara</span>
                 </button>
                 <button
                   onClick={() => photoInputRef.current?.click()}
-                  className="bg-slate-50 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-600 hover:border-blue-500 rounded-2xl p-6 text-center cursor-pointer transition-colors"
+                  className="bg-slate-50 border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-xl p-6 text-center cursor-pointer transition-colors"
                 >
                   <ImageIcon className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-                  <span className="text-xs font-bold text-slate-800 dark:text-white block">Subir imagen</span>
+                  <span className="text-xs font-bold text-slate-800 block">Subir imagen</span>
                   <span className="text-[10px] text-slate-400 block mt-1">Desde tu equipo</span>
                 </button>
               </div>
             ) : (
               <div className="grid grid-cols-2 gap-4">
-                <div className="relative rounded-2xl overflow-hidden aspect-video bg-slate-950 flex items-center justify-center">
+                <div className="relative rounded-xl overflow-hidden aspect-video bg-slate-950 flex items-center justify-center">
                   <img src={realPhotoPreviewUrl!} alt="Preview" className="max-h-full max-w-full object-contain" />
                   {isScanning && (
                     <div className="absolute left-0 right-0 h-1 bg-emerald-400 shadow-[0_0_15px_#34d399] z-20"
@@ -3939,10 +3939,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     ✕ Cambiar
                   </button>
                 </div>
-                <div className="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
                   <div>
                     <span className="text-[10px] font-bold text-slate-400 block font-mono uppercase mb-2">Claude AI Vision</span>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 italic">
+                    <p className="text-xs text-slate-500 italic">
                       {isScanning ? `Analizando imagen... ${scanProgress}%` : 'Pulsa para detectar materiales y trabajos.'}
                     </p>
                   </div>
@@ -3952,7 +3952,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       Analizar con IA 📷
                     </button>
                   ) : (
-                    <div className="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2 overflow-hidden">
+                    <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
                       <div className="bg-emerald-500 h-2 transition-all duration-200" style={{ width: `${scanProgress}%` }} />
                     </div>
                   )}
@@ -3968,7 +3968,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <div className="grid grid-cols-3 gap-2">
               {presetPhotos.map(p => (
                 <div key={p.id} onClick={() => handleSelectPresetPhoto(p)}
-                  className={`p-2 bg-slate-50 dark:bg-slate-950 border rounded-2xl cursor-pointer ${selectedPhotoPreset?.id === p.id ? 'border-blue-600' : 'border-slate-200 dark:border-slate-800'}`}>
+                  className={`p-2 bg-slate-50 border rounded-xl cursor-pointer ${selectedPhotoPreset?.id === p.id ? 'border-blue-600' : 'border-slate-200'}`}>
                   <img src={p.url} alt={p.name} className="w-full h-24 rounded-xl object-cover" />
                   <span className="text-[10px] font-bold mt-1.5 block text-center truncate">{p.name}</span>
                 </div>
@@ -3977,13 +3977,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
             {selectedPhotoPreset && (
               <div className="grid grid-cols-2 gap-4">
-                <div className="relative rounded-2xl overflow-hidden aspect-video bg-slate-950 flex items-center justify-center">
+                <div className="relative rounded-xl overflow-hidden aspect-video bg-slate-950 flex items-center justify-center">
                   <img src={selectedPhotoPreset.url} alt="Worksite" className="max-h-full max-w-full object-contain" />
                   {isScanning && (
                     <div className="absolute left-0 right-0 h-1 bg-emerald-400 shadow-[0_0_15px_#34d399] z-20" style={{ top: `${scanProgress}%` }} />
                   )}
                 </div>
-                <div className="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-200 dark:border-slate-850 flex flex-col justify-between">
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
                   <div>
                     <span className="text-[10px] font-bold text-slate-400 block font-mono uppercase">Materiales extraídos por IA</span>
                     <p className="text-xs text-slate-400 italic mt-4">Por favor, inicia el escaneo con IA.</p>
@@ -4005,12 +4005,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     if (!selectedQuoteForPreview) return null;
     return (
       <div className="space-y-6">
-        <div className="bg-white dark:bg-slate-900 border p-4 rounded-2xl flex justify-between items-center">
+        <div className="bg-white border border-slate-200 p-4 rounded-xl flex justify-between items-center">
           <div className="flex gap-2 flex-wrap">
             <button onClick={() => triggerWhatsAppShare(selectedQuoteForPreview)} className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer flex items-center gap-1.5">
               💬 WhatsApp
             </button>
-            <button onClick={() => printQuote(selectedQuoteForPreview)} className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer">
+            <button onClick={() => printQuote(selectedQuoteForPreview)} className="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer">
               <FileText className="w-3.5 h-3.5" />
               PDF
             </button>
@@ -4067,7 +4067,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               placeholder="Buscar por nombre o teléfono..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
+              className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-800 focus:outline-none focus:border-blue-500"
             />
           </div>
           <button
@@ -4087,11 +4087,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             return (
             <div
               key={c.id}
-              className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl space-y-2 cursor-pointer hover:border-blue-300 dark:hover:border-blue-600 transition-colors"
+              className="bg-white border border-slate-200 p-4 rounded-xl space-y-2 cursor-pointer hover:border-blue-300 transition-colors"
               onClick={() => setExpandedClientMobileId(isExpanded ? null : c.id)}
             >
               <div className="flex justify-between items-start gap-2">
-                <h4 className="font-bold text-xs text-slate-900 dark:text-white uppercase tracking-wide truncate">{c.nombre}</h4>
+                <h4 className="font-bold text-xs text-slate-900 uppercase tracking-wide truncate">{c.nombre}</h4>
                 <div className="flex items-center gap-2 shrink-0">
                   <button
                     onClick={(e) => { e.stopPropagation(); setEditingQuote(prev => ({ ...prev, nombreCliente: c.nombre, telefonoCliente: c.telefono, emailCliente: c.email })); setActiveTab('create_quote'); }}
@@ -4107,10 +4107,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {c.email && <p>✉ {c.email}</p>}
                 {c.direccion && <p>📍 {c.direccion}</p>}
               </div>
-              <div className="flex gap-4 pt-2 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex gap-4 pt-2 border-t border-slate-100">
                 <div>
                   <span className="text-[9px] text-slate-400 uppercase font-mono block">Obras activas</span>
-                  <span className="text-xs font-bold text-slate-800 dark:text-white">{c.obrasActivas}</span>
+                  <span className="text-xs font-bold text-slate-800">{c.obrasActivas}</span>
                 </div>
                 <div>
                   <span className="text-[9px] text-slate-400 uppercase font-mono block">Total facturado</span>
@@ -4118,31 +4118,31 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
                 <div>
                   <span className="text-[9px] text-slate-400 uppercase font-mono block">Presupuestos</span>
-                  <span className="text-xs font-bold text-slate-800 dark:text-white">{clientQuotes.length}</span>
+                  <span className="text-xs font-bold text-slate-800">{clientQuotes.length}</span>
                 </div>
               </div>
 
               {/* Detalle expandido: presupuestos del cliente */}
               {isExpanded && (
-                <div className="mt-1 pt-3 border-t border-slate-100 dark:border-slate-800 space-y-1.5" onClick={e => e.stopPropagation()}>
+                <div className="mt-1 pt-3 border-t border-slate-100 space-y-1.5" onClick={e => e.stopPropagation()}>
                   <p className="text-[9px] font-bold uppercase font-mono text-slate-400 mb-2">Presupuestos enviados</p>
                   {clientQuotes.length === 0 ? (
                     <p className="text-[10px] text-slate-400 italic">Sin presupuestos todavía.</p>
                   ) : (
                     clientQuotes.map(p => (
-                      <div key={p.id} className="flex items-center justify-between bg-slate-50 dark:bg-slate-800/60 rounded-lg px-3 py-2 gap-2">
+                      <div key={p.id} className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2 gap-2">
                         <div className="min-w-0">
-                          <span className="text-[10px] font-bold text-slate-700 dark:text-slate-200 font-mono">{p.id}</span>
+                          <span className="text-[10px] font-bold text-slate-700 font-mono">{p.id}</span>
                           {p.descripcion && <span className="ml-1.5 text-[9px] text-slate-400 truncate">{p.descripcion.slice(0, 40)}{p.descripcion.length > 40 ? '…' : ''}</span>}
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
                           <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${
-                            p.estado === 'Aceptado'  ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400' :
-                            p.estado === 'Facturado' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-400' :
-                            p.estado === 'Enviado'   ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400' :
-                                                       'bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-slate-400'
+                            p.estado === 'Aceptado'  ? 'bg-emerald-100 text-emerald-700' :
+                            p.estado === 'Facturado' ? 'bg-blue-100 text-blue-700' :
+                            p.estado === 'Enviado'   ? 'bg-amber-100 text-amber-700' :
+                                                       'bg-slate-100 text-slate-500'
                           }`}>{p.estado}</span>
-                          <span className="text-[10px] font-mono font-bold text-slate-800 dark:text-white">{p.total.toFixed(0)}€</span>
+                          <span className="text-[10px] font-mono font-bold text-slate-800">{p.total.toFixed(0)}€</span>
                         </div>
                       </div>
                     ))
@@ -4379,8 +4379,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             { label: 'Total cobrado', value: `${cobradoMes.toFixed(0)}€`, color: 'text-emerald-600' },
             { label: 'Vencidas', value: String(vencidas), color: vencidas > 0 ? 'text-red-500' : 'text-slate-400' },
           ].map(s => (
-            <div key={s.label} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
-              <span className="text-[9px] font-mono font-bold uppercase text-slate-400 block mb-1">{s.label}</span>
+            <div key={s.label} className="bg-white border border-slate-200 rounded-xl p-4">
+              <span className="text-[9px] font-bold uppercase text-slate-400 block mb-1">{s.label}</span>
               <span className={`text-2xl font-bold font-mono ${s.color}`}>{s.value}</span>
             </div>
           ))}
@@ -4395,7 +4395,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider cursor-pointer transition-all ${
                 filterEstado === f
                   ? 'bg-blue-600 text-white'
-                  : 'bg-white dark:bg-slate-900 border text-slate-500 hover:text-slate-900 dark:hover:text-white'
+                  : 'bg-white border text-slate-500 hover:text-slate-900'
               }`}
             >
               {f === 'todas' ? `Todas (${facturas.length})` : `${f} (${facturas.filter(x => x.estado === f).length})`}
@@ -4411,15 +4411,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         ) : (
           <div className="space-y-3">
             {sorted.map(f => (
-              <div key={f.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4">
+              <div key={f.id} className="bg-white border border-slate-200 rounded-xl p-4">
                 <div className="flex items-start justify-between gap-4">
                   {/* Info */}
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="font-mono font-bold text-xs text-slate-900 dark:text-white">{f.numeroFactura}</span>
+                      <span className="font-mono font-bold text-xs text-slate-900">{f.numeroFactura}</span>
                       <span className={`text-[8px] font-bold uppercase px-2 py-0.5 rounded-full ${estadoBadge(f.estado)}`}>{f.estado}</span>
                     </div>
-                    <span className="font-semibold text-xs text-slate-700 dark:text-slate-300 block truncate">{f.nombreCliente}</span>
+                    <span className="font-semibold text-xs text-slate-700 block truncate">{f.nombreCliente}</span>
                     <div className="flex gap-3 mt-1 text-[10px] text-slate-400 font-mono">
                       <span>Emitida: {f.fecha}</span>
                       {f.fechaVencimiento && <span>Vence: {f.fechaVencimiento}</span>}
@@ -4428,22 +4428,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   {/* Importe */}
                   <div className="text-right shrink-0">
                     <span className="text-[9px] text-slate-400 block font-mono uppercase">Total c/IVA</span>
-                    <span className="text-lg font-bold font-mono text-slate-900 dark:text-white">{(f.importe * 1.21).toFixed(2)}€</span>
+                    <span className="text-lg font-bold font-mono text-slate-900">{(f.importe * 1.21).toFixed(2)}€</span>
                     <span className="text-[9px] text-slate-400 block font-mono">{f.importe.toFixed(2)}€ + IVA</span>
                   </div>
                 </div>
                 {/* Acciones */}
-                <div className="flex gap-2 mt-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+                <div className="flex gap-2 mt-3 pt-3 border-t border-slate-100">
                   <button
                     onClick={() => printInvoice(f)}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[9px] font-bold uppercase tracking-wider hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 text-slate-700 text-[9px] font-bold uppercase tracking-wider hover:bg-slate-200 cursor-pointer transition-colors"
                   >
                     <FileText className="w-3.5 h-3.5" />
                     PDF
                   </button>
                   <button
                     onClick={() => handleRemindInvoice(f)}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[9px] font-bold uppercase tracking-wider hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 text-slate-700 text-[9px] font-bold uppercase tracking-wider hover:bg-slate-200 cursor-pointer transition-colors"
                   >
                     💬 WhatsApp
                   </button>
@@ -4467,9 +4467,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // ================= DESKTOP: CATALOG SCREEN =================
   function ScreenCatalog() {
     const calidades: Record<TradeCatalogVariant['calidad'], { label: string; cls: string }> = {
-      economico: { label: 'Económico', cls: 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300' },
-      medio:     { label: 'Preferido', cls: 'bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300' },
-      premium:   { label: 'Premium',   cls: 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-400' },
+      economico: { label: 'Económico', cls: 'bg-slate-100 text-slate-600' },
+      medio:     { label: 'Preferido', cls: 'bg-blue-100 text-blue-700' },
+      premium:   { label: 'Premium',   cls: 'bg-amber-100 text-amber-700' },
     };
 
     const filtered = catalogProducts.filter(p =>
@@ -4542,8 +4542,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     if (!isLiveMode) {
       return (
         <div className="flex flex-col items-center justify-center h-full py-16 space-y-4 text-center px-8">
-          <Package className="h-12 w-12 text-slate-300 dark:text-slate-700" />
-          <h3 className="font-bold text-slate-700 dark:text-white text-sm uppercase tracking-wider">Catálogo de productos</h3>
+          <Package className="h-12 w-12 text-slate-300" />
+          <h3 className="font-bold text-slate-700 text-sm uppercase tracking-wider">Catálogo de productos</h3>
           <p className="text-slate-400 text-xs max-w-xs leading-relaxed">
             Inicia sesión con tus datos reales para ver y gestionar tu catálogo de productos y precios.
           </p>
@@ -4627,7 +4627,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               placeholder="Buscar producto, familia..."
               value={catalogFilter}
               onChange={e => setCatalogFilter(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-xs text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+              className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-500"
             />
           </div>
           <span className="text-[10px] text-slate-400 font-mono">
@@ -4667,7 +4667,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </button>
             <button
               onClick={() => { const wb = generateTemplateWorkbook(); downloadWorkbook(wb, 'plantilla-catalogo-trabflow.xlsx'); showToast('Plantilla descargada ✓', 'success'); }}
-              className="flex items-center gap-1 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+              className="flex items-center gap-1 border border-slate-300 text-slate-600 hover:bg-slate-100 text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
               title="Descargar plantilla Excel vacía"
             >
               <FilePlus className="h-3 w-3" />
@@ -4685,7 +4685,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <div className="flex flex-wrap gap-1.5">
               <button
                 onClick={() => setCatalogFamilyFilter(new Set())}
-                className={`px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase border cursor-pointer transition-all ${catalogFamilyFilter.size === 0 ? 'bg-blue-600 text-white border-blue-600' : 'bg-transparent text-slate-400 border-slate-200 dark:border-slate-700 hover:border-blue-400'}`}
+                className={`px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase border cursor-pointer transition-all ${catalogFamilyFilter.size === 0 ? 'bg-blue-600 text-white border-blue-600' : 'bg-transparent text-slate-400 border-slate-200 hover:border-blue-400'}`}
               >
                 Todos ({activeTarifas.length})
               </button>
@@ -4696,7 +4696,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <button
                     key={f}
                     onClick={() => toggleFamily(f)}
-                    className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border cursor-pointer transition-all ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-transparent text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-blue-400 hover:text-blue-500'}`}
+                    className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border cursor-pointer transition-all ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-transparent text-slate-500 border-slate-200 hover:border-blue-400 hover:text-blue-500'}`}
                   >
                     {f} <span className="opacity-60">({count})</span>
                   </button>
@@ -4737,17 +4737,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         {/* Mi catálogo de precios — productos importados vía Excel (trade_tarifas) */}
         {hasTarifas && Object.entries(tarifasByFamily).map(([family, items]) => (
-          <div key={family} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-            <div className="bg-slate-50 dark:bg-slate-800/60 px-4 py-2.5 flex items-center gap-2 border-b border-slate-200 dark:border-slate-700">
+          <div key={family} className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+            <div className="bg-slate-50 px-4 py-2.5 flex items-center gap-2 border-b border-slate-200">
               <Tag className="h-3.5 w-3.5 text-slate-400" />
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">{family}</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">{family}</span>
               <span className="ml-auto text-[9px] text-slate-400 font-mono">{items.length} referencias</span>
             </div>
-            <div className="divide-y divide-slate-100 dark:divide-slate-800">
+            <div className="divide-y divide-slate-100">
               {items.map(t => (
-                <div key={t.id} className="px-4 py-2.5 flex items-center gap-3 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors">
+                <div key={t.id} className="px-4 py-2.5 flex items-center gap-3 hover:bg-slate-50/50 transition-colors">
                   {t.codigo && <span className="text-[9px] font-mono text-slate-400 w-20 shrink-0 truncate">{t.codigo}</span>}
-                  <span className="flex-1 text-xs text-slate-800 dark:text-white truncate">{t.descripcion}</span>
+                  <span className="flex-1 text-xs text-slate-800 truncate">{t.descripcion}</span>
                   <div className="flex items-center gap-1.5 shrink-0">
                     {editingTarifaId === t.id ? (
                       <>
@@ -4765,13 +4765,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                             if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
                             if (e.key === 'Escape') setEditingTarifaId(null);
                           }}
-                          className="w-24 bg-white dark:bg-slate-800 border border-blue-400 rounded px-2 py-1 text-xs font-bold font-mono text-slate-800 dark:text-white focus:outline-none"
+                          className="w-24 bg-white border border-blue-400 rounded px-2 py-1 text-xs font-bold font-mono text-slate-800 focus:outline-none"
                         />
                         <span className="text-[9px] text-slate-400">€</span>
                       </>
                     ) : (
                       <>
-                        <span className="font-bold font-mono text-sm text-slate-900 dark:text-white whitespace-nowrap">{t.precioBase.toFixed(2)} €</span>
+                        <span className="font-bold font-mono text-sm text-slate-900 whitespace-nowrap">{t.precioBase.toFixed(2)} €</span>
                         {savingTarifaId === t.id
                           ? <RotateCcw className="h-3 w-3 text-blue-400 animate-spin" />
                           : <button onClick={() => setEditingTarifaId(t.id)} className="text-slate-300 hover:text-blue-500 cursor-pointer transition-colors p-0.5" title="Editar precio"><Edit3 className="h-3 w-3" /></button>
@@ -4790,7 +4790,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {catalogProducts.length > 0 && (
           <details className="group">
             {hasTarifas && (
-              <summary className="cursor-pointer list-none flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono py-2 select-none hover:text-slate-600 dark:hover:text-slate-300 border-t border-slate-200 dark:border-slate-800 pt-4">
+              <summary className="cursor-pointer list-none flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-wider font-mono py-2 select-none hover:text-slate-600 border-t border-slate-200 pt-4">
                 <Sparkles className="h-3.5 w-3.5 text-blue-400 shrink-0" />
                 Catálogo base IA TradeFlow ({catalogProducts.length} productos con variantes)
                 <span className="ml-auto text-[9px] normal-case font-normal">Mostrar / ocultar ▾</span>
@@ -4798,20 +4798,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             )}
             <div className="space-y-3 mt-2">
               {Object.entries(byFamily).map(([family, products]) => (
-                <div key={family} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
-                  <div className="bg-slate-50 dark:bg-slate-800/60 px-4 py-2.5 flex items-center gap-2 border-b border-slate-200 dark:border-slate-700">
+                <div key={family} className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                  <div className="bg-slate-50 px-4 py-2.5 flex items-center gap-2 border-b border-slate-200">
                     <Tag className="h-3.5 w-3.5 text-slate-400" />
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 font-mono">{family}</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">{family}</span>
                     <span className="ml-auto text-[9px] text-slate-400 font-mono">{products.length} productos</span>
                   </div>
-                  <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                  <div className="divide-y divide-slate-100">
                     {products.map(product => {
                       const variants = product.trade_catalog_variants ?? [];
                       return (
                         <div key={product.id} className="px-4 py-3">
                           <div className="flex items-start justify-between mb-2">
                             <div>
-                              <span className="font-semibold text-xs text-slate-800 dark:text-white">{product.nombre_generico}</span>
+                              <span className="font-semibold text-xs text-slate-800">{product.nombre_generico}</span>
                               {product.subfamilia && (
                                 <span className="ml-2 text-[9px] text-slate-400 font-mono">{product.subfamilia}</span>
                               )}
@@ -4830,8 +4830,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                                   key={v.id}
                                   className={`border rounded-lg p-2.5 space-y-1.5 transition-all ${
                                     v.is_preferred
-                                      ? 'border-blue-400 dark:border-blue-600 bg-blue-50/50 dark:bg-blue-900/10'
-                                      : 'border-slate-200 dark:border-slate-700'
+                                      ? 'border-blue-400 bg-blue-50/50'
+                                      : 'border-slate-200'
                                   }`}
                                 >
                                   <div className="flex items-center justify-between">
@@ -4860,13 +4860,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                                             if (e.key === 'Enter') (e.target as HTMLInputElement).blur();
                                             if (e.key === 'Escape') setEditingVariant(null);
                                           }}
-                                          className="w-20 bg-white dark:bg-slate-800 border border-blue-400 rounded px-2 py-1 text-xs font-bold font-mono text-slate-800 dark:text-white focus:outline-none"
+                                          className="w-20 bg-white border border-blue-400 rounded px-2 py-1 text-xs font-bold font-mono text-slate-800 focus:outline-none"
                                         />
                                         <span className="text-[9px] text-slate-400">€</span>
                                       </>
                                     ) : (
                                       <>
-                                        <span className="font-bold font-mono text-sm text-slate-900 dark:text-white">
+                                        <span className="font-bold font-mono text-sm text-slate-900">
                                           {v.precio_venta.toFixed(2)}€
                                         </span>
                                         <button
@@ -4898,7 +4898,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                                     <button
                                       onClick={() => handleSetPreferred(v.id, product.id)}
                                       disabled={!!savingVariant}
-                                      className="w-full text-[8.5px] font-bold uppercase text-slate-400 hover:text-blue-500 border border-slate-200 dark:border-slate-700 hover:border-blue-400 rounded py-1 cursor-pointer transition-all disabled:opacity-40"
+                                      className="w-full text-[8.5px] font-bold uppercase text-slate-400 hover:text-blue-500 border border-slate-200 hover:border-blue-400 rounded py-1 cursor-pointer transition-all disabled:opacity-40"
                                     >
                                       Usar como preferido
                                     </button>
@@ -4920,7 +4920,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {/* Estado vacío */}
         {!hasTarifas && catalogProducts.length === 0 && (
           <div className="text-center py-12">
-            <Package className="h-10 w-10 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
+            <Package className="h-10 w-10 text-slate-300 mx-auto mb-3" />
             <p className="text-slate-400 text-xs">No hay productos en el catálogo todavía.</p>
           </div>
         )}
@@ -4930,10 +4930,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= DESKTOP: SETTINGS SCREEN =================
   function ScreenSettings() {
-    const inp = "w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 p-2.5 rounded-lg text-slate-800 dark:text-white text-xs focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500";
+    const inp = "w-full bg-slate-50 border border-slate-200 p-2.5 rounded-lg text-slate-800 text-xs focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500";
     const lbl = "text-[9px] uppercase font-mono block text-slate-400 mb-1";
-    const sec = "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-5 rounded-xl space-y-4";
-    const secTitle = "font-display font-bold uppercase text-xs text-slate-400 font-mono pb-2 border-b border-slate-100 dark:border-slate-800";
+    const sec = "bg-white border border-slate-200 p-5 rounded-xl space-y-4";
+    const secTitle = "font-black uppercase text-xs text-slate-400 pb-2 border-b border-slate-100";
 
     const FAMILIAS = ['Mano de Obra','Fontanería','Electricidad','Reformas','Climatización','Madera / Carpintería','Cerrajería','Pintura','Albañilería','General'];
     const UNIDADES = ['ud','h','m','m²','m³','kg','l','ml','par','jgo'];
@@ -5139,8 +5139,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             El asistente de voz usa estas tarifas para calcular automáticamente el coste de mano de obra en cada presupuesto. Puedes ajustar las horas y el importe manualmente en cada presupuesto.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/40 rounded-xl p-4 space-y-2">
-              <span className="text-[9px] font-mono font-bold text-amber-600 dark:text-amber-400 uppercase block">Tarifa hora operario</span>
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 space-y-2">
+              <span className="text-[9px] font-mono font-bold text-amber-600 uppercase block">Tarifa hora operario</span>
               <div className="flex items-center gap-2">
                 <input
                   type="number"
@@ -5148,16 +5148,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   step={0.5}
                   value={empresaAjustes.valorHoraOperario}
                   onChange={e => setEmpresaAjustes(p => ({ ...p, valorHoraOperario: parseFloat(e.target.value) || 0 }))}
-                  className="w-20 bg-white dark:bg-slate-900 border border-amber-300 dark:border-amber-700 rounded-lg px-2.5 py-2 text-sm font-bold font-mono text-slate-800 dark:text-white focus:outline-none focus:border-amber-500"
+                  className="w-20 bg-white border border-amber-300 rounded-lg px-2.5 py-2 text-sm font-bold font-mono text-slate-800 focus:outline-none focus:border-amber-500"
                 />
                 <span className="text-xs text-slate-500 font-mono">€ / hora</span>
               </div>
               <p className="text-[9px] text-slate-400">Aplicado automáticamente a partidas de mano de obra en el asistente de voz.</p>
             </div>
-            <div className="sm:col-span-2 bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 rounded-xl p-4 space-y-2">
+            <div className="sm:col-span-2 bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
               <span className="text-[9px] font-mono font-bold text-slate-400 uppercase block">Cómo funciona</span>
               <ul className="text-[10px] text-slate-500 space-y-1.5 leading-relaxed">
-                <li>• Dices "instalar grifo, 2 horas" → el asistente calcula <span className="font-mono font-bold text-amber-600 dark:text-amber-400">2 h × {empresaAjustes.valorHoraOperario}€ = {empresaAjustes.valorHoraOperario * 2}€</span></li>
+                <li>• Dices "instalar grifo, 2 horas" → el asistente calcula <span className="font-mono font-bold text-amber-600">2 h × {empresaAjustes.valorHoraOperario}€ = {empresaAjustes.valorHoraOperario * 2}€</span></li>
                 <li>• En el paso 4 del presupuesto puedes ajustar las horas o poner un importe fijo manualmente.</li>
                 <li>• El precio del material siempre viene de tu catálogo de productos.</li>
               </ul>
@@ -5184,25 +5184,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
-                  <tr className="border-b border-slate-100 dark:border-slate-800">
+                  <tr className="border-b border-slate-100">
                     {['Nombre','Móvil','Email','Rol','Estado',''].map(h => (
                       <th key={h} className="text-left text-[9px] uppercase font-mono text-slate-400 pb-2 pr-3 whitespace-nowrap">{h}</th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
+                <tbody className="divide-y divide-slate-50">
                   {trabajadores.map(w => (
-                    <tr key={w.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                      <td className="py-2 pr-3 font-semibold text-slate-800 dark:text-white whitespace-nowrap">{w.nombre}</td>
+                    <tr key={w.id} className="hover:bg-slate-50">
+                      <td className="py-2 pr-3 font-semibold text-slate-800 whitespace-nowrap">{w.nombre}</td>
                       <td className="py-2 pr-3 text-slate-500 font-mono whitespace-nowrap">{w.telefono || '—'}</td>
                       <td className="py-2 pr-3 text-slate-500 max-w-[140px] truncate">{w.email || '—'}</td>
                       <td className="py-2 pr-3">
-                        <span className="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap">
+                        <span className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap">
                           {ROL_LABELS[w.rol]}
                         </span>
                       </td>
                       <td className="py-2 pr-3">
-                        <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap ${w.activo ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400' : 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400'}`}>
+                        <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase whitespace-nowrap ${w.activo ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-600'}`}>
                           {w.activo ? 'Activo' : 'Inactivo'}
                         </span>
                       </td>
@@ -5223,7 +5223,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           )}
 
           {showAddWorker && (
-            <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 space-y-3 border border-slate-200 dark:border-slate-700">
+            <div className="bg-slate-50 rounded-xl p-4 space-y-3 border border-slate-200">
               <span className="text-[9px] uppercase font-mono text-slate-400 font-bold">Nuevo trabajador</span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
@@ -5257,7 +5257,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   Añadir trabajador
                 </button>
                 <button onClick={() => setShowAddWorker(false)}
-                  className="border border-slate-200 dark:border-slate-600 text-slate-500 text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors">
+                  className="border border-slate-200 text-slate-500 text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg cursor-pointer hover:bg-slate-50 transition-colors">
                   Cancelar
                 </button>
               </div>
@@ -5270,17 +5270,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           <h3 className={secTitle}>Catálogo de Productos</h3>
 
           {/* Banner explicativo */}
-          <div className="flex items-start gap-3 bg-blue-50 dark:bg-blue-950/25 border border-blue-200 dark:border-blue-800/40 rounded-xl p-4">
+          <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-xl p-4">
             <Package className="h-8 w-8 text-blue-500 shrink-0 mt-0.5" />
             <div className="flex-1 min-w-0 space-y-1">
-              <p className="text-xs font-bold text-slate-800 dark:text-white">
+              <p className="text-xs font-bold text-slate-800">
                 {catalogProducts.length > 0
                   ? `${catalogProducts.length} productos · ${catalogProducts.reduce((s, p) => s + (p.trade_catalog_variants?.length ?? 0), 0)} variantes cargados`
                   : isLiveMode
                     ? 'Catálogo vacío — importa tus productos o créalos desde el tab Catálogo'
                     : '33 productos · 99 variantes (demo)'}
               </p>
-              <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              <p className="text-[10px] text-slate-500 leading-relaxed">
                 Tu catálogo IA tiene productos con <strong>3 variantes de calidad</strong> (Económico · Preferido · Premium).
                 La IA usa el catálogo al generar presupuestos por voz — los precios que ves son los que se aplican automáticamente.
                 Gestiona precios, variante preferida e importa/exporta desde el tab <strong>Catálogo</strong>.
@@ -5321,7 +5321,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </button>
               <button
                 onClick={handleDownloadTemplate}
-                className="flex items-center gap-1 border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+                className="flex items-center gap-1 border border-slate-300 text-slate-600 hover:bg-slate-50 text-[9px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
               >
                 <FilePlus className="h-3 w-3" />
                 Plantilla Excel
@@ -5356,10 +5356,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {subscription ? (() => {
             const PLAN_LABEL: Record<string, string> = { basico: 'Básico', pro: 'Profesional', empresa: 'Empresa' };
             const STATUS_CFG: Record<string, { label: string; cls: string }> = {
-              trial:     { label: 'Prueba',    cls: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400' },
-              active:    { label: 'Activo',    cls: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400' },
-              cancelled: { label: 'Cancelado', cls: 'bg-slate-100 dark:bg-slate-800 text-slate-500' },
-              expired:   { label: 'Expirado',  cls: 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400' },
+              trial:     { label: 'Prueba',    cls: 'bg-blue-100 text-blue-700' },
+              active:    { label: 'Activo',    cls: 'bg-emerald-100 text-emerald-700' },
+              cancelled: { label: 'Cancelado', cls: 'bg-slate-100 text-slate-500' },
+              expired:   { label: 'Expirado',  cls: 'bg-red-100 text-red-600' },
             };
             const cfg = STATUS_CFG[subscription.status] ?? STATUS_CFG.trial;
             const trialEnd = subscription.trial_end ? new Date(subscription.trial_end) : null;
@@ -5372,7 +5372,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-xs font-bold text-slate-700 dark:text-white">
+                    <span className="text-xs font-bold text-slate-700">
                       Plan {PLAN_LABEL[subscription.plan] ?? subscription.plan}
                       {subscription.billing_cycle === 'yearly' ? ' · Anual' : ' · Mensual'}
                     </span>
@@ -5404,7 +5404,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         finally { setStripeLoading(false); }
                       }}
                       disabled={stripeLoading}
-                      className="text-[10px] font-semibold px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition disabled:opacity-50"
+                      className="text-[10px] font-semibold px-3 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 transition disabled:opacity-50"
                     >
                       Gestionar suscripción
                     </button>
@@ -5435,15 +5435,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-xs font-bold text-slate-700 dark:text-white">Plan Profesional · Mensual</span>
+                  <span className="text-xs font-bold text-slate-700">Plan Profesional · Mensual</span>
                   <p className="text-[10px] text-slate-400 mt-0.5">Demo — activa tu cuenta para ver tu suscripción real</p>
                 </div>
-                <span className="text-[9px] font-bold uppercase px-2 py-1 rounded bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400">Activo</span>
+                <span className="text-[9px] font-bold uppercase px-2 py-1 rounded bg-emerald-100 text-emerald-700">Activo</span>
               </div>
               <div className="flex gap-2 flex-wrap">
                 <button
                   disabled
-                  className="text-[10px] font-semibold px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-400 dark:text-slate-500 opacity-50 cursor-not-allowed"
+                  className="text-[10px] font-semibold px-3 py-1.5 rounded-lg border border-slate-300 text-slate-400 opacity-50 cursor-not-allowed"
                   title="Disponible con cuenta activa"
                 >
                   Gestionar suscripción
@@ -5459,7 +5459,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <h3 className={secTitle}>Notificaciones</h3>
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-xs font-bold text-slate-700 dark:text-white">Notificaciones en este dispositivo</p>
+                <p className="text-xs font-bold text-slate-700">Notificaciones en este dispositivo</p>
                 <p className="text-[10px] text-slate-400 mt-0.5">
                   {pushEnabled ? 'Activadas — recibirás alertas de trabajos y presupuestos.' : 'Desactivadas — no recibirás alertas en este dispositivo.'}
                 </p>
@@ -5489,7 +5489,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 disabled={pushLoading}
                 className={`shrink-0 px-3 py-1.5 rounded-lg text-[10px] font-bold transition cursor-pointer disabled:opacity-50 ${
                   pushEnabled
-                    ? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                    ? 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                     : 'bg-blue-600 hover:bg-blue-500 text-white'
                 }`}
               >
