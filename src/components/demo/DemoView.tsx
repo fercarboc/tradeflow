@@ -763,11 +763,484 @@ function ScreenContratos() {
   );
 }
 
+// ── Mobile screens ────────────────────────────────────────────────────────────
+
+type MobileTab = 'inicio' | 'presupuestos' | 'clientes' | 'catalogo' | 'trabajos' | 'ajustes';
+
+function MobInicio({ onFab }: { onFab: () => void }) {
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 gap-3">
+        {[
+          { label: 'Pdte. cobro', value: '8.470€', color: 'text-emerald-400' },
+          { label: 'Este mes', value: '18 pres.', color: 'text-blue-400' },
+          { label: 'Clientes', value: '24', color: 'text-violet-400' },
+          { label: 'Fact. cobradas', value: '5.200€', color: 'text-amber-400' },
+        ].map(k => (
+          <div key={k.label} className="bg-white/5 rounded-2xl p-4 border border-white/10">
+            <p className="text-[10px] text-slate-400 mb-1">{k.label}</p>
+            <p className={`text-xl font-black ${k.color}`}>{k.value}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
+          <span className="text-xs font-bold text-white">Últimos trabajos</span>
+          <button onClick={onFab} className="text-[10px] text-blue-400 font-semibold cursor-pointer">+ Nuevo</button>
+        </div>
+        {MOCK_QUOTES.slice(0, 4).map(q => (
+          <div key={q.id} className="flex items-center justify-between px-4 py-3 border-b border-white/5 last:border-0 active:bg-white/5 cursor-pointer">
+            <div className="min-w-0 mr-2">
+              <p className="text-sm font-semibold text-white truncate">{q.titulo}</p>
+              <p className="text-[10px] text-slate-400">{q.cliente}</p>
+            </div>
+            <div className="shrink-0 text-right">
+              <p className="text-sm font-bold text-white">{q.importe.toLocaleString('es-ES')}€</p>
+              <Badge estado={q.estado} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MobPresupuestos() {
+  return (
+    <div className="space-y-3">
+      <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+        {MOCK_QUOTES.map(q => (
+          <div key={q.id} className="flex items-center justify-between px-4 py-4 border-b border-white/5 last:border-0 cursor-pointer active:bg-white/5">
+            <div className="min-w-0 mr-2">
+              <p className="text-sm font-semibold text-white truncate">{q.titulo}</p>
+              <p className="text-[10px] text-slate-400">{q.cliente} · {q.fecha}</p>
+            </div>
+            <div className="shrink-0 text-right space-y-1">
+              <p className="text-sm font-bold text-white">{q.importe.toLocaleString('es-ES')}€</p>
+              <Badge estado={q.estado} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MobClientes() {
+  const [search, setSearch] = useState('');
+  const filtered = MOCK_CLIENTS.filter(c => c.nombre.toLowerCase().includes(search.toLowerCase()));
+  return (
+    <div className="space-y-3">
+      <input
+        type="text"
+        placeholder="Buscar cliente..."
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        className="w-full rounded-2xl bg-white/10 border border-white/10 px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+      />
+      <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+        {filtered.map(c => (
+          <div key={c.id} className="flex items-center gap-3 px-4 py-4 border-b border-white/5 last:border-0 cursor-pointer active:bg-white/5">
+            <div className="h-10 w-10 rounded-xl bg-blue-600/30 flex items-center justify-center font-bold text-blue-300 text-sm shrink-0">
+              {c.nombre[0]}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-white truncate">{c.nombre}</p>
+              <p className="text-[10px] text-slate-400">{c.telefono}</p>
+            </div>
+            <div className="text-right shrink-0">
+              <p className="text-sm font-bold text-white">{c.total.toLocaleString('es-ES')}€</p>
+              <p className="text-[10px] text-slate-400">{c.presupuestos} pres.</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MobCatalogo() {
+  const [open, setOpen] = useState<string | null>('Electricidad');
+  return (
+    <div className="space-y-2">
+      {MOCK_CATALOG.map(fam => (
+        <div key={fam.familia} className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+          <button
+            onClick={() => setOpen(open === fam.familia ? null : fam.familia)}
+            className="w-full flex items-center justify-between px-4 py-3.5 cursor-pointer active:bg-white/5"
+          >
+            <span className="text-sm font-bold text-white">{fam.familia}</span>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] text-slate-400">{fam.items.length} artículos</span>
+              {open === fam.familia ? <ChevronDown className="h-4 w-4 text-slate-400" /> : <ChevronRight className="h-4 w-4 text-slate-400" />}
+            </div>
+          </button>
+          {open === fam.familia && (
+            <div className="border-t border-white/10">
+              {fam.items.map((item, i) => (
+                <div key={i} className="flex justify-between items-center px-4 py-3 border-b border-white/5 last:border-0">
+                  <span className="text-sm text-slate-300">{item.desc}</span>
+                  <span className="text-sm font-bold text-white shrink-0 ml-2">{item.precio}€/{item.unidad}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function MobTrabajos() {
+  return (
+    <div className="space-y-3">
+      {MOCK_JOBS.map(j => (
+        <div key={j.id} className="bg-white/5 rounded-2xl border border-white/10 p-4 cursor-pointer active:bg-white/10">
+          <div className="flex items-start justify-between gap-2">
+            <div>
+              <p className="text-sm font-bold text-white">{j.titulo}</p>
+              <p className="text-[10px] text-slate-400 mt-0.5">{j.cliente}</p>
+            </div>
+            <Badge estado={j.estado} />
+          </div>
+          <div className="flex items-center gap-3 mt-3">
+            <div className="flex items-center gap-1 text-[10px] text-slate-400">
+              <Calendar className="h-3 w-3" /> {j.fecha}
+            </div>
+            <div className="flex items-center gap-1 text-[10px] text-slate-400">
+              <Users className="h-3 w-3" /> {j.trabajador}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function MobAjustes({ setCurrentPage }: { setCurrentPage: (p: ActivePage) => void }) {
+  return (
+    <div className="space-y-4">
+      <div className="bg-white/5 rounded-2xl border border-white/10 p-4 flex items-center gap-3">
+        <div className="h-12 w-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center font-black text-white">TF</div>
+        <div>
+          <p className="text-sm font-bold text-white">Demo TrabFlow</p>
+          <p className="text-[10px] text-[#FFC400] font-bold uppercase">Plan Empresa+</p>
+        </div>
+      </div>
+      {[
+        { label: 'Empresa y datos fiscales', icon: Building2 },
+        { label: 'Tarifas y catálogo', icon: Package },
+        { label: 'Equipo y permisos', icon: Users },
+        { label: 'Notificaciones', icon: Mic },
+      ].map(item => (
+        <div key={item.label} className="bg-white/5 rounded-2xl border border-white/10 flex items-center justify-between px-4 py-4 cursor-pointer active:bg-white/10">
+          <div className="flex items-center gap-3">
+            <item.icon className="h-4 w-4 text-slate-400" />
+            <span className="text-sm text-white">{item.label}</span>
+          </div>
+          <ChevronRight className="h-4 w-4 text-slate-500" />
+        </div>
+      ))}
+      <button
+        onClick={() => setCurrentPage(ActivePage.Registro)}
+        className="w-full rounded-2xl bg-[#FFC400] text-[#020B16] py-4 text-sm font-black uppercase tracking-wider cursor-pointer hover:brightness-110 transition-all flex items-center justify-center gap-2"
+      >
+        <Star className="h-4 w-4" /> Registrarme gratis · 15 días
+      </button>
+    </div>
+  );
+}
+
+function MobVozSheet({ onClose }: { onClose: () => void }) {
+  const [text, setText] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<typeof MOCK_AI_RESULT | null>(null);
+
+  const handleGenerate = useCallback(async () => {
+    if (!text.trim()) return;
+    setLoading(true);
+    setResult(null);
+    await new Promise(r => setTimeout(r, 2200));
+    setResult({ ...MOCK_AI_RESULT, transcript: text });
+    setLoading(false);
+  }, [text]);
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center gap-2 mb-1">
+        <div className="h-8 w-8 rounded-xl bg-blue-600 flex items-center justify-center shrink-0">
+          <Mic className="h-4 w-4 text-white" />
+        </div>
+        <div>
+          <p className="text-sm font-black text-slate-800">Dictar presupuesto</p>
+          <p className="text-[10px] text-slate-400">IA genera el presupuesto al instante</p>
+        </div>
+        <button onClick={onClose} className="ml-auto text-slate-400 hover:text-slate-600 cursor-pointer"><X className="h-4 w-4" /></button>
+      </div>
+
+      <textarea
+        value={text}
+        onChange={e => setText(e.target.value)}
+        placeholder="Describe el trabajo..."
+        rows={3}
+        className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-400 resize-none"
+      />
+
+      <div className="flex flex-wrap gap-1">
+        {EXAMPLE_TEXTS.slice(0, 2).map((t, i) => (
+          <button key={i} onClick={() => setText(t)} className="text-[10px] bg-slate-100 text-slate-600 px-2 py-1 rounded-md cursor-pointer font-medium">Ejemplo {i + 1}</button>
+        ))}
+      </div>
+
+      <button
+        onClick={handleGenerate}
+        disabled={loading || !text.trim()}
+        className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#020B16] py-3 text-sm font-black text-white disabled:opacity-50 cursor-pointer"
+      >
+        {loading ? <><Loader2 className="h-4 w-4 animate-spin" /> Generando...</> : <><Sparkles className="h-4 w-4" /> Generar presupuesto</>}
+      </button>
+
+      {result && (
+        <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
+          <div className="flex items-center gap-2 mb-2">
+            <CheckCircle className="h-4 w-4 text-emerald-500" />
+            <span className="text-sm font-bold text-slate-800">Presupuesto generado</span>
+          </div>
+          <AIResultPartidas partidas={result.quote.partidas} calculos={result.quote.calculos} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MobFotoSheet({ onClose }: { onClose: () => void }) {
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<typeof MOCK_PHOTO_RESULT | null>(null);
+
+  const analyze = useCallback(async () => {
+    setLoading(true);
+    setResult(null);
+    await new Promise(r => setTimeout(r, 2500));
+    setResult(MOCK_PHOTO_RESULT);
+    setLoading(false);
+  }, []);
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center gap-2 mb-1">
+        <div className="h-8 w-8 rounded-xl bg-blue-500 flex items-center justify-center shrink-0">
+          <ImageIcon className="h-4 w-4 text-white" />
+        </div>
+        <div>
+          <p className="text-sm font-black text-slate-800">Escaneo Foto IA</p>
+          <p className="text-[10px] text-slate-400">Sube una foto y la IA presupuesta</p>
+        </div>
+        <button onClick={onClose} className="ml-auto text-slate-400 hover:text-slate-600 cursor-pointer"><X className="h-4 w-4" /></button>
+      </div>
+
+      {!result && !loading && (
+        <button
+          onClick={analyze}
+          className="w-full rounded-xl border-2 border-dashed border-blue-200 bg-blue-50 py-8 cursor-pointer hover:bg-blue-100 transition-colors"
+        >
+          <div className="flex flex-col items-center gap-2 text-blue-600">
+            <ImageIcon className="h-8 w-8" />
+            <p className="text-sm font-bold">Foto de ejemplo — Baño</p>
+            <p className="text-xs text-blue-400">Pulsa para analizar con IA</p>
+          </div>
+        </button>
+      )}
+
+      {loading && (
+        <div className="flex flex-col items-center gap-2 py-6">
+          <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+          <p className="text-sm font-semibold text-slate-700">Analizando imagen...</p>
+        </div>
+      )}
+
+      {result && (
+        <div className="bg-slate-50 rounded-xl p-4 border border-slate-200">
+          <div className="flex items-center gap-2 mb-2">
+            <CheckCircle className="h-4 w-4 text-emerald-500" />
+            <span className="text-sm font-bold text-slate-800">Análisis completado</span>
+          </div>
+          <p className="text-xs text-slate-400 italic mb-2">"{result.quote.descripcion}"</p>
+          <AIResultPartidas partidas={result.quote.partidas} calculos={result.quote.calculos} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+type FabAction = 'voz' | 'foto' | null;
+
+function DemoMobileShell({ setCurrentPage, onSwitchToDesktop }: {
+  setCurrentPage: (p: ActivePage) => void;
+  onSwitchToDesktop: () => void;
+}) {
+  const [tab, setTab] = useState<MobileTab>('inicio');
+  const [fabOpen, setFabOpen] = useState(false);
+  const [fabAction, setFabAction] = useState<FabAction>(null);
+
+  const openFab = useCallback((action?: FabAction) => {
+    setFabAction(action ?? null);
+    setFabOpen(true);
+  }, []);
+
+  const closeFab = useCallback(() => {
+    setFabOpen(false);
+    setFabAction(null);
+  }, []);
+
+  function renderTab() {
+    switch (tab) {
+      case 'inicio':        return <MobInicio onFab={() => openFab()} />;
+      case 'presupuestos':  return <MobPresupuestos />;
+      case 'clientes':      return <MobClientes />;
+      case 'catalogo':      return <MobCatalogo />;
+      case 'trabajos':      return <MobTrabajos />;
+      case 'ajustes':       return <MobAjustes setCurrentPage={setCurrentPage} />;
+    }
+  }
+
+  const tabItems: { id: MobileTab; label: string; Icon: React.ElementType }[] = [
+    { id: 'inicio',       label: 'Inicio',       Icon: TrendingUp },
+    { id: 'trabajos',     label: 'Trabajos',     Icon: Briefcase },
+    { id: 'clientes',     label: 'Clientes',     Icon: Users },
+    { id: 'catalogo',     label: 'Catálogo',     Icon: Package },
+    { id: 'presupuestos', label: 'Presupuestos', Icon: FileText },
+    { id: 'ajustes',      label: 'Ajustes',      Icon: SettingsIcon },
+  ];
+
+  return (
+    <div className="flex flex-col h-full bg-[#0B0F14] text-white relative overflow-hidden">
+
+      {/* Top bar */}
+      <div className="bg-[#0B0F14] border-b border-white/5 flex items-center justify-between px-5 py-3.5 shrink-0">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shrink-0">
+            <span className="text-white font-black text-[10px]">TF</span>
+          </div>
+          <div>
+            <span className="text-white font-black text-sm">TrabFlow <span className="text-blue-400">AI</span></span>
+            <div className="flex items-center gap-1 mt-0.5">
+              <span className="w-1.5 h-1.5 bg-[#FFC400] rounded-full inline-block" />
+              <span className="text-[8px] text-[#FFC400] font-bold uppercase tracking-wider">Demo · Empresa+</span>
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={onSwitchToDesktop}
+            className="text-[10px] text-slate-400 hover:text-white cursor-pointer px-2 py-1 rounded-lg border border-white/10 hover:border-white/25 transition-colors hidden sm:block"
+          >
+            Vista PC →
+          </button>
+          <button
+            onClick={() => setCurrentPage(ActivePage.Registro)}
+            className="px-3 py-1.5 rounded-xl bg-[#FFC400] text-[#020B16] text-[10px] font-black uppercase cursor-pointer hover:brightness-110"
+          >
+            Registrarme
+          </button>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 pb-24">
+        {renderTab()}
+      </div>
+
+      {/* FAB overlay */}
+      {fabOpen && (
+        <>
+          <div className="absolute inset-0 bg-black/60 z-40" onClick={closeFab} />
+          <div className="absolute bottom-20 left-0 right-0 bg-white rounded-t-3xl p-5 z-50 shadow-2xl max-h-[80%] overflow-y-auto">
+            <div className="w-10 h-1 bg-slate-200 rounded-full mx-auto mb-4" />
+            {fabAction === 'voz' && <MobVozSheet onClose={closeFab} />}
+            {fabAction === 'foto' && <MobFotoSheet onClose={closeFab} />}
+            {!fabAction && (
+              <div className="space-y-3">
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest text-center">Nuevo presupuesto rápido</p>
+                <button
+                  onClick={() => setFabAction('voz')}
+                  className="w-full flex items-center gap-3 bg-[#020B16] text-white font-bold p-4 rounded-2xl cursor-pointer"
+                >
+                  <div className="h-9 w-9 bg-blue-600 rounded-xl flex items-center justify-center shrink-0">
+                    <Mic className="h-4 w-4" />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-sm font-bold">Dictar presupuesto</p>
+                    <p className="text-[10px] text-slate-400">Escribe y la IA genera en segundos</p>
+                  </div>
+                </button>
+                <button
+                  onClick={() => setFabAction('foto')}
+                  className="w-full flex items-center gap-3 bg-blue-600 text-white font-bold p-4 rounded-2xl cursor-pointer"
+                >
+                  <div className="h-9 w-9 bg-blue-500 rounded-xl flex items-center justify-center shrink-0">
+                    <ImageIcon className="h-4 w-4" />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-sm font-bold">Escaneo Foto IA</p>
+                    <p className="text-[10px] text-blue-200">Sube una foto del trabajo</p>
+                  </div>
+                </button>
+                <button onClick={closeFab} className="w-full text-slate-400 text-sm py-2 cursor-pointer">Cancelar</button>
+              </div>
+            )}
+          </div>
+        </>
+      )}
+
+      {/* Bottom tab bar + FAB */}
+      <div className="absolute bottom-0 left-0 right-0 z-30">
+        {/* FAB button */}
+        <div className="absolute left-1/2 -translate-x-1/2 -top-6 z-10">
+          <button
+            onClick={() => openFab()}
+            className="w-14 h-14 bg-blue-600 hover:bg-blue-500 text-white rounded-full flex items-center justify-center shadow-xl border-4 border-[#0B0F14] transition-transform active:scale-95 cursor-pointer"
+          >
+            {fabOpen ? <X className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
+          </button>
+        </div>
+
+        {/* Tabs */}
+        <div className="bg-[#0B0F14] border-t border-white/5 flex items-stretch" style={{ minHeight: '60px' }}>
+          {tabItems.slice(0, 3).map(({ id, label, Icon }) => (
+            <button
+              key={id}
+              onClick={() => setTab(id)}
+              className={`flex-1 flex flex-col items-center justify-center gap-1 py-2 cursor-pointer transition-colors ${tab === id ? 'text-blue-400' : 'text-slate-500 hover:text-slate-300'}`}
+            >
+              <Icon className="h-5 w-5" />
+              <span className="text-[9px] font-semibold">{label}</span>
+            </button>
+          ))}
+          {/* Center gap for FAB */}
+          <div className="w-14 shrink-0" />
+          {tabItems.slice(3).map(({ id, label, Icon }) => (
+            <button
+              key={id}
+              onClick={() => setTab(id)}
+              className={`flex-1 flex flex-col items-center justify-center gap-1 py-2 cursor-pointer transition-colors ${tab === id ? 'text-blue-400' : 'text-slate-500 hover:text-slate-300'}`}
+            >
+              <Icon className="h-5 w-5" />
+              <span className="text-[9px] font-semibold">{label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Main DemoView ─────────────────────────────────────────────────────────────
 
 export default function DemoView({ setCurrentPage }: DemoViewProps) {
   const [activeNav, setActiveNav] = useState<NavId>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('desktop');
 
   const handleNav = useCallback((id: NavId) => {
     setActiveNav(id);
@@ -788,6 +1261,51 @@ export default function DemoView({ setCurrentPage }: DemoViewProps) {
       case 'equipo':        return <ScreenEquipo />;
       case 'contratos':     return <ScreenContratos />;
     }
+  }
+
+  // Mobile view: phone frame on large screens, full-screen on mobile
+  if (viewMode === 'mobile') {
+    return (
+      <div className="flex h-screen overflow-hidden bg-slate-200">
+        {/* On large screens: centered phone frame */}
+        <div className="hidden lg:flex flex-1 items-center justify-center gap-12 p-8">
+          <div className="w-[390px] h-[844px] rounded-[44px] overflow-hidden border-8 border-slate-800 shadow-2xl bg-[#0B0F14] relative shrink-0">
+            <DemoMobileShell setCurrentPage={setCurrentPage} onSwitchToDesktop={() => setViewMode('desktop')} />
+          </div>
+          <div className="max-w-xs space-y-6">
+            <div>
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Demo móvil</span>
+              <h2 className="text-2xl font-black text-slate-800 mt-1">La app en tu bolsillo</h2>
+              <p className="text-sm text-slate-500 mt-2">Genera presupuestos por voz, escanea fotos con IA y gestiona tus trabajos desde cualquier lugar.</p>
+            </div>
+            <div className="space-y-2">
+              {['Presupuesto por voz en 10 segundos', 'Foto → presupuesto con IA', 'Clientes, trabajos y catálogo', 'Funciona sin conexión'].map(f => (
+                <div key={f} className="flex items-center gap-2 text-sm text-slate-600">
+                  <CheckCircle className="h-4 w-4 text-emerald-500 shrink-0" />
+                  {f}
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => setViewMode('desktop')}
+              className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-800 cursor-pointer transition-colors"
+            >
+              ← Ver demo de escritorio
+            </button>
+            <button
+              onClick={() => setCurrentPage(ActivePage.Registro)}
+              className="w-full rounded-xl bg-[#FFC400] text-[#020B16] py-3 text-sm font-black uppercase tracking-wider cursor-pointer hover:brightness-110 transition-all flex items-center justify-center gap-2"
+            >
+              <Star className="h-4 w-4" /> Registrarme gratis · 15 días
+            </button>
+          </div>
+        </div>
+        {/* On mobile/tablet: full screen */}
+        <div className="lg:hidden flex-1">
+          <DemoMobileShell setCurrentPage={setCurrentPage} onSwitchToDesktop={() => setViewMode('desktop')} />
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -854,6 +1372,12 @@ export default function DemoView({ setCurrentPage }: DemoViewProps) {
             <span className="text-[9px] text-emerald-400 font-bold">Demo activa</span>
           </div>
           <button
+            onClick={() => setViewMode('mobile')}
+            className="w-full text-[10px] font-semibold text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 rounded-lg py-2 cursor-pointer transition-colors"
+          >
+            📱 Ver demo móvil
+          </button>
+          <button
             onClick={() => setCurrentPage(ActivePage.Registro)}
             className="w-full text-[10px] font-bold bg-gradient-to-r from-[#FFC400] to-amber-500 text-[#020B16] rounded-lg py-2 cursor-pointer hover:brightness-110 transition-all"
           >
@@ -884,6 +1408,12 @@ export default function DemoView({ setCurrentPage }: DemoViewProps) {
             </div>
           </div>
           <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={() => setViewMode('mobile')}
+              className="hidden sm:flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 border border-slate-200 hover:border-slate-400 px-3 py-1.5 rounded-lg cursor-pointer transition-colors"
+            >
+              📱 Demo móvil
+            </button>
             <button
               onClick={() => setCurrentPage(ActivePage.Home)}
               className="hidden sm:flex text-xs text-slate-400 hover:text-slate-700 cursor-pointer transition-colors items-center gap-1"
