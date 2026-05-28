@@ -52,6 +52,7 @@ import {
   UserPlus,
   Globe,
   Briefcase,
+  BarChart2,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -65,6 +66,7 @@ import GlobalCatalogModal from './GlobalCatalogModal';
 import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } from '../lib/catalogExcel';
 import ScreenPlanificacion from './ScreenPlanificacion';
 import ScreenEquipo from './ScreenEquipo';
+import ScreenIngresos from './ScreenIngresos';
 
 const InvoiceIcon = FileText;
 
@@ -3276,6 +3278,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <FileText className="w-4 h-4" />, label: 'Facturación' })}
             {can('catalog.manage') && SidebarBtn({ id: 'catalog', icon: <Package className="w-4 h-4" />, label: 'Catálogo' })}
             {can('jobs.view') && SidebarBtn({ id: 'planificacion', icon: <Calendar className="w-4 h-4" />, label: 'Planificación' })}
+            {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos' })}
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
@@ -3311,6 +3314,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'invoices' && 'Facturación'}
                 {activeTab === 'catalog' && 'Catálogo de Productos'}
                 {activeTab === 'planificacion' && 'Planificación de Trabajos'}
+                {activeTab === 'ingresos' && 'Ingresos y Rentabilidad'}
                 {activeTab === 'equipo' && 'Equipo y Permisos'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
@@ -3397,6 +3401,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     }}
                     showToast={showToast}
                   />
+                )}
+                {activeTab === 'ingresos' && (
+                  <ScreenIngresos showToast={showToast} />
                 )}
                 {activeTab === 'equipo' && (
                   <ScreenEquipo showToast={showToast} isLiveMode={isLiveMode} />

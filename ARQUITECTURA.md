@@ -253,9 +253,9 @@ Muestra rentabilidad del negocio:
 ### FASE 2 — Módulo Equipo y Permisos
 **Objetivo:** El owner puede invitar y gestionar su equipo.
 
-- [ ] 2.1 Edge Function `send-invite` (email de invitación con magic link)
-- [ ] 2.2 Pantalla `ScreenEquipo` — lista miembros, roles, invitar, revocar
-- [ ] 2.3 Flujo de aceptación de invitación (nuevo usuario se une a la org)
+- [x] 2.1 Edge Function `send-invite` (email de invitación con magic link)
+- [x] 2.2 Pantalla `ScreenEquipo` — lista miembros, roles, invitar, revocar
+- [x] 2.3 Flujo de aceptación de invitación (nuevo usuario se une a la org)
 - [ ] 2.4 Limitaciones por plan aplicadas en UI y en RLS
 
 ### FASE 3 — Módulo Ingresos
