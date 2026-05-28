@@ -224,21 +224,21 @@ function DayCarousel({ jobs, selectedDate, weekOffset, onSelectDate, onChangeWee
   const to   = new Date(weekDays[6] + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
 
   return (
-    <div className="bg-[#0B0F14] px-3 pt-2 pb-3 space-y-2 sticky top-0 z-10">
+    <div className="bg-white border-b border-slate-100 px-3 pt-2 pb-3 space-y-2 sticky top-0 z-10">
       {/* Semana nav */}
       <div className="flex items-center justify-between">
         <button
           onClick={() => onChangeWeek(-1)}
-          className="p-1.5 rounded-lg text-slate-500 hover:text-white transition cursor-pointer"
+          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 transition cursor-pointer"
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
-        <span className="text-[10px] font-bold font-mono uppercase text-slate-500 tracking-wider">
+        <span className="text-[10px] font-bold font-mono uppercase text-slate-400 tracking-wider">
           {weekOffset === 0 ? 'Esta semana' : `${from} – ${to}`}
         </span>
         <button
           onClick={() => onChangeWeek(1)}
-          className="p-1.5 rounded-lg text-slate-500 hover:text-white transition cursor-pointer"
+          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 transition cursor-pointer"
         >
           <ChevronRight className="w-4 h-4" />
         </button>
@@ -262,15 +262,15 @@ function DayCarousel({ jobs, selectedDate, weekOffset, onSelectDate, onChangeWee
                 isSelected
                   ? 'bg-blue-600'
                   : isToday
-                    ? 'bg-white/8 ring-1 ring-blue-500/50'
-                    : 'hover:bg-white/5'
+                    ? 'bg-blue-50 ring-1 ring-blue-300'
+                    : 'hover:bg-slate-50'
               }`}
             >
-              <span className={`text-[9px] font-bold uppercase mb-0.5 ${isSelected ? 'text-blue-200' : 'text-slate-500'}`}>
+              <span className={`text-[9px] font-bold uppercase mb-0.5 ${isSelected ? 'text-blue-200' : 'text-slate-400'}`}>
                 {DAY_ABBR[i]}
               </span>
               <span className={`text-sm font-bold leading-none ${
-                isSelected ? 'text-white' : isToday ? 'text-blue-400' : 'text-slate-300'
+                isSelected ? 'text-white' : isToday ? 'text-blue-600' : 'text-slate-700'
               }`}>
                 {new Date(date + 'T12:00:00').getDate()}
               </span>
@@ -301,11 +301,11 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete }: JobCardProps) {
   )}`;
 
   return (
-    <div className={`bg-white dark:bg-slate-900 border rounded-xl p-3.5 space-y-2.5 ${job.estado === 'completado' ? 'opacity-60' : ''} border-slate-200 dark:border-slate-800`}>
+    <div className={`bg-white border rounded-xl p-3.5 space-y-2.5 ${job.estado === 'completado' ? 'opacity-60' : ''} border-slate-200`}>
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
           <span className={`w-2 h-2 rounded-full shrink-0 ${est.dot}`} />
-          <span className="font-semibold text-xs text-slate-900 dark:text-white truncate">{job.titulo}</span>
+          <span className="font-semibold text-xs text-slate-900 truncate">{job.titulo}</span>
         </div>
         <div className="flex items-center gap-1.5 shrink-0">
           {pri && <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${pri.cls}`}>{pri.label}</span>}
@@ -340,7 +340,7 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete }: JobCardProps) {
         )}
       </div>
 
-      <div className="flex items-center gap-1.5 pt-1 border-t border-slate-100 dark:border-slate-800">
+      <div className="flex items-center gap-1.5 pt-1 border-t border-slate-100">
         {job.estado === 'planificado' && (
           <button onClick={() => onQuickStatus(job, 'en_curso')}
             className="flex items-center gap-1 bg-amber-500 hover:bg-amber-600 text-white text-[9px] font-bold uppercase px-2 py-1 rounded cursor-pointer transition-colors">
@@ -355,7 +355,7 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete }: JobCardProps) {
         )}
         {(job.direccion || job.localidad) && (
           <a href={mapsUrl} target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-1 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-blue-500 text-[9px] font-bold uppercase px-2 py-1 rounded cursor-pointer transition-colors">
+            className="flex items-center gap-1 border border-slate-200 text-slate-500 hover:text-blue-500 text-[9px] font-bold uppercase px-2 py-1 rounded cursor-pointer transition-colors">
             <Navigation className="w-2.5 h-2.5" /> Maps
           </a>
         )}
@@ -495,8 +495,8 @@ export default function ScreenPlanificacion({
                 onClick={() => setFilterEstado(f)}
                 className={`shrink-0 text-[9px] font-bold uppercase px-2.5 py-1 rounded-full border cursor-pointer transition-all ${
                   filterEstado === f
-                    ? 'bg-slate-800 dark:bg-white text-white dark:text-slate-900 border-transparent'
-                    : 'border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-400'
+                    ? 'bg-slate-900 text-white border-transparent'
+                    : 'border-slate-200 text-slate-500 hover:border-slate-400'
                 }`}
               >
                 {f === 'todos' ? 'Todos' : ESTADO_CFG[f as TradeJob['estado']].label}
@@ -514,16 +514,16 @@ export default function ScreenPlanificacion({
 
         {/* Demo notice */}
         {!isLiveMode && (
-          <div className="flex items-center gap-2 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl px-3 py-2">
+          <div className="flex items-center gap-2 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">
             <AlertTriangle className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-            <p className="text-[10px] text-amber-700 dark:text-amber-300">Modo demo. Activa el modo real para gestionar trabajos.</p>
+            <p className="text-[10px] text-amber-700">Modo demo. Activa el modo real para gestionar trabajos.</p>
           </div>
         )}
 
         {/* Jobs */}
         {filtered.length === 0 ? (
           <div className="text-center py-14">
-            <CalendarDays className="w-10 h-10 text-slate-300 dark:text-slate-700 mx-auto mb-3" />
+            <CalendarDays className="w-10 h-10 text-slate-300 mx-auto mb-3" />
             <p className="text-slate-400 text-xs mb-4">No hay trabajos para este día.</p>
             <button
               onClick={openCreate}
