@@ -59,6 +59,7 @@ import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '.
 import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
+import { usePermissions } from '../hooks/usePermissions';
 import CatalogImportModal from './CatalogImportModal';
 import GlobalCatalogModal from './GlobalCatalogModal';
 import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } from '../lib/catalogExcel';
@@ -102,6 +103,8 @@ interface PresetPhoto {
 }
 
 export default function AppDashboardView({ setCurrentPage, initialMobile = true, session, loginOnMount = false, workerOrgId }: AppDashboardViewProps) {
+  const { can } = usePermissions();
+
   // Auth & data loading
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
@@ -3108,13 +3111,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {/* Enlaces sidebar */}
           <nav className="flex-grow p-4 space-y-1">
             {SidebarBtn({ id: 'dashboard', icon: <TrendingUp className="w-4 h-4" />, label: 'Panel Control' })}
-            {SidebarBtn({ id: 'create_quote', icon: <FilePlus className="w-4 h-4" />, label: 'Crear Presupuesto' })}
-            {SidebarBtn({ id: 'ai_scan', icon: <ImageIcon className="w-4 h-4" />, label: 'Escaneo Foto IA' })}
-            {SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
-            {SidebarBtn({ id: 'invoices', icon: <FileText className="w-4 h-4" />, label: 'Facturación' })}
-            {SidebarBtn({ id: 'catalog', icon: <Package className="w-4 h-4" />, label: 'Catálogo' })}
-            {SidebarBtn({ id: 'planificacion', icon: <Calendar className="w-4 h-4" />, label: 'Planificación' })}
-            {SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
+            {can('quotes.create') && SidebarBtn({ id: 'create_quote', icon: <FilePlus className="w-4 h-4" />, label: 'Crear Presupuesto' })}
+            {can('quotes.create') && SidebarBtn({ id: 'ai_scan', icon: <ImageIcon className="w-4 h-4" />, label: 'Escaneo Foto IA' })}
+            {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
+            {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <FileText className="w-4 h-4" />, label: 'Facturación' })}
+            {can('catalog.manage') && SidebarBtn({ id: 'catalog', icon: <Package className="w-4 h-4" />, label: 'Catálogo' })}
+            {can('jobs.view') && SidebarBtn({ id: 'planificacion', icon: <Calendar className="w-4 h-4" />, label: 'Planificación' })}
+            {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
           <div className="p-4 border-t border-slate-855 bg-slate-950/20 text-center space-y-2">

@@ -6,6 +6,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { ActivePage, TradeType } from './types';
 import { supabase, loadWorkerByEmail } from './lib/supabase';
+import { SessionProvider } from './context/SessionContext';
 import type { WorkerProfile } from './lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { ADMIN_EMAIL } from './lib/constants';
@@ -226,17 +227,19 @@ export default function App() {
     || currentPage === ActivePage.UpdatePassword;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#020B16]">
-      {!isAppView && !isAuthView && (
-        <Header
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          setInitialMobile={setInitialMobile}
-          setLoginOnMount={setLoginOnMount}
-        />
-      )}
-      <main className="flex-grow">{renderActiveView()}</main>
-      {!isAppView && !isAuthView && <Footer setCurrentPage={setCurrentPage} />}
-    </div>
+    <SessionProvider>
+      <div className="min-h-screen flex flex-col bg-[#020B16]">
+        {!isAppView && !isAuthView && (
+          <Header
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            setInitialMobile={setInitialMobile}
+            setLoginOnMount={setLoginOnMount}
+          />
+        )}
+        <main className="flex-grow">{renderActiveView()}</main>
+        {!isAppView && !isAuthView && <Footer setCurrentPage={setCurrentPage} />}
+      </div>
+    </SessionProvider>
   );
 }

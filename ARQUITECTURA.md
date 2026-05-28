@@ -245,10 +245,10 @@ Muestra rentabilidad del negocio:
 
 - [x] 1.1 Migración SQL: `trade_org_members` + `trade_org_permissions`
 - [x] 1.2 Migración SQL: campos `created_by`, `stripe_*` en tablas existentes
-- [ ] 1.3 Crear `SessionContext` con carga de org, plan y rol del usuario
-- [ ] 1.4 Crear hook `usePermissions` con `can()`
-- [ ] 1.5 Integrar `SessionContext` en `main.tsx` / `App.tsx`
-- [ ] 1.6 Ocultar/mostrar elementos UI según `can()` (presupuestos, facturas, equipo)
+- [x] 1.3 Crear `SessionContext` con carga de org, plan y rol del usuario
+- [x] 1.4 Crear hook `usePermissions` con `can()`
+- [x] 1.5 Integrar `SessionContext` en `main.tsx` / `App.tsx`
+- [x] 1.6 Ocultar/mostrar elementos UI según `can()` (presupuestos, facturas, equipo)
 
 ### FASE 2 — Módulo Equipo y Permisos
 **Objetivo:** El owner puede invitar y gestionar su equipo.
