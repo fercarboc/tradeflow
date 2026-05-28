@@ -723,7 +723,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           const url = URL.createObjectURL(realPhotoFile);
           img.onload = () => {
             URL.revokeObjectURL(url);
-            const MAX_PX = 2000;
+            const MAX_PX = 1280;
             let w = img.width; let h = img.height;
             if (w > MAX_PX || h > MAX_PX) {
               if (w >= h) { h = Math.round(h * MAX_PX / w); w = MAX_PX; }
@@ -733,12 +733,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             canvas.width = w; canvas.height = h;
             const ctx = canvas.getContext('2d')!;
             ctx.drawImage(img, 0, 0, w, h);
-            let quality = 0.85;
+            let quality = 0.72;
             const tryExport = () => {
               const dataUrl = canvas.toDataURL('image/jpeg', quality);
               const b64 = dataUrl.split(',')[1];
-              if (b64.length * 0.75 > 4 * 1024 * 1024 && quality > 0.4) {
-                quality -= 0.15;
+              if (b64.length * 0.75 > 1.2 * 1024 * 1024 && quality > 0.35) {
+                quality -= 0.12;
                 tryExport();
               } else {
                 resolve(b64);
@@ -751,6 +751,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         });
         setScanProgress(50);
         const { data: { session } } = await supabase.auth.getSession();
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 90_000);
         const res = await fetch(
           `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-photo-scan`,
           {
@@ -760,8 +762,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({ image_base64: base64, mime_type: 'image/jpeg' }),
+            signal: controller.signal,
           },
-        );
+        ).finally(() => clearTimeout(timeoutId));
         setScanProgress(85);
         const json = await res.json().catch(() => ({})) as { quote?: AIQuote; error?: string };
         if (!res.ok || !json.quote) {
@@ -785,7 +788,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         showToast(`Foto analizada: ${partidas.length} elementos detectados ✓`, 'success');
         setWizardStep(4);
       } catch (e: unknown) {
-        showToast('Error al analizar foto: ' + (e as Error).message, 'error');
+        const err = e as Error;
+        const msg = err.name === 'AbortError'
+          ? 'Tiempo de espera agotado. Intenta de nuevo.'
+          : 'Error al analizar foto: ' + err.message;
+        showToast(msg, 'error');
         setIsScanning(false);
       }
       return;
@@ -1721,6 +1728,31 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         </div>
       )}
 
+      {/* ================= MODAL NUEVO CLIENTE ================= */}
+      {isClientModalOpen && (
+        <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-md space-y-4 shadow-2xl">
+            <div className="flex justify-between items-center">
+              <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white">Nuevo Cliente</h3>
+              <button onClick={() => setIsClientModalOpen(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer"><X className="w-5 h-5" /></button>
+            </div>
+            {([['nombre','Nombre *','text','Juan García Instalaciones'],['telefono','Teléfono','tel','600 000 000'],['email','Email','email','cliente@email.com'],['direccion','Dirección','text','Calle Mayor 1, Madrid']] as const).map(([field, label, type, ph]) => (
+              <div key={field}>
+                <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">{label}</label>
+                <input type={type} placeholder={ph} value={(newClient as any)[field] ?? ''} onChange={(e) => setNewClient(prev => ({ ...prev, [field]: e.target.value }))}
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
+                  autoFocus={field === 'nombre'}
+                />
+              </div>
+            ))}
+            <div className="flex gap-3 pt-2">
+              <button onClick={() => setIsClientModalOpen(false)} className="flex-1 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400 cursor-pointer hover:border-slate-400">Cancelar</button>
+              <button onClick={handleAddClient} className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-bold text-white cursor-pointer">Guardar Cliente</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ================= MODAL SIMULACIÓN ENVÍO DE WHATSAPP ================= */}
       <AnimatePresence>
         {showWhatsAppModal && targetQuoteForWhatsApp && (
@@ -2139,29 +2171,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">Libreta de Contactos:</span>
 
-        {/* Modal nuevo cliente (accesible desde móvil) */}
-        {isClientModalOpen && (
-          <div className="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center p-4">
-            <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 w-full max-w-md space-y-4 shadow-2xl">
-              <div className="flex justify-between items-center">
-                <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white">Nuevo Cliente</h3>
-                <button onClick={() => setIsClientModalOpen(false)} className="text-slate-400 cursor-pointer"><X className="w-5 h-5" /></button>
-              </div>
-              {([['nombre','Nombre *','text','Juan García'],['telefono','Teléfono','tel','600 000 000'],['email','Email','email','cliente@email.com'],['direccion','Dirección','text','Calle Mayor 1']] as const).map(([field, label, type, ph]) => (
-                <div key={field}>
-                  <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">{label}</label>
-                  <input type={type} placeholder={ph} value={(newClient as any)[field] ?? ''} onChange={(e) => setNewClient(prev => ({ ...prev, [field]: e.target.value }))}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-              ))}
-              <div className="flex gap-3">
-                <button onClick={() => setIsClientModalOpen(false)} className="flex-1 py-3 border border-slate-200 rounded-xl text-sm font-bold text-slate-600 cursor-pointer">Cancelar</button>
-                <button onClick={handleAddClient} className="flex-1 py-3 bg-blue-600 hover:bg-blue-700 rounded-xl text-sm font-bold text-white cursor-pointer">Guardar</button>
-              </div>
-            </div>
-          </div>
-        )}
 
 
 
@@ -3743,29 +3752,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           )}
         </div>
 
-        {/* Modal nuevo cliente */}
-        {isClientModalOpen && (
-          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-            <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 w-full max-w-md space-y-4 shadow-2xl">
-              <div className="flex justify-between items-center">
-                <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white">Nuevo Cliente</h3>
-                <button onClick={() => setIsClientModalOpen(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer"><X className="w-5 h-5" /></button>
-              </div>
-              {([['nombre','Nombre *','text','Juan García Instalaciones'],['telefono','Teléfono','tel','600 000 000'],['email','Email','email','cliente@email.com'],['direccion','Dirección','text','Calle Mayor 1, Madrid']] as const).map(([field, label, type, ph]) => (
-                <div key={field}>
-                  <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">{label}</label>
-                  <input type={type} placeholder={ph} value={(newClient as any)[field] ?? ''} onChange={(e) => setNewClient(prev => ({ ...prev, [field]: e.target.value }))}
-                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-              ))}
-              <div className="flex gap-3 pt-2">
-                <button onClick={() => setIsClientModalOpen(false)} className="flex-1 py-2.5 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 cursor-pointer hover:border-slate-400">Cancelar</button>
-                <button onClick={handleAddClient} className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-bold text-white cursor-pointer">Guardar Cliente</button>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     );
   }

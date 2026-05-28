@@ -147,15 +147,33 @@ export interface TradeSubscription {
 export interface AdminOrgRow extends TradeOrganization {
   subscription?: TradeSubscription;
   owner_email?: string;
-  // Datos de auth (rellenados por admin_get_trade_users RPC)
   auth_email?: string;
   email_confirmed?: boolean;
   last_sign_in?: string;
   user_created_at?: string;
-  // Estadísticas de uso
   quotes_count?: number;
   clients_count?: number;
   last_quote_at?: string | null;
+  churn_risk?: boolean;
+  vip?: boolean;
+  internal_notes?: string | null;
+}
+
+export interface AdminSupportNote {
+  id: string;
+  org_id: string;
+  admin_email: string;
+  body: string;
+  created_at: string;
+}
+
+export interface AdminActivityLog {
+  id: string;
+  admin_email: string;
+  action: string;
+  target_org_id: string | null;
+  metadata: Record<string, unknown> | null;
+  created_at: string;
 }
 
 // ── Helpers de API ─────────────────────────────────────────────────────────
@@ -1193,6 +1211,8 @@ export interface TradePlatformInvoice {
   amount_cents: number;
   status: 'draft' | 'sent' | 'paid';
   stripe_invoice_id?: string;
+  notes?: string;
+  paid_at?: string;
   created_at: string;
 }
 
@@ -1206,6 +1226,14 @@ export async function loadPlatformInvoices(): Promise<TradePlatformInvoice[]> {
   const { data, error } = await supabase.rpc('admin_get_platform_invoices');
   if (error) throw error;
   return (data ?? []) as TradePlatformInvoice[];
+}
+
+export async function adminMarkInvoicePaid(invoiceId: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_platform_invoices')
+    .update({ status: 'paid', paid_at: new Date().toISOString() })
+    .eq('id', invoiceId);
+  if (error) throw error;
 }
 
 export async function setSubscriptionActive(orgId: string, active: boolean): Promise<void> {
@@ -1315,6 +1343,118 @@ export async function getStripeCheckoutUrl(orgId: string, plan?: string, billing
 }
 
 // ── CRM Waitlist ───────────────────────────────────────────────────────────
+
+// ── Admin: notas internas ──────────────────────────────────────────────────
+
+export async function adminLoadNotes(orgId: string): Promise<AdminSupportNote[]> {
+  const { data } = await supabase
+    .from('admin_support_notes')
+    .select('*')
+    .eq('org_id', orgId)
+    .order('created_at', { ascending: false });
+  return (data ?? []) as AdminSupportNote[];
+}
+
+export async function adminAddNote(orgId: string, body: string, adminEmail: string): Promise<void> {
+  const { error } = await supabase
+    .from('admin_support_notes')
+    .insert({ org_id: orgId, body, admin_email: adminEmail });
+  if (error) throw error;
+}
+
+export async function adminDeleteNote(noteId: string): Promise<void> {
+  const { error } = await supabase.from('admin_support_notes').delete().eq('id', noteId);
+  if (error) throw error;
+}
+
+// ── Admin: log de acciones ─────────────────────────────────────────────────
+
+export async function adminLogAction(
+  action: string,
+  targetOrgId: string | null,
+  metadata?: Record<string, unknown>,
+): Promise<void> {
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return;
+  await supabase.from('admin_activity_log').insert({
+    admin_email: user.email ?? 'admin',
+    action,
+    target_org_id: targetOrgId,
+    metadata: metadata ?? null,
+  });
+}
+
+export async function adminLoadActivityLog(orgId: string): Promise<AdminActivityLog[]> {
+  const { data } = await supabase
+    .from('admin_activity_log')
+    .select('*')
+    .eq('target_org_id', orgId)
+    .order('created_at', { ascending: false })
+    .limit(30);
+  return (data ?? []) as AdminActivityLog[];
+}
+
+// ── Admin: flags de org ────────────────────────────────────────────────────
+
+export async function adminSetOrgFlag(
+  orgId: string,
+  flag: 'churn_risk' | 'vip',
+  value: boolean,
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_organizations')
+    .update({ [flag]: value, updated_at: new Date().toISOString() })
+    .eq('id', orgId);
+  if (error) throw error;
+}
+
+// ── Admin: automatizaciones ────────────────────────────────────────────────
+
+export interface AdminAutoConfig {
+  ntfy_topic: string;
+  churn_auto_enabled: string;
+  trial_reminder_days: string;
+  last_churn_run: string;
+  last_trial_check: string;
+}
+
+export interface TrialExpiringSoon {
+  org_id: string;
+  org_nombre: string;
+  owner_email: string;
+  days_left: number;
+}
+
+export async function adminLoadAutoConfig(): Promise<AdminAutoConfig> {
+  const { data } = await supabase.from('admin_automation_config').select('key, value');
+  const cfg: Record<string, string> = {};
+  for (const row of (data ?? []) as { key: string; value: string }[]) cfg[row.key] = row.value;
+  return {
+    ntfy_topic:          cfg.ntfy_topic          ?? '',
+    churn_auto_enabled:  cfg.churn_auto_enabled  ?? 'true',
+    trial_reminder_days: cfg.trial_reminder_days ?? '3',
+    last_churn_run:      cfg.last_churn_run      ?? '',
+    last_trial_check:    cfg.last_trial_check    ?? '',
+  };
+}
+
+export async function adminSaveAutoConfig(key: string, value: string): Promise<void> {
+  const { error } = await supabase
+    .from('admin_automation_config')
+    .upsert({ key, value, updated_at: new Date().toISOString() });
+  if (error) throw error;
+}
+
+export async function adminGetTrialsExpiringSoon(daysAhead = 3): Promise<TrialExpiringSoon[]> {
+  const { data, error } = await supabase.rpc('get_trials_expiring_soon', { days_ahead: daysAhead });
+  if (error) throw error;
+  return (data ?? []) as TrialExpiringSoon[];
+}
+
+export async function adminRunChurnRiskNow(): Promise<void> {
+  const { error } = await supabase.rpc('auto_update_churn_risk');
+  if (error) throw error;
+}
 
 export async function adminLoadWeeklyQuotes(weeks = 8): Promise<Array<{ week: string; count: number }>> {
   const since = new Date();
