@@ -27,7 +27,6 @@ import AuthCallbackView from './components/auth/AuthCallbackView';
 import AuthResetPasswordView from './components/auth/AuthResetPasswordView';
 import UpdatePasswordView from './components/auth/UpdatePasswordView';
 
-// Páginas que pertenecen al flujo de autenticación — no deben ser sobreescritas por onAuthStateChange
 const AUTH_FLOW_PAGES = new Set<ActivePage>([
   ActivePage.AuthActivate,
   ActivePage.AuthCallback,
@@ -36,52 +35,59 @@ const AUTH_FLOW_PAGES = new Set<ActivePage>([
 
 function isPWAMode(): boolean {
   if (typeof window === 'undefined') return false;
+
   const params = new URLSearchParams(window.location.search);
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches
-    || (window.navigator as unknown as { standalone?: boolean }).standalone === true;
+
+  const isStandalone =
+    window.matchMedia('(display-mode: standalone)').matches ||
+    (window.navigator as unknown as { standalone?: boolean }).standalone === true;
+
   return params.get('app') === 'true' || isStandalone;
 }
 
-// Detecta si la URL actual corresponde a una página de auth y devuelve la página a mostrar.
-// Retorna null si es una ruta pública normal.
 function detectAuthRoute(): ActivePage | null {
   const path = window.location.pathname;
+
   if (path === '/auth/activate') return ActivePage.AuthActivate;
   if (path === '/auth/callback') return ActivePage.AuthCallback;
   if (path === '/auth/reset-password') return ActivePage.AuthResetPassword;
   if (path === '/update-password') return ActivePage.UpdatePassword;
   if (path === '/login') return ActivePage.Login;
+
   return null;
 }
 
 export default function App() {
   const pwa = isPWAMode();
 
-  // Determinar página inicial: rutas de auth tienen prioridad sobre todo lo demás
   const initialAuthRoute = detectAuthRoute();
+
   const [currentPage, setCurrentPage] = useState<ActivePage>(
     initialAuthRoute ?? (pwa ? ActivePage.AppDashboard : ActivePage.Home),
   );
 
-  const [preselectedTrade, setPreselectedTrade] = useState<TradeType>('Fontanería');
+  const [preselectedTrade, setPreselectedTrade] =
+    useState<TradeType>('Fontanería');
+
   const [initialMobile, setInitialMobile] = useState<boolean>(true);
-  const [loginOnMount, setLoginOnMount] = useState<boolean>(pwa && !initialAuthRoute);
+  const [loginOnMount, setLoginOnMount] = useState<boolean>(
+    pwa && !initialAuthRoute,
+  );
+
   const [session, setSession] = useState<Session | null>(null);
   const [workerProfile, setWorkerProfile] = useState<WorkerProfile | null>(null);
 
-  // Ref para que routeSession siempre vea la página actual sin crear dependencias circulares
   const currentPageRef = useRef(currentPage);
   currentPageRef.current = currentPage;
 
   const routeSession = useCallback(async (s: Session | null) => {
     setSession(s);
+
     if (!s) {
       setWorkerProfile(null);
       return;
     }
 
-    // Si estamos en medio de un flujo de auth (activate, callback, update-password),
-    // no sobreescribir la página — el componente de auth gestiona su propia navegación.
     if (AUTH_FLOW_PAGES.has(currentPageRef.current)) {
       return;
     }
@@ -95,32 +101,35 @@ export default function App() {
 
     try {
       const wp = await loadWorkerByEmail(s.user.email ?? '');
+
       if (wp) {
         setWorkerProfile(wp);
-        // Admin/owner role → full dashboard; field workers → limited worker view
+
         if (wp.rol === 'admin') {
           setCurrentPage(ActivePage.AppDashboard);
         } else {
           setCurrentPage(ActivePage.Worker);
         }
+
         return;
       }
-    } catch { /* usuario normal, no es worker */ }
+    } catch {
+      // Usuario normal, no es worker
+    }
 
     setCurrentPage(ActivePage.AppDashboard);
   }, []);
 
   useEffect(() => {
-    // Sesión existente al cargar (p.ej. usuario ya logueado)
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) {
         routeSession(data.session);
       }
     });
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, s) => {
-      // El evento PASSWORD_RECOVERY llega cuando Supabase procesa el hash de un reset link.
-      // Lo manejamos aquí directamente para ir a la página de cambio de contraseña.
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, s) => {
       if (event === 'PASSWORD_RECOVERY') {
         setSession(s);
         setCurrentPage(ActivePage.UpdatePassword);
@@ -132,9 +141,13 @@ export default function App() {
       } else {
         setSession(null);
         setWorkerProfile(null);
+
         if (!AUTH_FLOW_PAGES.has(currentPageRef.current)) {
           setCurrentPage(pwa ? ActivePage.AppDashboard : ActivePage.Home);
-          if (pwa) setLoginOnMount(true);
+
+          if (pwa) {
+            setLoginOnMount(true);
+          }
         }
       }
     });
@@ -144,19 +157,23 @@ export default function App() {
 
   const renderActiveView = () => {
     switch (currentPage) {
-      // ── Auth flow ────────────────────────────────────────────────────────
+      // Auth flow
       case ActivePage.Login:
         return <LoginView setCurrentPage={setCurrentPage} />;
+
       case ActivePage.AuthActivate:
         return <AuthActivateView setCurrentPage={setCurrentPage} />;
+
       case ActivePage.AuthCallback:
         return <AuthCallbackView setCurrentPage={setCurrentPage} />;
+
       case ActivePage.AuthResetPassword:
         return <AuthResetPasswordView setCurrentPage={setCurrentPage} />;
+
       case ActivePage.UpdatePassword:
         return <UpdatePasswordView setCurrentPage={setCurrentPage} />;
 
-      // ── Páginas públicas ─────────────────────────────────────────────────
+      // Páginas públicas
       case ActivePage.Home:
         return (
           <HomeView
@@ -165,6 +182,7 @@ export default function App() {
             setInitialMobile={setInitialMobile}
           />
         );
+
       case ActivePage.ComoFunciona:
         return (
           <ComoFuncionaView
@@ -172,6 +190,7 @@ export default function App() {
             setPreselectedTrade={setPreselectedTrade}
           />
         );
+
       case ActivePage.Precios:
         return (
           <PreciosView
@@ -179,14 +198,25 @@ export default function App() {
             setPreselectedTrade={setPreselectedTrade}
           />
         );
+
       case ActivePage.Contacto:
         return <ContactoView />;
+
+      // Páginas legales
       case ActivePage.AvisoLegal:
       case ActivePage.Privacidad:
       case ActivePage.Cookies:
-        return <LegalViews page={currentPage} setCurrentPage={setCurrentPage} />;
+      case ActivePage.Terminos:
+      case ActivePage.Beta:
+      case ActivePage.IADisclaimer:
+        return (
+          <LegalViews
+            page={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        );
 
-      // ── App autenticada ──────────────────────────────────────────────────
+      // App autenticada
       case ActivePage.AppDashboard:
         return (
           <AppDashboardView
@@ -197,12 +227,21 @@ export default function App() {
             workerOrgId={workerProfile?.org_id ?? null}
           />
         );
+
       case ActivePage.Registro:
         return <RegistroView setCurrentPage={setCurrentPage} />;
+
       case ActivePage.Admin:
         return <AdminView setCurrentPage={setCurrentPage} session={session} />;
+
       case ActivePage.Worker:
-        return <ScreenWorkerView workerProfile={workerProfile} session={session} setCurrentPage={setCurrentPage} />;
+        return (
+          <ScreenWorkerView
+            workerProfile={workerProfile}
+            session={session}
+            setCurrentPage={setCurrentPage}
+          />
+        );
 
       default:
         return (
@@ -215,16 +254,18 @@ export default function App() {
     }
   };
 
-  const isAppView = currentPage === ActivePage.AppDashboard
-    || currentPage === ActivePage.Registro
-    || currentPage === ActivePage.Admin
-    || currentPage === ActivePage.Worker;
+  const isAppView =
+    currentPage === ActivePage.AppDashboard ||
+    currentPage === ActivePage.Registro ||
+    currentPage === ActivePage.Admin ||
+    currentPage === ActivePage.Worker;
 
-  const isAuthView = currentPage === ActivePage.Login
-    || currentPage === ActivePage.AuthActivate
-    || currentPage === ActivePage.AuthCallback
-    || currentPage === ActivePage.AuthResetPassword
-    || currentPage === ActivePage.UpdatePassword;
+  const isAuthView =
+    currentPage === ActivePage.Login ||
+    currentPage === ActivePage.AuthActivate ||
+    currentPage === ActivePage.AuthCallback ||
+    currentPage === ActivePage.AuthResetPassword ||
+    currentPage === ActivePage.UpdatePassword;
 
   return (
     <SessionProvider>
@@ -237,8 +278,12 @@ export default function App() {
             setLoginOnMount={setLoginOnMount}
           />
         )}
+
         <main className="flex-grow">{renderActiveView()}</main>
-        {!isAppView && !isAuthView && <Footer setCurrentPage={setCurrentPage} />}
+
+        {!isAppView && !isAuthView && (
+          <Footer setCurrentPage={setCurrentPage} />
+        )}
       </div>
     </SessionProvider>
   );
