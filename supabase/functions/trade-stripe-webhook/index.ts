@@ -41,6 +41,38 @@ Deno.serve(async (req: Request) => {
   const event    = JSON.parse(body);
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
+  // ── checkout.session.completed — captura el plan elegido ─────────────────
+  if (event.type === 'checkout.session.completed') {
+    const session    = event.data.object as { metadata?: Record<string, string>; customer?: string; subscription?: string };
+    const orgId      = session.metadata?.org_id;
+    const plan       = session.metadata?.plan;
+    const billingCycle = session.metadata?.billing_cycle;
+    if (orgId && plan) {
+      const updates: Record<string, string> = {
+        plan,
+        status:     'active',
+        updated_at: new Date().toISOString(),
+      };
+      if (session.customer)     updates.stripe_customer_id      = session.customer;
+      if (session.subscription) updates.stripe_subscription_id  = session.subscription;
+      if (billingCycle)         updates.billing_cycle            = billingCycle;
+      await supabase.from('trade_subscriptions').update(updates).eq('org_id', orgId);
+      await supabase.from('trade_organizations').update({ plan }).eq('id', orgId);
+    }
+  }
+
+  // ── customer.subscription.updated — cambio de plan desde portal ──────────
+  if (event.type === 'customer.subscription.updated') {
+    const sub        = event.data.object as { customer: string; metadata?: Record<string, string>; items?: { data: Array<{ price: { id: string } }> } };
+    const customerId = sub.customer;
+    const plan       = sub.metadata?.plan;
+    if (plan) {
+      await supabase.from('trade_subscriptions').update({ plan, updated_at: new Date().toISOString() }).eq('stripe_customer_id', customerId);
+      const { data: orgSub } = await supabase.from('trade_subscriptions').select('org_id').eq('stripe_customer_id', customerId).maybeSingle();
+      if (orgSub?.org_id) await supabase.from('trade_organizations').update({ plan }).eq('id', orgSub.org_id);
+    }
+  }
+
   // ── invoice.paid ──────────────────────────────────────────────────────────
   if (event.type === 'invoice.paid') {
     const inv        = event.data.object;

@@ -67,6 +67,7 @@ import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } fr
 import ScreenPlanificacion from './ScreenPlanificacion';
 import ScreenEquipo from './ScreenEquipo';
 import ScreenIngresos from './ScreenIngresos';
+import PlanUpgradeModal from './PlanUpgradeModal';
 
 const InvoiceIcon = FileText;
 
@@ -552,6 +553,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [orgId, setOrgId] = useState<string | null>(null);
   const [subscription, setSubscription] = useState<TradeSubscription | null>(null);
   const [stripeLoading, setStripeLoading] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   const [empresaAjustes, setEmpresaAjustes] = useState({
     nombre: 'Sanz Instalaciones Técnicas',
@@ -1820,6 +1822,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         )}
       </AnimatePresence>
+
+      {/* ================= MODAL UPGRADE PLAN ================= */}
+      {showUpgradeModal && orgId && (
+        <PlanUpgradeModal
+          orgId={orgId}
+          subscription={subscription}
+          onClose={() => setShowUpgradeModal(false)}
+        />
+      )}
 
       {/* ================= MODAL SOPORTE ================= */}
       {showSupportModal && (
@@ -3283,17 +3294,49 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
-          <div className="p-4 border-t border-slate-855 bg-slate-950/20 text-center space-y-2">
-            <div className="inline-block bg-blue-500/10 border border-blue-500/30 text-blue-450 text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider animate-pulse font-mono">
-              Pro Beta Mode
-            </div>
-            <p className="text-[10px] text-slate-500 leading-normal font-sans">Facturación electrónica y presupuestos seguros.</p>
-            <button
-              onClick={() => setShowSupportModal(true)}
-              className="w-full mt-1 text-[9px] font-bold uppercase tracking-wider text-slate-400 hover:text-blue-400 border border-slate-700 hover:border-blue-500 rounded-lg py-1.5 cursor-pointer transition-colors"
-            >
-              💬 Contactar soporte
-            </button>
+          <div className="p-4 border-t border-slate-800 bg-slate-950/20 space-y-2">
+            {(() => {
+              const sub = subscription;
+              const planLabel = sub?.plan === 'empresa' ? 'Empresa' : sub?.plan === 'pro' ? 'Pro' : 'Basico';
+              const isTrialing = sub?.status === 'trial';
+              const daysLeft = isTrialing && sub?.trial_end
+                ? Math.max(0, Math.ceil((new Date(sub.trial_end).getTime() - Date.now()) / 86400000))
+                : null;
+              const showUpgradeBtn = !sub || sub.status !== 'active' || sub.plan !== 'empresa';
+              return (
+                <>
+                  <div className="flex items-center justify-between">
+                    <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full ${
+                      sub?.plan === 'empresa' ? 'bg-purple-500/15 text-purple-400 border border-purple-500/30' :
+                      sub?.plan === 'pro'     ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30' :
+                                               'bg-slate-700 text-slate-400 border border-slate-600'
+                    }`}>
+                      {planLabel}
+                    </span>
+                    {isTrialing && daysLeft !== null && (
+                      <span className="text-[9px] text-amber-400 font-bold">{daysLeft}d trial</span>
+                    )}
+                    {sub?.status === 'active' && (
+                      <span className="text-[9px] text-emerald-400 font-bold">Activo</span>
+                    )}
+                  </div>
+                  {showUpgradeBtn && (
+                    <button
+                      onClick={() => setShowUpgradeModal(true)}
+                      className="w-full text-[10px] font-bold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white rounded-lg py-1.5 cursor-pointer transition-all"
+                    >
+                      Ver planes
+                    </button>
+                  )}
+                  <button
+                    onClick={() => setShowSupportModal(true)}
+                    className="w-full text-[9px] font-bold uppercase tracking-wider text-slate-400 hover:text-blue-400 border border-slate-700 hover:border-blue-500 rounded-lg py-1.5 cursor-pointer transition-colors"
+                  >
+                    Soporte
+                  </button>
+                </>
+              );
+            })()}
           </div>
         </aside>
 
@@ -5271,16 +5314,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   )}
                   {(subscription.status === 'trial' || subscription.status === 'expired' || subscription.status === 'cancelled') && (
                     <button
-                      onClick={async () => {
-                        setStripeLoading(true);
-                        try { window.open(await getStripeCheckoutUrl(subscription.org_id), '_blank', 'noopener'); }
-                        catch { /* silent */ }
-                        finally { setStripeLoading(false); }
-                      }}
-                      disabled={stripeLoading}
-                      className="text-[10px] font-bold px-3 py-1.5 rounded-lg bg-[#FFC400] text-[#020B16] hover:brightness-105 transition disabled:opacity-50"
+                      onClick={() => setShowUpgradeModal(true)}
+                      className="text-[10px] font-bold px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white transition"
                     >
-                      {subscription.status === 'trial' ? 'Activar plan' : 'Reactivar plan'}
+                      {subscription.status === 'trial' ? 'Ver planes y activar' : 'Ver planes y reactivar'}
+                    </button>
+                  )}
+                  {subscription.status === 'active' && subscription.plan !== 'empresa' && (
+                    <button
+                      onClick={() => setShowUpgradeModal(true)}
+                      className="text-[10px] font-bold px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white transition"
+                    >
+                      Mejorar a Empresa
                     </button>
                   )}
                 </div>

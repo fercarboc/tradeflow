@@ -261,10 +261,10 @@ Muestra rentabilidad del negocio:
 ### FASE 3 — Módulo Ingresos
 **Objetivo:** Dashboard de rentabilidad para plan Empresa.
 
-- [ ] 3.1 Queries de ingresos (facturado, cobrado, pendiente por período)
-- [ ] 3.2 Cálculo de costes por tarifa × horas de trabajos
-- [ ] 3.3 Pantalla `ScreenIngresos` con gráficos (recharts)
-- [ ] 3.4 KPIs por cliente y por trabajador
+- [x] 3.1 Queries de ingresos (facturado, cobrado, pendiente por período)
+- [ ] 3.2 Cálculo de costes por tarifa × horas de trabajos (pendiente datos de horas reales)
+- [x] 3.3 Pantalla `ScreenIngresos` con gráfico de barras CSS
+- [x] 3.4 KPIs por período + top clientes por facturación
 
 ### FASE 4 — Stripe
 **Objetivo:** Cobrar por el SaaS.
