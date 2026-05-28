@@ -7,7 +7,9 @@ import { useState, useEffect } from 'react';
 import { ActivePage, TradeType } from '../types';
 import {
   Mic, FileText, Send, CheckCircle, ArrowRight,
-  Zap,
+  Zap, Wrench, Snowflake, Home as HomeIcon, Hammer, KeyRound,
+  PaintRoller, BrickWall, PanelsTopLeft, Leaf, SquareStack,
+  Blinds, RadioTower, Sun, ArrowUpDown, Car, Brush, Droplets, Camera,
   Monitor, Star, ShieldCheck, Users, Phone, Download, Share2,
 } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -80,28 +82,61 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
     'Más tiempo para ti',
   ];
 
+  const trades = [
+    { label: 'Fontanería',           icon: Wrench },
+    { label: 'Electricidad',         icon: Zap },
+    { label: 'Climatización / HVAC', icon: Snowflake },
+    { label: 'Reformas',             icon: HomeIcon },
+    { label: 'Carpintería',          icon: Hammer },
+    { label: 'Cerrajería',           icon: KeyRound },
+    { label: 'Pintura',              icon: PaintRoller },
+    { label: 'Albañilería',          icon: BrickWall },
+    { label: 'Suelos y Tarimas',     icon: PanelsTopLeft },
+    { label: 'Jardinería',           icon: Leaf },
+    { label: 'Cristalería',          icon: SquareStack },
+    { label: 'Persianas / Cierres',  icon: Blinds },
+    { label: 'Telecomunicaciones',   icon: RadioTower },
+    { label: 'Energía Solar',        icon: Sun },
+    { label: 'Ascensores',           icon: ArrowUpDown },
+    { label: 'Taller Mecánico',      icon: Car },
+    { label: 'Limpieza Industrial',  icon: Brush },
+    { label: 'Impermeabilización',   icon: Droplets },
+    { label: 'CCTV / Seguridad',     icon: Camera },
+  ];
+
   const basicFeatures = [
-    'Presupuestos con IA',
-    'Envío por WhatsApp y Email',
+    'Hasta 15 presupuestos/mes',
+    'Presupuestos por voz con IA',
+    'Hasta 50 clientes',
     'PDF profesional',
-    'Gestión clientes y pagos',
+    'Envío por WhatsApp y Email',
   ];
 
   const proFeatures = [
-    'Todo lo del plan Básico',
-    'Trabajadores y equipos',
-    'Agenda de obras',
-    'Recordatorios y vencimientos',
+    'Presupuestos ilimitados',
+    'Clientes ilimitados',
+    'Facturas ilimitadas',
+    'Foto IA ilimitada',
+    'Catálogo ilimitado',
   ];
 
   const empresaFeatures = [
     'Todo lo del plan Profesional',
-    'Multiempresa',
-    'Gestión avanzada de permisos',
-    'Integraciones y API',
+    'Hasta 5 usuarios en equipo',
+    'Roles y permisos granulares',
+    'Módulo Ingresos y rentabilidad',
+    'Panel Equipo y Permisos',
   ];
 
-  const empresaBadges = [
+  const empresaPlusFeatures = [
+    'Todo lo del plan Empresa',
+    'Hasta 15 usuarios en equipo',
+    'Módulo Contratos y mantenimientos',
+    'Panel financiero avanzado',
+    'Soporte dedicado 1-on-1',
+  ];
+
+  const empresaPlusBadges = [
     'Sin permanencia',
     'Actualizaciones incluidas',
     'Soporte cercano',
@@ -513,7 +548,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
 
             {/* Básico */}
             <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-7 flex flex-col gap-5">
@@ -554,7 +589,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
                   <span className="text-4xl font-black text-white leading-none">49€</span>
                   <span className="text-sm text-white/35 mb-1">/mes</span>
                 </div>
-                <p className="text-xs text-white/35 mt-1">3-5 usuarios</p>
+                <p className="text-xs text-white/35 mt-1">Autónomo · 1 usuario</p>
               </div>
               <ul className="space-y-2.5 flex-1">
                 {proFeatures.map((f) => (
@@ -572,27 +607,52 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
               </button>
             </div>
 
-            {/* Empresa — yellow */}
-            <div className="rounded-2xl bg-[#FFC400] p-7 flex flex-col gap-5 shadow-2xl shadow-[#FFC400]/15">
+            {/* Empresa — dark neutral */}
+            <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-7 flex flex-col gap-5">
               <div>
-                <div className="text-[10px] font-black uppercase tracking-widest text-[#020B16]/55 mb-2">Empresa</div>
+                <div className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Empresa</div>
                 <div className="flex items-end gap-1">
-                  <span className="text-4xl font-black text-[#020B16] leading-none">89€</span>
-                  <span className="text-sm text-[#020B16]/50 mb-1">/mes</span>
+                  <span className="text-4xl font-black text-white leading-none">89€</span>
+                  <span className="text-sm text-white/35 mb-1">/mes</span>
                 </div>
-                <p className="text-xs text-[#020B16]/50 mt-1">6-10 usuarios</p>
+                <p className="text-xs text-white/35 mt-1">Hasta 5 usuarios</p>
               </div>
               <ul className="space-y-2.5 flex-1">
                 {empresaFeatures.map((f) => (
+                  <li key={f} className="flex items-center gap-2 text-sm text-white/65">
+                    <CheckCircle className="h-4 w-4 text-[#00CFE8] shrink-0" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={() => go(ActivePage.Registro)}
+                className="w-full rounded-xl border border-white/20 py-3 text-sm font-bold uppercase tracking-wider text-white/60 hover:border-white/40 hover:text-white transition-colors cursor-pointer"
+              >
+                Empezar
+              </button>
+            </div>
+
+            {/* Empresa+ — yellow highlight */}
+            <div className="rounded-2xl bg-[#FFC400] p-7 flex flex-col gap-5 shadow-2xl shadow-[#FFC400]/15">
+              <div>
+                <div className="text-[10px] font-black uppercase tracking-widest text-[#020B16]/55 mb-2">Empresa+</div>
+                <div className="flex items-end gap-1">
+                  <span className="text-4xl font-black text-[#020B16] leading-none">179€</span>
+                  <span className="text-sm text-[#020B16]/50 mb-1">/mes</span>
+                </div>
+                <p className="text-xs text-[#020B16]/50 mt-1">Hasta 15 usuarios</p>
+              </div>
+              <ul className="space-y-2.5 flex-1">
+                {empresaPlusFeatures.map((f) => (
                   <li key={f} className="flex items-center gap-2 text-sm text-[#020B16]/80">
                     <CheckCircle className="h-4 w-4 text-[#020B16] shrink-0" />
                     {f}
                   </li>
                 ))}
               </ul>
-              {/* highlight badges */}
               <div className="rounded-xl bg-[#020B16]/10 p-4 space-y-2">
-                {empresaBadges.map((b) => (
+                {empresaPlusBadges.map((b) => (
                   <div key={b} className="flex items-center gap-2 text-xs font-bold text-[#020B16]">
                     <CheckCircle className="h-3.5 w-3.5 shrink-0" />
                     {b}
@@ -621,13 +681,24 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
       <section id="trades-section" className="bg-slate-50 py-20 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
 
-          {/* botones_profesionales.png — banner completo */}
-          <div className="mb-12">
-            <img
-              src="/botones_profesionales.png"
-              alt="Ideal para profesionales de: Reformas, Fontanería, Electricidad, Aire acondicionado, Carpintería, Pintura y muchos más"
-              className="w-full object-contain rounded-2xl"
-            />
+          {/* Grid de oficios — igual que footer */}
+          <div className="rounded-2xl bg-[#020B16] px-8 pt-8 pb-10 mb-12">
+            <p className="text-center text-[11px] font-black uppercase tracking-[0.28em] text-white mb-7">
+              Ideal para{' '}
+              <span className="text-[#00CFE8]">todo tipo de oficios</span>
+            </p>
+            <div className="grid grid-cols-3 gap-y-7 gap-x-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-10">
+              {trades.map(({ label, icon: Icon }) => (
+                <div key={label} className="group flex flex-col items-center justify-start gap-2 px-1 text-center">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-[#00CFE8] group-hover:border-[#FFC400]/40 group-hover:text-[#FFC400] group-hover:bg-[#FFC400]/10 transition-all">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <span className="text-[11px] leading-tight text-white/55 group-hover:text-white transition-colors max-w-[90px]">
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Google reviews + social proof */}
@@ -657,32 +728,12 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
             </div>
           </div>
 
-          {/* DESCUBRE TRABFLOW — QR + phone */}
+          {/* Llamada + logo */}
           <div className="rounded-2xl bg-[#020B16] p-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-              {/* Left: QR + text */}
-              <div className="flex items-center gap-5">
-                {/* QR code placeholder */}
-                <div className="h-20 w-20 shrink-0 rounded-lg bg-white p-1.5">
-                  <svg viewBox="0 0 40 40" className="h-full w-full">
-                    {/* Simple QR-like grid */}
-                    {[0,1,2,3,4,5,6].map(r => [0,1,2,3,4,5,6].map(c => {
-                      const isCorner = (r < 3 && c < 3) || (r < 3 && c > 3) || (r > 3 && c < 3);
-                      const rand = ((r * 7 + c) * 131) % 17;
-                      const fill = isCorner || rand < 8 ? '#020B16' : '#fff';
-                      return <rect key={`${r}-${c}`} x={c*5.5+1} y={r*5.5+1} width={4.5} height={4.5} fill={fill} rx="0.5" />;
-                    }))}
-                  </svg>
-                </div>
-                <div className="space-y-1">
-                  <div className="text-xs font-black uppercase tracking-wider text-[#FFC400]">Descubre TRABFLOW</div>
-                  <p className="text-xs text-white/50 leading-tight">Escanea el QR o entra en<br /><span className="text-white/70 font-semibold">trabflow.com</span></p>
-                </div>
-              </div>
-
-              {/* Center: phone number */}
-              <div className="text-center">
-                <a href="tel:+34672336572" className="flex items-center justify-center gap-2 group">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+              {/* Phone */}
+              <div className="text-center sm:text-left">
+                <a href="tel:+34672336572" className="flex items-center gap-2 group">
                   <Phone className="h-5 w-5 text-[#00CFE8]" />
                   <span className="text-2xl font-black text-white group-hover:text-[#FFC400] transition-colors tracking-wider">
                     672 336 572
@@ -691,14 +742,12 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
                 <p className="text-[10px] text-white/35 mt-1 uppercase tracking-widest">Llámanos ahora</p>
               </div>
 
-              {/* Right: CTA */}
-              <div className="text-center md:text-right">
-                <div className="inline-flex items-center gap-3 rounded-2xl bg-[#FFC400]/10 border border-[#FFC400]/20 px-5 py-3">
-                  <img src="/tradeflow.png" alt="TRABFLOW" className="h-8 w-auto" />
-                  <div className="text-left">
-                    <div className="text-sm font-black text-[#FFC400] uppercase tracking-widest">TRABFLOW</div>
-                    <div className="text-[9px] text-white/40 uppercase tracking-wider">La herramienta que trabaja contigo</div>
-                  </div>
+              {/* Logo */}
+              <div className="inline-flex items-center gap-3 rounded-2xl bg-[#FFC400]/10 border border-[#FFC400]/20 px-5 py-3">
+                <img src="/tradeflow.png" alt="TRABFLOW" className="h-8 w-auto" />
+                <div className="text-left">
+                  <div className="text-sm font-black text-[#FFC400] uppercase tracking-widest">TRABFLOW</div>
+                  <div className="text-[9px] text-white/40 uppercase tracking-wider">La herramienta que trabaja contigo</div>
                 </div>
               </div>
             </div>
