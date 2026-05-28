@@ -339,7 +339,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     if (isNativeDevice) {
       setIsSessionClosed(true);
     } else {
-      showToast('Sesion cerrada', 'info');
+      setCurrentPage(ActivePage.Home);
     }
   };
 
@@ -1455,97 +1455,43 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   return (
-    <div className={`font-sans transition-colors duration-300 ${
+    <div className={`font-sans ${
       isNativeDevice
-        ? `fixed inset-0 overflow-hidden ${isDarkMode ? 'dark bg-slate-950' : 'bg-white'}`
-        : `w-full min-h-screen flex flex-col ${isDarkMode ? 'dark bg-slate-950 text-slate-100' : 'bg-slate-50 text-slate-800'}`
+        ? `fixed inset-0 overflow-hidden bg-white`
+        : `w-full h-screen flex flex-col bg-white overflow-hidden`
     }`}>
 
-      {/* ================= BARRA SUPERIOR DE SIMULACIÓN — SOLO EN DESKTOP ================= */}
-      {!isNativeDevice && <div className="z-40 bg-slate-900 border-b border-slate-850 px-4 py-3 flex flex-wrap items-center justify-between gap-4 text-white text-xs select-none shadow-md">
-        <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 bg-blue-600 rounded flex items-center justify-center font-bold text-white shadow-inner">TF</div>
-          <span className="font-display font-bold tracking-tight uppercase">
-            Console TrabFlow <span className="text-blue-500">AI</span>
-          </span>
-          <span className="bg-blue-500/10 border border-blue-500/30 text-blue-450 font-bold px-2 py-0.5 rounded-full text-[9px] uppercase tracking-wide flex items-center gap-1 animate-pulse">
-            <Zap className="w-3.5 h-3.5 text-amber-400" />
-            <span>AI OS v2.6</span>
-          </span>
-        </div>
-
-        {/* Toggles del Entorno de Demostración */}
-        <div className="flex items-center gap-3">
-          
-          {/* Selector de Dispositivo */}
-          <div className="bg-slate-800 p-0.5 rounded border border-slate-700 flex text-[10px]">
-            <button 
-              onClick={() => setIsMobileMode(false)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded transition-all cursor-pointer ${
-                !isMobileMode ? 'bg-blue-600 text-white font-bold shadow-xs' : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              <Monitor className="w-3.5 h-3.5" />
-              <span>Escritorio</span>
-            </button>
-            <button 
-              onClick={() => setIsMobileMode(true)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded transition-all cursor-pointer ${
-                isMobileMode ? 'bg-blue-600 text-white font-bold shadow-xs' : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              <Smartphone className="w-3.5 h-3.5" />
-              <span>Móvil (Obra)</span>
-            </button>
+      {/* ================= BARRA SUPERIOR — SOLO EN DESKTOP ================= */}
+      {!isNativeDevice && (
+        <div className="z-40 bg-white border-b border-slate-200 px-5 py-3 flex items-center justify-between gap-4 select-none shrink-0">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 bg-blue-600 rounded-xl flex items-center justify-center font-black text-white text-xs shadow-sm">TF</div>
+            <div>
+              <span className="font-black text-sm text-slate-900 tracking-tight">TrabFlow <span className="text-blue-600">AI</span></span>
+              <span className="text-[9px] text-slate-400 font-medium block -mt-0.5">Panel de gestión</span>
+            </div>
           </div>
 
-          {/* Selector de Color */}
-          <button 
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className="bg-slate-800 border border-slate-700 hover:bg-slate-750 p-2 rounded text-white flex items-center justify-center cursor-pointer transition-colors"
-          >
-            {isDarkMode ? <Sun className="w-3.5 h-3.5 text-amber-400" /> : <Moon className="w-3.5 h-3.5 text-blue-400" />}
-          </button>
-
-          {/* Botón Login / Live — solo visible cuando ya hay sesión */}
-          {isLiveMode && (
-            <div className="flex items-center gap-2">
-              <span className="hidden sm:flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold px-2.5 py-1 rounded-full text-[9px] uppercase tracking-wider font-mono">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse inline-block" />
-                Datos Reales
-              </span>
-              {session?.user?.email === ADMIN_EMAIL && (
-                <button
-                  onClick={() => setCurrentPage(ActivePage.Admin)}
-                  className="flex items-center gap-1.5 bg-blue-700/80 hover:bg-blue-600 px-3 py-1.5 rounded font-bold uppercase tracking-wider text-[10px] text-white transition-colors cursor-pointer"
-                >
-                  <Shield className="w-3.5 h-3.5" />
-                  <span>Admin</span>
-                </button>
-              )}
+          <div className="flex items-center gap-2">
+            {session?.user?.email === ADMIN_EMAIL && (
               <button
-                onClick={handleLogout}
-                className="flex items-center gap-1.5 bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded font-bold uppercase tracking-wider text-[10px] text-slate-300 transition-colors cursor-pointer"
+                onClick={() => setCurrentPage(ActivePage.Admin)}
+                className="flex items-center gap-1.5 border border-slate-200 hover:border-blue-300 hover:bg-blue-50 px-3 py-1.5 rounded-lg text-[11px] font-bold text-slate-600 hover:text-blue-600 transition-colors cursor-pointer"
               >
-                <LogOut className="w-3.5 h-3.5" />
-                <span>Cerrar sesión</span>
+                <Shield className="w-3.5 h-3.5" />
+                Admin
               </button>
-            </div>
-          )}
-
-          {/* Botón Salir */}
-          <button
-            onClick={() => {
-              setCurrentPage(ActivePage.Home);
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="flex items-center gap-1.5 bg-red-600/90 hover:bg-red-650 px-3.5 py-1.5 rounded font-bold uppercase tracking-wider text-[10px] text-white transition-colors cursor-pointer"
-          >
-            <LogOut className="w-3.5 h-3.5" />
-            <span>Salir</span>
-          </button>
+            )}
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-1.5 border border-slate-200 hover:border-red-200 hover:bg-red-50 px-3 py-1.5 rounded-lg text-[11px] font-bold text-slate-500 hover:text-red-600 transition-colors cursor-pointer"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              Cerrar sesión
+            </button>
+          </div>
         </div>
-      </div>}
+      )}
 
       {/* Confeti flotante */}
       {showConfetti && (
@@ -1582,7 +1528,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         /* ===== MODO NATIVO: fullscreen sin frame, sin console header ===== */
         AppContentMobile()
       ) : (
-      <div className="flex-grow flex items-center justify-center p-0 md:p-6 overflow-hidden">
+      <div className="flex-grow flex overflow-hidden">
 
         {isMobileMode ? (
           /* ================= SIMULADOR MÓVIL PREMIUM CON MARCO DE IPHONE ================= */
@@ -1613,7 +1559,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         ) : (
           /* ================= VISTA COMPLETA DE ESCRITORIO ================= */
-          <div className="w-full max-w-7xl h-[calc(100vh-120px)] min-h-[580px] bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-850 shadow-lg flex overflow-hidden">
+          <div className="w-full h-full bg-white flex overflow-hidden">
             {AppContentDesktop()}
           </div>
         )}
