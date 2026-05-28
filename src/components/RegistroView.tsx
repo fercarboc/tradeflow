@@ -92,6 +92,9 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
   const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [needsConfirmation, setNeedsConfirmation] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendDone, setResendDone] = useState(false);
 
   const toggleTrade = (id: string) => {
     setSelectedTrades(prev => prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]);
@@ -105,11 +108,13 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
     form.password === form.confirmPassword &&
     form.acceptTerms;
 
+  const displayName = (businessType === 'empresa' ? form.companyName.trim() : form.fullName.trim()) || form.fullName.trim();
+
   const handleSubmit = async () => {
     setLoading(true);
     setError('');
     try {
-      const { error: regError } = await registerUser({
+      const { error: regError, needsConfirmation: nc } = await registerUser({
         email: form.email.trim(),
         password: form.password,
         fullName: form.fullName.trim(),
@@ -123,14 +128,25 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
         setError(regError);
         return;
       }
+      setNeedsConfirmation(nc);
       setStep(4);
-      sendTrabflowEmail({
-        type: 'welcome',
-        nombre: (businessType === 'empresa' ? form.companyName.trim() : form.fullName.trim()) || form.fullName.trim(),
-        email: form.email.trim(),
-      });
+      sendTrabflowEmail({ type: 'auth_confirm', nombre: displayName, email: form.email.trim() });
+      if (!nc) {
+        sendTrabflowEmail({ type: 'welcome', nombre: displayName, email: form.email.trim() });
+      }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleResend = async () => {
+    setResendLoading(true);
+    setResendDone(false);
+    try {
+      await sendTrabflowEmail({ type: 'auth_confirm', nombre: displayName, email: form.email.trim() });
+      setResendDone(true);
+    } finally {
+      setResendLoading(false);
     }
   };
 
@@ -473,15 +489,19 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
       {step === 4 && (
         <div className="w-full max-w-md text-center">
           <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-[#00CFE8]/15 border border-[#00CFE8]/30 mb-6">
-            <Check className="h-8 w-8 text-[#00CFE8]" />
+            {needsConfirmation ? <Mail className="h-8 w-8 text-[#00CFE8]" /> : <Check className="h-8 w-8 text-[#00CFE8]" />}
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mb-3">¡Cuenta creada!</h1>
+          <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mb-3">
+            {needsConfirmation ? '¡Revisa tu email!' : '¡Cuenta creada!'}
+          </h1>
           <p className="text-white/45 text-sm leading-relaxed mb-2">
-            Tu período de prueba gratuito de <strong className="text-white">15 días</strong> ha comenzado.
+            {needsConfirmation
+              ? <>Hemos enviado un enlace de confirmación a <strong className="text-white">{form.email.trim()}</strong>. Pulsa el enlace para activar tu cuenta.</>
+              : <>Tu período de prueba gratuito de <strong className="text-white">15 días</strong> ha comenzado.</>}
           </p>
-          <p className="text-white/30 text-xs mb-8">
-            Si tu proveedor requiere verificación, revisa tu bandeja de entrada antes de continuar.
-          </p>
+          {needsConfirmation && (
+            <p className="text-white/30 text-xs mb-2">Si no lo ves, revisa la carpeta de spam.</p>
+          )}
 
           <div className="rounded-2xl border border-white/10 bg-[#0d1f38] p-5 mb-6 text-left space-y-3">
             <div className="flex items-center gap-2.5 text-xs text-white/55">
@@ -494,12 +514,39 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
             </div>
           </div>
 
-          <button
-            onClick={() => setCurrentPage(ActivePage.AppDashboard)}
-            className="w-full py-3.5 rounded-xl bg-[#FFC400] hover:brightness-110 text-[#020B16] font-black uppercase tracking-widest text-sm flex items-center justify-center gap-2 cursor-pointer transition-all shadow-lg shadow-[#FFC400]/15"
-          >
-            Ir al panel <ArrowRight className="h-4 w-4" />
-          </button>
+          {needsConfirmation ? (
+            <div className="space-y-3">
+              <button
+                onClick={handleResend}
+                disabled={resendLoading || resendDone}
+                className="w-full py-3.5 rounded-xl bg-white/8 hover:bg-white/12 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer transition-all border border-white/10"
+              >
+                {resendLoading ? (
+                  <svg className="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                ) : resendDone ? (
+                  <><Check className="h-4 w-4 text-emerald-400" /> Email reenviado</>
+                ) : (
+                  <>Reenviar email de activación</>
+                )}
+              </button>
+              <button
+                onClick={() => setCurrentPage(ActivePage.Login)}
+                className="w-full py-3 text-white/40 hover:text-white text-xs transition-colors cursor-pointer"
+              >
+                Volver al login
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setCurrentPage(ActivePage.AppDashboard)}
+              className="w-full py-3.5 rounded-xl bg-[#FFC400] hover:brightness-110 text-[#020B16] font-black uppercase tracking-widest text-sm flex items-center justify-center gap-2 cursor-pointer transition-all shadow-lg shadow-[#FFC400]/15"
+            >
+              Ir al panel <ArrowRight className="h-4 w-4" />
+            </button>
+          )}
         </div>
       )}
     </div>

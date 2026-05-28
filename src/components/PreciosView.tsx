@@ -16,56 +16,58 @@ const PLANS = [
   {
     key: 'basico',
     name: 'Básico',
-    monthlyPrice: 29,
+    monthlyPrice: 0,
+    trialLabel: '15 días gratis',
     users: '1 usuario',
-    desc: 'Para el instalador autónomo que quiere ahorrar tiempo en presupuestos y facturas.',
+    desc: 'Empieza gratis. Presupuestos por voz con IA, gestión de clientes y facturas básicas.',
     features: [
-      'Hasta 30 presupuestos PDF al mes',
+      'Hasta 15 presupuestos/mes',
       'Presupuestos por voz con IA',
-      'Envío por WhatsApp y Email',
+      'Hasta 50 clientes',
+      'Hasta 5 facturas/mes',
+      'Escáner foto IA (5/mes)',
       'PDF profesional',
-      'Gestión de clientes y cobros',
-      'Soporte por Email',
     ],
     popular: false,
     highlight: false,
-    cta: 'Empezar',
+    cta: 'Empezar gratis',
   },
   {
-    key: 'profesional',
-    name: 'Profesional',
-    monthlyPrice: 49,
+    key: 'pro',
+    name: 'Pro',
+    monthlyPrice: 29,
     users: '1 usuario',
-    desc: 'Para el instalador autónomo con alta carga de trabajo que necesita agenda y sin límites.',
+    desc: 'Para el instalador autónomo con alta carga de trabajo que necesita todo sin límites.',
     features: [
-      'Todo lo del plan Básico',
-      'Presupuestos por voz e imagen sin límite',
-      'Agenda y planificación de obras',
-      'Gestión de trabajadores',
-      'Recordatorios y vencimientos',
-      'Soporte prioritario WhatsApp',
+      'Presupuestos ilimitados',
+      'Clientes ilimitados',
+      'Facturas ilimitadas',
+      'Foto IA ilimitada',
+      'Planificación de trabajos',
+      'Catálogo ilimitado',
+      'Soporte prioritario',
     ],
     popular: true,
     highlight: false,
-    cta: 'Empezar',
+    cta: 'Activar Pro',
   },
   {
     key: 'empresa',
     name: 'Empresa',
-    monthlyPrice: 89,
-    users: 'Hasta 5 usuarios',
-    desc: 'Para instaladoras con equipo en campo que necesitan control total del negocio.',
+    monthlyPrice: 79,
+    users: 'Hasta 20 usuarios',
+    desc: 'Para empresas instaladoras con equipo en campo que necesitan control total del negocio.',
     features: [
-      'Todo lo del plan Profesional',
-      'Hasta 5 usuarios simultáneos',
-      'Panel de estadísticas avanzadas',
-      'Módulo de contratos de mantenimiento',
-      'Gestión avanzada de permisos',
-      'Integraciones y API',
+      'Todo lo del plan Pro',
+      'Hasta 20 usuarios en equipo',
+      'Roles y permisos granulares',
+      'Módulo Ingresos y rentabilidad',
+      'Panel Equipo y Permisos',
+      'Soporte VIP',
     ],
     popular: false,
     highlight: true,
-    cta: 'Prueba gratis 15 días',
+    cta: 'Activar Empresa',
     badges: ['Sin permanencia', 'Actualizaciones incluidas', 'Soporte cercano'],
   },
 ];
@@ -166,7 +168,18 @@ export default function PreciosView({ setCurrentPage }: PreciosViewProps) {
                     {plan.name}
                   </div>
 
-                  {yearly ? (
+                  {plan.monthlyPrice === 0 ? (
+                    <div>
+                      <div className="flex items-end gap-1.5">
+                        <span className={`text-5xl font-black leading-none ${plan.highlight ? 'text-[#020B16]' : 'text-white'}`}>
+                          Gratis
+                        </span>
+                      </div>
+                      <p className={`text-xs mt-1.5 font-medium ${plan.highlight ? 'text-[#020B16]/60' : 'text-white/45'}`}>
+                        15 días de prueba · sin tarjeta
+                      </p>
+                    </div>
+                  ) : yearly ? (
                     /* Annual: show total/año in big + monthly equivalent below */
                     <div>
                       <div className="flex items-end gap-1.5">

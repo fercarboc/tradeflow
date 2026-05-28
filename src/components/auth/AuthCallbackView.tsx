@@ -100,8 +100,10 @@ function routeAfterSession(
 ) {
   if (type === 'recovery') {
     setCurrentPage(ActivePage.UpdatePassword);
-  } else if (type === 'invite' || type === 'signup') {
+  } else if (type === 'invite') {
     setCurrentPage(ActivePage.UpdatePassword);
+  } else if (type === 'signup') {
+    setCurrentPage(ActivePage.AppDashboard);
   } else {
     setCurrentPage(ActivePage.AppDashboard);
   }

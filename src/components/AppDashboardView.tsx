@@ -57,7 +57,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, subscribePush, unsubscribePush, isPushSubscribed } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { usePermissions } from '../hooks/usePermissions';
@@ -68,6 +68,8 @@ import ScreenPlanificacion from './ScreenPlanificacion';
 import ScreenEquipo from './ScreenEquipo';
 import ScreenIngresos from './ScreenIngresos';
 import PlanUpgradeModal from './PlanUpgradeModal';
+import OnboardingWizard from './OnboardingWizard';
+import type { TradeOrganization } from '../lib/supabase';
 
 const InvoiceIcon = FileText;
 
@@ -289,6 +291,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : '', idPresupuesto: f.quote_id ?? '', importe: f.subtotal, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any })));
       if (org) {
         setOrgId(org.id);
+        setOrgData(org);
+        if (!org.is_onboarded) setShowOnboarding(true);
+        isPushSubscribed().then(setPushEnabled).catch(() => {});
         setEmpresaAjustes(prev => ({
           ...prev,
           nombre:       org.nombre,
@@ -551,6 +556,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   ]);
 
   const [orgId, setOrgId] = useState<string | null>(null);
+  const [orgData, setOrgData] = useState<TradeOrganization | null>(null);
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [pushEnabled, setPushEnabled] = useState(false);
+  const [pushLoading, setPushLoading] = useState(false);
   const [subscription, setSubscription] = useState<TradeSubscription | null>(null);
   const [stripeLoading, setStripeLoading] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
@@ -1822,6 +1831,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         )}
       </AnimatePresence>
+
+      {/* ================= ONBOARDING WIZARD ================= */}
+      {showOnboarding && orgId && (
+        <OnboardingWizard
+          orgId={orgId}
+          onClose={() => setShowOnboarding(false)}
+        />
+      )}
 
       {/* ================= MODAL UPGRADE PLAN ================= */}
       {showUpgradeModal && orgId && (
@@ -4119,97 +4136,132 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     fecha: string;
     fechaVencimiento?: string;
     clienteNombre: string;
+    clienteDireccion?: string;
+    clienteEmail?: string;
+    clienteTelefono?: string;
     empresa: typeof empresaAjustes;
+    logoUrl?: string;
     partidas: PartidaPresupuesto[];
     total: number;
     iva: number;
     estado?: string;
+    notas?: string;
   }) {
     const totalIVA = opts.total * (opts.iva / 100);
     const totalConIVA = opts.total + totalIVA;
-    const rows = opts.partidas.map(p => `
-      <tr>
-        <td style="padding:8px 4px;border-bottom:1px solid #e2e8f0;font-size:11px;color:#334155">${p.descripcion}</td>
-        <td style="padding:8px 4px;border-bottom:1px solid #e2e8f0;font-size:11px;text-align:center;color:#64748b">${p.cantidad}</td>
-        <td style="padding:8px 4px;border-bottom:1px solid #e2e8f0;font-size:11px;text-align:right;color:#334155">${p.precioUnitario.toFixed(2)}€</td>
-        <td style="padding:8px 4px;border-bottom:1px solid #e2e8f0;font-size:11px;text-align:right;font-weight:700;color:#0f172a">${p.total.toFixed(2)}€</td>
+    const esFactura = opts.tipo === 'factura';
+    const accentColor = esFactura ? '#7c3aed' : '#2563eb';
+    const rows = opts.partidas.map((p, i) => `
+      <tr style="background:${i % 2 === 0 ? '#fff' : '#f8fafc'}">
+        <td style="padding:9px 8px;font-size:11.5px;color:#334155;border-bottom:1px solid #f1f5f9">${p.descripcion}</td>
+        <td style="padding:9px 8px;font-size:11px;text-align:center;color:#64748b;border-bottom:1px solid #f1f5f9">${p.cantidad}</td>
+        <td style="padding:9px 8px;font-size:11px;text-align:right;color:#475569;border-bottom:1px solid #f1f5f9">${p.precioUnitario.toFixed(2)}€</td>
+        <td style="padding:9px 8px;font-size:11.5px;text-align:right;font-weight:700;color:#0f172a;border-bottom:1px solid #f1f5f9">${p.total.toFixed(2)}€</td>
       </tr>`).join('');
 
+    const logoHtml = opts.logoUrl
+      ? `<img src="${opts.logoUrl}" alt="Logo" style="max-height:64px;max-width:200px;object-fit:contain;display:block;margin-bottom:8px" />`
+      : '';
+
+    const clienteLines = [
+      `<div style="font-size:12.5px;font-weight:700;color:#0f172a">${opts.clienteNombre}</div>`,
+      opts.clienteDireccion ? `<div style="font-size:11px;color:#64748b;margin-top:2px">${opts.clienteDireccion}</div>` : '',
+      opts.clienteEmail ? `<div style="font-size:11px;color:#64748b">${opts.clienteEmail}</div>` : '',
+      opts.clienteTelefono ? `<div style="font-size:11px;color:#64748b">Tel: ${opts.clienteTelefono}</div>` : '',
+    ].filter(Boolean).join('');
+
     return `<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
-      <title>${opts.tipo === 'presupuesto' ? 'Presupuesto' : 'Factura'} ${opts.numero}</title>
+      <title>${esFactura ? 'Factura' : 'Presupuesto'} ${opts.numero}</title>
       <style>
         *{box-sizing:border-box;margin:0;padding:0}
-        body{font-family:Arial,sans-serif;color:#0f172a;background:#fff;padding:40px;max-width:760px;margin:auto}
-        @media print{body{padding:20px}button{display:none!important}}
-        .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #2563eb}
-        .brand{font-size:22px;font-weight:800;letter-spacing:-0.5px;color:#0f172a}
-        .brand span{color:#2563eb}
-        .doc-type{font-size:28px;font-weight:700;color:#2563eb;text-align:right}
-        .doc-num{font-size:12px;color:#64748b;text-align:right;font-family:monospace}
-        .cols{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:28px}
-        .label{font-size:9px;text-transform:uppercase;color:#94a3b8;font-weight:700;letter-spacing:1px;margin-bottom:4px}
-        .val{font-size:12px;color:#1e293b;line-height:1.5}
-        table{width:100%;border-collapse:collapse;margin-bottom:24px}
-        thead th{background:#f8fafc;padding:8px 4px;font-size:9px;text-transform:uppercase;color:#64748b;font-weight:700;letter-spacing:1px;border-bottom:2px solid #e2e8f0}
-        .totals{text-align:right}
-        .totals table{width:240px;margin-left:auto}
-        .totals td{padding:4px 0;font-size:12px;color:#475569}
-        .totals td:last-child{font-family:monospace;font-weight:600;text-align:right;padding-left:16px}
-        .total-final{font-size:16px!important;font-weight:800!important;color:#0f172a!important}
-        .footer{margin-top:48px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:10px;color:#94a3b8;text-align:center}
-        .badge{display:inline-block;padding:3px 10px;border-radius:99px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
-        .badge-pending{background:#fef9c3;color:#854d0e}
-        .badge-paid{background:#dcfce7;color:#166534}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#0f172a;background:#fff;padding:48px 56px;max-width:800px;margin:auto;font-size:12px}
+        @media print{body{padding:24px 32px}button{display:none!important}.page-break{page-break-before:always}}
+        .print-btn{position:fixed;top:16px;right:16px;background:${accentColor};color:#fff;border:none;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+        .top-bar{height:6px;background:linear-gradient(90deg,${accentColor},${esFactura ? '#a855f7' : '#06b6d4'});margin:-48px -56px 40px;border-radius:0}
+        @media print{.top-bar{margin:-24px -32px 32px}}
+        .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:36px}
+        .company-name{font-size:18px;font-weight:800;color:#0f172a;letter-spacing:-0.3px}
+        .company-sub{font-size:11px;color:#64748b;line-height:1.6;margin-top:4px}
+        .doc-pill{background:${accentColor};color:#fff;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;padding:4px 14px;border-radius:99px;display:inline-block;margin-bottom:8px}
+        .doc-number{font-size:22px;font-weight:900;color:#0f172a;font-family:monospace;letter-spacing:-0.5px}
+        .doc-meta{font-size:10.5px;color:#94a3b8;margin-top:4px;line-height:1.7}
+        .divider{border:none;border-top:1px solid #e2e8f0;margin:24px 0}
+        .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px}
+        .info-box{background:#f8fafc;border-radius:10px;padding:14px 16px}
+        .info-label{font-size:9px;text-transform:uppercase;color:#94a3b8;font-weight:800;letter-spacing:1.2px;margin-bottom:6px}
+        table{width:100%;border-collapse:collapse;margin-bottom:20px;border-radius:10px;overflow:hidden}
+        thead{background:${accentColor}}
+        thead th{padding:10px 8px;font-size:9.5px;text-transform:uppercase;color:rgba(255,255,255,.9);font-weight:700;letter-spacing:1px}
+        .totals-box{background:#f8fafc;border-radius:12px;padding:16px 20px;width:260px;margin-left:auto;margin-bottom:32px}
+        .totals-row{display:flex;justify-content:space-between;padding:4px 0;font-size:12px;color:#475569}
+        .totals-row.final{border-top:1px solid #e2e8f0;margin-top:8px;padding-top:10px;font-size:15px;font-weight:900;color:#0f172a}
+        .badge{display:inline-block;padding:3px 12px;border-radius:99px;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.8px}
+        .badge-pending{background:#fef3c7;color:#92400e}
+        .badge-paid{background:#d1fae5;color:#065f46}
+        .badge-overdue{background:#fee2e2;color:#991b1b}
         .badge-draft{background:#f1f5f9;color:#475569}
-        .print-btn{position:fixed;top:16px;right:16px;background:#2563eb;color:#fff;border:none;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
+        .footer{text-align:center;font-size:10px;color:#cbd5e1;padding-top:20px;border-top:1px solid #f1f5f9}
+        .notes-box{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 16px;margin-bottom:24px;font-size:11px;color:#78350f}
       </style>
     </head><body>
       <button class="print-btn" onclick="window.print()">Descargar PDF</button>
+      <div class="top-bar"></div>
+
       <div class="header">
         <div>
-          <div class="brand">Trab<span>Flow</span> AI</div>
-          <div style="font-size:13px;font-weight:700;margin-top:6px">${opts.empresa.nombre || 'Mi Empresa'}</div>
+          ${logoHtml}
+          <div class="company-name">${opts.empresa.nombre || 'Mi Empresa'}</div>
+          <div class="company-sub">
+            ${opts.empresa.nif ? `NIF: ${opts.empresa.nif}<br>` : ''}
+            ${opts.empresa.direccion ? `${opts.empresa.direccion}${opts.empresa.localidad ? `, ${opts.empresa.localidad}` : ''}${opts.empresa.cp ? ` ${opts.empresa.cp}` : ''}<br>` : ''}
+            ${opts.empresa.email ? `${opts.empresa.email}` : ''}${opts.empresa.telefonoMovil ? ` · Tel: ${opts.empresa.telefonoMovil}` : ''}
+          </div>
+        </div>
+        <div style="text-align:right">
+          <div class="doc-pill">${esFactura ? 'Factura' : 'Presupuesto'}</div>
+          <div class="doc-number">${opts.numero}</div>
+          <div class="doc-meta">
+            Fecha: ${opts.fecha}<br>
+            ${opts.fechaVencimiento ? `Vencimiento: ${opts.fechaVencimiento}<br>` : ''}
+            ${opts.estado ? `<span class="badge ${opts.estado === 'Pagada' ? 'badge-paid' : opts.estado === 'Pendiente' ? 'badge-pending' : opts.estado === 'Vencida' ? 'badge-overdue' : 'badge-draft'}">${opts.estado}</span>` : ''}
+          </div>
+        </div>
+      </div>
+
+      <div class="info-grid">
+        <div class="info-box">
+          <div class="info-label">Emisor</div>
+          <div style="font-size:12.5px;font-weight:700;color:#0f172a">${opts.empresa.nombre || '—'}</div>
           ${opts.empresa.nif ? `<div style="font-size:11px;color:#64748b">NIF: ${opts.empresa.nif}</div>` : ''}
-          ${opts.empresa.direccion ? `<div style="font-size:11px;color:#64748b">${opts.empresa.direccion}${opts.empresa.localidad ? `, ${opts.empresa.localidad}` : ''}</div>` : ''}
-          ${opts.empresa.email ? `<div style="font-size:11px;color:#64748b">${opts.empresa.email}</div>` : ''}
-          ${opts.empresa.telefonoMovil ? `<div style="font-size:11px;color:#64748b">Tel: ${opts.empresa.telefonoMovil}</div>` : ''}
+          ${opts.empresa.provincia ? `<div style="font-size:11px;color:#64748b">${opts.empresa.provincia}</div>` : ''}
         </div>
-        <div>
-          <div class="doc-type">${opts.tipo === 'presupuesto' ? 'PRESUPUESTO' : 'FACTURA'}</div>
-          <div class="doc-num">${opts.numero}</div>
-          <div style="font-size:11px;color:#64748b;text-align:right;margin-top:4px">Fecha: ${opts.fecha}</div>
-          ${opts.fechaVencimiento ? `<div style="font-size:11px;color:#64748b;text-align:right">Vencimiento: ${opts.fechaVencimiento}</div>` : ''}
-          ${opts.estado ? `<div style="text-align:right;margin-top:6px"><span class="badge ${opts.estado === 'Pagada' ? 'badge-paid' : opts.estado === 'Pendiente' ? 'badge-pending' : 'badge-draft'}">${opts.estado}</span></div>` : ''}
+        <div class="info-box">
+          <div class="info-label">Cliente</div>
+          ${clienteLines || '<div style="font-size:12px;color:#64748b">—</div>'}
         </div>
       </div>
-      <div class="cols">
-        <div>
-          <div class="label">Datos del Emisor</div>
-          <div class="val">${opts.empresa.nombre || '—'}</div>
-          ${opts.empresa.nif ? `<div class="val" style="color:#64748b">NIF: ${opts.empresa.nif}</div>` : ''}
-        </div>
-        <div>
-          <div class="label">Cliente</div>
-          <div class="val">${opts.clienteNombre}</div>
-        </div>
-      </div>
+
+      ${opts.notas ? `<div class="notes-box"><strong>Notas:</strong> ${opts.notas}</div>` : ''}
+
       <table>
         <thead><tr>
-          <th style="text-align:left;width:50%">Descripción</th>
+          <th style="text-align:left;width:48%">Descripción</th>
           <th style="text-align:center;width:10%">Cant.</th>
           <th style="text-align:right;width:20%">Precio unit.</th>
-          <th style="text-align:right;width:20%">Total</th>
+          <th style="text-align:right;width:22%">Subtotal</th>
         </tr></thead>
         <tbody>${rows}</tbody>
       </table>
-      <div class="totals">
-        <table>
-          <tr><td>Base imponible</td><td>${opts.total.toFixed(2)}€</td></tr>
-          <tr><td>IVA (${opts.iva}%)</td><td>${totalIVA.toFixed(2)}€</td></tr>
-          <tr><td class="total-final">TOTAL</td><td class="total-final">${totalConIVA.toFixed(2)}€</td></tr>
-        </table>
+
+      <div class="totals-box">
+        <div class="totals-row"><span>Base imponible</span><span>${opts.total.toFixed(2)}€</span></div>
+        <div class="totals-row"><span>IVA ${opts.iva}%</span><span>${totalIVA.toFixed(2)}€</span></div>
+        <div class="totals-row final"><span>TOTAL</span><span>${totalConIVA.toFixed(2)}€</span></div>
       </div>
-      <div class="footer">Documento generado por TrabFlow AI · trabflow.com</div>
+
+      <div class="footer">
+        Generado con TradeFlow AI · ${opts.empresa.nombre || ''}${opts.empresa.email ? ` · ${opts.empresa.email}` : ''}
+      </div>
     </body></html>`;
   }
 
@@ -4223,12 +4275,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }
 
   function printQuote(presupuesto: Presupuesto) {
+    const cliente = clientes.find(c => c.nombre === presupuesto.nombreCliente);
     const html = buildDocumentHTML({
       tipo: 'presupuesto',
       numero: presupuesto.id,
       fecha: presupuesto.fecha,
       clienteNombre: presupuesto.nombreCliente,
+      clienteDireccion: cliente?.direccion,
+      clienteEmail: cliente?.email || presupuesto.emailCliente,
+      clienteTelefono: cliente?.telefono || presupuesto.telefonoCliente,
       empresa: empresaAjustes,
+      logoUrl: orgData?.logo_url ?? undefined,
       partidas: presupuesto.partidas,
       total: presupuesto.total,
       iva: empresaAjustes.ivaDefault || 21,
@@ -4238,13 +4295,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }
 
   function printInvoice(factura: Factura) {
+    const cliente = clientes.find(c => c.nombre === factura.nombreCliente);
     const html = buildDocumentHTML({
       tipo: 'factura',
       numero: factura.numeroFactura,
       fecha: factura.fecha,
       fechaVencimiento: factura.fechaVencimiento,
       clienteNombre: factura.nombreCliente,
+      clienteDireccion: cliente?.direccion,
+      clienteEmail: cliente?.email,
+      clienteTelefono: cliente?.telefono,
       empresa: empresaAjustes,
+      logoUrl: orgData?.logo_url ?? undefined,
       partidas: presupuestos.find(p => p.id === factura.idPresupuesto)?.partidas ?? [],
       total: factura.importe,
       iva: empresaAjustes.ivaDefault || 21,
@@ -5355,6 +5417,52 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           )}
         </div>
+
+        {/* ── 5. Notificaciones push ── */}
+        {isLiveMode && 'Notification' in window && (
+          <div className={sec}>
+            <h3 className={secTitle}>Notificaciones</h3>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs font-bold text-slate-700 dark:text-white">Notificaciones en este dispositivo</p>
+                <p className="text-[10px] text-slate-400 mt-0.5">
+                  {pushEnabled ? 'Activadas — recibirás alertas de trabajos y presupuestos.' : 'Desactivadas — no recibirás alertas en este dispositivo.'}
+                </p>
+              </div>
+              <button
+                onClick={async () => {
+                  if (!orgId) return;
+                  setPushLoading(true);
+                  try {
+                    if (pushEnabled) {
+                      const { data: { session: s } } = await supabase.auth.getSession();
+                      if (s?.user) await unsubscribePush(s.user.id);
+                      setPushEnabled(false);
+                      showToast('Notificaciones desactivadas', 'info');
+                    } else {
+                      const permission = await Notification.requestPermission();
+                      if (permission !== 'granted') { showToast('Permiso denegado por el navegador', 'error'); return; }
+                      const { data: { session: s } } = await supabase.auth.getSession();
+                      if (!s?.user) return;
+                      const ok = await subscribePush(s.user.id, orgId);
+                      setPushEnabled(ok);
+                      showToast(ok ? 'Notificaciones activadas ✓' : 'Error — comprueba la configuración VAPID', ok ? 'success' : 'error');
+                    }
+                  } catch { showToast('Error al configurar notificaciones', 'error'); }
+                  finally { setPushLoading(false); }
+                }}
+                disabled={pushLoading}
+                className={`shrink-0 px-3 py-1.5 rounded-lg text-[10px] font-bold transition cursor-pointer disabled:opacity-50 ${
+                  pushEnabled
+                    ? 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+                    : 'bg-blue-600 hover:bg-blue-500 text-white'
+                }`}
+              >
+                {pushLoading ? '...' : pushEnabled ? 'Desactivar' : 'Activar'}
+              </button>
+            </div>
+          </div>
+        )}
 
       </div>
     );

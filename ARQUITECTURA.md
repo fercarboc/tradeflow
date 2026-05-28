@@ -277,11 +277,11 @@ Muestra rentabilidad del negocio:
 - [ ] 4.6 Bloqueos hard cuando plan no cubre la acción
 
 ### FASE 5 — Pulido y lanzamiento
-- [ ] 5.1 Onboarding wizard (primera vez que entra un usuario nuevo)
-- [ ] 5.2 Notificaciones push (trabajo asignado, presupuesto aceptado)
-- [ ] 5.3 PDF mejorado de presupuesto/factura con logo empresa
+- [x] 5.1 Onboarding wizard (primera vez que entra un usuario nuevo)
+- [x] 5.2 Notificaciones push (toggle en Ajustes, usa subscribePush/unsubscribePush)
+- [x] 5.3 PDF mejorado de presupuesto/factura con logo empresa + datos cliente
 - [ ] 5.4 App Store / Google Play (PWA + capacitor)
-- [ ] 5.5 Landing page pública con pricing
+- [x] 5.5 Landing page pública con pricing (planes actualizados: Básico gratis, Pro 29€, Empresa 79€)
 
 ---
 
@@ -320,7 +320,7 @@ Muestra rentabilidad del negocio:
 | Catálogo                   | ✅ Producción  |
 | Planificación (Trabajos)   | ✅ Producción  |
 | Admin panel                | ✅ Producción  |
-| Multi-usuario / Roles      | 🔴 Pendiente   |
-| Módulo Ingresos            | 🔴 Pendiente   |
-| Módulo Equipo              | 🔴 Pendiente   |
-| Stripe / Pagos             | 🔴 Pendiente   |
+| Multi-usuario / Roles      | ✅ Producción  |
+| Módulo Ingresos            | ✅ Producción  |
+| Módulo Equipo              | ✅ Producción  |
+| Stripe / Pagos             | ✅ Producción  |

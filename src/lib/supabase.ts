@@ -242,11 +242,12 @@ export async function registerUser(params: {
   tradeTypes: string[];
   plan: 'basico' | 'pro' | 'empresa';
   billingCycle: 'monthly' | 'yearly';
-}): Promise<{ error: string | null }> {
+}): Promise<{ error: string | null; needsConfirmation: boolean }> {
   const { data, error } = await supabase.auth.signUp({
     email: params.email,
     password: params.password,
     options: {
+      emailRedirectTo: 'https://www.trabflow.com/auth/callback',
       data: {
         full_name: params.fullName,
         company_name: params.companyName || params.fullName,
@@ -258,7 +259,7 @@ export async function registerUser(params: {
     },
   });
 
-  if (error) return { error: error.message };
+  if (error) return { error: error.message, needsConfirmation: false };
 
   // If session is available (email confirmation disabled), create org immediately
   if (data.session && data.user) {
@@ -293,7 +294,7 @@ export async function registerUser(params: {
     }
   }
 
-  return { error: null };
+  return { error: null, needsConfirmation: !data.session };
 }
 
 export async function getAdminOrgs(): Promise<AdminOrgRow[]> {
@@ -808,7 +809,7 @@ export async function updateCatalogVariant(
 // ── Email via Resend (Edge Function trade-email) ──────────────────────────────
 
 export async function sendTrabflowEmail(payload: {
-  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome' | 'contact_admin' | 'support_admin';
+  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome' | 'contact_admin' | 'support_admin' | 'auth_confirm';
   nombre?: string;
   email?: string;
   telefono?: string;

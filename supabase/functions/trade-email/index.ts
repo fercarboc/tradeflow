@@ -1,8 +1,11 @@
 import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY') ?? '';
-const FROM = 'TRABFLOW <contacto@trabflow.com>';
-const ADMIN_EMAIL = 'contacto@trabflow.com';
+const RESEND_API_KEY    = Deno.env.get('RESEND_API_KEY') ?? '';
+const SUPABASE_URL      = Deno.env.get('SUPABASE_URL') ?? '';
+const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
+const FROM              = 'TRABFLOW <contacto@trabflow.com>';
+const ADMIN_EMAIL       = 'contacto@trabflow.com';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -10,7 +13,7 @@ const CORS = {
 };
 
 interface EmailPayload {
-  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome' | 'contact_admin' | 'support_admin';
+  type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome' | 'contact_admin' | 'support_admin' | 'auth_confirm';
   nombre?: string;
   email?: string;
   telefono?: string;
@@ -31,6 +34,7 @@ async function sendEmail(to: string, subject: string, html: string): Promise<voi
   });
   if (!res.ok) {
     const err = await res.text();
+    console.error(`[trade-email] Resend error ${res.status}:`, err);
     throw new Error(`Resend error ${res.status}: ${err}`);
   }
 }
@@ -52,7 +56,7 @@ function emailWrap(title: string, body: string) {
   </div>
   <h2 style="color:#fff;font-size:18px;font-weight:700;margin:0 0 8px">${title}</h2>
   ${body}
-  <p style="color:#334155;font-size:11px;margin-top:32px">trabflow.com · info@trabflow.com</p>
+  <p style="color:#334155;font-size:11px;margin-top:32px">trabflow.com · contacto@trabflow.com</p>
 </div></body></html>`;
 }
 
@@ -74,8 +78,67 @@ Deno.serve(async (req: Request) => {
     });
   }
 
+  console.log(`[trade-email] type=${payload.type} email=${payload.email ?? '-'}`);
+
   try {
     switch (payload.type) {
+
+      case 'auth_confirm': {
+        if (!payload.email) {
+          return new Response(JSON.stringify({ error: 'email requerido' }), {
+            status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+          });
+        }
+        if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+          return new Response(JSON.stringify({ error: 'Supabase service key not set' }), {
+            status: 500, headers: { ...CORS, 'Content-Type': 'application/json' },
+          });
+        }
+
+        const admin = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY, {
+          auth: { autoRefreshToken: false, persistSession: false },
+        });
+
+        const { data: linkData, error: linkErr } = await admin.auth.admin.generateLink({
+          type: 'signup',
+          email: payload.email,
+          options: { redirectTo: 'https://www.trabflow.com/auth/callback' },
+        });
+
+        if (linkErr || !linkData?.properties?.action_link) {
+          const msg = linkErr?.message ?? 'No se pudo generar el enlace';
+          console.error('[trade-email] generateLink error:', msg);
+          return new Response(JSON.stringify({ error: msg }), {
+            status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+          });
+        }
+
+        const actionLink = linkData.properties.action_link;
+        await sendEmail(
+          payload.email,
+          'Confirma tu cuenta de TRABFLOW',
+          emailWrap('Activa tu cuenta', `
+            <p style="color:#94a3b8;font-size:14px;line-height:1.6">
+              Hola ${payload.nombre ?? 'instalador'}, gracias por registrarte en TRABFLOW.
+              Pulsa el botón de abajo para confirmar tu dirección de email y acceder a tu panel.
+            </p>
+            <div style="margin:24px 0">
+              <a href="${actionLink}" style="display:inline-block;background:#00CFE8;color:#020B16;font-weight:900;text-decoration:none;padding:14px 28px;border-radius:10px;font-size:13px;text-transform:uppercase;letter-spacing:1px">
+                Confirmar email →
+              </a>
+            </div>
+            <p style="color:#475569;font-size:12px;line-height:1.5">
+              Si no creaste esta cuenta puedes ignorar este mensaje.<br>
+              El enlace caduca en 24 horas.
+            </p>
+            <p style="color:#334155;font-size:12px;margin-top:16px">
+              ¿Necesitas ayuda? Escríbenos a <a href="mailto:contacto@trabflow.com" style="color:#00CFE8">contacto@trabflow.com</a>
+            </p>
+          `),
+        );
+        console.log(`[trade-email] auth_confirm sent to ${payload.email}`);
+        break;
+      }
 
       case 'waitlist_admin':
         await sendEmail(
@@ -90,6 +153,7 @@ Deno.serve(async (req: Request) => {
             row('Presupuestos/mes', payload.presupuestos_al_mes),
           )),
         );
+        console.log('[trade-email] waitlist_admin sent');
         break;
 
       case 'waitlist_confirm':
@@ -103,11 +167,12 @@ Deno.serve(async (req: Request) => {
                 Serás de los primeros en acceder cuando abramos tu zona.
               </p>
               <p style="color:#94a3b8;font-size:14px;line-height:1.6">
-                Si tienes cualquier pregunta puedes escribirnos a <a href="mailto:info@trabflow.com" style="color:#00CFE8">info@trabflow.com</a>
+                Si tienes cualquier pregunta puedes escribirnos a <a href="mailto:contacto@trabflow.com" style="color:#00CFE8">contacto@trabflow.com</a>
                 o llamarnos al <strong style="color:#fff">672 336 572</strong>.
               </p>
             `),
           );
+          console.log(`[trade-email] waitlist_confirm sent to ${payload.email}`);
         }
         break;
 
@@ -130,10 +195,11 @@ Deno.serve(async (req: Request) => {
                 </a>
               </div>
               <p style="color:#334155;font-size:12px;margin-top:24px">
-                ¿Necesitas ayuda? Escríbenos a <a href="mailto:info@trabflow.com" style="color:#00CFE8">info@trabflow.com</a>
+                ¿Necesitas ayuda? Escríbenos a <a href="mailto:contacto@trabflow.com" style="color:#00CFE8">contacto@trabflow.com</a>
               </p>
             `),
           );
+          console.log(`[trade-email] welcome sent to ${payload.email}`);
         }
         break;
 
@@ -149,6 +215,7 @@ Deno.serve(async (req: Request) => {
             row('Mensaje', payload.ciudad),
           )),
         );
+        console.log('[trade-email] contact_admin sent');
         break;
 
       case 'support_admin':
@@ -163,6 +230,7 @@ Deno.serve(async (req: Request) => {
             row('Org ID', payload.presupuestos_al_mes),
           )),
         );
+        console.log('[trade-email] support_admin sent');
         break;
 
       default:
@@ -177,6 +245,7 @@ Deno.serve(async (req: Request) => {
 
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
+    console.error('[trade-email] unhandled error:', msg);
     return new Response(JSON.stringify({ error: msg }), {
       status: 500, headers: { ...CORS, 'Content-Type': 'application/json' },
     });
