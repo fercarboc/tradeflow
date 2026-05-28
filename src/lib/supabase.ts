@@ -826,34 +826,45 @@ export async function sendTrabflowEmail(payload: {
 
 /**
  * Fuzzy match del texto detectado por IA contra el catálogo cargado.
- * Devuelve el producto + variante preferida más similar, o null si no hay match.
+ * Usa solapamiento Jaccard sobre tokens relevantes — mínimo 40% de overlap.
+ * Evita falsos positivos cuando solo coincide una palabra genérica (ej. "radiador").
  */
 export function matchProductForAI(
   detectedText: string,
   catalog: TradeCatalogProduct[],
 ): { product: TradeCatalogProduct; variant: TradeCatalogVariant } | null {
-  const lower = detectedText.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const STOPWORDS = new Set([
+    'de', 'la', 'el', 'los', 'las', 'un', 'una', 'del', 'al', 'y', 'o',
+    'con', 'por', 'para', 'en', 'a', 'su', 'se', 'que', 'del', 'nuevo',
+    'existente', 'incluyendo', 'necesario', 'completo', 'kit', 'tipo',
+  ]);
+  const normalize = (s: string) =>
+    s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  const tokenize = (s: string) =>
+    normalize(s).split(/[\s,:;()/]+/).filter(t => t.length > 2 && !STOPWORDS.has(t));
+
+  const queryTokens = tokenize(detectedText);
+  if (queryTokens.length === 0) return null;
 
   let bestProduct: TradeCatalogProduct | null = null;
   let bestScore = 0;
 
   for (const product of catalog) {
-    const nombre = product.nombre_generico.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-    const familia = product.familia.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-
-    // Tokeniza ambos y calcula solapamiento
-    const tokensQuery = lower.split(/\s+/).filter(t => t.length > 2);
-    const tokensNombre = nombre.split(/\s+/).filter(t => t.length > 2);
-    const tokensAll = [...tokensNombre, ...familia.split(/\s+/).filter(t => t.length > 2)];
+    const productTokens = [
+      ...tokenize(product.nombre_generico),
+      ...tokenize(product.familia),
+    ];
 
     let matches = 0;
-    for (const tq of tokensQuery) {
-      if (tokensAll.some(tn => tn.includes(tq) || tq.includes(tn))) matches++;
+    for (const tq of queryTokens) {
+      if (productTokens.some(tp => tp === tq || (tp.length > 4 && (tp.includes(tq) || tq.includes(tp))))) {
+        matches++;
+      }
     }
 
-    // También chequeamos coincidencia exacta de subcadena
-    const substringBonus = nombre.includes(lower.slice(0, 8)) || lower.includes(nombre.slice(0, 8)) ? 2 : 0;
-    const score = matches + substringBonus;
+    // Jaccard: matches / tokens únicos en la unión
+    const unionSize = new Set([...queryTokens, ...productTokens]).size;
+    const score = unionSize > 0 ? matches / unionSize : 0;
 
     if (score > bestScore) {
       bestScore = score;
@@ -861,7 +872,8 @@ export function matchProductForAI(
     }
   }
 
-  if (!bestProduct || bestScore === 0) return null;
+  // Mínimo 40% de solapamiento para considerar match válido
+  if (!bestProduct || bestScore < 0.40) return null;
 
   const preferred = bestProduct.trade_catalog_variants?.find(v => v.is_preferred && v.activo)
     ?? bestProduct.trade_catalog_variants?.find(v => v.activo)
