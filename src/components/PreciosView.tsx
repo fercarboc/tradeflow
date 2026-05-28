@@ -16,12 +16,12 @@ const PLANS = [
   {
     key: 'basico',
     name: 'Básico',
-    monthlyPrice: 0,
+    monthlyPrice: 29,
     trialLabel: '15 días gratis',
     users: '1 usuario',
     desc: 'Empieza gratis. Presupuestos por voz con IA, gestión de clientes y facturas básicas.',
     features: [
-      'Hasta 15 presupuestos/mes',
+      'Hasta 20 presupuestos/mes',
       'Presupuestos por voz con IA',
       'Hasta 50 clientes',
       'Hasta 5 facturas/mes',
@@ -35,7 +35,7 @@ const PLANS = [
   {
     key: 'pro',
     name: 'Pro',
-    monthlyPrice: 29,
+    monthlyPrice: 49,
     users: '1 usuario',
     desc: 'Para el instalador autónomo con alta carga de trabajo que necesita todo sin límites.',
     features: [
@@ -54,14 +54,15 @@ const PLANS = [
   {
     key: 'empresa',
     name: 'Empresa',
-    monthlyPrice: 79,
-    users: 'Hasta 20 usuarios',
+    monthlyPrice: 89,
+    users: 'Hasta 10 usuarios',
     desc: 'Para empresas instaladoras con equipo en campo que necesitan control total del negocio.',
     features: [
       'Todo lo del plan Pro',
-      'Hasta 20 usuarios en equipo',
+      'Hasta 10 usuarios en equipo',
       'Roles y permisos granulares',
       'Módulo Ingresos y rentabilidad',
+      'Módulo de Contratos y mantenimientos',
       'Panel Equipo y Permisos',
       'Soporte VIP',
     ],
