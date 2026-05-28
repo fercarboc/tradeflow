@@ -1,4 +1,4 @@
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const OPENAI_API_KEY      = Deno.env.get('OPENAI_API_KEY') ?? '';
@@ -10,6 +10,47 @@ const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+// ── Límites por plan ──────────────────────────────────────────────────────────
+const PLAN_LIMITS = {
+  basico:  { quotes_month: 15 },
+  pro:     { quotes_month: Infinity },
+  empresa: { quotes_month: Infinity },
+};
+
+// ── Resuelve org_id + plan del usuario autenticado ────────────────────────────
+async function resolveOrgAndPlan(supabase: ReturnType<typeof createClient>, userId: string) {
+  const [ownRes, memberRes] = await Promise.all([
+    supabase.from('trade_organizations').select('id').eq('owner_id', userId).maybeSingle(),
+    supabase.from('trade_org_members').select('org_id').eq('user_id', userId).eq('activo', true).maybeSingle(),
+  ]);
+  const orgId = ownRes.data?.id ?? memberRes.data?.org_id ?? null;
+  if (!orgId) return { orgId: null, plan: 'basico' as const };
+
+  const { data: sub } = await supabase
+    .from('trade_subscriptions')
+    .select('plan, status')
+    .eq('org_id', orgId)
+    .maybeSingle();
+
+  const plan = (sub?.plan ?? 'basico') as 'basico' | 'pro' | 'empresa';
+  return { orgId, plan };
+}
+
+// ── Cuenta presupuestos creados este mes por la org ───────────────────────────
+async function countQuotesThisMonth(supabase: ReturnType<typeof createClient>, orgId: string) {
+  const monthStart = new Date();
+  monthStart.setDate(1);
+  monthStart.setHours(0, 0, 0, 0);
+
+  const { count } = await supabase
+    .from('trade_quotes')
+    .select('*', { count: 'exact', head: true })
+    .eq('org_id', orgId)
+    .gte('created_at', monthStart.toISOString());
+
+  return count ?? 0;
+}
 
 const AI_SYSTEM_PROMPT = `Eres TradeFlow AI, un sistema inteligente universal de presupuestos para profesionales, instaladores, técnicos y empresas de servicios.
 
@@ -122,7 +163,7 @@ const EMPTY_QUOTE = {
   notas: '', nivel_confianza: 'bajo',
 };
 
-serve(async (req) => {
+Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: CORS });
   }
@@ -137,8 +178,25 @@ serve(async (req) => {
     return new Response(JSON.stringify({ error: 'Token inválido' }), { status: 401, headers: { ...CORS, 'Content-Type': 'application/json' } });
   }
 
+  // ── Verificar límite de plan ───────────────────────────────────────────────
+  const { orgId, plan } = await resolveOrgAndPlan(supabase, user.id);
+  const limit = PLAN_LIMITS[plan]?.quotes_month ?? 15;
+
+  if (orgId && limit !== Infinity) {
+    const used = await countQuotesThisMonth(supabase, orgId);
+    if (used >= limit) {
+      return new Response(JSON.stringify({
+        error: `Has alcanzado el límite de ${limit} presupuestos este mes en el plan Básico. Actualiza a Pro para presupuestos ilimitados.`,
+        limit_reached: true,
+        plan,
+        used,
+        limit,
+      }), { status: 403, headers: { ...CORS, 'Content-Type': 'application/json' } });
+    }
+  }
+
   try {
-    // ── Step 1: Receive audio ────────────────────────────────────────────
+    // ── Step 1: Receive audio ────────────────────────────────────────────────
     const formData = await req.formData();
     const audioFile = formData.get('audio') as File | null;
     if (!audioFile) {
@@ -147,7 +205,7 @@ serve(async (req) => {
       });
     }
 
-    // ── Step 2: Transcription (OpenAI Whisper) ───────────────────────────
+    // ── Step 2: Transcription (OpenAI Whisper) ───────────────────────────────
     const whisperForm = new FormData();
     whisperForm.append('file', audioFile, 'audio.webm');
     whisperForm.append('model', 'gpt-4o-mini-transcribe');
@@ -172,7 +230,7 @@ serve(async (req) => {
       });
     }
 
-    // ── Step 3: Generate quote structure (Claude Haiku) ──────────────────
+    // ── Step 3: Generate quote structure (Claude Haiku) ──────────────────────
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -184,10 +242,7 @@ serve(async (req) => {
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 2048,
         system: AI_SYSTEM_PROMPT,
-        messages: [{
-          role: 'user',
-          content: `El profesional dice: "${transcript}"`,
-        }],
+        messages: [{ role: 'user', content: `El profesional dice: "${transcript}"` }],
       }),
     });
 
@@ -205,6 +260,11 @@ serve(async (req) => {
       quote = JSON.parse(clean);
     } catch {
       quote = { ...EMPTY_QUOTE, resumen: transcript };
+    }
+
+    // ── Registrar uso en trade_ai_usage ──────────────────────────────────────
+    if (orgId) {
+      await supabase.from('trade_ai_usage').insert({ org_id: orgId, feature: 'voice' });
     }
 
     return new Response(

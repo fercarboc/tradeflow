@@ -14,13 +14,13 @@ Permite generar presupuestos por voz/foto, gestionar clientes, facturas, catálo
 - Frontend: React + TypeScript + Tailwind + Vite → Vercel
 - Backend: Supabase (Postgres + Auth + Edge Functions + Storage)
 - AI: Claude Sonnet 4.6 (voz → presupuesto, foto → presupuesto)
-- Pagos: Stripe (pendiente)
+- Pagos: Stripe (integrado, validando IVA)
 
 ---
 
 ## PLANES DE SUSCRIPCIÓN
 
-| Característica              | Básico (gratis/trial) | Pro (€/mes)     | Empresa (€/mes)   |
+| Característica              | Básico (gratis/trial) | Pro (29€/mes)   | Empresa (79€/mes) |
 |-----------------------------|-----------------------|-----------------|-------------------|
 | Presupuestos/mes            | 15                    | Ilimitados      | Ilimitados        |
 | Clientes                    | 50                    | Ilimitados      | Ilimitados        |
@@ -71,83 +71,36 @@ Permite generar presupuestos por voz/foto, gestionar clientes, facturas, catálo
 
 ## ESQUEMA BASE DE DATOS (Supabase)
 
-### Tablas existentes (ya en producción)
-- `trade_orgs` — organizaciones
-- `trade_quotes` — presupuestos
-- `trade_clients` — clientes
+### Tablas en producción
+- `trade_organizations` — organizaciones (nombre, NIF, email, plan, is_onboarded, logo_url…)
+- `trade_quotes` + `trade_quote_items` — presupuestos y partidas
+- `trade_clients` — clientes CRM
 - `trade_invoices` — facturas
-- `trade_catalog_products` / `trade_catalog_variants` — catálogo
+- `trade_catalog_products` / `trade_catalog_variants` — catálogo propio
+- `trade_catalog_global` — catálogo global TradeFlow (830 productos, 20 oficios)
 - `trade_jobs` — trabajos planificados
 - `trade_workers` — trabajadores
-- `trade_tarifas` — tarifas hora
-- `trade_subscriptions` — suscripción activa
+- `trade_tarifas` — tarifas hora/unidad
+- `trade_subscriptions` — suscripción activa (plan, status, stripe_*, period_*)
+- `trade_stripe_prices` — price IDs Stripe por plan/ciclo (6 filas)
+- `trade_platform_invoices` — facturas de plataforma generadas por Stripe
+- `trade_org_members` — miembros de organización (multi-usuario Empresa)
+- `trade_org_permissions` — permisos granulares por miembro
+- `trade_push_subscriptions` — suscripciones push por dispositivo
 
-### Tablas a crear
+### Campos clave de `trade_subscriptions`
 
-```sql
--- Miembros de la organización (multi-usuario Empresa)
-CREATE TABLE trade_org_members (
-  id          uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  org_id      uuid REFERENCES trade_orgs(id) ON DELETE CASCADE NOT NULL,
-  user_id     uuid REFERENCES auth.users(id) ON DELETE CASCADE NOT NULL,
-  rol         text NOT NULL DEFAULT 'tecnico'
-                CHECK (rol IN ('owner','admin','comercial','tecnico','visualizador')),
-  activo      boolean DEFAULT true,
-  created_at  timestamptz DEFAULT now(),
-  UNIQUE (org_id, user_id)
-);
-
--- Permisos granulares opcionales (override de rol base)
-CREATE TABLE trade_org_permissions (
-  id          uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  member_id   uuid REFERENCES trade_org_members(id) ON DELETE CASCADE NOT NULL,
-  permiso     text NOT NULL,
-  granted     boolean DEFAULT true,
-  UNIQUE (member_id, permiso)
-);
-
--- RLS
-ALTER TABLE trade_org_members ENABLE ROW LEVEL SECURITY;
-ALTER TABLE trade_org_permissions ENABLE ROW LEVEL SECURITY;
-
--- Solo miembros de la org pueden ver sus miembros
-CREATE POLICY "members_select" ON trade_org_members
-  FOR SELECT USING (
-    org_id IN (SELECT org_id FROM trade_org_members WHERE user_id = auth.uid())
-  );
-
--- Solo owner/admin pueden gestionar miembros
-CREATE POLICY "members_manage" ON trade_org_members
-  FOR ALL USING (
-    org_id IN (
-      SELECT org_id FROM trade_org_members
-      WHERE user_id = auth.uid() AND rol IN ('owner','admin')
-    )
-  );
 ```
-
-### Campos a añadir a tablas existentes
-
-```sql
--- Limitar presupuestos por plan (contar por mes)
--- No requiere campo nuevo; se cuenta con COUNT + fecha
-
--- Asociar presupuesto/factura a miembro concreto (trazabilidad)
-ALTER TABLE trade_quotes ADD COLUMN IF NOT EXISTS created_by uuid REFERENCES auth.users(id);
-ALTER TABLE trade_invoices ADD COLUMN IF NOT EXISTS created_by uuid REFERENCES auth.users(id);
-
--- Stripe en trade_subscriptions
-ALTER TABLE trade_subscriptions ADD COLUMN IF NOT EXISTS stripe_customer_id text;
-ALTER TABLE trade_subscriptions ADD COLUMN IF NOT EXISTS stripe_subscription_id text;
-ALTER TABLE trade_subscriptions ADD COLUMN IF NOT EXISTS stripe_price_id text;
-ALTER TABLE trade_subscriptions ADD COLUMN IF NOT EXISTS current_period_end timestamptz;
+id, org_id, plan, billing_cycle, status (trial/active/cancelled/expired)
+trial_start, trial_end
+stripe_customer_id, stripe_subscription_id, stripe_price_id
+current_period_start, current_period_end
+cancelled_at, created_at, updated_at
 ```
 
 ---
 
 ## ARQUITECTURA REACT
-
-### Contexto de sesión (`SessionContext`)
 
 ```
 src/
@@ -156,93 +109,106 @@ src/
   hooks/
     usePermissions.ts      ← can('quotes.create') → boolean
   components/
-    AppDashboardView.tsx   ← componente principal existente
-    ScreenPlanificacion    ← ya existe
-    ScreenIngresos         ← NUEVO (Empresa only)
-    ScreenEquipo           ← NUEVO (Empresa only)
+    AppDashboardView.tsx   ← componente principal (sidebar, modales, PDF)
+    ScreenPlanificacion    ← trabajos y planificación
+    ScreenIngresos         ← rentabilidad (Empresa only)
+    ScreenEquipo           ← gestión de equipo (Empresa only)
+    PlanUpgradeModal       ← modal de upgrade con Stripe Checkout
+    OnboardingWizard       ← wizard de bienvenida (is_onboarded=false)
+    AdminView              ← panel interno TradeFlow
 ```
-
-### `SessionContext` — estructura
-
-```typescript
-interface SessionContextValue {
-  user: User | null;
-  org: TradeOrg | null;
-  plan: 'basico' | 'pro' | 'empresa';
-  rol: 'owner' | 'admin' | 'comercial' | 'tecnico' | 'visualizador';
-  permisos: string[];          // lista de permisos efectivos
-  isLoading: boolean;
-}
-```
-
-### `usePermissions` hook
-
-```typescript
-function usePermissions() {
-  const { permisos } = useContext(SessionContext);
-  return {
-    can: (permiso: string) => permisos.includes(permiso),
-  };
-}
-```
-
-### Uso en componentes
-
-```tsx
-const { can } = usePermissions();
-
-{can('quotes.create') && <button>Nuevo presupuesto</button>}
-{can('invoices.manage') && <ScreenFacturas />}
-{can('team.manage') && <ScreenEquipo />}
-```
-
----
-
-## MÓDULOS NUEVOS A CREAR
-
-### Módulo Ingresos (Empresa)
-Muestra rentabilidad del negocio:
-- Total facturado por período
-- Cobrado vs pendiente
-- Coste estimado (tarifas hora × horas trabajos)
-- Margen bruto por trabajo/cliente
-- Gráfico mensual de ingresos
-
-### Módulo Equipo y Permisos (Empresa)
-- Lista de miembros con rol y estado
-- Invitar miembro por email (Edge Function `send-invite`)
-- Cambiar rol
-- Revocar acceso
-- Vista de actividad por miembro
 
 ---
 
 ## STRIPE — INTEGRACIÓN
 
-### Edge Functions necesarias
-- `stripe-create-checkout` — crea sesión de pago para upgrade
-- `stripe-create-portal` — portal de gestión de suscripción
-- `stripe-webhook` — escucha eventos (`invoice.paid`, `customer.subscription.deleted`, etc.)
+### Edge Functions desplegadas
+- `trade-stripe-checkout` (v10 activa) — crea sesión Checkout con Tax + metadata
+- `trade-stripe-portal` — portal Stripe de gestión de suscripción
+- `trade-stripe-webhook` (v9 activa) — procesa eventos Stripe → Supabase
 
-### Flujo de upgrade
-1. Usuario pulsa "Mejorar plan"
-2. App llama `stripe-create-checkout` → devuelve URL
-3. Usuario completa pago en Stripe
-4. Webhook actualiza `trade_subscriptions.plan` + `stripe_*` campos
-5. App detecta cambio y desbloquea funcionalidades
+### Flujo de upgrade (post-fix)
 
-### Productos Stripe a crear
-- `price_basico_mensual` / `price_basico_anual`
-- `price_pro_mensual` / `price_pro_anual`
-- `price_empresa_mensual` / `price_empresa_anual`
+```
+1. Usuario pulsa "Activar Pro/Empresa"
+2. Frontend → trade-stripe-checkout
+   → metadata[plan], metadata[billing_cycle] incluidos
+   → automatic_tax[enabled]=true
+   → billing_address_collection=required
+3. Usuario completa pago + dirección + (opcional) NIF/CIF
+4. Stripe calcula IVA automáticamente según país
+5. Webhook checkout.session.completed:
+   → trade_subscriptions: plan, billing_cycle, status=active, stripe_ids
+   → trade_organizations: plan
+6. Webhook invoice.paid:
+   → trade_subscriptions: period_start, period_end
+   → trade_platform_invoices: registro de factura
+7. App detecta plan actualizado → desbloquea funcionalidades
+```
+
+### Eventos webhook manejados
+
+| Evento | Acción |
+|--------|--------|
+| `checkout.session.completed` | Actualiza plan, status, stripe_ids en BD |
+| `customer.subscription.created` | Actualiza periodos (complementario) |
+| `customer.subscription.updated` | Propaga cambio de plan desde portal |
+| `invoice.paid` | Confirma status=active, guarda periodos y factura |
+| `customer.subscription.deleted` | status=cancelled |
+| `invoice.payment_failed` | status=expired |
+
+### Price IDs en producción (tabla `trade_stripe_prices`)
+
+| Plan | Ciclo | Price ID |
+|------|-------|----------|
+| pro | monthly | price_1TbM7dEBDOoWck8qxIysJ08O |
+| pro | yearly | price_1TbM87EBDOoWck8qdX25uwfX |
+| empresa | monthly | price_1TbM91EBDOoWck8qWhtbNz9r |
+| empresa | yearly | price_1TbM9QEBDOoWck8ql0CSkHfH |
+
+---
+
+## STRIPE TAX — AUDITORÍA Y ESTADO
+
+### Bugs encontrados y corregidos (2026-05-28)
+
+| # | Severidad | Problema | Estado |
+|---|-----------|----------|--------|
+| 1 | CRÍTICO | `metadata[plan]` nunca se enviaba al checkout → webhook recibía `plan=undefined` → plan nunca se actualizaba tras el pago | ✅ Corregido en checkout v10 |
+| 2 | CRÍTICO | `automatic_tax[enabled]` ausente → Stripe Tax nunca se ejecutaba → IVA siempre "Ninguno" | ✅ Corregido en checkout v10 |
+| 3 | CRÍTICO | `billing_address_collection` y `customer_update[address]` ausentes → Stripe sin país del cliente → IVA imposible | ✅ Corregido en checkout v10 |
+| 4 | ALTO | `customer.subscription.updated` leía `plan` de metadata vacía → cambios de plan desde portal no se propagaban | ✅ Corregido en webhook v9 |
+| 5 | ALTO | Evento `customer.subscription.created` no manejado | ✅ Añadido en webhook v9 |
+| 6 | MEDIO | `tax_id_collection` ausente → clientes empresa sin opción de dar CIF/NIF | ✅ Corregido en checkout v10 |
+| 7 | MEDIO | `allow_promotion_codes` ausente | ✅ Corregido en checkout v10 |
+| 8 | ALTO | Stripe Tax no configurado en Dashboard | ⚠️ Pendiente (acción manual) |
+
+### Acciones manuales pendientes en Stripe Dashboard
+
+```
+FASE STRIPE-A — Imprescindible para IVA en producción:
+
+[ ] A1. Dashboard → Tax → Activate Stripe Tax
+[ ] A2. Dashboard → Tax → Registrations → Add Spain (ES)
+        Tipo: Standard VAT · NIF/CIF de la empresa · fecha inicio
+[ ] A3. Cada producto → Edit → Tax code: txcd_10103001 (SaaS)
+[ ] A4. Precios Pro y Empresa → Edit → Tax behavior: Exclusive
+        stripe prices update price_1TbM7d... --tax-behavior=exclusive
+        stripe prices update price_1TbM87... --tax-behavior=exclusive
+        stripe prices update price_1TbM91... --tax-behavior=exclusive
+        stripe prices update price_1TbM9Q... --tax-behavior=exclusive
+
+FASE STRIPE-B — Para producción EU completa:
+[ ] B1. Configurar reverse charge para empresas EU con VAT number
+[ ] B2. Registros fiscales en países EU donde superes el umbral OSS (10.000€/año)
+[ ] B3. Configurar portal Stripe con política de reembolso y cancelación
+```
 
 ---
 
 ## ROADMAP POR FASES
 
-### FASE 1 — Base multiusuario ✅ EMPEZAMOS AQUÍ
-**Objetivo:** Infraestructura de roles sin romper lo que funciona.
-
+### FASE 1 — Base multiusuario ✅ COMPLETA
 - [x] 1.1 Migración SQL: `trade_org_members` + `trade_org_permissions`
 - [x] 1.2 Migración SQL: campos `created_by`, `stripe_*` en tablas existentes
 - [x] 1.3 Crear `SessionContext` con carga de org, plan y rol del usuario
@@ -250,52 +216,70 @@ Muestra rentabilidad del negocio:
 - [x] 1.5 Integrar `SessionContext` en `main.tsx` / `App.tsx`
 - [x] 1.6 Ocultar/mostrar elementos UI según `can()` (presupuestos, facturas, equipo)
 
-### FASE 2 — Módulo Equipo y Permisos
-**Objetivo:** El owner puede invitar y gestionar su equipo.
-
+### FASE 2 — Módulo Equipo y Permisos ✅ COMPLETA
 - [x] 2.1 Edge Function `send-invite` (email de invitación con magic link)
 - [x] 2.2 Pantalla `ScreenEquipo` — lista miembros, roles, invitar, revocar
 - [x] 2.3 Flujo de aceptación de invitación (nuevo usuario se une a la org)
-- [ ] 2.4 Limitaciones por plan aplicadas en UI y en RLS
+- [ ] 2.4 Limitaciones por plan enforced en RLS (pendiente Fase 6)
 
-### FASE 3 — Módulo Ingresos
-**Objetivo:** Dashboard de rentabilidad para plan Empresa.
-
+### FASE 3 — Módulo Ingresos ✅ COMPLETA
 - [x] 3.1 Queries de ingresos (facturado, cobrado, pendiente por período)
-- [ ] 3.2 Cálculo de costes por tarifa × horas de trabajos (pendiente datos de horas reales)
 - [x] 3.3 Pantalla `ScreenIngresos` con gráfico de barras CSS
 - [x] 3.4 KPIs por período + top clientes por facturación
+- [ ] 3.2 Costes por tarifa × horas reales (requiere campo horas en trade_jobs)
 
-### FASE 4 — Stripe
-**Objetivo:** Cobrar por el SaaS.
+### FASE 4 — Stripe ✅ COMPLETA (código)
+- [x] 4.1 Productos y precios en Stripe Dashboard (6 price IDs activos)
+- [x] 4.2 Edge Function `trade-stripe-checkout` (v10, con Tax y metadata)
+- [x] 4.3 Edge Function `trade-stripe-portal`
+- [x] 4.4 Edge Function `trade-stripe-webhook` (v9, 6 eventos)
+- [x] 4.5 UI de upgrade: `PlanUpgradeModal` + banner sidebar + ajustes
+- [ ] 4.6 Bloqueos hard por plan en backend (Fase 6)
 
-- [ ] 4.1 Crear productos y precios en Stripe Dashboard
-- [ ] 4.2 Edge Function `stripe-create-checkout`
-- [ ] 4.3 Edge Function `stripe-create-portal`
-- [ ] 4.4 Edge Function `stripe-webhook` (actualiza `trade_subscriptions`)
-- [ ] 4.5 UI de upgrade desde ajustes / banner de límite alcanzado
-- [ ] 4.6 Bloqueos hard cuando plan no cubre la acción
+### FASE 5 — Pulido y lanzamiento ✅ COMPLETA (excepto 5.4)
+- [x] 5.1 Onboarding wizard (aparece si `is_onboarded=false`)
+- [x] 5.2 Notificaciones push (toggle en Ajustes)
+- [x] 5.3 PDF mejorado: logo empresa, datos cliente, diseño por tipo doc
+- [ ] 5.4 App Store / Google Play (PWA + Capacitor) — fuera de scope por ahora
+- [x] 5.5 Landing page pricing actualizada (Básico gratis, Pro 29€, Empresa 79€)
 
-### FASE 5 — Pulido y lanzamiento
-- [x] 5.1 Onboarding wizard (primera vez que entra un usuario nuevo)
-- [x] 5.2 Notificaciones push (toggle en Ajustes, usa subscribePush/unsubscribePush)
-- [x] 5.3 PDF mejorado de presupuesto/factura con logo empresa + datos cliente
-- [ ] 5.4 App Store / Google Play (PWA + capacitor)
-- [x] 5.5 Landing page pública con pricing (planes actualizados: Básico gratis, Pro 29€, Empresa 79€)
+### FASE 6 — Stripe Tax + Hardening ← SIGUIENTE
+**Objetivo:** IVA funcionando en producción + límites de plan robustos.
+
+- [ ] 6.1 Activar Stripe Tax en Dashboard (ver sección STRIPE-A)
+- [ ] 6.2 Registro fiscal España + tax_code en productos + tax_behavior en precios
+- [ ] 6.3 Test end-to-end con tarjeta test 4000002760003184 (España) → verificar IVA 21%
+- [ ] 6.4 Corrección manual de la suscripción de prueba existente en BD
+- [ ] 6.5 Límites de plan enforced en Edge Functions (no solo en UI):
+        - trade-voice-to-quote: rechazar si plan=basico y count_mes >= 15
+        - trade-photo-scan: rechazar si plan=basico y count_mes >= 5
+- [ ] 6.6 RLS: políticas de aislamiento cross-org auditadas
+- [ ] 6.7 Webhook: añadir a Stripe Dashboard los eventos `customer.subscription.created`
+
+### FASE 7 — Legalidad y operaciones
+- [ ] 7.1 Política de privacidad + Términos de uso publicados (URL pública)
+- [ ] 7.2 LOPD/GDPR: banner de cookies + gestión de consentimiento
+- [ ] 7.3 Email de bienvenida automático (trigger en registro)
+- [ ] 7.4 Email de factura Stripe automático (configurar en Stripe → Customer emails)
+- [ ] 7.5 Backup automático Supabase activado (Dashboard → Settings → Backups)
+- [ ] 7.6 Monitorización de errores (Sentry o Supabase Logs alertas)
+- [ ] 7.7 Tests manuales flujo completo: registro → trial → upgrade → uso → portal → cancelación
 
 ---
 
-## CHECKLIST PRE-STRIPE (completar antes de cobrar)
+## CHECKLIST PRE-COBRO REAL
 
-- [ ] RLS correcto en todas las tablas (ningún dato cross-org visible)
-- [ ] Límites de plan enforced en backend (Edge Functions), no solo en UI
+- [ ] Stripe Tax activado con registro ES
+- [ ] tax_behavior=exclusive en todos los precios de pago
+- [ ] Test con tarjeta 4242424242424242 → pago OK + IVA correcto
+- [ ] Test con tarjeta 4000002760003184 (España) → 21% IVA
+- [ ] Webhook verificado en Stripe Dashboard → todos los eventos llegan
+- [ ] trade_subscriptions.plan = correcto tras pago de prueba
+- [ ] Portal Stripe configurado (cancelación, cambio de tarjeta)
+- [ ] Política de privacidad y ToS publicados
+- [ ] LOPD banner activo
 - [ ] Email de bienvenida funcional
-- [ ] Email de factura funcional
-- [ ] Política de privacidad + Términos de uso publicados
-- [ ] LOPD/GDPR: aviso de cookies, gestión de consentimiento
-- [ ] Backup automático Supabase activado
-- [ ] Monitorización de errores (Sentry o similar)
-- [ ] Tests manuales del flujo completo: registro → trial → upgrade → uso → portal
+- [ ] Dominio trabflow.com / tradeflow.es verificado en Stripe
 
 ---
 
@@ -311,16 +295,21 @@ Muestra rentabilidad del negocio:
 
 ## ESTADO ACTUAL DEL SISTEMA
 
-| Módulo                     | Estado        |
-|----------------------------|---------------|
-| Auth (registro/login)      | ✅ Producción  |
-| Presupuestos (voz/foto)    | ✅ Producción  |
-| Clientes CRM               | ✅ Producción  |
-| Facturas                   | ✅ Producción  |
-| Catálogo                   | ✅ Producción  |
-| Planificación (Trabajos)   | ✅ Producción  |
-| Admin panel                | ✅ Producción  |
-| Multi-usuario / Roles      | ✅ Producción  |
-| Módulo Ingresos            | ✅ Producción  |
-| Módulo Equipo              | ✅ Producción  |
-| Stripe / Pagos             | ✅ Producción  |
+| Módulo                         | Estado               |
+|--------------------------------|----------------------|
+| Auth (registro/login)          | ✅ Producción         |
+| Presupuestos (voz/foto)        | ✅ Producción         |
+| Clientes CRM                   | ✅ Producción         |
+| Facturas                       | ✅ Producción         |
+| Catálogo propio + global       | ✅ Producción         |
+| Planificación (Trabajos)       | ✅ Producción         |
+| Admin panel                    | ✅ Producción         |
+| Multi-usuario / Roles          | ✅ Producción         |
+| Módulo Ingresos                | ✅ Producción         |
+| Módulo Equipo                  | ✅ Producción         |
+| Onboarding wizard              | ✅ Producción         |
+| PDF mejorado con logo          | ✅ Producción         |
+| Stripe Checkout + Webhook      | ✅ Código OK          |
+| Stripe Tax (IVA)               | ⚠️ Config. pendiente |
+| Límites de plan en backend     | 🔴 Pendiente Fase 6  |
+| Legalidad LOPD/GDPR            | 🔴 Pendiente Fase 7  |

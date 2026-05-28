@@ -1,4 +1,4 @@
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 const ANTHROPIC_API_KEY   = Deno.env.get('ANTHROPIC_API_KEY') ?? '';
@@ -9,6 +9,48 @@ const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
+
+// ── Límites por plan ──────────────────────────────────────────────────────────
+const PHOTO_LIMITS = {
+  basico:  5,
+  pro:     Infinity,
+  empresa: Infinity,
+};
+
+// ── Resuelve org_id + plan del usuario autenticado ────────────────────────────
+async function resolveOrgAndPlan(supabase: ReturnType<typeof createClient>, userId: string) {
+  const [ownRes, memberRes] = await Promise.all([
+    supabase.from('trade_organizations').select('id').eq('owner_id', userId).maybeSingle(),
+    supabase.from('trade_org_members').select('org_id').eq('user_id', userId).eq('activo', true).maybeSingle(),
+  ]);
+  const orgId = ownRes.data?.id ?? memberRes.data?.org_id ?? null;
+  if (!orgId) return { orgId: null, plan: 'basico' as const };
+
+  const { data: sub } = await supabase
+    .from('trade_subscriptions')
+    .select('plan, status')
+    .eq('org_id', orgId)
+    .maybeSingle();
+
+  const plan = (sub?.plan ?? 'basico') as 'basico' | 'pro' | 'empresa';
+  return { orgId, plan };
+}
+
+// ── Cuenta usos de foto IA este mes ──────────────────────────────────────────
+async function countPhotoUsageThisMonth(supabase: ReturnType<typeof createClient>, orgId: string) {
+  const monthStart = new Date();
+  monthStart.setDate(1);
+  monthStart.setHours(0, 0, 0, 0);
+
+  const { count } = await supabase
+    .from('trade_ai_usage')
+    .select('*', { count: 'exact', head: true })
+    .eq('org_id', orgId)
+    .eq('feature', 'photo')
+    .gte('created_at', monthStart.toISOString());
+
+  return count ?? 0;
+}
 
 const AI_SYSTEM_PROMPT = `Eres TradeFlow AI, un sistema inteligente universal de presupuestos para profesionales, instaladores, técnicos y empresas de servicios.
 
@@ -154,7 +196,7 @@ const EMPTY_QUOTE = {
   notas: 'No se pudo analizar la imagen', nivel_confianza: 'bajo',
 };
 
-serve(async (req) => {
+Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: CORS });
   }
@@ -173,6 +215,23 @@ serve(async (req) => {
     });
   }
 
+  // ── Verificar límite de plan ───────────────────────────────────────────────
+  const { orgId, plan } = await resolveOrgAndPlan(supabase, user.id);
+  const limit = PHOTO_LIMITS[plan] ?? 5;
+
+  if (orgId && limit !== Infinity) {
+    const used = await countPhotoUsageThisMonth(supabase, orgId);
+    if (used >= limit) {
+      return new Response(JSON.stringify({
+        error: `Has alcanzado el límite de ${limit} escáneres de foto IA este mes en el plan Básico. Actualiza a Pro para escáneres ilimitados.`,
+        limit_reached: true,
+        plan,
+        used,
+        limit,
+      }), { status: 403, headers: { ...CORS, 'Content-Type': 'application/json' } });
+    }
+  }
+
   try {
     const body = await req.json() as { image_base64: string; mime_type?: string };
     const { image_base64, mime_type = 'image/jpeg' } = body;
@@ -183,7 +242,7 @@ serve(async (req) => {
       });
     }
 
-    // ── Claude Haiku Vision ──────────────────────────────────────────────
+    // ── Claude Sonnet Vision ─────────────────────────────────────────────────
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -200,11 +259,7 @@ serve(async (req) => {
           content: [
             {
               type: 'image',
-              source: {
-                type: 'base64',
-                media_type: mime_type,
-                data: image_base64,
-              },
+              source: { type: 'base64', media_type: mime_type, data: image_base64 },
             },
             {
               type: 'text',
@@ -229,6 +284,11 @@ serve(async (req) => {
       quote = JSON.parse(clean);
     } catch {
       quote = EMPTY_QUOTE;
+    }
+
+    // ── Registrar uso en trade_ai_usage ──────────────────────────────────────
+    if (orgId) {
+      await supabase.from('trade_ai_usage').insert({ org_id: orgId, feature: 'photo' });
     }
 
     return new Response(
