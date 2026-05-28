@@ -777,16 +777,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         const partidas: PartidaPresupuesto[] = quoteToPartidas(quote);
 
-        const addedTotal = partidas.reduce((s, p) => s + p.total, 0);
+        const total = partidas.reduce((s, p) => s + p.total, 0);
+        const desc = (quote.resumen || quote.tipo_trabajo || quote.oficio || '').slice(0, 80);
         setWizardQuote(prev => ({
           ...prev,
-          partidas: [...(prev.partidas || []), ...partidas],
-          total: (prev.total || 0) + addedTotal,
+          descripcion: desc || prev.descripcion,
+          partidas,
+          total,
+          estado: 'Borrador' as const,
         }));
         setRealPhotoFile(null);
         setRealPhotoPreviewUrl(null);
         showToast(`Foto analizada: ${partidas.length} elementos detectados ✓`, 'success');
         setWizardStep(4);
+        setActiveTab('create_quote');
       } catch (e: unknown) {
         const err = e as Error;
         const msg = err.name === 'AbortError'
