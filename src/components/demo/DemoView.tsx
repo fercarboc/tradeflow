@@ -1269,7 +1269,7 @@ export default function DemoView({ setCurrentPage }: DemoViewProps) {
       <div className="flex h-screen overflow-hidden bg-slate-200">
         {/* On large screens: centered phone frame */}
         <div className="hidden lg:flex flex-1 items-center justify-center gap-12 p-8">
-          <div className="w-[390px] h-[844px] rounded-[44px] overflow-hidden border-8 border-slate-800 shadow-2xl bg-[#0B0F14] relative shrink-0">
+          <div className="w-[300px] rounded-[40px] overflow-hidden border-8 border-slate-800 shadow-2xl bg-[#0B0F14] relative shrink-0" style={{ height: 'min(640px, calc(100vh - 64px))' }}>
             <DemoMobileShell setCurrentPage={setCurrentPage} onSwitchToDesktop={() => setViewMode('desktop')} />
           </div>
           <div className="max-w-xs space-y-6">
