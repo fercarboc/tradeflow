@@ -202,7 +202,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }, [initialMobile]);
 
   // Tabs de navegación móvil
-  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas'>('inicio');
+  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes'>('inicio');
   const [showFloatingMenu, setShowFloatingMenu] = useState<boolean>(false);
 
   // Pasos del Asistente Móvil (Wizard)
@@ -1826,43 +1826,43 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       >
         {/* ── APP HEADER ── */}
         <div
-          className={`bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between shrink-0 ${
-            isNativeDevice ? 'px-5 pb-3' : 'px-4 py-3'
-          }`}
-          style={isNativeDevice ? { paddingTop: 'calc(env(safe-area-inset-top, 0px) + 12px)' } : {}}
+          className="bg-[#0B0F14] border-b border-white/5 flex items-center justify-between shrink-0 px-5"
+          style={{ paddingTop: isNativeDevice ? 'calc(env(safe-area-inset-top, 0px) + 14px)' : '14px', paddingBottom: '14px' }}
         >
-          {/* Logo + nombre */}
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center shadow-sm shrink-0">
-              <span className="text-white font-black text-[10px]">TF</span>
+          {/* Logo + brand */}
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/40 shrink-0">
+              <span className="text-white font-black text-[11px] tracking-tight">TF</span>
             </div>
-            <span className={`font-display font-black tracking-tight uppercase text-slate-900 dark:text-white ${isNativeDevice ? 'text-base' : 'text-sm'}`}>
-              TrabFlow <span className="text-blue-500">AI</span>
-            </span>
+            <div>
+              <span className="text-white font-black text-sm tracking-tight">
+                TrabFlow <span className="text-blue-400">AI</span>
+              </span>
+              <div className="flex items-center gap-1 mt-0.5">
+                {isLiveMode ? (
+                  <span className="text-[8.5px] text-emerald-400 font-mono font-bold flex items-center gap-1">
+                    <span className="w-1 h-1 bg-emerald-400 rounded-full inline-block animate-pulse" />
+                    EN VIVO
+                  </span>
+                ) : (
+                  <span className="text-[8.5px] text-slate-500 font-mono font-bold">DEMO</span>
+                )}
+              </div>
+            </div>
           </div>
 
-          {/* Derecha: estado sesión + ajustes + logout */}
+          {/* Derecha: ajustes + logout */}
           <div className="flex items-center gap-2">
-            {isLiveMode ? (
-              <span className="flex items-center gap-1 bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold px-2 py-1 rounded-full text-[9px] uppercase tracking-wider">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
-                En vivo
-              </span>
-            ) : (
-              <span className="flex items-center gap-1 bg-blue-500/10 border border-blue-500/30 text-blue-600 dark:text-blue-400 font-bold px-2 py-1 rounded-full text-[9px] uppercase tracking-wider font-mono">
-                Demo
-              </span>
-            )}
             <button
-              onClick={() => { setActiveTab('settings'); }}
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 active:bg-slate-200 dark:active:bg-slate-700"
+              onClick={() => setActiveTab('settings')}
+              className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 active:bg-white/10 text-slate-400"
             >
               <SettingsIcon className="w-4 h-4" />
             </button>
             {isLiveMode && (
               <button
                 onClick={handleLogout}
-                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-red-500 dark:text-red-400 active:bg-red-100 dark:active:bg-red-900/30"
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 active:bg-white/10 text-red-400"
                 title="Cerrar sesión"
               >
                 <LogOut className="w-4 h-4" />
@@ -1885,7 +1885,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {mobileTab === 'presupuestos' && MobileScreenPresupuestos()}
           {mobileTab === 'clientes' && MobileScreenClientes()}
           {mobileTab === 'facturas' && MobileScreenFacturas()}
-          {activeTab === 'settings' && isNativeDevice && ScreenSettings()}
+          {mobileTab === 'ajustes' && ScreenSettings()}
         </div>
 
         {/* BOTTOM TAB BAR + FAB */}
@@ -1901,39 +1901,23 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </button>
           </div>
 
-          {/* Tab bar — carrusel horizontal deslizable */}
+          {/* Tab bar */}
           <div
-            className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex overflow-x-auto select-none"
+            className="bg-[#0B0F14] border-t border-white/5 flex items-stretch select-none"
             style={{
               paddingBottom: isNativeDevice ? 'env(safe-area-inset-bottom, 0px)' : '0px',
-              minHeight: isNativeDevice ? 'calc(64px + env(safe-area-inset-bottom, 0px))' : '64px',
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
+              minHeight: isNativeDevice ? 'calc(60px + env(safe-area-inset-bottom, 0px))' : '60px',
             }}
           >
-            {/* Espacio izquierdo */}
-            <div className="w-3 flex-none" />
-
             {MobileTabButton({ tab: 'inicio', icon: <TrendingUp className="w-5 h-5" />, label: 'Inicio' })}
-            {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
+            {MobileTabButton({ tab: 'clientes', icon: <Users className="w-5 h-5" />, label: 'Clientes' })}
 
             {/* Hueco central para el FAB */}
-            <div className="w-16 flex-none" />
+            <div className="flex-1" />
 
-            {/* Planificación — navega a vista de trabajos */}
-            <button
-              onClick={() => { setShowFloatingMenu(false); setCurrentPage(ActivePage.Worker); }}
-              className="flex-none flex flex-col items-center justify-center gap-0.5 px-4 text-slate-450 dark:text-slate-500 cursor-pointer transition-colors hover:text-blue-500 dark:hover:text-blue-400"
-            >
-              <Calendar className="w-5 h-5" />
-              <span className="text-[10px] font-medium">Trabajos</span>
-            </button>
-
-            {MobileTabButton({ tab: 'clientes', icon: <Users className="w-5 h-5" />, label: 'Clientes' })}
+            {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
             {MobileTabButton({ tab: 'facturas', icon: <InvoiceIcon className="w-5 h-5" />, label: 'Facturas' })}
-
-            {/* Espacio derecho */}
-            <div className="w-3 flex-none" />
+            {MobileTabButton({ tab: 'ajustes', icon: <SettingsIcon className="w-5 h-5" />, label: 'Ajustes' })}
           </div>
         </div>
 
@@ -1986,20 +1970,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     );
 
     // Helpers botones navegación móvil
-    function MobileTabButton({ tab, icon, label }: { tab: any; icon: React.ReactNode; label: string }) {
+    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes'; icon: React.ReactNode; label: string }) {
       const isActive = mobileTab === tab;
       return (
         <button
-          onClick={() => {
-            setMobileTab(tab);
-            setShowFloatingMenu(false);
-          }}
-          className={`flex-none flex flex-col items-center justify-center gap-0.5 px-4 cursor-pointer transition-colors ${
-            isActive ? 'text-blue-500' : 'text-slate-450 dark:text-slate-500'
+          onClick={() => { setMobileTab(tab); setShowFloatingMenu(false); }}
+          className={`flex-none flex flex-col items-center justify-center gap-0.5 px-3.5 cursor-pointer transition-all ${
+            isActive ? 'text-blue-400' : 'text-slate-500'
           }`}
+          style={isActive ? { filter: 'drop-shadow(0 0 6px rgba(96,165,250,0.7))' } : {}}
         >
           {icon}
-          <span className="text-[8.5px] font-bold uppercase tracking-wider">{label}</span>
+          <span className={`text-[8px] font-bold uppercase tracking-wider ${isActive ? 'text-blue-400' : 'text-slate-500'}`}>{label}</span>
         </button>
       );
     }
@@ -2007,66 +1989,154 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= MÓVIL: INICIO SCREEN =================
   function MobileScreenInicio() {
+    const hour = new Date().getHours();
+    const greeting = hour < 12 ? 'Buenos dias' : hour < 20 ? 'Buenas tardes' : 'Buenas noches';
+    const shortName = empresaAjustes.nombre.split(' ')[0] || 'Instalador';
+
+    const draft = presupuestos.find(p => p.estado === 'Borrador') ?? presupuestos[0] ?? null;
+    const recent = presupuestos.slice(0, 4);
+
+    const statusMeta = (estado: string) => {
+      if (estado === 'Aceptado') return { dot: 'bg-emerald-500', label: 'Aceptado', color: 'text-emerald-400', bg: 'bg-emerald-500/10' };
+      if (estado === 'Facturado') return { dot: 'bg-blue-500', label: 'Facturado', color: 'text-blue-400', bg: 'bg-blue-500/10' };
+      return { dot: 'bg-amber-400', label: estado, color: 'text-amber-400', bg: 'bg-amber-500/10' };
+    };
+
     return (
-      <div className="space-y-4">
-        
-        {/* Cabecera / Bienvenida */}
-        <div className="space-y-0.5">
-          <span className="text-[9.5px] text-blue-500 font-bold uppercase tracking-widest font-mono block">Instalador Activo</span>
-          <h3 className="text-md font-display font-bold uppercase text-slate-905 dark:text-white truncate">
-            {empresaAjustes.nombre.split(' ')[0]} Obra
-          </h3>
-        </div>
+      <div className="space-y-4 pb-2">
 
-        {/* 3 KPIs principales simplificados */}
-        <div className="grid grid-cols-3 gap-2">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 p-3 rounded-2xl text-center space-y-1">
-            <span className="text-[8px] font-bold uppercase tracking-wider text-slate-400 font-mono block">Pendientes</span>
-            <span className="text-sm font-bold text-blue-500 font-mono block">{presupuestosPendientesCount}</span>
-          </div>
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 p-3 rounded-2xl text-center space-y-1">
-            <span className="text-[8px] font-bold uppercase tracking-wider text-slate-400 font-mono block">Por cobrar</span>
-            <span className="text-sm font-bold text-amber-500 font-mono block">{totalPendienteFacturas.toFixed(0)}€</span>
-          </div>
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 p-3 rounded-2xl text-center space-y-1">
-            <span className="text-[8px] font-bold uppercase tracking-wider text-slate-400 font-mono block">Activos</span>
-            <span className="text-sm font-bold text-emerald-500 font-mono block">2</span>
-          </div>
-        </div>
-
-        {/* Tarjeta de Progreso Simplificada */}
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 p-4 rounded-2xl space-y-3 shadow-xs">
-          <div className="flex justify-between items-center text-xs">
-            <span className="font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wide">Objetivo Mensual</span>
-            <span className="font-bold text-emerald-555 font-mono">77.5%</span>
-          </div>
-          <div className="h-2 bg-slate-100 dark:bg-slate-850 rounded-full w-full overflow-hidden">
-            <div className="h-full bg-gradient-to-r from-blue-600 to-emerald-400" style={{ width: '77.5%' }} />
-          </div>
-          <div className="flex justify-between text-[9px] text-slate-450 font-mono uppercase tracking-wider">
-            <span>Facturado: 3,100€</span>
-            <span>Objetivo: 4,000€</span>
-          </div>
-        </div>
-
-        {/* Botón Gigante: Crear Presupuesto */}
-        <button
-          onClick={() => startWizard(2)} // Inicia directamente con Dictado
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-3xl p-5 text-center shadow-lg shadow-blue-500/10 space-y-2 flex flex-col items-center justify-center cursor-pointer transition-transform active:scale-99 border border-blue-500"
-        >
-          <div className="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center">
-            <Mic className="w-6 h-6 text-white" />
-          </div>
-          <span className="font-display font-bold uppercase tracking-wider text-xs block">Crear Presupuesto</span>
-          <p className="text-[9.5px] text-blue-150 leading-relaxed font-medium">Pulsa e inicia el dictado rápido en el tajo.</p>
-        </button>
-
-        {/* Microcopy Motivador */}
-        <div className="text-center py-2">
-          <p className="text-[10px] text-slate-455 italic uppercase tracking-wider font-mono">
-            “Sin escribir, sin perder tiempo”
+        {/* Greeting */}
+        <div className="pt-1 space-y-0.5">
+          <h2 className="text-xl font-bold text-white">
+            {greeting}, {shortName}
+          </h2>
+          <p className="text-[11px] text-slate-400">
+            {presupuestosPendientesCount > 0
+              ? `${presupuestosPendientesCount} presupuesto${presupuestosPendientesCount !== 1 ? 's' : ''} pendiente${presupuestosPendientesCount !== 1 ? 's' : ''} de respuesta`
+              : 'Todo al dia - buen trabajo!'}
           </p>
         </div>
+
+        {/* ── HERO CARD ── */}
+        <div className="relative rounded-3xl overflow-hidden border border-blue-500/20 shadow-2xl shadow-blue-900/30">
+          {/* Fondo gradiente oscuro */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-700/25 via-blue-900/20 to-[#0B0F14]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(37,99,235,0.18),transparent_70%)]" />
+
+          <div className="relative p-6 space-y-5">
+            <div>
+              <h3 className="text-lg font-black text-white tracking-tight">Crear presupuesto</h3>
+              <p className="text-[11px] text-blue-300/80 mt-0.5">Habla o toma una foto del trabajo</p>
+            </div>
+
+            {/* Big mic button */}
+            <div className="flex flex-col items-center gap-3 py-2">
+              <button
+                onClick={() => startWizard(2)}
+                className="relative w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center cursor-pointer active:scale-95 transition-transform"
+                style={{ boxShadow: '0 0 40px rgba(37,99,235,0.55), 0 0 80px rgba(37,99,235,0.25)' }}
+              >
+                <div className="absolute inset-0 rounded-full bg-blue-400/20 animate-ping" style={{ animationDuration: '2s' }} />
+                <Mic className="w-10 h-10 text-white relative z-10" />
+              </button>
+              <span className="text-[11px] text-blue-200/70 font-medium">Pulsa para hablar</span>
+            </div>
+
+            {/* Tomar foto */}
+            <button
+              onClick={() => startWizard(3)}
+              className="w-full flex items-center justify-center gap-2 bg-white/6 border border-white/10 rounded-2xl py-3 text-white text-xs font-semibold active:bg-white/10 transition-colors cursor-pointer"
+            >
+              <Camera className="w-4 h-4 text-blue-300" />
+              Tomar foto del trabajo
+            </button>
+          </div>
+        </div>
+
+        {/* ── BORRADOR ACTUAL ── */}
+        {draft && (
+          <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest font-mono">Borrador actual</span>
+              <span className="text-[9px] bg-amber-500/12 text-amber-400 font-bold px-2 py-0.5 rounded-full border border-amber-500/20 uppercase tracking-wider">
+                {draft.estado}
+              </span>
+            </div>
+
+            <div>
+              <p className="text-sm font-bold text-white">{draft.nombreCliente || 'Sin cliente asignado'}</p>
+              <p className="text-[11px] text-slate-400 mt-0.5 truncate">{draft.descripcion || 'Trabajo sin descripción'}</p>
+            </div>
+
+            {/* Descripción breve */}
+            <p className="text-[11px] text-slate-400 leading-relaxed">
+              {draft.descripcion || 'Sin descripción de trabajo'}
+            </p>
+
+            {/* Total */}
+            <div className="flex justify-between items-center border-t border-slate-800/80 pt-2.5">
+              <span className="text-[10px] text-slate-500 font-mono uppercase tracking-wider">Total (IVA incl.)</span>
+              <span className="text-lg font-black text-white font-mono">
+                {((draft.total ?? 0) * 1.21).toFixed(0)}€
+              </span>
+            </div>
+
+            {/* Acciones */}
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={() => { setMobileTab('presupuestos'); }}
+                className="bg-white/6 border border-white/8 text-white text-[11px] font-bold py-2.5 rounded-xl cursor-pointer active:bg-white/10 transition-colors"
+              >
+                Editar
+              </button>
+              <button
+                onClick={() => {
+                  const tel = draft.telefonoCliente ?? '';
+                  const msg = encodeURIComponent(`Presupuesto TradeFlow: ${draft.descripcion ?? ''} — Total: ${((draft.total ?? 0) * 1.21).toFixed(0)}€`);
+                  window.open(`https://wa.me/${tel.replace(/\D/g, '') || ''}?text=${msg}`, '_blank');
+                }}
+                className="text-white text-[11px] font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 cursor-pointer active:opacity-80 transition-opacity"
+                style={{ backgroundColor: '#25D366', boxShadow: '0 4px 20px rgba(37,211,102,0.25)' }}
+              >
+                <MessageSquare className="w-3.5 h-3.5" />
+                WhatsApp
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ── ACTIVIDAD RECIENTE ── */}
+        {recent.length > 0 && (
+          <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 space-y-3">
+            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest font-mono block">Actividad reciente</span>
+            <div>
+              {recent.map((p, i) => {
+                const meta = statusMeta(p.estado ?? '');
+                return (
+                  <div
+                    key={p.id}
+                    className={`flex items-center gap-3 py-3 cursor-pointer active:opacity-70 ${i < recent.length - 1 ? 'border-b border-slate-800/70' : ''}`}
+                    onClick={() => setMobileTab('presupuestos')}
+                  >
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${meta.bg}`}>
+                      <span className={`w-2.5 h-2.5 rounded-full ${meta.dot}`} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[12px] font-semibold text-white truncate">{p.nombreCliente || 'Sin cliente'}</p>
+                      <p className="text-[9.5px] text-slate-500 truncate mt-0.5">{(p.descripcion ?? '').slice(0, 45) || p.estado}</p>
+                    </div>
+                    <div className="text-right shrink-0">
+                      <p className="text-[12px] font-bold text-white font-mono">{(p.total ?? 0).toFixed(0)}€</p>
+                      <p className="text-[9px] text-slate-500 mt-0.5">
+                        {p.fecha ? new Date(p.fecha).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' }) : ''}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
       </div>
     );
