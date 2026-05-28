@@ -784,7 +784,7 @@ function DemoAppShell({ plan, onChangePlan, setCurrentPage }: { plan: DemoPlan; 
 // ── Main export ───────────────────────────────────────────────────────────────
 
 export default function DemoView({ setCurrentPage }: DemoViewProps) {
-  const [step, setStep]   = useState<'selector' | 'app'>('selector');
+  const [step, setStep]   = useState<'selector' | 'app'>('app');
   const [plan, setPlan]   = useState<DemoPlan>('profesional');
 
   const handleSelect = useCallback((p: DemoPlan) => {
