@@ -905,6 +905,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       );
       if (!res.ok) {
         const err = await res.json().catch(() => ({ error: 'Error del servidor' }));
+        if (err.plan_restriction) {
+          showToast(err.error ?? 'Tu plan no permite esta función', 'error');
+          setVoiceStep('idle');
+          mediaRecorderRef.current = null;
+          audioChunksRef.current = [];
+          setIsVoiceModalOpen(false);
+          setShowUpgradeModal(true);
+          return;
+        }
         throw new Error(err.error ?? `HTTP ${res.status}`);
       }
       const result: { transcript: string; quote: AIQuote } = await res.json();
@@ -3334,7 +3343,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {/* Enlaces sidebar */}
           <nav className="flex-grow p-4 space-y-1">
             {SidebarBtn({ id: 'dashboard', icon: <TrendingUp className="w-4 h-4" />, label: 'Panel Control' })}
-            {can('quotes.create') && SidebarBtn({ id: 'create_quote', icon: <FilePlus className="w-4 h-4" />, label: 'Crear Presupuesto' })}
+            {can('quotes.create') && SidebarBtn({ id: 'quotes', icon: <FileText className="w-4 h-4" />, label: 'Presupuestos' })}
             {can('quotes.create') && SidebarBtn({ id: 'ai_scan', icon: <ImageIcon className="w-4 h-4" />, label: 'Escaneo Foto IA' })}
             {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
             {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <FileText className="w-4 h-4" />, label: 'Facturación' })}
@@ -3342,7 +3351,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('jobs.view') && SidebarBtn({ id: 'planificacion', icon: <Calendar className="w-4 h-4" />, label: 'Planificación' })}
             {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos' })}
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
-            {subscription?.plan === 'empresa_plus' && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
+            {(subscription?.plan === 'empresa_plus' || subscription?.plan === 'empresa') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
@@ -3405,7 +3414,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </span>
               <h2 className="text-md sm:text-lg font-black font-bold text-slate-900 uppercase tracking-tight">
                 {activeTab === 'dashboard' && 'Panel de Control'}
-                {activeTab === 'create_quote' && 'Crear Presupuesto'}
+                {activeTab === 'quotes' && 'Presupuestos'}
+                {activeTab === 'create_quote' && 'Nuevo Presupuesto'}
                 {activeTab === 'ai_scan' && 'Escáner Fotográfico IA'}
                 {activeTab === 'crm' && 'Clientes CRM'}
                 {activeTab === 'invoices' && 'Facturación'}
@@ -3421,7 +3431,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
             <div className="flex items-center gap-2">
               {activeTab === 'dashboard' && (
-                <button 
+                <button
                   onClick={() => setIsVoiceModalOpen(true)}
                   className="bg-blue-600 hover:bg-blue-750 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl shadow-xs flex items-center gap-1.5 cursor-pointer transition-transform hover:scale-101"
                 >
@@ -3429,23 +3439,57 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <span>Presupuesto por Voz</span>
                 </button>
               )}
+              {activeTab === 'quotes' && (
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setIsVoiceModalOpen(true)}
+                    className="flex items-center gap-1.5 bg-blue-600/10 hover:bg-blue-600/20 border border-blue-500/30 text-blue-400 font-bold uppercase tracking-wider text-[10px] px-3 py-2.5 rounded-xl cursor-pointer"
+                  >
+                    <Mic className="w-3.5 h-3.5" />
+                    <span>Voz IA</span>
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('create_quote')}
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl shadow-xs flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <FilePlus className="w-3.5 h-3.5" />
+                    <span>Nuevo Presupuesto</span>
+                  </button>
+                </div>
+              )}
               {activeTab === 'create_quote' && (
-                <button 
-                  onClick={saveCurrentQuote}
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl shadow-xs flex items-center gap-1.5 cursor-pointer transition-transform hover:scale-101"
-                >
-                  <Check className="w-3.5 h-3.5" />
-                  <span>Guardar Presupuesto</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setActiveTab('quotes')}
+                    className="text-slate-500 hover:text-slate-700 font-bold text-[10px] uppercase tracking-wider px-3 py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 cursor-pointer"
+                  >
+                    ← Presupuestos
+                  </button>
+                  <button
+                    onClick={saveCurrentQuote}
+                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl shadow-xs flex items-center gap-1.5 cursor-pointer transition-transform hover:scale-101"
+                  >
+                    <Check className="w-3.5 h-3.5" />
+                    <span>Guardar Presupuesto</span>
+                  </button>
+                </div>
               )}
               {activeTab === 'preview' && selectedQuoteForPreview && (
-                <button 
-                  onClick={() => convertQuoteToInvoice(selectedQuoteForPreview)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl shadow-xs flex items-center gap-1.5 cursor-pointer transition-transform hover:scale-101"
-                >
-                  <FileText className="w-3.5 h-3.5" />
-                  <span>Facturar Presupuesto</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setActiveTab('quotes')}
+                    className="text-slate-500 hover:text-slate-700 font-bold text-[10px] uppercase tracking-wider px-3 py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 cursor-pointer"
+                  >
+                    ← Presupuestos
+                  </button>
+                  <button
+                    onClick={() => convertQuoteToInvoice(selectedQuoteForPreview)}
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl shadow-xs flex items-center gap-1.5 cursor-pointer transition-transform hover:scale-101"
+                  >
+                    <FileText className="w-3.5 h-3.5" />
+                    <span>Facturar Presupuesto</span>
+                  </button>
+                </div>
               )}
             </div>
           </div>
@@ -3462,6 +3506,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 className="h-full"
               >
                 {activeTab === 'dashboard' && ScreenDashboard()}
+                {activeTab === 'quotes' && ScreenPresupuestos()}
                 {activeTab === 'create_quote' && ScreenCreateQuote()}
                 {activeTab === 'ai_scan' && ScreenAIScan()}
                 {activeTab === 'crm' && ScreenCRM()}
@@ -3520,7 +3565,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
     // Helpers botones navegación escritorio
     function SidebarBtn({ id, icon, label }: { id: string; icon: React.ReactNode; label: string }) {
-      const isActive = activeTab === id || (id === 'create_quote' && activeTab === 'preview');
+      const isActive = activeTab === id || (id === 'quotes' && (activeTab === 'create_quote' || activeTab === 'preview'));
       return (
         <button
           onClick={() => setActiveTab(id)}
@@ -3731,6 +3776,84 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         </div>
 
+      </div>
+    );
+  }
+
+  // ================= DESKTOP: LISTA PRESUPUESTOS SCREEN =================
+  function ScreenPresupuestos() {
+    const estadoColor: Record<string, string> = {
+      Borrador:  'bg-slate-100 text-slate-500 border-slate-200',
+      Pendiente: 'bg-amber-50 text-amber-600 border-amber-200',
+      Enviado:   'bg-blue-50 text-blue-600 border-blue-200',
+      Aceptado:  'bg-emerald-50 text-emerald-600 border-emerald-200',
+      Rechazado: 'bg-red-50 text-red-500 border-red-200',
+      enviado:   'bg-blue-50 text-blue-600 border-blue-200',
+      aceptado:  'bg-emerald-50 text-emerald-600 border-emerald-200',
+      rechazado: 'bg-red-50 text-red-500 border-red-200',
+      borrador:  'bg-slate-100 text-slate-500 border-slate-200',
+    };
+
+    return (
+      <div className="space-y-4">
+        {presupuestos.length === 0 ? (
+          <div className="bg-white border border-slate-200 rounded-xl p-12 text-center">
+            <FileText className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+            <p className="text-sm font-bold text-slate-500">No hay presupuestos todavía</p>
+            <p className="text-xs text-slate-400 mt-1 mb-4">Crea tu primer presupuesto con voz IA o manualmente</p>
+            <div className="flex justify-center gap-3">
+              <button
+                onClick={() => setIsVoiceModalOpen(true)}
+                className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl cursor-pointer"
+              >
+                <Mic className="w-4 h-4" />
+                Voz IA
+              </button>
+              <button
+                onClick={() => setActiveTab('create_quote')}
+                className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl cursor-pointer border border-slate-200"
+              >
+                <FilePlus className="w-4 h-4" />
+                Manual
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="border-b border-slate-200 bg-slate-50">
+                  <th className="text-left px-4 py-3 font-bold text-slate-400 uppercase tracking-wider">Nº</th>
+                  <th className="text-left px-4 py-3 font-bold text-slate-400 uppercase tracking-wider">Cliente</th>
+                  <th className="text-left px-4 py-3 font-bold text-slate-400 uppercase tracking-wider hidden sm:table-cell">Descripción</th>
+                  <th className="text-left px-4 py-3 font-bold text-slate-400 uppercase tracking-wider hidden md:table-cell">Fecha</th>
+                  <th className="text-right px-4 py-3 font-bold text-slate-400 uppercase tracking-wider">Total</th>
+                  <th className="text-center px-4 py-3 font-bold text-slate-400 uppercase tracking-wider">Estado</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {presupuestos.map(p => (
+                  <tr
+                    key={p.id}
+                    onClick={() => { setSelectedQuoteForPreview(p); setActiveTab('preview'); }}
+                    className="hover:bg-slate-50 cursor-pointer transition-colors"
+                  >
+                    <td className="px-4 py-3 font-mono font-bold text-slate-600 whitespace-nowrap">{p.id}</td>
+                    <td className="px-4 py-3 font-semibold text-slate-800 truncate max-w-[120px]">{p.nombreCliente}</td>
+                    <td className="px-4 py-3 text-slate-500 truncate max-w-[200px] hidden sm:table-cell">{p.descripcion}</td>
+                    <td className="px-4 py-3 text-slate-400 hidden md:table-cell whitespace-nowrap">{p.fecha}</td>
+                    <td className="px-4 py-3 text-right font-mono font-bold text-slate-900 whitespace-nowrap">{(p.total ?? 0).toFixed(2)}€</td>
+                    <td className="px-4 py-3 text-center">
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${estadoColor[p.estado] ?? 'bg-slate-100 text-slate-500 border-slate-200'}`}>
+                        {p.estado}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     );
   }
@@ -4009,9 +4132,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // ================= DESKTOP: PDF PREVIEW SCREEN =================
   function ScreenPreview() {
     if (!selectedQuoteForPreview) return null;
+    const isMaintenanceQuote = /mantenimiento|limpieza.*recurrente|recurrente|contrato/i.test(selectedQuoteForPreview.descripcion);
+    const canAccessMaintenance = subscription?.plan === 'empresa_plus' || subscription?.plan === 'empresa';
     return (
       <div className="space-y-6">
-        <div className="bg-white border border-slate-200 p-4 rounded-xl flex justify-between items-center">
+        <div className="bg-white border border-slate-200 p-4 rounded-xl flex justify-between items-center flex-wrap gap-3">
           <div className="flex gap-2 flex-wrap">
             <button onClick={() => triggerWhatsAppShare(selectedQuoteForPreview)} className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer flex items-center gap-1.5">
               💬 WhatsApp
@@ -4027,6 +4152,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </button>
             )}
           </div>
+          {isMaintenanceQuote && (
+            <button
+              onClick={() => canAccessMaintenance ? setActiveTab('mantenimiento') : setShowUpgradeModal(true)}
+              className={`flex items-center gap-1.5 font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer ${
+                canAccessMaintenance
+                  ? 'bg-amber-500 hover:bg-amber-600 text-white'
+                  : 'bg-slate-100 hover:bg-slate-200 text-slate-500 border border-slate-200'
+              }`}
+            >
+              <Wrench className="w-3.5 h-3.5" />
+              {canAccessMaintenance ? 'Contratar Mantenimiento' : 'Contratar Mantenimiento (Empresa+)'}
+            </button>
+          )}
         </div>
 
         <div className="bg-white text-slate-900 p-8 rounded-2xl max-w-2xl mx-auto border shadow-sm">

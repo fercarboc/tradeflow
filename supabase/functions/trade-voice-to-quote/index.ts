@@ -93,6 +93,25 @@ REGLAS DE DETECCIÓN
 7. Si hay m², personas y frecuencia (limpieza): calcula horas_mes = personas × horas_por_visita × dias_semana × 4.
 
 ========================
+REGLAS PARA MANTENIMIENTO RECURRENTE (limpieza, jardinería, etc.)
+========================
+
+Cuando el usuario mencione limpieza, mantenimiento o servicio recurrente con personas + días + horas:
+
+EJEMPLO: "2 personas, 2 días a la semana, 3 horas cada día"
+→ horas_semana = 2 personas × 2 días × 3 horas = 12 h/semana
+→ horas_mes = 12 × 4 semanas = 48 h/mes
+→ precio_unitario = tarifa_recomendada (20 €/h para limpieza)
+→ total = 48 × 20 = 960 €/mes
+
+PARTIDAS A GENERAR (tipo_presupuesto: "mantenimiento_recurrente"):
+1. "Mano de obra: [N] operario(s) × [X]h/sesión × [Y] días/semana" | unidad: "mes" | cantidad: 1 | precio_unitario: total_horas_mes × tarifa | total: idem
+2. Si hay productos de limpieza o materiales: partida separada (precio_unitario = 0, requiere_revision = true)
+
+El concepto de la partida principal DEBE incluir la fórmula explícita:
+"Servicio de limpieza — 2 operarios × 3h/sesión × 8 sesiones/mes = 48h/mes"
+
+========================
 REGLAS PARA AUTOMOCIÓN
 ========================
 
@@ -279,6 +298,17 @@ Deno.serve(async (req: Request) => {
           status: 422, headers: { ...CORS, 'Content-Type': 'application/json' },
         });
       }
+    }
+
+    // ── Detectar solicitud de contrato de mantenimiento sin plan empresa+ ────
+    const maintenanceKeywords = /contrato.{0,15}mantenimiento|mantenimiento.{0,15}contrato|contrato.{0,15}recurrente|contrato.{0,15}mensual/i;
+    if (maintenanceKeywords.test(transcript) && plan !== 'empresa_plus') {
+      return new Response(JSON.stringify({
+        error: 'Tu plan actual no permite generar contratos de mantenimiento. Actualiza al Plan Empresa+ para acceder a este módulo.',
+        plan_restriction: true,
+        required_plan: 'empresa_plus',
+        plan,
+      }), { status: 403, headers: { ...CORS, 'Content-Type': 'application/json' } });
     }
 
     // ── Step 3: Generate quote structure (Claude Haiku) ──────────────────────
