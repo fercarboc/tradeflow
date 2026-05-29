@@ -69,7 +69,7 @@ function detectAuthRoute(): ActivePage | null {
 
 export default function App() {
   const pwa = isPWAMode();
-  const checkoutSuccess = detectAndClearCheckoutSuccess();
+  const [checkoutSuccess] = useState(() => detectAndClearCheckoutSuccess());
 
   const initialAuthRoute = detectAuthRoute();
 
@@ -80,7 +80,9 @@ export default function App() {
   const [preselectedTrade, setPreselectedTrade] =
     useState<TradeType>('Fontanería');
 
-  const [initialMobile, setInitialMobile] = useState<boolean>(true);
+  const [initialMobile, setInitialMobile] = useState<boolean>(
+    typeof window !== 'undefined' ? window.innerWidth < 768 : true,
+  );
   const [loginOnMount, setLoginOnMount] = useState<boolean>(
     pwa && !initialAuthRoute,
   );

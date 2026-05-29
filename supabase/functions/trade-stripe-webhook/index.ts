@@ -12,20 +12,25 @@ const CORS = {
 };
 
 async function verifyStripeSignature(payload: string, sigHeader: string, secret: string): Promise<boolean> {
-  const parts     = sigHeader.split(',');
-  const timestamp = parts.find(p => p.startsWith('t='))?.slice(2);
-  const signatures = parts.filter(p => p.startsWith('v1=')).map(p => p.slice(3));
-  if (!timestamp || signatures.length === 0) return false;
+  if (!secret) return false;
+  try {
+    const parts     = sigHeader.split(',');
+    const timestamp = parts.find(p => p.startsWith('t='))?.slice(2);
+    const signatures = parts.filter(p => p.startsWith('v1=')).map(p => p.slice(3));
+    if (!timestamp || signatures.length === 0) return false;
 
-  if (Math.abs(Date.now() / 1000 - parseInt(timestamp, 10)) > 300) return false;
+    if (Math.abs(Date.now() / 1000 - parseInt(timestamp, 10)) > 300) return false;
 
-  const key = await crypto.subtle.importKey(
-    'raw', new TextEncoder().encode(secret),
-    { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'],
-  );
-  const sig = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(`${timestamp}.${payload}`));
-  const expected = Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('');
-  return signatures.some(s => s === expected);
+    const key = await crypto.subtle.importKey(
+      'raw', new TextEncoder().encode(secret),
+      { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'],
+    );
+    const sig = await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(`${timestamp}.${payload}`));
+    const expected = Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('');
+    return signatures.some(s => s === expected);
+  } catch {
+    return false;
+  }
 }
 
 async function cancelStripeSubscription(subscriptionId: string): Promise<void> {
@@ -37,6 +42,11 @@ async function cancelStripeSubscription(subscriptionId: string): Promise<void> {
 
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+
+  if (!STRIPE_WEBHOOK_SECRET) {
+    console.error('[webhook] STRIPE_WEBHOOK_TRABFLOW_SECRET no configurado');
+    return new Response('Webhook secret not configured', { status: 500 });
+  }
 
   const body      = await req.text();
   const sigHeader = req.headers.get('stripe-signature') ?? '';
