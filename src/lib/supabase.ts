@@ -1398,20 +1398,30 @@ export async function getStripePortalUrl(orgId: string): Promise<string> {
   return data.url!;
 }
 
-export async function getStripeCheckoutUrl(orgId: string, plan?: string, billingCycle?: string): Promise<string> {
+export async function initiateStripeUpgrade(
+  orgId: string,
+  plan: string,
+  billingCycle: string,
+): Promise<{ url?: string; upgraded?: boolean; plan?: string; billing_cycle?: string }> {
   const res = await supabase.functions.invoke('trade-stripe-checkout', {
     body: {
       org_id:        orgId,
-      plan:          plan,
+      plan,
       billing_cycle: billingCycle,
       success_url:   `${window.location.origin}/?checkout=success`,
       cancel_url:    `${window.location.origin}/`,
     },
   });
   if (res.error) throw new Error(res.error.message ?? 'Error checkout Stripe');
-  const data = res.data as { url?: string; error?: string };
+  const data = res.data as { url?: string; upgraded?: boolean; plan?: string; billing_cycle?: string; error?: string };
   if (data.error) throw new Error(data.error);
-  return data.url!;
+  return data;
+}
+
+export async function getStripeCheckoutUrl(orgId: string, plan?: string, billingCycle?: string): Promise<string> {
+  const result = await initiateStripeUpgrade(orgId, plan ?? 'profesional', billingCycle ?? 'monthly');
+  if (result.url) return result.url;
+  throw new Error('La suscripción fue actualizada directamente — recarga la página');
 }
 
 // ── CRM Waitlist ───────────────────────────────────────────────────────────

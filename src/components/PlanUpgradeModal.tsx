@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { X, Check, Zap, Shield } from 'lucide-react';
-import { getStripeCheckoutUrl } from '../lib/supabase';
+import { initiateStripeUpgrade } from '../lib/supabase';
 import type { TradeSubscription } from '../lib/supabase';
 
 interface Props {
   orgId: string;
   subscription: TradeSubscription | null;
   onClose: () => void;
+  onUpgraded?: (plan: string, billingCycle: string) => void;
 }
 
 const PRO_FEATURES = [
@@ -28,9 +29,10 @@ const EMPRESA_FEATURES = [
   'Soporte VIP',
 ];
 
-export default function PlanUpgradeModal({ orgId, subscription, onClose }: Props) {
+export default function PlanUpgradeModal({ orgId, subscription, onClose, onUpgraded }: Props) {
   const [cycle, setCycle] = useState<'monthly' | 'yearly'>('monthly');
   const [loading, setLoading] = useState<string | null>(null);
+  const [upgraded, setUpgraded] = useState(false);
 
   const prices = {
     pro:     { monthly: 29,  yearly: 24  },
@@ -40,9 +42,15 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose }: Props
   async function handleUpgrade(plan: 'pro' | 'empresa') {
     setLoading(plan);
     try {
-      const url = await getStripeCheckoutUrl(orgId, plan, cycle);
-      window.open(url, '_blank', 'noopener');
-      onClose();
+      const result = await initiateStripeUpgrade(orgId, plan === 'pro' ? 'profesional' : 'empresa', cycle);
+      if (result.upgraded) {
+        setUpgraded(true);
+        onUpgraded?.(result.plan ?? plan, result.billing_cycle ?? cycle);
+        setTimeout(onClose, 2000);
+      } else if (result.url) {
+        window.open(result.url, '_blank', 'noopener');
+        onClose();
+      }
     } catch (e) {
       console.error(e);
     } finally {
@@ -69,37 +77,49 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose }: Props
           </button>
         </div>
 
-        {/* Cycle toggle */}
-        <div className="flex justify-center pt-5 pb-1">
-          <div className="flex bg-slate-800 rounded-lg p-1 gap-1">
-            <button
-              onClick={() => setCycle('monthly')}
-              className={`text-sm font-semibold px-4 py-1.5 rounded-md transition-colors cursor-pointer ${
-                cycle === 'monthly'
-                  ? 'bg-slate-700 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              Mensual
-            </button>
-            <button
-              onClick={() => setCycle('yearly')}
-              className={`text-sm font-semibold px-4 py-1.5 rounded-md transition-colors cursor-pointer flex items-center gap-1.5 ${
-                cycle === 'yearly'
-                  ? 'bg-slate-700 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-white'
-              }`}
-            >
-              Anual
-              <span className="text-[9px] font-black bg-emerald-500 text-white px-1.5 py-0.5 rounded-full uppercase">
-                -17%
-              </span>
-            </button>
+        {/* Upgrade directo confirmado */}
+        {upgraded && (
+          <div className="flex flex-col items-center justify-center py-12 px-6 text-center">
+            <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mb-4">
+              <Check className="w-8 h-8 text-emerald-400" />
+            </div>
+            <h3 className="text-white font-bold text-lg mb-1">¡Plan actualizado!</h3>
+            <p className="text-slate-400 text-sm">Tu suscripción ha sido cambiada. Los cambios ya están activos.</p>
           </div>
-        </div>
+        )}
 
-        {/* Plan cards */}
-        <div className="grid grid-cols-2 gap-4 p-6">
+        {/* Selector de ciclo + cards (ocultos tras upgrade directo) */}
+        {!upgraded && (<>
+          <div className="flex justify-center pt-5 pb-1">
+            <div className="flex bg-slate-800 rounded-lg p-1 gap-1">
+              <button
+                onClick={() => setCycle('monthly')}
+                className={`text-sm font-semibold px-4 py-1.5 rounded-md transition-colors cursor-pointer ${
+                  cycle === 'monthly'
+                    ? 'bg-slate-700 text-white shadow-sm'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                Mensual
+              </button>
+              <button
+                onClick={() => setCycle('yearly')}
+                className={`text-sm font-semibold px-4 py-1.5 rounded-md transition-colors cursor-pointer flex items-center gap-1.5 ${
+                  cycle === 'yearly'
+                    ? 'bg-slate-700 text-white shadow-sm'
+                    : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                Anual
+                <span className="text-[9px] font-black bg-emerald-500 text-white px-1.5 py-0.5 rounded-full uppercase">
+                  -17%
+                </span>
+              </button>
+            </div>
+          </div>
+
+          {/* Plan cards */}
+          <div className="grid grid-cols-2 gap-4 p-6">
 
           {/* Pro */}
           <div className={`border rounded-xl p-5 space-y-4 flex flex-col ${
@@ -201,9 +221,10 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose }: Props
           </div>
         </div>
 
-        <p className="text-center text-xs text-slate-500 pb-5">
-          Pago seguro con Stripe · IVA no incluido · Cancela en cualquier momento
-        </p>
+          <p className="text-center text-xs text-slate-500 pb-5">
+            Pago seguro con Stripe · IVA no incluido · Cancela en cualquier momento
+          </p>
+        </>)}
       </div>
     </div>
   );

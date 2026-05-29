@@ -1859,6 +1859,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           orgId={orgId}
           subscription={subscription}
           onClose={() => setShowUpgradeModal(false)}
+          onUpgraded={() => {
+            setShowUpgradeModal(false);
+            showToast('¡Plan actualizado correctamente!', 'success');
+            loadOrgSubscription(orgId).then(sub => { if (sub) setSubscription(sub); }).catch(() => {});
+          }}
         />
       )}
 
