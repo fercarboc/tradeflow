@@ -45,17 +45,36 @@ export default function AuthCallbackView({ setCurrentPage }: AuthCallbackViewPro
       return;
     }
 
-    // Flujo implícito: Supabase pone access_token en el hash y lo procesa automáticamente.
-    // Obtenemos la sesión que ya habrá establecido.
-    supabase.auth.getSession().then(({ data, error: err }) => {
-      if (err) { setError(err.message); return; }
-      if (data.session) {
-        routeAfterSession(type, data.session.user?.user_metadata, setCurrentPage);
+    // Flujo implícito: Supabase procesa el hash de forma asíncrona.
+    // onAuthStateChange garantiza que recibimos INITIAL_SESSION tras ese procesado.
+    let routed = false;
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, sess) => {
+      if (routed) return;
+      if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && sess) {
+        routed = true;
+        subscription.unsubscribe();
+        routeAfterSession(type, sess.user?.user_metadata, setCurrentPage);
         return;
       }
-      // Sin sesión y sin parámetros conocidos → Login
-      setTimeout(() => setCurrentPage(ActivePage.Login), 2000);
+      if (event === 'INITIAL_SESSION' && !sess) {
+        routed = true;
+        subscription.unsubscribe();
+        setTimeout(() => setCurrentPage(ActivePage.Login), 500);
+      }
     });
+
+    const fallback = setTimeout(() => {
+      if (!routed) {
+        routed = true;
+        subscription.unsubscribe();
+        setCurrentPage(ActivePage.Login);
+      }
+    }, 5000);
+
+    return () => {
+      clearTimeout(fallback);
+      subscription.unsubscribe();
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
