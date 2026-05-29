@@ -728,6 +728,11 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
             </div>
           </div>
 
+          {/* Banner invita a un colega */}
+          <div className="mb-8 rounded-2xl overflow-hidden border border-[#FFC400]/20 cursor-pointer hover:border-[#FFC400]/50 transition-all" onClick={() => go(ActivePage.Registro)}>
+            <img src="/invitacolega.png" alt="Invita a un colega y gana 1 mes gratis" className="w-full h-auto block" />
+          </div>
+
           {/* Llamada + logo */}
           <div className="rounded-2xl bg-[#020B16] p-8">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-6">

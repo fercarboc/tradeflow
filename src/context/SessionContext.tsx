@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, useRef } from 'react';
+import { createContext, useContext, useEffect, useState, useRef, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import type { User } from '@supabase/supabase-js';
 import { supabase, getOwnOrg, loadOrgById, loadOrgSubscription } from '../lib/supabase';
@@ -45,6 +45,7 @@ export interface SessionState {
   rol: Rol;
   permisos: string[];
   isLoading: boolean;
+  refreshSubscription: () => Promise<void>;
 }
 
 const DEFAULT_STATE: SessionState = {
@@ -55,6 +56,7 @@ const DEFAULT_STATE: SessionState = {
   rol: 'owner',
   permisos: [],
   isLoading: true,
+  refreshSubscription: async () => {},
 };
 
 const SessionContext = createContext<SessionState>(DEFAULT_STATE);
@@ -62,6 +64,14 @@ const SessionContext = createContext<SessionState>(DEFAULT_STATE);
 export function SessionProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<SessionState>(DEFAULT_STATE);
   const cancelledRef = useRef(false);
+  const orgIdRef = useRef<string | null>(null);
+
+  const refreshSubscription = useCallback(async () => {
+    if (!orgIdRef.current) return;
+    const subscription = await loadOrgSubscription(orgIdRef.current);
+    const plan: Plan = (subscription?.plan as Plan) ?? 'basico';
+    setState(prev => ({ ...prev, subscription, plan }));
+  }, []);
 
   useEffect(() => {
     cancelledRef.current = false;
@@ -69,12 +79,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
     async function load(user: User | null) {
       if (!user) {
         if (!cancelledRef.current) {
-          setState({ ...DEFAULT_STATE, isLoading: false });
+          orgIdRef.current = null;
+          setState({ ...DEFAULT_STATE, isLoading: false, refreshSubscription });
         }
         return;
       }
 
-      // Activar invitaciones pendientes para este usuario al entrar
+      // Activar invitaciones pendientes
       await supabase
         .from('trade_org_members')
         .update({ activo: true })
@@ -86,7 +97,6 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       let memberId: string | null = null;
 
       if (!org) {
-        // Usuario no es owner; buscar en trade_org_members
         const { data: member } = await supabase
           .from('trade_org_members')
           .select('id, rol, org_id')
@@ -101,10 +111,8 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         }
       }
 
-      // Calcular permisos efectivos del rol base
       let permisos = [...(ROL_PERMISOS[rol] ?? [])];
 
-      // Aplicar overrides individuales si el usuario es miembro
       if (memberId) {
         const { data: overrides } = await supabase
           .from('trade_org_permissions')
@@ -125,17 +133,17 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       const subscription = org ? await loadOrgSubscription(org.id) : null;
       const plan: Plan = (subscription?.plan as Plan) ?? 'basico';
 
+      orgIdRef.current = org?.id ?? null;
+
       if (!cancelledRef.current) {
-        setState({ user, org, subscription, plan, rol, permisos, isLoading: false });
+        setState({ user, org, subscription, plan, rol, permisos, isLoading: false, refreshSubscription });
       }
     }
 
-    // Carga inicial
     supabase.auth.getSession().then(({ data }) => {
       load(data.session?.user ?? null);
     });
 
-    // Re-carga al cambiar sesión
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       load(session?.user ?? null);
     });
@@ -144,7 +152,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       cancelledRef.current = true;
       subscription.unsubscribe();
     };
-  }, []);
+  }, [refreshSubscription]);
 
   return (
     <SessionContext.Provider value={state}>

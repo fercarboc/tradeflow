@@ -57,7 +57,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, subscribePush, unsubscribePush, isPushSubscribed } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { usePermissions } from '../hooks/usePermissions';
@@ -79,6 +79,7 @@ interface AppDashboardViewProps {
   session?: Session | null;
   loginOnMount?: boolean;
   workerOrgId?: string | null;
+  checkoutSuccess?: boolean;
 }
 
 interface TrabajadorItem {
@@ -254,7 +255,7 @@ interface PresetPhoto {
   detections: { label: string; x: number; y: number; w: number; h: number; price: number; type: 'material' | 'mano_de_obra'; confidence: number }[];
 }
 
-export default function AppDashboardView({ setCurrentPage, initialMobile = true, session, loginOnMount = false, workerOrgId }: AppDashboardViewProps) {
+export default function AppDashboardView({ setCurrentPage, initialMobile = true, session, loginOnMount = false, workerOrgId, checkoutSuccess = false }: AppDashboardViewProps) {
   const { can } = usePermissions();
 
   // Auth & data loading
@@ -284,6 +285,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         : await getOrCreateOrg();
       if (!org) return;
       loadOrgSubscription(org.id).then(sub => setSubscription(sub)).catch(() => {});
+      void (async () => {
+        const { data: invData } = await supabase.from('trade_platform_invoices').select('*').eq('org_id', org.id).order('created_at', { ascending: false });
+        if (invData) setPlatformInvoices(invData as typeof platformInvoices);
+      })();
+      // Apply pending referral code stored during registration
+      void (async () => {
+        const pendingCode = localStorage.getItem('trabflow_pending_referral');
+        if (pendingCode) {
+          localStorage.removeItem('trabflow_pending_referral');
+          await applyReferralCode(pendingCode);
+        }
+      })();
       const data = await loadDashboard(org.id);
       // Always replace demo clients with real data (even if empty list)
       setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
@@ -563,6 +576,26 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [subscription, setSubscription] = useState<TradeSubscription | null>(null);
   const [stripeLoading, setStripeLoading] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [platformInvoices, setPlatformInvoices] = useState<Array<{
+    id: string; period_start: string; period_end: string; amount_cents: number;
+    status: string; stripe_invoice_id: string | null; invoice_url: string | null;
+    invoice_pdf_url: string | null; plan: string | null; paid_at: string | null;
+  }>>([]);
+
+  // Manejar retorno desde Stripe checkout
+  useEffect(() => {
+    if (!checkoutSuccess || !orgId) return;
+    setActiveTab('settings');
+    showToast('¡Plan actualizado correctamente! 🎉', 'success');
+    // Esperar a que el webhook haya actualizado la BD, luego refrescar
+    const t = setTimeout(() => {
+      loadOrgSubscription(orgId).then(sub => {
+        if (sub) setSubscription(sub);
+      });
+    }, 3000);
+    return () => clearTimeout(t);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkoutSuccess, orgId]);
 
   const [empresaAjustes, setEmpresaAjustes] = useState({
     nombre: 'Sanz Instalaciones Técnicas',
@@ -5399,7 +5432,69 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           )}
         </div>
 
-        {/* ── 5. Notificaciones push ── */}
+        {/* ── 5. Facturas de suscripción ── */}
+        {isLiveMode && platformInvoices.length > 0 && (
+          <div className={sec}>
+            <h3 className={secTitle}>Facturas de suscripción</h3>
+            <div className="space-y-2">
+              {platformInvoices.map(inv => {
+                const date = new Date(inv.paid_at ?? inv.period_start).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+                const amount = (inv.amount_cents / 100).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+                const planLabel: Record<string, string> = { basico: 'Básico', pro: 'Profesional', profesional: 'Profesional', empresa: 'Empresa' };
+                return (
+                  <div key={inv.id} className="flex items-center justify-between py-2.5 border-b border-slate-100 last:border-0">
+                    <div>
+                      <p className="text-xs font-semibold text-slate-800">
+                        {inv.plan ? `Plan ${planLabel[inv.plan] ?? inv.plan}` : 'Suscripción'}
+                        <span className="ml-2 text-[10px] font-normal text-slate-400">{date}</span>
+                      </p>
+                      <p className="text-[10px] text-slate-400 mt-0.5">
+                        {new Date(inv.period_start).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })} – {new Date(inv.period_end).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs font-bold text-slate-900">{amount}</span>
+                      {(inv.invoice_pdf_url || inv.invoice_url) && (
+                        <a
+                          href={inv.invoice_pdf_url ?? inv.invoice_url ?? '#'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[10px] font-semibold px-2.5 py-1 rounded border border-slate-200 text-blue-600 hover:bg-blue-50 transition"
+                        >
+                          Descargar
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* ── 6. Código de invitación ── */}
+        {isLiveMode && orgData?.referral_code && (
+          <div className={sec}>
+            <h3 className={secTitle}>Invita a un colega — 1 mes gratis</h3>
+            <p className="text-[11px] text-slate-500 mb-3">Comparte tu código con otro instalador. Cuando se registre con él, ganaréis un mes gratis cada uno.</p>
+            <div className="flex items-center gap-3">
+              <div className="flex-1 flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5">
+                <span className="font-mono text-lg font-black tracking-[0.2em] text-slate-900">{orgData.referral_code}</span>
+              </div>
+              <button
+                onClick={() => {
+                  void navigator.clipboard.writeText(orgData!.referral_code!);
+                  showToast('Código copiado al portapapeles', 'success');
+                }}
+                className="px-4 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold hover:bg-slate-700 transition-colors"
+              >
+                Copiar
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ── 7. Notificaciones push ── */}
         {isLiveMode && 'Notification' in window && (
           <div className={sec}>
             <h3 className={secTitle}>Notificaciones</h3>

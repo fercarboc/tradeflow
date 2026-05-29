@@ -30,6 +30,8 @@ export interface TradeOrganization {
   plan: string;
   logo_url?: string;
   is_onboarded: boolean;
+  referral_code?: string;
+  referred_by_code?: string;
   created_at: string;
   updated_at: string;
 }
@@ -1239,6 +1241,12 @@ export async function loadPlatformInvoices(): Promise<TradePlatformInvoice[]> {
   const { data, error } = await supabase.rpc('admin_get_platform_invoices');
   if (error) throw error;
   return (data ?? []) as TradePlatformInvoice[];
+}
+
+export async function applyReferralCode(code: string): Promise<{ ok: boolean; error?: string }> {
+  const { data, error } = await supabase.rpc('apply_referral_code', { p_code: code.trim().toUpperCase() });
+  if (error) return { ok: false, error: error.message };
+  return data as { ok: boolean; error?: string };
 }
 
 export async function adminMarkInvoicePaid(invoiceId: string): Promise<void> {

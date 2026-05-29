@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { ActivePage } from '../types';
-import { registerUser, sendTrabflowEmail } from '../lib/supabase';
+import { registerUser, sendTrabflowEmail, applyReferralCode } from '../lib/supabase';
 import {
   Droplets, Zap, Hammer, Wind, TreeDeciduous, KeyRound, Paintbrush,
   Layers, Wrench, Building2, ChevronRight, ChevronLeft, Check,
@@ -94,6 +94,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
     phone: '',
     password: '',
     confirmPassword: '',
+    referralCode: '',
     acceptTerms: false,
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -135,6 +136,16 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
       if (regError) {
         setError(regError);
         return;
+      }
+      const code = form.referralCode.trim().toUpperCase();
+      if (code) {
+        if (!nc) {
+          // Session available immediately — apply now
+          await applyReferralCode(code);
+        } else {
+          // Confirmation required — apply after login
+          localStorage.setItem('trabflow_pending_referral', code);
+        }
       }
       setNeedsConfirmation(nc);
       setStep(4);
@@ -410,6 +421,20 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
                   onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
                   className={inputClass} />
               </div>
+            </div>
+
+            <div>
+              <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">
+                Código de invitación <span className="text-white/25 normal-case font-normal">(opcional — 1 mes gratis)</span>
+              </label>
+              <div className="relative">
+                <Gift className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#FFC400]/60" />
+                <input type="text" placeholder="Ej. AB12CD" value={form.referralCode}
+                  onChange={e => setForm(f => ({ ...f, referralCode: e.target.value.toUpperCase() }))}
+                  maxLength={6}
+                  className={inputClass + ' tracking-widest font-mono placeholder:font-sans placeholder:tracking-normal'} />
+              </div>
+              <p className="text-[10px] text-white/30 mt-1">Si un instalador te lo pasó, ganaréis un mes gratis cada uno.</p>
             </div>
 
             <div>

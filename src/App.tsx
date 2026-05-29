@@ -46,6 +46,15 @@ function isPWAMode(): boolean {
   return params.get('app') === 'true' || isStandalone;
 }
 
+function detectAndClearCheckoutSuccess(): boolean {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('checkout') === 'success') {
+    window.history.replaceState({}, '', window.location.pathname);
+    return true;
+  }
+  return false;
+}
+
 function detectAuthRoute(): ActivePage | null {
   const path = window.location.pathname;
 
@@ -60,6 +69,7 @@ function detectAuthRoute(): ActivePage | null {
 
 export default function App() {
   const pwa = isPWAMode();
+  const checkoutSuccess = detectAndClearCheckoutSuccess();
 
   const initialAuthRoute = detectAuthRoute();
 
@@ -230,6 +240,7 @@ export default function App() {
             session={session}
             loginOnMount={loginOnMount}
             workerOrgId={workerProfile?.org_id ?? null}
+            checkoutSuccess={checkoutSuccess}
           />
         );
 
