@@ -219,7 +219,18 @@ export async function getOrCreateOrg(): Promise<TradeOrganization | null> {
     .select()
     .single();
 
-  if (error || !created) return null;
+  if (error || !created) {
+    // Race condition: another concurrent call already inserted — fetch existing
+    if (error?.code === '23505') {
+      const { data: retry } = await supabase
+        .from('trade_organizations')
+        .select('*')
+        .eq('owner_id', user.id)
+        .maybeSingle();
+      return retry ?? null;
+    }
+    return null;
+  }
 
   await supabase.from('trade_subscriptions').insert({
     org_id: created.id,
@@ -1882,6 +1893,8 @@ export interface MaintenanceIncidencia {
   es_extra_contrato: boolean;
   importe_extra: number | null;
   notas_resolucion: string | null;
+  tecnico_user_id: string | null;
+  tecnico_email: string | null;
   created_at: string;
   updated_at: string;
   trade_maintenance_contratos?: { nombre_cliente: string | null; oficio: string; sector: string | null } | null;
@@ -2052,17 +2065,28 @@ export async function markFacturaPagada(id: string): Promise<void> {
   if (error) throw error;
 }
 
+type MaintenanceEmailType =
+  | 'presupuesto_enviado'
+  | 'contrato_activado'
+  | 'factura_pendiente'
+  | 'recordatorio_pago'
+  | 'aviso_renovacion'
+  | 'aviso_vencimiento'
+  | 'bienvenida_empresa';
+
 export async function sendMaintenanceNotification(
-  type: 'presupuesto_enviado' | 'contrato_activado' | 'factura_pendiente',
-  id: string,
+  type: MaintenanceEmailType,
+  id?: string,
   toEmail?: string,
 ): Promise<void> {
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) return;
   const body: Record<string, string> = { type };
-  if (type === 'presupuesto_enviado')  body.presupuesto_id = id;
-  else if (type === 'contrato_activado') body.contrato_id  = id;
-  else body.factura_id = id;
+  if (id) {
+    if (type === 'presupuesto_enviado') body.presupuesto_id = id;
+    else if (type === 'contrato_activado' || type === 'aviso_renovacion' || type === 'aviso_vencimiento') body.contrato_id = id;
+    else if (type === 'factura_pendiente' || type === 'recordatorio_pago') body.factura_id = id;
+  }
   if (toEmail) body.to_email = toEmail;
   await supabase.functions
     .invoke('trade-maintenance-email', {

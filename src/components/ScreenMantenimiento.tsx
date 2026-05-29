@@ -15,12 +15,13 @@ import {
   loadMaintenanceModelos, saveMaintenanceModelo, deleteMaintenanceModelo, useMaintenanceModelo,
   loadMaintenanceFacturas, markFacturaPagada, sendMaintenanceNotification,
   saveMaintenanceIncidencia, updateMaintenanceIncidencia, sendParteTrabajo,
+  loadOrgMembers,
 } from '../lib/supabase';
 import type {
   MaintenancePlantilla, MaintenancePresupuesto, MaintenanceContrato,
   MaintenanceIncidencia, MaintenanceDetectResult, MaintenanceDocumento,
   MaintenanceSLA, MaintenanceSector, MaintenanceOficio, MaintenanceModelo,
-  MaintenanceFactura,
+  MaintenanceFactura, OrgMember,
 } from '../lib/supabase';
 
 interface Props {
@@ -655,21 +656,26 @@ function ConvertirModal({ presupuesto, onClose, onConverted, showToast }: Conver
 interface NuevaIncidenciaModalProps {
   contratos: MaintenanceContrato[];
   orgId: string;
+  members: OrgMember[];
   onClose: () => void;
   onSaved: (i: MaintenanceIncidencia) => void;
   showToast: Props['showToast'];
 }
 
-function NuevaIncidenciaModal({ contratos, orgId, onClose, onSaved, showToast }: NuevaIncidenciaModalProps) {
+function NuevaIncidenciaModal({ contratos, orgId, members, onClose, onSaved, showToast }: NuevaIncidenciaModalProps) {
   const [titulo, setTitulo] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [prioridad, setPrioridad] = useState<MaintenanceIncidencia['prioridad']>('normal');
   const [contratoId, setContratoId] = useState<string>('');
+  const [tecnicoUserId, setTecnicoUserId] = useState<string>('');
   const [saving, setSaving] = useState(false);
+
+  const tecnicosMember = members.filter(m => m.rol === 'tecnico' || m.rol === 'admin' || m.rol === 'owner');
 
   const handleSave = async () => {
     if (!titulo.trim()) { showToast('El título es obligatorio', 'error'); return; }
     setSaving(true);
+    const tecnico = tecnicosMember.find(m => m.user_id === tecnicoUserId) ?? null;
     try {
       const saved = await saveMaintenanceIncidencia(orgId, {
         contrato_id: contratoId || null,
@@ -679,7 +685,7 @@ function NuevaIncidenciaModal({ contratos, orgId, onClose, onSaved, showToast }:
         estado: 'abierta',
         prioridad,
         fecha_reporte: new Date().toISOString(),
-        fecha_asignacion: null,
+        fecha_asignacion: tecnico ? new Date().toISOString() : null,
         fecha_inicio_intervencion: null,
         fecha_resolucion: null,
         tiempo_respuesta_min: null,
@@ -688,6 +694,8 @@ function NuevaIncidenciaModal({ contratos, orgId, onClose, onSaved, showToast }:
         es_extra_contrato: false,
         importe_extra: null,
         notas_resolucion: null,
+        tecnico_user_id: tecnico?.user_id ?? null,
+        tecnico_email: tecnico?.email ?? null,
       });
       showToast('Incidencia registrada', 'success');
       onSaved(saved);
@@ -751,6 +759,21 @@ function NuevaIncidenciaModal({ contratos, orgId, onClose, onSaved, showToast }:
             </select>
           </div>
 
+          {tecnicosMember.length > 0 && (
+            <div>
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1.5">Técnico asignado (opcional)</label>
+              <select
+                value={tecnicoUserId} onChange={e => setTecnicoUserId(e.target.value)}
+                className="w-full text-sm border border-slate-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-slate-300 bg-white"
+              >
+                <option value="">— Sin asignar —</option>
+                {tecnicosMember.map(m => (
+                  <option key={m.user_id} value={m.user_id}>{m.email} ({m.rol})</option>
+                ))}
+              </select>
+            </div>
+          )}
+
           <div>
             <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1.5">Descripción</label>
             <textarea
@@ -781,17 +804,34 @@ function NuevaIncidenciaModal({ contratos, orgId, onClose, onSaved, showToast }:
 
 interface DetalleIncidenciaModalProps {
   incidencia: MaintenanceIncidencia;
+  members: OrgMember[];
   onClose: () => void;
   onUpdated: (i: MaintenanceIncidencia) => void;
   showToast: Props['showToast'];
 }
 
-function DetalleIncidenciaModal({ incidencia, onClose, onUpdated, showToast }: DetalleIncidenciaModalProps) {
+function DetalleIncidenciaModal({ incidencia, members, onClose, onUpdated, showToast }: DetalleIncidenciaModalProps) {
   const [notas, setNotas] = useState(incidencia.notas_resolucion ?? '');
   const [esExtra, setEsExtra] = useState(incidencia.es_extra_contrato);
   const [importe, setImporte] = useState(String(incidencia.importe_extra ?? ''));
+  const [tecnicoUserId, setTecnicoUserId] = useState(incidencia.tecnico_user_id ?? '');
   const [saving, setSaving] = useState(false);
   const [sendingParte, setSendingParte] = useState(false);
+
+  const tecnicosMember = members.filter(m => m.rol === 'tecnico' || m.rol === 'admin' || m.rol === 'owner');
+
+  const handleAsignarTecnico = async (userId: string) => {
+    setTecnicoUserId(userId);
+    const tecnico = tecnicosMember.find(m => m.user_id === userId) ?? null;
+    try {
+      await updateMaintenanceIncidencia(incidencia.id, {
+        tecnico_user_id: tecnico?.user_id ?? null,
+        tecnico_email: tecnico?.email ?? null,
+        fecha_asignacion: tecnico ? new Date().toISOString() : null,
+      });
+      onUpdated({ ...incidencia, tecnico_user_id: tecnico?.user_id ?? null, tecnico_email: tecnico?.email ?? null });
+    } catch (e) { showToast(String(e), 'error'); }
+  };
 
   const calcMinutos = (desde: string, hasta: string) =>
     Math.round((new Date(hasta).getTime() - new Date(desde).getTime()) / 60000);
@@ -916,6 +956,29 @@ function DetalleIncidenciaModal({ incidencia, onClose, onUpdated, showToast }: D
               ))}
             </div>
           </div>
+
+          {/* Técnico asignado */}
+          {tecnicosMember.length > 0 && incidencia.estado !== 'cerrada' && (
+            <div>
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1.5">Técnico asignado</label>
+              <select
+                value={tecnicoUserId}
+                onChange={e => void handleAsignarTecnico(e.target.value)}
+                className="w-full text-sm border border-slate-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-slate-300 bg-white"
+              >
+                <option value="">— Sin asignar —</option>
+                {tecnicosMember.map(m => (
+                  <option key={m.user_id} value={m.user_id}>{m.email} ({m.rol})</option>
+                ))}
+              </select>
+            </div>
+          )}
+          {incidencia.estado === 'cerrada' && incidencia.tecnico_email && (
+            <div className="bg-slate-50 rounded-xl p-3 flex items-center gap-2">
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Técnico</span>
+              <span className="text-sm font-semibold text-slate-700 ml-auto">{incidencia.tecnico_email}</span>
+            </div>
+          )}
 
           {/* Notas de resolución */}
           {incidencia.estado !== 'cerrada' && (
@@ -1159,19 +1222,21 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
   const [guardarModelo, setGuardarModelo] = useState<MaintenancePresupuesto | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [usandoModelo, setUsandoModelo] = useState<string | null>(null);
+  const [orgMembers, setOrgMembers] = useState<OrgMember[]>([]);
   const [showNuevaIncidencia, setShowNuevaIncidencia] = useState(false);
   const [detalleIncidencia, setDetalleIncidencia] = useState<MaintenanceIncidencia | null>(null);
 
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
-      const [catalogs, presups, contratos_, incids, mods, facts] = await Promise.all([
+      const [catalogs, presups, contratos_, incids, mods, facts, members] = await Promise.all([
         loadMaintenanceCatalogs(),
         loadMaintenancePresupuestos(orgId),
         loadMaintenanceContratos(orgId),
         loadMaintenanceIncidencias(orgId),
         loadMaintenanceModelos(orgId),
         loadMaintenanceFacturas(orgId),
+        loadOrgMembers(orgId),
       ]);
       setPlantillas(catalogs.plantillas);
       setSlaList(catalogs.sla);
@@ -1182,6 +1247,7 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
       setIncidencias(incids);
       setModelos(mods);
       setFacturas(facts);
+      setOrgMembers(members);
     } catch {
       showToast('Error cargando datos de mantenimiento', 'error');
     } finally {
@@ -1725,6 +1791,7 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
         <NuevaIncidenciaModal
           contratos={contratos}
           orgId={orgId}
+          members={orgMembers}
           showToast={showToast}
           onClose={() => setShowNuevaIncidencia(false)}
           onSaved={saved => {
@@ -1737,6 +1804,7 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
       {detalleIncidencia && (
         <DetalleIncidenciaModal
           incidencia={detalleIncidencia}
+          members={orgMembers}
           showToast={showToast}
           onClose={() => setDetalleIncidencia(null)}
           onUpdated={updated => {
