@@ -5,7 +5,7 @@ import {
   TrendingUp, Euro, TriangleAlert, RefreshCw, X, Check,
   Droplets, Wind, Sparkles, Leaf, Wifi, ArrowUpDown,
   Eye, Edit2, ArrowRight, BookOpen, Shield, ChevronDown, ChevronUp,
-  BookmarkPlus,
+  BookmarkPlus, Send, Receipt, BadgeEuro,
 } from 'lucide-react';
 import {
   loadMaintenanceCatalogs, loadMaintenancePresupuestos, loadMaintenanceContratos,
@@ -13,11 +13,13 @@ import {
   updateMaintenancePresupuesto, deleteMaintenancePresupuesto,
   generateMaintenanceDocument, convertPresupuestoToContrato,
   loadMaintenanceModelos, saveMaintenanceModelo, deleteMaintenanceModelo, useMaintenanceModelo,
+  loadMaintenanceFacturas, markFacturaPagada, sendMaintenanceNotification,
 } from '../lib/supabase';
 import type {
   MaintenancePlantilla, MaintenancePresupuesto, MaintenanceContrato,
   MaintenanceIncidencia, MaintenanceDetectResult, MaintenanceDocumento,
   MaintenanceSLA, MaintenanceSector, MaintenanceOficio, MaintenanceModelo,
+  MaintenanceFactura,
 } from '../lib/supabase';
 
 interface Props {
@@ -769,7 +771,7 @@ function GuardarModeloModal({ presupuesto, orgId, onClose, onSaved, showToast }:
 // ── Componente principal ──────────────────────────────────────────────────────
 
 export default function ScreenMantenimiento({ orgId, showToast }: Props) {
-  const [tab, setTab] = useState<'presupuestos' | 'contratos' | 'incidencias' | 'modelos'>('presupuestos');
+  const [tab, setTab] = useState<'presupuestos' | 'contratos' | 'incidencias' | 'modelos' | 'facturas'>('presupuestos');
   const [loading, setLoading] = useState(true);
   const [presupuestos, setPresupuestos] = useState<MaintenancePresupuesto[]>([]);
   const [contratos, setContratos] = useState<MaintenanceContrato[]>([]);
@@ -780,6 +782,9 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
   const [oficios, setOficios] = useState<MaintenanceOficio[]>([]);
 
   const [modelos, setModelos] = useState<MaintenanceModelo[]>([]);
+  const [facturas, setFacturas] = useState<MaintenanceFactura[]>([]);
+  const [markingPagada, setMarkingPagada] = useState<string | null>(null);
+  const [sendingEmail, setSendingEmail] = useState<string | null>(null);
 
   const [showNuevoModal, setShowNuevoModal] = useState(false);
   const [editPresup, setEditPresup] = useState<MaintenancePresupuesto | null>(null);
@@ -792,12 +797,13 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
   const loadData = useCallback(async () => {
     setLoading(true);
     try {
-      const [catalogs, presups, contratos_, incids, mods] = await Promise.all([
+      const [catalogs, presups, contratos_, incids, mods, facts] = await Promise.all([
         loadMaintenanceCatalogs(),
         loadMaintenancePresupuestos(orgId),
         loadMaintenanceContratos(orgId),
         loadMaintenanceIncidencias(orgId),
         loadMaintenanceModelos(orgId),
+        loadMaintenanceFacturas(orgId),
       ]);
       setPlantillas(catalogs.plantillas);
       setSlaList(catalogs.sla);
@@ -807,6 +813,7 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
       setContratos(contratos_);
       setIncidencias(incids);
       setModelos(mods);
+      setFacturas(facts);
     } catch {
       showToast('Error cargando datos de mantenimiento', 'error');
     } finally {
@@ -820,6 +827,7 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
   const mrrContratos = contratos.filter(c => c.estado === 'activo').reduce((s, c) => s + (c.cuota_mensual ?? 0), 0);
   const incidenciasAbiertas = incidencias.filter(i => i.estado === 'abierta' || i.estado === 'en_curso').length;
   const presupuestosPendientes = presupuestos.filter(p => p.estado === 'borrador' || p.estado === 'enviado').length;
+  const pendienteCobro = facturas.filter(f => f.estado === 'pendiente').reduce((s, f) => s + Number(f.total_con_iva), 0);
 
   const handleDeletePresup = async (id: string) => {
     setDeletingId(id);
@@ -835,7 +843,29 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
     try {
       await updateMaintenancePresupuesto(id, { estado });
       setPresupuestos(prev => prev.map(p => p.id === id ? { ...p, estado } : p));
+      if (estado === 'enviado') {
+        void sendMaintenanceNotification('presupuesto_enviado', id);
+      }
     } catch { showToast('Error al actualizar estado', 'error'); }
+  };
+
+  const handleMarkPagada = async (id: string) => {
+    setMarkingPagada(id);
+    try {
+      await markFacturaPagada(id);
+      setFacturas(prev => prev.map(f => f.id === id ? { ...f, estado: 'pagada', fecha_pago: new Date().toISOString().split('T')[0] } : f));
+      showToast('Factura marcada como pagada', 'success');
+    } catch { showToast('Error al marcar como pagada', 'error'); }
+    finally { setMarkingPagada(null); }
+  };
+
+  const handleSendEmail = async (type: 'presupuesto_enviado' | 'contrato_activado' | 'factura_pendiente', id: string) => {
+    setSendingEmail(id);
+    try {
+      await sendMaintenanceNotification(type, id);
+      showToast('Email enviado', 'success');
+    } catch { showToast('Error al enviar email', 'error'); }
+    finally { setSendingEmail(null); }
   };
 
   const handleUsarModelo = async (modelo: MaintenanceModelo) => {
@@ -884,7 +914,7 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
         {[
           { label: 'Contratos activos',   value: contratosActivos,        icon: <CheckCircle className="w-5 h-5 text-emerald-500" />, cls: 'border-emerald-100' },
           { label: 'MRR contratos',        value: fmtEur(mrrContratos),    icon: <Euro className="w-5 h-5 text-blue-500" />,          cls: 'border-blue-100' },
-          { label: 'Incidencias abiertas', value: incidenciasAbiertas,     icon: <TriangleAlert className="w-5 h-5 text-amber-500" />, cls: 'border-amber-100' },
+          { label: 'Pendiente cobro',      value: fmtEur(pendienteCobro),  icon: <BadgeEuro className="w-5 h-5 text-orange-500" />,   cls: 'border-orange-100' },
           { label: 'Presupuestos pdte.',   value: presupuestosPendientes,  icon: <FileText className="w-5 h-5 text-purple-500" />,    cls: 'border-purple-100' },
         ].map(({ label, value, icon, cls }) => (
           <div key={label} className={`bg-white rounded-2xl border ${cls} shadow-sm p-4 flex items-center gap-3`}>
@@ -899,9 +929,10 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
 
       {/* Tabs + acciones */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-        <div className="flex gap-1 bg-slate-100 p-1 rounded-xl overflow-x-auto">
+        <div className="flex gap-1 bg-slate-100 p-1 rounded-xl overflow-x-auto shrink-0">
           <button onClick={() => setTab('presupuestos')} className={tabCls('presupuestos')}>Presupuestos ({presupuestos.length})</button>
           <button onClick={() => setTab('contratos')} className={tabCls('contratos')}>Contratos ({contratos.length})</button>
+          <button onClick={() => setTab('facturas')} className={tabCls('facturas')}>Facturas ({facturas.length})</button>
           <button onClick={() => setTab('incidencias')} className={tabCls('incidencias')}>Incidencias ({incidenciasAbiertas})</button>
           <button onClick={() => setTab('modelos')} className={tabCls('modelos')}>Modelos ({modelos.length})</button>
         </div>
@@ -1017,9 +1048,98 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
                         {c.proxima_factura && <span className="text-[10px] text-blue-500 font-semibold">Próx. factura: {fmtDate(c.proxima_factura)}</span>}
                       </div>
                     </div>
-                    <div className="shrink-0 text-right">
-                      <span className="text-base font-black text-slate-900">{fmtEur(c.cuota_mensual)}</span>
-                      <span className="text-[10px] text-slate-400 block">/mes + IVA</span>
+                    <div className="shrink-0 flex items-center gap-2">
+                      <div className="text-right">
+                        <span className="text-base font-black text-slate-900">{fmtEur(c.cuota_mensual)}</span>
+                        <span className="text-[10px] text-slate-400 block">/mes + IVA</span>
+                      </div>
+                      <button
+                        onClick={() => void handleSendEmail('contrato_activado', c.id)}
+                        disabled={sendingEmail === c.id}
+                        title="Enviar email de contrato"
+                        className="p-1.5 rounded-lg text-slate-300 hover:text-blue-500 hover:bg-blue-50 cursor-pointer disabled:opacity-40 transition-colors"
+                      >
+                        {sendingEmail === c.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── Tab: Facturas ── */}
+      {tab === 'facturas' && (
+        <div className={sec}>
+          {facturas.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <Receipt className="w-10 h-10 text-slate-200 mb-3" />
+              <p className="text-slate-400 text-sm font-semibold">Sin facturas de mantenimiento</p>
+              <p className="text-slate-300 text-xs mt-1">Las facturas se generan automáticamente cada mes para los contratos activos</p>
+            </div>
+          ) : (
+            <div className="divide-y divide-slate-100">
+              {facturas.map(f => {
+                const contrato = f.trade_maintenance_contratos;
+                const isPendiente = f.estado === 'pendiente';
+                const isVencida = isPendiente && f.fecha_vencimiento && new Date(f.fecha_vencimiento) < new Date();
+                return (
+                  <div key={f.id} className="py-3.5 flex items-start gap-3">
+                    <div className={`shrink-0 w-8 h-8 rounded-xl flex items-center justify-center ${isPendiente ? (isVencida ? 'bg-red-50 text-red-500' : 'bg-orange-50 text-orange-500') : 'bg-emerald-50 text-emerald-500'}`}>
+                      <Receipt className="w-4 h-4" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-bold text-slate-900 text-sm">{contrato?.nombre_cliente ?? '—'}</span>
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                          f.estado === 'pagada' ? 'bg-emerald-100 text-emerald-700' :
+                          isVencida ? 'bg-red-100 text-red-700' :
+                          'bg-orange-100 text-orange-700'
+                        }`}>
+                          {f.estado === 'pagada' ? 'Pagada' : isVencida ? 'Vencida' : 'Pendiente'}
+                        </span>
+                        {f.numero && <span className="text-[10px] text-slate-400 font-mono">{f.numero}</span>}
+                      </div>
+                      <p className="text-xs text-slate-500 mt-0.5 capitalize">{contrato?.oficio ?? ''}</p>
+                      <div className="flex items-center gap-3 mt-1">
+                        <span className="text-[10px] text-slate-400">
+                          {fmtDate(f.periodo_inicio)} – {fmtDate(f.periodo_fin)}
+                        </span>
+                        {f.fecha_vencimiento && isPendiente && (
+                          <span className={`text-[10px] font-semibold ${isVencida ? 'text-red-500' : 'text-slate-400'}`}>
+                            Vto: {fmtDate(f.fecha_vencimiento)}
+                          </span>
+                        )}
+                        {f.fecha_pago && (
+                          <span className="text-[10px] text-emerald-600 font-semibold">Pagada {fmtDate(f.fecha_pago)}</span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="shrink-0 flex items-center gap-2">
+                      <div className="text-right mr-1">
+                        <span className="text-sm font-black text-slate-900">{fmtEur(Number(f.total_con_iva))}</span>
+                        <span className="text-[10px] text-slate-400 block">+IVA {f.iva_pct}%</span>
+                      </div>
+                      <button
+                        onClick={() => void handleSendEmail('factura_pendiente', f.id)}
+                        disabled={sendingEmail === f.id}
+                        title="Enviar email"
+                        className="p-1.5 rounded-lg text-slate-300 hover:text-blue-500 hover:bg-blue-50 cursor-pointer disabled:opacity-40 transition-colors"
+                      >
+                        {sendingEmail === f.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+                      </button>
+                      {isPendiente && (
+                        <button
+                          onClick={() => void handleMarkPagada(f.id)}
+                          disabled={markingPagada === f.id}
+                          className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-600 text-[10px] font-bold hover:bg-emerald-100 cursor-pointer disabled:opacity-40 flex items-center gap-1 transition-colors"
+                        >
+                          {markingPagada === f.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
+                          Pagada
+                        </button>
+                      )}
                     </div>
                   </div>
                 );
@@ -1188,6 +1308,7 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
             setPresupuestos(prev => prev.map(p => p.id === updatedP.id ? updatedP : p));
             setConvertPresup(null);
             setTab('contratos');
+            void sendMaintenanceNotification('contrato_activado', c.id);
           }}
         />
       )}

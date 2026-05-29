@@ -2004,6 +2004,68 @@ export async function updateMaintenanceContrato(id: string, updates: Partial<Mai
   if (error) throw error;
 }
 
+// ── Facturas de mantenimiento ──────────────────────────────────────────────────
+
+export interface MaintenanceFactura {
+  id: string;
+  org_id: string;
+  contrato_id: string;
+  client_id: string | null;
+  numero: string | null;
+  estado: 'pendiente' | 'pagada' | 'cancelada';
+  periodo_inicio: string;
+  periodo_fin: string;
+  cuota_base: number;
+  extras: number;
+  total_neto: number;
+  iva_pct: number;
+  total_con_iva: number;
+  fecha_emision: string | null;
+  fecha_vencimiento: string | null;
+  fecha_pago: string | null;
+  notas: string | null;
+  created_at: string;
+  trade_maintenance_contratos?: { nombre_cliente: string | null; oficio: string; sector: string | null } | null;
+}
+
+export async function loadMaintenanceFacturas(orgId: string): Promise<MaintenanceFactura[]> {
+  const { data, error } = await supabase
+    .from('trade_maintenance_facturas')
+    .select('*, trade_maintenance_contratos(nombre_cliente, oficio, sector)')
+    .eq('org_id', orgId)
+    .order('fecha_emision', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as MaintenanceFactura[];
+}
+
+export async function markFacturaPagada(id: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_maintenance_facturas')
+    .update({ estado: 'pagada', fecha_pago: new Date().toISOString().split('T')[0] })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+export async function sendMaintenanceNotification(
+  type: 'presupuesto_enviado' | 'contrato_activado' | 'factura_pendiente',
+  id: string,
+  toEmail?: string,
+): Promise<void> {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) return;
+  const body: Record<string, string> = { type };
+  if (type === 'presupuesto_enviado')  body.presupuesto_id = id;
+  else if (type === 'contrato_activado') body.contrato_id  = id;
+  else body.factura_id = id;
+  if (toEmail) body.to_email = toEmail;
+  await supabase.functions
+    .invoke('trade-maintenance-email', {
+      body,
+      headers: { Authorization: `Bearer ${session.access_token}` },
+    })
+    .catch(() => {/* fire-and-forget */});
+}
+
 // ── Modelos reutilizables ──────────────────────────────────────────────────────
 
 export interface MaintenanceModelo {
