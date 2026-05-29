@@ -655,6 +655,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const streamTimeoutRef = useRef<NodeJS.Timeout[]>([]);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
+  const audioMimeTypeRef = useRef<string>('audio/webm');
 
   const dictadoFicticio = [
     "Apunta", "instalación", "de", "caldera", "de", "gas", "Vaillant", "Turbomag", 
@@ -686,6 +687,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         const mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 'audio/mp4';
+        audioMimeTypeRef.current = mimeType;
         const recorder = new MediaRecorder(stream, { mimeType });
         mediaRecorderRef.current = recorder;
         audioChunksRef.current = [];
@@ -809,26 +811,27 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       const tipo: PartidaPresupuesto['tipo'] = p.tipo_partida === 'material' ? 'material' : 'mano_de_obra';
 
       // Para materiales sin precio: intentar match en catálogo del profesional
-      if (p.tipo_partida === 'material' && p.precio_unitario === 0 && catalogProducts.length > 0) {
+      if (p.tipo_partida === 'material' && (p.precio_unitario ?? 0) === 0 && catalogProducts.length > 0) {
         const catalogMatch = matchProductForAI(p.concepto || p.descripcion, catalogProducts);
         if (catalogMatch) {
           const pu = catalogMatch.variant.precio_venta;
+          const qty = p.cantidad ?? 1;
           return {
             descripcion: `${catalogMatch.product.nombre_generico} (${catalogMatch.variant.marca})`,
             tipo,
-            cantidad: p.cantidad,
+            cantidad: qty,
             precioUnitario: pu,
-            total: pu * p.cantidad,
+            total: pu * qty,
           };
         }
       }
 
       return {
-        descripcion: p.concepto || p.descripcion,
+        descripcion: p.concepto || p.descripcion || '',
         tipo,
-        cantidad: p.cantidad,
-        precioUnitario: p.precio_unitario,
-        total: p.total,
+        cantidad: p.cantidad ?? 1,
+        precioUnitario: p.precio_unitario ?? 0,
+        total: p.total ?? 0,
         requiere_precio: p.requiere_revision,
         aviso: p.motivo_revision || undefined,
       };
@@ -837,8 +840,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   const handleVoiceResult = (transcript: string, quote: AIQuote) => {
     const partidas = quoteToPartidas(quote);
-    const total = quote.calculos?.total ?? partidas.reduce((s, p) => s + p.total, 0);
-    const desc = (quote.resumen?.tipo_presupuesto || quote.resumen?.texto_original || transcript).slice(0, 80);
+    const total = quote.calculos?.total ?? partidas.reduce((s, p) => s + (p.total ?? 0), 0);
+    const desc = (
+      (typeof quote.resumen === 'string' ? quote.resumen : quote.resumen?.tipo_presupuesto || quote.resumen?.texto_original) || transcript
+    ).slice(0, 80);
 
     setWizardQuote(prev => ({ ...prev, descripcion: desc, partidas, total, estado: 'Borrador' as const }));
     setEditingQuote(prev => ({ ...prev, descripcion: desc, partidas, total }));
@@ -846,10 +851,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setVoiceStep('done');
     mediaRecorderRef.current = null;
     audioChunksRef.current = [];
-    showToast('Voz procesada por IA ✓');
+    showToast('Voz procesada por IA ✓', 'success');
     setTimeout(() => {
       setVoiceStep('idle');
       setIsVoiceModalOpen(false);
+      // Desktop: navegar a crear presupuesto para mostrar el resultado
+      setActiveTab('create_quote');
+      // Mobile: activar wizard en paso 4 si no estaba ya activo
+      setWizardActive(true);
       setWizardStep(4);
     }, 900);
   };
@@ -877,9 +886,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
     mediaRecorderRef.current?.stream.getTracks().forEach(t => t.stop());
 
-    const blob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+    const mimeType = audioMimeTypeRef.current;
+    const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
+    const blob = new Blob(audioChunksRef.current, { type: mimeType });
+    if (blob.size < 100) {
+      showToast('Audio demasiado corto — habla un poco más', 'error');
+      setVoiceStep('idle');
+      return;
+    }
     const formData = new FormData();
-    formData.append('audio', blob, 'audio.webm');
+    formData.append('audio', blob, `audio.${ext}`);
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -3146,7 +3162,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         </>
                       )}
                       <span className="ml-auto font-bold font-mono text-slate-900 dark:text-white whitespace-nowrap">
-                        {part.total.toFixed(2)}€
+                        {(part.total ?? 0).toFixed(2)}€
                       </span>
                     </div>
                   </div>
@@ -3208,7 +3224,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       {wizardQuote.partidas?.map((part, idx) => (
                         <div key={idx} className="flex justify-between items-baseline text-[10.5px] text-slate-650 dark:text-slate-400">
                           <span className="truncate pr-2">✓ {part.descripcion} x{part.cantidad}</span>
-                          <span className="font-mono font-semibold shrink-0">{part.total.toFixed(0)}€</span>
+                          <span className="font-mono font-semibold shrink-0">{(part.total ?? 0).toFixed(0)}€</span>
                         </div>
                       ))}
                     </div>
@@ -3706,7 +3722,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <span className="text-[10px] text-slate-450 block truncate">{p.descripcion}</span>
                   </div>
                   <div className="text-right shrink-0">
-                    <span className="text-xs font-bold font-mono text-slate-800">{p.total.toFixed(0)}€</span>
+                    <span className="text-xs font-bold font-mono text-slate-800">{(p.total ?? 0).toFixed(0)}€</span>
                   </div>
                 </div>
               ))}
@@ -3838,7 +3854,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   className="w-24 bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-right text-xs text-slate-800"
                 />
 
-                <span className="w-16 text-right text-xs font-mono font-bold text-slate-900">{item.total.toFixed(0)}€</span>
+                <span className="w-16 text-right text-xs font-mono font-bold text-slate-900">{(item.total ?? 0).toFixed(0)}€</span>
 
                 <button onClick={() => handleRemoveItem(idx)} className="text-slate-400 hover:text-red-500 p-1">
                   <Trash2 className="w-4 h-4" />
@@ -3851,7 +3867,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         <div className="border-t border-slate-200 pt-4 flex justify-between items-center">
           <div>
             <span className="text-[9px] text-slate-400 uppercase tracking-wider block font-mono">Total Neto</span>
-            <div className="text-xl font-bold font-mono text-slate-900">{editingQuote.total.toFixed(2)}€</div>
+            <div className="text-xl font-bold font-mono text-slate-900">{(editingQuote.total ?? 0).toFixed(2)}€</div>
           </div>
           <button
             onClick={saveCurrentQuote}

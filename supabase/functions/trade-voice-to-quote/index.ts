@@ -245,9 +245,18 @@ Deno.serve(async (req: Request) => {
         });
       }
 
+      // Validar tamaño mínimo (audio muy corto/vacío falla en Whisper)
+      if (audioFile.size < 100) {
+        return new Response(JSON.stringify({ error: 'Audio demasiado corto — habla un poco más tiempo' }), {
+          status: 422, headers: { ...CORS, 'Content-Type': 'application/json' },
+        });
+      }
+
       // ── Step 2: Transcription (OpenAI Whisper) ─────────────────────────────
+      // Preservar extensión original para que Whisper detecte el formato correctamente
+      const originalName = audioFile.name || 'audio.webm';
       const whisperForm = new FormData();
-      whisperForm.append('file', audioFile, 'audio.webm');
+      whisperForm.append('file', audioFile, originalName);
       whisperForm.append('model', 'gpt-4o-mini-transcribe');
       whisperForm.append('language', 'es');
       whisperForm.append('prompt', 'Transcripción de un profesional describiendo trabajos técnicos, instalaciones, reparaciones o reformas. Español de España.');
