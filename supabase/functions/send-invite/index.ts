@@ -42,6 +42,14 @@ serve(async (req) => {
     const normalEmail = email.trim().toLowerCase();
     if (caller.email === normalEmail) return json({ error: 'No puedes invitarte a ti mismo' }, 400);
 
+    // Límite de miembros según plan
+    const PLAN_MEMBER_LIMITS: Record<string, number> = {
+      basico:       0,
+      profesional:  0,
+      empresa:      5,
+      empresa_plus: 15,
+    };
+
     // Verificar que el llamante es owner o admin de la org
     const { data: org } = await supabase
       .from('trade_organizations')
@@ -66,21 +74,47 @@ serve(async (req) => {
       }
     }
 
-    // Comprobar limite de miembros (19 + owner = 20)
+    // Comprobar plan y límite de miembros según el mismo
+    const { data: sub } = await supabase
+      .from('trade_subscriptions')
+      .select('plan')
+      .eq('org_id', org_id)
+      .maybeSingle();
+
+    const plan = sub?.plan ?? 'basico';
+    const memberLimit = PLAN_MEMBER_LIMITS[plan] ?? 0;
+
+    if (memberLimit === 0) {
+      return json({
+        error: `Tu plan ${plan === 'basico' ? 'Básico' : 'Profesional'} no permite añadir miembros al equipo. Actualiza al Plan Empresa o superior.`,
+        plan_restriction: true,
+        plan,
+      }, 403);
+    }
+
     const { count } = await supabase
       .from('trade_org_members')
       .select('id', { count: 'exact', head: true })
       .eq('org_id', org_id)
       .eq('activo', true);
 
-    if ((count ?? 0) >= 19) {
-      return json({ error: 'Limite de 20 miembros alcanzado' }, 400);
+    if ((count ?? 0) >= memberLimit) {
+      return json({
+        error: `Has alcanzado el límite de ${memberLimit} miembro${memberLimit !== 1 ? 's' : ''} para el plan ${plan === 'empresa' ? 'Empresa' : 'Empresa+'}. ${plan === 'empresa' ? 'Actualiza a Empresa+ para hasta 15 miembros.' : ''}`.trim(),
+        plan_restriction: true,
+        plan,
+        limit: memberLimit,
+        used: count ?? 0,
+      }, 403);
     }
 
     // Invitar usuario via Supabase admin (crea cuenta si no existe, envía magic link si ya existe)
     const { data: inviteData, error: inviteErr } = await supabase.auth.admin.inviteUserByEmail(
       normalEmail,
-      { redirectTo: `${APP_URL}/auth/callback` },
+      {
+        redirectTo: `${APP_URL}/auth/callback`,
+        data: { invited_to_org: org_id, invited_rol: rol },
+      },
     );
 
     if (inviteErr) return json({ error: inviteErr.message }, 400);

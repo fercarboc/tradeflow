@@ -199,6 +199,30 @@ export async function getOrCreateOrg(): Promise<TradeOrganization | null> {
 
   if (existing) return existing;
 
+  // Before creating a new org, check if this user was invited to an existing org.
+  // Activate any pending invitation first (activo: false → true), then look it up.
+  await supabase
+    .from('trade_org_members')
+    .update({ activo: true })
+    .eq('user_id', user.id)
+    .eq('activo', false);
+
+  const { data: membership } = await supabase
+    .from('trade_org_members')
+    .select('org_id')
+    .eq('user_id', user.id)
+    .eq('activo', true)
+    .maybeSingle();
+
+  if (membership?.org_id) {
+    const { data: memberOrg } = await supabase
+      .from('trade_organizations')
+      .select('*')
+      .eq('id', membership.org_id)
+      .maybeSingle();
+    if (memberOrg) return memberOrg;
+  }
+
   // Create from user metadata written during self-registration wizard
   const meta = user.user_metadata ?? {};
   const trialEnd = new Date();

@@ -2,6 +2,30 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { ActivePage } from '../../types';
 
+async function activatePendingMembership(userId: string, orgIdFromUrl: string | null) {
+  // Activate any pending org_member rows for this user
+  await supabase
+    .from('trade_org_members')
+    .update({ activo: true })
+    .eq('user_id', userId)
+    .eq('activo', false);
+
+  // If org_id is in the URL but membership wasn't pre-created, upsert now
+  if (orgIdFromUrl) {
+    const { data: existing } = await supabase
+      .from('trade_org_members')
+      .select('id')
+      .eq('user_id', userId)
+      .eq('org_id', orgIdFromUrl)
+      .maybeSingle();
+    if (!existing) {
+      await supabase
+        .from('trade_org_members')
+        .upsert({ user_id: userId, org_id: orgIdFromUrl, activo: true }, { onConflict: 'org_id,user_id' });
+    }
+  }
+}
+
 interface AuthActivateViewProps {
   setCurrentPage: (page: ActivePage) => void;
 }
@@ -16,6 +40,7 @@ export default function AuthActivateView({ setCurrentPage }: AuthActivateViewPro
     const params = new URLSearchParams(window.location.search);
     const token_hash = params.get('token_hash');
     const type = params.get('type') as 'invite' | 'signup' | 'recovery' | null;
+    const orgIdFromUrl = params.get('org_id') || null;
 
     if (!token_hash || !type) {
       setState('error');
@@ -25,11 +50,15 @@ export default function AuthActivateView({ setCurrentPage }: AuthActivateViewPro
 
     supabase.auth
       .verifyOtp({ token_hash, type })
-      .then(({ error }) => {
+      .then(async ({ data, error }) => {
         if (error) {
           setState('error');
           setErrorMsg(translateError(error.message));
           return;
+        }
+        // Activate membership immediately after OTP verification
+        if (type === 'invite' && data.user) {
+          await activatePendingMembership(data.user.id, orgIdFromUrl);
         }
         setState('success');
         setTimeout(() => setCurrentPage(ActivePage.UpdatePassword), 1500);

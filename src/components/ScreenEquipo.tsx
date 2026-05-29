@@ -26,7 +26,10 @@ interface Props {
 }
 
 export default function ScreenEquipo({ showToast }: Props) {
-  const { user, org, rol: myRol } = useSession();
+  const { user, org, rol: myRol, subscription } = useSession();
+
+  const PLAN_MEMBER_LIMITS: Record<string, number> = { basico: 0, profesional: 0, empresa: 5, empresa_plus: 15 };
+  const memberLimit = PLAN_MEMBER_LIMITS[subscription?.plan ?? 'basico'] ?? 0;
   const [members, setMembers] = useState<OrgMember[]>([]);
   const [loading, setLoading] = useState(true);
   const [inviteOpen, setInviteOpen] = useState(false);
@@ -50,17 +53,22 @@ export default function ScreenEquipo({ showToast }: Props) {
     if (!org || !inviteEmail.trim()) return;
     setInviting(true);
     try {
-      const { error } = await supabase.functions.invoke('send-invite', {
+      const { data, error } = await supabase.functions.invoke('send-invite', {
         body: { email: inviteEmail.trim().toLowerCase(), rol: inviteRol, org_id: org.id },
       });
       if (error) throw new Error(error.message);
+      if (data?.plan_restriction) {
+        showToast(data.error ?? 'Tu plan no permite más miembros', 'error');
+        setInviteOpen(false);
+        return;
+      }
       showToast('Invitación enviada', 'success');
       setInviteOpen(false);
       setInviteEmail('');
       const updated = await loadOrgMembers(org.id);
       setMembers(updated);
-    } catch (e) {
-      showToast((e as Error).message ?? 'Error al invitar', 'error');
+    } catch (e: any) {
+      showToast(e.message ?? 'Error al invitar', 'error');
     } finally {
       setInviting(false);
     }
@@ -98,11 +106,23 @@ export default function ScreenEquipo({ showToast }: Props) {
 
       {/* Cabecera */}
       <div className="flex items-center justify-between">
-        <p className="text-sm text-slate-500">{members.length + 1} miembro{members.length !== 0 ? 's' : ''}</p>
+        <div>
+          <p className="text-sm text-slate-500">{members.length + 1} miembro{members.length !== 0 ? 's' : ''}</p>
+          {memberLimit > 0 && (
+            <p className="text-xs text-slate-400 mt-0.5">
+              {members.length}/{memberLimit} miembros adicionales usados
+            </p>
+          )}
+          {memberLimit === 0 && canManage && (
+            <p className="text-xs text-amber-500 mt-0.5">Tu plan no permite miembros adicionales</p>
+          )}
+        </div>
         {canManage && (
           <button
             onClick={() => setInviteOpen(true)}
-            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors cursor-pointer"
+            disabled={memberLimit === 0}
+            className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors cursor-pointer"
+            title={memberLimit === 0 ? 'Actualiza a Plan Empresa para añadir miembros' : undefined}
           >
             <UserPlus className="w-4 h-4" />
             Invitar miembro

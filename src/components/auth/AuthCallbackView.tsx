@@ -38,8 +38,11 @@ export default function AuthCallbackView({ setCurrentPage }: AuthCallbackViewPro
     if (token_hash && type) {
       supabase.auth
         .verifyOtp({ token_hash, type: type as 'invite' | 'signup' | 'recovery' | 'email' })
-        .then(({ error: err }) => {
+        .then(async ({ data, error: err }) => {
           if (err) { setError(err.message); return; }
+          if (type === 'invite' && data.user) {
+            await supabase.from('trade_org_members').update({ activo: true }).eq('user_id', data.user.id).eq('activo', false);
+          }
           routeAfterSession(type, undefined, setCurrentPage);
         });
       return;
