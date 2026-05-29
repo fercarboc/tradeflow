@@ -53,6 +53,7 @@ import {
   Globe,
   Briefcase,
   BarChart2,
+  Wrench,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -67,6 +68,7 @@ import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } fr
 import ScreenPlanificacion from './ScreenPlanificacion';
 import ScreenEquipo from './ScreenEquipo';
 import ScreenIngresos from './ScreenIngresos';
+import ScreenMantenimiento from './ScreenMantenimiento';
 import PlanUpgradeModal from './PlanUpgradeModal';
 import OnboardingWizard from './OnboardingWizard';
 import type { TradeOrganization } from '../lib/supabase';
@@ -3321,6 +3323,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('jobs.view') && SidebarBtn({ id: 'planificacion', icon: <Calendar className="w-4 h-4" />, label: 'Planificación' })}
             {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos' })}
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
+            {subscription?.plan === 'empresa_plus' && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
@@ -3390,6 +3393,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'planificacion' && 'Planificación de Trabajos'}
                 {activeTab === 'ingresos' && 'Ingresos y Rentabilidad'}
                 {activeTab === 'equipo' && 'Equipo y Permisos'}
+                {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
               </h2>
@@ -3481,6 +3485,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
                 {activeTab === 'equipo' && (
                   <ScreenEquipo showToast={showToast} isLiveMode={isLiveMode} />
+                )}
+                {activeTab === 'mantenimiento' && orgId && (
+                  <ScreenMantenimiento orgId={orgId} showToast={showToast} />
                 )}
                 {activeTab === 'settings' && ScreenSettings()}
                 {activeTab === 'preview' && ScreenPreview()}

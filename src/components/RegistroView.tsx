@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { ActivePage } from '../types';
-import { registerUser, sendTrabflowEmail, applyReferralCode } from '../lib/supabase';
+import { supabase, registerUser, sendTrabflowEmail, applyReferralCode } from '../lib/supabase';
 import {
   Droplets, Zap, Hammer, Wind, TreeDeciduous, KeyRound, Paintbrush,
   Layers, Wrench, Building2, ChevronRight, ChevronLeft, Check,
@@ -149,7 +149,6 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
       }
       setNeedsConfirmation(nc);
       setStep(4);
-      sendTrabflowEmail({ type: 'auth_confirm', nombre: displayName, email: form.email.trim() });
       if (!nc) {
         sendTrabflowEmail({ type: 'welcome', nombre: displayName, email: form.email.trim() });
       }
@@ -162,8 +161,8 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
     setResendLoading(true);
     setResendDone(false);
     try {
-      await sendTrabflowEmail({ type: 'auth_confirm', nombre: displayName, email: form.email.trim() });
-      setResendDone(true);
+      const { error: resendErr } = await supabase.auth.resend({ type: 'signup', email: form.email.trim(), options: { emailRedirectTo: 'https://www.trabflow.com/auth/callback' } });
+      if (!resendErr) setResendDone(true);
     } finally {
       setResendLoading(false);
     }

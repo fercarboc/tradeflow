@@ -1733,3 +1733,475 @@ export async function learnPriceToCatalog(
     estado: 'pendiente',
   }).then(() => {/* fire-and-forget */});
 }
+
+// ── Módulo Contratos de Mantenimiento ─────────────────────────────────────────
+
+export interface MaintenanceOficio {
+  id: string;
+  codigo: string;
+  nombre: string;
+  descripcion: string | null;
+  icono: string | null;
+  activo: boolean;
+}
+
+export interface MaintenanceSLA {
+  id: string;
+  nivel: string;
+  nombre: string;
+  tiempo_respuesta_min: number;
+  tiempo_resolucion_min: number;
+  descripcion: string | null;
+  color: string | null;
+}
+
+export interface MaintenanceSector {
+  id: string;
+  codigo: string;
+  nombre: string;
+}
+
+export interface MaintenanceRecargo {
+  id: string;
+  codigo: string;
+  nombre: string;
+  tipo: string;
+  porcentaje: number;
+  descripcion: string | null;
+}
+
+export interface MaintenancePlantilla {
+  id: string;
+  codigo: string;
+  nombre: string;
+  oficio_id: string;
+  sector_id: string;
+  sla_nivel: string;
+  descripcion: string | null;
+  precio_min: number | null;
+  precio_max: number | null;
+  cuota_mensual_base: number | null;
+  incluye_preventivos: boolean;
+  incluye_guardia: boolean;
+  num_visitas_preventivo: number;
+  frecuencia_preventivo: string;
+  materiales_incluidos: boolean;
+  penalizacion_sla_pct: number;
+  variables: string[];
+  clausulas_adicionales: string | null;
+}
+
+export interface MaintenancePresupuesto {
+  id: string;
+  org_id: string;
+  client_id: string | null;
+  plantilla_id: string | null;
+  numero: string | null;
+  estado: 'borrador' | 'enviado' | 'aceptado' | 'rechazado' | 'convertido';
+  oficio: string;
+  sector: string | null;
+  nombre_cliente: string | null;
+  direccion_instalacion: string | null;
+  descripcion_servicios: string | null;
+  cuota_mensual: number | null;
+  cuota_anual: number | null;
+  cuota_trimestral: number | null;
+  tipo_facturacion: 'mensual' | 'trimestral' | 'anual';
+  iva_pct: number;
+  sla_nivel: string | null;
+  tiempo_respuesta_h: number | null;
+  incluye_preventivos: boolean;
+  num_visitas_preventivo: number;
+  incluye_guardia: boolean;
+  materiales_incluidos: boolean;
+  duracion_meses: number | null;
+  texto_libre: string | null;
+  ia_json: Record<string, unknown> | null;
+  notas: string | null;
+  fecha: string;
+  fecha_enviado: string | null;
+  fecha_aceptado: string | null;
+  fecha_vencimiento: string | null;
+  generado_por_ia: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface MaintenanceContrato {
+  id: string;
+  org_id: string;
+  client_id: string | null;
+  presupuesto_id: string | null;
+  plantilla_id: string | null;
+  numero: string | null;
+  estado: 'activo' | 'pausado' | 'cancelado' | 'vencido' | 'renovando';
+  oficio: string;
+  sector: string | null;
+  nombre_cliente: string | null;
+  direccion_instalacion: string | null;
+  descripcion_servicios: string | null;
+  cuota_mensual: number;
+  tipo_facturacion: 'mensual' | 'trimestral' | 'anual';
+  iva_pct: number;
+  sla_nivel: string | null;
+  tiempo_respuesta_h: number | null;
+  incluye_preventivos: boolean;
+  num_visitas_preventivo: number;
+  frecuencia_preventivo: string;
+  incluye_guardia: boolean;
+  materiales_incluidos: boolean;
+  fecha_inicio: string;
+  fecha_fin: string | null;
+  duracion_meses: number;
+  renovacion_automatica: boolean;
+  preaviso_cancelacion_dias: number;
+  dia_facturacion: number;
+  proxima_factura: string | null;
+  ultima_factura: string | null;
+  notas: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface MaintenanceIncidencia {
+  id: string;
+  org_id: string;
+  contrato_id: string | null;
+  client_id: string | null;
+  titulo: string;
+  descripcion: string | null;
+  estado: 'abierta' | 'en_curso' | 'resuelta' | 'cerrada';
+  prioridad: 'critica' | 'urgente' | 'normal' | 'baja';
+  fecha_reporte: string;
+  fecha_resolucion: string | null;
+  sla_cumplido: boolean | null;
+  es_extra_contrato: boolean;
+  importe_extra: number | null;
+  notas_resolucion: string | null;
+  created_at: string;
+}
+
+export interface MaintenanceDetectResult {
+  oficio: string;
+  sector: string;
+  plantilla_codigo: string | null;
+  sla_nivel: string;
+  nombre_cliente: string | null;
+  direccion_instalacion: string | null;
+  descripcion_servicios: string;
+  cuota_mensual_sugerida: number | null;
+  cuota_min: number | null;
+  cuota_max: number | null;
+  tipo_facturacion: 'mensual' | 'trimestral' | 'anual';
+  incluye_preventivos: boolean;
+  num_visitas_preventivo: number;
+  frecuencia_preventivo: string;
+  incluye_guardia: boolean;
+  materiales_incluidos: boolean;
+  duracion_meses: number | null;
+  recargos_aplicables: string[];
+  variables_detectadas: Record<string, string>;
+  confianza: number;
+  resumen: string;
+}
+
+// ── Catálogos ──────────────────────────────────────────────────────────────────
+
+export async function loadMaintenanceCatalogs(): Promise<{
+  oficios: MaintenanceOficio[];
+  sla: MaintenanceSLA[];
+  sectores: MaintenanceSector[];
+  recargos: MaintenanceRecargo[];
+  plantillas: MaintenancePlantilla[];
+}> {
+  const [oficiosRes, slaRes, sectoresRes, recargosRes, plantillasRes] = await Promise.all([
+    supabase.from('trade_maintenance_oficios').select('*').eq('activo', true).order('nombre'),
+    supabase.from('trade_maintenance_sla').select('*').eq('activo', true),
+    supabase.from('trade_maintenance_sectores').select('*').eq('activo', true).order('nombre'),
+    supabase.from('trade_maintenance_recargos').select('*').eq('activo', true),
+    supabase.from('trade_maintenance_plantillas').select('*').eq('activo', true).order('nombre'),
+  ]);
+  return {
+    oficios:    (oficiosRes.data    ?? []) as MaintenanceOficio[],
+    sla:        (slaRes.data        ?? []) as MaintenanceSLA[],
+    sectores:   (sectoresRes.data   ?? []) as MaintenanceSector[],
+    recargos:   (recargosRes.data   ?? []) as MaintenanceRecargo[],
+    plantillas: (plantillasRes.data ?? []) as MaintenancePlantilla[],
+  };
+}
+
+// ── Presupuestos ───────────────────────────────────────────────────────────────
+
+export async function loadMaintenancePresupuestos(orgId: string): Promise<MaintenancePresupuesto[]> {
+  const { data, error } = await supabase
+    .from('trade_maintenance_presupuestos')
+    .select('*')
+    .eq('org_id', orgId)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as MaintenancePresupuesto[];
+}
+
+export async function saveMaintenancePresupuesto(
+  orgId: string,
+  draft: Partial<Omit<MaintenancePresupuesto, 'id' | 'created_at' | 'updated_at'>> & { oficio: string },
+): Promise<MaintenancePresupuesto> {
+  const { data, error } = await supabase
+    .from('trade_maintenance_presupuestos')
+    .insert({ ...draft, org_id: orgId, updated_at: new Date().toISOString() })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as MaintenancePresupuesto;
+}
+
+export async function updateMaintenancePresupuesto(
+  id: string,
+  updates: Partial<MaintenancePresupuesto>,
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_maintenance_presupuestos')
+    .update({ ...updates, updated_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+export async function deleteMaintenancePresupuesto(id: string): Promise<void> {
+  const { error } = await supabase.from('trade_maintenance_presupuestos').delete().eq('id', id);
+  if (error) throw error;
+}
+
+// ── Contratos ──────────────────────────────────────────────────────────────────
+
+export async function loadMaintenanceContratos(orgId: string): Promise<MaintenanceContrato[]> {
+  const { data, error } = await supabase
+    .from('trade_maintenance_contratos')
+    .select('*')
+    .eq('org_id', orgId)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as MaintenanceContrato[];
+}
+
+export async function saveMaintenanceContrato(
+  orgId: string,
+  draft: Omit<MaintenanceContrato, 'id' | 'created_at' | 'updated_at'>,
+): Promise<MaintenanceContrato> {
+  const { data, error } = await supabase
+    .from('trade_maintenance_contratos')
+    .insert({ ...draft, org_id: orgId, updated_at: new Date().toISOString() })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as MaintenanceContrato;
+}
+
+export async function updateMaintenanceContrato(id: string, updates: Partial<MaintenanceContrato>): Promise<void> {
+  const { error } = await supabase
+    .from('trade_maintenance_contratos')
+    .update({ ...updates, updated_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+// ── Modelos reutilizables ──────────────────────────────────────────────────────
+
+export interface MaintenanceModelo {
+  id: string;
+  org_id: string;
+  nombre: string;
+  descripcion: string | null;
+  basado_en_plantilla_id: string | null;
+  datos_json: Record<string, unknown> | null;
+  veces_usado: number;
+  activo: boolean;
+  created_at: string;
+}
+
+export async function loadMaintenanceModelos(orgId: string): Promise<MaintenanceModelo[]> {
+  const { data, error } = await supabase
+    .from('trade_maintenance_modelos')
+    .select('*')
+    .eq('org_id', orgId)
+    .eq('activo', true)
+    .order('veces_usado', { ascending: false })
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as MaintenanceModelo[];
+}
+
+export async function saveMaintenanceModelo(
+  orgId: string,
+  data: {
+    nombre: string;
+    descripcion?: string | null;
+    basado_en_plantilla_id?: string | null;
+    datos_json: Record<string, unknown>;
+  },
+): Promise<MaintenanceModelo> {
+  const { data: result, error } = await supabase
+    .from('trade_maintenance_modelos')
+    .insert({ ...data, org_id: orgId })
+    .select()
+    .single();
+  if (error) throw error;
+  return result as MaintenanceModelo;
+}
+
+export async function deleteMaintenanceModelo(id: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_maintenance_modelos')
+    .update({ activo: false })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+export async function useMaintenanceModelo(
+  modelo: MaintenanceModelo,
+  orgId: string,
+): Promise<MaintenancePresupuesto> {
+  const d = modelo.datos_json ?? {};
+  const { data, error } = await supabase
+    .from('trade_maintenance_presupuestos')
+    .insert({
+      org_id:                 orgId,
+      oficio:                 (d.oficio as string) ?? 'fontaneria',
+      sector:                 (d.sector as string) ?? null,
+      sla_nivel:              (d.sla_nivel as string) ?? null,
+      cuota_mensual:          (d.cuota_mensual as number) ?? null,
+      tipo_facturacion:       (d.tipo_facturacion as string) ?? 'mensual',
+      incluye_preventivos:    (d.incluye_preventivos as boolean) ?? false,
+      num_visitas_preventivo: (d.num_visitas_preventivo as number) ?? 0,
+      incluye_guardia:        (d.incluye_guardia as boolean) ?? false,
+      descripcion_servicios:  (d.descripcion_servicios as string) ?? null,
+      plantilla_id:           (d.plantilla_id as string) ?? null,
+      notas:                  (d.notas as string) ?? null,
+      estado:                 'borrador',
+      generado_por_ia:        false,
+      updated_at:             new Date().toISOString(),
+    })
+    .select()
+    .single();
+  if (error) throw error;
+
+  void supabase
+    .from('trade_maintenance_modelos')
+    .update({ veces_usado: (modelo.veces_usado ?? 0) + 1 })
+    .eq('id', modelo.id);
+
+  return data as MaintenancePresupuesto;
+}
+
+// ── Incidencias ────────────────────────────────────────────────────────────────
+
+export async function loadMaintenanceIncidencias(orgId: string): Promise<MaintenanceIncidencia[]> {
+  const { data, error } = await supabase
+    .from('trade_maintenance_incidencias')
+    .select('*')
+    .eq('org_id', orgId)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as MaintenanceIncidencia[];
+}
+
+// ── IA: detectar contrato desde texto ─────────────────────────────────────────
+
+export async function detectMaintenanceContract(texto: string): Promise<MaintenanceDetectResult> {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) throw new Error('No autenticado');
+
+  const res = await supabase.functions.invoke('trade-maintenance-detect', {
+    body: { texto },
+    headers: { Authorization: `Bearer ${session.access_token}` },
+  });
+  if (res.error) throw new Error(res.error.message);
+  if (!res.data?.ok) throw new Error(res.data?.error ?? 'Error en la detección IA');
+  return res.data.data as MaintenanceDetectResult;
+}
+
+export interface MaintenanceDocumento {
+  titulo: string;
+  partes: { prestador: string; cliente: string; direccion_servicio: string };
+  objeto: string;
+  servicios_incluidos: string[];
+  servicios_excluidos: string[];
+  sla: { nivel: string; tiempo_respuesta: string; tiempo_resolucion: string; horario_cobertura: string; penalizacion: string };
+  preventivos: { incluidos: boolean; frecuencia: string; num_visitas_anio: number; descripcion: string };
+  precio: { cuota_mensual_neto: number; iva_pct: number; cuota_mensual_total: number; cuota_anual_total: number; tipo_facturacion: string; forma_pago: string };
+  duracion: { vigencia_meses: number; renovacion_automatica: boolean; preaviso_cancelacion_dias: number; clausula_duracion: string };
+  materiales: { incluidos: boolean; clausula: string };
+  clausulas_adicionales: string[];
+  confidencialidad: string;
+  jurisdiccion: string;
+  num_clausulas: number;
+}
+
+export async function generateMaintenanceDocument(presupuestoId: string): Promise<MaintenanceDocumento> {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) throw new Error('No autenticado');
+
+  const res = await supabase.functions.invoke('trade-maintenance-generate', {
+    body: { presupuesto_id: presupuestoId },
+    headers: { Authorization: `Bearer ${session.access_token}` },
+  });
+  if (res.error) throw new Error(res.error.message);
+  if (!res.data?.ok) throw new Error(res.data?.error ?? 'Error generando documento');
+  return res.data.documento as MaintenanceDocumento;
+}
+
+export async function convertPresupuestoToContrato(
+  presupuesto: MaintenancePresupuesto,
+): Promise<MaintenanceContrato> {
+  const fechaInicio = new Date();
+  const fechaFin = new Date(fechaInicio);
+  fechaFin.setMonth(fechaFin.getMonth() + (presupuesto.duracion_meses ?? 12));
+
+  const proxima = new Date(fechaInicio);
+  proxima.setMonth(proxima.getMonth() + 1);
+  proxima.setDate(1);
+
+  const { data, error } = await supabase
+    .from('trade_maintenance_contratos')
+    .insert({
+      org_id:                 presupuesto.org_id,
+      client_id:              presupuesto.client_id,
+      presupuesto_id:         presupuesto.id,
+      plantilla_id:           presupuesto.plantilla_id,
+      oficio:                 presupuesto.oficio,
+      sector:                 presupuesto.sector,
+      nombre_cliente:         presupuesto.nombre_cliente,
+      direccion_instalacion:  presupuesto.direccion_instalacion,
+      descripcion_servicios:  presupuesto.descripcion_servicios,
+      cuota_mensual:          presupuesto.cuota_mensual ?? 0,
+      tipo_facturacion:       presupuesto.tipo_facturacion,
+      iva_pct:                presupuesto.iva_pct,
+      sla_nivel:              presupuesto.sla_nivel,
+      tiempo_respuesta_h:     presupuesto.tiempo_respuesta_h,
+      incluye_preventivos:    presupuesto.incluye_preventivos,
+      num_visitas_preventivo: presupuesto.num_visitas_preventivo,
+      frecuencia_preventivo:  'mensual',
+      incluye_guardia:        presupuesto.incluye_guardia,
+      materiales_incluidos:   false,
+      fecha_inicio:           fechaInicio.toISOString().split('T')[0],
+      fecha_fin:              fechaFin.toISOString().split('T')[0],
+      duracion_meses:         presupuesto.duracion_meses ?? 12,
+      renovacion_automatica:  true,
+      preaviso_cancelacion_dias: 30,
+      dia_facturacion:        1,
+      proxima_factura:        proxima.toISOString().split('T')[0],
+      estado:                 'activo',
+      updated_at:             new Date().toISOString(),
+    })
+    .select()
+    .single();
+
+  if (error) throw error;
+
+  // Mark presupuesto as converted
+  await supabase
+    .from('trade_maintenance_presupuestos')
+    .update({ estado: 'convertido', updated_at: new Date().toISOString() })
+    .eq('id', presupuesto.id);
+
+  return data as MaintenanceContrato;
+}
