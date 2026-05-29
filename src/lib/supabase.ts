@@ -1873,12 +1873,18 @@ export interface MaintenanceIncidencia {
   estado: 'abierta' | 'en_curso' | 'resuelta' | 'cerrada';
   prioridad: 'critica' | 'urgente' | 'normal' | 'baja';
   fecha_reporte: string;
+  fecha_asignacion: string | null;
+  fecha_inicio_intervencion: string | null;
   fecha_resolucion: string | null;
+  tiempo_respuesta_min: number | null;
+  tiempo_resolucion_min: number | null;
   sla_cumplido: boolean | null;
   es_extra_contrato: boolean;
   importe_extra: number | null;
   notas_resolucion: string | null;
   created_at: string;
+  updated_at: string;
+  trade_maintenance_contratos?: { nombre_cliente: string | null; oficio: string; sector: string | null } | null;
 }
 
 export interface MaintenanceDetectResult {

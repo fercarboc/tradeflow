@@ -10,14 +10,20 @@ export default function AuthCallbackView({ setCurrentPage }: AuthCallbackViewPro
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Capture hash immediately — Supabase may clear it before next tick
+    const rawHash = window.location.hash;
+    const hashParams = rawHash ? new URLSearchParams(rawHash.slice(1)) : new URLSearchParams();
+
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
     const token_hash = params.get('token_hash');
-    const type = params.get('type');
-    const errorParam = params.get('error_description') || params.get('error');
+    const type = params.get('type') ?? hashParams.get('type');
+    const errorParam =
+      params.get('error_description') ?? params.get('error') ??
+      hashParams.get('error_description') ?? hashParams.get('error');
 
     if (errorParam) {
-      setError(decodeURIComponent(errorParam));
+      setError(decodeURIComponent(errorParam.replace(/\+/g, ' ')));
       return;
     }
 
@@ -39,11 +45,17 @@ export default function AuthCallbackView({ setCurrentPage }: AuthCallbackViewPro
       return;
     }
 
-    const timer = setTimeout(() => {
-      setCurrentPage(ActivePage.Login);
-    }, 3000);
-
-    return () => clearTimeout(timer);
+    // Flujo implícito: Supabase pone access_token en el hash y lo procesa automáticamente.
+    // Obtenemos la sesión que ya habrá establecido.
+    supabase.auth.getSession().then(({ data, error: err }) => {
+      if (err) { setError(err.message); return; }
+      if (data.session) {
+        routeAfterSession(type, data.session.user?.user_metadata, setCurrentPage);
+        return;
+      }
+      // Sin sesión y sin parámetros conocidos → Login
+      setTimeout(() => setCurrentPage(ActivePage.Login), 2000);
+    });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
