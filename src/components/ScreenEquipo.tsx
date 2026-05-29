@@ -5,19 +5,21 @@ import type { OrgMember } from '../lib/supabase';
 import { useSession } from '../context/SessionContext';
 import type { Rol } from '../context/SessionContext';
 
-const ROL_META: Record<string, { label: string; badge: string }> = {
-  owner:        { label: 'Propietario', badge: 'bg-amber-100 text-amber-700 border border-amber-200' },
-  admin:        { label: 'Admin',       badge: 'bg-purple-100 text-purple-700 border border-purple-200' },
-  comercial:    { label: 'Comercial',   badge: 'bg-blue-100 text-blue-700 border border-blue-200' },
-  tecnico:      { label: 'Técnico',     badge: 'bg-emerald-100 text-emerald-700 border border-emerald-200' },
-  visualizador: { label: 'Visualizador',badge: 'bg-slate-100 text-slate-600 border border-slate-200' },
+const ROL_META: Record<string, { label: string; badge: string; desc: string }> = {
+  owner:        { label: 'Propietario', badge: 'bg-amber-100 text-amber-700 border border-amber-200',   desc: 'Acceso total' },
+  admin:        { label: 'Admin',       badge: 'bg-purple-100 text-purple-700 border border-purple-200', desc: 'Todo, incluido ajustes' },
+  oficina:      { label: 'Oficina',     badge: 'bg-indigo-100 text-indigo-700 border border-indigo-200', desc: 'Todo excepto ajustes de empresa' },
+  comercial:    { label: 'Comercial',   badge: 'bg-blue-100 text-blue-700 border border-blue-200',       desc: 'Presupuestos y clientes, sin facturas' },
+  tecnico:      { label: 'Técnico',     badge: 'bg-emerald-100 text-emerald-700 border border-emerald-200', desc: 'Presupuestos y trabajos planificados' },
+  visualizador: { label: 'Visualizador',badge: 'bg-slate-100 text-slate-600 border border-slate-200',   desc: 'Solo lectura de trabajos' },
 };
 
-const INVITABLE_ROLES: { value: Rol; label: string }[] = [
-  { value: 'admin',        label: 'Admin' },
-  { value: 'comercial',    label: 'Comercial' },
-  { value: 'tecnico',      label: 'Técnico' },
-  { value: 'visualizador', label: 'Visualizador' },
+const INVITABLE_ROLES: { value: Rol; label: string; desc: string }[] = [
+  { value: 'admin',        label: 'Admin',        desc: 'Todo, incluido ajustes' },
+  { value: 'oficina',      label: 'Oficina',      desc: 'Todo excepto ajustes de empresa' },
+  { value: 'comercial',    label: 'Comercial',    desc: 'Presupuestos y clientes, sin facturas' },
+  { value: 'tecnico',      label: 'Técnico',      desc: 'Presupuestos y trabajos planificados' },
+  { value: 'visualizador', label: 'Visualizador', desc: 'Solo lectura de trabajos' },
 ];
 
 interface Props {
@@ -220,11 +222,16 @@ export default function ScreenEquipo({ showToast }: Props) {
       {/* Panel informativo de roles */}
       <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3">
         <Shield className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />
-        <div className="text-sm space-y-1">
-          <p><strong className="text-purple-600">Admin:</strong> <span className="text-slate-600">Acceso completo excepto suscripción y ajustes de empresa.</span></p>
-          <p><strong className="text-blue-600">Comercial:</strong> <span className="text-slate-600">Crea presupuestos y gestiona clientes. Sin facturas.</span></p>
-          <p><strong className="text-emerald-600">Técnico:</strong> <span className="text-slate-600">Solo ve sus trabajos asignados en el planificador.</span></p>
-          <p><strong className="text-slate-500">Visualizador:</strong> <span className="text-slate-500">Solo lectura, sin crear ni editar nada.</span></p>
+        <div className="text-xs space-y-1.5">
+          {INVITABLE_ROLES.map(r => {
+            const meta = ROL_META[r.value];
+            return (
+              <p key={r.value}>
+                <span className={`inline-block font-bold px-1.5 py-0.5 rounded-full border text-[10px] mr-1.5 ${meta.badge}`}>{meta.label}</span>
+                <span className="text-slate-600">{meta.desc}</span>
+              </p>
+            );
+          })}
         </div>
       </div>
 
@@ -266,9 +273,14 @@ export default function ScreenEquipo({ showToast }: Props) {
                   className="w-full bg-white border border-slate-300 rounded-lg text-slate-900 text-sm px-3 py-2.5 focus:outline-none focus:border-blue-500 cursor-pointer"
                 >
                   {INVITABLE_ROLES.map(r => (
-                    <option key={r.value} value={r.value}>{r.label}</option>
+                    <option key={r.value} value={r.value}>{r.label} — {r.desc}</option>
                   ))}
                 </select>
+                {inviteRol && (
+                  <p className="text-xs text-slate-400 mt-1.5">
+                    {INVITABLE_ROLES.find(r => r.value === inviteRol)?.desc}
+                  </p>
+                )}
               </div>
             </div>
             <div className="flex gap-3 pt-1">

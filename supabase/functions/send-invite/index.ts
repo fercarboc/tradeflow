@@ -17,7 +17,7 @@ function json(body: unknown, status = 200) {
   });
 }
 
-const VALID_ROLES = new Set(['admin', 'comercial', 'tecnico', 'visualizador']);
+const VALID_ROLES = new Set(['admin', 'oficina', 'comercial', 'tecnico', 'visualizador']);
 
 serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });

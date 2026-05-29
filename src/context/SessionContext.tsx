@@ -4,10 +4,11 @@ import type { User } from '@supabase/supabase-js';
 import { supabase, getOwnOrg, loadOrgById, loadOrgSubscription } from '../lib/supabase';
 import type { TradeOrganization, TradeSubscription } from '../lib/supabase';
 
-export type Rol = 'owner' | 'admin' | 'comercial' | 'tecnico' | 'visualizador';
+export type Rol = 'owner' | 'admin' | 'oficina' | 'comercial' | 'tecnico' | 'visualizador';
 export type Plan = 'basico' | 'pro' | 'empresa';
 
 export const ROL_PERMISOS: Record<Rol, string[]> = {
+  // Propietario: acceso total
   owner: [
     'quotes.create', 'quotes.edit', 'quotes.delete',
     'clients.manage',
@@ -16,9 +17,11 @@ export const ROL_PERMISOS: Record<Rol, string[]> = {
     'catalog.manage',
     'team.manage',
     'ingresos.view',
+    'mantenimiento.view',
     'settings.manage',
     'subscription.manage',
   ],
+  // Admin: todo igual que owner, sin gestión de suscripción
   admin: [
     'quotes.create', 'quotes.edit', 'quotes.delete',
     'clients.manage',
@@ -27,13 +30,31 @@ export const ROL_PERMISOS: Record<Rol, string[]> = {
     'catalog.manage',
     'team.manage',
     'ingresos.view',
+    'mantenimiento.view',
+    'settings.manage',
   ],
+  // Oficina: todo excepto ajustes de empresa
+  oficina: [
+    'quotes.create', 'quotes.edit', 'quotes.delete',
+    'clients.manage',
+    'invoices.create', 'invoices.manage',
+    'jobs.view', 'jobs.manage',
+    'catalog.manage',
+    'team.manage',
+    'ingresos.view',
+    'mantenimiento.view',
+  ],
+  // Comercial: presupuestos + clientes, sin facturas ni contratos
   comercial: [
     'quotes.create', 'quotes.edit',
     'clients.manage',
+  ],
+  // Técnico: presupuestos + trabajos planificados, sin facturas ni contratos
+  tecnico: [
+    'quotes.create', 'quotes.edit',
     'jobs.view', 'jobs.manage',
   ],
-  tecnico: ['jobs.view'],
+  // Visualizador: solo lectura de trabajos
   visualizador: ['jobs.view'],
 };
 

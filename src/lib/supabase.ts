@@ -1321,7 +1321,7 @@ export interface OrgMember {
   org_id: string;
   user_id: string;
   email: string;
-  rol: 'owner' | 'admin' | 'comercial' | 'tecnico' | 'visualizador';
+  rol: 'owner' | 'admin' | 'oficina' | 'comercial' | 'tecnico' | 'visualizador';
   activo: boolean;
   invited_at: string | null;
   created_at: string;
