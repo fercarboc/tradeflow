@@ -2165,11 +2165,55 @@ export async function useMaintenanceModelo(
 export async function loadMaintenanceIncidencias(orgId: string): Promise<MaintenanceIncidencia[]> {
   const { data, error } = await supabase
     .from('trade_maintenance_incidencias')
-    .select('*')
+    .select('*, trade_maintenance_contratos(nombre_cliente, oficio, sector)')
     .eq('org_id', orgId)
     .order('created_at', { ascending: false });
   if (error) throw error;
   return (data ?? []) as MaintenanceIncidencia[];
+}
+
+export async function saveMaintenanceIncidencia(
+  orgId: string,
+  payload: Omit<MaintenanceIncidencia, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_maintenance_contratos'>,
+): Promise<MaintenanceIncidencia> {
+  const { data, error } = await supabase
+    .from('trade_maintenance_incidencias')
+    .insert({ ...payload, org_id: orgId })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as MaintenanceIncidencia;
+}
+
+export async function updateMaintenanceIncidencia(
+  id: string,
+  updates: Partial<Omit<MaintenanceIncidencia, 'id' | 'org_id' | 'created_at' | 'trade_maintenance_contratos'>>,
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_maintenance_incidencias')
+    .update({ ...updates, updated_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+export async function sendParteTrabajo(incidenciaId: string): Promise<void> {
+  const session = (await supabase.auth.getSession()).data.session;
+  if (!session) throw new Error('No autenticado');
+  const res = await fetch(
+    `${SUPABASE_URL}/functions/v1/trade-maintenance-parte`,
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${session.access_token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ incidencia_id: incidenciaId }),
+    },
+  );
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error((err as { error?: string }).error ?? 'Error enviando parte');
+  }
 }
 
 // ── IA: detectar contrato desde texto ─────────────────────────────────────────

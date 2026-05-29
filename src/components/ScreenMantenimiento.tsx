@@ -14,6 +14,7 @@ import {
   generateMaintenanceDocument, convertPresupuestoToContrato,
   loadMaintenanceModelos, saveMaintenanceModelo, deleteMaintenanceModelo, useMaintenanceModelo,
   loadMaintenanceFacturas, markFacturaPagada, sendMaintenanceNotification,
+  saveMaintenanceIncidencia, updateMaintenanceIncidencia, sendParteTrabajo,
 } from '../lib/supabase';
 import type {
   MaintenancePlantilla, MaintenancePresupuesto, MaintenanceContrato,
@@ -649,6 +650,371 @@ function ConvertirModal({ presupuesto, onClose, onConverted, showToast }: Conver
   );
 }
 
+// ── Modal: Nueva incidencia ───────────────────────────────────────────────────
+
+interface NuevaIncidenciaModalProps {
+  contratos: MaintenanceContrato[];
+  orgId: string;
+  onClose: () => void;
+  onSaved: (i: MaintenanceIncidencia) => void;
+  showToast: Props['showToast'];
+}
+
+function NuevaIncidenciaModal({ contratos, orgId, onClose, onSaved, showToast }: NuevaIncidenciaModalProps) {
+  const [titulo, setTitulo] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+  const [prioridad, setPrioridad] = useState<MaintenanceIncidencia['prioridad']>('normal');
+  const [contratoId, setContratoId] = useState<string>('');
+  const [saving, setSaving] = useState(false);
+
+  const handleSave = async () => {
+    if (!titulo.trim()) { showToast('El título es obligatorio', 'error'); return; }
+    setSaving(true);
+    try {
+      const saved = await saveMaintenanceIncidencia(orgId, {
+        contrato_id: contratoId || null,
+        client_id: null,
+        titulo: titulo.trim(),
+        descripcion: descripcion.trim() || null,
+        estado: 'abierta',
+        prioridad,
+        fecha_reporte: new Date().toISOString(),
+        fecha_asignacion: null,
+        fecha_inicio_intervencion: null,
+        fecha_resolucion: null,
+        tiempo_respuesta_min: null,
+        tiempo_resolucion_min: null,
+        sla_cumplido: null,
+        es_extra_contrato: false,
+        importe_extra: null,
+        notas_resolucion: null,
+      });
+      showToast('Incidencia registrada', 'success');
+      onSaved(saved);
+    } catch (e) { showToast(String(e), 'error'); }
+    finally { setSaving(false); }
+  };
+
+  const PRIO = [
+    { value: 'critica',  label: 'Crítica',  cls: 'border-red-400 text-red-700 bg-red-50' },
+    { value: 'urgente',  label: 'Urgente',  cls: 'border-orange-400 text-orange-700 bg-orange-50' },
+    { value: 'normal',   label: 'Normal',   cls: 'border-blue-400 text-blue-700 bg-blue-50' },
+    { value: 'baja',     label: 'Baja',     cls: 'border-slate-300 text-slate-500 bg-slate-50' },
+  ] as const;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md flex flex-col">
+        <div className="flex items-center justify-between p-5 border-b border-slate-100">
+          <div className="flex items-center gap-2">
+            <AlertTriangle className="w-5 h-5 text-orange-500" />
+            <h2 className="font-black text-slate-900 text-sm uppercase tracking-wide">Nueva incidencia</h2>
+          </div>
+          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-slate-100 cursor-pointer"><X className="w-4 h-4 text-slate-500" /></button>
+        </div>
+
+        <div className="p-5 space-y-4">
+          <div>
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1.5">Título *</label>
+            <input
+              value={titulo} onChange={e => setTitulo(e.target.value)}
+              placeholder="Ej: Fuga de agua en cuarto de baño"
+              className="w-full text-sm border border-slate-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-slate-300"
+            />
+          </div>
+
+          <div>
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1.5">Prioridad</label>
+            <div className="flex gap-2 flex-wrap">
+              {PRIO.map(p => (
+                <button
+                  key={p.value}
+                  onClick={() => setPrioridad(p.value)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold border cursor-pointer transition-all ${prioridad === p.value ? p.cls : 'border-slate-200 text-slate-400 bg-white'}`}
+                >
+                  {p.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1.5">Contrato (opcional)</label>
+            <select
+              value={contratoId} onChange={e => setContratoId(e.target.value)}
+              className="w-full text-sm border border-slate-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-slate-300 bg-white"
+            >
+              <option value="">— Sin vincular —</option>
+              {contratos.filter(c => c.estado === 'activo').map(c => (
+                <option key={c.id} value={c.id}>{c.nombre_cliente} · {c.oficio}</option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1.5">Descripción</label>
+            <textarea
+              value={descripcion} onChange={e => setDescripcion(e.target.value)}
+              rows={3}
+              placeholder="Descripción detallada de la incidencia..."
+              className="w-full text-sm border border-slate-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-slate-300 resize-none"
+            />
+          </div>
+        </div>
+
+        <div className="flex gap-3 p-5 border-t border-slate-100">
+          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold cursor-pointer hover:bg-slate-50">Cancelar</button>
+          <button
+            onClick={() => void handleSave()} disabled={saving || !titulo.trim()}
+            className="flex-1 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-bold cursor-pointer hover:bg-slate-700 disabled:opacity-40 flex items-center justify-center gap-2"
+          >
+            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
+            Registrar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Modal: Detalle incidencia ─────────────────────────────────────────────────
+
+interface DetalleIncidenciaModalProps {
+  incidencia: MaintenanceIncidencia;
+  onClose: () => void;
+  onUpdated: (i: MaintenanceIncidencia) => void;
+  showToast: Props['showToast'];
+}
+
+function DetalleIncidenciaModal({ incidencia, onClose, onUpdated, showToast }: DetalleIncidenciaModalProps) {
+  const [notas, setNotas] = useState(incidencia.notas_resolucion ?? '');
+  const [esExtra, setEsExtra] = useState(incidencia.es_extra_contrato);
+  const [importe, setImporte] = useState(String(incidencia.importe_extra ?? ''));
+  const [saving, setSaving] = useState(false);
+  const [sendingParte, setSendingParte] = useState(false);
+
+  const calcMinutos = (desde: string, hasta: string) =>
+    Math.round((new Date(hasta).getTime() - new Date(desde).getTime()) / 60000);
+
+  const handleAvanzar = async () => {
+    setSaving(true);
+    try {
+      const now = new Date().toISOString();
+      let updates: Parameters<typeof updateMaintenanceIncidencia>[1] = {};
+
+      if (incidencia.estado === 'abierta') {
+        updates = {
+          estado: 'en_curso',
+          fecha_inicio_intervencion: now,
+          tiempo_respuesta_min: calcMinutos(incidencia.fecha_reporte, now),
+        };
+      } else if (incidencia.estado === 'en_curso') {
+        const tiempoResolucion = incidencia.fecha_inicio_intervencion
+          ? calcMinutos(incidencia.fecha_inicio_intervencion, now)
+          : null;
+        updates = {
+          estado: 'resuelta',
+          fecha_resolucion: now,
+          tiempo_resolucion_min: tiempoResolucion,
+          notas_resolucion: notas.trim() || null,
+          es_extra_contrato: esExtra,
+          importe_extra: esExtra && importe ? Number(importe) : null,
+          sla_cumplido: null,
+        };
+      }
+
+      await updateMaintenanceIncidencia(incidencia.id, updates);
+      const updated = { ...incidencia, ...updates };
+      onUpdated(updated as MaintenanceIncidencia);
+      showToast('Incidencia actualizada', 'success');
+    } catch (e) { showToast(String(e), 'error'); }
+    finally { setSaving(false); }
+  };
+
+  const handleSaveNotas = async () => {
+    setSaving(true);
+    try {
+      await updateMaintenanceIncidencia(incidencia.id, {
+        notas_resolucion: notas.trim() || null,
+        es_extra_contrato: esExtra,
+        importe_extra: esExtra && importe ? Number(importe) : null,
+      });
+      onUpdated({ ...incidencia, notas_resolucion: notas.trim() || null, es_extra_contrato: esExtra, importe_extra: esExtra && importe ? Number(importe) : null });
+      showToast('Notas guardadas', 'success');
+    } catch (e) { showToast(String(e), 'error'); }
+    finally { setSaving(false); }
+  };
+
+  const handleSendParte = async () => {
+    setSendingParte(true);
+    try {
+      await sendParteTrabajo(incidencia.id);
+      showToast('Parte de trabajo enviado por email', 'success');
+    } catch (e) { showToast(String(e), 'error'); }
+    finally { setSendingParte(false); }
+  };
+
+  const fmtMin = (m: number | null) => {
+    if (m == null) return '—';
+    if (m < 60) return `${m} min`;
+    const h = Math.floor(m / 60); const min = m % 60;
+    return min > 0 ? `${h}h ${min}min` : `${h}h`;
+  };
+
+  const PRIO_CLS: Record<string, string> = {
+    critica: 'bg-red-100 text-red-700', urgente: 'bg-orange-100 text-orange-700',
+    normal: 'bg-blue-100 text-blue-700', baja: 'bg-slate-100 text-slate-500',
+  };
+  const ESTADO_CLS: Record<string, string> = {
+    abierta: 'bg-red-100 text-red-700', en_curso: 'bg-amber-100 text-amber-700',
+    resuelta: 'bg-emerald-100 text-emerald-700', cerrada: 'bg-slate-100 text-slate-500',
+  };
+  const ESTADO_LABEL: Record<string, string> = {
+    abierta: 'Abierta', en_curso: 'En curso', resuelta: 'Resuelta', cerrada: 'Cerrada',
+  };
+
+  const contrato = incidencia.trade_maintenance_contratos;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] flex flex-col">
+        <div className="flex items-start justify-between p-5 border-b border-slate-100">
+          <div className="flex-1 min-w-0 pr-4">
+            <div className="flex items-center gap-2 flex-wrap mb-1">
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${ESTADO_CLS[incidencia.estado] ?? ''}`}>
+                {ESTADO_LABEL[incidencia.estado] ?? incidencia.estado}
+              </span>
+              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${PRIO_CLS[incidencia.prioridad] ?? ''}`}>
+                {incidencia.prioridad.toUpperCase()}
+              </span>
+            </div>
+            <h2 className="font-black text-slate-900 text-base leading-tight">{incidencia.titulo}</h2>
+            {contrato && <p className="text-xs text-slate-500 mt-0.5">{contrato.nombre_cliente} · {contrato.oficio}</p>}
+          </div>
+          <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-slate-100 cursor-pointer shrink-0"><X className="w-4 h-4 text-slate-500" /></button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-5 space-y-5">
+          {incidencia.descripcion && (
+            <div className="bg-slate-50 rounded-xl p-3 text-sm text-slate-600">{incidencia.descripcion}</div>
+          )}
+
+          {/* Tiempos */}
+          <div>
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Registro de tiempos</p>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { label: 'Reporte', val: fmtDate(incidencia.fecha_reporte) },
+                { label: 'Inicio intervención', val: fmtDate(incidencia.fecha_inicio_intervencion) },
+                { label: 'T. respuesta', val: fmtMin(incidencia.tiempo_respuesta_min) },
+                { label: 'T. resolución', val: fmtMin(incidencia.tiempo_resolucion_min) },
+              ].map(({ label, val }) => (
+                <div key={label} className="bg-slate-50 rounded-xl p-3">
+                  <p className="text-[10px] text-slate-400 font-semibold">{label}</p>
+                  <p className="text-sm font-bold text-slate-800 mt-0.5">{val}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Notas de resolución */}
+          {incidencia.estado !== 'cerrada' && (
+            <div>
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1.5">Notas de resolución</label>
+              <textarea
+                value={notas} onChange={e => setNotas(e.target.value)}
+                rows={3}
+                placeholder="Describe el trabajo realizado..."
+                className="w-full text-sm border border-slate-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-slate-300 resize-none"
+              />
+            </div>
+          )}
+          {incidencia.estado === 'cerrada' && incidencia.notas_resolucion && (
+            <div>
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Trabajo realizado</p>
+              <div className="bg-slate-50 rounded-xl p-3 text-sm text-slate-600 whitespace-pre-wrap">{incidencia.notas_resolucion}</div>
+            </div>
+          )}
+
+          {/* Extra contrato */}
+          {incidencia.estado !== 'cerrada' && (
+            <div className={`rounded-xl border p-4 space-y-3 ${esExtra ? 'border-amber-200 bg-amber-50' : 'border-slate-100 bg-white'}`}>
+              <label className="flex items-center gap-3 cursor-pointer">
+                <input type="checkbox" checked={esExtra} onChange={e => setEsExtra(e.target.checked)} className="w-4 h-4 rounded accent-amber-500" />
+                <span className="text-sm font-semibold text-slate-700">Intervención extra-contrato</span>
+              </label>
+              {esExtra && (
+                <div>
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">Importe a facturar (neto, €)</label>
+                  <input
+                    type="number" min="0" step="0.01"
+                    value={importe} onChange={e => setImporte(e.target.value)}
+                    placeholder="0.00"
+                    className="w-full text-sm border border-amber-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-300 bg-white"
+                  />
+                </div>
+              )}
+            </div>
+          )}
+          {incidencia.es_extra_contrato && incidencia.estado === 'cerrada' && (
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+              <p className="text-[10px] font-black text-amber-600 uppercase tracking-widest mb-1">Extra-contrato</p>
+              <p className="text-xl font-black text-amber-700">{fmtEur(incidencia.importe_extra)}</p>
+            </div>
+          )}
+        </div>
+
+        <div className="p-5 border-t border-slate-100 space-y-2">
+          {/* Avanzar estado */}
+          {incidencia.estado === 'abierta' && (
+            <button
+              onClick={() => void handleAvanzar()} disabled={saving}
+              className="w-full py-2.5 rounded-xl bg-amber-500 text-white text-sm font-bold cursor-pointer hover:bg-amber-600 disabled:opacity-40 flex items-center justify-center gap-2"
+            >
+              {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Clock className="w-4 h-4" />}
+              Iniciar intervención
+            </button>
+          )}
+          {incidencia.estado === 'en_curso' && (
+            <div className="flex gap-2">
+              <button
+                onClick={() => void handleSaveNotas()} disabled={saving}
+                className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-700 text-sm font-semibold cursor-pointer hover:bg-slate-50 disabled:opacity-40"
+              >
+                Guardar notas
+              </button>
+              <button
+                onClick={() => void handleAvanzar()} disabled={saving}
+                className="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white text-sm font-bold cursor-pointer hover:bg-emerald-700 disabled:opacity-40 flex items-center justify-center gap-2"
+              >
+                {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle className="w-4 h-4" />}
+                Marcar resuelta
+              </button>
+            </div>
+          )}
+          {incidencia.estado === 'resuelta' && (
+            <div className="flex gap-2">
+              <button
+                onClick={() => void handleSaveNotas()} disabled={saving}
+                className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-700 text-sm font-semibold cursor-pointer hover:bg-slate-50 disabled:opacity-40"
+              >
+                Actualizar notas
+              </button>
+              <button
+                onClick={() => void handleSendParte()} disabled={sendingParte}
+                className="flex-1 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-bold cursor-pointer hover:bg-slate-700 disabled:opacity-40 flex items-center justify-center gap-2"
+              >
+                {sendingParte ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+                Enviar parte
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Modal: Guardar como modelo ────────────────────────────────────────────────
 
 interface GuardarModeloModalProps {
@@ -793,6 +1159,8 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
   const [guardarModelo, setGuardarModelo] = useState<MaintenancePresupuesto | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [usandoModelo, setUsandoModelo] = useState<string | null>(null);
+  const [showNuevaIncidencia, setShowNuevaIncidencia] = useState(false);
+  const [detalleIncidencia, setDetalleIncidencia] = useState<MaintenanceIncidencia | null>(null);
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -1152,42 +1520,69 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
       {/* ── Tab: Incidencias ── */}
       {tab === 'incidencias' && (
         <div className={sec}>
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              {incidencias.length} incidencia{incidencias.length !== 1 ? 's' : ''}
+            </p>
+            <button
+              onClick={() => setShowNuevaIncidencia(true)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 text-white text-[10px] font-bold uppercase tracking-wider cursor-pointer hover:bg-slate-700 transition-colors"
+            >
+              <Plus className="w-3 h-3" /> Nueva incidencia
+            </button>
+          </div>
           {incidencias.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <CheckCircle className="w-10 h-10 text-emerald-200 mb-3" />
-              <p className="text-slate-400 text-sm font-semibold">Sin incidencias abiertas</p>
-              <p className="text-slate-300 text-xs mt-1">Las incidencias vinculadas a contratos aparecerán aquí</p>
+              <p className="text-slate-400 text-sm font-semibold">Sin incidencias registradas</p>
+              <p className="text-slate-300 text-xs mt-1">Registra incidencias de tus contratos activos</p>
             </div>
           ) : (
             <div className="divide-y divide-slate-100">
-              {incidencias.map(i => (
-                <div key={i.id} className="py-3.5 flex items-start gap-3">
-                  <div className="shrink-0 pt-0.5">
-                    {i.prioridad === 'critica' ? <AlertTriangle className="w-3.5 h-3.5 text-red-500" /> :
-                     i.prioridad === 'urgente' ? <AlertTriangle className="w-3.5 h-3.5 text-orange-500" /> :
-                     <Clock className="w-3.5 h-3.5 text-blue-400" />}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold text-slate-900 text-sm">{i.titulo}</span>
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                        i.estado === 'abierta' ? 'bg-red-100 text-red-700' :
-                        i.estado === 'en_curso' ? 'bg-amber-100 text-amber-700' :
-                        i.estado === 'resuelta' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'
-                      }`}>{i.estado}</span>
+              {incidencias.map(i => {
+                const contrato = i.trade_maintenance_contratos;
+                return (
+                  <div
+                    key={i.id}
+                    className="py-3.5 flex items-start gap-3 cursor-pointer hover:bg-slate-50 -mx-2 px-2 rounded-xl transition-colors"
+                    onClick={() => setDetalleIncidencia(i)}
+                  >
+                    <div className="shrink-0 pt-0.5">
+                      {i.prioridad === 'critica' ? <AlertTriangle className="w-3.5 h-3.5 text-red-500" /> :
+                       i.prioridad === 'urgente' ? <AlertTriangle className="w-3.5 h-3.5 text-orange-500" /> :
+                       i.prioridad === 'normal'  ? <Clock className="w-3.5 h-3.5 text-blue-400" /> :
+                       <Clock className="w-3.5 h-3.5 text-slate-300" />}
                     </div>
-                    {i.descripcion && <p className="text-xs text-slate-500 mt-0.5 truncate">{i.descripcion}</p>}
-                    <p className="text-[10px] text-slate-400 mt-0.5">{fmtDate(i.fecha_reporte)}</p>
-                  </div>
-                  {i.es_extra_contrato && i.importe_extra && (
-                    <div className="shrink-0 text-right">
-                      <span className="text-sm font-black text-amber-600">{fmtEur(i.importe_extra)}</span>
-                      <span className="text-[10px] text-slate-400 block">extra-contrato</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-bold text-slate-900 text-sm">{i.titulo}</span>
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                          i.estado === 'abierta'   ? 'bg-red-100 text-red-700' :
+                          i.estado === 'en_curso'  ? 'bg-amber-100 text-amber-700' :
+                          i.estado === 'resuelta'  ? 'bg-emerald-100 text-emerald-700' :
+                          'bg-slate-100 text-slate-500'
+                        }`}>
+                          {i.estado === 'en_curso' ? 'En curso' : i.estado.charAt(0).toUpperCase() + i.estado.slice(1)}
+                        </span>
+                      </div>
+                      {contrato && (
+                        <p className="text-[10px] text-slate-400 mt-0.5 capitalize">{contrato.nombre_cliente} · {contrato.oficio}</p>
+                      )}
+                      {i.descripcion && <p className="text-xs text-slate-500 mt-0.5 truncate">{i.descripcion}</p>}
+                      <p className="text-[10px] text-slate-400 mt-0.5">{fmtDate(i.fecha_reporte)}</p>
                     </div>
-                  )}
-                  <ChevronRight className="w-4 h-4 text-slate-300 shrink-0 self-center" />
-                </div>
-              ))}
+                    <div className="shrink-0 flex items-center gap-2">
+                      {i.es_extra_contrato && i.importe_extra != null && (
+                        <div className="text-right">
+                          <span className="text-sm font-black text-amber-600">{fmtEur(i.importe_extra)}</span>
+                          <span className="text-[10px] text-slate-400 block">extra</span>
+                        </div>
+                      )}
+                      <ChevronRight className="w-4 h-4 text-slate-300" />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
@@ -1322,6 +1717,31 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
           onSaved={modelo => {
             setModelos(prev => [modelo, ...prev]);
             setGuardarModelo(null);
+          }}
+        />
+      )}
+
+      {showNuevaIncidencia && (
+        <NuevaIncidenciaModal
+          contratos={contratos}
+          orgId={orgId}
+          showToast={showToast}
+          onClose={() => setShowNuevaIncidencia(false)}
+          onSaved={saved => {
+            setIncidencias(prev => [saved, ...prev]);
+            setShowNuevaIncidencia(false);
+          }}
+        />
+      )}
+
+      {detalleIncidencia && (
+        <DetalleIncidenciaModal
+          incidencia={detalleIncidencia}
+          showToast={showToast}
+          onClose={() => setDetalleIncidencia(null)}
+          onUpdated={updated => {
+            setIncidencias(prev => prev.map(i => i.id === updated.id ? updated : i));
+            setDetalleIncidencia(updated);
           }}
         />
       )}
