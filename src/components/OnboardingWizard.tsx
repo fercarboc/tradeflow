@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { CheckCircle, ArrowRight, Mic, Camera, FileText, Settings, X, Sparkles } from 'lucide-react';
+import { useState } from 'react';
 import { supabase } from '../lib/supabase';
 
 interface Props {
@@ -9,53 +8,43 @@ interface Props {
 
 const STEPS = [
   {
-    id: 'welcome',
-    icon: Sparkles,
-    color: 'text-amber-400',
-    bg: 'bg-amber-500/10',
-    border: 'border-amber-500/20',
-    title: '¡Bienvenido a TradeFlow!',
-    desc: 'Tu cuenta está lista. En 4 pasos rápidos descubrirás las funciones clave que te ahorrarán horas cada semana.',
+    id: 'catalogo',
+    emoji: '📦',
+    title: 'Tu catálogo base está listo',
+    desc: 'Hemos cargado materiales y precios de mercado para tu sector. Puedes usarlos desde el primer presupuesto y ajustar precios cuando quieras.',
+    tip: null,
     cta: 'Empezar',
   },
   {
     id: 'voz',
-    icon: Mic,
-    color: 'text-blue-400',
-    bg: 'bg-blue-500/10',
-    border: 'border-blue-500/20',
-    title: 'Presupuestos por voz',
-    desc: 'Pulsa el botón de micrófono en la pantalla principal y dicta lo que vas a hacer. La IA genera el presupuesto al instante.',
+    emoji: '🎤',
+    title: 'Presupuesto por voz en 30 segundos',
+    desc: 'Pulsa el botón de micrófono y dicta lo que vas a hacer. Por ejemplo: "cambiar grifo de cocina con media hora de mano de obra". La IA genera el presupuesto al instante.',
+    tip: 'Funciona igual desde el móvil en obra y desde el PC en la oficina.',
     cta: 'Siguiente',
   },
   {
-    id: 'foto',
-    icon: Camera,
-    color: 'text-emerald-400',
-    bg: 'bg-emerald-500/10',
-    border: 'border-emerald-500/20',
-    title: 'Foto a presupuesto',
-    desc: 'Saca una foto a cualquier material, albarán o instalación. La IA extrae partidas y precios automáticamente.',
+    id: 'ia',
+    emoji: '🧠',
+    title: 'La IA aprende tus precios',
+    desc: 'No necesitas configurar nada manualmente. Cada vez que ajustes un precio en un presupuesto, queda guardado en tu catálogo. Con el tiempo, los presupuestos serán cada vez más precisos.',
+    tip: 'Si no tienes un material en catálogo, la IA lo detecta igual y tú solo confirmas el precio.',
     cta: 'Siguiente',
   },
   {
-    id: 'cliente',
-    icon: FileText,
-    color: 'text-purple-400',
-    bg: 'bg-purple-500/10',
-    border: 'border-purple-500/20',
-    title: 'Guarda tu primer cliente',
-    desc: 'Ve a "Clientes" y añade tu primer contacto. Vincula presupuestos y facturas para tener todo el historial en un clic.',
+    id: 'factura',
+    emoji: '🧾',
+    title: 'De presupuesto a factura en 1 clic',
+    desc: 'Cuando el cliente acepte, convierte el presupuesto en factura con un solo clic. Descarga el PDF o envíaselo directamente. Todo queda grabado con el historial del cliente.',
+    tip: null,
     cta: 'Siguiente',
   },
   {
-    id: 'ajustes',
-    icon: Settings,
-    color: 'text-slate-300',
-    bg: 'bg-slate-700/30',
-    border: 'border-slate-600/30',
-    title: 'Personaliza tu empresa',
-    desc: 'En Ajustes → Empresa añade tu logo, NIF y datos fiscales. Aparecerán en todos tus presupuestos y facturas.',
+    id: 'empresa',
+    emoji: '⚙️',
+    title: 'Añade los datos de tu empresa',
+    desc: 'Ve a Ajustes → Empresa y añade tu logo, NIF y dirección fiscal. Aparecerán en todos tus presupuestos y facturas desde el primer día.',
+    tip: null,
     cta: 'Listo',
   },
 ];
@@ -67,76 +56,81 @@ export default function OnboardingWizard({ orgId, onClose }: Props) {
   const current = STEPS[step];
   const isLast = step === STEPS.length - 1;
   const isFirst = step === 0;
+  const progress = ((step + 1) / STEPS.length) * 100;
 
-  const handleNext = async () => {
+  const finish = async () => {
+    setSaving(true);
+    await supabase.from('trade_organizations').update({ is_onboarded: true }).eq('id', orgId);
+    setSaving(false);
+    onClose();
+  };
+
+  const handleNext = () => {
     if (isLast) {
-      setSaving(true);
-      await supabase.from('trade_organizations').update({ is_onboarded: true }).eq('id', orgId);
-      setSaving(false);
-      onClose();
+      finish();
     } else {
       setStep(s => s + 1);
     }
   };
 
-  const handleSkip = async () => {
-    await supabase.from('trade_organizations').update({ is_onboarded: true }).eq('id', orgId);
-    onClose();
-  };
-
-  const Icon = current.icon;
-
   return (
-    <div className="fixed inset-0 bg-black/75 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+      <div className="bg-[#0d1f38] border border-white/10 rounded-2xl w-full max-w-sm shadow-2xl overflow-hidden">
 
-        {/* Progress bar */}
-        <div className="h-1 bg-slate-800">
+        {/* Barra de progreso */}
+        <div className="h-1 bg-white/8">
           <div
-            className="h-full bg-blue-500 transition-all duration-500"
-            style={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
+            className="h-full bg-[#00CFE8] transition-all duration-500"
+            style={{ width: `${progress}%` }}
           />
         </div>
 
-        {/* Header */}
+        {/* Cabecera */}
         <div className="flex items-center justify-between px-5 pt-5 pb-1">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
-            Paso {step + 1} de {STEPS.length}
+          <span className="text-[10px] font-bold uppercase tracking-widest text-white/30">
+            {step + 1} / {STEPS.length}
           </span>
-          <button onClick={handleSkip} className="text-slate-500 hover:text-slate-300 transition-colors cursor-pointer">
-            <X className="w-4 h-4" />
+          <button
+            onClick={finish}
+            className="text-white/30 hover:text-white/60 text-xs transition-colors cursor-pointer"
+          >
+            Omitir
           </button>
         </div>
 
-        {/* Content */}
-        <div className="px-6 pt-4 pb-6 space-y-5">
-          <div className={`w-14 h-14 rounded-2xl ${current.bg} border ${current.border} flex items-center justify-center`}>
-            <Icon className={`w-7 h-7 ${current.color}`} />
-          </div>
+        {/* Contenido */}
+        <div className="px-6 pt-4 pb-6 space-y-4">
+          <div className="text-4xl">{current.emoji}</div>
 
           <div className="space-y-2">
-            <h2 className="text-white font-black text-xl leading-tight">{current.title}</h2>
-            <p className="text-slate-400 text-sm leading-relaxed">{current.desc}</p>
+            <h2 className="text-white font-black text-lg leading-tight">{current.title}</h2>
+            <p className="text-white/50 text-sm leading-relaxed">{current.desc}</p>
           </div>
 
-          {/* Step dots */}
-          <div className="flex gap-1.5">
+          {current.tip && (
+            <div className="bg-[#00CFE8]/8 border border-[#00CFE8]/20 rounded-xl px-3 py-2.5">
+              <p className="text-[#00CFE8]/80 text-xs leading-relaxed">{current.tip}</p>
+            </div>
+          )}
+
+          {/* Puntos de progreso */}
+          <div className="flex gap-1.5 pt-1">
             {STEPS.map((_, i) => (
               <div
                 key={i}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  i === step ? 'w-6 bg-blue-500' : i < step ? 'w-1.5 bg-blue-500/40' : 'w-1.5 bg-slate-700'
+                className={`h-1 rounded-full transition-all duration-300 ${
+                  i === step ? 'w-5 bg-[#00CFE8]' : i < step ? 'w-1.5 bg-[#00CFE8]/35' : 'w-1.5 bg-white/15'
                 }`}
               />
             ))}
           </div>
 
-          {/* Actions */}
-          <div className="flex gap-3 pt-1">
+          {/* Botones */}
+          <div className="flex gap-2.5 pt-1">
             {!isFirst && (
               <button
                 onClick={() => setStep(s => s - 1)}
-                className="flex-1 py-3 border border-slate-700 rounded-xl text-sm font-bold text-slate-400 hover:text-white hover:border-slate-500 transition-colors cursor-pointer"
+                className="px-4 py-2.5 border border-white/15 rounded-xl text-sm font-bold text-white/40 hover:text-white hover:border-white/30 transition-colors cursor-pointer"
               >
                 Atrás
               </button>
@@ -144,30 +138,23 @@ export default function OnboardingWizard({ orgId, onClose }: Props) {
             <button
               onClick={handleNext}
               disabled={saving}
-              className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer disabled:opacity-60"
+              className="flex-1 py-2.5 bg-[#00CFE8] hover:brightness-110 disabled:opacity-50 text-[#020B16] rounded-xl text-sm font-black uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-1.5"
             >
-              {saving ? 'Guardando...' : isLast ? (
+              {saving ? (
                 <>
-                  <CheckCircle className="w-4 h-4" />
-                  {current.cta}
+                  <svg className="animate-spin h-3.5 w-3.5" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  Guardando...
                 </>
+              ) : isLast ? (
+                <>✓ {current.cta}</>
               ) : (
-                <>
-                  {current.cta}
-                  <ArrowRight className="w-4 h-4" />
-                </>
+                <>{current.cta} →</>
               )}
             </button>
           </div>
-
-          {step === 0 && (
-            <button
-              onClick={handleSkip}
-              className="w-full text-center text-xs text-slate-600 hover:text-slate-400 transition-colors cursor-pointer"
-            >
-              Omitir introducción
-            </button>
-          )}
         </div>
       </div>
     </div>

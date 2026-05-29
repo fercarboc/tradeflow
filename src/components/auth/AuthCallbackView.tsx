@@ -129,12 +129,12 @@ function routeAfterSession(
   _meta: Record<string, unknown> | undefined,
   setCurrentPage: (p: ActivePage) => void,
 ) {
-  if (type === 'recovery') {
-    setCurrentPage(ActivePage.UpdatePassword);
-  } else if (type === 'invite') {
+  if (type === 'recovery' || type === 'invite') {
     setCurrentPage(ActivePage.UpdatePassword);
   } else if (type === 'signup') {
-    setCurrentPage(ActivePage.AppDashboard);
+    // Forzamos logout para que el usuario se logue manualmente y llegue al panel desktop
+    localStorage.setItem('trabflow_email_confirmed', '1');
+    supabase.auth.signOut().then(() => setCurrentPage(ActivePage.Login));
   } else {
     setCurrentPage(ActivePage.AppDashboard);
   }

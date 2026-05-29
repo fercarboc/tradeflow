@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabase';
 import { ActivePage } from '../../types';
 
@@ -12,6 +12,14 @@ export default function LoginView({ setCurrentPage }: LoginViewProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [emailConfirmed, setEmailConfirmed] = useState(false);
+
+  useEffect(() => {
+    if (localStorage.getItem('trabflow_email_confirmed')) {
+      localStorage.removeItem('trabflow_email_confirmed');
+      setEmailConfirmed(true);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,6 +41,15 @@ export default function LoginView({ setCurrentPage }: LoginViewProps) {
           <h1 className="text-2xl font-display font-bold text-white">Accede a tu cuenta</h1>
           <p className="text-white/40 mt-1 text-sm">Gestiona tus presupuestos y obras desde aquí</p>
         </div>
+
+        {emailConfirmed && (
+          <div className="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/25 rounded-2xl px-4 py-3 text-sm text-emerald-400 mb-4">
+            <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>¡Email confirmado! Ya puedes iniciar sesión.</span>
+          </div>
+        )}
 
         <div className="bg-[#0d1f38] rounded-2xl border border-white/10 p-8 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-5">

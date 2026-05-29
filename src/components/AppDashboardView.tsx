@@ -600,24 +600,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }, [checkoutSuccess, orgId]);
 
   const [empresaAjustes, setEmpresaAjustes] = useState({
-    nombre: 'Sanz Instalaciones Técnicas',
-    nif: 'B-87654321',
-    email: 'info@sanzinstalaciones.com',
-    telefonoFijo: '954 123 456',
-    telefonoMovil: '611 222 333',
-    direccion: 'Calle Ingenieros de Obra 12',
-    localidad: 'Sevilla',
-    cp: '41001',
-    provincia: 'Sevilla',
+    nombre: '',
+    nif: '',
+    email: '',
+    telefonoFijo: '',
+    telefonoMovil: '',
+    direccion: '',
+    localidad: '',
+    cp: '',
+    provincia: '',
     pais: 'España',
     ivaDefault: 21,
-    planSuscripcion: 'Profesional (Pro)',
+    planSuscripcion: '',
     valorHoraOperario: 45,
   });
 
-  const [trabajadores, setTrabajadores] = useState<TrabajadorItem[]>([
-    { id: '1', nombre: 'Carlos Martínez', telefono: '612 345 678', email: 'carlos@empresa.com', rol: 'tecnico', activo: true },
-  ]);
+  const [trabajadores, setTrabajadores] = useState<TrabajadorItem[]>([]);
   const [showAddWorker, setShowAddWorker] = useState(false);
 
   const [tarifas, setTarifas] = useState<TarifaItem[]>([
