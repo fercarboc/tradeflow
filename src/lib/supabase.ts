@@ -202,7 +202,7 @@ export async function getOrCreateOrg(): Promise<TradeOrganization | null> {
   // Create from user metadata written during self-registration wizard
   const meta = user.user_metadata ?? {};
   const trialEnd = new Date();
-  trialEnd.setMonth(trialEnd.getMonth() + 3);
+  trialEnd.setDate(trialEnd.getDate() + 15);
 
   const { data: created, error } = await supabase
     .from('trade_organizations')
@@ -277,7 +277,7 @@ export async function registerUser(params: {
   // If session is available (email confirmation disabled), create org immediately
   if (data.session && data.user) {
     const trialEnd = new Date();
-    trialEnd.setMonth(trialEnd.getMonth() + 3);
+    trialEnd.setDate(trialEnd.getDate() + 15);
 
     const { data: org } = await supabase
       .from('trade_organizations')
