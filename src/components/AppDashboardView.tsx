@@ -3360,9 +3360,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <>
                   <div className="flex items-center justify-between">
                     <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full ${
-                      (sub?.plan === 'empresa' || sub?.plan === 'empresa_plus') ? 'bg-purple-500/15 text-purple-400 border border-purple-500/30' :
-                      sub?.plan === 'profesional' ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30' :
-                                                    'bg-slate-700 text-slate-400 border border-slate-600'
+                      sub?.plan === 'empresa_plus' ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30' :
+                      sub?.plan === 'empresa'      ? 'bg-purple-500/15 text-purple-400 border border-purple-500/30' :
+                      sub?.plan === 'profesional'  ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30' :
+                                                     'bg-slate-700 text-slate-400 border border-slate-600'
                     }`}>
                       {planLabel}
                     </span>
@@ -5359,47 +5360,120 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         <div className={sec}>
           <h3 className={secTitle}>Suscripción</h3>
           {subscription ? (() => {
-            const PLAN_LABEL: Record<string, string> = { basico: 'Básico', pro: 'Profesional', empresa: 'Empresa' };
+            const PLAN_META: Record<string, { label: string; price_monthly: number; price_yearly: number; colorText: string; colorBg: string; colorBorder: string; badgeBg: string }> = {
+              basico:       { label: 'Básico',      price_monthly: 29,  price_yearly: 23,  colorText: 'text-slate-700',  colorBg: 'bg-slate-50',   colorBorder: 'border-slate-200', badgeBg: 'bg-slate-100 text-slate-600' },
+              profesional:  { label: 'Profesional', price_monthly: 49,  price_yearly: 39,  colorText: 'text-blue-700',   colorBg: 'bg-blue-50',    colorBorder: 'border-blue-200',  badgeBg: 'bg-blue-100 text-blue-700' },
+              empresa:      { label: 'Empresa',     price_monthly: 89,  price_yearly: 71,  colorText: 'text-purple-700', colorBg: 'bg-purple-50',  colorBorder: 'border-purple-200',badgeBg: 'bg-purple-100 text-purple-700' },
+              empresa_plus: { label: 'Empresa+',    price_monthly: 179, price_yearly: 143, colorText: 'text-amber-700',  colorBg: 'bg-amber-50',   colorBorder: 'border-amber-200', badgeBg: 'bg-amber-100 text-amber-700' },
+            };
             const STATUS_CFG: Record<string, { label: string; cls: string }> = {
               trial:     { label: 'Prueba',    cls: 'bg-blue-100 text-blue-700' },
               active:    { label: 'Activo',    cls: 'bg-emerald-100 text-emerald-700' },
               cancelled: { label: 'Cancelado', cls: 'bg-slate-100 text-slate-500' },
               expired:   { label: 'Expirado',  cls: 'bg-red-100 text-red-600' },
             };
+            const meta = PLAN_META[subscription.plan] ?? PLAN_META.basico;
             const cfg = STATUS_CFG[subscription.status] ?? STATUS_CFG.trial;
+            const isYearly = subscription.billing_cycle === 'yearly';
+            const price = isYearly ? meta.price_yearly : meta.price_monthly;
             const trialEnd = subscription.trial_end ? new Date(subscription.trial_end) : null;
             const daysLeft = trialEnd ? Math.max(0, Math.ceil((trialEnd.getTime() - Date.now()) / 86400000)) : null;
-            const nextBilling = subscription.current_period_end
+            const nextBillingDate = subscription.current_period_end
               ? new Date(subscription.current_period_end).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
+              : trialEnd
+              ? trialEnd.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
               : null;
+            const isUpgradeable = subscription.status !== 'active' || subscription.plan !== 'empresa_plus';
+            const PLAN_LABEL_MAP: Record<string, string> = { basico: 'Básico', pro: 'Profesional', profesional: 'Profesional', empresa: 'Empresa', empresa_plus: 'Empresa+' };
 
             return (
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="text-xs font-bold text-slate-700">
-                      Plan {PLAN_LABEL[subscription.plan] ?? subscription.plan}
-                      {subscription.billing_cycle === 'yearly' ? ' · Anual' : ' · Mensual'}
+              <div className={`rounded-xl border ${meta.colorBorder} ${meta.colorBg} p-4 space-y-3`}>
+                {/* Header */}
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap mb-1">
+                      <span className={`text-base font-black ${meta.colorText}`}>Plan {meta.label}</span>
+                      <span className={`text-[9px] font-bold uppercase px-2 py-0.5 rounded-full ${cfg.cls}`}>{cfg.label}</span>
+                    </div>
+                    <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${meta.badgeBg}`}>
+                      {isYearly ? 'Facturación anual (-20%)' : 'Facturación mensual'}
                     </span>
-                    {subscription.status === 'trial' && daysLeft !== null && (
-                      <p className="text-[10px] text-slate-400 mt-0.5">
-                        {daysLeft > 0 ? `${daysLeft} día${daysLeft !== 1 ? 's' : ''} restantes de prueba` : 'Período de prueba finalizado'}
-                      </p>
-                    )}
-                    {subscription.status === 'active' && nextBilling && (
-                      <p className="text-[10px] text-slate-400 mt-0.5">Próxima factura: {nextBilling}</p>
-                    )}
-                    {subscription.status === 'cancelled' && (
-                      <p className="text-[10px] text-slate-400 mt-0.5">Suscripción cancelada</p>
-                    )}
-                    {subscription.status === 'expired' && (
-                      <p className="text-[10px] text-red-400 mt-0.5">Acceso expirado — reactiva tu plan</p>
-                    )}
                   </div>
-                  <span className={`text-[9px] font-bold uppercase px-2 py-1 rounded ${cfg.cls}`}>{cfg.label}</span>
+                  <div className="text-right shrink-0">
+                    <div className="flex items-baseline gap-0.5 justify-end">
+                      <span className={`text-2xl font-black ${meta.colorText}`}>{price}€</span>
+                      <span className="text-[10px] text-slate-400">/mes</span>
+                    </div>
+                    {isYearly && <p className="text-[10px] text-slate-400">{price * 12}€/año</p>}
+                  </div>
                 </div>
 
-                <div className="flex gap-2 flex-wrap">
+                {/* Fechas info */}
+                <div className="bg-white/80 rounded-lg divide-y divide-slate-100">
+                  {subscription.status === 'trial' && daysLeft !== null && (
+                    <div className="flex justify-between items-center px-3 py-2">
+                      <span className="text-[11px] text-slate-500">Período de prueba</span>
+                      <span className="text-[11px] font-bold text-amber-600">{daysLeft > 0 ? `${daysLeft} días restantes` : 'Finalizado'}</span>
+                    </div>
+                  )}
+                  {nextBillingDate && (
+                    <div className="flex justify-between items-center px-3 py-2">
+                      <span className="text-[11px] text-slate-500">
+                        {subscription.status === 'active' ? 'Próximo cobro' : 'Fin de prueba'}
+                      </span>
+                      <span className="text-[11px] font-bold text-slate-700">{nextBillingDate}</span>
+                    </div>
+                  )}
+                  {subscription.status === 'active' && (
+                    <div className="flex justify-between items-center px-3 py-2">
+                      <span className="text-[11px] text-slate-500">Importe a cobrar</span>
+                      <span className="text-[11px] font-bold text-slate-700">
+                        {isYearly ? `${price * 12}€` : `${price}€`}
+                      </span>
+                    </div>
+                  )}
+                  {subscription.status === 'cancelled' && (
+                    <div className="px-3 py-2"><p className="text-[11px] text-slate-500">Suscripción cancelada — el acceso continúa hasta el fin del período</p></div>
+                  )}
+                  {subscription.status === 'expired' && (
+                    <div className="px-3 py-2"><p className="text-[11px] text-red-500 font-semibold">Acceso expirado — reactiva tu plan para continuar</p></div>
+                  )}
+                </div>
+
+                {/* Últimos pagos inline */}
+                {isLiveMode && platformInvoices.length > 0 && (
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1.5">Últimos pagos</p>
+                    <div className="bg-white/80 rounded-lg divide-y divide-slate-100">
+                      {platformInvoices.slice(0, 3).map(inv => {
+                        const date = new Date(inv.paid_at ?? inv.period_start).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+                        const amount = (inv.amount_cents / 100).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
+                        return (
+                          <div key={inv.id} className="flex items-center justify-between px-3 py-2 gap-2">
+                            <div className="min-w-0">
+                              <p className="text-[11px] font-semibold text-slate-700 truncate">
+                                {inv.plan ? `Plan ${PLAN_LABEL_MAP[inv.plan] ?? inv.plan}` : 'Suscripción'}
+                              </p>
+                              <p className="text-[10px] text-slate-400">{date}</p>
+                            </div>
+                            <div className="flex items-center gap-2 shrink-0">
+                              <span className="text-[11px] font-bold text-slate-900">{amount}</span>
+                              {(inv.invoice_pdf_url || inv.invoice_url) && (
+                                <a href={inv.invoice_pdf_url ?? inv.invoice_url ?? '#'} target="_blank" rel="noopener noreferrer"
+                                  className="text-[10px] font-semibold px-2 py-0.5 rounded border border-slate-200 text-blue-600 hover:bg-blue-50 transition">
+                                  PDF
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Acciones */}
+                <div className="flex gap-2 flex-wrap pt-1">
                   {subscription.status === 'active' && subscription.stripe_customer_id && (
                     <button
                       onClick={async () => {
@@ -5409,25 +5483,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         finally { setStripeLoading(false); }
                       }}
                       disabled={stripeLoading}
-                      className="text-[10px] font-semibold px-3 py-1.5 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-50 transition disabled:opacity-50"
+                      className="text-[10px] font-semibold px-3 py-1.5 rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 transition disabled:opacity-50"
                     >
-                      Gestionar suscripción
+                      {stripeLoading ? 'Cargando…' : 'Gestionar suscripción'}
                     </button>
                   )}
-                  {(subscription.status === 'trial' || subscription.status === 'expired' || subscription.status === 'cancelled') && (
+                  {isUpgradeable && (
                     <button
                       onClick={() => setShowUpgradeModal(true)}
                       className="text-[10px] font-bold px-3 py-1.5 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white transition"
                     >
-                      {subscription.status === 'trial' ? 'Ver planes y activar' : 'Ver planes y reactivar'}
-                    </button>
-                  )}
-                  {subscription.status === 'active' && subscription.plan !== 'empresa' && (
-                    <button
-                      onClick={() => setShowUpgradeModal(true)}
-                      className="text-[10px] font-bold px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white transition"
-                    >
-                      Mejorar a Empresa
+                      {subscription.status === 'trial' ? 'Ver planes y activar' :
+                       subscription.status === 'active' ? 'Cambiar plan' : 'Ver planes y reactivar'}
                     </button>
                   )}
                 </div>
@@ -5436,58 +5503,47 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           })() : isLiveMode ? (
             <p className="text-[10px] text-slate-400">Cargando información de suscripción…</p>
           ) : (
-            /* Demo: mostrar plan Profesional de muestra */
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
+            <div className="rounded-xl border border-blue-200 bg-blue-50 p-4 space-y-3">
+              <div className="flex items-start justify-between gap-3">
                 <div>
-                  <span className="text-xs font-bold text-slate-700">Plan Profesional · Mensual</span>
-                  <p className="text-[10px] text-slate-400 mt-0.5">Demo — activa tu cuenta para ver tu suscripción real</p>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-base font-black text-blue-700">Plan Profesional</span>
+                    <span className="text-[9px] font-bold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">Activo</span>
+                  </div>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold bg-blue-100 text-blue-700">Demo — activa tu cuenta</span>
                 </div>
-                <span className="text-[9px] font-bold uppercase px-2 py-1 rounded bg-emerald-100 text-emerald-700">Activo</span>
-              </div>
-              <div className="flex gap-2 flex-wrap">
-                <button
-                  disabled
-                  className="text-[10px] font-semibold px-3 py-1.5 rounded-lg border border-slate-300 text-slate-400 opacity-50 cursor-not-allowed"
-                  title="Disponible con cuenta activa"
-                >
-                  Gestionar suscripción
-                </button>
+                <div className="text-right shrink-0">
+                  <span className="text-2xl font-black text-blue-700">49€</span>
+                  <span className="text-[10px] text-slate-400">/mes</span>
+                </div>
               </div>
             </div>
           )}
         </div>
 
-        {/* ── 5. Facturas de suscripción ── */}
-        {isLiveMode && platformInvoices.length > 0 && (
+        {/* ── 5. Historial de pagos completo (> 3 facturas) ── */}
+        {isLiveMode && platformInvoices.length > 3 && (
           <div className={sec}>
-            <h3 className={secTitle}>Facturas de suscripción</h3>
-            <div className="space-y-2">
-              {platformInvoices.map(inv => {
+            <h3 className={secTitle}>Historial completo de pagos</h3>
+            <div className="divide-y divide-slate-100">
+              {platformInvoices.slice(3).map(inv => {
+                const PLM: Record<string, string> = { basico: 'Básico', pro: 'Profesional', profesional: 'Profesional', empresa: 'Empresa', empresa_plus: 'Empresa+' };
                 const date = new Date(inv.paid_at ?? inv.period_start).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
                 const amount = (inv.amount_cents / 100).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
-                const planLabel: Record<string, string> = { basico: 'Básico', pro: 'Profesional', profesional: 'Profesional', empresa: 'Empresa' };
                 return (
-                  <div key={inv.id} className="flex items-center justify-between py-2.5 border-b border-slate-100 last:border-0">
-                    <div>
-                      <p className="text-xs font-semibold text-slate-800">
-                        {inv.plan ? `Plan ${planLabel[inv.plan] ?? inv.plan}` : 'Suscripción'}
+                  <div key={inv.id} className="flex items-center justify-between py-2.5 gap-2">
+                    <div className="min-w-0">
+                      <p className="text-xs font-semibold text-slate-800 truncate">
+                        {inv.plan ? `Plan ${PLM[inv.plan] ?? inv.plan}` : 'Suscripción'}
                         <span className="ml-2 text-[10px] font-normal text-slate-400">{date}</span>
                       </p>
-                      <p className="text-[10px] text-slate-400 mt-0.5">
-                        {new Date(inv.period_start).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })} – {new Date(inv.period_end).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })}
-                      </p>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 shrink-0">
                       <span className="text-xs font-bold text-slate-900">{amount}</span>
                       {(inv.invoice_pdf_url || inv.invoice_url) && (
-                        <a
-                          href={inv.invoice_pdf_url ?? inv.invoice_url ?? '#'}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[10px] font-semibold px-2.5 py-1 rounded border border-slate-200 text-blue-600 hover:bg-blue-50 transition"
-                        >
-                          Descargar
+                        <a href={inv.invoice_pdf_url ?? inv.invoice_url ?? '#'} target="_blank" rel="noopener noreferrer"
+                          className="text-[10px] font-semibold px-2.5 py-1 rounded border border-slate-200 text-blue-600 hover:bg-blue-50 transition">
+                          PDF
                         </a>
                       )}
                     </div>
