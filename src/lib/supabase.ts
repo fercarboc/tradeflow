@@ -2455,6 +2455,8 @@ export type TemplateType =
   | 'whatsapp_presupuesto'
   | 'email_presupuesto'
   | 'email_factura'
+  | 'recordatorio_pago'
+  | 'aviso_visita'
   | 'pie_presupuesto'
   | 'pie_factura'
   | 'contrato_mantenimiento';

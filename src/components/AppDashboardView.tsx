@@ -70,6 +70,7 @@ import ScreenEquipo from './ScreenEquipo';
 import ScreenIngresos from './ScreenIngresos';
 import ScreenMantenimiento from './ScreenMantenimiento';
 import ScreenContratos from './ScreenContratos';
+import { resolveTemplate, buildTemplateVars, DEFAULT_TEMPLATES, VARIABLE_GROUPS } from '../lib/templateEngine';
 import PlanUpgradeModal from './PlanUpgradeModal';
 import OnboardingWizard from './OnboardingWizard';
 import type { TradeOrganization } from '../lib/supabase';
@@ -1209,10 +1210,34 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       : `https://wa.me/?text=${encodeURIComponent(text)}`;
   };
 
-  const buildQuoteMessage = (q: Presupuesto, acceptanceUrl?: string) => {
+  const buildQuoteMessage = (q: Presupuesto, acceptanceUrl?: string, pdfUrl?: string) => {
     const iva = empresaAjustes.ivaDefault || 21;
     const ivaAmt = q.total * (iva / 100);
     const totalConIVA = q.total + ivaAmt;
+
+    const savedTemplate = orgTemplates['whatsapp_presupuesto'];
+    if (savedTemplate) {
+      const vars = buildTemplateVars({
+        empresa: {
+          nombre: empresaAjustes.nombre,
+          telefono: empresaAjustes.telefonoMovil,
+          email: empresaAjustes.email,
+          nif: empresaAjustes.nif,
+          direccion: empresaAjustes.direccion,
+        },
+        cliente: { nombre: q.nombreCliente, telefono: q.telefonoCliente },
+        presupuesto: {
+          numero: q.id,
+          fecha: q.fecha,
+          total: q.total,
+          iva,
+        },
+        enlaceAceptacion: acceptanceUrl,
+        enlacePdf: pdfUrl,
+      });
+      return resolveTemplate(savedTemplate, vars);
+    }
+
     const lines = q.partidas.map(p =>
       `• ${p.descripcion}: ${p.cantidad} × ${p.precioUnitario.toFixed(2)}€ = *${p.total.toFixed(2)}€*`
     );
@@ -3405,8 +3430,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('jobs.view') && SidebarBtn({ id: 'planificacion', icon: <Calendar className="w-4 h-4" />, label: 'Planificación' })}
             {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos' })}
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
-            {can('mantenimiento.view') && ((subscription?.plan ?? orgData?.plan) === 'empresa_plus' || (subscription?.plan ?? orgData?.plan) === 'empresa') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
-            {can('mantenimiento.view') && ((subscription?.plan ?? orgData?.plan) === 'empresa_plus' || (subscription?.plan ?? orgData?.plan) === 'empresa') && SidebarBtn({ id: 'contratos', icon: <FileText className="w-4 h-4" />, label: 'Contratos' })}
+            {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
+            {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'contratos', icon: <FileText className="w-4 h-4" />, label: 'Contratos' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
@@ -3622,6 +3647,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     orgData={orgData}
                     clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, direccion: c.direccion, telefono: c.telefono, email: c.email }))}
                     oficio={orgData.oficio}
+                    plan={subscription?.plan ?? orgData?.plan ?? 'basico'}
                   />
                 )}
                 {activeTab === 'settings' && ScreenSettings()}
@@ -5936,134 +5962,126 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         {/* ── Plantillas ── */}
         {isLiveMode && orgId && (() => {
-          const TEMPLATES: Array<{ tipo: TemplateType; label: string; icon: string; placeholder: string; vars: string[] }> = [
-            {
-              tipo: 'whatsapp_presupuesto',
-              label: 'WhatsApp — Presupuesto',
-              icon: '💬',
-              placeholder: 'Hola {{nombre_cliente}}, te adjunto el presupuesto...',
-              vars: ['{{nombre_cliente}}', '{{numero_presupuesto}}', '{{total}}', '{{empresa}}', '{{telefono}}', '{{enlace_aceptacion}}'],
-            },
-            {
-              tipo: 'email_presupuesto',
-              label: 'Email — Presupuesto',
-              icon: '📧',
-              placeholder: 'Estimado {{nombre_cliente}},\n\nAdjunto encontrará el presupuesto...',
-              vars: ['{{nombre_cliente}}', '{{numero_presupuesto}}', '{{total}}', '{{empresa}}', '{{telefono}}', '{{email_empresa}}'],
-            },
-            {
-              tipo: 'email_factura',
-              label: 'Email — Factura',
-              icon: '📧',
-              placeholder: 'Estimado {{nombre_cliente}},\n\nAdjunto la factura correspondiente...',
-              vars: ['{{nombre_cliente}}', '{{numero_factura}}', '{{total}}', '{{empresa}}', '{{telefono}}'],
-            },
-            {
-              tipo: 'pie_presupuesto',
-              label: 'Pie de página — Presupuesto',
-              icon: '📄',
-              placeholder: 'Validez del presupuesto: 30 días. Forma de pago: 50% anticipado, 50% a la finalización.',
-              vars: ['{{empresa}}', '{{nif}}', '{{telefono}}', '{{email_empresa}}'],
-            },
-            {
-              tipo: 'pie_factura',
-              label: 'Pie de página — Factura',
-              icon: '🧾',
-              placeholder: 'Forma de pago: transferencia bancaria. IBAN: ES00 0000 0000 0000 0000 0000.',
-              vars: ['{{empresa}}', '{{nif}}', '{{telefono}}', '{{email_empresa}}'],
-            },
-            {
-              tipo: 'contrato_mantenimiento',
-              label: 'Contrato de Mantenimiento',
-              icon: '📋',
-              placeholder: 'CONTRATO DE MANTENIMIENTO\n\nEntre {{empresa}} (en adelante el prestador) y {{nombre_cliente}} (en adelante el cliente)...',
-              vars: ['{{empresa}}', '{{nif}}', '{{nombre_cliente}}', '{{nif_cliente}}', '{{descripcion_servicio}}', '{{precio_mensual}}', '{{fecha_inicio}}', '{{duracion_meses}}'],
-            },
+          const TEMPLATES: Array<{ tipo: TemplateType; label: string; icon: string; rows: number; varGroups: string[] }> = [
+            { tipo: 'whatsapp_presupuesto', label: 'WhatsApp — Presupuesto', icon: '💬', rows: 7, varGroups: ['empresa', 'cliente', 'presupuesto', 'sistema'] },
+            { tipo: 'email_presupuesto',    label: 'Email — Presupuesto',    icon: '📧', rows: 10, varGroups: ['empresa', 'cliente', 'presupuesto', 'ia', 'sistema'] },
+            { tipo: 'email_factura',        label: 'Email — Factura',        icon: '📧', rows: 10, varGroups: ['empresa', 'cliente', 'factura', 'sistema'] },
+            { tipo: 'recordatorio_pago',    label: 'Recordatorio de pago',   icon: '🔔', rows: 7,  varGroups: ['empresa', 'cliente', 'factura'] },
+            { tipo: 'aviso_visita',         label: 'Aviso de visita',        icon: '🗓️', rows: 7,  varGroups: ['empresa', 'cliente', 'visita'] },
+            { tipo: 'pie_presupuesto',      label: 'Pie de página — Presupuesto', icon: '📄', rows: 4, varGroups: ['empresa', 'presupuesto'] },
+            { tipo: 'pie_factura',          label: 'Pie de página — Factura',     icon: '🧾', rows: 4, varGroups: ['empresa', 'factura'] },
+            { tipo: 'contrato_mantenimiento', label: 'Contrato de Mantenimiento', icon: '📋', rows: 10, varGroups: ['empresa', 'cliente'] },
           ];
 
           return (
             <div className={sec}>
               <h3 className={secTitle}>Plantillas de Comunicación</h3>
               <p className="text-[11px] text-slate-500 mb-3">
-                Personaliza los textos predeterminados que se usan al enviar presupuestos, facturas y contratos. Usa las variables indicadas — se rellenan automáticamente.
+                Personaliza los textos que se usan al enviar presupuestos, facturas y avisos. Usa <span className="font-mono bg-slate-100 px-1 rounded">{'{{variable}}'}</span> — se rellenan automáticamente. Soporta <span className="font-mono bg-slate-100 px-1 rounded">{'{{#if var}}...{{/if}}'}</span> para bloques condicionales.
               </p>
               <div className="space-y-2">
-                {TEMPLATES.map(tpl => (
-                  <div key={tpl.tipo} className="border border-slate-200 rounded-xl overflow-hidden">
-                    <button
-                      onClick={() => setOpenTemplateTipo(p => p === tpl.tipo ? null : tpl.tipo)}
-                      className="w-full flex items-center justify-between px-4 py-3 bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer"
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="text-base">{tpl.icon}</span>
-                        <span className="text-xs font-bold text-slate-700">{tpl.label}</span>
-                        {orgTemplates[tpl.tipo] && (
-                          <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700">Personalizada</span>
-                        )}
-                      </div>
-                      <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform ${openTemplateTipo === tpl.tipo ? 'rotate-180' : ''}`} />
-                    </button>
-                    {openTemplateTipo === tpl.tipo && (
-                      <div className="p-4 space-y-3 bg-white">
-                        <div>
-                          <span className="text-[9px] font-mono font-bold uppercase text-slate-400 block mb-1.5">Variables disponibles</span>
-                          <div className="flex flex-wrap gap-1">
-                            {tpl.vars.map(v => (
-                              <button
-                                key={v}
-                                onClick={() => {
-                                  setOrgTemplates(prev => ({
-                                    ...prev,
-                                    [tpl.tipo]: (prev[tpl.tipo] ?? '') + v,
-                                  }));
-                                }}
-                                className="font-mono text-[9px] bg-blue-50 text-blue-700 border border-blue-200 px-1.5 py-0.5 rounded cursor-pointer hover:bg-blue-100 transition-colors"
-                              >
-                                {v}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                        <textarea
-                          rows={tpl.tipo.startsWith('contrato') ? 10 : 5}
-                          placeholder={tpl.placeholder}
-                          value={orgTemplates[tpl.tipo] ?? ''}
-                          onChange={e => setOrgTemplates(prev => ({ ...prev, [tpl.tipo]: e.target.value }))}
-                          className="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-700 font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-y"
-                        />
-                        <div className="flex gap-2 items-center">
-                          <button
-                            disabled={savingTemplate === tpl.tipo}
-                            onClick={async () => {
-                              if (!orgId) return;
-                              setSavingTemplate(tpl.tipo);
-                              try {
-                                await saveOrgTemplate(orgId, tpl.tipo, orgTemplates[tpl.tipo] ?? '', tpl.label);
-                                showToast('Plantilla guardada ✓', 'success');
-                              } catch (err: unknown) {
-                                const msg = err instanceof Error ? err.message : String(err);
-                                showToast('Error: ' + msg, 'error');
-                              } finally {
-                                setSavingTemplate(null);
-                              }
-                            }}
-                            className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-[10px] font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-colors cursor-pointer"
-                          >
-                            {savingTemplate === tpl.tipo ? 'Guardando…' : 'Guardar plantilla'}
-                          </button>
-                          {orgTemplates[tpl.tipo] && (
-                            <button
-                              onClick={() => setOrgTemplates(prev => ({ ...prev, [tpl.tipo]: '' }))}
-                              className="text-[10px] text-slate-400 hover:text-slate-600 cursor-pointer transition-colors"
-                            >
-                              Restaurar predeterminado
-                            </button>
+                {TEMPLATES.map(tpl => {
+                  const defaultContent = DEFAULT_TEMPLATES[tpl.tipo as keyof typeof DEFAULT_TEMPLATES] ?? '';
+                  const currentContent = orgTemplates[tpl.tipo] ?? '';
+                  const relevantGroups = VARIABLE_GROUPS.filter(g => tpl.varGroups.includes(g.id));
+                  return (
+                    <div key={tpl.tipo} className="border border-slate-200 rounded-xl overflow-hidden">
+                      <button
+                        onClick={() => setOpenTemplateTipo(p => p === tpl.tipo ? null : tpl.tipo)}
+                        className="w-full flex items-center justify-between px-4 py-3 bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-base">{tpl.icon}</span>
+                          <span className="text-xs font-bold text-slate-700">{tpl.label}</span>
+                          {currentContent && (
+                            <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700">Personalizada</span>
                           )}
                         </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
+                        <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform ${openTemplateTipo === tpl.tipo ? 'rotate-180' : ''}`} />
+                      </button>
+                      {openTemplateTipo === tpl.tipo && (
+                        <div className="p-4 space-y-3 bg-white">
+                          {relevantGroups.length > 0 && (
+                            <div className="space-y-2">
+                              {relevantGroups.map(group => (
+                                <div key={group.id}>
+                                  <span className="text-[9px] font-bold uppercase text-slate-400 block mb-1">{group.emoji} {group.label}</span>
+                                  <div className="flex flex-wrap gap-1">
+                                    {group.vars.map(v => (
+                                      <button
+                                        key={v.key}
+                                        title={`Ejemplo: ${v.example}`}
+                                        onClick={() => {
+                                          const tag = `{{${v.key}}}`;
+                                          setOrgTemplates(prev => ({
+                                            ...prev,
+                                            [tpl.tipo]: (prev[tpl.tipo] ?? defaultContent) + tag,
+                                          }));
+                                        }}
+                                        className="font-mono text-[9px] bg-blue-50 text-blue-700 border border-blue-200 px-1.5 py-0.5 rounded cursor-pointer hover:bg-blue-100 transition-colors"
+                                      >
+                                        {`{{${v.key}}}`}
+                                      </button>
+                                    ))}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                          <textarea
+                            rows={tpl.rows}
+                            placeholder={defaultContent || `Escribe tu plantilla aquí…`}
+                            value={currentContent}
+                            onChange={e => setOrgTemplates(prev => ({ ...prev, [tpl.tipo]: e.target.value }))}
+                            className="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-700 font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-y"
+                          />
+                          {!currentContent && defaultContent && (
+                            <button
+                              onClick={() => setOrgTemplates(prev => ({ ...prev, [tpl.tipo]: defaultContent }))}
+                              className="text-[10px] text-blue-600 hover:text-blue-800 cursor-pointer transition-colors"
+                            >
+                              Cargar plantilla predeterminada
+                            </button>
+                          )}
+                          <div className="flex gap-2 items-center">
+                            <button
+                              disabled={savingTemplate === tpl.tipo}
+                              onClick={async () => {
+                                if (!orgId) return;
+                                setSavingTemplate(tpl.tipo);
+                                try {
+                                  await saveOrgTemplate(orgId, tpl.tipo, currentContent, tpl.label);
+                                  showToast('Plantilla guardada ✓', 'success');
+                                } catch (err: unknown) {
+                                  const msg = err instanceof Error ? err.message : String(err);
+                                  showToast('Error: ' + msg, 'error');
+                                } finally {
+                                  setSavingTemplate(null);
+                                }
+                              }}
+                              className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-[10px] font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-colors cursor-pointer"
+                            >
+                              {savingTemplate === tpl.tipo ? 'Guardando…' : 'Guardar plantilla'}
+                            </button>
+                            {currentContent && (
+                              <button
+                                onClick={async () => {
+                                  setOrgTemplates(prev => ({ ...prev, [tpl.tipo]: '' }));
+                                  if (orgId) {
+                                    try { await saveOrgTemplate(orgId, tpl.tipo, '', tpl.label); } catch { /* ignore */ }
+                                  }
+                                }}
+                                className="text-[10px] text-slate-400 hover:text-slate-600 cursor-pointer transition-colors"
+                              >
+                                Restaurar predeterminado
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           );

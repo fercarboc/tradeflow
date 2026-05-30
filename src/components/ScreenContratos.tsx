@@ -17,6 +17,7 @@ interface Props {
   orgData: TradeOrganization;
   clientes: Array<{ id: string; nombre: string; cif?: string; direccion?: string; telefono?: string; email?: string }>;
   oficio?: string;
+  plan?: string;
 }
 
 function fmtDate(s: string): string {
@@ -44,7 +45,7 @@ const SECTIONS: Array<{ id: Section; label: string; icon: React.ReactNode }> = [
   { id: 'legal', label: 'Datos legales', icon: <Shield className="w-4 h-4" /> },
 ];
 
-export default function ScreenContratos({ orgId, orgData, clientes, oficio }: Props) {
+export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan }: Props) {
   const [contracts, setContracts] = useState<TradeContract[]>([]);
   const [mantenimientos, setMantenimientos] = useState<MaintenancePresupuesto[]>([]);
   const [loading, setLoading] = useState(true);
@@ -506,23 +507,44 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio }: Pr
 
   // ── LIST VIEW ─────────────────────────────────────────────────────────────
 
+  const isEmpresaPlus = plan === 'empresa_plus';
+  const activeCount = contracts.filter(c => c.estado === 'firmado').length;
+  const CONTRACT_LIMIT = 2;
+  const limitReached = !isEmpresaPlus && activeCount >= CONTRACT_LIMIT;
+
   return (
     <div className="p-5 space-y-4">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-sm font-black text-slate-900 uppercase tracking-wide">Contratos de Mantenimiento</h2>
-          <p className="text-[10px] text-slate-400 mt-0.5">{contracts.length} contrato{contracts.length !== 1 ? 's' : ''}</p>
+          <div className="flex items-center gap-2 mt-0.5">
+            <p className="text-[10px] text-slate-400">{contracts.length} contrato{contracts.length !== 1 ? 's' : ''}</p>
+            {!isEmpresaPlus && (
+              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${limitReached ? 'bg-red-100 text-red-600' : 'bg-slate-100 text-slate-500'}`}>
+                {activeCount}/{CONTRACT_LIMIT} activos
+              </span>
+            )}
+            {isEmpresaPlus && (
+              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-violet-100 text-violet-600">Ilimitados</span>
+            )}
+          </div>
         </div>
         <button
-          onClick={() => startNew()}
-          className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xl cursor-pointer transition-colors"
+          onClick={() => { if (limitReached) { showToast(`Plan Empresa permite máximo ${CONTRACT_LIMIT} contratos activos. Actualiza a Empresa+ para contratos ilimitados.`, 'error'); return; } startNew(); }}
+          className={`flex items-center gap-1.5 text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-xl cursor-pointer transition-colors ${limitReached ? 'bg-slate-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
         >
           <Plus className="w-3.5 h-3.5" /> Nuevo contrato
         </button>
       </div>
 
+      {limitReached && (
+        <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 text-xs text-amber-800">
+          Has alcanzado el límite de <strong>{CONTRACT_LIMIT} contratos activos</strong> del plan Empresa. Actualiza a <strong>Empresa+</strong> para contratos ilimitados.
+        </div>
+      )}
+
       {/* Quick-create from mantenimiento */}
-      {mantenimientos.length > 0 && (
+      {mantenimientos.length > 0 && !limitReached && (
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
           <p className="text-xs font-bold text-blue-800 mb-2">Crear contrato desde un presupuesto de mantenimiento</p>
           <div className="flex flex-wrap gap-2">
@@ -552,6 +574,11 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio }: Pr
           >
             <Plus className="w-3.5 h-3.5" /> Crear primer contrato
           </button>
+        </div>
+      ) : limitReached && contracts.every(c => c.estado === 'firmado') ? (
+        <div className="text-center py-12 space-y-2">
+          <p className="text-slate-500 text-xs font-semibold">Límite de {CONTRACT_LIMIT} contratos activos alcanzado.</p>
+          <p className="text-slate-400 text-[10px]">Actualiza a Empresa+ para contratos ilimitados.</p>
         </div>
       ) : (
         <div className="space-y-2">
