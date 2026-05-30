@@ -69,6 +69,7 @@ import ScreenPlanificacion from './ScreenPlanificacion';
 import ScreenEquipo from './ScreenEquipo';
 import ScreenIngresos from './ScreenIngresos';
 import ScreenMantenimiento from './ScreenMantenimiento';
+import ScreenContratos from './ScreenContratos';
 import PlanUpgradeModal from './PlanUpgradeModal';
 import OnboardingWizard from './OnboardingWizard';
 import type { TradeOrganization } from '../lib/supabase';
@@ -3405,6 +3406,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos' })}
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
             {can('mantenimiento.view') && ((subscription?.plan ?? orgData?.plan) === 'empresa_plus' || (subscription?.plan ?? orgData?.plan) === 'empresa') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
+            {can('mantenimiento.view') && ((subscription?.plan ?? orgData?.plan) === 'empresa_plus' || (subscription?.plan ?? orgData?.plan) === 'empresa') && SidebarBtn({ id: 'contratos', icon: <FileText className="w-4 h-4" />, label: 'Contratos' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
@@ -3612,6 +3614,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     showToast={showToast}
                     initialText={mantenimientoInitialText}
                     onInitialTextConsumed={() => setMantenimientoInitialText('')}
+                  />
+                )}
+                {activeTab === 'contratos' && orgId && orgData && (
+                  <ScreenContratos
+                    orgId={orgId}
+                    orgData={orgData}
+                    clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, direccion: c.direccion, telefono: c.telefono, email: c.email }))}
+                    oficio={orgData.oficio}
                   />
                 )}
                 {activeTab === 'settings' && ScreenSettings()}

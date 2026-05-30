@@ -2512,3 +2512,80 @@ export async function uploadOrgLogo(orgId: string, file: File): Promise<string> 
 
   return url;
 }
+
+// ── Contracts ─────────────────────────────────────────────────────────────────
+
+export interface TradeContract {
+  id: string;
+  org_id: string;
+  client_id?: string;
+  mantenimiento_id?: string;
+  referencia: string;
+  oficio: string;
+  estado: 'borrador' | 'firmado';
+  variables: Record<string, string>;
+  contenido_html?: string;
+  pdf_url?: string;
+  firmado_at?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function loadContracts(orgId: string): Promise<TradeContract[]> {
+  const { data, error } = await supabase
+    .from('trade_contracts')
+    .select('*')
+    .eq('org_id', orgId)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as TradeContract[];
+}
+
+export async function createContract(
+  orgId: string,
+  payload: {
+    referencia: string;
+    oficio: string;
+    client_id?: string;
+    mantenimiento_id?: string;
+    variables: Record<string, string>;
+    contenido_html?: string;
+  },
+): Promise<TradeContract> {
+  const { data, error } = await supabase
+    .from('trade_contracts')
+    .insert({ org_id: orgId, ...payload, estado: 'borrador', updated_at: new Date().toISOString() })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as TradeContract;
+}
+
+export async function updateContract(
+  id: string,
+  payload: Partial<Pick<TradeContract, 'variables' | 'contenido_html' | 'estado' | 'firmado_at'>>,
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_contracts')
+    .update({ ...payload, updated_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+export async function signContract(id: string, contenido_html: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_contracts')
+    .update({
+      estado: 'firmado',
+      contenido_html,
+      firmado_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+export async function deleteContract(id: string): Promise<void> {
+  const { error } = await supabase.from('trade_contracts').delete().eq('id', id);
+  if (error) throw error;
+}
