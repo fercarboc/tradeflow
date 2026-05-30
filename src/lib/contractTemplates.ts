@@ -598,16 +598,17 @@ export function buildContractHTML(v: ContractVars, oficio: string): string {
   <p>El presente Anexo recoge el inventario detallado de instalaciones, equipos y elementos objeto del presente contrato de mantenimiento. Este inventario podrá ser actualizado mediante documento firmado por ambas partes sin necesidad de modificar el contrato principal.</p>
   <table class="annex-table">
     <tr>
-      <th>Nº</th>
-      <th>Descripción del equipo / instalación</th>
-      <th>Marca / Modelo</th>
-      <th>Ubicación</th>
-      <th>Año</th>
-      <th>Incl.</th>
+      <th style="width:4%">Nº</th>
+      <th style="width:36%">Descripción del equipo / instalación</th>
+      <th style="width:22%">Marca / Modelo</th>
+      <th style="width:18%">Ubicación</th>
+      <th style="width:10%">Año inst.</th>
+      <th style="width:10%">Incluido</th>
     </tr>
-    ${[1,2,3,4,5,6,7,8].map(n => `<tr><td>${n}</td><td>[ Descripción ]</td><td>[ Marca / Modelo ]</td><td>[ Zona ]</td><td>[ Año ]</td><td>☐ Sí</td></tr>`).join('')}
+    ${Array.from({length: 15}, (_, i) => `<tr style="height:28px"><td style="text-align:center;color:#999">${i+1}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align:center">☐</td></tr>`).join('')}
   </table>
-  <p>Límite de coste para reparaciones correctivas incluidas sin presupuesto adicional: <strong>${esc(v.limite_correctivo)} EUR</strong> por actuación.</p>
+  <p style="margin-top:12px">Límite de coste para reparaciones correctivas incluidas sin presupuesto adicional: <strong>${esc(v.limite_correctivo)} EUR</strong> por actuación.</p>
+  <p style="margin-top:8px;font-size:10px;color:#666">Firma de conformidad del inventario — Prestador: ___________________________ &nbsp;&nbsp; Cliente: ___________________________</p>
 </div>
 
 <!-- ═══ ANNEX II ═══ -->

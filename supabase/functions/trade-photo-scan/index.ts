@@ -155,6 +155,13 @@ SALIDA OBLIGATORIA
 JSON válido. Sin markdown. Sin texto fuera del JSON.
 
 {
+  "scene_detectada": "Una frase sencilla describiendo lo que se ve: p.ej. 'Baño con bañera antigua, azulejos deteriorados y lavabo de época'",
+  "acciones_sugeridas": [
+    "Cambiar bañera por plato de ducha y mampara",
+    "Reforma completa del baño: azulejos, suelo y sanitarios",
+    "Sustitución de lavabo y grifería",
+    "Impermeabilización de paredes"
+  ],
   "oficio": "",
   "tipo_trabajo": "",
   "resumen": "",
@@ -181,6 +188,15 @@ JSON válido. Sin markdown. Sin texto fuera del JSON.
   "notas": "",
   "nivel_confianza": "medio"
 }
+
+Reglas para scene_detectada y acciones_sugeridas:
+- scene_detectada: descripción en lenguaje natural de lo que se ve en la imagen, sin tecnicismos. Máximo 2 frases.
+- acciones_sugeridas: entre 3 y 5 acciones concretas que el instalador podría necesitar hacer. Adapta al contexto:
+  * Si es baño viejo/deteriorado: ofrece reformar suelo y paredes, cambiar bañera por ducha+mampara, sustituir lavabo, renovar grifería
+  * Si es cocina: ofrece reforma de cocina, cambio de encimera, renovación de electrodomésticos, reforma de fontanería
+  * Si es instalación eléctrica: ofrece revisión de cuadro, sustitución de mecanismos, instalación de tomas, adecuación a normativa
+  * Si es climatización/calefacción: ofrece revisión, sustitución de equipos, instalación de termostato inteligente
+  * Si es obra/reforma: adapta a lo visible
 
 Unidades válidas: "ud" | "ml" | "m" | "m2" | "m3" | "h" | "kg" | "jornada" | "kit"
 nivel_confianza: "alto" | "medio" | "bajo"

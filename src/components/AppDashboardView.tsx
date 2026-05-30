@@ -967,6 +967,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [scanProgress, setScanProgress] = useState(0);
   const [realPhotoFile, setRealPhotoFile] = useState<File | null>(null);
   const [realPhotoPreviewUrl, setRealPhotoPreviewUrl] = useState<string | null>(null);
+  const [photoScanPhase, setPhotoScanPhase] = useState<'idle' | 'scanning' | 'intent'>('idle');
+  const [photoScene, setPhotoScene] = useState<{ descripcion: string; acciones: string[] } | null>(null);
+  const [pendingPhotoQuote, setPendingPhotoQuote] = useState<AIQuote | null>(null);
+  const scanProgressIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const photoInputRef = useRef<HTMLInputElement>(null);
   const photoCameraRef = useRef<HTMLInputElement>(null);
 
@@ -997,7 +1001,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     // ── Modo real: foto real → edge function Claude Vision ──────────────
     if (isLiveMode && realPhotoFile) {
       setIsScanning(true);
-      setScanProgress(20);
+      setPhotoScanPhase('scanning');
+      setScanProgress(15);
       try {
         const base64 = await new Promise<string>((resolve, reject) => {
           const img = new Image();
@@ -1030,7 +1035,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           img.onerror = reject;
           img.src = url;
         });
-        setScanProgress(50);
+        setScanProgress(40);
+        // Animar lentamente de 40% → 88% mientras espera la respuesta de la API
+        if (scanProgressIntervalRef.current) clearInterval(scanProgressIntervalRef.current);
+        scanProgressIntervalRef.current = setInterval(() => {
+          setScanProgress(prev => {
+            if (prev >= 88) { clearInterval(scanProgressIntervalRef.current!); return prev; }
+            return prev + 1;
+          });
+        }, 500);
+
         const { data: { session } } = await supabase.auth.getSession();
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 90_000);
@@ -1046,8 +1060,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             signal: controller.signal,
           },
         ).finally(() => clearTimeout(timeoutId));
-        setScanProgress(85);
-        const json = await res.json().catch(() => ({})) as { quote?: AIQuote; error?: string };
+
+        if (scanProgressIntervalRef.current) clearInterval(scanProgressIntervalRef.current);
+        setScanProgress(95);
+
+        const json = await res.json().catch(() => ({})) as { quote?: AIQuote & { scene_detectada?: string; acciones_sugeridas?: string[] }; error?: string };
         if (!res.ok || !json.quote) {
           throw new Error(json.error ?? `HTTP ${res.status} — respuesta inesperada del servidor`);
         }
@@ -1056,29 +1073,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         setScanProgress(100);
         setIsScanning(false);
 
-        const partidas: PartidaPresupuesto[] = quoteToPartidas(quote);
-
-        const total = partidas.reduce((s, p) => s + p.total, 0);
-        const desc = (typeof quote.resumen === 'string' ? quote.resumen : quote.resumen?.texto_original || '').slice(0, 80);
-        setWizardQuote(prev => ({
-          ...prev,
-          descripcion: desc || prev.descripcion,
-          partidas,
-          total,
-          estado: 'Borrador' as const,
-        }));
-        setRealPhotoFile(null);
-        setRealPhotoPreviewUrl(null);
-        showToast(`Foto analizada: ${partidas.length} elementos detectados ✓`, 'success');
-        setWizardStep(4);
-        setActiveTab('create_quote');
+        // Guardar resultado y mostrar selección de intención
+        setPendingPhotoQuote(quote as AIQuote);
+        setPhotoScene({
+          descripcion: quote.scene_detectada ?? (typeof quote.resumen === 'string' ? quote.resumen : (quote.resumen as any)?.texto_original ?? ''),
+          acciones: quote.acciones_sugeridas ?? [],
+        });
+        setPhotoScanPhase('intent');
       } catch (e: unknown) {
+        if (scanProgressIntervalRef.current) clearInterval(scanProgressIntervalRef.current);
         const err = e as Error;
         const msg = err.name === 'AbortError'
           ? 'Tiempo de espera agotado. Intenta de nuevo.'
           : 'Error al analizar foto: ' + err.message;
         showToast(msg, 'error');
         setIsScanning(false);
+        setPhotoScanPhase('idle');
       }
       return;
     }
@@ -1117,6 +1127,31 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         return prev + 10;
       });
     }, 100);
+  };
+
+  const handleApplyPhotoResult = (accion?: string) => {
+    if (!pendingPhotoQuote) return;
+    const partidas = quoteToPartidas(pendingPhotoQuote);
+    const total = partidas.reduce((s, p) => s + p.total, 0);
+    const descBase = typeof pendingPhotoQuote.resumen === 'string'
+      ? pendingPhotoQuote.resumen
+      : (pendingPhotoQuote.resumen as any)?.texto_original ?? '';
+    setWizardQuote(prev => ({
+      ...prev,
+      descripcion: accion ?? descBase.slice(0, 120),
+      partidas,
+      total,
+      estado: 'Borrador' as const,
+    }));
+    setPhotoScanPhase('idle');
+    setPhotoScene(null);
+    setPendingPhotoQuote(null);
+    setRealPhotoFile(null);
+    setRealPhotoPreviewUrl(null);
+    setScanProgress(0);
+    showToast(`${partidas.length} elementos detectados ✓`, 'success');
+    setWizardStep(4);
+    setActiveTab('create_quote');
   };
 
   // Iniciar asistente wizard
@@ -4147,16 +4182,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         setRealPhotoFile(file);
         setRealPhotoPreviewUrl(URL.createObjectURL(file));
         setSelectedPhotoPreset(null);
+        setPhotoScanPhase('idle');
+        setPhotoScene(null);
+        setPendingPhotoQuote(null);
+        setScanProgress(0);
       }
       e.target.value = '';
     };
 
     return (
       <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-6">
+        <style>{`@keyframes scanBeam{0%,100%{top:3%}50%{top:90%}}`}</style>
         <div className="flex items-center justify-between">
-          <h3 className="text-md font-black uppercase text-slate-905">
-            Escáner Fotográfico IA
-          </h3>
+          <h3 className="text-md font-black uppercase text-slate-900">Escáner Fotográfico IA</h3>
           <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isLiveMode ? 'bg-emerald-900/40 text-emerald-300' : 'bg-slate-700 text-slate-400'}`}>
             {isLiveMode ? '● REAL' : '● DEMO'}
           </span>
@@ -4165,61 +4203,112 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {/* ── MODO REAL ── */}
         {isLiveMode && (
           <div className="space-y-4">
-            {/* Inputs ocultos */}
             <input ref={photoInputRef}  type="file" accept="image/*" className="hidden" onChange={onFileSelected} />
             <input ref={photoCameraRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={onFileSelected} />
 
-            {!realPhotoFile ? (
+            {/* Estado: sin foto */}
+            {!realPhotoFile && photoScanPhase === 'idle' && (
               <div className="grid grid-cols-2 gap-3">
-                <button
-                  onClick={() => photoCameraRef.current?.click()}
-                  className="bg-slate-50 border-2 border-blue-600/40 hover:border-blue-500 rounded-xl p-6 text-center cursor-pointer transition-colors"
-                >
+                <button onClick={() => photoCameraRef.current?.click()}
+                  className="bg-slate-50 border-2 border-blue-600/40 hover:border-blue-500 rounded-xl p-6 text-center cursor-pointer transition-colors">
                   <Camera className="w-8 h-8 text-blue-400 mx-auto mb-2" />
                   <span className="text-xs font-bold text-slate-800 block">Tomar foto</span>
                   <span className="text-[10px] text-slate-400 block mt-1">Abre la cámara</span>
                 </button>
-                <button
-                  onClick={() => photoInputRef.current?.click()}
-                  className="bg-slate-50 border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-xl p-6 text-center cursor-pointer transition-colors"
-                >
+                <button onClick={() => photoInputRef.current?.click()}
+                  className="bg-slate-50 border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-xl p-6 text-center cursor-pointer transition-colors">
                   <ImageIcon className="w-8 h-8 text-slate-400 mx-auto mb-2" />
                   <span className="text-xs font-bold text-slate-800 block">Subir imagen</span>
                   <span className="text-[10px] text-slate-400 block mt-1">Desde tu equipo</span>
                 </button>
               </div>
-            ) : (
+            )}
+
+            {/* Estado: foto cargada — pendiente de analizar o analizando */}
+            {realPhotoFile && photoScanPhase !== 'intent' && (
               <div className="grid grid-cols-2 gap-4">
                 <div className="relative rounded-xl overflow-hidden aspect-video bg-slate-950 flex items-center justify-center">
                   <img src={realPhotoPreviewUrl!} alt="Preview" className="max-h-full max-w-full object-contain" />
                   {isScanning && (
-                    <div className="absolute left-0 right-0 h-1 bg-emerald-400 shadow-[0_0_15px_#34d399] z-20"
-                      style={{ top: `${scanProgress}%`, transition: 'top 200ms linear' }} />
+                    <div className="absolute left-0 right-0 h-0.5 bg-emerald-400 shadow-[0_0_12px_#34d399] z-20"
+                      style={{ animation: 'scanBeam 2.5s ease-in-out infinite', position: 'absolute' }} />
                   )}
-                  <button
-                    onClick={() => { setRealPhotoFile(null); setRealPhotoPreviewUrl(null); }}
-                    className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white text-[9px] font-bold px-2 py-1 rounded-lg cursor-pointer"
-                  >
-                    ✕ Cambiar
-                  </button>
+                  {!isScanning && (
+                    <button onClick={() => { setRealPhotoFile(null); setRealPhotoPreviewUrl(null); setScanProgress(0); }}
+                      className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 text-white text-[9px] font-bold px-2 py-1 rounded-lg cursor-pointer">
+                      ✕ Cambiar
+                    </button>
+                  )}
                 </div>
-                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">
+                <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between gap-3">
                   <div>
                     <span className="text-[10px] font-bold text-slate-400 block font-mono uppercase mb-2">Claude AI Vision</span>
-                    <p className="text-xs text-slate-500 italic">
-                      {isScanning ? `Analizando imagen... ${scanProgress}%` : 'Pulsa para detectar materiales y trabajos.'}
-                    </p>
+                    {isScanning ? (
+                      <div className="space-y-3">
+                        <p className="text-xs text-emerald-600 font-semibold animate-pulse">Analizando imagen…</p>
+                        <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+                          <div className="bg-emerald-500 h-2 transition-all duration-500 rounded-full" style={{ width: `${scanProgress}%` }} />
+                        </div>
+                        <p className="text-[10px] text-slate-400">Detectando elementos, trabajos y materiales…</p>
+                      </div>
+                    ) : (
+                      <p className="text-xs text-slate-500">Pulsa <strong>Analizar</strong> para que la IA detecte qué hay en la imagen y sugiera los trabajos.</p>
+                    )}
                   </div>
-                  {!isScanning ? (
+                  {!isScanning && (
                     <button onClick={startPhotoAnalysis}
                       className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold p-3 rounded-xl text-[10px] uppercase cursor-pointer transition-colors">
                       Analizar con IA 📷
                     </button>
-                  ) : (
-                    <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
-                      <div className="bg-emerald-500 h-2 transition-all duration-200" style={{ width: `${scanProgress}%` }} />
-                    </div>
                   )}
+                </div>
+              </div>
+            )}
+
+            {/* Estado: análisis completado — selección de intención */}
+            {photoScanPhase === 'intent' && photoScene && (
+              <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  {/* Miniatura de la foto */}
+                  <div className="relative rounded-xl overflow-hidden aspect-video bg-slate-950 flex items-center justify-center">
+                    {realPhotoPreviewUrl && <img src={realPhotoPreviewUrl} alt="Preview" className="max-h-full max-w-full object-contain" />}
+                    <div className="absolute inset-0 bg-emerald-950/20 flex items-end p-3">
+                      <span className="text-[10px] text-emerald-300 font-bold bg-emerald-900/70 px-2 py-1 rounded-lg">✓ Análisis completado</span>
+                    </div>
+                  </div>
+                  {/* Descripción detectada */}
+                  <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col gap-2">
+                    <span className="text-[10px] font-bold text-slate-400 font-mono uppercase">Claude AI Vision — Detectado</span>
+                    <p className="text-xs text-slate-700 font-semibold leading-relaxed">{photoScene.descripcion}</p>
+                    <button
+                      onClick={() => { setRealPhotoFile(null); setRealPhotoPreviewUrl(null); setPhotoScanPhase('idle'); setPhotoScene(null); setPendingPhotoQuote(null); setScanProgress(0); }}
+                      className="text-[10px] text-slate-400 hover:text-slate-600 cursor-pointer transition-colors mt-auto text-left"
+                    >
+                      ✕ Analizar otra foto
+                    </button>
+                  </div>
+                </div>
+
+                {/* Selección de acción */}
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 space-y-3">
+                  <p className="text-xs font-bold text-blue-900">¿Qué trabajo quieres presupuestar?</p>
+                  <div className="flex flex-wrap gap-2">
+                    {photoScene.acciones.map(accion => (
+                      <button
+                        key={accion}
+                        onClick={() => handleApplyPhotoResult(accion)}
+                        className="text-[11px] bg-white border border-blue-300 text-blue-800 font-semibold px-3 py-2 rounded-xl hover:bg-blue-600 hover:text-white hover:border-blue-600 cursor-pointer transition-colors"
+                      >
+                        {accion}
+                      </button>
+                    ))}
+                  </div>
+                  <button
+                    onClick={() => handleApplyPhotoResult()}
+                    className="w-full text-[10px] text-blue-600 hover:text-blue-800 cursor-pointer transition-colors text-left pt-1 border-t border-blue-200"
+                  >
+                    Usar el análisis completo sin filtrar →
+                  </button>
                 </div>
               </div>
             )}
@@ -4244,7 +4333,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <div className="relative rounded-xl overflow-hidden aspect-video bg-slate-950 flex items-center justify-center">
                   <img src={selectedPhotoPreset.url} alt="Worksite" className="max-h-full max-w-full object-contain" />
                   {isScanning && (
-                    <div className="absolute left-0 right-0 h-1 bg-emerald-400 shadow-[0_0_15px_#34d399] z-20" style={{ top: `${scanProgress}%` }} />
+                    <div className="absolute left-0 right-0 h-0.5 bg-emerald-400 shadow-[0_0_12px_#34d399] z-20"
+                      style={{ animation: 'scanBeam 2.5s ease-in-out infinite', position: 'absolute' }} />
                   )}
                 </div>
                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between">

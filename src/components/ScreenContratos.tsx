@@ -45,6 +45,47 @@ const SECTIONS: Array<{ id: Section; label: string; icon: React.ReactNode }> = [
   { id: 'legal', label: 'Datos legales', icon: <Shield className="w-4 h-4" /> },
 ];
 
+// ── Estilos compartidos (módulo) ─────────────────────────────────────────────
+const INP = 'w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500';
+const LBL = 'text-[9px] uppercase font-mono font-bold text-slate-400 block mb-1';
+
+interface ContractFieldProps {
+  field: keyof ContractVars;
+  label: string;
+  type?: string;
+  placeholder?: string;
+  vars: ContractVars;
+  isSigned: boolean;
+  setVars: React.Dispatch<React.SetStateAction<ContractVars>>;
+}
+
+function ContractField({ field, label, type = 'text', placeholder = '', vars, isSigned, setVars }: ContractFieldProps) {
+  return (
+    <div>
+      <span className={LBL}>{label}</span>
+      {type === 'textarea' ? (
+        <textarea
+          rows={4}
+          className={`${INP} resize-y`}
+          placeholder={placeholder}
+          disabled={isSigned}
+          value={vars[field] as string}
+          onChange={e => setVars(p => ({ ...p, [field]: e.target.value }))}
+        />
+      ) : (
+        <input
+          type={type}
+          className={INP}
+          placeholder={placeholder}
+          disabled={isSigned}
+          value={vars[field] as string}
+          onChange={e => setVars(p => ({ ...p, [field]: e.target.value }))}
+        />
+      )}
+    </div>
+  );
+}
+
 export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan }: Props) {
   const [contracts, setContracts] = useState<TradeContract[]>([]);
   const [mantenimientos, setMantenimientos] = useState<MaintenancePresupuesto[]>([]);
@@ -221,57 +262,30 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
     setTimeout(() => win.print(), 400);
   };
 
-  // ── Field helper ──────────────────────────────────────────────────────────
-
-  const inp = 'w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500';
-  const lbl = 'text-[9px] uppercase font-mono font-bold text-slate-400 block mb-1';
-
-  const Field = ({ field, label, type = 'text', placeholder = '' }: {
-    field: keyof ContractVars; label: string; type?: string; placeholder?: string;
-  }) => (
-    <div>
-      <span className={lbl}>{label}</span>
-      {type === 'textarea' ? (
-        <textarea
-          rows={4}
-          className={`${inp} resize-y`}
-          placeholder={placeholder}
-          disabled={isSigned}
-          value={vars[field] as string}
-          onChange={e => setVars(p => ({ ...p, [field]: e.target.value }))}
-        />
-      ) : (
-        <input
-          type={type}
-          className={inp}
-          placeholder={placeholder}
-          disabled={isSigned}
-          value={vars[field] as string}
-          onChange={e => setVars(p => ({ ...p, [field]: e.target.value }))}
-        />
-      )}
-    </div>
-  );
+  // Field helper — definido a nivel de módulo como ContractField para evitar re-mount
 
   // ── Section content ───────────────────────────────────────────────────────
+
+  const F = (props: Omit<ContractFieldProps, 'vars' | 'isSigned' | 'setVars'>) =>
+    <ContractField {...props} vars={vars} isSigned={isSigned} setVars={setVars} />;
 
   const renderSectionContent = (id: Section) => {
     switch (id) {
       case 'prestador': return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <Field field="empresa" label="Razón social / Nombre autónomo" />
-          <Field field="cif_empresa" label="CIF / NIF empresa" />
-          <div className="sm:col-span-2"><Field field="direccion_empresa" label="Dirección completa" placeholder="Calle, número, CP, ciudad, provincia" /></div>
-          <Field field="telefono_empresa" label="Teléfono" />
-          <Field field="email_empresa" label="Email" type="email" />
+          <F field="empresa" label="Razón social / Nombre autónomo" />
+          <F field="cif_empresa" label="CIF / NIF empresa" />
+          <div className="sm:col-span-2"><F field="direccion_empresa" label="Dirección completa" placeholder="Calle, número, CP, ciudad, provincia" /></div>
+          <F field="telefono_empresa" label="Teléfono" />
+          <F field="email_empresa" label="Email" type="email" />
         </div>
       );
       case 'cliente': return (
         <div className="space-y-3">
           <div>
-            <span className={lbl}>Seleccionar cliente existente</span>
+            <span className={LBL}>Seleccionar cliente existente</span>
             <select
-              className={inp}
+              className={INP}
               disabled={isSigned}
               value=""
               onChange={e => {
@@ -292,91 +306,89 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
             </select>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <Field field="nombre_cliente" label="Razón social / Nombre cliente" />
-            <Field field="cif_cliente" label="CIF / NIF cliente" />
-            <div className="sm:col-span-2"><Field field="direccion_cliente" label="Dirección completa" placeholder="Calle, número, CP, ciudad, provincia" /></div>
-            <Field field="telefono_cliente" label="Teléfono" />
-            <Field field="email_cliente" label="Email" type="email" />
-            <Field field="representante_cliente" label="Nombre representante / interlocutor" />
-            <Field field="cargo_representante" label="Cargo del representante" />
+            <F field="nombre_cliente" label="Razón social / Nombre cliente" />
+            <F field="cif_cliente" label="CIF / NIF cliente" />
+            <div className="sm:col-span-2"><F field="direccion_cliente" label="Dirección completa" placeholder="Calle, número, CP, ciudad, provincia" /></div>
+            <F field="telefono_cliente" label="Teléfono" />
+            <F field="email_cliente" label="Email" type="email" />
+            <F field="representante_cliente" label="Nombre representante / interlocutor" />
+            <F field="cargo_representante" label="Cargo del representante" />
           </div>
         </div>
       );
       case 'contrato': return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <Field field="referencia" label="Referencia del contrato" placeholder="TF-MANT-2026-0001" />
+          <F field="referencia" label="Referencia del contrato" placeholder="TF-MANT-2026-0001" />
           <div>
-            <span className={lbl}>Oficio / Tipo de instalación</span>
-            <select className={inp} disabled={isSigned} value={selectedOficio} onChange={e => setSelectedOficio(e.target.value)}>
+            <span className={LBL}>Oficio / Tipo de instalación</span>
+            <select className={INP} disabled={isSigned} value={selectedOficio} onChange={e => setSelectedOficio(e.target.value)}>
               <option value="fontaneria">Fontanería</option>
               <option value="electricidad">Electricidad</option>
               <option value="climatizacion">Climatización</option>
               <option value="general">General / Otros</option>
             </select>
           </div>
-          <Field field="fecha_inicio" label="Fecha de inicio (DD/MM/AAAA)" placeholder="01/06/2026" />
-          <Field field="fecha_fin" label="Fecha de fin inicial (DD/MM/AAAA)" placeholder="31/05/2027" />
-          <Field field="duracion_meses" label="Duración (meses)" type="number" />
-          <Field field="ciudad_firma" label="Ciudad de firma" />
+          <F field="fecha_inicio" label="Fecha de inicio (DD/MM/AAAA)" placeholder="01/06/2026" />
+          <F field="fecha_fin" label="Fecha de fin inicial (DD/MM/AAAA)" placeholder="31/05/2027" />
+          <F field="duracion_meses" label="Duración (meses)" type="number" />
+          <F field="ciudad_firma" label="Ciudad de firma" />
           <div className="sm:col-span-2">
-            <div>
-              <span className={lbl}>Pre-rellenar desde mantenimiento</span>
-              <select
-                className={inp}
-                disabled={isSigned}
-                value=""
-                onChange={e => {
-                  if (!e.target.value) return;
-                  const updated = prefillFromMant(vars, e.target.value);
-                  setVars(updated);
-                  const m = mantenimientos.find(m => m.id === e.target.value);
-                  if (m?.oficio) setSelectedOficio(m.oficio);
-                  showToast('Datos cargados del presupuesto de mantenimiento ✓', 'info');
-                }}
-              >
-                <option value="">— Cargar datos de un mantenimiento —</option>
-                {mantenimientos.map(m => (
-                  <option key={m.id} value={m.id}>{m.nombre_cliente ?? '?'} — {(m.descripcion_servicios ?? '').slice(0, 40)}</option>
-                ))}
-              </select>
-            </div>
+            <span className={LBL}>Pre-rellenar desde presupuesto de mantenimiento</span>
+            <select
+              className={INP}
+              disabled={isSigned}
+              value=""
+              onChange={e => {
+                if (!e.target.value) return;
+                const updated = prefillFromMant(vars, e.target.value);
+                setVars(updated);
+                const m = mantenimientos.find(m => m.id === e.target.value);
+                if (m?.oficio) setSelectedOficio(m.oficio);
+                showToast('Datos cargados del presupuesto de mantenimiento ✓', 'info');
+              }}
+            >
+              <option value="">— Selecciona un presupuesto de mantenimiento —</option>
+              {mantenimientos.map(m => (
+                <option key={m.id} value={m.id}>{m.nombre_cliente ?? '?'} — {(m.descripcion_servicios ?? '').slice(0, 40)}</option>
+              ))}
+            </select>
           </div>
         </div>
       );
       case 'economico': return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <Field field="cuota_mensual" label="Cuota mensual sin IVA (EUR)" placeholder="350,00" />
-          <Field field="iva_pct" label="IVA (%)" type="number" />
-          <Field field="cuota_mensual_con_iva" label="Cuota mensual con IVA (EUR)" placeholder="423,50" />
-          <Field field="cuota_anual" label="Cuota anual sin IVA (EUR)" placeholder="4.200,00" />
-          <Field field="forma_pago" label="Forma de pago" />
-          <Field field="dia_vencimiento" label="Día de vencimiento" type="number" />
-          <div className="sm:col-span-2"><Field field="iban" label="IBAN para domiciliación" placeholder="ES00 0000 0000 00 0000000000" /></div>
+          <F field="cuota_mensual" label="Cuota mensual sin IVA (EUR)" placeholder="350,00" />
+          <F field="iva_pct" label="IVA (%)" type="number" />
+          <F field="cuota_mensual_con_iva" label="Cuota mensual con IVA (EUR)" placeholder="423,50" />
+          <F field="cuota_anual" label="Cuota anual sin IVA (EUR)" placeholder="4.200,00" />
+          <F field="forma_pago" label="Forma de pago" />
+          <F field="dia_vencimiento" label="Día de vencimiento" type="number" />
+          <div className="sm:col-span-2"><F field="iban" label="IBAN para domiciliación" placeholder="ES00 0000 0000 00 0000000000" /></div>
         </div>
       );
       case 'sla': return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <Field field="horario_guardia" label="Horario de guardia ordinaria" placeholder="Lunes a viernes de 08:00 a 18:00 h" />
-          <Field field="servicio_urgencias" label="Servicio de urgencias" placeholder="24 horas / 7 días" />
-          <div className="sm:col-span-2"><Field field="tiempo_respuesta" label="Tiempo máximo de respuesta" placeholder="Máximo 4 horas en días laborables, 8 horas en festivos" /></div>
-          <div className="sm:col-span-2"><Field field="tiempo_resolucion" label="Tiempo máximo de resolución" placeholder="24 horas para averías críticas, 72 horas para incidencias menores" /></div>
-          <Field field="disponibilidad" label="Disponibilidad garantizada" placeholder="99% mensual en horario de guardia" />
-          <Field field="penalizacion_sla" label="Penalización por incumplimiento SLA" placeholder="5% del importe mensual por día de retraso" />
+          <F field="horario_guardia" label="Horario de guardia ordinaria" placeholder="Lunes a viernes de 08:00 a 18:00 h" />
+          <F field="servicio_urgencias" label="Servicio de urgencias" placeholder="24 horas / 7 días" />
+          <div className="sm:col-span-2"><F field="tiempo_respuesta" label="Tiempo máximo de respuesta" placeholder="Máximo 4 horas en días laborables, 8 horas en festivos" /></div>
+          <div className="sm:col-span-2"><F field="tiempo_resolucion" label="Tiempo máximo de resolución" placeholder="24 horas para averías críticas, 72 horas para incidencias menores" /></div>
+          <F field="disponibilidad" label="Disponibilidad garantizada" placeholder="99% mensual en horario de guardia" />
+          <F field="penalizacion_sla" label="Penalización por incumplimiento SLA" placeholder="5% del importe mensual por día de retraso" />
         </div>
       );
       case 'instalaciones': return (
         <div className="space-y-3">
-          <p className="text-[10px] text-slate-500">Describe las instalaciones cubiertas por el contrato, una por línea.</p>
-          <Field field="descripcion_instalaciones" label="Instalaciones (una por línea)" type="textarea" placeholder={"Planta de producción, Nave A, C/ Industrial 4\nAlmacén exterior, Polígono Norte"} />
+          <p className="text-[10px] text-slate-500">Describe las instalaciones cubiertas por el contrato, una por línea. Al imprimir, el Anexo I se genera con filas en blanco para rellenar a mano.</p>
+          <F field="descripcion_instalaciones" label="Instalaciones / equipos (una por línea)" type="textarea" placeholder={"Caldera Baxi Luna 3, Sala técnica planta 1\nFan-coils zona oficinas (3 uds)\nCircuito ACS"} />
           <div className="grid grid-cols-2 gap-3">
-            <Field field="limite_correctivo" label="Límite coste reparación incluida (EUR)" placeholder="500" />
+            <F field="limite_correctivo" label="Límite coste reparación incluida (EUR)" placeholder="500" />
           </div>
         </div>
       );
       case 'legal': return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <Field field="ciudad_jurisdiccion" label="Ciudad de jurisdicción (fuero)" placeholder="Santander" />
-          <Field field="cobertura_rc" label="Cobertura RC mínima (EUR)" placeholder="600.000" />
+          <F field="ciudad_jurisdiccion" label="Ciudad de jurisdicción (fuero)" placeholder="Santander" />
+          <F field="cobertura_rc" label="Cobertura RC mínima (EUR)" placeholder="600.000" />
         </div>
       );
     }
