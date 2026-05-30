@@ -2306,7 +2306,18 @@ export interface MaintenanceDocumento {
   num_clausulas: number;
 }
 
-export async function generateMaintenanceDocument(presupuestoId: string): Promise<MaintenanceDocumento> {
+export async function generateMaintenanceDocument(presupuestoId: string, forceRegenerate = false): Promise<MaintenanceDocumento> {
+  // Use cached document from ia_json unless forceRegenerate
+  if (!forceRegenerate) {
+    const { data: cached } = await supabase
+      .from('trade_maintenance_presupuestos')
+      .select('ia_json')
+      .eq('id', presupuestoId)
+      .single();
+    const cachedDoc = (cached?.ia_json as Record<string, unknown> | null)?.documento;
+    if (cachedDoc) return cachedDoc as MaintenanceDocumento;
+  }
+
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) throw new Error('No autenticado');
 
@@ -2316,7 +2327,21 @@ export async function generateMaintenanceDocument(presupuestoId: string): Promis
   });
   if (res.error) throw new Error(res.error.message);
   if (!res.data?.ok) throw new Error(res.data?.error ?? 'Error generando documento');
-  return res.data.documento as MaintenanceDocumento;
+
+  const documento = res.data.documento as MaintenanceDocumento;
+
+  // Persist cache so next open is instant
+  const { data: row } = await supabase
+    .from('trade_maintenance_presupuestos')
+    .select('ia_json')
+    .eq('id', presupuestoId)
+    .single();
+  await supabase
+    .from('trade_maintenance_presupuestos')
+    .update({ ia_json: { ...(row?.ia_json ?? {}), documento } })
+    .eq('id', presupuestoId);
+
+  return documento;
 }
 
 export async function convertPresupuestoToContrato(
@@ -2422,4 +2447,68 @@ export async function respondQuoteToken(token: string, action: 'accepted' | 'rej
     .eq('token', token)
     .eq('status', 'pending');
   if (error) throw error;
+}
+
+// ── Org templates ─────────────────────────────────────────────────────────────
+
+export type TemplateType =
+  | 'whatsapp_presupuesto'
+  | 'email_presupuesto'
+  | 'email_factura'
+  | 'pie_presupuesto'
+  | 'pie_factura'
+  | 'contrato_mantenimiento';
+
+export interface OrgTemplate {
+  id: string;
+  org_id: string;
+  tipo: TemplateType;
+  nombre: string;
+  contenido: string;
+  updated_at: string;
+}
+
+export async function loadOrgTemplates(orgId: string): Promise<OrgTemplate[]> {
+  const { data, error } = await supabase
+    .from('trade_org_templates')
+    .select('*')
+    .eq('org_id', orgId);
+  if (error) throw error;
+  return (data ?? []) as OrgTemplate[];
+}
+
+export async function saveOrgTemplate(
+  orgId: string,
+  tipo: TemplateType,
+  contenido: string,
+  nombre: string,
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_org_templates')
+    .upsert({ org_id: orgId, tipo, contenido, nombre, updated_at: new Date().toISOString() },
+      { onConflict: 'org_id,tipo' });
+  if (error) throw error;
+}
+
+// ── Logo upload ───────────────────────────────────────────────────────────────
+
+export async function uploadOrgLogo(orgId: string, file: File): Promise<string> {
+  const ext = file.name.split('.').pop() ?? 'png';
+  const path = `${orgId}/logo.${ext}`;
+
+  const { error: upErr } = await supabase.storage
+    .from('org-logos')
+    .upload(path, file, { upsert: true, contentType: file.type });
+  if (upErr) throw upErr;
+
+  const { data } = supabase.storage.from('org-logos').getPublicUrl(path);
+  const url = `${data.publicUrl}?t=${Date.now()}`;
+
+  const { error: dbErr } = await supabase
+    .from('trade_organizations')
+    .update({ logo_url: url })
+    .eq('id', orgId);
+  if (dbErr) throw dbErr;
+
+  return url;
 }

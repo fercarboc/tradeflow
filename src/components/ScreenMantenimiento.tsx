@@ -1403,14 +1403,6 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
       tab === t ? 'bg-slate-900 text-white' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100'
     }`;
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-20">
-        <Loader2 className="w-6 h-6 animate-spin text-slate-400" />
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-5">
 
@@ -1443,7 +1435,7 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
         </div>
         <div className="flex gap-2">
           <button onClick={() => void loadData()} className="p-2 rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50 cursor-pointer" title="Recargar">
-            <RefreshCw className="w-4 h-4" />
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-blue-500' : ''}`} />
           </button>
           <button onClick={() => setShowNuevoModal(true)} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-700 text-white text-xs font-bold uppercase tracking-wider cursor-pointer transition-colors shadow-sm">
             <Plus className="w-4 h-4" /> Nuevo por IA

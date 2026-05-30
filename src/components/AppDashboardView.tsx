@@ -58,8 +58,8 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken } from '../lib/supabase';
-import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate } from '../lib/supabase';
+import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription, TemplateType } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { usePermissions } from '../hooks/usePermissions';
 import CatalogImportModal from './CatalogImportModal';
@@ -332,6 +332,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         setTarifas(tarifasRes.map((t: TradeTarifa) => ({ id: t.id, codigo: t.codigo ?? '', familia: t.familia, descripcion: t.descripcion, precioBase: t.precio_base, unidad: t.unidad, activo: t.activo })));
         setCatalogProducts(catalogRes);
         setJobs(jobsRes);
+        loadOrgTemplates(org.id).then(templates => {
+          const map: Partial<Record<TemplateType, string>> = {};
+          templates.forEach(t => { map[t.tipo] = t.contenido; });
+          setOrgTemplates(map);
+        }).catch(() => {});
+        if (org.logo_url) setLogoPreview(org.logo_url);
       }
       showToast(`Datos reales cargados ✓`, 'success');
     } catch (e) {
@@ -573,6 +579,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [orgId, setOrgId] = useState<string | null>(null);
   const [orgData, setOrgData] = useState<TradeOrganization | null>(null);
   const [showOnboarding, setShowOnboarding] = useState(false);
+  const [orgTemplates, setOrgTemplates] = useState<Partial<Record<TemplateType, string>>>({});
+  const [savingTemplate, setSavingTemplate] = useState<TemplateType | null>(null);
+  const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const [openTemplateTipo, setOpenTemplateTipo] = useState<TemplateType | null>(null);
   const [pushEnabled, setPushEnabled] = useState(false);
   const [pushLoading, setPushLoading] = useState(false);
   const [subscription, setSubscription] = useState<TradeSubscription | null>(null);
@@ -582,6 +593,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [presupuestoSearch, setPresupuestoSearch] = useState('');
   const [presupuestoEstado, setPresupuestoEstado] = useState('todos');
   const [generatingLink, setGeneratingLink] = useState(false);
+  const [quoteTokenStatus, setQuoteTokenStatus] = useState<{ status: string; accepted_at: string | null } | null>(null);
   const [platformInvoices, setPlatformInvoices] = useState<Array<{
     id: string; period_start: string; period_end: string; amount_cents: number;
     status: string; stripe_invoice_id: string | null; invoice_url: string | null;
@@ -1196,7 +1208,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       : `https://wa.me/?text=${encodeURIComponent(text)}`;
   };
 
-  const buildQuoteMessage = (q: Presupuesto) => {
+  const buildQuoteMessage = (q: Presupuesto, acceptanceUrl?: string) => {
     const iva = empresaAjustes.ivaDefault || 21;
     const ivaAmt = q.total * (iva / 100);
     const totalConIVA = q.total + ivaAmt;
@@ -1213,15 +1225,34 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       `IVA (${iva}%): ${ivaAmt.toFixed(2)}€`,
       `*TOTAL: ${totalConIVA.toFixed(2)}€*`,
       '',
+      ...(acceptanceUrl ? [`✅ *Acepta el presupuesto aquí:*\n${acceptanceUrl}`, ''] : []),
       'Quedo a tu disposición para cualquier consulta.',
       ...(empresaAjustes.nombre ? [empresaAjustes.nombre] : []),
       ...(empresaAjustes.telefonoMovil ? [empresaAjustes.telefonoMovil] : []),
     ].join('\n');
   };
 
-  const handleSendWhatsAppNow = () => {
+  const handleSendWhatsAppNow = async () => {
     if (!targetQuoteForWhatsApp) return;
-    const msg = buildQuoteMessage(targetQuoteForWhatsApp);
+    let acceptanceUrl: string | undefined;
+    if (orgId) {
+      try {
+        const quoteData = {
+          id: targetQuoteForWhatsApp.id,
+          nombreCliente: targetQuoteForWhatsApp.nombreCliente,
+          descripcion: targetQuoteForWhatsApp.descripcion,
+          partidas: targetQuoteForWhatsApp.partidas,
+          total: targetQuoteForWhatsApp.total,
+          fecha: targetQuoteForWhatsApp.fecha,
+          empresa: empresaAjustes.nombre ?? '',
+          emailEmpresa: empresaAjustes.email ?? '',
+          telefonoEmpresa: empresaAjustes.telefonoMovil ?? '',
+        };
+        const record = await createQuoteToken(orgId, targetQuoteForWhatsApp.id, targetQuoteForWhatsApp.nombreCliente, quoteData as Record<string, unknown>);
+        acceptanceUrl = `${window.location.origin}/p/${record.token}`;
+      } catch { /* Si falla no bloqueamos el envío */ }
+    }
+    const msg = buildQuoteMessage(targetQuoteForWhatsApp, acceptanceUrl);
     window.open(buildWaLink(targetQuoteForWhatsApp.telefonoCliente, msg), '_blank');
     setPresupuestos(prev => prev.map(q =>
       q.id === targetQuoteForWhatsApp.id ? { ...q, estado: 'Enviado' as const } : q
@@ -1324,6 +1355,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const [isVoiceModalOpen, setIsVoiceModalOpen] = useState<boolean>(false);
   const [selectedQuoteForPreview, setSelectedQuoteForPreview] = useState<Presupuesto | null>(null);
+
+  useEffect(() => {
+    if (!selectedQuoteForPreview) { setQuoteTokenStatus(null); return; }
+    supabase
+      .from('trade_quote_tokens')
+      .select('status, accepted_at')
+      .eq('quote_numero', selectedQuoteForPreview.id)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle()
+      .then(({ data }) => setQuoteTokenStatus(data ? { status: data.status, accepted_at: data.accepted_at } : null));
+  }, [selectedQuoteForPreview]);
 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const filteredClientes = clientes.filter(c => {
@@ -3869,6 +3912,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <th className="text-left px-4 py-3 font-bold text-slate-400 uppercase tracking-wider hidden md:table-cell">Fecha</th>
                   <th className="text-right px-4 py-3 font-bold text-slate-400 uppercase tracking-wider">Total</th>
                   <th className="text-center px-4 py-3 font-bold text-slate-400 uppercase tracking-wider">Estado</th>
+                  <th className="px-2 py-3"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -3892,6 +3936,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${estadoColor[p.estado] ?? 'bg-slate-100 text-slate-500 border-slate-200'}`}>
                         {p.estado}
                       </span>
+                    </td>
+                    <td className="px-2 py-3 text-center" onClick={e => e.stopPropagation()}>
+                      <button
+                        title="Descargar PDF"
+                        onClick={() => printQuote(p)}
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer transition-colors"
+                      >
+                        <FileText className="w-3.5 h-3.5" />
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -4208,6 +4261,36 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               Enlace aceptación
             </button>
           </div>
+          {/* Estado de aceptación del cliente */}
+          {quoteTokenStatus && (
+            <div className={`flex items-center gap-2 px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wide ${
+              quoteTokenStatus.status === 'accepted'
+                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                : quoteTokenStatus.status === 'rejected'
+                ? 'bg-red-50 text-red-600 border border-red-200'
+                : 'bg-amber-50 text-amber-600 border border-amber-200'
+            }`}>
+              {quoteTokenStatus.status === 'accepted' && '✅ Cliente aceptó'}
+              {quoteTokenStatus.status === 'rejected' && '❌ Cliente rechazó'}
+              {quoteTokenStatus.status === 'pending' && '⏳ Pendiente respuesta'}
+              {quoteTokenStatus.accepted_at && (
+                <span className="font-normal normal-case ml-1">
+                  — {new Date(quoteTokenStatus.accepted_at).toLocaleDateString('es-ES')}
+                </span>
+              )}
+              <button
+                onClick={() => {
+                  supabase.from('trade_quote_tokens').select('status, accepted_at')
+                    .eq('quote_numero', selectedQuoteForPreview.id)
+                    .order('created_at', { ascending: false }).limit(1).maybeSingle()
+                    .then(({ data }) => setQuoteTokenStatus(data ?? null));
+                }}
+                className="ml-1 underline font-normal normal-case cursor-pointer hover:no-underline"
+              >
+                Actualizar
+              </button>
+            </div>
+          )}
           {isMaintenanceQuote && (
             <button
               onClick={() => {
@@ -5776,6 +5859,205 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           </div>
         )}
+
+        {/* ── Logo de empresa ── */}
+        {isLiveMode && orgId && (
+          <div className={sec}>
+            <h3 className={secTitle}>Logo de Empresa</h3>
+            <p className="text-[11px] text-slate-500">
+              Aparecerá en tus presupuestos PDF, contratos y correos.
+            </p>
+            <div className="flex items-center gap-4 mt-2">
+              {logoPreview ? (
+                <div className="w-24 h-16 border border-slate-200 rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center">
+                  <img src={logoPreview} alt="Logo empresa" className="max-h-full max-w-full object-contain" />
+                </div>
+              ) : (
+                <div className="w-24 h-16 border-2 border-dashed border-slate-300 rounded-xl flex items-center justify-center bg-slate-50">
+                  <ImageIcon className="h-6 w-6 text-slate-300" />
+                </div>
+              )}
+              <div className="space-y-1.5">
+                <label className={`inline-flex items-center gap-2 cursor-pointer ${uploadingLogo ? 'opacity-50 cursor-not-allowed' : ''} bg-slate-900 hover:bg-slate-700 text-white text-[10px] font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-colors`}>
+                  <Upload className="h-3 w-3" />
+                  {uploadingLogo ? 'Subiendo…' : logoPreview ? 'Cambiar logo' : 'Subir logo'}
+                  <input
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                    className="hidden"
+                    disabled={uploadingLogo}
+                    onChange={async e => {
+                      const file = e.target.files?.[0];
+                      if (!file || !orgId) return;
+                      setUploadingLogo(true);
+                      try {
+                        const url = await uploadOrgLogo(orgId, file);
+                        setLogoPreview(url);
+                        setOrgData(prev => prev ? { ...prev, logo_url: url } : prev);
+                        showToast('Logo guardado ✓', 'success');
+                      } catch (err: unknown) {
+                        const msg = err instanceof Error ? err.message : String(err);
+                        showToast('Error al subir logo: ' + msg, 'error');
+                      } finally {
+                        setUploadingLogo(false);
+                      }
+                    }}
+                  />
+                </label>
+                {logoPreview && (
+                  <button
+                    className="text-[10px] text-red-400 hover:text-red-600 cursor-pointer transition-colors block"
+                    onClick={async () => {
+                      if (!orgId) return;
+                      await supabase.from('trade_organizations').update({ logo_url: null }).eq('id', orgId);
+                      setLogoPreview(null);
+                      setOrgData(prev => prev ? { ...prev, logo_url: undefined } : prev);
+                      showToast('Logo eliminado', 'info');
+                    }}
+                  >
+                    Eliminar logo
+                  </button>
+                )}
+                <p className="text-[9px] text-slate-400">PNG, JPG o SVG · Max 2 MB · Fondo transparente recomendado</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── Plantillas ── */}
+        {isLiveMode && orgId && (() => {
+          const TEMPLATES: Array<{ tipo: TemplateType; label: string; icon: string; placeholder: string; vars: string[] }> = [
+            {
+              tipo: 'whatsapp_presupuesto',
+              label: 'WhatsApp — Presupuesto',
+              icon: '💬',
+              placeholder: 'Hola {{nombre_cliente}}, te adjunto el presupuesto...',
+              vars: ['{{nombre_cliente}}', '{{numero_presupuesto}}', '{{total}}', '{{empresa}}', '{{telefono}}', '{{enlace_aceptacion}}'],
+            },
+            {
+              tipo: 'email_presupuesto',
+              label: 'Email — Presupuesto',
+              icon: '📧',
+              placeholder: 'Estimado {{nombre_cliente}},\n\nAdjunto encontrará el presupuesto...',
+              vars: ['{{nombre_cliente}}', '{{numero_presupuesto}}', '{{total}}', '{{empresa}}', '{{telefono}}', '{{email_empresa}}'],
+            },
+            {
+              tipo: 'email_factura',
+              label: 'Email — Factura',
+              icon: '📧',
+              placeholder: 'Estimado {{nombre_cliente}},\n\nAdjunto la factura correspondiente...',
+              vars: ['{{nombre_cliente}}', '{{numero_factura}}', '{{total}}', '{{empresa}}', '{{telefono}}'],
+            },
+            {
+              tipo: 'pie_presupuesto',
+              label: 'Pie de página — Presupuesto',
+              icon: '📄',
+              placeholder: 'Validez del presupuesto: 30 días. Forma de pago: 50% anticipado, 50% a la finalización.',
+              vars: ['{{empresa}}', '{{nif}}', '{{telefono}}', '{{email_empresa}}'],
+            },
+            {
+              tipo: 'pie_factura',
+              label: 'Pie de página — Factura',
+              icon: '🧾',
+              placeholder: 'Forma de pago: transferencia bancaria. IBAN: ES00 0000 0000 0000 0000 0000.',
+              vars: ['{{empresa}}', '{{nif}}', '{{telefono}}', '{{email_empresa}}'],
+            },
+            {
+              tipo: 'contrato_mantenimiento',
+              label: 'Contrato de Mantenimiento',
+              icon: '📋',
+              placeholder: 'CONTRATO DE MANTENIMIENTO\n\nEntre {{empresa}} (en adelante el prestador) y {{nombre_cliente}} (en adelante el cliente)...',
+              vars: ['{{empresa}}', '{{nif}}', '{{nombre_cliente}}', '{{nif_cliente}}', '{{descripcion_servicio}}', '{{precio_mensual}}', '{{fecha_inicio}}', '{{duracion_meses}}'],
+            },
+          ];
+
+          return (
+            <div className={sec}>
+              <h3 className={secTitle}>Plantillas de Comunicación</h3>
+              <p className="text-[11px] text-slate-500 mb-3">
+                Personaliza los textos predeterminados que se usan al enviar presupuestos, facturas y contratos. Usa las variables indicadas — se rellenan automáticamente.
+              </p>
+              <div className="space-y-2">
+                {TEMPLATES.map(tpl => (
+                  <div key={tpl.tipo} className="border border-slate-200 rounded-xl overflow-hidden">
+                    <button
+                      onClick={() => setOpenTemplateTipo(p => p === tpl.tipo ? null : tpl.tipo)}
+                      className="w-full flex items-center justify-between px-4 py-3 bg-slate-50 hover:bg-slate-100 transition-colors cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-base">{tpl.icon}</span>
+                        <span className="text-xs font-bold text-slate-700">{tpl.label}</span>
+                        {orgTemplates[tpl.tipo] && (
+                          <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700">Personalizada</span>
+                        )}
+                      </div>
+                      <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform ${openTemplateTipo === tpl.tipo ? 'rotate-180' : ''}`} />
+                    </button>
+                    {openTemplateTipo === tpl.tipo && (
+                      <div className="p-4 space-y-3 bg-white">
+                        <div>
+                          <span className="text-[9px] font-mono font-bold uppercase text-slate-400 block mb-1.5">Variables disponibles</span>
+                          <div className="flex flex-wrap gap-1">
+                            {tpl.vars.map(v => (
+                              <button
+                                key={v}
+                                onClick={() => {
+                                  setOrgTemplates(prev => ({
+                                    ...prev,
+                                    [tpl.tipo]: (prev[tpl.tipo] ?? '') + v,
+                                  }));
+                                }}
+                                className="font-mono text-[9px] bg-blue-50 text-blue-700 border border-blue-200 px-1.5 py-0.5 rounded cursor-pointer hover:bg-blue-100 transition-colors"
+                              >
+                                {v}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <textarea
+                          rows={tpl.tipo.startsWith('contrato') ? 10 : 5}
+                          placeholder={tpl.placeholder}
+                          value={orgTemplates[tpl.tipo] ?? ''}
+                          onChange={e => setOrgTemplates(prev => ({ ...prev, [tpl.tipo]: e.target.value }))}
+                          className="w-full bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-700 font-mono focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 resize-y"
+                        />
+                        <div className="flex gap-2 items-center">
+                          <button
+                            disabled={savingTemplate === tpl.tipo}
+                            onClick={async () => {
+                              if (!orgId) return;
+                              setSavingTemplate(tpl.tipo);
+                              try {
+                                await saveOrgTemplate(orgId, tpl.tipo, orgTemplates[tpl.tipo] ?? '', tpl.label);
+                                showToast('Plantilla guardada ✓', 'success');
+                              } catch (err: unknown) {
+                                const msg = err instanceof Error ? err.message : String(err);
+                                showToast('Error: ' + msg, 'error');
+                              } finally {
+                                setSavingTemplate(null);
+                              }
+                            }}
+                            className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-[10px] font-bold uppercase tracking-wider px-4 py-2 rounded-lg transition-colors cursor-pointer"
+                          >
+                            {savingTemplate === tpl.tipo ? 'Guardando…' : 'Guardar plantilla'}
+                          </button>
+                          {orgTemplates[tpl.tipo] && (
+                            <button
+                              onClick={() => setOrgTemplates(prev => ({ ...prev, [tpl.tipo]: '' }))}
+                              className="text-[10px] text-slate-400 hover:text-slate-600 cursor-pointer transition-colors"
+                            >
+                              Restaurar predeterminado
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
 
         {/* ── 7. Notificaciones push ── */}
         {isLiveMode && 'Notification' in window && (
