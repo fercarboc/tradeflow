@@ -73,8 +73,31 @@ Deno.serve(async (req: Request) => {
   }
 
   // ── CASO A: ya tiene suscripción activa → Subscription Update (sin nueva Checkout) ──
-  const existingSubId = sub?.stripe_subscription_id;
-  if (existingSubId && sub?.status === 'active') {
+  let existingSubId = sub?.stripe_subscription_id;
+
+  // Si no tenemos el ID en BD pero sí el customer_id, consultamos Stripe directamente
+  // (esto ocurre cuando los webhooks fallaron y no guardaron stripe_subscription_id)
+  if (!existingSubId && sub?.stripe_customer_id) {
+    const listRes = await stripe(
+      `/subscriptions?customer=${sub.stripe_customer_id}&status=active&limit=1`,
+      'GET',
+    );
+    if (listRes.ok) {
+      const listJson = await listRes.json() as { data?: Array<{ id: string }> };
+      const found = listJson.data?.[0]?.id;
+      if (found) {
+        existingSubId = found;
+        // Sincronizar en BD para próximas llamadas
+        await supabase.from('trade_subscriptions').update({
+          stripe_subscription_id: found,
+          status: 'active',
+          updated_at: new Date().toISOString(),
+        }).eq('org_id', org_id);
+      }
+    }
+  }
+
+  if (existingSubId) {
     // Obtener el item actual de la suscripción
     const getRes  = await stripe(`/subscriptions/${existingSubId}`, 'GET');
     const getJson = await getRes.json() as {

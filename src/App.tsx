@@ -74,7 +74,9 @@ export default function App() {
   const initialAuthRoute = detectAuthRoute();
 
   const [currentPage, setCurrentPage] = useState<ActivePage>(
-    initialAuthRoute ?? (pwa ? ActivePage.AppDashboard : ActivePage.Home),
+    // Si vuelve de Stripe checkout, ir directo al dashboard (evita flash de Home)
+    checkoutSuccess ? ActivePage.AppDashboard :
+    (initialAuthRoute ?? (pwa ? ActivePage.AppDashboard : ActivePage.Home)),
   );
 
   const [preselectedTrade, setPreselectedTrade] =
