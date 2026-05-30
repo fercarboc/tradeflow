@@ -58,7 +58,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { usePermissions } from '../hooks/usePermissions';
@@ -578,6 +578,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [subscription, setSubscription] = useState<TradeSubscription | null>(null);
   const [stripeLoading, setStripeLoading] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [mantenimientoInitialText, setMantenimientoInitialText] = useState<string>('');
+  const [presupuestoSearch, setPresupuestoSearch] = useState('');
+  const [presupuestoEstado, setPresupuestoEstado] = useState('todos');
+  const [generatingLink, setGeneratingLink] = useState(false);
   const [platformInvoices, setPlatformInvoices] = useState<Array<{
     id: string; period_start: string; period_end: string; amount_cents: number;
     status: string; stripe_invoice_id: string | null; invoice_url: string | null;
@@ -839,6 +843,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   const handleVoiceResult = (transcript: string, quote: AIQuote) => {
+    // Auto-detectar si es una solicitud de mantenimiento
+    const isMaintenanceRequest = /mantenimiento|contrato\s*(de\s*)?(servicio|revisión|limpieza)|revisión\s*(mensual|anual|semestral|trimestral|periódic)|servicio\s*(de\s*)?mantenimiento/i.test(transcript);
+    const canAccessMaintenance = subscription?.plan === 'empresa_plus' || subscription?.plan === 'empresa';
+
+    if (isMaintenanceRequest && canAccessMaintenance) {
+      setVoiceStep('done');
+      mediaRecorderRef.current = null;
+      audioChunksRef.current = [];
+      showToast('Solicitud de mantenimiento detectada — abriendo módulo', 'success');
+      setTimeout(() => {
+        setVoiceStep('idle');
+        setIsVoiceModalOpen(false);
+        setMantenimientoInitialText(transcript);
+        setActiveTab('mantenimiento');
+        setWizardActive(false);
+      }, 900);
+      return;
+    }
+
     const partidas = quoteToPartidas(quote);
     const total = quote.calculos?.total ?? partidas.reduce((s, p) => s + (p.total ?? 0), 0);
     const desc = (
@@ -855,9 +878,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setTimeout(() => {
       setVoiceStep('idle');
       setIsVoiceModalOpen(false);
-      // Desktop: navegar a crear presupuesto para mostrar el resultado
       setActiveTab('create_quote');
-      // Mobile: activar wizard en paso 4 si no estaba ya activo
       setWizardActive(true);
       setWizardStep(4);
     }, 900);
@@ -1496,6 +1517,32 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   void setShowConfetti;
   void triggerWhatsAppShare;
 
+  const generateAcceptanceLink = async (quote: Presupuesto) => {
+    if (!orgId) return;
+    setGeneratingLink(true);
+    try {
+      const quoteData = {
+        id: quote.id,
+        nombreCliente: quote.nombreCliente,
+        descripcion: quote.descripcion,
+        partidas: quote.partidas,
+        total: quote.total,
+        fecha: quote.fecha,
+        empresa: empresaAjustes.nombre ?? '',
+        emailEmpresa: empresaAjustes.email ?? '',
+        telefonoEmpresa: empresaAjustes.telefonoMovil ?? '',
+      };
+      const record = await createQuoteToken(orgId, quote.id, quote.nombreCliente, quoteData as Record<string, unknown>);
+      const url = `${window.location.origin}/p/${record.token}`;
+      await navigator.clipboard.writeText(url).catch(() => {});
+      showToast('Enlace copiado al portapapeles ✓', 'success');
+    } catch {
+      showToast('Error generando el enlace', 'error');
+    } finally {
+      setGeneratingLink(false);
+    }
+  };
+
   const handleAddClient = async () => {
     if (!newClient.nombre?.trim()) return;
     if (isLiveMode && orgId) {
@@ -1551,35 +1598,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         </div>
       )}
 
-      {/* Confeti flotante */}
-      {showConfetti && (
-        <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden flex items-center justify-center">
-          {Array.from({ length: 45 }).map((_, i) => {
-            const left = Math.random() * 100;
-            const top = -10 - Math.random() * 20;
-            const size = Math.random() * 8 + 6;
-            const color = ['bg-blue-500', 'bg-emerald-500', 'bg-violet-500', 'bg-pink-500', 'bg-amber-500'][Math.floor(Math.random() * 5)];
-            const rotation = Math.random() * 360;
-            const delay = Math.random() * 2.5;
-            
-            return (
-              <div 
-                key={i} 
-                className={`absolute rounded-xs opacity-75 ${color}`}
-                style={{
-                  left: `${left}%`,
-                  top: `${top}%`,
-                  width: `${size}px`,
-                  height: `${size}px`,
-                  transform: `rotate(${rotation}deg)`,
-                  animation: `fall 2.8s linear infinite`,
-                  animationDelay: `${delay}s`
-                }}
-              />
-            );
-          })}
-        </div>
-      )}
 
       {/* ================= NÚCLEO DEL CONTENEDOR DE LA APLICACIÓN ================= */}
       {isNativeDevice ? (
@@ -1696,14 +1714,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         )}
       </AnimatePresence>
-
-      <style>{`
-        @keyframes fall {
-          0% { top: -10%; transform: translateX(0) rotate(0deg); }
-          50% { transform: translateX(80px) rotate(180deg); }
-          100% { top: 110%; transform: translateX(-40px) rotate(360deg); }
-        }
-      `}</style>
 
       {/* Notificación inteligente estilo iOS/Mac */}
       <AnimatePresence>
@@ -3554,7 +3564,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <ScreenEquipo showToast={showToast} isLiveMode={isLiveMode} />
                 )}
                 {activeTab === 'mantenimiento' && orgId && (
-                  <ScreenMantenimiento orgId={orgId} showToast={showToast} />
+                  <ScreenMantenimiento
+                    orgId={orgId}
+                    showToast={showToast}
+                    initialText={mantenimientoInitialText}
+                    onInitialTextConsumed={() => setMantenimientoInitialText('')}
+                  />
                 )}
                 {activeTab === 'settings' && ScreenSettings()}
                 {activeTab === 'preview' && ScreenPreview()}
@@ -3821,6 +3836,29 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           </div>
         ) : (
+          <div className="space-y-3">
+            {/* Filtros */}
+            <div className="flex flex-wrap gap-2 items-center">
+              <input
+                type="text"
+                placeholder="Buscar cliente o descripción…"
+                value={presupuestoSearch}
+                onChange={e => setPresupuestoSearch(e.target.value)}
+                className="flex-1 min-w-[180px] rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-blue-400 focus:outline-none"
+              />
+              <select
+                value={presupuestoEstado}
+                onChange={e => setPresupuestoEstado(e.target.value)}
+                className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 focus:border-blue-400 focus:outline-none cursor-pointer"
+              >
+                <option value="todos">Todos los estados</option>
+                <option value="borrador">Borrador</option>
+                <option value="enviado">Enviado</option>
+                <option value="aceptado">Aceptado</option>
+                <option value="rechazado">Rechazado</option>
+                <option value="facturado">Facturado</option>
+              </select>
+            </div>
           <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
             <table className="w-full text-xs">
               <thead>
@@ -3834,7 +3872,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
-                {presupuestos.map(p => (
+                {presupuestos.filter(p => {
+                  const q = presupuestoSearch.toLowerCase().trim();
+                  const matchSearch = !q || p.nombreCliente.toLowerCase().includes(q) || p.descripcion.toLowerCase().includes(q);
+                  const matchEstado = presupuestoEstado === 'todos' || p.estado.toLowerCase() === presupuestoEstado;
+                  return matchSearch && matchEstado;
+                }).map(p => (
                   <tr
                     key={p.id}
                     onClick={() => { setSelectedQuoteForPreview(p); setActiveTab('preview'); }}
@@ -3854,6 +3897,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 ))}
               </tbody>
             </table>
+          </div>
           </div>
         )}
       </div>
@@ -4153,10 +4197,27 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 Convertir en Factura
               </button>
             )}
+            <button
+              onClick={() => generateAcceptanceLink(selectedQuoteForPreview)}
+              disabled={generatingLink}
+              className="flex items-center gap-1.5 bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer disabled:opacity-60"
+            >
+              {generatingLink
+                ? <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                : <span>🔗</span>}
+              Enlace aceptación
+            </button>
           </div>
           {isMaintenanceQuote && (
             <button
-              onClick={() => canAccessMaintenance ? setActiveTab('mantenimiento') : setShowUpgradeModal(true)}
+              onClick={() => {
+                if (!canAccessMaintenance) { setShowUpgradeModal(true); return; }
+                const q = selectedQuoteForPreview!;
+                const lineas = q.partidas.map(p => `- ${p.descripcion}`).join('\n');
+                const text = `Cliente: ${q.nombreCliente}\n${q.descripcion}\n\nServicios:\n${lineas}\n\nTotal presupuestado: ${q.total?.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' }) ?? ''}`;
+                setMantenimientoInitialText(text);
+                setActiveTab('mantenimiento');
+              }}
               className={`flex items-center gap-1.5 font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer ${
                 canAccessMaintenance
                   ? 'bg-amber-500 hover:bg-amber-600 text-white'

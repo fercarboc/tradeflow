@@ -34,6 +34,9 @@ AuthActivate = 'auth-activate',
 AuthCallback = 'auth-callback',
 AuthResetPassword = 'auth-reset-password',
 UpdatePassword = 'update-password',
+
+// Public quote acceptance
+QuoteAccept = 'quote-accept',
 }
 
 export type TradeType =

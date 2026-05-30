@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import {
   FileText, Plus, Mic, Loader2, CheckCircle, Clock, AlertTriangle,
   XCircle, ChevronRight, ClipboardList, Wrench, Zap,
@@ -27,6 +27,8 @@ import type {
 interface Props {
   orgId: string;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
+  initialText?: string;
+  onInitialTextConsumed?: () => void;
 }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -75,6 +77,11 @@ function fmtDate(s: string | null | undefined) {
   if (!s) return '—';
   return new Date(s).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
 }
+function errMsg(e: unknown): string {
+  if (e instanceof Error) return e.message;
+  if (e && typeof e === 'object' && 'message' in e) return String((e as { message: unknown }).message);
+  return String(e);
+}
 
 // ── Modal: Nuevo contrato por IA ──────────────────────────────────────────────
 
@@ -84,13 +91,48 @@ interface NuevoContratoModalProps {
   onSaved: (p: MaintenancePresupuesto) => void;
   orgId: string;
   showToast: Props['showToast'];
+  initialText?: string;
 }
 
-function NuevoContratoModal({ plantillas, onClose, onSaved, orgId, showToast }: NuevoContratoModalProps) {
-  const [texto, setTexto] = useState('');
+function NuevoContratoModal({ plantillas, onClose, onSaved, orgId, showToast, initialText }: NuevoContratoModalProps) {
+  const [texto, setTexto] = useState(initialText ?? '');
   const [detecting, setDetecting] = useState(false);
   const [result, setResult] = useState<MaintenanceDetectResult | null>(null);
   const [saving, setSaving] = useState(false);
+  const [listening, setListening] = useState(false);
+  const recognitionRef = useRef<{ stop: () => void } | null>(null);
+
+  const toggleVoice = () => {
+    if (listening) {
+      recognitionRef.current?.stop();
+      setListening(false);
+      return;
+    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const w = window as any;
+    const SpeechRec = w.SpeechRecognition ?? w.webkitSpeechRecognition;
+    if (!SpeechRec) { showToast('Tu navegador no soporta dictado por voz', 'error'); return; }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const rec: any = new SpeechRec();
+    rec.lang = 'es-ES';
+    rec.continuous = true;
+    rec.interimResults = true;
+    let finalTranscript = texto;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    rec.onresult = (e: any) => {
+      let interim = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        if (e.results[i].isFinal) finalTranscript += e.results[i][0].transcript + ' ';
+        else interim = e.results[i][0].transcript;
+      }
+      setTexto(finalTranscript + interim);
+    };
+    rec.onerror = () => setListening(false);
+    rec.onend = () => setListening(false);
+    recognitionRef.current = rec;
+    rec.start();
+    setListening(true);
+  };
 
   const handleDetect = async () => {
     if (!texto.trim()) return;
@@ -100,7 +142,7 @@ function NuevoContratoModal({ plantillas, onClose, onSaved, orgId, showToast }: 
       const r = await detectMaintenanceContract(texto);
       setResult(r);
     } catch (e) {
-      showToast(String(e), 'error');
+      showToast(errMsg(e), 'error');
     } finally {
       setDetecting(false);
     }
@@ -133,7 +175,7 @@ function NuevoContratoModal({ plantillas, onClose, onSaved, orgId, showToast }: 
       showToast('Presupuesto guardado como borrador', 'success');
       onSaved(saved);
     } catch (e) {
-      showToast(String(e), 'error');
+      showToast(errMsg(e), 'error');
     } finally {
       setSaving(false);
     }
@@ -154,9 +196,29 @@ function NuevoContratoModal({ plantillas, onClose, onSaved, orgId, showToast }: 
 
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
           <div>
-            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1.5">
-              Describe el contrato en tu propio lenguaje
-            </label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                Describe el contrato en tu propio lenguaje
+              </label>
+              <button
+                type="button"
+                onClick={toggleVoice}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wide transition-all cursor-pointer ${
+                  listening
+                    ? 'bg-red-500 text-white shadow-md shadow-red-200'
+                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                }`}
+              >
+                <Mic className={`w-3.5 h-3.5 ${listening ? 'animate-pulse' : ''}`} />
+                {listening ? 'Detener' : 'Dictar'}
+              </button>
+            </div>
+            {listening && (
+              <div className="mb-2 flex items-center gap-2 text-[10px] text-red-500 font-bold">
+                <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                Escuchando… habla con libertad
+              </div>
+            )}
             <textarea
               value={texto}
               onChange={e => setTexto(e.target.value)}
@@ -281,7 +343,7 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, onClose
       onSaved({ ...presupuesto, ...form, cuota_mensual: Number(form.cuota_mensual) });
       showToast('Presupuesto actualizado', 'success');
     } catch (e) {
-      showToast(String(e), 'error');
+      showToast(errMsg(e), 'error');
     } finally {
       setSaving(false);
     }
@@ -415,7 +477,7 @@ function DocumentoPreviewModal({ presupuesto, onClose, showToast }: DocumentoPre
         const d = await generateMaintenanceDocument(presupuesto.id);
         setDoc(d);
       } catch (e) {
-        showToast(String(e), 'error');
+        showToast(errMsg(e), 'error');
         onClose();
       } finally {
         setLoading(false);
@@ -607,7 +669,7 @@ function ConvertirModal({ presupuesto, onClose, onConverted, showToast }: Conver
       showToast('¡Contrato creado y activado!', 'success');
       onConverted(contrato, { ...presupuesto, estado: 'convertido' });
     } catch (e) {
-      showToast(String(e), 'error');
+      showToast(errMsg(e), 'error');
     } finally {
       setConverting(false);
     }
@@ -699,7 +761,7 @@ function NuevaIncidenciaModal({ contratos, orgId, members, onClose, onSaved, sho
       });
       showToast('Incidencia registrada', 'success');
       onSaved(saved);
-    } catch (e) { showToast(String(e), 'error'); }
+    } catch (e) { showToast(errMsg(e), 'error'); }
     finally { setSaving(false); }
   };
 
@@ -830,7 +892,7 @@ function DetalleIncidenciaModal({ incidencia, members, onClose, onUpdated, showT
         fecha_asignacion: tecnico ? new Date().toISOString() : null,
       });
       onUpdated({ ...incidencia, tecnico_user_id: tecnico?.user_id ?? null, tecnico_email: tecnico?.email ?? null });
-    } catch (e) { showToast(String(e), 'error'); }
+    } catch (e) { showToast(errMsg(e), 'error'); }
   };
 
   const calcMinutos = (desde: string, hasta: string) =>
@@ -867,7 +929,7 @@ function DetalleIncidenciaModal({ incidencia, members, onClose, onUpdated, showT
       const updated = { ...incidencia, ...updates };
       onUpdated(updated as MaintenanceIncidencia);
       showToast('Incidencia actualizada', 'success');
-    } catch (e) { showToast(String(e), 'error'); }
+    } catch (e) { showToast(errMsg(e), 'error'); }
     finally { setSaving(false); }
   };
 
@@ -881,7 +943,7 @@ function DetalleIncidenciaModal({ incidencia, members, onClose, onUpdated, showT
       });
       onUpdated({ ...incidencia, notas_resolucion: notas.trim() || null, es_extra_contrato: esExtra, importe_extra: esExtra && importe ? Number(importe) : null });
       showToast('Notas guardadas', 'success');
-    } catch (e) { showToast(String(e), 'error'); }
+    } catch (e) { showToast(errMsg(e), 'error'); }
     finally { setSaving(false); }
   };
 
@@ -890,7 +952,7 @@ function DetalleIncidenciaModal({ incidencia, members, onClose, onUpdated, showT
     try {
       await sendParteTrabajo(incidencia.id);
       showToast('Parte de trabajo enviado por email', 'success');
-    } catch (e) { showToast(String(e), 'error'); }
+    } catch (e) { showToast(errMsg(e), 'error'); }
     finally { setSendingParte(false); }
   };
 
@@ -1119,7 +1181,7 @@ function GuardarModeloModal({ presupuesto, orgId, onClose, onSaved, showToast }:
       showToast('Modelo guardado correctamente', 'success');
       onSaved(modelo);
     } catch (e) {
-      showToast(String(e), 'error');
+      showToast(errMsg(e), 'error');
     } finally {
       setSaving(false);
     }
@@ -1199,7 +1261,7 @@ function GuardarModeloModal({ presupuesto, orgId, onClose, onSaved, showToast }:
 
 // ── Componente principal ──────────────────────────────────────────────────────
 
-export default function ScreenMantenimiento({ orgId, showToast }: Props) {
+export default function ScreenMantenimiento({ orgId, showToast, initialText, onInitialTextConsumed }: Props) {
   const [tab, setTab] = useState<'presupuestos' | 'contratos' | 'incidencias' | 'modelos' | 'facturas'>('presupuestos');
   const [loading, setLoading] = useState(true);
   const [presupuestos, setPresupuestos] = useState<MaintenancePresupuesto[]>([]);
@@ -1225,6 +1287,15 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
   const [orgMembers, setOrgMembers] = useState<OrgMember[]>([]);
   const [showNuevaIncidencia, setShowNuevaIncidencia] = useState(false);
   const [detalleIncidencia, setDetalleIncidencia] = useState<MaintenanceIncidencia | null>(null);
+  const [nuevoModalInitialText, setNuevoModalInitialText] = useState<string>('');
+
+  useEffect(() => {
+    if (initialText) {
+      setNuevoModalInitialText(initialText);
+      setShowNuevoModal(true);
+      onInitialTextConsumed?.();
+    }
+  }, [initialText, onInitialTextConsumed]);
 
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -1312,7 +1383,7 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
       setEditPresup(saved);
       showToast('Presupuesto creado desde modelo', 'success');
     } catch (e) {
-      showToast(String(e), 'error');
+      showToast(errMsg(e), 'error');
     } finally {
       setUsandoModelo(null);
     }
@@ -1740,8 +1811,9 @@ export default function ScreenMantenimiento({ orgId, showToast }: Props) {
       {showNuevoModal && (
         <NuevoContratoModal
           plantillas={plantillas} orgId={orgId} showToast={showToast}
-          onClose={() => setShowNuevoModal(false)}
-          onSaved={saved => { setPresupuestos(prev => [saved, ...prev]); setShowNuevoModal(false); }}
+          initialText={nuevoModalInitialText}
+          onClose={() => { setShowNuevoModal(false); setNuevoModalInitialText(''); }}
+          onSaved={saved => { setPresupuestos(prev => [saved, ...prev]); setShowNuevoModal(false); setNuevoModalInitialText(''); }}
         />
       )}
 

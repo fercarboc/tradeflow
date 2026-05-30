@@ -27,11 +27,13 @@ import AuthActivateView from './components/auth/AuthActivateView';
 import AuthCallbackView from './components/auth/AuthCallbackView';
 import AuthResetPasswordView from './components/auth/AuthResetPasswordView';
 import UpdatePasswordView from './components/auth/UpdatePasswordView';
+import QuoteAcceptView from './components/QuoteAcceptView';
 
 const AUTH_FLOW_PAGES = new Set<ActivePage>([
   ActivePage.AuthActivate,
   ActivePage.AuthCallback,
   ActivePage.UpdatePassword,
+  ActivePage.QuoteAccept,
 ]);
 
 function isPWAMode(): boolean {
@@ -63,13 +65,20 @@ function detectAuthRoute(): ActivePage | null {
   if (path === '/auth/reset-password') return ActivePage.AuthResetPassword;
   if (path === '/update-password') return ActivePage.UpdatePassword;
   if (path === '/login') return ActivePage.Login;
+  if (path.startsWith('/p/')) return ActivePage.QuoteAccept;
 
   return null;
+}
+
+function extractQuoteToken(): string {
+  const parts = window.location.pathname.split('/');
+  return parts[2] ?? '';
 }
 
 export default function App() {
   const pwa = isPWAMode();
   const [checkoutSuccess] = useState(() => detectAndClearCheckoutSuccess());
+  const [quoteToken] = useState(() => extractQuoteToken());
 
   const initialAuthRoute = detectAuthRoute();
 
@@ -263,6 +272,9 @@ export default function App() {
           />
         );
 
+      case ActivePage.QuoteAccept:
+        return <QuoteAcceptView token={quoteToken} />;
+
       default:
         return (
           <HomeView
@@ -286,7 +298,8 @@ export default function App() {
     currentPage === ActivePage.AuthActivate ||
     currentPage === ActivePage.AuthCallback ||
     currentPage === ActivePage.AuthResetPassword ||
-    currentPage === ActivePage.UpdatePassword;
+    currentPage === ActivePage.UpdatePassword ||
+    currentPage === ActivePage.QuoteAccept;
 
   return (
     <SessionProvider>

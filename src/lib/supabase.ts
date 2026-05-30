@@ -2375,3 +2375,51 @@ export async function convertPresupuestoToContrato(
 
   return data as MaintenanceContrato;
 }
+
+// ── Quote acceptance tokens ───────────────────────────────────────────────────
+
+export interface QuoteToken {
+  id: string;
+  org_id: string;
+  quote_numero: string;
+  token: string;
+  status: 'pending' | 'accepted' | 'rejected';
+  client_name: string | null;
+  quote_data: Record<string, unknown>;
+  accepted_at: string | null;
+  created_at: string;
+}
+
+export async function createQuoteToken(
+  orgId: string,
+  quoteNumero: string,
+  clientName: string | null,
+  quoteData: Record<string, unknown>,
+): Promise<QuoteToken> {
+  const { data, error } = await supabase
+    .from('trade_quote_tokens')
+    .insert({ org_id: orgId, quote_numero: quoteNumero, client_name: clientName, quote_data: quoteData })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as QuoteToken;
+}
+
+export async function getQuoteByToken(token: string): Promise<QuoteToken | null> {
+  const { data, error } = await supabase
+    .from('trade_quote_tokens')
+    .select('*')
+    .eq('token', token)
+    .maybeSingle();
+  if (error) throw error;
+  return data as QuoteToken | null;
+}
+
+export async function respondQuoteToken(token: string, action: 'accepted' | 'rejected'): Promise<void> {
+  const { error } = await supabase
+    .from('trade_quote_tokens')
+    .update({ status: action, accepted_at: action === 'accepted' ? new Date().toISOString() : null })
+    .eq('token', token)
+    .eq('status', 'pending');
+  if (error) throw error;
+}
