@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import {
-  Plus, ChevronLeft, ChevronRight, MapPin, Clock, User, Users,
+  Plus, ChevronLeft, ChevronRight, MapPin, User, Users,
   CheckCircle, Play, Trash2, Edit3, Navigation, CalendarDays,
-  AlertTriangle, X, Check, Zap, FileText, Phone,
+  AlertTriangle, X, Check, Zap, FileText, Phone, Receipt,
 } from 'lucide-react';
 import type { TradeJob } from '../lib/supabase';
 
@@ -30,6 +30,7 @@ export interface ScreenPlanificacionProps {
   onAssignWorker: (jobId: string, workerId: string, rol: string) => Promise<void>;
   onRemoveWorker: (jobId: string, workerId: string) => Promise<void>;
   onOpenParte?: (job: TradeJob) => void;
+  onCreatePresupuesto?: (job: TradeJob) => void;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
 }
 
@@ -96,9 +97,27 @@ function JobModalPanel({ draft, setDraft, editingJob, clientes, workers, selecte
         </div>
 
         <div className="space-y-3">
+          {/* Tipo: trabajo normal o visita de valoración */}
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => setDraft(d => ({ ...d, tipo: 'trabajo' }))}
+              className={`py-2.5 rounded-xl text-xs font-bold border cursor-pointer transition-colors ${(draft.tipo ?? 'trabajo') === 'trabajo' ? 'bg-blue-600 text-white border-blue-600' : 'bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}
+            >
+              🔧 Trabajo
+            </button>
+            <button
+              type="button"
+              onClick={() => setDraft(d => ({ ...d, tipo: 'visita' }))}
+              className={`py-2.5 rounded-xl text-xs font-bold border cursor-pointer transition-colors ${draft.tipo === 'visita' ? 'bg-violet-600 text-white border-violet-600' : 'bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700'}`}
+            >
+              👁 Visita / Ver
+            </button>
+          </div>
           <div>
             <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Título *</label>
-            <input value={draft.titulo ?? ''} onChange={e => setDraft(d => ({ ...d, titulo: e.target.value }))} placeholder="Ej: Instalación calentador eléctrico"
+            <input value={draft.titulo ?? ''} onChange={e => setDraft(d => ({ ...d, titulo: e.target.value }))}
+              placeholder={draft.tipo === 'visita' ? 'Ej: Ver fuga de agua en baño de Conchy' : 'Ej: Instalación calentador eléctrico'}
               className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
           </div>
           <div>
@@ -307,11 +326,13 @@ interface JobCardProps {
   onEdit: (job: TradeJob) => void;
   onDelete: (job: TradeJob) => void;
   onOpenParte?: (job: TradeJob) => void;
+  onCreatePresupuesto?: (job: TradeJob) => void;
 }
 
-function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte }: JobCardProps) {
+function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePresupuesto }: JobCardProps) {
   const est = ESTADO_CFG[job.estado];
   const pri = PRIORIDAD_CFG[job.prioridad];
+  const isVisita = job.tipo === 'visita';
 
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
     [job.direccion, job.localidad, job.cp].filter(Boolean).join(', '),
@@ -328,6 +349,7 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte }: JobCardP
     : null;
 
   const accentColor =
+    isVisita                            ? 'border-l-violet-400'  :
     job.estado === 'en_curso'           ? 'border-l-amber-400'   :
     job.estado === 'completado'         ? 'border-l-emerald-400' :
     job.estado === 'cancelado'          ? 'border-l-red-400'     :
@@ -346,12 +368,15 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte }: JobCardP
         <div className="flex items-center justify-between gap-2">
           {timeLabel ? (
             <span className={`text-sm font-bold ${timeColor}`}>{timeLabel}</span>
+          ) : isVisita ? (
+            <span className="text-xs font-bold text-violet-500">Pendiente de programar</span>
           ) : (
             <span className="text-xs text-slate-400">Sin hora</span>
           )}
           <div className="flex items-center gap-1.5 shrink-0">
+            {isVisita && <span className="text-[9px] font-bold uppercase px-2 py-0.5 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">Visita</span>}
             {pri && <span className={`text-[9px] font-bold uppercase px-2 py-0.5 rounded-full ${pri.cls}`}>{pri.label}</span>}
-            <span className={`text-[10px] font-bold uppercase px-2.5 py-1 rounded-full ${est.cls}`}>{est.label}</span>
+            {!isVisita && <span className={`text-[10px] font-bold uppercase px-2.5 py-1 rounded-full ${est.cls}`}>{est.label}</span>}
           </div>
         </div>
 
@@ -434,6 +459,12 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte }: JobCardP
               <CheckCircle className="w-3.5 h-3.5" /> Completar
             </button>
           )}
+          {onCreatePresupuesto && job.estado !== 'cancelado' && job.estado !== 'completado' && (
+            <button onClick={() => onCreatePresupuesto(job)}
+              className="flex items-center gap-1.5 bg-violet-50 border border-violet-200 text-violet-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-violet-100 transition-colors">
+              <Receipt className="w-3.5 h-3.5" /> Presupuesto
+            </button>
+          )}
           {onOpenParte && job.estado !== 'cancelado' && (
             <button onClick={() => onOpenParte(job)}
               className="flex items-center gap-1.5 bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-blue-100 transition-colors">
@@ -458,7 +489,8 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte }: JobCardP
 export default function ScreenPlanificacion({
   jobs: propJobs, workers, clientes, isLiveMode,
   presupuestosAceptados = [],
-  onCreateJob, onUpdateJob, onDeleteJob, onAssignWorker, onRemoveWorker, onOpenParte, showToast,
+  onCreateJob, onUpdateJob, onDeleteJob, onAssignWorker, onRemoveWorker,
+  onOpenParte, onCreatePresupuesto, showToast,
 }: ScreenPlanificacionProps) {
   const jobs  = isLiveMode ? propJobs : DEMO_JOBS;
   const today = new Date().toISOString().split('T')[0];
@@ -606,6 +638,33 @@ export default function ScreenPlanificacion({
           </button>
         </div>
 
+        {/* Visitas pendientes (todas las fechas) */}
+        {(() => {
+          const visitasPendientes = jobs.filter(j => j.tipo === 'visita' && j.estado !== 'completado' && j.estado !== 'cancelado');
+          if (visitasPendientes.length === 0) return null;
+          return (
+            <div className="bg-violet-50 dark:bg-violet-950/20 border border-violet-200 dark:border-violet-800/40 rounded-xl p-3 space-y-2">
+              <p className="text-[9px] font-bold uppercase tracking-wider text-violet-700 dark:text-violet-400 flex items-center gap-1.5">
+                <CalendarDays className="w-3 h-3" />
+                {visitasPendientes.length} visita{visitasPendientes.length !== 1 ? 's' : ''} pendiente{visitasPendientes.length !== 1 ? 's' : ''} de valoración
+              </p>
+              <div className="space-y-2">
+                {visitasPendientes.map(job => (
+                  <JobCard
+                    key={job.id}
+                    job={job}
+                    onQuickStatus={handleQuickStatus}
+                    onEdit={openEdit}
+                    onDelete={handleDelete}
+                    onOpenParte={onOpenParte}
+                    onCreatePresupuesto={onCreatePresupuesto}
+                  />
+                ))}
+              </div>
+            </div>
+          );
+        })()}
+
         {/* Pipeline: presupuestos aceptados sin trabajo asignado */}
         {presupuestosAceptados.length > 0 && (
           <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3 space-y-2">
@@ -676,6 +735,7 @@ export default function ScreenPlanificacion({
                 onEdit={openEdit}
                 onDelete={handleDelete}
                 onOpenParte={onOpenParte}
+                onCreatePresupuesto={onCreatePresupuesto}
               />
             ))
         )}

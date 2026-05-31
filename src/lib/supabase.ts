@@ -85,8 +85,9 @@ export interface TradeQuoteItem {
 export interface TradeInvoice {
   id: string;
   org_id: string;
-  quote_id?: string;
-  client_id?: string;
+  quote_id?: string | null;
+  client_id?: string | null;
+  job_id?: string | null;
   numero: string;
   fecha: string;
   fecha_vencimiento?: string;
@@ -95,6 +96,8 @@ export interface TradeInvoice {
   iva_pct: number;
   iva_importe: number;
   total: number;
+  concepto?: string | null;
+  es_suplementaria?: boolean;
   paid_at?: string;
   created_at: string;
   updated_at: string;
@@ -522,6 +525,77 @@ export async function convertToInvoice(quote: TradeQuote, orgId: string): Promis
 
   await supabase.from('trade_quotes').update({ estado: 'Facturado' }).eq('id', quote.id);
   return inv as TradeInvoice;
+}
+
+export async function createInvoiceFromJob(
+  orgId: string,
+  jobId: string,
+  clientId: string | null | undefined,
+  materiales: { descripcion: string; cantidad: number; precioBase: number }[],
+  opts: { ivaPct?: number; concepto?: string; esSuplementaria?: boolean } = {},
+): Promise<TradeInvoice> {
+  const { ivaPct = 21, concepto, esSuplementaria = false } = opts;
+  const { count } = await supabase
+    .from('trade_invoices')
+    .select('*', { count: 'exact', head: true })
+    .eq('org_id', orgId);
+
+  const baseNumero = `FAC-${new Date().getFullYear()}-${String((count ?? 0) + 1).padStart(3, '0')}`;
+  const numero = esSuplementaria ? `${baseNumero}-S` : baseNumero;
+  const today = new Date().toISOString().split('T')[0];
+  const due = new Date(); due.setDate(due.getDate() + 30);
+  const subtotal = materiales.reduce((s, m) => s + m.precioBase * m.cantidad, 0);
+  const iva_importe = Math.round(subtotal * ivaPct * 100) / 10000;
+  const total = subtotal + iva_importe;
+
+  const { data: inv, error } = await supabase
+    .from('trade_invoices')
+    .insert({
+      org_id: orgId,
+      client_id: clientId ?? null,
+      job_id: jobId || null,
+      numero,
+      fecha: today,
+      fecha_vencimiento: due.toISOString().split('T')[0],
+      estado: 'Pendiente',
+      subtotal,
+      iva_pct: ivaPct,
+      iva_importe,
+      total,
+      concepto: concepto ?? null,
+      es_suplementaria: esSuplementaria,
+    })
+    .select()
+    .single();
+  if (error) throw error;
+  return inv as TradeInvoice;
+}
+
+export async function loadInvoicesByJobId(jobId: string): Promise<TradeInvoice[]> {
+  const { data, error } = await supabase
+    .from('trade_invoices')
+    .select('*')
+    .eq('job_id', jobId)
+    .order('created_at', { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as TradeInvoice[];
+}
+
+export async function checkClientMaintenanceContract(
+  orgId: string,
+  clientId: string | null | undefined,
+): Promise<{ activo: boolean; materialesIncluidos: boolean; nombre: string | null } | null> {
+  if (!clientId) return null;
+  const { data } = await supabase
+    .from('trade_maintenance_contratos')
+    .select('id, materiales_incluidos, nombre_cliente, estado')
+    .eq('org_id', orgId)
+    .eq('client_id', clientId)
+    .eq('estado', 'activo')
+    .limit(1)
+    .maybeSingle();
+  if (!data) return null;
+  return { activo: true, materialesIncluidos: data.materiales_incluidos as boolean, nombre: data.nombre_cliente as string | null };
 }
 
 export async function submitWaitlist(entry: TradeWaitlistEntry): Promise<void> {
@@ -1037,6 +1111,7 @@ export interface TradeJob {
   client_id?: string | null;
   titulo: string;
   descripcion?: string | null;
+  tipo?: 'trabajo' | 'visita';
   estado: 'planificado' | 'en_curso' | 'completado' | 'cancelado' | 'pendiente_material';
   prioridad: 'urgente' | 'alta' | 'normal' | 'baja';
   fecha_inicio?: string | null;

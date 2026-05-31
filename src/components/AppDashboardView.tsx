@@ -10,7 +10,8 @@ import {
   CheckCircle, 
   Clock, 
   Users, 
-  ArrowRight, 
+  ArrowRight,
+  ArrowLeft,
   Star, 
   ShieldCheck, 
   HelpCircle, 
@@ -58,7 +59,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription, TemplateType } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { usePermissions } from '../hooks/usePermissions';
@@ -391,8 +392,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // Tabs de navegación móvil
   const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'contratos'>('inicio');
   const [parteJob, setParteJob] = useState<import('../lib/supabase').TradeJob | null>(null);
+  const [parteMantenimiento, setParteMantenimiento] = useState<{ activo: boolean; materialesIncluidos: boolean; nombre: string | null } | null>(null);
+  const [parteMode, setParteMode] = useState<'edit' | 'view' | 'supplement'>('edit');
+  const [parteJobInvoices, setParteJobInvoices] = useState<import('../lib/supabase').TradeInvoice[]>([]);
+  const [mobileClienteId, setMobileClienteId] = useState<string | null>(null);
   const [isSessionClosed, setIsSessionClosed] = useState(false);
   const [showFloatingMenu, setShowFloatingMenu] = useState<boolean>(false);
+  const [showVisitaModal, setShowVisitaModal] = useState(false);
+  const [visitaDraft, setVisitaDraft] = useState<{ titulo: string; client_id: string | null }>({ titulo: '', client_id: null });
 
   // Pasos del Asistente Móvil (Wizard)
   const [wizardActive, setWizardActive] = useState<boolean>(false);
@@ -2304,7 +2311,56 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 await removeWorkerFromJob(jobId, workerId);
                 await loadJobs(orgId!).then(setJobs);
               }}
-              onOpenParte={(job) => setParteJob(job)}
+              onOpenParte={async (job) => {
+                setParteJob(job);
+                setParteMantenimiento(null);
+                setParteJobInvoices([]);
+
+                const [mantenimientoInfo, jobInvoices] = await Promise.all([
+                  (isLiveMode && orgId && job.client_id)
+                    ? checkClientMaintenanceContract(orgId, job.client_id).catch(() => null)
+                    : Promise.resolve(null),
+                  isLiveMode
+                    ? loadInvoicesByJobId(job.id).catch(() => [] as import('../lib/supabase').TradeInvoice[])
+                    : Promise.resolve([] as import('../lib/supabase').TradeInvoice[]),
+                ]);
+
+                setParteMantenimiento(mantenimientoInfo);
+                setParteJobInvoices(jobInvoices);
+
+                const isCompleted = job.estado === 'completado';
+                const hasInvoice = jobInvoices.length > 0;
+                const isMant = mantenimientoInfo?.activo ?? false;
+
+                if (!isCompleted) {
+                  setParteMode('edit');
+                } else if (hasInvoice) {
+                  setParteMode('supplement');
+                } else if (isMant) {
+                  setParteMode('view');
+                } else {
+                  setParteMode('view');
+                }
+              }}
+              onCreatePresupuesto={(job) => {
+                const cliente = clientes.find(c => c.id === job.client_id);
+                const nombreCliente = job.trade_clients?.nombre ?? cliente?.nombre ?? '';
+                const telefonoCliente = job.trade_clients?.telefono ?? cliente?.telefono ?? '';
+                const emailCliente = cliente?.email ?? '';
+                setEditingQuote({
+                  id: 'P-NEW',
+                  nombreCliente,
+                  telefonoCliente,
+                  emailCliente,
+                  descripcion: job.titulo,
+                  fecha: new Date().toISOString().split('T')[0],
+                  estado: 'Borrador',
+                  partidas: [],
+                  total: 0,
+                });
+                setWizardStep(1);
+                setWizardActive(true);
+              }}
               showToast={showToast}
             />
           )}
@@ -2370,24 +2426,34 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 className="absolute bottom-[68px] left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 rounded-t-[28px] p-5 space-y-3.5 z-50 text-xs shadow-2xl"
               >
                 <div className="w-10 h-1 bg-slate-350 dark:bg-slate-700 rounded-full mx-auto mb-1" />
+
+                {/* Visita rápida — anotar llamada recibida */}
+                <button
+                  onClick={() => { setVisitaDraft({ titulo: '', client_id: null }); setShowFloatingMenu(false); setShowVisitaModal(true); }}
+                  className="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider cursor-pointer"
+                >
+                  <Briefcase className="w-4 h-4" />
+                  <span>📋 Anotar visita / llamada</span>
+                </button>
+
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest font-mono block text-center">Nuevo Presupuesto Rápido</span>
-                
+
                 <div className="space-y-2">
-                  <button 
+                  <button
                     onClick={() => startWizard(2)} // Salta a Dictado
                     className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider cursor-pointer"
                   >
                     <Mic className="w-4.5 h-4.5" />
                     <span>🎙️ Dictado por voz IA</span>
                   </button>
-                  <button 
+                  <button
                     onClick={() => startWizard(3)} // Salta a Fotos
                     className="w-full bg-slate-900 dark:bg-slate-800 text-white font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider cursor-pointer"
                   >
                     <ImageIcon className="w-4.5 h-4.5" />
                     <span>📷 Escanear con Foto</span>
                   </button>
-                  <button 
+                  <button
                     onClick={() => startWizard(1)} // Flujo desde paso 1
                     className="w-full bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider border border-slate-200 dark:border-slate-800 cursor-pointer"
                   >
@@ -2400,21 +2466,110 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           )}
         </AnimatePresence>
 
-        {/* Parte de Trabajo overlay */}
-        {parteJob && (
-          <ScreenParteTrabajo
-            job={parteJob}
-            orgId={orgId ?? ''}
-            tarifas={tarifas}
-            isLiveMode={isLiveMode}
-            onComplete={async (jobId, notas) => {
-              await updateJob(jobId, { estado: 'completado', notas_cierre: notas, completado_at: new Date().toISOString() });
-              setJobs(prev => prev.map(j => j.id === jobId ? { ...j, estado: 'completado', notas_cierre: notas } : j));
-            }}
-            onClose={() => setParteJob(null)}
-            showToast={showToast}
-          />
+        {/* Modal Visita Rápida */}
+        {showVisitaModal && (
+          <div className="absolute inset-0 bg-black/70 z-50 flex items-end justify-center" onClick={() => setShowVisitaModal(false)}>
+            <div
+              className="w-full bg-white dark:bg-slate-900 rounded-t-[28px] p-5 space-y-4"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="w-10 h-1 bg-slate-300 dark:bg-slate-700 rounded-full mx-auto" />
+              <div>
+                <h3 className="font-bold text-sm text-slate-900 dark:text-white">Anotar visita / llamada</h3>
+                <p className="text-[10px] text-slate-400 mt-0.5">Se crea como trabajo pendiente de programar</p>
+              </div>
+
+              <div className="space-y-3">
+                <div>
+                  <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">¿Qué hay que ir a ver? *</label>
+                  <input
+                    autoFocus
+                    type="text"
+                    value={visitaDraft.titulo}
+                    onChange={e => setVisitaDraft(d => ({ ...d, titulo: e.target.value }))}
+                    placeholder="Ej: Ver fuga de agua en baño de Conchy"
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-800 dark:text-white focus:outline-none focus:border-violet-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Cliente</label>
+                  <select
+                    value={visitaDraft.client_id ?? ''}
+                    onChange={e => setVisitaDraft(d => ({ ...d, client_id: e.target.value || null }))}
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-800 dark:text-white focus:outline-none focus:border-violet-500"
+                  >
+                    <option value="">— Sin cliente —</option>
+                    {clientes.map(c => <option key={c.id} value={c.id}>{c.nombre}</option>)}
+                  </select>
+                </div>
+              </div>
+
+              <button
+                onClick={async () => {
+                  if (!visitaDraft.titulo.trim()) { showToast('Describe qué hay que ir a ver', 'error'); return; }
+                  if (!orgId) return;
+                  try {
+                    const saved = await createJob(orgId, {
+                      titulo: visitaDraft.titulo.trim(),
+                      tipo: 'visita',
+                      estado: 'planificado',
+                      prioridad: 'normal',
+                      client_id: visitaDraft.client_id || null,
+                    } as Parameters<typeof createJob>[1]);
+                    setJobs(prev => [...prev, saved]);
+                    setShowVisitaModal(false);
+                    setMobileTab('trabajos');
+                    showToast('Visita anotada', 'success');
+                  } catch {
+                    showToast('Error al crear la visita', 'error');
+                  }
+                }}
+                className="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-3.5 rounded-2xl text-sm cursor-pointer"
+              >
+                Anotar visita
+              </button>
+            </div>
+          </div>
         )}
+
+        {/* Parte de Trabajo overlay */}
+        {parteJob && (() => {
+          const clienteCompleto = clientes.find(c => c.id === parteJob.client_id);
+          return (
+            <ScreenParteTrabajo
+              key={parteJob.id}
+              job={parteJob}
+              orgId={orgId ?? ''}
+              tarifas={tarifas}
+              isLiveMode={isLiveMode}
+              mode={parteMode}
+              mantenimiento={parteMantenimiento}
+              existingInvoices={parteJobInvoices}
+              clienteInfo={clienteCompleto ? {
+                nombre: clienteCompleto.nombre,
+                telefono: clienteCompleto.telefono,
+                email: clienteCompleto.email,
+              } : undefined}
+              onComplete={async (jobId, notas, _materiales, horaFin) => {
+                const now = new Date().toISOString();
+                await updateJob(jobId, {
+                  estado: 'completado',
+                  notas_cierre: notas,
+                  completado_at: now,
+                  hora_fin: horaFin,
+                });
+                setJobs(prev => prev.map(j =>
+                  j.id === jobId
+                    ? { ...j, estado: 'completado', notas_cierre: notas, completado_at: now, hora_fin: horaFin }
+                    : j,
+                ));
+              }}
+              onInvoiceCreated={(inv) => setParteJobInvoices(prev => [...prev, inv])}
+              onClose={() => { setParteJob(null); setParteMantenimiento(null); setParteJobInvoices([]); }}
+              showToast={showToast}
+            />
+          );
+        })()}
 
       </div>
     );
@@ -2776,6 +2931,125 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= MÓVIL: CLIENTES CRM SCREEN =================
   function MobileScreenClientes() {
+    const selectedCliente = mobileClienteId ? clientes.find(c => c.id === mobileClienteId) : null;
+
+    // ── DETALLE DE CLIENTE ────────────────────────────────────────────────────
+    if (selectedCliente) {
+      const clientQuotes = presupuestos
+        .filter(p => p.nombreCliente === selectedCliente.nombre)
+        .sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime());
+      const clientJobs = jobs.filter(j => j.client_id === selectedCliente.id);
+      const totalFacturado = clientQuotes
+        .filter(q => q.estado === 'Facturado')
+        .reduce((s, q) => s + q.total * 1.21, 0);
+
+      const estadoBadge = (estado: string) => {
+        const map: Record<string, string> = {
+          Facturado: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30',
+          Aceptado:  'bg-blue-500/10 text-blue-500 border-blue-500/30',
+          Enviado:   'bg-amber-500/10 text-amber-500 border-amber-500/30',
+          Borrador:  'bg-slate-500/10 text-slate-400 border-slate-500/30',
+        };
+        return `text-[8px] font-bold uppercase px-1.5 py-0.5 rounded-full border ${map[estado] ?? map.Borrador}`;
+      };
+
+      return (
+        <div className="space-y-3">
+          {/* Cabecera + botón volver */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setMobileClienteId(null)}
+              className="flex items-center gap-1.5 text-blue-500 text-xs font-bold cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4" /> Clientes
+            </button>
+          </div>
+
+          {/* Tarjeta del cliente */}
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-4 space-y-3">
+            <div>
+              <h2 className="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wide">{selectedCliente.nombre}</h2>
+              <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 space-y-0.5">
+                {selectedCliente.telefono && <p>📞 {selectedCliente.telefono}</p>}
+                {selectedCliente.email && <p>✉️ {selectedCliente.email}</p>}
+                {selectedCliente.direccion && <p>📍 {selectedCliente.direccion}</p>}
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-100 dark:border-slate-850">
+              <div className="text-center">
+                <span className="text-[8px] font-mono uppercase text-slate-400 block">Facturado</span>
+                <span className="text-xs font-bold font-mono text-emerald-500">{totalFacturado.toFixed(0)}€</span>
+              </div>
+              <div className="text-center">
+                <span className="text-[8px] font-mono uppercase text-slate-400 block">Presupuestos</span>
+                <span className="text-xs font-bold text-slate-900 dark:text-white">{clientQuotes.length}</span>
+              </div>
+              <div className="text-center">
+                <span className="text-[8px] font-mono uppercase text-slate-400 block">Trabajos</span>
+                <span className="text-xs font-bold text-slate-900 dark:text-white">{clientJobs.length}</span>
+              </div>
+            </div>
+
+            {/* Botones contacto */}
+            <div className="grid grid-cols-2 gap-2">
+              <a
+                href={`tel:${selectedCliente.telefono}`}
+                className="bg-slate-900 dark:bg-slate-800 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[10px] uppercase"
+              >
+                <Phone className="w-3.5 h-3.5" /> Llamar
+              </a>
+              <a
+                href={`https://wa.me/${(selectedCliente.telefono ?? '').replace(/\D/g, '')}`}
+                target="_blank" rel="noreferrer"
+                className="bg-emerald-600 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[10px] uppercase"
+              >
+                <MessageSquare className="w-3.5 h-3.5" /> WhatsApp
+              </a>
+            </div>
+          </div>
+
+          {/* Presupuestos */}
+          <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">
+            Presupuestos ({clientQuotes.length}):
+          </span>
+
+          {clientQuotes.length === 0 && (
+            <div className="text-center py-8 text-slate-400 text-xs">Sin presupuestos</div>
+          )}
+
+          <div className="space-y-2">
+            {clientQuotes.map(q => {
+              const isFacturado = q.estado === 'Facturado';
+              return (
+                <div
+                  key={q.id}
+                  onClick={!isFacturado ? () => { setWizardQuote(q); setWizardStep(5); setWizardActive(true); } : undefined}
+                  className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-3 flex items-center justify-between gap-2 ${isFacturado ? 'opacity-60' : 'cursor-pointer active:scale-[0.98]'}`}
+                >
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className={estadoBadge(q.estado)}>{q.estado}</span>
+                      <span className="text-[9px] text-slate-400 font-mono">{q.fecha}</span>
+                    </div>
+                    <span className="text-[11px] text-slate-800 dark:text-slate-200 font-medium block truncate">
+                      {q.descripcion || 'Sin descripción'}
+                    </span>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <span className="text-xs font-mono font-bold text-slate-900 dark:text-white block">{(q.total * 1.21).toFixed(0)}€</span>
+                    {!isFacturado && <span className="text-[8px] text-blue-500 font-bold uppercase">Ver →</span>}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+
+    // ── LISTA DE CLIENTES ─────────────────────────────────────────────────────
     return (
       <div className="space-y-3">
         {/* Buscador + botón nuevo cliente */}
@@ -2798,80 +3072,36 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </button>
         </div>
 
-        <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">Libreta de Contactos:</span>
+        <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">
+          {filteredClientes.length} cliente{filteredClientes.length !== 1 ? 's' : ''}:
+        </span>
 
-
-
-
-        {/* Lista expandible */}
         <div className="space-y-2">
           {filteredClientes.map(c => {
-            const isExpanded = expandedClientMobileId === c.id;
+            const nQuotes = presupuestos.filter(p => p.nombreCliente === c.nombre).length;
+            const hasFacturado = presupuestos.some(p => p.nombreCliente === c.nombre && p.estado === 'Facturado');
             return (
-              <div 
+              <div
                 key={c.id}
-                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl overflow-hidden transition-all shadow-xs"
+                onClick={() => setMobileClienteId(c.id)}
+                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-4 flex items-center justify-between cursor-pointer active:scale-[0.98] transition-transform"
               >
-                <div 
-                  onClick={() => setExpandedClientMobileId(isExpanded ? null : c.id)}
-                  className="p-4 flex items-center justify-between cursor-pointer"
-                >
-                  <div className="truncate pr-2">
-                    <span className="font-bold text-xs text-slate-900 dark:text-white block uppercase tracking-wide truncate">{c.nombre}</span>
-                    <span className="text-[9.5px] text-slate-450 block font-mono truncate">{c.telefono}</span>
-                  </div>
-                  {isExpanded ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+                <div className="min-w-0 flex-1">
+                  <span className="font-bold text-xs text-slate-900 dark:text-white block uppercase tracking-wide truncate">{c.nombre}</span>
+                  <span className="text-[9.5px] text-slate-450 block font-mono truncate">{c.telefono}</span>
+                  {c.totalFacturado > 0 && (
+                    <span className="text-[9px] font-mono text-emerald-500 font-bold">{c.totalFacturado.toFixed(0)}€ facturados</span>
+                  )}
                 </div>
-
-                {isExpanded && (() => {
-                  const clientQuotes = presupuestos.filter(p => p.nombreCliente === c.nombre);
-                  return (
-                    <div className="px-4 pb-4 border-t border-slate-100 dark:border-slate-850 pt-3 bg-slate-50/50 dark:bg-slate-950/20 text-xs space-y-3">
-                      <div className="text-[10px] text-slate-500 leading-normal space-y-1">
-                        {c.direccion && <p>📍 {c.direccion}</p>}
-                        {c.email && <p>✉️ {c.email}</p>}
-                        <p>💰 Total facturado: <strong className="font-mono text-emerald-500">{c.totalFacturado}€</strong></p>
-                      </div>
-
-                      {/* Botones de acción */}
-                      <div className="grid grid-cols-2 gap-2">
-                        <a
-                          href={`tel:${c.telefono}`}
-                          className="bg-slate-900 dark:bg-slate-800 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[10px] uppercase cursor-pointer"
-                        >
-                          <Phone className="w-3.5 h-3.5" /><span>Llamar</span>
-                        </a>
-                        <a
-                          href={`https://wa.me/${(c.telefono ?? '').replace(/\D/g, '')}`}
-                          target="_blank" rel="noreferrer"
-                          className="bg-emerald-600 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[10px] uppercase cursor-pointer"
-                        >
-                          <MessageSquare className="w-3.5 h-3.5" /><span>WhatsApp</span>
-                        </a>
-                      </div>
-
-                      {/* Presupuestos del cliente */}
-                      {clientQuotes.length > 0 && (
-                        <div className="space-y-1.5">
-                          <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400 font-mono block">Presupuestos ({clientQuotes.length}):</span>
-                          {clientQuotes.slice(0, 5).map(q => (
-                            <div
-                              key={q.id}
-                              onClick={() => { setWizardQuote(q); setWizardStep(5); setWizardActive(true); }}
-                              className="flex justify-between items-center bg-white dark:bg-slate-900 rounded-xl px-3 py-2 border border-slate-200 dark:border-slate-800 cursor-pointer"
-                            >
-                              <div className="truncate pr-2">
-                                <span className="text-[10px] text-slate-700 dark:text-slate-200 font-medium block truncate">{q.descripcion || 'Sin descripción'}</span>
-                                <span className="text-[9px] text-slate-400 font-mono">{q.fecha}</span>
-                              </div>
-                              <span className="text-[10px] font-mono font-bold text-slate-900 dark:text-white shrink-0">{(q.total * 1.21).toFixed(0)}€</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })()}
+                <div className="flex items-center gap-2 shrink-0">
+                  {nQuotes > 0 && (
+                    <span className="text-[9px] font-mono text-slate-400">{nQuotes} pres.</span>
+                  )}
+                  {hasFacturado && (
+                    <span className="text-[8px] bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 rounded-full px-1.5 py-0.5 font-bold uppercase">Fact.</span>
+                  )}
+                  <ArrowRight className="w-4 h-4 text-slate-400" />
+                </div>
               </div>
             );
           })}
