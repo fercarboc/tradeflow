@@ -16,6 +16,14 @@ export interface PresupuestoPendiente {
   client_id?: string | null;
 }
 
+export interface LinkedPresupuesto {
+  id: string;
+  descripcion: string;
+  total: number;
+  estado: 'Borrador' | 'Enviado' | 'Aceptado' | 'Facturado';
+  fecha: string;
+}
+
 export interface ScreenPlanificacionProps {
   jobs: TradeJob[];
   workers: Worker[];
@@ -24,6 +32,7 @@ export interface ScreenPlanificacionProps {
   isLiveMode: boolean;
   isDarkMode: boolean;
   presupuestosAceptados?: PresupuestoPendiente[];
+  presupuestosPorId?: Record<string, LinkedPresupuesto>;
   onCreateJob: (job: Omit<TradeJob, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_clients' | 'trade_job_workers'>) => Promise<TradeJob>;
   onUpdateJob: (id: string, updates: Partial<TradeJob>) => Promise<void>;
   onDeleteJob: (id: string) => Promise<void>;
@@ -327,9 +336,10 @@ interface JobCardProps {
   onDelete: (job: TradeJob) => void;
   onOpenParte?: (job: TradeJob) => void;
   onCreatePresupuesto?: (job: TradeJob) => void;
+  linkedPresupuesto?: LinkedPresupuesto;
 }
 
-function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePresupuesto }: JobCardProps) {
+function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePresupuesto, linkedPresupuesto }: JobCardProps) {
   const est = ESTADO_CFG[job.estado];
   const pri = PRIORIDAD_CFG[job.prioridad];
   const isVisita = job.tipo === 'visita';
@@ -445,12 +455,56 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePr
           )}
         </div>
 
+        {/* Presupuesto vinculado */}
+        {linkedPresupuesto && (() => {
+          const p = linkedPresupuesto;
+          const isAceptado  = p.estado === 'Aceptado';
+          const isFacturado = p.estado === 'Facturado';
+          return (
+            <div className={`rounded-xl px-3 py-2.5 border text-xs space-y-1 ${
+              isAceptado  ? 'bg-emerald-50 border-emerald-300 dark:bg-emerald-950/30 dark:border-emerald-700' :
+              isFacturado ? 'bg-slate-100 border-slate-200 dark:bg-slate-900 dark:border-slate-700' :
+                            'bg-violet-50 border-violet-200 dark:bg-violet-950/20 dark:border-violet-700'
+            }`}>
+              {isAceptado && (
+                <div className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400 font-bold text-[10px] uppercase tracking-wider">
+                  <CheckCircle className="w-3.5 h-3.5 shrink-0" />
+                  PRESUPUESTO ACEPTADO — {p.fecha} por el cliente
+                </div>
+              )}
+              <div className="flex items-center justify-between gap-2">
+                <span className={`truncate font-medium ${isAceptado ? 'text-emerald-800 dark:text-emerald-300' : 'text-slate-700 dark:text-slate-300'}`}>
+                  {p.descripcion || 'Presupuesto vinculado'}
+                </span>
+                <span className={`font-mono font-bold shrink-0 ${isAceptado ? 'text-emerald-700 dark:text-emerald-400' : 'text-violet-700 dark:text-violet-400'}`}>
+                  {(p.total * 1.21).toFixed(0)}€
+                </span>
+              </div>
+              {!isAceptado && !isFacturado && (
+                <span className={`inline-block text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full border ${
+                  p.estado === 'Enviado'  ? 'bg-amber-50 text-amber-600 border-amber-300' :
+                                            'bg-slate-100 text-slate-500 border-slate-300'
+                }`}>{p.estado}</span>
+              )}
+              {isFacturado && (
+                <span className="inline-block text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full bg-slate-200 text-slate-500 border border-slate-300">Facturado</span>
+              )}
+            </div>
+          );
+        })()}
+
         {/* Estado rápido + editar/borrar */}
         <div className="flex items-center gap-2 pt-1 border-t border-slate-100">
-          {job.estado === 'planificado' && (
+          {job.estado === 'planificado' && !linkedPresupuesto && (
             <button onClick={() => onQuickStatus(job, 'en_curso')}
               className="flex items-center gap-1.5 bg-amber-500 active:bg-amber-600 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
               <Play className="w-3.5 h-3.5" /> Iniciar
+            </button>
+          )}
+          {job.estado === 'planificado' && linkedPresupuesto?.estado === 'Aceptado' && (
+            <button onClick={() => onQuickStatus(job, 'en_curso')}
+              className="flex items-center gap-1.5 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors shadow-sm">
+              <Play className="w-3.5 h-3.5" /> Iniciar trabajo
             </button>
           )}
           {job.estado === 'en_curso' && (
@@ -459,15 +513,25 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePr
               <CheckCircle className="w-3.5 h-3.5" /> Completar
             </button>
           )}
-          {onCreatePresupuesto && job.estado !== 'cancelado' && job.estado !== 'completado' && (
+          {onCreatePresupuesto && job.estado !== 'cancelado' && job.estado !== 'completado' && !linkedPresupuesto && (
             <button onClick={() => onCreatePresupuesto(job)}
               className="flex items-center gap-1.5 bg-violet-50 border border-violet-200 text-violet-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-violet-100 transition-colors">
               <Receipt className="w-3.5 h-3.5" /> Presupuesto
             </button>
           )}
+          {onCreatePresupuesto && job.estado !== 'cancelado' && job.estado !== 'completado' && linkedPresupuesto && (
+            <button onClick={() => onCreatePresupuesto(job)}
+              className="flex items-center gap-1.5 bg-white border border-violet-200 text-violet-500 text-[10px] font-bold px-2.5 py-1.5 rounded-xl cursor-pointer active:bg-violet-50 transition-colors">
+              <Receipt className="w-3 h-3" /> Nuevo pres.
+            </button>
+          )}
           {onOpenParte && job.estado !== 'cancelado' && (
             <button onClick={() => onOpenParte(job)}
-              className="flex items-center gap-1.5 bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-blue-100 transition-colors">
+              className={`flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors ${
+                linkedPresupuesto?.estado === 'Aceptado'
+                  ? 'bg-blue-600 text-white active:bg-blue-700 shadow-sm'
+                  : 'bg-blue-50 border border-blue-200 text-blue-700 active:bg-blue-100'
+              }`}>
               <FileText className="w-3.5 h-3.5" /> Parte
             </button>
           )}
@@ -489,6 +553,7 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePr
 export default function ScreenPlanificacion({
   jobs: propJobs, workers, clientes, isLiveMode,
   presupuestosAceptados = [],
+  presupuestosPorId = {},
   onCreateJob, onUpdateJob, onDeleteJob, onAssignWorker, onRemoveWorker,
   onOpenParte, onCreatePresupuesto, showToast,
 }: ScreenPlanificacionProps) {
@@ -658,6 +723,7 @@ export default function ScreenPlanificacion({
                     onDelete={handleDelete}
                     onOpenParte={onOpenParte}
                     onCreatePresupuesto={onCreatePresupuesto}
+                    linkedPresupuesto={job.quote_id ? presupuestosPorId[job.quote_id] : undefined}
                   />
                 ))}
               </div>
@@ -736,6 +802,7 @@ export default function ScreenPlanificacion({
                 onDelete={handleDelete}
                 onOpenParte={onOpenParte}
                 onCreatePresupuesto={onCreatePresupuesto}
+                linkedPresupuesto={job.quote_id ? presupuestosPorId[job.quote_id] : undefined}
               />
             ))
         )}

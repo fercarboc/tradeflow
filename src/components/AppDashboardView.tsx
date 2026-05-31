@@ -402,6 +402,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [showVisitaModal, setShowVisitaModal] = useState(false);
   const [visitaDraft, setVisitaDraft] = useState<{ titulo: string; client_id: string | null }>({ titulo: '', client_id: null });
   const [showPresupuestoFoto, setShowPresupuestoFoto] = useState(false);
+  const [pendingPresupuestoJobId, setPendingPresupuestoJobId] = useState<string | null>(null);
 
   // Pasos del Asistente Móvil (Wizard)
   const [wizardActive, setWizardActive] = useState<boolean>(false);
@@ -1219,6 +1220,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       }
     }
     setPresupuestos(prev => [savedQuote, ...prev]);
+
+    // Vincular presupuesto al trabajo que lo originó
+    if (pendingPresupuestoJobId && savedQuote.id) {
+      const jid = pendingPresupuestoJobId;
+      setPendingPresupuestoJobId(null);
+      updateJob(jid, { quote_id: savedQuote.id }).catch(() => {});
+      setJobs(prev => prev.map(j => j.id === jid ? { ...j, quote_id: savedQuote.id } : j));
+    }
+
     setTargetQuoteForWhatsApp(savedQuote);
     setWhatsAppStep('confirm');
     setShowWhatsAppModal(true);
@@ -2233,11 +2243,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {/* Derecha: nuevo presupuesto + ajustes + logout */}
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setShowFloatingMenu(true)}
-              className="flex items-center gap-1.5 bg-blue-600 active:bg-blue-700 text-white font-bold text-[11px] px-3 py-2 rounded-xl cursor-pointer transition-colors"
+              onClick={() => { setVisitaDraft({ titulo: '', client_id: null }); setShowVisitaModal(true); }}
+              className="flex items-center gap-1.5 bg-violet-600 active:bg-violet-700 text-white font-bold text-[11px] px-3 py-2 rounded-xl cursor-pointer transition-colors"
             >
               <Plus className="w-3.5 h-3.5" />
-              Presupuesto
+              Añadir Trabajo
             </button>
             <button
               onClick={() => setMobileTab('ajustes')}
@@ -2349,6 +2359,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 const nombreCliente = job.trade_clients?.nombre ?? cliente?.nombre ?? '';
                 const telefonoCliente = job.trade_clients?.telefono ?? cliente?.telefono ?? '';
                 const emailCliente = cliente?.email ?? '';
+                setPendingPresupuestoJobId(job.id);
                 setEditingQuote({
                   id: 'P-NEW',
                   nombreCliente,
@@ -2363,6 +2374,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 setWizardStep(1);
                 setWizardActive(true);
               }}
+              presupuestosPorId={Object.fromEntries(presupuestos.map(p => [p.id, { id: p.id, descripcion: p.descripcion, total: p.total, estado: p.estado, fecha: p.fecha }]))}
               showToast={showToast}
             />
           )}
