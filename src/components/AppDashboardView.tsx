@@ -642,21 +642,38 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkoutSuccess, orgId]);
 
-  const [empresaAjustes, setEmpresaAjustes] = useState({
-    nombre: '',
-    nif: '',
-    email: '',
-    telefonoFijo: '',
-    telefonoMovil: '',
-    direccion: '',
-    localidad: '',
-    cp: '',
-    provincia: '',
-    pais: 'España',
-    ivaDefault: 21,
-    planSuscripcion: '',
-    valorHoraOperario: 45,
+  const [empresaAjustes, setEmpresaAjustes] = useState(() => {
+    const saved = (() => { try { return JSON.parse(localStorage.getItem('tf_biz_config') || '{}'); } catch { return {}; } })();
+    return {
+      nombre: '',
+      nif: '',
+      email: '',
+      telefonoFijo: '',
+      telefonoMovil: '',
+      direccion: '',
+      localidad: '',
+      cp: '',
+      provincia: '',
+      pais: 'España',
+      ivaDefault: 21,
+      planSuscripcion: '',
+      valorHoraOperario: saved.valorHoraOperario ?? 45,
+      margenMateriales: saved.margenMateriales ?? 0,
+      descuentoCliente: saved.descuentoCliente ?? 0,
+    };
   });
+
+  useEffect(() => {
+    try {
+      const current = JSON.parse(localStorage.getItem('tf_biz_config') || '{}');
+      localStorage.setItem('tf_biz_config', JSON.stringify({
+        ...current,
+        valorHoraOperario: empresaAjustes.valorHoraOperario,
+        margenMateriales: empresaAjustes.margenMateriales,
+        descuentoCliente: empresaAjustes.descuentoCliente,
+      }));
+    } catch {}
+  }, [empresaAjustes.valorHoraOperario, empresaAjustes.margenMateriales, empresaAjustes.descuentoCliente]);
 
   const [trabajadores, setTrabajadores] = useState<TrabajadorItem[]>([]);
   const [showAddWorker, setShowAddWorker] = useState(false);
@@ -857,7 +874,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       if (p.tipo_partida === 'material' && (p.precio_unitario ?? 0) === 0 && catalogProducts.length > 0) {
         const catalogMatch = matchProductForAI(p.concepto || p.descripcion, catalogProducts);
         if (catalogMatch) {
-          const pu = catalogMatch.variant.precio_venta;
+          const basePrice = catalogMatch.variant.precio_venta;
+          const pu = basePrice * (1 + empresaAjustes.margenMateriales / 100);
           const qty = p.cantidad ?? 1;
           return {
             descripcion: `${catalogMatch.product.nombre_generico} (${catalogMatch.variant.marca})`,
@@ -2599,13 +2617,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 descripcion: q.descripcion,
                 fecha: new Date().toISOString().split('T')[0],
                 estado: 'Borrador',
-                partidas: q.partidas.map(p => ({
-                  descripcion: p.descripcion,
-                  tipo: p.tipo,
-                  cantidad: p.cantidad,
-                  precioUnitario: 0,
-                  total: 0,
-                })),
+                partidas: q.partidas.map(p => {
+                  const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
+                  const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : 0;
+                  return {
+                    descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion,
+                    tipo: p.tipo,
+                    cantidad: p.cantidad,
+                    precioUnitario: pu,
+                    total: pu * p.cantidad,
+                  };
+                }),
                 total: 0,
               });
               setWizardOrigin('foto');
@@ -6330,41 +6352,94 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </button>
         </div>
 
-        {/* ── 2. Tarifas de mano de obra ── */}
+        {/* ── 2. Precios & Márgenes ── */}
         <div className={sec}>
-          <h3 className={secTitle}>Tarifas de Mano de Obra</h3>
-          <p className="text-[10px] text-slate-400 leading-relaxed">
-            El asistente de voz usa estas tarifas para calcular automáticamente el coste de mano de obra en cada presupuesto. Puedes ajustar las horas y el importe manualmente en cada presupuesto.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 space-y-2">
-              <span className="text-[9px] font-mono font-bold text-amber-600 uppercase block">Tarifa hora operario</span>
+          <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
+            <div className="w-9 h-9 bg-emerald-100 rounded-xl flex items-center justify-center shrink-0">
+              <TrendingUp className="w-5 h-5 text-emerald-600" />
+            </div>
+            <div>
+              <h3 className="font-black uppercase text-xs text-slate-700 tracking-wide">Precios & Márgenes</h3>
+              <p className="text-[9px] text-slate-400 mt-0.5">Variables globales aplicadas automáticamente a todos los presupuestos</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* Valor hora operario */}
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 space-y-2.5">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-amber-500 rounded-lg flex items-center justify-center">
+                  <Clock className="w-3.5 h-3.5 text-white" />
+                </div>
+                <span className="text-[10px] font-bold text-amber-700 uppercase tracking-wide">Hora operario</span>
+              </div>
               <div className="flex items-center gap-2">
                 <input
-                  type="number"
-                  min={0}
-                  step={0.5}
+                  type="number" min={0} step={0.5}
                   value={empresaAjustes.valorHoraOperario}
                   onChange={e => setEmpresaAjustes(p => ({ ...p, valorHoraOperario: parseFloat(e.target.value) || 0 }))}
                   className="w-20 bg-white border border-amber-300 rounded-lg px-2.5 py-2 text-sm font-bold font-mono text-slate-800 focus:outline-none focus:border-amber-500"
                 />
                 <span className="text-xs text-slate-500 font-mono">€ / hora</span>
               </div>
-              <p className="text-[9px] text-slate-400">Aplicado automáticamente a partidas de mano de obra en el asistente de voz.</p>
+              <p className="text-[9px] text-slate-500">Coste de mano de obra. El asistente de voz lo aplica automáticamente.</p>
             </div>
-            <div className="sm:col-span-2 bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
-              <span className="text-[9px] font-mono font-bold text-slate-400 uppercase block">Cómo funciona</span>
-              <ul className="text-[10px] text-slate-500 space-y-1.5 leading-relaxed">
-                <li>• Dices "instalar grifo, 2 horas" → el asistente calcula <span className="font-mono font-bold text-amber-600">2 h × {empresaAjustes.valorHoraOperario}€ = {empresaAjustes.valorHoraOperario * 2}€</span></li>
-                <li>• En el paso 4 del presupuesto puedes ajustar las horas o poner un importe fijo manualmente.</li>
-                <li>• El precio del material siempre viene de tu catálogo de productos.</li>
-              </ul>
+
+            {/* Margen materiales */}
+            <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 space-y-2.5">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-emerald-500 rounded-lg flex items-center justify-center">
+                  <TrendingUp className="w-3.5 h-3.5 text-white" />
+                </div>
+                <span className="text-[10px] font-bold text-emerald-700 uppercase tracking-wide">Margen piezas</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="number" min={0} max={200} step={1}
+                  value={empresaAjustes.margenMateriales}
+                  onChange={e => setEmpresaAjustes(p => ({ ...p, margenMateriales: parseFloat(e.target.value) || 0 }))}
+                  className="w-20 bg-white border border-emerald-300 rounded-lg px-2.5 py-2 text-sm font-bold font-mono text-slate-800 focus:outline-none focus:border-emerald-500"
+                />
+                <span className="text-xs text-slate-500 font-mono">%</span>
+              </div>
+              <p className="text-[9px] text-slate-500">Porcentaje añadido al precio de catálogo en todos los presupuestos.</p>
+              {empresaAjustes.margenMateriales > 0 && (
+                <p className="text-[9px] text-emerald-700 font-mono font-bold bg-emerald-100 rounded px-2 py-1">
+                  Ej: grifo 75€ → {(75 * (1 + empresaAjustes.margenMateriales / 100)).toFixed(2)}€
+                </p>
+              )}
+            </div>
+
+            {/* Descuento cliente habitual */}
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 space-y-2.5">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 bg-blue-500 rounded-lg flex items-center justify-center">
+                  <Tag className="w-3.5 h-3.5 text-white" />
+                </div>
+                <span className="text-[10px] font-bold text-blue-700 uppercase tracking-wide">Dto. habitual</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <input
+                  type="number" min={0} max={100} step={1}
+                  value={empresaAjustes.descuentoCliente}
+                  onChange={e => setEmpresaAjustes(p => ({ ...p, descuentoCliente: parseFloat(e.target.value) || 0 }))}
+                  className="w-20 bg-white border border-blue-300 rounded-lg px-2.5 py-2 text-sm font-bold font-mono text-slate-800 focus:outline-none focus:border-blue-500"
+                />
+                <span className="text-xs text-slate-500 font-mono">%</span>
+              </div>
+              <p className="text-[9px] text-slate-500">Descuento disponible para clientes habituales. Lo aplicas en cada presupuesto.</p>
             </div>
           </div>
-          <button onClick={handleSaveFiscal}
-            className="mt-1 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-lg transition-colors cursor-pointer">
-            Guardar tarifa hora
-          </button>
+
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-1.5">
+            <span className="text-[9px] font-mono font-bold text-slate-400 uppercase block">¿Cómo se aplican?</span>
+            <ul className="text-[10px] text-slate-500 space-y-1 leading-relaxed">
+              <li>• <span className="font-bold text-amber-600">Hora operario:</span> el asistente de voz usa {empresaAjustes.valorHoraOperario}€/h para calcular mano de obra</li>
+              <li>• <span className="font-bold text-emerald-600">Margen piezas:</span> precio catálogo × (1 + {empresaAjustes.margenMateriales}%) — se aplica en todos los presupuestos al hacer matching con tu catálogo</li>
+              <li>• <span className="font-bold text-blue-600">Descuento habitual:</span> -{empresaAjustes.descuentoCliente}% — lo aplicas manualmente en el paso de revisión cuando convenga</li>
+            </ul>
+          </div>
+          <p className="text-[9px] text-slate-400 italic">Los cambios se guardan automáticamente en este dispositivo.</p>
         </div>
 
         {/* ── 3. Trabajadores ── */}
@@ -6959,7 +7034,42 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           );
         })()}
 
-        {/* ── 7. Notificaciones push ── */}
+        {/* ── 7. Seguridad & Acceso (solo móvil) ── */}
+        {(isMobileMode || isNativeDevice) && (
+          <div className={sec}>
+            <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
+              <div className="w-9 h-9 bg-violet-100 rounded-xl flex items-center justify-center shrink-0">
+                <Shield className="w-5 h-5 text-violet-600" />
+              </div>
+              <div>
+                <h3 className="font-black uppercase text-xs text-slate-700 tracking-wide">Seguridad & Acceso</h3>
+                <p className="text-[9px] text-slate-400 mt-0.5">Opciones de autenticación en este dispositivo</p>
+              </div>
+            </div>
+            <div className="flex items-center justify-between py-1">
+              <div>
+                <p className="text-xs font-bold text-slate-700">Acceso con biometría</p>
+                <p className="text-[10px] text-slate-400 mt-0.5">
+                  {typeof window !== 'undefined' && window.PublicKeyCredential
+                    ? 'Usa huella dactilar o Face ID para entrar a la app sin contraseña.'
+                    : 'Tu dispositivo no soporta autenticación biométrica.'}
+                </p>
+              </div>
+              {typeof window !== 'undefined' && window.PublicKeyCredential ? (
+                <button
+                  onClick={() => showToast('Biometría — próximamente en TradeFlow', 'info')}
+                  className="shrink-0 px-3 py-1.5 rounded-lg text-[10px] font-bold transition cursor-pointer bg-slate-100 text-slate-500 hover:bg-slate-200"
+                >
+                  Próximamente
+                </button>
+              ) : (
+                <span className="shrink-0 text-[10px] text-slate-400 font-mono">No disponible</span>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* ── 8. Notificaciones push ── */}
         {isLiveMode && 'Notification' in window && (
           <div className={sec}>
             <h3 className={secTitle}>Notificaciones</h3>
