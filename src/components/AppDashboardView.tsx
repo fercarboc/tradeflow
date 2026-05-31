@@ -68,6 +68,7 @@ import GlobalCatalogModal from './GlobalCatalogModal';
 import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } from '../lib/catalogExcel';
 import ScreenPlanificacion from './ScreenPlanificacion';
 import ScreenParteTrabajo from './ScreenParteTrabajo';
+import ScreenPresupuestoFoto from './ScreenPresupuestoFoto';
 import ScreenEquipo from './ScreenEquipo';
 import ScreenIngresos from './ScreenIngresos';
 import ScreenMantenimiento from './ScreenMantenimiento';
@@ -400,6 +401,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [showFloatingMenu, setShowFloatingMenu] = useState<boolean>(false);
   const [showVisitaModal, setShowVisitaModal] = useState(false);
   const [visitaDraft, setVisitaDraft] = useState<{ titulo: string; client_id: string | null }>({ titulo: '', client_id: null });
+  const [showPresupuestoFoto, setShowPresupuestoFoto] = useState(false);
 
   // Pasos del Asistente Móvil (Wizard)
   const [wizardActive, setWizardActive] = useState<boolean>(false);
@@ -2447,11 +2449,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <span>🎙️ Dictado por voz IA</span>
                   </button>
                   <button
-                    onClick={() => startWizard(3)} // Salta a Fotos
+                    onClick={() => { setShowFloatingMenu(false); setShowPresupuestoFoto(true); }}
                     className="w-full bg-slate-900 dark:bg-slate-800 text-white font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider cursor-pointer"
                   >
                     <ImageIcon className="w-4.5 h-4.5" />
-                    <span>📷 Escanear con Foto</span>
+                    <span>📷 Presupuesto con Foto</span>
                   </button>
                   <button
                     onClick={() => startWizard(1)} // Flujo desde paso 1
@@ -2465,6 +2467,37 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </React.Fragment>
           )}
         </AnimatePresence>
+
+        {/* Presupuesto con Foto overlay */}
+        {showPresupuestoFoto && (
+          <ScreenPresupuestoFoto
+            isLiveMode={isLiveMode}
+            showToast={showToast}
+            onClose={() => setShowPresupuestoFoto(false)}
+            onConfirm={(q) => {
+              setShowPresupuestoFoto(false);
+              setEditingQuote({
+                id: 'P-NEW',
+                nombreCliente: '',
+                telefonoCliente: '',
+                emailCliente: '',
+                descripcion: q.descripcion,
+                fecha: new Date().toISOString().split('T')[0],
+                estado: 'Borrador',
+                partidas: q.partidas.map(p => ({
+                  descripcion: p.descripcion,
+                  tipo: p.tipo,
+                  cantidad: p.cantidad,
+                  precioUnitario: 0,
+                  total: 0,
+                })),
+                total: 0,
+              });
+              setWizardStep(5);
+              setWizardActive(true);
+            }}
+          />
+        )}
 
         {/* Modal Visita Rápida */}
         {showVisitaModal && (
