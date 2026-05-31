@@ -9,6 +9,7 @@ import type { TradeOrganization, TradeContract, MaintenancePresupuesto } from '.
 import {
   loadContracts, createContract, updateContract, signContract, deleteContract,
   loadMaintenancePresupuestos, saveMaintenanceContrato, createMaintenanceInvoices,
+  updateMaintenancePresupuesto,
 } from '../lib/supabase';
 import { buildContractHTML, defaultContractVars } from '../lib/contractTemplates';
 import type { ContractVars } from '../lib/contractTemplates';
@@ -99,6 +100,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
   const [openSection, setOpenSection] = useState<Section>('prestador');
   const [vars, setVars] = useState<ContractVars>({ ...defaultContractVars });
   const [selectedOficio, setSelectedOficio] = useState(oficio ?? orgData.oficio ?? 'fontaneria');
+  const [sourceMantId, setSourceMantId] = useState<string | null>(null);
   const previewRef = useRef<HTMLIFrameElement>(null);
 
   const showToast = (msg: string, type: 'success' | 'error' | 'info' = 'info') => {
@@ -178,6 +180,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
     setVars(base);
     setEditingId(null);
     setIsSigned(false);
+    setSourceMantId(mantId ?? null);
     setOpenSection('prestador');
     setView('editor');
   };
@@ -187,6 +190,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
     setSelectedOficio(c.oficio);
     setEditingId(c.id);
     setIsSigned(c.estado === 'firmado');
+    setSourceMantId(null);
     setOpenSection('prestador');
     setView('editor');
   };
@@ -210,6 +214,14 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
         });
         setContracts(prev => [saved, ...prev]);
         setEditingId(saved.id);
+        // Mark the source presupuesto as 'convertido' so it disappears from the banner
+        if (sourceMantId) {
+          try {
+            await updateMaintenancePresupuesto(sourceMantId, { estado: 'convertido' });
+            setMantenimientos(prev => prev.map(m => m.id === sourceMantId ? { ...m, estado: 'convertido' as const } : m));
+          } catch { /* non-critical */ }
+          setSourceMantId(null);
+        }
         showToast('Borrador guardado ✓', 'success');
       }
     } catch (e: unknown) {
@@ -412,7 +424,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
               }}
             >
               <option value="">— Selecciona un presupuesto de mantenimiento —</option>
-              {mantenimientos.map(m => (
+              {mantenimientos.filter(m => m.estado !== 'convertido').map(m => (
                 <option key={m.id} value={m.id}>{m.nombre_cliente ?? '?'} — {(m.descripcion_servicios ?? '').slice(0, 40)}</option>
               ))}
             </select>
@@ -655,12 +667,12 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
         </div>
       )}
 
-      {/* Quick-create from mantenimiento */}
-      {mantenimientos.length > 0 && !limitReached && (
+      {/* Quick-create from mantenimiento — only show non-converted ones */}
+      {mantenimientos.filter(m => m.estado !== 'convertido').length > 0 && !limitReached && (
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
           <p className="text-xs font-bold text-blue-800 mb-2">Crear contrato desde un presupuesto de mantenimiento</p>
           <div className="flex flex-wrap gap-2">
-            {mantenimientos.slice(0, 5).map(m => (
+            {mantenimientos.filter(m => m.estado !== 'convertido').slice(0, 5).map(m => (
               <button
                 key={m.id}
                 onClick={() => startNew(m.id)}
