@@ -3979,7 +3979,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <div className="flex items-center gap-2">
                       {part.tipo === 'mano_de_obra' ? (
                         <>
-                          <div className="flex-1 flex items-center gap-1.5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-lg px-2.5 py-1.5">
+                          <div className="flex items-center bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-lg overflow-hidden">
+                            <button
+                              onClick={() => handleUpdateWizardItem(idx, { cantidad: Math.max(0.5, Math.round((part.cantidad - 0.5) * 2) / 2), precioUnitario: empresaAjustes.valorHoraOperario })}
+                              className="w-7 h-8 flex items-center justify-center text-amber-600 dark:text-amber-400 font-bold text-base cursor-pointer hover:bg-amber-100 dark:hover:bg-amber-800/40 active:scale-90 transition-transform shrink-0"
+                            >−</button>
                             <input
                               type="number"
                               min="0.5"
@@ -3989,11 +3993,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                                 cantidad: parseFloat(e.target.value) || 1,
                                 precioUnitario: empresaAjustes.valorHoraOperario,
                               })}
-                              className="w-12 bg-transparent text-center text-xs font-bold text-amber-700 dark:text-amber-300 focus:outline-none"
+                              className="w-10 bg-transparent text-center text-xs font-bold text-amber-700 dark:text-amber-300 focus:outline-none"
                             />
-                            <span className="text-[9px] text-amber-600 dark:text-amber-400 font-mono whitespace-nowrap">h × {empresaAjustes.valorHoraOperario}€/h</span>
+                            <button
+                              onClick={() => handleUpdateWizardItem(idx, { cantidad: Math.round((part.cantidad + 0.5) * 2) / 2, precioUnitario: empresaAjustes.valorHoraOperario })}
+                              className="w-7 h-8 flex items-center justify-center text-amber-600 dark:text-amber-400 font-bold text-base cursor-pointer hover:bg-amber-100 dark:hover:bg-amber-800/40 active:scale-90 transition-transform shrink-0"
+                            >+</button>
                           </div>
-                          <span className="text-[9px] text-slate-400">o precio manual:</span>
+                          <span className="text-[9px] text-amber-600 dark:text-amber-400 font-mono whitespace-nowrap">h × {empresaAjustes.valorHoraOperario}€/h</span>
+                          <span className="text-[9px] text-slate-400">o manual:</span>
                           <input
                             type="number"
                             step="0.01"
@@ -4006,16 +4014,26 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         </>
                       ) : (
                         <>
-                          <div className="flex items-center gap-1.5">
+                          <div className="flex items-center gap-1">
                             <span className="text-[9px] text-slate-400 whitespace-nowrap">Cant.</span>
-                            <input
-                              type="number"
-                              min="1"
-                              step="1"
-                              value={part.cantidad}
-                              onChange={e => handleUpdateWizardItem(idx, { cantidad: parseFloat(e.target.value) || 1 })}
-                              className="w-14 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-center text-xs font-bold text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
-                            />
+                            <div className="flex items-center border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+                              <button
+                                onClick={() => handleUpdateWizardItem(idx, { cantidad: Math.max(1, (part.cantidad || 1) - 1) })}
+                                className="w-7 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-base cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-90 transition-transform shrink-0"
+                              >−</button>
+                              <input
+                                type="number"
+                                min="1"
+                                step="1"
+                                value={part.cantidad}
+                                onChange={e => handleUpdateWizardItem(idx, { cantidad: Math.max(1, parseFloat(e.target.value) || 1) })}
+                                className="w-9 bg-white dark:bg-slate-900 text-center text-xs font-bold text-slate-800 dark:text-white focus:outline-none"
+                              />
+                              <button
+                                onClick={() => handleUpdateWizardItem(idx, { cantidad: (part.cantidad || 1) + 1 })}
+                                className="w-7 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-base cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-90 transition-transform shrink-0"
+                              >+</button>
+                            </div>
                           </div>
                           <div className="flex items-center gap-1.5">
                             <span className="text-[9px] text-slate-400 whitespace-nowrap">P/ud</span>
