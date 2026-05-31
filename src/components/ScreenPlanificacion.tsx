@@ -662,7 +662,7 @@ export default function ScreenPlanificacion({
       />
 
       {/* ── Contenido ── */}
-      <div className="flex-1 overflow-y-auto px-4 pt-3 pb-4 space-y-3">
+      <div className="flex-1 overflow-y-auto overscroll-contain px-4 pt-3 space-y-3" style={{ paddingBottom: 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)' }}>
 
         {/* Filtros de estado + botones acción */}
         <div className="flex items-center gap-1.5 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>

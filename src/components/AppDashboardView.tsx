@@ -272,14 +272,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [loginLoading, setLoginLoading] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(loginOnMount && !session);
   const [isLiveMode, setIsLiveMode] = useState(false);
+  const loadedUserRef = useRef<string | null>(null);
 
   useEffect(() => {
     if (session) {
       setIsLiveMode(true);
       setShowLoginModal(false);
-      loadLiveData(session);
+      // Avoid re-loading when the session token refreshes for the same user
+      if (loadedUserRef.current !== session.user.id) {
+        loadedUserRef.current = session.user.id;
+        loadLiveData(session);
+      }
     } else {
       setIsLiveMode(false);
+      loadedUserRef.current = null;
     }
   }, [session]);
 
@@ -343,8 +349,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           setOrgTemplates(map);
         }).catch(() => {});
         if (org.logo_url) setLogoPreview(org.logo_url);
+
+        // Real-time sync: reload jobs when another device adds/updates one
+        supabase
+          .channel(`jobs-${org.id}`)
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'trade_jobs', filter: `org_id=eq.${org.id}` }, () => {
+            loadJobs(org.id).then(setJobs).catch(() => {});
+          })
+          .subscribe();
       }
-      showToast(`Datos reales cargados ✓`, 'success');
     } catch (e) {
       console.error('Error cargando datos live:', e);
     }
@@ -400,7 +413,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [isSessionClosed, setIsSessionClosed] = useState(false);
   const [showFloatingMenu, setShowFloatingMenu] = useState<boolean>(false);
   const [showVisitaModal, setShowVisitaModal] = useState(false);
-  const [visitaDraft, setVisitaDraft] = useState<{ titulo: string; client_id: string | null }>({ titulo: '', client_id: null });
+  const [visitaDraft, setVisitaDraft] = useState<{ titulo: string; client_id: string | null; fecha: string }>({ titulo: '', client_id: null, fecha: new Date().toISOString().split('T')[0] });
   const [showPresupuestoFoto, setShowPresupuestoFoto] = useState(false);
   const [pendingPresupuestoJobId, setPendingPresupuestoJobId] = useState<string | null>(null);
 
@@ -2121,6 +2134,96 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         </div>
       )}
 
+      {/* ================= MODAL VISITA / TRABAJO (GLOBAL — desktop + native) ================= */}
+      {showVisitaModal && !isMobileMode && !isNativeDevice && (
+        <div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-4" onClick={() => setShowVisitaModal(false)}>
+          <div
+            className="w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl p-6 space-y-5 shadow-2xl"
+            onClick={e => e.stopPropagation()}
+          >
+            <div>
+              <h3 className="font-bold text-base text-slate-900 dark:text-white">Anotar visita / llamada</h3>
+              <p className="text-xs text-slate-400 mt-0.5">Se crea como trabajo pendiente en la agenda</p>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="text-[10px] font-mono uppercase text-slate-400 block mb-1">¿Qué hay que ir a ver? *</label>
+                <input
+                  autoFocus
+                  type="text"
+                  value={visitaDraft.titulo}
+                  onChange={e => setVisitaDraft(d => ({ ...d, titulo: e.target.value }))}
+                  placeholder="Ej: Ver fuga de agua en baño de Conchy"
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-800 dark:text-white focus:outline-none focus:border-violet-500"
+                />
+              </div>
+
+              <div>
+                <label className="text-[10px] font-mono uppercase text-slate-400 block mb-1">Fecha de visita</label>
+                <input
+                  type="date"
+                  value={visitaDraft.fecha}
+                  onChange={e => setVisitaDraft(d => ({ ...d, fecha: e.target.value }))}
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-800 dark:text-white focus:outline-none focus:border-violet-500"
+                />
+                {(() => {
+                  const carga = jobs.filter(j => j.fecha_inicio === visitaDraft.fecha && j.estado !== 'cancelado').length;
+                  if (carga === 0) return <p className="text-[10px] mt-1 text-emerald-600 font-medium">✓ Día libre — sin trabajos programados</p>;
+                  if (carga <= 2) return <p className="text-[10px] mt-1 text-amber-500 font-medium">⚠ {carga} trabajo{carga > 1 ? 's' : ''} ya programado{carga > 1 ? 's' : ''} ese día</p>;
+                  return <p className="text-[10px] mt-1 text-red-500 font-medium">✗ Día muy cargado ({carga} trabajos) — considera otra fecha</p>;
+                })()}
+              </div>
+
+              <div>
+                <label className="text-[10px] font-mono uppercase text-slate-400 block mb-1">Cliente</label>
+                <select
+                  value={visitaDraft.client_id ?? ''}
+                  onChange={e => setVisitaDraft(d => ({ ...d, client_id: e.target.value || null }))}
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-800 dark:text-white focus:outline-none focus:border-violet-500"
+                >
+                  <option value="">— Sin cliente —</option>
+                  {clientes.map(c => <option key={c.id} value={c.id}>{c.nombre}</option>)}
+                </select>
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowVisitaModal(false)}
+                className="flex-1 py-3 rounded-xl border border-slate-200 text-slate-600 text-sm font-bold cursor-pointer hover:bg-slate-50"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={async () => {
+                  if (!visitaDraft.titulo.trim()) { showToast('Describe qué hay que ir a ver', 'error'); return; }
+                  if (!orgId) return;
+                  try {
+                    const saved = await createJob(orgId, {
+                      titulo: visitaDraft.titulo.trim(),
+                      tipo: 'visita',
+                      estado: 'planificado',
+                      prioridad: 'normal',
+                      client_id: visitaDraft.client_id || null,
+                      fecha_inicio: visitaDraft.fecha,
+                    } as Parameters<typeof createJob>[1]);
+                    setJobs(prev => [...prev, saved]);
+                    setShowVisitaModal(false);
+                    showToast('Visita anotada ✓', 'success');
+                  } catch {
+                    showToast('Error al crear la visita', 'error');
+                  }
+                }}
+                className="flex-1 bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 rounded-xl text-sm cursor-pointer"
+              >
+                Anotar visita
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ================= MODAL SIMULACIÓN ENVÍO DE WHATSAPP ================= */}
       <AnimatePresence>
         {showWhatsAppModal && targetQuoteForWhatsApp && (
@@ -2243,7 +2346,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {/* Derecha: nuevo presupuesto + ajustes + logout */}
           <div className="flex items-center gap-2">
             <button
-              onClick={() => { setVisitaDraft({ titulo: '', client_id: null }); setShowVisitaModal(true); }}
+              onClick={() => { setVisitaDraft({ titulo: '', client_id: null, fecha: new Date().toISOString().split('T')[0] }); setShowVisitaModal(true); }}
               className="flex items-center gap-1.5 bg-violet-600 active:bg-violet-700 text-white font-bold text-[11px] px-3 py-2 rounded-xl cursor-pointer transition-colors"
             >
               <Plus className="w-3.5 h-3.5" />
@@ -2269,12 +2372,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         {/* Contenido dinámico según Pestaña Móvil */}
         <div
-          className="flex-grow overflow-y-auto overscroll-contain"
+          className={`flex-grow overscroll-contain ${mobileTab === 'trabajos' ? 'overflow-hidden' : 'overflow-y-auto'}`}
           style={{
             padding: mobileTab === 'trabajos' ? '0' : (isNativeDevice ? '20px 16px 0' : '20px 16px'),
-            paddingBottom: isNativeDevice
+            paddingBottom: mobileTab === 'trabajos' ? '0' : (isNativeDevice
               ? 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)'
-              : '88px',
+              : '88px'),
           }}
         >
           {mobileTab === 'inicio' && MobileScreenInicio()}
@@ -2443,7 +2546,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
                 {/* Visita rápida — anotar llamada recibida */}
                 <button
-                  onClick={() => { setVisitaDraft({ titulo: '', client_id: null }); setShowFloatingMenu(false); setShowVisitaModal(true); }}
+                  onClick={() => { setVisitaDraft({ titulo: '', client_id: null, fecha: new Date().toISOString().split('T')[0] }); setShowFloatingMenu(false); setShowVisitaModal(true); }}
                   className="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider cursor-pointer"
                 >
                   <Briefcase className="w-4 h-4" />
@@ -2488,8 +2591,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             onClose={() => setShowPresupuestoFoto(false)}
             onConfirm={(q) => {
               setShowPresupuestoFoto(false);
-              setEditingQuote({
-                id: 'P-NEW',
+              setWizardQuote({
+                id: '',
                 nombreCliente: '',
                 telefonoCliente: '',
                 emailCliente: '',
@@ -2505,7 +2608,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 })),
                 total: 0,
               });
-              setWizardStep(5);
+              setWizardOrigin('foto');
+              setWizardStep(4);
               setWizardActive(true);
             }}
           />
@@ -2537,6 +2641,27 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   />
                 </div>
                 <div>
+                  <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Fecha de visita</label>
+                  <input
+                    type="date"
+                    value={visitaDraft.fecha}
+                    onChange={e => setVisitaDraft(d => ({ ...d, fecha: e.target.value }))}
+                    className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-800 dark:text-white focus:outline-none focus:border-violet-500"
+                  />
+                  {(() => {
+                    const cargaDia = jobs.filter(j => j.fecha_inicio === visitaDraft.fecha && j.estado !== 'cancelado').length;
+                    if (cargaDia === 0) return (
+                      <p className="text-[10px] mt-1 text-emerald-500 font-medium">✓ Día libre — sin trabajos programados</p>
+                    );
+                    if (cargaDia <= 2) return (
+                      <p className="text-[10px] mt-1 text-amber-400 font-medium">⚠ {cargaDia} trabajo{cargaDia > 1 ? 's' : ''} ya programado{cargaDia > 1 ? 's' : ''} ese día</p>
+                    );
+                    return (
+                      <p className="text-[10px] mt-1 text-red-400 font-medium">✗ Día muy cargado ({cargaDia} trabajos) — considera otra fecha</p>
+                    );
+                  })()}
+                </div>
+                <div>
                   <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Cliente</label>
                   <select
                     value={visitaDraft.client_id ?? ''}
@@ -2560,6 +2685,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       estado: 'planificado',
                       prioridad: 'normal',
                       client_id: visitaDraft.client_id || null,
+                      fecha_inicio: visitaDraft.fecha,
                     } as Parameters<typeof createJob>[1]);
                     setJobs(prev => [...prev, saved]);
                     setShowVisitaModal(false);
@@ -2645,8 +2771,24 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     const greeting = hour < 12 ? 'Buenos días' : hour < 20 ? 'Buenas tardes' : 'Buenas noches';
     const shortName = empresaAjustes.nombre.split(' ')[0] || 'Instalador';
     const todayStr = now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
-    const todayJobs = jobs.filter(j => j.fecha_inicio === now.toISOString().split('T')[0] && j.estado !== 'cancelado');
     const todayISO = now.toISOString().split('T')[0];
+    const todayJobs = jobs.filter(j => j.fecha_inicio === todayISO && j.estado !== 'cancelado');
+
+    // Próximos 7 días (excluye hoy)
+    const next7Days = Array.from({ length: 7 }, (_, i) => {
+      const d = new Date(now);
+      d.setDate(d.getDate() + i + 1);
+      return d.toISOString().split('T')[0];
+    });
+    const upcomingJobs = jobs
+      .filter(j => j.fecha_inicio && next7Days.includes(j.fecha_inicio) && j.estado !== 'cancelado' && j.estado !== 'completado')
+      .sort((a, b) => (a.fecha_inicio ?? '') > (b.fecha_inicio ?? '') ? 1 : -1);
+
+    // Visitas pendientes (sin completar)
+    const visitasPendientes = jobs.filter(j => j.tipo === 'visita' && j.estado !== 'completado' && j.estado !== 'cancelado');
+
+    // Presupuestos enviados sin respuesta
+    const presupuestosEnviados = presupuestos.filter(p => p.estado === 'Enviado');
 
     const draft = presupuestos.find(p => p.estado === 'Borrador') ?? null;
     const aceptados = presupuestos.filter(p => p.estado === 'Aceptado');
@@ -2696,14 +2838,51 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         </div>
 
-        {/* ── TRABAJOS DE HOY (max 3) ── */}
+        {/* ── VISITAS PENDIENTES ── */}
+        {visitasPendientes.length > 0 && (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-violet-400 uppercase tracking-widest">👁 Visitas pendientes</span>
+              <button onClick={() => setMobileTab('trabajos')} className="text-[10px] font-bold text-violet-400 cursor-pointer">Ver todas →</button>
+            </div>
+            {visitasPendientes.slice(0, 3).map(j => (
+              <div
+                key={j.id}
+                onClick={() => setMobileTab('trabajos')}
+                className="rounded-2xl p-3.5 cursor-pointer active:scale-99 transition-transform border border-violet-500/30 bg-violet-500/8"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-bold text-white truncate">{j.titulo}</p>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      {j.trade_clients?.nombre && (
+                        <p className="text-[10px] text-violet-300 truncate">{j.trade_clients.nombre}</p>
+                      )}
+                      {j.fecha_inicio && (
+                        <span className="text-[9px] font-mono text-slate-400">{new Date(j.fecha_inicio + 'T12:00:00').toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })}</span>
+                      )}
+                    </div>
+                  </div>
+                  <span className="text-[8px] font-bold bg-violet-600/20 text-violet-300 border border-violet-500/30 rounded-full px-2 py-0.5 uppercase shrink-0">Visita</span>
+                </div>
+              </div>
+            ))}
+            {visitasPendientes.length > 3 && (
+              <p className="text-[10px] text-violet-400 text-center font-medium cursor-pointer" onClick={() => setMobileTab('trabajos')}>
+                +{visitasPendientes.length - 3} más → ver en agenda
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* ── TRABAJOS DE HOY ── */}
         {todayJobs.length > 0 && (
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Hoy · {todayISO}</span>
               <button onClick={() => setMobileTab('trabajos')} className="text-[10px] font-bold text-blue-400 cursor-pointer">Ver agenda →</button>
             </div>
-            {todayJobs.slice(0, 3).map(j => {
+            {todayJobs.map(j => {
               const isCurrent = j.estado === 'en_curso';
               return (
                 <div
@@ -2733,6 +2912,70 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
               );
             })}
+          </div>
+        )}
+
+        {/* ── PRÓXIMOS 7 DÍAS ── */}
+        {upcomingJobs.length > 0 && (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Próximos días</span>
+              <button onClick={() => setMobileTab('trabajos')} className="text-[10px] font-bold text-blue-400 cursor-pointer">Ver agenda →</button>
+            </div>
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+              {upcomingJobs.slice(0, 5).map((j, i) => {
+                const isVisita = j.tipo === 'visita';
+                return (
+                  <div
+                    key={j.id}
+                    onClick={() => setMobileTab('trabajos')}
+                    className={`px-4 py-3 flex items-center gap-3 cursor-pointer active:bg-slate-800/60 ${i < Math.min(upcomingJobs.length, 5) - 1 ? 'border-b border-slate-800' : ''}`}
+                  >
+                    <div className={`w-1.5 h-8 rounded-full shrink-0 ${isVisita ? 'bg-violet-500' : 'bg-blue-500'}`} />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs font-bold text-white truncate">{j.titulo}</p>
+                      {j.trade_clients?.nombre && (
+                        <p className="text-[10px] text-slate-400 truncate">{j.trade_clients.nombre}</p>
+                      )}
+                    </div>
+                    <div className="text-right shrink-0">
+                      <p className="text-[10px] font-mono font-bold text-slate-300">
+                        {new Date(j.fecha_inicio! + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' })}
+                      </p>
+                      {j.hora_inicio && <p className="text-[9px] text-slate-500">{j.hora_inicio}</p>}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* ── PRESUPUESTOS ENVIADOS SIN RESPUESTA ── */}
+        {presupuestosEnviados.length > 0 && (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">✉ Esperando respuesta</span>
+              <button onClick={() => setMobileTab('presupuestos')} className="text-[10px] font-bold text-blue-400 cursor-pointer">Ver todos →</button>
+            </div>
+            <div className="space-y-1.5">
+              {presupuestosEnviados.slice(0, 3).map(p => (
+                <div
+                  key={p.id}
+                  onClick={() => { setWizardQuote(p); setWizardStep(5); setWizardActive(true); }}
+                  className="bg-blue-500/8 border border-blue-500/20 rounded-2xl px-4 py-3 flex items-center justify-between cursor-pointer active:scale-99"
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-bold text-white truncate">{p.nombreCliente || 'Sin cliente'}</p>
+                    <p className="text-[10px] text-slate-400 truncate">{p.descripcion || 'Sin descripción'}</p>
+                  </div>
+                  <div className="text-right shrink-0 ml-3">
+                    <p className="text-xs font-mono font-bold text-blue-300">{((p.total ?? 0) * 1.21).toFixed(0)}€</p>
+                    <p className="text-[9px] text-slate-500">{p.fecha ? new Date(p.fecha).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' }) : ''}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
@@ -3125,6 +3368,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {filteredClientes.map(c => {
             const nQuotes = presupuestos.filter(p => p.nombreCliente === c.nombre).length;
             const hasFacturado = presupuestos.some(p => p.nombreCliente === c.nombre && p.estado === 'Facturado');
+            const pendingClientJobs = jobs.filter(j => j.client_id === c.id && j.estado !== 'completado' && j.estado !== 'cancelado');
+            const hasVisitaPendiente = pendingClientJobs.some(j => j.tipo === 'visita');
+            const hasTrabajoPendiente = pendingClientJobs.some(j => !j.tipo || j.tipo === 'trabajo');
             return (
               <div
                 key={c.id}
@@ -3132,9 +3378,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-4 flex items-center justify-between cursor-pointer active:scale-[0.98] transition-transform"
               >
                 <div className="min-w-0 flex-1">
-                  <span className="font-bold text-xs text-slate-900 dark:text-white block uppercase tracking-wide truncate">{c.nombre}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold text-xs text-slate-900 dark:text-white block uppercase tracking-wide truncate">{c.nombre}</span>
+                    {hasVisitaPendiente && <span className="w-2 h-2 rounded-full bg-violet-500 shrink-0" title="Visita pendiente" />}
+                    {hasTrabajoPendiente && !hasVisitaPendiente && <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" title="Trabajo pendiente" />}
+                  </div>
                   <span className="text-[9.5px] text-slate-450 block font-mono truncate">{c.telefono}</span>
-                  {c.totalFacturado > 0 && (
+                  {pendingClientJobs.length > 0 && (
+                    <span className="text-[9px] text-violet-400 font-medium">
+                      {hasVisitaPendiente ? `👁 Visita pendiente` : `🔧 ${pendingClientJobs.length} trabajo${pendingClientJobs.length > 1 ? 's' : ''} pendiente${pendingClientJobs.length > 1 ? 's' : ''}`}
+                    </span>
+                  )}
+                  {c.totalFacturado > 0 && pendingClientJobs.length === 0 && (
                     <span className="text-[9px] font-mono text-emerald-500 font-bold">{c.totalFacturado.toFixed(0)}€ facturados</span>
                   )}
                 </div>
@@ -4233,8 +4488,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         </div>
 
         {/* Acciones */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <button 
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <button
             onClick={() => {
               setEditingQuote({
                 id: 'P-2026-NEW',
@@ -4254,6 +4509,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
             <span className="font-black uppercase tracking-wider text-xs block">Presupuesto por Voz IA</span>
             <p className="text-[10px] text-blue-105 leading-normal max-w-xs">Dicta en la furgoneta o en obra; creamos el presupuesto estructurado.</p>
+          </button>
+
+          <button
+            onClick={() => { setVisitaDraft({ titulo: '', client_id: null, fecha: new Date().toISOString().split('T')[0] }); setShowVisitaModal(true); }}
+            className="bg-violet-600 hover:bg-violet-700 text-white rounded-2xl p-5 text-center space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101 border border-violet-500"
+          >
+            <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+              <Briefcase className="w-6 h-6 text-white" />
+            </div>
+            <span className="font-black uppercase tracking-wider text-xs block">Añadir Trabajo / Visita</span>
+            <p className="text-[10px] text-violet-200 leading-normal max-w-xs">Anota una visita o llamada pendiente para ir a ver la obra.</p>
           </button>
 
           <button
@@ -4281,6 +4547,64 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <p className="text-[10px] text-slate-455 leading-normal max-w-xs">Da de alta un cliente y guarda sus datos fiscales para futuros cobros.</p>
           </button>
         </div>
+
+        {/* Visitas y trabajos pendientes en desktop */}
+        {jobs.filter(j => j.estado !== 'completado' && j.estado !== 'cancelado').length > 0 && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Visitas pendientes */}
+            {jobs.filter(j => j.tipo === 'visita' && j.estado !== 'completado' && j.estado !== 'cancelado').length > 0 && (
+              <div className="bg-white border border-violet-200 rounded-xl p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-[10px] font-bold text-violet-600 uppercase tracking-widest">👁 Visitas pendientes</h3>
+                  <span className="text-[9px] text-slate-400">{jobs.filter(j => j.tipo === 'visita' && j.estado !== 'completado' && j.estado !== 'cancelado').length} pendientes</span>
+                </div>
+                <div className="space-y-2">
+                  {jobs.filter(j => j.tipo === 'visita' && j.estado !== 'completado' && j.estado !== 'cancelado').slice(0, 4).map(j => (
+                    <div key={j.id} className="flex items-center gap-3 p-2.5 bg-violet-50 border border-violet-100 rounded-xl">
+                      <div className="w-1.5 h-8 bg-violet-500 rounded-full shrink-0" />
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs font-bold text-slate-800 truncate">{j.titulo}</p>
+                        {j.trade_clients?.nombre && <p className="text-[10px] text-slate-500 truncate">{j.trade_clients.nombre}</p>}
+                      </div>
+                      {j.fecha_inicio && (
+                        <span className="text-[10px] font-mono text-violet-600 shrink-0">
+                          {new Date(j.fecha_inicio + 'T12:00:00').toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })}
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Trabajos activos hoy */}
+            {(() => {
+              const todayISO = new Date().toISOString().split('T')[0];
+              const todayJobs = jobs.filter(j => j.fecha_inicio === todayISO && j.estado !== 'cancelado' && j.tipo !== 'visita');
+              if (todayJobs.length === 0) return null;
+              return (
+                <div className="bg-white border border-blue-200 rounded-xl p-4 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">🔧 Trabajos hoy</h3>
+                    <span className="text-[9px] text-slate-400">{todayJobs.length} programados</span>
+                  </div>
+                  <div className="space-y-2">
+                    {todayJobs.slice(0, 4).map(j => (
+                      <div key={j.id} className="flex items-center gap-3 p-2.5 bg-blue-50 border border-blue-100 rounded-xl">
+                        <div className={`w-1.5 h-8 rounded-full shrink-0 ${j.estado === 'en_curso' ? 'bg-amber-400' : j.estado === 'completado' ? 'bg-emerald-500' : 'bg-blue-500'}`} />
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs font-bold text-slate-800 truncate">{j.titulo}</p>
+                          {j.trade_clients?.nombre && <p className="text-[10px] text-slate-500 truncate">{j.trade_clients.nombre}</p>}
+                        </div>
+                        {j.hora_inicio && <span className="text-[10px] font-mono text-blue-600 shrink-0">{j.hora_inicio}</span>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+        )}
 
         {/* Evolución gráfica SVG */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">

@@ -120,8 +120,8 @@ Reglas:
 }
 
 // ── 3. Generate DALL-E 3 visualization ───────────────────────────────────────
-async function generateVisualization(prompt: string): Promise<string | null> {
-  if (!OPENAI_API_KEY) return null;
+async function generateVisualization(prompt: string): Promise<{ b64: string | null; error: string | null }> {
+  if (!OPENAI_API_KEY) return { b64: null, error: 'No API key' };
   try {
     const res = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
@@ -135,14 +135,18 @@ async function generateVisualization(prompt: string): Promise<string | null> {
         n: 1,
         size: '1024x1024',
         quality: 'standard',
-        response_format: 'url',
+        response_format: 'b64_json',
       }),
     });
-    if (!res.ok) return null;
+    if (!res.ok) {
+      const errText = await res.text();
+      return { b64: null, error: `DALL-E ${res.status}: ${errText.slice(0, 200)}` };
+    }
     const data = await res.json();
-    return (data.data?.[0]?.url ?? null) as string | null;
-  } catch {
-    return null;
+    const b64 = (data.data?.[0]?.b64_json ?? null) as string | null;
+    return { b64, error: null };
+  } catch (e) {
+    return { b64: null, error: String(e) };
   }
 }
 
@@ -180,8 +184,8 @@ Deno.serve(async (req: Request) => {
       descripcion,
     );
 
-    // 3. Generar visualización con DALL-E 3 (en paralelo con la respuesta)
-    const visualizacionUrl = await generateVisualization(analysis.visualPrompt);
+    // 3. Generar visualización con DALL-E 3
+    const viz = await generateVisualization(analysis.visualPrompt);
 
     return new Response(
       JSON.stringify({
@@ -189,7 +193,9 @@ Deno.serve(async (req: Request) => {
         analisis: analysis.analisis,
         resumen: analysis.resumen,
         partidas: analysis.partidas,
-        visualizacionUrl,
+        visualizacionUrl: null,
+        visualizacionB64: viz.b64,
+        visualizacionError: viz.error,
       }),
       { headers: { ...CORS, 'Content-Type': 'application/json' } },
     );
