@@ -66,6 +66,7 @@ import CatalogImportModal from './CatalogImportModal';
 import GlobalCatalogModal from './GlobalCatalogModal';
 import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } from '../lib/catalogExcel';
 import ScreenPlanificacion from './ScreenPlanificacion';
+import ScreenParteTrabajo from './ScreenParteTrabajo';
 import ScreenEquipo from './ScreenEquipo';
 import ScreenIngresos from './ScreenIngresos';
 import ScreenMantenimiento from './ScreenMantenimiento';
@@ -388,7 +389,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }, [initialMobile]);
 
   // Tabs de navegación móvil
-  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo'>('inicio');
+  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'contratos'>('inicio');
+  const [parteJob, setParteJob] = useState<import('../lib/supabase').TradeJob | null>(null);
   const [isSessionClosed, setIsSessionClosed] = useState(false);
   const [showFloatingMenu, setShowFloatingMenu] = useState<boolean>(false);
 
@@ -2219,10 +2221,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           </div>
 
-          {/* Derecha: ajustes + logout */}
+          {/* Derecha: nuevo presupuesto + ajustes + logout */}
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setActiveTab('settings')}
+              onClick={() => setShowFloatingMenu(true)}
+              className="flex items-center gap-1.5 bg-blue-600 active:bg-blue-700 text-white font-bold text-[11px] px-3 py-2 rounded-xl cursor-pointer transition-colors"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              Presupuesto
+            </button>
+            <button
+              onClick={() => setMobileTab('ajustes')}
               className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 active:bg-white/10 text-slate-400"
             >
               <SettingsIcon className="w-4 h-4" />
@@ -2243,10 +2252,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         <div
           className="flex-grow overflow-y-auto overscroll-contain"
           style={{
-            padding: mobileTab === 'trabajos' ? '0' : (isNativeDevice ? '16px 16px 0' : '16px'),
+            padding: mobileTab === 'trabajos' ? '0' : (isNativeDevice ? '20px 16px 0' : '20px 16px'),
             paddingBottom: isNativeDevice
-              ? 'calc(80px + env(safe-area-inset-bottom, 0px) + 8px)'
-              : '80px',
+              ? 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)'
+              : '88px',
           }}
         >
           {mobileTab === 'inicio' && MobileScreenInicio()}
@@ -2295,42 +2304,54 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 await removeWorkerFromJob(jobId, workerId);
                 await loadJobs(orgId!).then(setJobs);
               }}
+              onOpenParte={(job) => setParteJob(job)}
               showToast={showToast}
+            />
+          )}
+          {mobileTab === 'mantenimiento' && orgId && (
+            <ScreenMantenimiento
+              orgId={orgId}
+              showToast={showToast}
+              initialText={mantenimientoInitialText}
+              onInitialTextConsumed={() => setMantenimientoInitialText('')}
+            />
+          )}
+          {mobileTab === 'contratos' && orgId && orgData && (
+            <ScreenContratos
+              orgId={orgId}
+              orgData={orgData}
+              clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, direccion: c.direccion, telefono: c.telefono, email: c.email }))}
+              oficio={orgData.oficio}
+              plan={subscription?.plan ?? orgData?.plan ?? 'basico'}
             />
           )}
         </div>
 
-        {/* BOTTOM TAB BAR + FAB */}
+        {/* BOTTOM TAB BAR — 4 tabs + FAB central */}
         <div className="absolute bottom-0 left-0 right-0 z-30">
-
-          {/* FAB — flotante centrado sobre la barra */}
-          <div className="absolute left-1/2 -translate-x-1/2 -top-7 z-10">
-            <button
-              onClick={() => setShowFloatingMenu(!showFloatingMenu)}
-              className="w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center shadow-lg border-4 border-white dark:border-slate-950 transition-transform active:scale-95 cursor-pointer"
-            >
-              {showFloatingMenu ? <X className="w-6 h-6" /> : <Plus className="w-6 h-6" />}
-            </button>
-          </div>
-
-          {/* Tab bar — carrusel horizontal, todos los tabs visibles */}
           <div
-            className="bg-[#0B0F14] border-t border-white/5 flex items-stretch select-none overflow-x-auto"
+            className="bg-[#0B0F14] border-t border-white/8 flex items-stretch select-none"
             style={{
               paddingBottom: isNativeDevice ? 'env(safe-area-inset-bottom, 0px)' : '0px',
-              minHeight: isNativeDevice ? 'calc(60px + env(safe-area-inset-bottom, 0px))' : '60px',
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-            } as React.CSSProperties}
+              minHeight: isNativeDevice ? 'calc(68px + env(safe-area-inset-bottom, 0px))' : '68px',
+            }}
           >
             {MobileTabButton({ tab: 'inicio', icon: <TrendingUp className="w-5 h-5" />, label: 'Inicio' })}
             {MobileTabButton({ tab: 'trabajos', icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
-            {MobileTabButton({ tab: 'clientes', icon: <Users className="w-5 h-5" />, label: 'Clientes' })}
-            {/* Espacio central para el FAB flotante */}
-            <div className="w-16 shrink-0" />
+            {/* FAB central */}
+            <button
+              onClick={() => setShowFloatingMenu(prev => !prev)}
+              className="flex-1 flex flex-col items-center justify-center cursor-pointer transition-all active:scale-90"
+            >
+              <div
+                className="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center -mt-5"
+                style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.55), 0 0 0 4px #0B0F14' }}
+              >
+                <Plus className={`w-7 h-7 text-white transition-transform duration-200 ${showFloatingMenu ? 'rotate-45' : ''}`} />
+              </div>
+            </button>
             {MobileTabButton({ tab: 'catalogo', icon: <Package className="w-5 h-5" />, label: 'Catálogo' })}
-            {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
-            {MobileTabButton({ tab: 'ajustes', icon: <SettingsIcon className="w-5 h-5" />, label: 'Ajustes' })}
+            {MobileTabButton({ tab: 'clientes', icon: <Users className="w-5 h-5" />, label: 'Clientes' })}
           </div>
         </div>
 
@@ -2346,7 +2367,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 initial={{ y: 200, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 200, opacity: 0 }}
-                className="absolute bottom-16 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 rounded-t-[28px] p-5 space-y-3.5 z-50 text-xs shadow-2xl"
+                className="absolute bottom-[68px] left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 rounded-t-[28px] p-5 space-y-3.5 z-50 text-xs shadow-2xl"
               >
                 <div className="w-10 h-1 bg-slate-350 dark:bg-slate-700 rounded-full mx-auto mb-1" />
                 <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest font-mono block text-center">Nuevo Presupuesto Rápido</span>
@@ -2379,22 +2400,39 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           )}
         </AnimatePresence>
 
+        {/* Parte de Trabajo overlay */}
+        {parteJob && (
+          <ScreenParteTrabajo
+            job={parteJob}
+            orgId={orgId ?? ''}
+            tarifas={tarifas}
+            isLiveMode={isLiveMode}
+            onComplete={async (jobId, notas) => {
+              await updateJob(jobId, { estado: 'completado', notas_cierre: notas, completado_at: new Date().toISOString() });
+              setJobs(prev => prev.map(j => j.id === jobId ? { ...j, estado: 'completado', notas_cierre: notas } : j));
+            }}
+            onClose={() => setParteJob(null)}
+            showToast={showToast}
+          />
+        )}
+
       </div>
     );
 
     // Helpers botones navegación móvil
-    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo'; icon: React.ReactNode; label: string }) {
+    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'trabajos' | 'catalogo' | 'clientes'; icon: React.ReactNode; label: string }) {
       const isActive = mobileTab === tab;
       return (
         <button
           onClick={() => { setMobileTab(tab); setShowFloatingMenu(false); }}
-          className={`flex-1 min-w-[56px] flex flex-col items-center justify-center gap-0.5 px-1 cursor-pointer transition-all ${
-            isActive ? 'text-blue-400' : 'text-slate-500'
-          }`}
-          style={isActive ? { filter: 'drop-shadow(0 0 6px rgba(96,165,250,0.7))' } : {}}
+          className="flex-1 min-w-[60px] flex flex-col items-center justify-center gap-1 py-1.5 px-1 cursor-pointer transition-all active:scale-95"
         >
-          {icon}
-          <span className={`text-[8px] font-bold uppercase tracking-wider ${isActive ? 'text-blue-400' : 'text-slate-500'}`}>{label}</span>
+          <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all duration-200 ${
+            isActive ? 'bg-blue-600 shadow-lg shadow-blue-500/40' : ''
+          }`}>
+            <span className={`transition-colors ${isActive ? 'text-white' : 'text-slate-500'}`}>{icon}</span>
+          </div>
+          <span className={`text-[9.5px] font-semibold tracking-wide transition-colors ${isActive ? 'text-blue-400' : 'text-slate-600'}`}>{label}</span>
         </button>
       );
     }
@@ -2402,103 +2440,161 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= MÓVIL: INICIO SCREEN =================
   function MobileScreenInicio() {
-    const hour = new Date().getHours();
-    const greeting = hour < 12 ? 'Buenos dias' : hour < 20 ? 'Buenas tardes' : 'Buenas noches';
+    const now = new Date();
+    const hour = now.getHours();
+    const greeting = hour < 12 ? 'Buenos días' : hour < 20 ? 'Buenas tardes' : 'Buenas noches';
     const shortName = empresaAjustes.nombre.split(' ')[0] || 'Instalador';
+    const todayStr = now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+    const todayJobs = jobs.filter(j => j.fecha_inicio === now.toISOString().split('T')[0] && j.estado !== 'cancelado');
+    const todayISO = now.toISOString().split('T')[0];
 
-    const draft = presupuestos.find(p => p.estado === 'Borrador') ?? presupuestos[0] ?? null;
-    const recent = presupuestos.slice(0, 4);
+    const draft = presupuestos.find(p => p.estado === 'Borrador') ?? null;
+    const aceptados = presupuestos.filter(p => p.estado === 'Aceptado');
+    const recent = presupuestos.filter(p => p.estado !== 'Borrador').slice(0, 4);
 
     const statusMeta = (estado: string) => {
-      if (estado === 'Aceptado') return { dot: 'bg-emerald-500', label: 'Aceptado', color: 'text-emerald-400', bg: 'bg-emerald-500/10' };
-      if (estado === 'Facturado') return { dot: 'bg-blue-500', label: 'Facturado', color: 'text-blue-400', bg: 'bg-blue-500/10' };
-      return { dot: 'bg-amber-400', label: estado, color: 'text-amber-400', bg: 'bg-amber-500/10' };
+      if (estado === 'Aceptado')  return { dot: 'bg-emerald-500', color: 'text-emerald-400', bg: 'bg-emerald-500/10', label: 'Aceptado' };
+      if (estado === 'Facturado') return { dot: 'bg-indigo-500',  color: 'text-indigo-400',  bg: 'bg-indigo-500/10',  label: 'Facturado' };
+      if (estado === 'Enviado')   return { dot: 'bg-blue-500',    color: 'text-blue-400',    bg: 'bg-blue-500/10',    label: 'Enviado' };
+      return { dot: 'bg-amber-400', color: 'text-amber-400', bg: 'bg-amber-500/10', label: estado };
     };
 
     return (
-      <div className="space-y-4 pb-2">
+      <div className="space-y-5 pb-2">
 
-        {/* Greeting */}
-        <div className="pt-1 space-y-0.5">
-          <h2 className="text-xl font-bold text-white">
+        {/* ── GREETING + FECHA ── */}
+        <div className="space-y-1">
+          <p className="text-xs font-semibold text-slate-500 capitalize">{todayStr}</p>
+          <h2 className="text-2xl font-black text-white leading-tight">
             {greeting}, {shortName}
           </h2>
-          <p className="text-[11px] text-slate-400">
-            {presupuestosPendientesCount > 0
-              ? `${presupuestosPendientesCount} presupuesto${presupuestosPendientesCount !== 1 ? 's' : ''} pendiente${presupuestosPendientesCount !== 1 ? 's' : ''} de respuesta`
-              : 'Todo al dia - buen trabajo!'}
-          </p>
+          {presupuestosPendientesCount > 0 ? (
+            <p className="text-sm text-amber-400 font-medium mt-1">
+              {presupuestosPendientesCount} presupuesto{presupuestosPendientesCount !== 1 ? 's' : ''} pendiente{presupuestosPendientesCount !== 1 ? 's' : ''}
+            </p>
+          ) : (
+            <p className="text-sm text-emerald-400 font-medium mt-1">Todo al día ✓</p>
+          )}
         </div>
 
-        {/* ── HERO CARD ── */}
-        <div className="relative rounded-3xl overflow-hidden border border-blue-500/20 shadow-2xl shadow-blue-900/30">
-          {/* Fondo gradiente oscuro */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-700/25 via-blue-900/20 to-[#0B0F14]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(37,99,235,0.18),transparent_70%)]" />
+        {/* ── KPI STRIP ── */}
+        <div className="grid grid-cols-3 gap-2.5">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-1">
+            <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Hoy</p>
+            <p className="text-xl font-black text-white leading-none">{todayJobs.length}</p>
+            <p className="text-[10px] text-slate-500">trabajo{todayJobs.length !== 1 ? 's' : ''}</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-1">
+            <p className="text-[9px] font-bold text-emerald-600 uppercase tracking-widest">Acept.</p>
+            <p className="text-xl font-black text-emerald-400 leading-none">{aceptados.length}</p>
+            <p className="text-[10px] text-slate-500">presup.</p>
+          </div>
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-1">
+            <p className="text-[9px] font-bold text-blue-500 uppercase tracking-widest">Total</p>
+            <p className="text-xl font-black text-white leading-none">{presupuestos.length}</p>
+            <p className="text-[10px] text-slate-500">presup.</p>
+          </div>
+        </div>
+
+        {/* ── TRABAJOS DE HOY (max 3) ── */}
+        {todayJobs.length > 0 && (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Hoy · {todayISO}</span>
+              <button onClick={() => setMobileTab('trabajos')} className="text-[10px] font-bold text-blue-400 cursor-pointer">Ver agenda →</button>
+            </div>
+            {todayJobs.slice(0, 3).map(j => {
+              const isCurrent = j.estado === 'en_curso';
+              return (
+                <div
+                  key={j.id}
+                  onClick={() => setMobileTab('trabajos')}
+                  className={`rounded-2xl p-4 cursor-pointer active:scale-99 transition-transform border ${
+                    isCurrent ? 'bg-amber-500/10 border-amber-500/30' : 'bg-slate-900 border-slate-800'
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${
+                        j.estado === 'completado' ? 'bg-emerald-500' :
+                        j.estado === 'en_curso' ? 'bg-amber-400 animate-pulse' : 'bg-blue-500'
+                      }`} />
+                      <div className="min-w-0">
+                        <p className="text-sm font-bold text-white truncate">{j.titulo}</p>
+                        {j.trade_clients?.nombre && (
+                          <p className="text-[11px] text-slate-400 truncate">{j.trade_clients.nombre}</p>
+                        )}
+                      </div>
+                    </div>
+                    {j.hora_inicio && (
+                      <span className="text-xs font-mono font-bold text-slate-400 shrink-0">{j.hora_inicio}</span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* ── HERO CARD — Nuevo presupuesto ── */}
+        <div className="relative rounded-3xl overflow-hidden border border-blue-500/20" style={{ boxShadow: '0 8px 40px rgba(37,99,235,0.18)' }}>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-700/30 via-blue-900/20 to-[#0B0F14]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(37,99,235,0.15),transparent_65%)]" />
 
           <div className="relative p-6 space-y-5">
             <div>
-              <h3 className="text-lg font-black text-white tracking-tight">Crear presupuesto</h3>
-              <p className="text-[11px] text-blue-300/80 mt-0.5">Habla o toma una foto del trabajo</p>
+              <h3 className="text-xl font-black text-white tracking-tight">Nuevo presupuesto</h3>
+              <p className="text-sm text-blue-300/70 mt-0.5">Habla o toma una foto del trabajo</p>
             </div>
 
-            {/* Big mic button */}
-            <div className="flex flex-col items-center gap-3 py-2">
+            {/* Mic button */}
+            <div className="flex flex-col items-center gap-3 py-1">
               <button
                 onClick={() => startWizard(2)}
-                className="relative w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center cursor-pointer active:scale-95 transition-transform"
-                style={{ boxShadow: '0 0 40px rgba(37,99,235,0.55), 0 0 80px rgba(37,99,235,0.25)' }}
+                className="relative w-28 h-28 rounded-full bg-blue-600 flex items-center justify-center cursor-pointer active:scale-95 transition-transform"
+                style={{ boxShadow: '0 0 48px rgba(37,99,235,0.6), 0 0 100px rgba(37,99,235,0.2)' }}
               >
-                <div className="absolute inset-0 rounded-full bg-blue-400/20 animate-ping" style={{ animationDuration: '2s' }} />
-                <Mic className="w-10 h-10 text-white relative z-10" />
+                <div className="absolute inset-0 rounded-full bg-blue-400/15 animate-ping" style={{ animationDuration: '2.5s' }} />
+                <Mic className="w-12 h-12 text-white relative z-10" />
               </button>
-              <span className="text-[11px] text-blue-200/70 font-medium">Pulsa para hablar</span>
+              <span className="text-sm text-blue-200/60 font-medium">Pulsa para dictar</span>
             </div>
 
-            {/* Tomar foto */}
+            {/* Foto */}
             <button
               onClick={() => startWizard(3)}
-              className="w-full flex items-center justify-center gap-2 bg-white/6 border border-white/10 rounded-2xl py-3 text-white text-xs font-semibold active:bg-white/10 transition-colors cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 bg-white/6 border border-white/10 rounded-2xl py-4 text-white text-sm font-semibold active:bg-white/10 transition-colors cursor-pointer"
             >
-              <Camera className="w-4 h-4 text-blue-300" />
-              Tomar foto del trabajo
+              <Camera className="w-5 h-5 text-blue-300" />
+              Escanear con foto IA
             </button>
           </div>
         </div>
 
         {/* ── BORRADOR ACTUAL ── */}
         {draft && (
-          <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 space-y-3">
+          <div className="bg-slate-900 border border-amber-500/20 rounded-3xl p-5 space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest font-mono">Borrador actual</span>
-              <span className="text-[9px] bg-amber-500/12 text-amber-400 font-bold px-2 py-0.5 rounded-full border border-amber-500/20 uppercase tracking-wider">
+              <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Borrador activo</span>
+              <span className="text-[10px] bg-amber-500/10 text-amber-400 font-bold px-2.5 py-1 rounded-full border border-amber-500/20">
                 {draft.estado}
               </span>
             </div>
 
             <div>
-              <p className="text-sm font-bold text-white">{draft.nombreCliente || 'Sin cliente asignado'}</p>
-              <p className="text-[11px] text-slate-400 mt-0.5 truncate">{draft.descripcion || 'Trabajo sin descripción'}</p>
+              <p className="text-base font-bold text-white">{draft.nombreCliente || 'Sin cliente'}</p>
+              <p className="text-sm text-slate-400 mt-0.5 truncate">{draft.descripcion || 'Sin descripción'}</p>
             </div>
 
-            {/* Descripción breve */}
-            <p className="text-[11px] text-slate-400 leading-relaxed">
-              {draft.descripcion || 'Sin descripción de trabajo'}
-            </p>
-
-            {/* Total */}
-            <div className="flex justify-between items-center border-t border-slate-800/80 pt-2.5">
-              <span className="text-[10px] text-slate-500 font-mono uppercase tracking-wider">Total (IVA incl.)</span>
-              <span className="text-lg font-black text-white font-mono">
-                {((draft.total ?? 0) * 1.21).toFixed(0)}€
-              </span>
+            <div className="flex justify-between items-center border-t border-slate-800 pt-3">
+              <span className="text-xs text-slate-500 uppercase tracking-wider">Total c/IVA</span>
+              <span className="text-2xl font-black text-white font-mono">{((draft.total ?? 0) * 1.21).toFixed(0)}€</span>
             </div>
 
-            {/* Acciones */}
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2.5">
               <button
-                onClick={() => { setMobileTab('presupuestos'); }}
-                className="bg-white/6 border border-white/8 text-white text-[11px] font-bold py-2.5 rounded-xl cursor-pointer active:bg-white/10 transition-colors"
+                onClick={() => setMobileTab('presupuestos')}
+                className="bg-white/6 border border-white/8 text-white text-sm font-bold py-3 rounded-2xl cursor-pointer active:bg-white/10 transition-colors"
               >
                 Editar
               </button>
@@ -2508,10 +2604,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   const msg = encodeURIComponent(`Presupuesto TradeFlow: ${draft.descripcion ?? ''} — Total: ${((draft.total ?? 0) * 1.21).toFixed(0)}€`);
                   window.open(`https://wa.me/${tel.replace(/\D/g, '') || ''}?text=${msg}`, '_blank');
                 }}
-                className="text-white text-[11px] font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 cursor-pointer active:opacity-80 transition-opacity"
-                style={{ backgroundColor: '#25D366', boxShadow: '0 4px 20px rgba(37,211,102,0.25)' }}
+                className="text-white text-sm font-bold py-3 rounded-2xl flex items-center justify-center gap-2 cursor-pointer active:opacity-80"
+                style={{ backgroundColor: '#25D366', boxShadow: '0 4px 20px rgba(37,211,102,0.3)' }}
               >
-                <MessageSquare className="w-3.5 h-3.5" />
+                <MessageSquare className="w-4 h-4" />
                 WhatsApp
               </button>
             </div>
@@ -2520,27 +2616,30 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         {/* ── ACTIVIDAD RECIENTE ── */}
         {recent.length > 0 && (
-          <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 space-y-3">
-            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest font-mono block">Actividad reciente</span>
-            <div>
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Recientes</span>
+              <button onClick={() => setMobileTab('presupuestos')} className="text-[10px] font-bold text-blue-400 cursor-pointer">Ver todos →</button>
+            </div>
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
               {recent.map((p, i) => {
                 const meta = statusMeta(p.estado ?? '');
                 return (
                   <div
                     key={p.id}
-                    className={`flex items-center gap-3 py-3 cursor-pointer active:opacity-70 ${i < recent.length - 1 ? 'border-b border-slate-800/70' : ''}`}
+                    className={`flex items-center gap-3.5 px-4 py-4 cursor-pointer active:bg-slate-800/60 transition-colors ${i < recent.length - 1 ? 'border-b border-slate-800' : ''}`}
                     onClick={() => setMobileTab('presupuestos')}
                   >
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${meta.bg}`}>
-                      <span className={`w-2.5 h-2.5 rounded-full ${meta.dot}`} />
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${meta.bg}`}>
+                      <span className={`w-3 h-3 rounded-full ${meta.dot}`} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[12px] font-semibold text-white truncate">{p.nombreCliente || 'Sin cliente'}</p>
-                      <p className="text-[9.5px] text-slate-500 truncate mt-0.5">{(p.descripcion ?? '').slice(0, 45) || p.estado}</p>
+                      <p className="text-sm font-semibold text-white truncate">{p.nombreCliente || 'Sin cliente'}</p>
+                      <p className="text-xs text-slate-500 truncate mt-0.5">{(p.descripcion ?? '').slice(0, 50) || p.estado}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-[12px] font-bold text-white font-mono">{(p.total ?? 0).toFixed(0)}€</p>
-                      <p className="text-[9px] text-slate-500 mt-0.5">
+                      <p className="text-sm font-bold text-white font-mono">{(p.total ?? 0).toFixed(0)}€</p>
+                      <p className="text-[10px] text-slate-500 mt-0.5">
                         {p.fecha ? new Date(p.fecha).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' }) : ''}
                       </p>
                     </div>
@@ -2592,37 +2691,80 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">{filtered.length} presupuesto{filtered.length !== 1 ? 's' : ''}:</span>
 
-        {filtered.map(p => (
-          <div
-            key={p.id}
-            onClick={() => {
-              setSelectedQuoteForPreview(p);
-              setWizardQuote(p);
-              setWizardStep(5);
-              setWizardActive(true);
-            }}
-            className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 p-4 rounded-2xl space-y-3 cursor-pointer hover:border-slate-350 transition-colors"
-          >
-            <div className="flex justify-between items-start gap-2">
-              <div className="truncate">
-                <span className="font-bold text-xs text-slate-900 dark:text-white block truncate">{p.nombreCliente}</span>
-                <span className="text-[10px] text-slate-450 block truncate">{p.descripcion}</span>
+        {filtered.map(p => {
+          const estadoBadge =
+            p.estado === 'Facturado' ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20' :
+            p.estado === 'Aceptado'  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
+            p.estado === 'Enviado'   ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
+                                       'bg-slate-500/10 text-slate-400 border-slate-500/20';
+          return (
+            <div
+              key={p.id}
+              onClick={() => {
+                setSelectedQuoteForPreview(p);
+                setWizardQuote(p);
+                setWizardStep(5);
+                setWizardActive(true);
+              }}
+              className="bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 p-5 rounded-2xl space-y-3.5 cursor-pointer active:scale-99 transition-transform shadow-sm"
+            >
+              <div className="flex justify-between items-start gap-3">
+                <div className="min-w-0 flex-1">
+                  <span className="font-bold text-sm text-slate-900 dark:text-white block truncate leading-tight">{p.nombreCliente || 'Sin cliente'}</span>
+                  <span className="text-xs text-slate-500 block truncate mt-0.5">{p.descripcion}</span>
+                </div>
+                <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border whitespace-nowrap shrink-0 ${estadoBadge}`}>
+                  {p.estado}
+                </span>
               </div>
-              <span className={`text-[8px] font-bold uppercase px-2 py-0.5 rounded-full whitespace-nowrap ${
-                p.estado === 'Facturado' ? 'bg-emerald-500/10 text-emerald-450 border border-emerald-500/20' :
-                p.estado === 'Aceptado' ? 'bg-blue-500/10 text-blue-450 border border-blue-500/20' :
-                p.estado === 'Enviado' ? 'bg-amber-500/10 text-amber-450 border border-amber-500/20' :
-                'bg-slate-500/10 text-slate-450 border border-slate-500/20'
-              }`}>
-                {p.estado}
-              </span>
+              <div className="flex justify-between items-center pt-3 border-t border-slate-100 dark:border-slate-800">
+                <div>
+                  <span className="text-[10px] text-slate-400 uppercase tracking-wide block">Total c/IVA</span>
+                  <span className="text-lg font-black font-mono text-slate-900 dark:text-white">{(p.total * 1.21).toFixed(0)}€</span>
+                </div>
+                <span className="text-xs text-slate-400">{p.fecha}</span>
+              </div>
+
+              {/* Botones envío rápido */}
+              {p.estado !== 'Borrador' && (
+                <div className="grid grid-cols-3 gap-1.5 pt-1" onClick={e => e.stopPropagation()}>
+                  <a
+                    href={`https://wa.me/${(p.telefonoCliente ?? '').replace(/\D/g, '')}?text=${encodeURIComponent(`Hola ${p.nombreCliente ?? ''}, adjunto tu presupuesto TradeFlow:\n${p.descripcion ?? ''}\nTotal: ${(p.total * 1.21).toFixed(0)}€`)}`}
+                    target="_blank" rel="noreferrer"
+                    className="flex flex-col items-center gap-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-xl py-2 text-emerald-400 active:bg-emerald-500/20 cursor-pointer"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    <span className="text-[9px] font-bold">WhatsApp</span>
+                  </a>
+                  <a
+                    href={`mailto:${p.emailCliente ?? ''}?subject=Presupuesto ${p.id}&body=${encodeURIComponent(`Hola ${p.nombreCliente ?? ''},\n\nAdjunto tu presupuesto.\n\nTotal: ${(p.total * 1.21).toFixed(0)}€\n\nGracias.`)}`}
+                    className="flex flex-col items-center gap-0.5 bg-blue-500/10 border border-blue-500/20 rounded-xl py-2 text-blue-400 active:bg-blue-500/20 cursor-pointer"
+                  >
+                    <Mail className="w-3.5 h-3.5" />
+                    <span className="text-[9px] font-bold">Email</span>
+                  </a>
+                  <button
+                    onClick={async (e) => {
+                      e.stopPropagation();
+                      try {
+                        const qt = await createQuoteToken(orgId ?? '', p.id, p.nombreCliente ?? null, { total: p.total, descripcion: p.descripcion });
+                        const url = `${window.location.origin}/presupuesto/${qt.token}`;
+                        await navigator.clipboard.writeText(url);
+                        showToast('Enlace copiado al portapapeles', 'success');
+                      } catch {
+                        showToast('Error al generar enlace', 'error');
+                      }
+                    }}
+                    className="flex flex-col items-center gap-0.5 bg-slate-500/10 border border-slate-500/20 rounded-xl py-2 text-slate-400 active:bg-slate-500/20 cursor-pointer"
+                  >
+                    <Globe className="w-3.5 h-3.5" />
+                    <span className="text-[9px] font-bold">Enlace</span>
+                  </button>
+                </div>
+              )}
             </div>
-            <div className="flex justify-between items-baseline pt-2 border-t border-slate-100 dark:border-slate-850 text-xs">
-              <span className="text-slate-400 font-mono text-[9px] uppercase">Importe (+IVA):</span>
-              <span className="font-bold font-mono text-slate-905 dark:text-white">{(p.total * 1.21).toFixed(2)}€</span>
-            </div>
-          </div>
-        ))}
+          );
+        })}
         {filtered.length === 0 && (
           <div className="text-center py-8 text-slate-400 text-[11px]">
             {presupuestoFilter === 'month' ? 'No hay presupuestos este mes' : 'No hay presupuestos'}
@@ -2840,12 +2982,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <Check className="w-3.5 h-3.5 text-emerald-500" />
                     Cobrada · {f.fecha}
                   </span>
-                  <button
-                    onClick={() => printInvoice(f)}
-                    className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold p-2 rounded-xl flex items-center gap-1 text-[9px] uppercase cursor-pointer"
-                  >
-                    <FileText className="w-3 h-3" />PDF
-                  </button>
+                  <div className="flex gap-1.5">
+                    <button
+                      onClick={() => handleRemindInvoice(f)}
+                      className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold p-2 rounded-xl flex items-center gap-1 text-[9px] uppercase cursor-pointer"
+                    >
+                      💬 WA
+                    </button>
+                    <button
+                      onClick={() => printInvoice(f)}
+                      className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold p-2 rounded-xl flex items-center gap-1 text-[9px] uppercase cursor-pointer"
+                    >
+                      <FileText className="w-3 h-3" />PDF
+                    </button>
+                  </div>
                 </>
               )}
             </div>
@@ -3599,13 +3749,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   >
                     ← Presupuestos
                   </button>
-                  <button
-                    onClick={() => convertQuoteToInvoice(selectedQuoteForPreview)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl shadow-xs flex items-center gap-1.5 cursor-pointer transition-transform hover:scale-101"
-                  >
-                    <FileText className="w-3.5 h-3.5" />
-                    <span>Facturar Presupuesto</span>
-                  </button>
+                  {selectedQuoteForPreview.estado !== 'Facturado' ? (
+                    <button
+                      onClick={() => convertQuoteToInvoice(selectedQuoteForPreview)}
+                      className="bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl shadow-xs flex items-center gap-1.5 cursor-pointer transition-transform hover:scale-101"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      <span>Facturar Presupuesto</span>
+                    </button>
+                  ) : (
+                    <span className="bg-indigo-100 text-indigo-700 font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl flex items-center gap-1.5">
+                      <FileText className="w-3.5 h-3.5" />
+                      Ya facturado
+                    </span>
+                  )}
                 </div>
               )}
             </div>
@@ -3637,6 +3794,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     orgId={orgId}
                     isLiveMode={isLiveMode}
                     isDarkMode={isDarkMode}
+                    presupuestosAceptados={presupuestos
+                      .filter(p => p.estado === 'Aceptado')
+                      .map(p => ({ id: p.id, nombreCliente: p.nombreCliente, descripcion: p.descripcion, total: p.total ?? 0 }))
+                    }
                     onCreateJob={async (job) => {
                       if (!orgId) throw new Error('Sin organización');
                       const saved = await createJob(orgId, job);
@@ -3917,12 +4078,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       Borrador:  'bg-slate-100 text-slate-500 border-slate-200',
       Pendiente: 'bg-amber-50 text-amber-600 border-amber-200',
       Enviado:   'bg-blue-50 text-blue-600 border-blue-200',
-      Aceptado:  'bg-emerald-50 text-emerald-600 border-emerald-200',
+      Aceptado:  'bg-emerald-50 text-emerald-700 border-emerald-200',
       Rechazado: 'bg-red-50 text-red-500 border-red-200',
+      Facturado: 'bg-indigo-100 text-indigo-700 border-indigo-200',
       enviado:   'bg-blue-50 text-blue-600 border-blue-200',
-      aceptado:  'bg-emerald-50 text-emerald-600 border-emerald-200',
+      aceptado:  'bg-emerald-50 text-emerald-700 border-emerald-200',
       rechazado: 'bg-red-50 text-red-500 border-red-200',
+      facturado: 'bg-indigo-100 text-indigo-700 border-indigo-200',
       borrador:  'bg-slate-100 text-slate-500 border-slate-200',
+    };
+    const rowBg: Record<string, string> = {
+      Borrador:  '',
+      Pendiente: 'bg-amber-50/30',
+      Enviado:   'bg-blue-50/30',
+      Aceptado:  'bg-emerald-50/50',
+      Rechazado: 'bg-red-50/30',
+      Facturado: 'bg-indigo-50/40',
     };
 
     return (
@@ -3996,7 +4167,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <tr
                     key={p.id}
                     onClick={() => { setSelectedQuoteForPreview(p); setActiveTab('preview'); }}
-                    className="hover:bg-slate-50 cursor-pointer transition-colors"
+                    className={`cursor-pointer transition-colors hover:brightness-95 ${rowBg[p.estado] ?? ''}`}
                   >
                     <td className="px-4 py-3 font-mono font-bold text-slate-600 whitespace-nowrap">{p.id}</td>
                     <td className="px-4 py-3 font-semibold text-slate-800 truncate max-w-[120px]">{p.nombreCliente}</td>

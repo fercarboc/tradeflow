@@ -133,6 +133,44 @@ Cuando el usuario diga "cambiar X por Y", "sustituir X", "quitar X y poner Y":
 - Crea partida de instalación/montaje
 
 ========================
+REGLAS PARA REFORMAS Y OBRAS (COCINAS, BAÑOS, INTERIORES, FACHADAS)
+========================
+
+Cuando el usuario mencione reforma de cocina, reforma de baño, cambio de muebles, suelos, paredes, reforma de vivienda, etc.:
+- tipo_presupuesto: "reforma" — NUNCA "mantenimiento_recurrente"
+- Detecta MÚLTIPLES oficios: carpintería (muebles), albañilería (suelos/paredes/azulejos), fontanería (tuberías/caldera), electricidad (mecanismos), pintura
+- Crea SIEMPRE las partidas de desmontaje, suministro y montaje por separado
+- Materiales (azulejos, muebles, caldera, pavimento…): precio_unitario = 0, requiere_revision = true
+- Mano de obra: usa tarifa recomendada del catálogo
+
+EJEMPLO COMPLETO — "Reforma de cocina con muebles nuevos, suelos, paredes y caldera":
+tipo_presupuesto: "reforma"
+Partidas a generar:
+1. concepto:"Desmontaje y retirada de muebles cocina existentes" | oficio:carpinteria | mano_obra | 8h × 45€ = 360€
+2. concepto:"Suministro de muebles de cocina (altos, bajos, columnas)" | oficio:carpinteria | material | precio=0 | requiere_revision=true
+3. concepto:"Montaje e instalación de muebles de cocina nuevos" | oficio:carpinteria | mano_obra | 16h × 45€ = 720€
+4. concepto:"Picado y retirada de alicatado/revestimiento existente" | oficio:albanileria | mano_obra | 6h × 40€ = 240€
+5. concepto:"Suministro de azulejos/revestimiento de paredes" | oficio:albanileria | material | precio=0 | requiere_revision=true
+6. concepto:"Alicatado de paredes de cocina" | oficio:albanileria | mano_obra | 14h × 40€ = 560€
+7. concepto:"Retirada de pavimento/suelo existente" | oficio:albanileria | mano_obra | 4h × 40€ = 160€
+8. concepto:"Suministro de pavimento/suelo nuevo" | oficio:albanileria | material | precio=0 | requiere_revision=true
+9. concepto:"Colocación de pavimento nuevo en cocina" | oficio:albanileria | mano_obra | 8h × 40€ = 320€
+10. concepto:"Desmontaje y retirada de caldera existente" | oficio:fontaneria | mano_obra | 2h × 50€ = 100€
+11. concepto:"Suministro de caldera de condensación (a definir marca/modelo)" | oficio:fontaneria | material | precio=0 | requiere_revision=true
+12. concepto:"Instalación de caldera nueva: conexión gas, agua, evacuación" | oficio:fontaneria | mano_obra | 6h × 50€ = 300€
+13. concepto:"Adaptación de red de tuberías agua fría/caliente en cocina" | oficio:fontaneria | mano_obra | 4h × 50€ = 200€
+14. concepto:"Gestión de residuos y escombros (contenedor)" | oficio:albanileria | servicio | 1 jornada × 180€ = 180€
+
+OTROS EJEMPLOS DE DETECCIÓN:
+- "reforma de baño": albanileria (azulejos/suelo) + fontaneria (sanitarios/tuberías) + carpinteria (si hay mueble de baño)
+- "pintar toda la vivienda": pintura (mano de obra por m²) + material pintura (precio=0)
+- "cambiar ventanas": carpinteria (desmontaje + instalación) + suministro ventanas (precio=0)
+- "instalar suelo laminado": albanileria (preparación) + carpinteria (colocación) + material (precio=0)
+- "reforma de fachada": albanileria + pintura + material (precio=0)
+
+REGLA ANTI-ERROR: Si el usuario describe una reforma, obra o trabajos de instalación → tipo_presupuesto: "reforma". NUNCA confundas una reforma con un servicio de mantenimiento recurrente.
+
+========================
 FORMATO DE SALIDA OBLIGATORIO
 ========================
 

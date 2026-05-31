@@ -1,8 +1,16 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { TrendingUp } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-import type { TradeInvoice, TradeClient, TradeQuote } from '../lib/supabase';
+import type { TradeClient, TradeQuote } from '../lib/supabase';
 import { useSession } from '../context/SessionContext';
+
+type InvoiceWithClient = {
+  id: string; org_id: string; quote_id?: string; client_id?: string;
+  numero: string; fecha: string; estado: 'Pendiente' | 'Pagada' | 'Vencida';
+  subtotal: number; iva_pct: number; iva_importe: number; total: number;
+  paid_at?: string; created_at: string; updated_at: string;
+  trade_clients?: { nombre: string } | null;
+};
 
 type Period = 'month' | 'quarter' | 'year' | 'all';
 
@@ -32,7 +40,7 @@ interface Props {
 export default function ScreenIngresos({ showToast }: Props) {
   const { org } = useSession();
   const [period, setPeriod] = useState<Period>('year');
-  const [invoices, setInvoices] = useState<TradeInvoice[]>([]);
+  const [invoices, setInvoices] = useState<InvoiceWithClient[]>([]);
   const [pipeline, setPipeline] = useState<Pick<TradeQuote, 'id' | 'total_con_iva' | 'estado' | 'fecha' | 'client_id'>[]>([]);
   const [clientes, setClientes] = useState<Pick<TradeClient, 'id' | 'nombre' | 'total_facturado'>[]>([]);
   const [loading, setLoading] = useState(true);
@@ -42,7 +50,7 @@ export default function ScreenIngresos({ showToast }: Props) {
     Promise.all([
       supabase
         .from('trade_invoices')
-        .select('*')
+        .select('*, trade_clients(nombre)')
         .eq('org_id', org.id)
         .order('fecha', { ascending: false }),
       supabase
@@ -58,7 +66,7 @@ export default function ScreenIngresos({ showToast }: Props) {
         .limit(8),
     ])
       .then(([invRes, qRes, cliRes]) => {
-        setInvoices((invRes.data ?? []) as TradeInvoice[]);
+        setInvoices((invRes.data ?? []) as InvoiceWithClient[]);
         setPipeline((qRes.data ?? []) as typeof pipeline);
         setClientes((cliRes.data ?? []) as typeof clientes);
       })
@@ -218,6 +226,49 @@ export default function ScreenIngresos({ showToast }: Props) {
               </div>
             );
           })}
+        </div>
+      )}
+
+      {/* Tabla facturas recientes */}
+      {filtered.length > 0 && (
+        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+          <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Facturas del periodo</p>
+            <span className="text-[10px] text-slate-400">{filtered.length} factura{filtered.length !== 1 ? 's' : ''}</span>
+          </div>
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="border-b border-slate-100 bg-slate-50">
+                <th className="text-left px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px]">Nº</th>
+                <th className="text-left px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px]">Cliente</th>
+                <th className="text-left px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px] hidden sm:table-cell">Fecha</th>
+                <th className="text-right px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px]">Total</th>
+                <th className="text-center px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px]">Estado</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {filtered.slice(0, 20).map(inv => {
+                const estadoBadge =
+                  inv.estado === 'Pagada'   ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
+                  inv.estado === 'Vencida'  ? 'bg-red-50 text-red-600 border-red-200' :
+                                              'bg-amber-50 text-amber-600 border-amber-200';
+                const rowTint =
+                  inv.estado === 'Pagada'  ? 'bg-emerald-50/30' :
+                  inv.estado === 'Vencida' ? 'bg-red-50/30' : '';
+                return (
+                  <tr key={inv.id} className={`transition-colors hover:brightness-95 ${rowTint}`}>
+                    <td className="px-4 py-2.5 font-mono font-bold text-slate-600 whitespace-nowrap text-[10px]">{inv.numero}</td>
+                    <td className="px-4 py-2.5 font-semibold text-slate-800 truncate max-w-[130px] text-[10px]">{inv.trade_clients?.nombre ?? '—'}</td>
+                    <td className="px-4 py-2.5 text-slate-400 hidden sm:table-cell whitespace-nowrap">{inv.fecha}</td>
+                    <td className="px-4 py-2.5 text-right font-mono font-bold text-slate-900 whitespace-nowrap">{fmt(inv.total)}</td>
+                    <td className="px-4 py-2.5 text-center">
+                      <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full border ${estadoBadge}`}>{inv.estado}</span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       )}
 
