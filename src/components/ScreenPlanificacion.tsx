@@ -415,45 +415,64 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePr
           )}
         </div>
 
-        {/* Botones de acción rápida */}
-        <div className="grid grid-cols-3 gap-2 pt-1">
-          {waUrl ? (
-            <a href={waUrl} target="_blank" rel="noopener noreferrer"
-              className="flex flex-col items-center gap-1 bg-slate-50 border border-slate-200 rounded-xl py-2.5 text-slate-700 active:bg-slate-100 transition-colors cursor-pointer">
-              <span className="text-base">💬</span>
-              <span className="text-[10px] font-semibold">WhatsApp</span>
-            </a>
-          ) : (
-            <div className="flex flex-col items-center gap-1 bg-slate-50 border border-slate-100 rounded-xl py-2.5 opacity-30">
-              <span className="text-base">💬</span>
-              <span className="text-[10px] font-semibold text-slate-400">WhatsApp</span>
-            </div>
-          )}
-          {callUrl ? (
-            <a href={callUrl}
-              className="flex flex-col items-center gap-1 bg-slate-50 border border-slate-200 rounded-xl py-2.5 text-slate-700 active:bg-slate-100 transition-colors cursor-pointer">
-              <Phone className="w-4 h-4" />
-              <span className="text-[10px] font-semibold">Llamar</span>
-            </a>
-          ) : (
-            <div className="flex flex-col items-center gap-1 bg-slate-50 border border-slate-100 rounded-xl py-2.5 opacity-30">
-              <Phone className="w-4 h-4 text-slate-400" />
-              <span className="text-[10px] font-semibold text-slate-400">Llamar</span>
-            </div>
-          )}
-          {(job.direccion || job.localidad) ? (
-            <a href={mapsUrl} target="_blank" rel="noopener noreferrer"
-              className="flex flex-col items-center gap-1 bg-slate-50 border border-slate-200 rounded-xl py-2.5 text-slate-700 active:bg-slate-100 transition-colors cursor-pointer">
-              <Navigation className="w-4 h-4" />
-              <span className="text-[10px] font-semibold">GPS</span>
-            </a>
-          ) : (
-            <div className="flex flex-col items-center gap-1 bg-slate-50 border border-slate-100 rounded-xl py-2.5 opacity-30">
-              <Navigation className="w-4 h-4 text-slate-400" />
-              <span className="text-[10px] font-semibold text-slate-400">GPS</span>
-            </div>
-          )}
-        </div>
+        {/* Botones de acción rápida — ocultar en visita planificada */}
+        {!isVisita && (
+          <div className="grid grid-cols-3 gap-2 pt-1">
+            {waUrl ? (
+              <a href={waUrl} target="_blank" rel="noopener noreferrer"
+                className="flex flex-col items-center gap-1 bg-slate-50 border border-slate-200 rounded-xl py-2.5 text-slate-700 active:bg-slate-100 transition-colors cursor-pointer">
+                <span className="text-base">💬</span>
+                <span className="text-[10px] font-semibold">WhatsApp</span>
+              </a>
+            ) : (
+              <div className="flex flex-col items-center gap-1 bg-slate-50 border border-slate-100 rounded-xl py-2.5 opacity-30">
+                <span className="text-base">💬</span>
+                <span className="text-[10px] font-semibold text-slate-400">WhatsApp</span>
+              </div>
+            )}
+            {callUrl ? (
+              <a href={callUrl}
+                className="flex flex-col items-center gap-1 bg-slate-50 border border-slate-200 rounded-xl py-2.5 text-slate-700 active:bg-slate-100 transition-colors cursor-pointer">
+                <Phone className="w-4 h-4" />
+                <span className="text-[10px] font-semibold">Llamar</span>
+              </a>
+            ) : (
+              <div className="flex flex-col items-center gap-1 bg-slate-50 border border-slate-100 rounded-xl py-2.5 opacity-30">
+                <Phone className="w-4 h-4 text-slate-400" />
+                <span className="text-[10px] font-semibold text-slate-400">Llamar</span>
+              </div>
+            )}
+            {(job.direccion || job.localidad) ? (
+              <a href={mapsUrl} target="_blank" rel="noopener noreferrer"
+                className="flex flex-col items-center gap-1 bg-slate-50 border border-slate-200 rounded-xl py-2.5 text-slate-700 active:bg-slate-100 transition-colors cursor-pointer">
+                <Navigation className="w-4 h-4" />
+                <span className="text-[10px] font-semibold">GPS</span>
+              </a>
+            ) : (
+              <div className="flex flex-col items-center gap-1 bg-slate-50 border border-slate-100 rounded-xl py-2.5 opacity-30">
+                <Navigation className="w-4 h-4 text-slate-400" />
+                <span className="text-[10px] font-semibold text-slate-400">GPS</span>
+              </div>
+            )}
+          </div>
+        )}
+        {/* Visita en_curso: mostrar WhatsApp y Llamar compactos */}
+        {isVisita && job.estado === 'en_curso' && (
+          <div className="grid grid-cols-2 gap-2 pt-1">
+            {waUrl ? (
+              <a href={waUrl} target="_blank" rel="noopener noreferrer"
+                className="flex items-center justify-center gap-1.5 bg-slate-50 border border-slate-200 rounded-xl py-2.5 text-slate-700 active:bg-slate-100 cursor-pointer text-xs font-semibold">
+                <span>💬</span> WhatsApp
+              </a>
+            ) : <div />}
+            {callUrl ? (
+              <a href={callUrl}
+                className="flex items-center justify-center gap-1.5 bg-slate-50 border border-slate-200 rounded-xl py-2.5 text-slate-700 active:bg-slate-100 cursor-pointer text-xs font-semibold">
+                <Phone className="w-3.5 h-3.5" /> Llamar
+              </a>
+            ) : <div />}
+          </div>
+        )}
 
         {/* Presupuesto vinculado */}
         {linkedPresupuesto && (() => {
@@ -495,45 +514,78 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePr
 
         {/* Estado rápido + editar/borrar */}
         <div className="flex items-center gap-2 pt-1 border-t border-slate-100">
-          {job.estado === 'planificado' && !linkedPresupuesto && (
+          {/* VISITA planificada: solo Iniciar + editar/borrar */}
+          {isVisita && job.estado === 'planificado' && (
             <button onClick={() => onQuickStatus(job, 'en_curso')}
-              className="flex items-center gap-1.5 bg-amber-500 active:bg-amber-600 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
-              <Play className="w-3.5 h-3.5" /> Iniciar
+              className="flex items-center gap-1.5 bg-violet-600 active:bg-violet-700 text-white text-xs font-bold px-4 py-2 rounded-xl cursor-pointer transition-colors">
+              <Play className="w-3.5 h-3.5" /> Iniciar visita
             </button>
           )}
-          {job.estado === 'planificado' && linkedPresupuesto?.estado === 'Aceptado' && (
-            <button onClick={() => onQuickStatus(job, 'en_curso')}
-              className="flex items-center gap-1.5 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors shadow-sm">
-              <Play className="w-3.5 h-3.5" /> Iniciar trabajo
-            </button>
+          {/* VISITA en curso: Presupuesto + Parte + Completar */}
+          {isVisita && job.estado === 'en_curso' && (
+            <>
+              {onCreatePresupuesto && !linkedPresupuesto && (
+                <button onClick={() => onCreatePresupuesto(job)}
+                  className="flex items-center gap-1.5 bg-violet-50 border border-violet-200 text-violet-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-violet-100 transition-colors">
+                  <Receipt className="w-3.5 h-3.5" /> Presupuesto
+                </button>
+              )}
+              {onOpenParte && (
+                <button onClick={() => onOpenParte(job)}
+                  className="flex items-center gap-1.5 bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-blue-100 transition-colors">
+                  <FileText className="w-3.5 h-3.5" /> Parte
+                </button>
+              )}
+              <button onClick={() => onQuickStatus(job, 'completado')}
+                className="flex items-center gap-1.5 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
+                <CheckCircle className="w-3.5 h-3.5" /> Completar
+              </button>
+            </>
           )}
-          {job.estado === 'en_curso' && (
-            <button onClick={() => onQuickStatus(job, 'completado')}
-              className="flex items-center gap-1.5 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
-              <CheckCircle className="w-3.5 h-3.5" /> Completar
-            </button>
-          )}
-          {onCreatePresupuesto && job.estado !== 'cancelado' && job.estado !== 'completado' && !linkedPresupuesto && (
-            <button onClick={() => onCreatePresupuesto(job)}
-              className="flex items-center gap-1.5 bg-violet-50 border border-violet-200 text-violet-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-violet-100 transition-colors">
-              <Receipt className="w-3.5 h-3.5" /> Presupuesto
-            </button>
-          )}
-          {onCreatePresupuesto && job.estado !== 'cancelado' && job.estado !== 'completado' && linkedPresupuesto && (
-            <button onClick={() => onCreatePresupuesto(job)}
-              className="flex items-center gap-1.5 bg-white border border-violet-200 text-violet-500 text-[10px] font-bold px-2.5 py-1.5 rounded-xl cursor-pointer active:bg-violet-50 transition-colors">
-              <Receipt className="w-3 h-3" /> Nuevo pres.
-            </button>
-          )}
-          {onOpenParte && job.estado !== 'cancelado' && (
-            <button onClick={() => onOpenParte(job)}
-              className={`flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors ${
-                linkedPresupuesto?.estado === 'Aceptado'
-                  ? 'bg-blue-600 text-white active:bg-blue-700 shadow-sm'
-                  : 'bg-blue-50 border border-blue-200 text-blue-700 active:bg-blue-100'
-              }`}>
-              <FileText className="w-3.5 h-3.5" /> Parte
-            </button>
+          {/* TRABAJO normal */}
+          {!isVisita && (
+            <>
+              {job.estado === 'planificado' && !linkedPresupuesto && (
+                <button onClick={() => onQuickStatus(job, 'en_curso')}
+                  className="flex items-center gap-1.5 bg-amber-500 active:bg-amber-600 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
+                  <Play className="w-3.5 h-3.5" /> Iniciar
+                </button>
+              )}
+              {job.estado === 'planificado' && linkedPresupuesto?.estado === 'Aceptado' && (
+                <button onClick={() => onQuickStatus(job, 'en_curso')}
+                  className="flex items-center gap-1.5 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors shadow-sm">
+                  <Play className="w-3.5 h-3.5" /> Iniciar trabajo
+                </button>
+              )}
+              {job.estado === 'en_curso' && (
+                <button onClick={() => onQuickStatus(job, 'completado')}
+                  className="flex items-center gap-1.5 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
+                  <CheckCircle className="w-3.5 h-3.5" /> Completar
+                </button>
+              )}
+              {onCreatePresupuesto && job.estado !== 'cancelado' && job.estado !== 'completado' && !linkedPresupuesto && (
+                <button onClick={() => onCreatePresupuesto(job)}
+                  className="flex items-center gap-1.5 bg-violet-50 border border-violet-200 text-violet-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-violet-100 transition-colors">
+                  <Receipt className="w-3.5 h-3.5" /> Presupuesto
+                </button>
+              )}
+              {onCreatePresupuesto && job.estado !== 'cancelado' && job.estado !== 'completado' && linkedPresupuesto && (
+                <button onClick={() => onCreatePresupuesto(job)}
+                  className="flex items-center gap-1.5 bg-white border border-violet-200 text-violet-500 text-[10px] font-bold px-2.5 py-1.5 rounded-xl cursor-pointer active:bg-violet-50 transition-colors">
+                  <Receipt className="w-3 h-3" /> Nuevo pres.
+                </button>
+              )}
+              {onOpenParte && job.estado !== 'cancelado' && (
+                <button onClick={() => onOpenParte(job)}
+                  className={`flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors ${
+                    linkedPresupuesto?.estado === 'Aceptado'
+                      ? 'bg-blue-600 text-white active:bg-blue-700 shadow-sm'
+                      : 'bg-blue-50 border border-blue-200 text-blue-700 active:bg-blue-100'
+                  }`}>
+                  <FileText className="w-3.5 h-3.5" /> Parte
+                </button>
+              )}
+            </>
           )}
           <div className="ml-auto flex items-center gap-1">
             <button onClick={() => onEdit(job)} className="p-2 text-slate-400 hover:text-blue-500 cursor-pointer transition-colors rounded-xl hover:bg-blue-50">

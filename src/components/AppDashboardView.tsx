@@ -2842,33 +2842,33 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {visitasPendientes.length > 0 && (
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-violet-400 uppercase tracking-widest">👁 Visitas pendientes</span>
-              <button onClick={() => setMobileTab('trabajos')} className="text-[10px] font-bold text-violet-400 cursor-pointer">Ver todas →</button>
+              <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">👁 Visitas pendientes</span>
+              <button onClick={() => setMobileTab('trabajos')} className="text-[10px] font-bold text-amber-400 cursor-pointer">Ver todas →</button>
             </div>
             {visitasPendientes.slice(0, 3).map(j => (
               <div
                 key={j.id}
                 onClick={() => setMobileTab('trabajos')}
-                className="rounded-2xl p-3.5 cursor-pointer active:scale-99 transition-transform border border-violet-500/30 bg-violet-500/8"
+                className="rounded-2xl p-3.5 cursor-pointer active:scale-99 transition-transform border border-amber-500/40 bg-amber-500/12"
               >
                 <div className="flex items-center justify-between gap-2">
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-bold text-white truncate">{j.titulo}</p>
                     <div className="flex items-center gap-2 mt-0.5">
                       {j.trade_clients?.nombre && (
-                        <p className="text-[10px] text-violet-300 truncate">{j.trade_clients.nombre}</p>
+                        <p className="text-[10px] text-amber-300 truncate">{j.trade_clients.nombre}</p>
                       )}
                       {j.fecha_inicio && (
                         <span className="text-[9px] font-mono text-slate-400">{new Date(j.fecha_inicio + 'T12:00:00').toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })}</span>
                       )}
                     </div>
                   </div>
-                  <span className="text-[8px] font-bold bg-violet-600/20 text-violet-300 border border-violet-500/30 rounded-full px-2 py-0.5 uppercase shrink-0">Visita</span>
+                  <span className="text-[8px] font-bold bg-amber-500/25 text-amber-300 border border-amber-500/50 rounded-full px-2 py-0.5 uppercase shrink-0">Visita</span>
                 </div>
               </div>
             ))}
             {visitasPendientes.length > 3 && (
-              <p className="text-[10px] text-violet-400 text-center font-medium cursor-pointer" onClick={() => setMobileTab('trabajos')}>
+              <p className="text-[10px] text-amber-400 text-center font-medium cursor-pointer" onClick={() => setMobileTab('trabajos')}>
                 +{visitasPendientes.length - 3} más → ver en agenda
               </p>
             )}
@@ -3346,7 +3346,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Buscar cliente..."
+              placeholder="Nombre, teléfono, dirección..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 rounded-2xl pl-9 pr-4 py-2.5 text-xs text-slate-800 dark:text-white focus:outline-none"
@@ -3364,7 +3364,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {filteredClientes.length} cliente{filteredClientes.length !== 1 ? 's' : ''}:
         </span>
 
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           {filteredClientes.map(c => {
             const nQuotes = presupuestos.filter(p => p.nombreCliente === c.nombre).length;
             const hasFacturado = presupuestos.some(p => p.nombreCliente === c.nombre && p.estado === 'Facturado');
@@ -3378,22 +3378,31 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-4 flex items-center justify-between cursor-pointer active:scale-[0.98] transition-transform"
               >
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-xs text-slate-900 dark:text-white block uppercase tracking-wide truncate">{c.nombre}</span>
-                    {hasVisitaPendiente && <span className="w-2 h-2 rounded-full bg-violet-500 shrink-0" title="Visita pendiente" />}
-                    {hasTrabajoPendiente && !hasVisitaPendiente && <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" title="Trabajo pendiente" />}
+                  {/* Nombre + dots de estado */}
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wide truncate">{c.nombre}</span>
+                    {hasVisitaPendiente && <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0" title="Visita pendiente" />}
+                    {hasTrabajoPendiente && !hasVisitaPendiente && <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0" title="Trabajo pendiente" />}
                   </div>
-                  <span className="text-[9.5px] text-slate-450 block font-mono truncate">{c.telefono}</span>
+                  {/* Teléfono */}
+                  {c.telefono && (
+                    <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-mono">{c.telefono}</span>
+                  )}
+                  {/* Dirección — muy útil para clientes con nombre común */}
+                  {c.direccion && (
+                    <span className="text-[11px] text-slate-400 dark:text-slate-500 block truncate mt-0.5">📍 {c.direccion}</span>
+                  )}
+                  {/* Estado pendiente */}
                   {pendingClientJobs.length > 0 && (
-                    <span className="text-[9px] text-violet-400 font-medium">
+                    <span className={`text-[10px] font-medium mt-1 block ${hasVisitaPendiente ? 'text-amber-400' : 'text-blue-400'}`}>
                       {hasVisitaPendiente ? `👁 Visita pendiente` : `🔧 ${pendingClientJobs.length} trabajo${pendingClientJobs.length > 1 ? 's' : ''} pendiente${pendingClientJobs.length > 1 ? 's' : ''}`}
                     </span>
                   )}
                   {c.totalFacturado > 0 && pendingClientJobs.length === 0 && (
-                    <span className="text-[9px] font-mono text-emerald-500 font-bold">{c.totalFacturado.toFixed(0)}€ facturados</span>
+                    <span className="text-[10px] font-mono text-emerald-500 font-bold mt-0.5 block">{c.totalFacturado.toFixed(0)}€ facturados</span>
                   )}
                 </div>
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex flex-col items-end gap-1.5 shrink-0 ml-3">
                   {nQuotes > 0 && (
                     <span className="text-[9px] font-mono text-slate-400">{nQuotes} pres.</span>
                   )}
@@ -3405,6 +3414,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </div>
             );
           })}
+          {filteredClientes.length === 0 && (
+            <div className="text-center py-10 text-slate-400 text-xs">No hay clientes que coincidan</div>
+          )}
         </div>
       </div>
     );
