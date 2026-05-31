@@ -3256,23 +3256,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <Mail className="w-3.5 h-3.5" />
                     <span className="text-[9px] font-bold">Email</span>
                   </a>
-                  <button
-                    onClick={async (e) => {
-                      e.stopPropagation();
-                      try {
-                        const qt = await createQuoteToken(orgId ?? '', p.id, p.nombreCliente ?? null, { total: p.total, descripcion: p.descripcion });
-                        const url = `${window.location.origin}/presupuesto/${qt.token}`;
-                        await navigator.clipboard.writeText(url);
-                        showToast('Enlace copiado al portapapeles', 'success');
-                      } catch {
-                        showToast('Error al generar enlace', 'error');
-                      }
-                    }}
-                    className="flex flex-col items-center gap-0.5 bg-slate-500/10 border border-slate-500/20 rounded-xl py-2 text-slate-400 active:bg-slate-500/20 cursor-pointer"
-                  >
-                    <Globe className="w-3.5 h-3.5" />
-                    <span className="text-[9px] font-bold">Enlace</span>
-                  </button>
+                  {p.estado !== 'Aceptado' && p.estado !== 'Facturado' && (
+                    <button
+                      onClick={async (e) => {
+                        e.stopPropagation();
+                        try {
+                          const qt = await createQuoteToken(orgId ?? '', p.id, p.nombreCliente ?? null, { total: p.total, descripcion: p.descripcion });
+                          const url = `${window.location.origin}/presupuesto/${qt.token}`;
+                          await navigator.clipboard.writeText(url);
+                          showToast('Enlace copiado al portapapeles', 'success');
+                        } catch {
+                          showToast('Error al generar enlace', 'error');
+                        }
+                      }}
+                      className="flex flex-col items-center gap-0.5 bg-slate-500/10 border border-slate-500/20 rounded-xl py-2 text-slate-400 active:bg-slate-500/20 cursor-pointer"
+                    >
+                      <Globe className="w-3.5 h-3.5" />
+                      <span className="text-[9px] font-bold">Enlace</span>
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -5320,16 +5322,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 Convertir en Factura
               </button>
             )}
-            <button
-              onClick={() => generateAcceptanceLink(selectedQuoteForPreview)}
-              disabled={generatingLink}
-              className="flex items-center gap-1.5 bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer disabled:opacity-60"
-            >
-              {generatingLink
-                ? <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                : <span>🔗</span>}
-              Enlace aceptación
-            </button>
+            {selectedQuoteForPreview.estado !== 'Aceptado' && selectedQuoteForPreview.estado !== 'Facturado' && (
+              <button
+                onClick={() => generateAcceptanceLink(selectedQuoteForPreview)}
+                disabled={generatingLink}
+                className="flex items-center gap-1.5 bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer disabled:opacity-60"
+              >
+                {generatingLink
+                  ? <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  : <span>🔗</span>}
+                Enlace aceptación
+              </button>
+            )}
           </div>
           {/* Estado de aceptación del cliente */}
           {quoteTokenStatus && (
