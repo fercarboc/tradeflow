@@ -76,7 +76,7 @@ export const defaultContractVars: ContractVars = {
 
 // ── Per-oficio content ────────────────────────────────────────────────────────
 
-interface OficioContent {
+export interface OficioContent {
   titulo: string;
   objeto: string;
   serviciosIncluidos: string[];
@@ -225,7 +225,7 @@ const OFICIO_CONTENT: Record<string, OficioContent> = {
   },
 };
 
-function getOficioContent(oficio: string): OficioContent {
+export function getOficioContent(oficio: string): OficioContent {
   const key = oficio.toLowerCase().replace(/í/g, 'i').replace(/ó/g, 'o').replace(/á/g, 'a').replace(/é/g, 'e').replace(/ú/g, 'u');
   if (key.includes('font') || key.includes('plom') || key.includes('agua')) return OFICIO_CONTENT.fontaneria;
   if (key.includes('electr')) return OFICIO_CONTENT.electricidad;

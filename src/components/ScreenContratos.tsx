@@ -491,7 +491,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
           <span className="flex-1 font-bold text-sm text-slate-800 truncate">{vars.referencia}</span>
           <div className="flex gap-2">
             <button
-              onClick={() => downloadContractAsDocx(vars, vars.referencia || 'contrato')}
+              onClick={() => downloadContractAsDocx(vars, selectedOficio, vars.referencia || 'contrato')}
               className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-lg cursor-pointer transition-colors"
               title="Descargar como Word editable"
             >
@@ -560,7 +560,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
             {isSigned && (
               <>
                 <button
-                  onClick={() => downloadContractAsDocx(vars, vars.referencia || 'contrato')}
+                  onClick={() => downloadContractAsDocx(vars, selectedOficio, vars.referencia || 'contrato')}
                   className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-lg cursor-pointer transition-colors"
                   title="Descargar como Word editable"
                 >
