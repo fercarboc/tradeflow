@@ -7,7 +7,7 @@ import {
 import type { TradeOrganization, TradeContract, MaintenancePresupuesto } from '../lib/supabase';
 import {
   loadContracts, createContract, updateContract, signContract, deleteContract,
-  loadMaintenancePresupuestos,
+  loadMaintenancePresupuestos, saveMaintenanceContrato, createMaintenanceInvoices,
 } from '../lib/supabase';
 import { buildContractHTML, defaultContractVars } from '../lib/contractTemplates';
 import type { ContractVars } from '../lib/contractTemplates';
@@ -232,7 +232,72 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
         : c,
       ));
       setIsSigned(true);
-      showToast('Contrato firmado y cerrado ✓', 'success');
+
+      // Crear registro en Mantenimientos
+      const cuotaMensual = parseFloat((vars.cuota_mensual ?? '0').replace(',', '.')) || 0;
+      const ivaPct = parseFloat(vars.iva_pct ?? '21') || 21;
+      const duracionMeses = parseInt(vars.duracion_meses ?? '12', 10) || 12;
+      const diaVenc = parseInt(vars.dia_vencimiento ?? '5', 10) || 5;
+
+      // Fecha inicio desde vars (dd/mm/yyyy) → ISO
+      const parseDateES = (s: string) => {
+        const parts = s.split('/');
+        if (parts.length === 3) return new Date(`${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`);
+        return new Date();
+      };
+      const fechaInicio = parseDateES(vars.fecha_inicio);
+      const fechaFin = new Date(fechaInicio);
+      fechaFin.setMonth(fechaFin.getMonth() + duracionMeses);
+
+      const mantContrato = await saveMaintenanceContrato(orgId, {
+        org_id: orgId,
+        client_id: null,
+        presupuesto_id: null,
+        plantilla_id: null,
+        numero: vars.referencia,
+        estado: 'activo',
+        oficio: selectedOficio,
+        sector: null,
+        nombre_cliente: vars.nombre_cliente,
+        direccion_instalacion: vars.direccion_cliente,
+        descripcion_servicios: vars.descripcion_instalaciones,
+        cuota_mensual: cuotaMensual,
+        tipo_facturacion: vars.periodo_facturacion,
+        iva_pct: ivaPct,
+        sla_nivel: null,
+        tiempo_respuesta_h: null,
+        incluye_preventivos: false,
+        num_visitas_preventivo: 0,
+        frecuencia_preventivo: 'mensual',
+        incluye_guardia: false,
+        materiales_incluidos: false,
+        fecha_inicio: fechaInicio.toISOString().split('T')[0],
+        fecha_fin: fechaFin.toISOString().split('T')[0],
+        duracion_meses: duracionMeses,
+        renovacion_automatica: true,
+        preaviso_cancelacion_dias: 30,
+        dia_facturacion: diaVenc,
+        proxima_factura: null,
+        ultima_factura: null,
+        notas: `Generado desde contrato ${vars.referencia}`,
+        contract_id: editingId,
+      });
+
+      // Generar facturas según período
+      if (cuotaMensual > 0) {
+        await createMaintenanceInvoices(orgId, editingId, {
+          clientId: null,
+          cuotaMensual,
+          ivaPct,
+          periodoFacturacion: vars.periodo_facturacion,
+          duracionMeses,
+          diaVencimiento: diaVenc,
+          nombreCliente: vars.nombre_cliente,
+          referencia: vars.referencia,
+        });
+      }
+
+      showToast(`Contrato firmado ✓ — Mantenimiento ${mantContrato.numero} activado y facturas generadas`, 'success');
     } catch (e: unknown) {
       showToast('Error: ' + (e instanceof Error ? e.message : String(e)), 'error');
     } finally {
@@ -361,6 +426,24 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
           <F field="iva_pct" label="IVA (%)" type="number" />
           <F field="cuota_mensual_con_iva" label="Cuota mensual con IVA (EUR)" placeholder="423,50" />
           <F field="cuota_anual" label="Cuota anual sin IVA (EUR)" placeholder="4.200,00" />
+          <div>
+            <span className={LBL}>Período de facturación</span>
+            <select
+              className={INP}
+              disabled={isSigned}
+              value={vars.periodo_facturacion}
+              onChange={e => setVars(p => ({ ...p, periodo_facturacion: e.target.value as 'mensual' | 'trimestral' | 'anual' }))}
+            >
+              <option value="mensual">Mensual (12 facturas/año)</option>
+              <option value="trimestral">Trimestral (4 facturas/año)</option>
+              <option value="anual">Anual (1 factura/año)</option>
+            </select>
+            <p className="text-[9px] text-slate-400 mt-1">
+              {vars.periodo_facturacion === 'mensual' && 'Se generarán 12 facturas. La 1ª al firmar, el resto con fecha de vencimiento.'}
+              {vars.periodo_facturacion === 'trimestral' && 'Se generarán 4 facturas trimestrales. Aviso 15 días antes de cada vencimiento.'}
+              {vars.periodo_facturacion === 'anual' && 'Se genera 1 factura anual. Aviso de renovación 1 mes antes del vencimiento.'}
+            </p>
+          </div>
           <F field="forma_pago" label="Forma de pago" />
           <F field="dia_vencimiento" label="Día de vencimiento" type="number" />
           <div className="sm:col-span-2"><F field="iban" label="IBAN para domiciliación" placeholder="ES00 0000 0000 00 0000000000" /></div>

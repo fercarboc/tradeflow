@@ -86,7 +86,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
   const [selectedTrades, setSelectedTrades] = useState<string[]>([]);
   const [businessType, setBusinessType] = useState<'autonomo' | 'empresa'>('autonomo');
   const [selectedPlan, setSelectedPlan] = useState<'basico' | 'profesional' | 'empresa' | 'empresa_plus'>('profesional');
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
+  const [billingCycle] = useState<'monthly' | 'yearly'>('monthly');
   const [form, setForm] = useState({
     fullName: '',
     companyName: '',
@@ -270,51 +270,56 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
       {/* ── Step 2: Plan ── */}
       {step === 2 && (
         <div className="w-full max-w-3xl">
-          <div className="text-center mb-6">
-            <div className="inline-flex items-center gap-2 bg-[#FFC400]/10 border border-[#FFC400]/25 rounded-xl px-3 py-1.5 text-xs font-bold text-[#FFC400] mb-3">
-              <Gift className="h-3.5 w-3.5" />
-              15 días completamente gratis
+
+          {/* Header BETA */}
+          <div className="text-center mb-5">
+            <div className="inline-flex items-center gap-2 bg-[#00CFE8]/15 border border-[#00CFE8]/40 rounded-2xl px-4 py-2 text-xs font-black text-[#00CFE8] mb-3 uppercase tracking-widest">
+              <span>🚧</span>
+              Versión Beta — En pruebas
             </div>
             <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">Elige tu plan</h1>
-            <p className="text-white/40 mt-2 text-sm">Sin tarjeta de crédito. Cancela cuando quieras.</p>
+            <p className="text-white/40 mt-1.5 text-sm">Todos los planes son <span className="text-[#FFC400] font-black">completamente gratis</span> durante la Beta.</p>
           </div>
 
-          {/* Billing toggle */}
-          <div className="flex justify-center mb-6">
-            <div className="flex items-center bg-white/5 border border-white/10 p-1 rounded-full gap-1">
-              <button
-                onClick={() => setBillingCycle('monthly')}
-                className={`px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest cursor-pointer transition-all ${
-                  billingCycle === 'monthly' ? 'bg-white text-[#020B16]' : 'text-white/50 hover:text-white'
-                }`}
-              >
-                Mensual
-              </button>
-              <button
-                onClick={() => setBillingCycle('yearly')}
-                className={`flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest cursor-pointer transition-all ${
-                  billingCycle === 'yearly' ? 'bg-white text-[#020B16]' : 'text-white/50 hover:text-white'
-                }`}
-              >
-                Anual
-                <span className="bg-[#FFC400] text-[#020B16] text-[9px] font-black px-1.5 py-0.5 rounded-full">-20%</span>
-              </button>
+          {/* Aviso Beta — 2 columnas */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+            {/* Gratis total */}
+            <div className="bg-[#00CFE8]/8 border border-[#00CFE8]/25 rounded-2xl p-4 flex gap-3 items-start">
+              <span className="text-xl shrink-0 mt-0.5">🎁</span>
+              <div>
+                <p className="text-[#00CFE8] font-black text-[11px] uppercase tracking-wider mb-1">Acceso 100% gratuito</p>
+                <p className="text-white/50 text-[11px] leading-relaxed">
+                  No se pide tarjeta de crédito. No se cobra nada. Puedes acceder incluso al <strong className="text-white/75">Plan Empresa+</strong> sin ningún coste durante la Beta.
+                </p>
+              </div>
+            </div>
+            {/* Puede tener errores */}
+            <div className="bg-amber-500/8 border border-amber-500/25 rounded-2xl p-4 flex gap-3 items-start">
+              <span className="text-xl shrink-0 mt-0.5">⚠️</span>
+              <div>
+                <p className="text-amber-400 font-black text-[11px] uppercase tracking-wider mb-1">Versión en pruebas</p>
+                <p className="text-white/50 text-[11px] leading-relaxed">
+                  La app puede tener errores o cambios inesperados. Tu <strong className="text-white/75">feedback es muy valioso</strong> para mejorarla. Gracias por ser Beta tester.
+                </p>
+              </div>
             </div>
           </div>
 
           {/* Plan cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
             {PLANS.map(plan => {
-              const price = billingCycle === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice;
               const selected = selectedPlan === plan.id;
+              const isTop = plan.id === 'empresa_plus';
               return (
                 <button
                   key={plan.id}
                   onClick={() => setSelectedPlan(plan.id)}
-                  className={`relative flex flex-col p-5 rounded-2xl border-2 text-left cursor-pointer transition-all ${
+                  className={`relative flex flex-col p-4 rounded-2xl border-2 text-left cursor-pointer transition-all ${
                     selected
                       ? 'border-[#FFC400] bg-[#FFC400]/8'
-                      : 'border-white/10 bg-white/5 hover:border-white/25'
+                      : isTop
+                        ? 'border-[#00CFE8]/30 bg-[#00CFE8]/5 hover:border-[#00CFE8]/60'
+                        : 'border-white/10 bg-white/5 hover:border-white/25'
                   }`}
                 >
                   {plan.popular && (
@@ -322,17 +327,27 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
                       Más popular
                     </span>
                   )}
+                  {isTop && !selected && (
+                    <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-[#FFC400] text-[#020B16] text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider whitespace-nowrap">
+                      ⭐ Gratis en Beta
+                    </span>
+                  )}
                   {selected && (
                     <span className="absolute top-3 right-3 h-5 w-5 bg-[#FFC400] rounded-full flex items-center justify-center">
                       <Check className="h-3 w-3 text-[#020B16]" />
                     </span>
                   )}
-                  <div className={`text-[10px] font-black uppercase tracking-wider mb-1 ${selected ? 'text-[#FFC400]' : 'text-white/40'}`}>
+                  <div className={`text-[10px] font-black uppercase tracking-wider mb-2 ${selected ? 'text-[#FFC400]' : isTop ? 'text-[#00CFE8]' : 'text-white/40'}`}>
                     {plan.name}
                   </div>
-                  <div className="flex items-baseline gap-0.5 mb-1">
-                    <span className="text-3xl font-black text-white leading-none">{price}€</span>
-                    <span className="text-[10px] text-white/35 ml-1">/mes+IVA</span>
+                  {/* Precio tachado + GRATIS */}
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-base font-black text-white/20 line-through leading-none">{plan.monthlyPrice}€/mes</span>
+                  </div>
+                  <div className="mb-2">
+                    <span className="bg-[#00CFE8]/20 text-[#00CFE8] text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider">
+                      🎁 Gratis durante Beta
+                    </span>
                   </div>
                   <p className="text-[11px] text-white/40 mb-3 leading-relaxed">{plan.desc}</p>
                   <ul className="space-y-1.5">
@@ -348,6 +363,14 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
             })}
           </div>
 
+          {/* Nota reactivación */}
+          <div className="flex items-center justify-center gap-2 text-[11px] text-white/30 mb-6 text-center">
+            <span>📞</span>
+            <span>
+              ¿Termina tu acceso? <strong className="text-white/50">Llámanos y te lo reactivamos gratis</strong> mientras sigamos en Beta. Sin tarjeta. Sin compromiso.
+            </span>
+          </div>
+
           <div className="flex gap-3">
             <button
               onClick={() => setStep(1)}
@@ -359,7 +382,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
               onClick={() => setStep(3)}
               className="flex-1 py-3.5 rounded-xl bg-[#FFC400] hover:brightness-110 text-[#020B16] font-black uppercase tracking-widest text-sm flex items-center justify-center gap-2 cursor-pointer transition-all shadow-lg shadow-[#FFC400]/15"
             >
-              Continuar con {PLANS.find(p => p.id === selectedPlan)?.name}
+              Continuar — Acceso Gratis
               <ChevronRight className="h-4 w-4" />
             </button>
           </div>
@@ -370,8 +393,11 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
       {step === 3 && (
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 bg-[#00CFE8]/15 border border-[#00CFE8]/35 rounded-xl px-3 py-1.5 text-[10px] font-black text-[#00CFE8] mb-3 uppercase tracking-widest">
+              🎁 Beta — Sin tarjeta de crédito
+            </div>
             <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">Crea tu cuenta</h1>
-            <p className="text-white/40 mt-2 text-sm">Empezarás tu período de prueba gratuito de 15 días.</p>
+            <p className="text-white/40 mt-2 text-sm">Acceso inmediato y gratuito. No se cobra nada.</p>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-[#0d1f38] p-6 space-y-4">

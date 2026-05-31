@@ -88,10 +88,11 @@ export interface TradeInvoice {
   quote_id?: string | null;
   client_id?: string | null;
   job_id?: string | null;
+  contract_id?: string | null;
   numero: string;
   fecha: string;
   fecha_vencimiento?: string;
-  estado: 'Pendiente' | 'Pagada' | 'Vencida';
+  estado: 'Pendiente' | 'Pagada' | 'Vencida' | 'Devuelta';
   subtotal: number;
   iva_pct: number;
   iva_importe: number;
@@ -99,6 +100,8 @@ export interface TradeInvoice {
   concepto?: string | null;
   es_suplementaria?: boolean;
   paid_at?: string;
+  devuelta_at?: string | null;
+  devuelta_motivo?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -787,12 +790,83 @@ export async function updateClient(
 
 // ── Facturas ──────────────────────────────────────────────────────────────
 
-export async function markInvoicePaid(id: string): Promise<void> {
+export async function markInvoicePaid(id: string, paidAt?: string): Promise<void> {
   const { error } = await supabase
     .from('trade_invoices')
-    .update({ estado: 'Pagada', paid_at: new Date().toISOString() })
+    .update({ estado: 'Pagada', paid_at: paidAt ?? new Date().toISOString() })
     .eq('id', id);
   if (error) throw error;
+}
+
+export async function markInvoiceDevuelta(id: string, motivo?: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_invoices')
+    .update({ estado: 'Devuelta', devuelta_at: new Date().toISOString(), devuelta_motivo: motivo ?? null })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+export async function createMaintenanceInvoices(
+  orgId: string,
+  contractId: string,
+  opts: {
+    clientId?: string | null;
+    cuotaMensual: number;
+    ivaPct: number;
+    periodoFacturacion: 'mensual' | 'trimestral' | 'anual';
+    duracionMeses: number;
+    diaVencimiento: number;
+    nombreCliente: string;
+    referencia: string;
+  },
+): Promise<TradeInvoice[]> {
+  const { cuotaMensual, ivaPct, periodoFacturacion, duracionMeses, diaVencimiento, nombreCliente, referencia } = opts;
+
+  // Determinar cuántas facturas y cuántos meses por factura
+  const mesesPorFactura = periodoFacturacion === 'anual' ? 12 : periodoFacturacion === 'trimestral' ? 3 : 1;
+  const numFacturas = Math.ceil(duracionMeses / mesesPorFactura);
+  const subtotalFactura = cuotaMensual * mesesPorFactura;
+  const ivaImporte = Math.round(subtotalFactura * ivaPct * 100) / 10000;
+  const totalFactura = subtotalFactura + ivaImporte;
+
+  // Contar facturas existentes para numeración
+  const { count } = await supabase.from('trade_invoices').select('*', { count: 'exact', head: true }).eq('org_id', orgId);
+  let contador = (count ?? 0) + 1;
+
+  const hoy = new Date();
+  const invoices: TradeInvoice[] = [];
+
+  for (let i = 0; i < numFacturas; i++) {
+    const fechaVenc = new Date(hoy);
+    fechaVenc.setMonth(fechaVenc.getMonth() + i * mesesPorFactura);
+    fechaVenc.setDate(diaVencimiento);
+    if (fechaVenc < hoy) fechaVenc.setMonth(fechaVenc.getMonth() + 1);
+
+    const numero = `FAC-${new Date().getFullYear()}-${String(contador++).padStart(3, '0')}`;
+    const periodo = periodoFacturacion === 'mensual'
+      ? fechaVenc.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })
+      : periodoFacturacion === 'trimestral'
+        ? `T${Math.ceil((fechaVenc.getMonth() + 1) / 3)} ${fechaVenc.getFullYear()}`
+        : `Año ${fechaVenc.getFullYear()}`;
+
+    const { data, error } = await supabase.from('trade_invoices').insert({
+      org_id: orgId,
+      client_id: opts.clientId ?? null,
+      contract_id: contractId,
+      numero,
+      fecha: i === 0 ? hoy.toISOString().split('T')[0] : fechaVenc.toISOString().split('T')[0],
+      fecha_vencimiento: fechaVenc.toISOString().split('T')[0],
+      estado: i === 0 ? 'Pendiente' : 'Pendiente',
+      subtotal: subtotalFactura,
+      iva_pct: ivaPct,
+      iva_importe: ivaImporte,
+      total: totalFactura,
+      concepto: `Mantenimiento ${referencia} — ${nombreCliente} — ${periodo}`,
+    }).select().single();
+    if (error) throw error;
+    invoices.push(data as TradeInvoice);
+  }
+  return invoices;
 }
 
 // ── Presupuestos ──────────────────────────────────────────────────────────
@@ -1979,6 +2053,7 @@ export interface MaintenanceContrato {
   proxima_factura: string | null;
   ultima_factura: string | null;
   notas: string | null;
+  contract_id: string | null;
   created_at: string;
   updated_at: string;
 }

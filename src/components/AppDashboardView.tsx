@@ -55,11 +55,12 @@ import {
   Briefcase,
   BarChart2,
   Wrench,
+  Filter,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription, TemplateType } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { usePermissions } from '../hooks/usePermissions';
@@ -695,13 +696,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [editingTarifaId, setEditingTarifaId] = useState<string | null>(null);
   const [savingTarifaId, setSavingTarifaId] = useState<string | null>(null);
   const [catalogFamilyFilter, setCatalogFamilyFilter] = useState<Set<string>>(new Set());
+  const [showCatalogFamilyDropdown, setShowCatalogFamilyDropdown] = useState(false);
+  const [catalogFamilySearch, setCatalogFamilySearch] = useState('');
 
   // Support modal
   const [showSupportModal, setShowSupportModal] = useState(false);
   const [supportAsunto, setSupportAsunto] = useState('Consulta general');
   const [supportMsg, setSupportMsg] = useState('');
   const [supportSending, setSupportSending] = useState(false);
-  const [filterEstado, setFilterEstado] = useState<'todas' | 'Pendiente' | 'Pagada' | 'Vencida'>('todas');
+  const [filterEstado, setFilterEstado] = useState<'todas' | 'Pendiente' | 'Pagada' | 'Vencida' | 'Devuelta'>('todas');
   const [showAddTarifa, setShowAddTarifa] = useState(false);
   const [newWorkerDraft, setNewWorkerDraft] = useState({ nombre: '', telefono: '', email: '', rol: 'tecnico' as TrabajadorItem['rol'] });
   const [newTarifaDraft, setNewTarifaDraft] = useState({ codigo: '', familia: 'General', descripcion: '', precioBase: 0, unidad: 'ud' });
@@ -1479,6 +1482,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     showToast('Pago registrado correctamente', 'success');
   };
 
+  const handleMarkDevuelta = async (id: string, motivo?: string) => {
+    if (isLiveMode) {
+      try {
+        await markInvoiceDevuelta(id, motivo);
+      } catch (e: any) {
+        showToast('Error al marcar devolución: ' + e.message, 'error');
+        return;
+      }
+    }
+    setFacturas(prev => prev.map(f => f.id === id ? { ...f, estado: 'Devuelta' } : f));
+    showToast('Factura marcada como devuelta', 'info');
+  };
+
   const handleRemindInvoice = (f: Factura) => {
     const totalConIVA = (f.importe * 1.21).toFixed(2);
     const msg = [
@@ -1529,8 +1545,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [isClientModalOpen, setIsClientModalOpen] = useState<boolean>(false);
   const [newClient, setNewClient] = useState<Partial<Cliente>>({ nombre: '', telefono: '', email: '', direccion: '' });
 
-  const [showPricingSuggestion, setShowPricingSuggestion] = useState<boolean>(true);
-  const suggestedPricingInfo = { diff: 21 };
+  const TARIFA_SUGERIDA = 52;
+  const [showPricingSuggestion, setShowPricingSuggestion] = useState<boolean>(
+    () => !localStorage.getItem('tf_pricing_dismissed') && (empresaAjustes.valorHoraOperario < TARIFA_SUGERIDA)
+  );
 
   const [editingQuote, setEditingQuote] = useState<Presupuesto>({
     id: 'P-2026-NEW',
@@ -1566,25 +1584,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   const applySuggestedPricing = () => {
-    const applyFn = (partidas: PartidaPresupuesto[]) =>
-      partidas.map(item =>
-        item.tipo === 'mano_de_obra' && item.precioUnitario === 45
-          ? { ...item, precioUnitario: 52, total: item.cantidad * 52 }
-          : item
-      );
-    if (isMobileMode) {
-      setWizardQuote(prev => {
-        const partidas = applyFn(prev.partidas || []);
-        return { ...prev, partidas, total: partidas.reduce((s, p) => s + p.total, 0) };
-      });
-    } else {
-      setEditingQuote(prev => {
-        const partidas = applyFn(prev.partidas);
-        return { ...prev, partidas, total: partidas.reduce((s, p) => s + p.total, 0) };
-      });
-    }
+    const prev = empresaAjustes.valorHoraOperario;
+    setEmpresaAjustes(p => ({ ...p, valorHoraOperario: TARIFA_SUGERIDA }));
+    try { localStorage.setItem('tf_pricing_dismissed', '1'); } catch {}
     setShowPricingSuggestion(false);
-    showToast('Tarifa optimizada aplicada', 'success');
+    showToast(`Tarifa hora actualizada: ${prev}€ → ${TARIFA_SUGERIDA}€/h en Ajustes`, 'success');
+  };
+
+  const dismissPricingSuggestion = () => {
+    try { localStorage.setItem('tf_pricing_dismissed', '1'); } catch {}
+    setShowPricingSuggestion(false);
   };
 
   const handleRemoveItem = (idx: number) => {
@@ -3480,6 +3489,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // ================= MÓVIL: FACTURAS SCREEN =================
   function MobileScreenFacturas() {
     const now = new Date();
+    const in15 = new Date(now); in15.setDate(now.getDate() + 15);
+
+    const proximas = facturas
+      .filter(f => f.estado === 'Pendiente' && f.fechaVencimiento)
+      .filter(f => { const v = new Date(f.fechaVencimiento); return v >= now && v <= in15; })
+      .sort((a, b) => a.fechaVencimiento.localeCompare(b.fechaVencimiento));
+
+    const devueltas = facturas.filter(f => f.estado === 'Devuelta');
+
     const sorted = [...facturas]
       .filter(f => {
         const matchClient = !facturaClientFilter || f.nombreCliente?.toLowerCase().includes(facturaClientFilter.toLowerCase());
@@ -3491,12 +3509,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         return true;
       })
       .sort((a, b) => {
-        if (a.estado !== 'Pagada' && b.estado === 'Pagada') return -1;
-        if (a.estado === 'Pagada' && b.estado !== 'Pagada') return 1;
-        return 0;
+        const order: Record<string, number> = { Vencida: 0, Pendiente: 1, Devuelta: 2, Pagada: 3 };
+        return (order[a.estado] ?? 1) - (order[b.estado] ?? 1);
       });
 
-    const pendiente = sorted.filter(f => f.estado !== 'Pagada').reduce((s, f) => s + f.importe * 1.21, 0);
+    const pendiente = sorted.filter(f => f.estado === 'Pendiente' || f.estado === 'Vencida').reduce((s, f) => s + f.importe * 1.21, 0);
 
     return (
       <div className="space-y-3">
@@ -3527,6 +3544,42 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         )}
 
+        {/* Próximas a cobrar */}
+        {proximas.length > 0 && (
+          <div className="bg-amber-500/8 border border-amber-500/25 rounded-2xl px-3 py-3 space-y-2">
+            <div className="flex items-center gap-1.5">
+              <Clock className="w-3.5 h-3.5 text-amber-500" />
+              <span className="text-[10px] font-bold uppercase text-amber-600 dark:text-amber-400">Próximas a cobrar — {proximas.length} en 15 días</span>
+            </div>
+            {proximas.map(f => (
+              <div key={f.id} className="flex items-center gap-2 bg-white dark:bg-slate-900 rounded-xl px-3 py-1.5 border border-amber-100 dark:border-amber-900/30">
+                <span className="font-mono text-[9px] font-bold text-slate-700 dark:text-slate-300 flex-1 truncate">{f.numeroFactura} · {f.nombreCliente}</span>
+                <span className="text-[9px] text-amber-600 font-semibold shrink-0">
+                  {Math.ceil((new Date(f.fechaVencimiento).getTime() - now.getTime()) / 86400000)}d
+                </span>
+                <span className="font-mono text-[9px] font-bold text-slate-800 dark:text-white shrink-0">{(f.importe * 1.21).toFixed(0)}€</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Devueltas */}
+        {devueltas.length > 0 && (
+          <div className="bg-orange-500/8 border border-orange-500/25 rounded-2xl px-3 py-3 space-y-2">
+            <div className="flex items-center gap-1.5">
+              <AlertTriangle className="w-3.5 h-3.5 text-orange-500" />
+              <span className="text-[10px] font-bold uppercase text-orange-600 dark:text-orange-400">Facturas devueltas — {devueltas.length}</span>
+            </div>
+            {devueltas.map(f => (
+              <div key={f.id} className="flex items-center gap-2 bg-white dark:bg-slate-900 rounded-xl px-3 py-1.5 border border-orange-100 dark:border-orange-900/30">
+                <span className="font-mono text-[9px] font-bold text-slate-700 dark:text-slate-300 flex-1 truncate">{f.numeroFactura} · {f.nombreCliente}</span>
+                <span className="font-mono text-[9px] font-bold text-orange-600 shrink-0">{(f.importe * 1.21).toFixed(0)}€</span>
+                <button onClick={() => handleRemindInvoice(f)} className="text-[8px] px-1.5 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded font-bold cursor-pointer">💬</button>
+              </div>
+            ))}
+          </div>
+        )}
+
         <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">{sorted.length} factura{sorted.length !== 1 ? 's' : ''}:</span>
 
         {sorted.map(f => (
@@ -3538,6 +3591,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded-full ${
                     f.estado === 'Pagada' ? 'bg-emerald-500/10 text-emerald-450 border border-emerald-500/20' :
                     f.estado === 'Pendiente' ? 'bg-amber-500/10 text-amber-450 border border-amber-500/20' :
+                    f.estado === 'Devuelta' ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20' :
                     'bg-red-500/10 text-red-400 border border-red-500/20'
                   }`}>
                     {f.estado}
@@ -3551,8 +3605,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </div>
             </div>
 
-            <div className={`pt-2 border-t border-slate-100 dark:border-slate-850 ${f.estado !== 'Pagada' ? 'grid grid-cols-3 gap-2' : 'flex justify-between items-center'}`}>
-              {f.estado !== 'Pagada' ? (
+            <div className={`pt-2 border-t border-slate-100 dark:border-slate-850 ${f.estado !== 'Pagada' && f.estado !== 'Devuelta' ? 'grid grid-cols-3 gap-2' : 'flex justify-between items-center'}`}>
+              {f.estado !== 'Pagada' && f.estado !== 'Devuelta' ? (
                 <>
                   <button
                     onClick={() => setPayMethodInvoiceId(f.id)}
@@ -3573,6 +3627,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <FileText className="w-3.5 h-3.5" />PDF
                   </button>
                 </>
+              ) : f.estado === 'Devuelta' ? (
+                <>
+                  <span className="text-[9.5px] font-mono text-orange-500 uppercase flex items-center gap-1">↩ Devuelta</span>
+                  <button
+                    onClick={() => handleRemindInvoice(f)}
+                    className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold p-2 rounded-xl text-[9px] uppercase cursor-pointer"
+                  >
+                    💬 WA
+                  </button>
+                </>
               ) : (
                 <>
                   <span className="text-[9.5px] font-mono text-slate-450 uppercase flex items-center gap-1">
@@ -3580,6 +3644,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     Cobrada · {f.fecha}
                   </span>
                   <div className="flex gap-1.5">
+                    <button
+                      onClick={() => handleMarkDevuelta(f.id)}
+                      className="bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 font-bold p-2 rounded-xl text-[9px] uppercase cursor-pointer"
+                    >
+                      ↩ Dev
+                    </button>
                     <button
                       onClick={() => handleRemindInvoice(f)}
                       className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold p-2 rounded-xl flex items-center gap-1 text-[9px] uppercase cursor-pointer"
@@ -3931,17 +4001,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </div>
 
               {/* Botón sugerencia precio */}
-              {showPricingSuggestion && suggestedPricingInfo && (
+              {showPricingSuggestion && empresaAjustes.valorHoraOperario < TARIFA_SUGERIDA && (
                 <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-3 text-[11px] flex justify-between items-center gap-2 text-left">
                   <div>
                     <span className="font-bold text-blue-400 block font-mono text-[8.5px] uppercase">Recomendación IA</span>
-                    <p className="text-slate-350 mt-0.5 leading-normal">Sevilla precio de mano de obra medio: 52€/h (cobrando 45€/h).</p>
+                    <p className="text-slate-350 mt-0.5 leading-normal">Tu zona: tarifa media {TARIFA_SUGERIDA}€/h. Ahora cobras {empresaAjustes.valorHoraOperario}€/h.</p>
                   </div>
-                  <button 
+                  <button
                     onClick={applySuggestedPricing}
                     className="bg-blue-600 text-white font-bold py-1.5 px-2.5 rounded-lg text-[8.5px] uppercase shrink-0"
                   >
-                    Optimizar
+                    Aplicar
                   </button>
                 </div>
               )}
@@ -4498,7 +4568,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       <div className="space-y-6">
         
         {/* Recomendador IA flotante */}
-        {showPricingSuggestion && suggestedPricingInfo && (
+        {showPricingSuggestion && (
           <motion.div 
             initial={{ scale: 0.98, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -4513,22 +4583,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <span className="text-[10px] font-mono font-bold text-blue-455 uppercase tracking-widest">TrabFlow Smart Pricing</span>
                   <span className="bg-emerald-500/15 text-emerald-450 font-bold px-1.5 py-0.5 rounded text-[8px] uppercase tracking-wider font-mono">Recomendado</span>
                 </div>
-                <span className="font-bold text-xs text-slate-800">Optimizar coste mano de obra en Sevilla</span>
+                <span className="font-bold text-xs text-slate-800">Optimizar tarifa hora en {orgData?.ciudad || 'tu zona'}</span>
                 <p className="text-[11px] text-slate-500 leading-normal max-w-lg">
-                  Has presupuestado la mano de obra a 45€/h. El promedio verificado de mercado para calderas Vaillant en Sevilla es de <strong>52€/h</strong>. ¿Deseas aplicar la tarifa recomendada?
+                  Tu tarifa actual es <strong>{empresaAjustes.valorHoraOperario}€/h</strong>. El promedio verificado de mercado en {orgData?.ciudad || 'tu zona'} es de <strong>{TARIFA_SUGERIDA}€/h</strong>. Al aplicar, se actualizará en Ajustes y en todos los presupuestos nuevos.
                 </p>
               </div>
             </div>
 
             <div className="flex gap-2 shrink-0">
-              <button 
+              <button
                 onClick={applySuggestedPricing}
                 className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] uppercase tracking-wider py-2.5 px-4 rounded-xl cursor-pointer"
               >
-                Aplicar 52€/h (+{suggestedPricingInfo.diff}€)
+                Aplicar {TARIFA_SUGERIDA}€/h (+{TARIFA_SUGERIDA - empresaAjustes.valorHoraOperario}€)
               </button>
               <button
-                onClick={() => setShowPricingSuggestion(false)}
+                onClick={dismissPricingSuggestion}
                 className="bg-slate-200 text-slate-655 hover:bg-slate-250 font-bold text-[10px] uppercase tracking-wider py-2.5 px-4 rounded-xl cursor-pointer"
               >
                 Ignorar
@@ -5623,32 +5693,60 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ── Pantalla Facturas (desktop) ───────────────────────────────────────────────
   function ScreenInvoices() {
-    const pendiente = facturas.filter(f => f.estado !== 'Pagada').reduce((s, f) => s + f.importe * 1.21, 0);
-    const cobradoMes = facturas
-      .filter(f => f.estado === 'Pagada')
-      .reduce((s, f) => s + f.importe * 1.21, 0);
+    const today = new Date();
+    const in15 = new Date(today); in15.setDate(today.getDate() + 15);
+    const in30 = new Date(today); in30.setDate(today.getDate() + 30);
+
+    const pendiente = facturas.filter(f => f.estado === 'Pendiente' || f.estado === 'Vencida').reduce((s, f) => s + f.importe * 1.21, 0);
+    const cobradoTotal = facturas.filter(f => f.estado === 'Pagada').reduce((s, f) => s + f.importe * 1.21, 0);
     const vencidas = facturas.filter(f => f.estado === 'Vencida').length;
+    const devueltas = facturas.filter(f => f.estado === 'Devuelta');
+
+    // Próximas a cobrar: pendientes con vencimiento en los próximos 15 días
+    const proximas = facturas
+      .filter(f => f.estado === 'Pendiente' && f.fechaVencimiento)
+      .filter(f => {
+        const v = new Date(f.fechaVencimiento);
+        return v >= today && v <= in15;
+      })
+      .sort((a, b) => a.fechaVencimiento.localeCompare(b.fechaVencimiento));
+
+    // Próximas renovaciones anuales: dentro de 30 días
+    const renovaciones = facturas
+      .filter(f => f.estado === 'Pendiente' && f.fechaVencimiento)
+      .filter(f => {
+        const v = new Date(f.fechaVencimiento);
+        return v > in15 && v <= in30;
+      })
+      .sort((a, b) => a.fechaVencimiento.localeCompare(b.fechaVencimiento));
 
     const filtered = filterEstado === 'todas' ? facturas : facturas.filter(f => f.estado === filterEstado);
     const sorted = [...filtered].sort((a, b) => {
-      const order: Record<string, number> = { Vencida: 0, Pendiente: 1, Pagada: 2 };
+      const order: Record<string, number> = { Vencida: 0, Pendiente: 1, Devuelta: 2, Pagada: 3 };
       return (order[a.estado] ?? 1) - (order[b.estado] ?? 1);
     });
 
     const estadoBadge = (estado: string) => {
       if (estado === 'Pagada') return 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/20';
       if (estado === 'Vencida') return 'bg-red-500/10 text-red-500 border border-red-500/20';
+      if (estado === 'Devuelta') return 'bg-orange-500/10 text-orange-600 border border-orange-500/20';
       return 'bg-amber-500/10 text-amber-600 border border-amber-500/20';
+    };
+
+    const diasHasta = (dateStr: string) => {
+      const diff = Math.ceil((new Date(dateStr).getTime() - today.getTime()) / 86400000);
+      return diff;
     };
 
     return (
       <div className="space-y-5">
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-4 gap-4">
           {[
             { label: 'Pendiente de cobro', value: `${pendiente.toFixed(0)}€`, color: 'text-amber-600' },
-            { label: 'Total cobrado', value: `${cobradoMes.toFixed(0)}€`, color: 'text-emerald-600' },
+            { label: 'Total cobrado', value: `${cobradoTotal.toFixed(0)}€`, color: 'text-emerald-600' },
             { label: 'Vencidas', value: String(vencidas), color: vencidas > 0 ? 'text-red-500' : 'text-slate-400' },
+            { label: 'Devueltas', value: String(devueltas.length), color: devueltas.length > 0 ? 'text-orange-500' : 'text-slate-400' },
           ].map(s => (
             <div key={s.label} className="bg-white border border-slate-200 rounded-xl p-4">
               <span className="text-[9px] font-bold uppercase text-slate-400 block mb-1">{s.label}</span>
@@ -5657,9 +5755,96 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           ))}
         </div>
 
+        {/* Próximas a cobrar — 15 días */}
+        {proximas.length > 0 && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <Clock className="w-4 h-4 text-amber-600" />
+              <span className="text-[11px] font-bold uppercase tracking-wider text-amber-700">
+                Próximas a cobrar — {proximas.length} factura{proximas.length !== 1 ? 's' : ''} en 15 días
+              </span>
+              <span className="ml-auto text-xs font-bold font-mono text-amber-700">
+                {proximas.reduce((s, f) => s + f.importe * 1.21, 0).toFixed(0)}€
+              </span>
+            </div>
+            <div className="space-y-2">
+              {proximas.map(f => (
+                <div key={f.id} className="flex items-center gap-3 bg-white border border-amber-100 rounded-lg px-3 py-2">
+                  <div className="flex-1 min-w-0">
+                    <span className="font-mono text-[10px] font-bold text-slate-700">{f.numeroFactura}</span>
+                    <span className="text-[10px] text-slate-500 ml-2 truncate">{f.nombreCliente}</span>
+                  </div>
+                  <span className="text-[10px] text-amber-700 font-semibold shrink-0">
+                    Vence en {diasHasta(f.fechaVencimiento)} días
+                  </span>
+                  <span className="text-[11px] font-bold font-mono text-slate-800 shrink-0">
+                    {(f.importe * 1.21).toFixed(0)}€
+                  </span>
+                  <button
+                    onClick={() => handleRemindInvoice(f)}
+                    className="text-[9px] px-2 py-1 bg-green-100 text-green-700 rounded font-bold cursor-pointer hover:bg-green-200 transition-colors shrink-0"
+                  >
+                    💬 WA
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Alertas renovación 30 días */}
+        {renovaciones.length > 0 && (
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Calendar className="w-4 h-4 text-blue-600" />
+              <span className="text-[11px] font-bold uppercase tracking-wider text-blue-700">
+                Próximas renovaciones — {renovaciones.length} factura{renovaciones.length !== 1 ? 's' : ''} en 30 días
+              </span>
+            </div>
+            <div className="space-y-1.5">
+              {renovaciones.map(f => (
+                <div key={f.id} className="flex items-center gap-3 bg-white border border-blue-100 rounded-lg px-3 py-1.5">
+                  <span className="font-mono text-[10px] font-bold text-slate-700 flex-1">{f.numeroFactura} — {f.nombreCliente}</span>
+                  <span className="text-[10px] text-blue-700 font-semibold shrink-0">en {diasHasta(f.fechaVencimiento)} días</span>
+                  <span className="text-[11px] font-bold font-mono text-slate-800 shrink-0">{(f.importe * 1.21).toFixed(0)}€</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Devueltas */}
+        {devueltas.length > 0 && (
+          <div className="bg-orange-50 border border-orange-200 rounded-xl p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <AlertTriangle className="w-4 h-4 text-orange-600" />
+              <span className="text-[11px] font-bold uppercase tracking-wider text-orange-700">
+                Facturas devueltas — {devueltas.length}
+              </span>
+            </div>
+            <div className="space-y-2">
+              {devueltas.map(f => (
+                <div key={f.id} className="flex items-center gap-3 bg-white border border-orange-100 rounded-lg px-3 py-2">
+                  <div className="flex-1 min-w-0">
+                    <span className="font-mono text-[10px] font-bold text-slate-700">{f.numeroFactura}</span>
+                    <span className="text-[10px] text-slate-500 ml-2">{f.nombreCliente}</span>
+                  </div>
+                  <span className="text-[11px] font-bold font-mono text-orange-700">{(f.importe * 1.21).toFixed(0)}€</span>
+                  <button
+                    onClick={() => handleRemindInvoice(f)}
+                    className="text-[9px] px-2 py-1 bg-green-100 text-green-700 rounded font-bold cursor-pointer hover:bg-green-200 transition-colors"
+                  >
+                    💬 WA
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Filtros */}
-        <div className="flex gap-2">
-          {(['todas', 'Pendiente', 'Pagada', 'Vencida'] as const).map(f => (
+        <div className="flex gap-2 flex-wrap">
+          {(['todas', 'Pendiente', 'Pagada', 'Vencida', 'Devuelta'] as const).map(f => (
             <button
               key={f}
               onClick={() => setFilterEstado(f)}
@@ -5704,7 +5889,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   </div>
                 </div>
                 {/* Acciones */}
-                <div className="flex gap-2 mt-3 pt-3 border-t border-slate-100">
+                <div className="flex gap-2 mt-3 pt-3 border-t border-slate-100 flex-wrap">
                   <button
                     onClick={() => printInvoice(f)}
                     className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 text-slate-700 text-[9px] font-bold uppercase tracking-wider hover:bg-slate-200 cursor-pointer transition-colors"
@@ -5718,12 +5903,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   >
                     💬 WhatsApp
                   </button>
-                  {f.estado !== 'Pagada' && (
+                  {f.estado !== 'Pagada' && f.estado !== 'Devuelta' && (
                     <button
                       onClick={() => handlePayInvoice(f.id)}
                       className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-bold uppercase tracking-wider cursor-pointer transition-colors ml-auto"
                     >
                       💰 Registrar Pago
+                    </button>
+                  )}
+                  {f.estado === 'Pagada' && (
+                    <button
+                      onClick={() => handleMarkDevuelta(f.id)}
+                      className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-orange-100 hover:bg-orange-200 text-orange-700 text-[9px] font-bold uppercase tracking-wider cursor-pointer transition-colors ml-auto"
+                    >
+                      ↩ Devuelta
                     </button>
                   )}
                 </div>
@@ -5947,33 +6140,89 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         </div>
 
-        {/* Filtro por familia/sector */}
+        {/* Filtro por familia/sector — dropdown multiselect */}
         {hasTarifas && allFamilies.length > 1 && (
-          <div className="space-y-2">
-            <div className="text-[9px] font-bold uppercase tracking-widest text-slate-400 font-mono">
-              Filtrar por sector / familia — selecciona los que quieres ver:
-            </div>
-            <div className="flex flex-wrap gap-1.5">
-              <button
-                onClick={() => setCatalogFamilyFilter(new Set())}
-                className={`px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase border cursor-pointer transition-all ${catalogFamilyFilter.size === 0 ? 'bg-blue-600 text-white border-blue-600' : 'bg-transparent text-slate-400 border-slate-200 hover:border-blue-400'}`}
-              >
-                Todos ({activeTarifas.length})
-              </button>
-              {allFamilies.map(f => {
-                const count = activeTarifas.filter(t => t.familia === f).length;
-                const active = catalogFamilyFilter.has(f);
-                return (
-                  <button
-                    key={f}
-                    onClick={() => toggleFamily(f)}
-                    className={`px-2.5 py-1 rounded-lg text-[10px] font-bold border cursor-pointer transition-all ${active ? 'bg-blue-600 text-white border-blue-600' : 'bg-transparent text-slate-500 border-slate-200 hover:border-blue-400 hover:text-blue-500'}`}
-                  >
-                    {f} <span className="opacity-60">({count})</span>
-                  </button>
-                );
-              })}
-            </div>
+          <div className="relative">
+            <button
+              onClick={() => { setShowCatalogFamilyDropdown(p => !p); setCatalogFamilySearch(''); }}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-[11px] font-semibold text-slate-600 dark:text-slate-300 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-all w-full sm:w-auto"
+            >
+              <Filter className="h-3.5 w-3.5 text-slate-400" />
+              <span>
+                {catalogFamilyFilter.size === 0
+                  ? `Todos los sectores (${allFamilies.length})`
+                  : catalogFamilyFilter.size === 1
+                    ? `${[...catalogFamilyFilter][0]}`
+                    : `${catalogFamilyFilter.size} sectores seleccionados`}
+              </span>
+              {catalogFamilyFilter.size > 0 && (
+                <span className="bg-blue-600 text-white rounded-full w-4 h-4 flex items-center justify-center text-[9px] font-bold">
+                  {catalogFamilyFilter.size}
+                </span>
+              )}
+              <ChevronDown className={`h-3 w-3 ml-auto text-slate-400 transition-transform ${showCatalogFamilyDropdown ? 'rotate-180' : ''}`} />
+            </button>
+
+            {showCatalogFamilyDropdown && (
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setShowCatalogFamilyDropdown(false)} />
+                <div className="absolute top-full left-0 mt-1 z-50 w-72 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-xl overflow-hidden">
+                  {/* Search */}
+                  <div className="p-2 border-b border-slate-100 dark:border-slate-700">
+                    <input
+                      type="text"
+                      placeholder="Buscar sector..."
+                      value={catalogFamilySearch}
+                      onChange={e => setCatalogFamilySearch(e.target.value)}
+                      className="w-full px-2.5 py-1.5 text-[11px] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg outline-none focus:border-blue-400 text-slate-700 dark:text-slate-200"
+                    />
+                  </div>
+                  {/* Todos */}
+                  <div className="max-h-64 overflow-y-auto">
+                    <button
+                      onClick={() => setCatalogFamilyFilter(new Set())}
+                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-left text-[11px] hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer border-b border-slate-100 dark:border-slate-700 ${catalogFamilyFilter.size === 0 ? 'text-blue-600 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-900/20' : 'text-slate-600 dark:text-slate-300'}`}
+                    >
+                      <div className={`w-3.5 h-3.5 rounded border flex items-center justify-center flex-shrink-0 ${catalogFamilyFilter.size === 0 ? 'bg-blue-600 border-blue-600' : 'border-slate-300 dark:border-slate-500'}`}>
+                        {catalogFamilyFilter.size === 0 && <Check className="h-2.5 w-2.5 text-white" />}
+                      </div>
+                      <span className="flex-1">Todos los sectores</span>
+                      <span className="text-slate-400 text-[10px]">{activeTarifas.length}</span>
+                    </button>
+                    {allFamilies
+                      .filter(f => !catalogFamilySearch || f.toLowerCase().includes(catalogFamilySearch.toLowerCase()))
+                      .map(f => {
+                        const count = activeTarifas.filter(t => t.familia === f).length;
+                        const active = catalogFamilyFilter.has(f);
+                        return (
+                          <button
+                            key={f}
+                            onClick={() => toggleFamily(f)}
+                            className={`w-full flex items-center gap-2.5 px-3 py-2 text-left text-[11px] hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer ${active ? 'text-blue-600 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-900/20' : 'text-slate-600 dark:text-slate-300'}`}
+                          >
+                            <div className={`w-3.5 h-3.5 rounded border flex items-center justify-center flex-shrink-0 ${active ? 'bg-blue-600 border-blue-600' : 'border-slate-300 dark:border-slate-500'}`}>
+                              {active && <Check className="h-2.5 w-2.5 text-white" />}
+                            </div>
+                            <span className="flex-1 truncate">{f}</span>
+                            <span className="text-slate-400 text-[10px] flex-shrink-0">{count}</span>
+                          </button>
+                        );
+                      })}
+                  </div>
+                  {/* Footer */}
+                  {catalogFamilyFilter.size > 0 && (
+                    <div className="p-2 border-t border-slate-100 dark:border-slate-700">
+                      <button
+                        onClick={() => { setCatalogFamilyFilter(new Set()); setShowCatalogFamilyDropdown(false); }}
+                        className="w-full text-[10px] text-slate-400 hover:text-red-500 cursor-pointer transition-colors py-1"
+                      >
+                        Limpiar filtros
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
           </div>
         )}
 

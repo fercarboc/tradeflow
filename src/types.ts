@@ -99,7 +99,7 @@ idPresupuesto: string;
 importe: number;
 fecha: string;
 fechaVencimiento: string;
-estado: 'Pagada' | 'Pendiente' | 'Vencida';
+estado: 'Pagada' | 'Pendiente' | 'Vencida' | 'Devuelta';
 }
 
 export interface Cliente {

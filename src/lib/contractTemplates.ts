@@ -30,6 +30,7 @@ export interface ContractVars {
   iva_pct: string;
   cuota_mensual_con_iva: string;
   cuota_anual: string;
+  periodo_facturacion: 'mensual' | 'trimestral' | 'anual';
   forma_pago: string;
   iban: string;
   dia_vencimiento: string;
@@ -60,6 +61,7 @@ export const defaultContractVars: ContractVars = {
   referencia: '', ciudad_firma: '',
   fecha_inicio: '', fecha_fin: '', duracion_meses: '12',
   cuota_mensual: '', iva_pct: '21', cuota_mensual_con_iva: '', cuota_anual: '',
+  periodo_facturacion: 'mensual',
   forma_pago: 'Domiciliación bancaria (SEPA)', iban: '', dia_vencimiento: '5',
   horario_guardia: 'Lunes a viernes de 08:00 a 18:00 h',
   servicio_urgencias: '24 horas / 7 días',
