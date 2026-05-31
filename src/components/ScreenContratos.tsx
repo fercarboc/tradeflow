@@ -126,6 +126,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
     iva_pct: String(orgData.iva_default ?? 21),
     ciudad_firma: (orgData as any).localidad ?? (orgData as any).ciudad ?? '',
     ciudad_jurisdiccion: (orgData as any).localidad ?? '',
+    iban: orgData.iban ?? base.iban ?? '',
   });
 
   const prefillFromMant = (base: ContractVars, mantId: string): ContractVars => {

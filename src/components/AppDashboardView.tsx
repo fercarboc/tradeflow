@@ -323,16 +323,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         isPushSubscribed().then(setPushEnabled).catch(() => {});
         setEmpresaAjustes(prev => ({
           ...prev,
-          nombre:       org.nombre,
-          nif:          (org as any).nif ?? prev.nif,
-          email:        org.email ?? prev.email,
-          telefonoFijo: (org as any).telefono_fijo ?? prev.telefonoFijo,
-          telefonoMovil:(org as any).telefono_movil ?? org.telefono ?? prev.telefonoMovil,
-          direccion:    org.direccion ?? prev.direccion,
-          localidad:    (org as any).localidad ?? prev.localidad,
-          cp:           (org as any).cp ?? prev.cp,
-          provincia:    (org as any).provincia ?? prev.provincia,
-          pais:         (org as any).pais ?? prev.pais,
+          nombre:        org.nombre,
+          nif:           (org as any).nif ?? prev.nif,
+          email:         org.email ?? prev.email,
+          telefonoFijo:  (org as any).telefono_fijo ?? prev.telefonoFijo,
+          telefonoMovil: (org as any).telefono_movil ?? org.telefono ?? prev.telefonoMovil,
+          direccion:     org.direccion ?? prev.direccion,
+          localidad:     (org as any).localidad ?? prev.localidad,
+          cp:            (org as any).cp ?? prev.cp,
+          provincia:     (org as any).provincia ?? prev.provincia,
+          pais:          (org as any).pais ?? prev.pais,
+          iban:          org.iban ?? prev.iban,
+          banco:         org.banco ?? prev.banco,
+          titularCuenta: org.titular_cuenta ?? prev.titularCuenta,
         }));
         const [workersRes, tarifasRes, catalogRes, jobsRes] = await Promise.all([
           loadWorkers(org.id),
@@ -661,6 +664,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       valorHoraOperario: saved.valorHoraOperario ?? 45,
       margenMateriales: saved.margenMateriales ?? 0,
       descuentoCliente: saved.descuentoCliente ?? 0,
+      iban: '',
+      banco: '',
+      titularCuenta: '',
     };
   });
 
@@ -6479,9 +6485,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         provincia: empresaAjustes.provincia,
         pais: empresaAjustes.pais,
         iva_default: empresaAjustes.ivaDefault,
+        iban: empresaAjustes.iban || null,
+        banco: empresaAjustes.banco || null,
+        titular_cuenta: empresaAjustes.titularCuenta || null,
       }).eq('id', orgId);
       if (error) showToast('Error al guardar: ' + error.message, 'error');
-      else showToast('Datos fiscales guardados ✓', 'success');
+      else showToast('Datos fiscales y bancarios guardados ✓', 'success');
     };
 
     const handleAddWorker = async () => {
@@ -6648,8 +6657,50 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
           <button onClick={handleSaveFiscal}
             className="mt-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-lg transition-colors cursor-pointer">
-            Guardar datos fiscales
+            Guardar datos fiscales y bancarios
           </button>
+        </div>
+
+        {/* ── 1b. Datos bancarios ── */}
+        <div className={sec}>
+          <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
+            <div className="w-9 h-9 bg-blue-100 rounded-xl flex items-center justify-center shrink-0">
+              <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2 8.5A2.5 2.5 0 014.5 6h15A2.5 2.5 0 0122 8.5v1H2v-1zM2 11h20v7a2 2 0 01-2 2H4a2 2 0 01-2-2v-7z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 15h3M6 18h2" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="font-black uppercase text-xs text-slate-700 tracking-wide">Datos de cobro</h3>
+              <p className="text-[9px] text-slate-400 mt-0.5">Cuenta bancaria que aparecerá automáticamente en contratos de mantenimiento</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="sm:col-span-3">
+              <span className={lbl}>IBAN (para domiciliación bancaria)</span>
+              <input
+                type="text"
+                className={inp}
+                placeholder="ES00 0000 0000 00 0000000000"
+                value={empresaAjustes.iban}
+                onChange={e => setEmpresaAjustes(p => ({ ...p, iban: e.target.value.toUpperCase() }))}
+                maxLength={34}
+              />
+            </div>
+            <div>
+              <span className={lbl}>Entidad bancaria</span>
+              <input type="text" className={inp} placeholder="Ej. CaixaBank" value={empresaAjustes.banco}
+                onChange={e => setEmpresaAjustes(p => ({ ...p, banco: e.target.value }))} />
+            </div>
+            <div className="sm:col-span-2">
+              <span className={lbl}>Titular de la cuenta</span>
+              <input type="text" className={inp} placeholder="Nombre del titular (si difiere del nombre fiscal)" value={empresaAjustes.titularCuenta}
+                onChange={e => setEmpresaAjustes(p => ({ ...p, titularCuenta: e.target.value }))} />
+            </div>
+          </div>
+          <p className="text-[9px] text-slate-400">
+            💡 Estos datos se usan al generar contratos de mantenimiento. Se guardan con el botón de arriba.
+          </p>
         </div>
 
         {/* ── 2. Precios & Márgenes ── */}

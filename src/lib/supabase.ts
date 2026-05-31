@@ -32,6 +32,9 @@ export interface TradeOrganization {
   is_onboarded: boolean;
   referral_code?: string;
   referred_by_code?: string;
+  iban?: string;
+  banco?: string;
+  titular_cuenta?: string;
   created_at: string;
   updated_at: string;
 }
@@ -548,8 +551,6 @@ export async function createInvoiceFromJob(
   const today = new Date().toISOString().split('T')[0];
   const due = new Date(); due.setDate(due.getDate() + 30);
   const subtotal = materiales.reduce((s, m) => s + m.precioBase * m.cantidad, 0);
-  const iva_importe = Math.round(subtotal * ivaPct * 100) / 10000;
-  const total = subtotal + iva_importe;
 
   const { data: inv, error } = await supabase
     .from('trade_invoices')
@@ -563,8 +564,6 @@ export async function createInvoiceFromJob(
       estado: 'Pendiente',
       subtotal,
       iva_pct: ivaPct,
-      iva_importe,
-      total,
       concepto: concepto ?? null,
       es_suplementaria: esSuplementaria,
     })
@@ -856,11 +855,9 @@ export async function createMaintenanceInvoices(
       numero,
       fecha: i === 0 ? hoy.toISOString().split('T')[0] : fechaVenc.toISOString().split('T')[0],
       fecha_vencimiento: fechaVenc.toISOString().split('T')[0],
-      estado: i === 0 ? 'Pendiente' : 'Pendiente',
+      estado: 'Pendiente',
       subtotal: subtotalFactura,
       iva_pct: ivaPct,
-      iva_importe: ivaImporte,
-      total: totalFactura,
       concepto: `Mantenimiento ${referencia} — ${nombreCliente} — ${periodo}`,
     }).select().single();
     if (error) throw error;
@@ -891,6 +888,7 @@ export async function saveFiscalData(
     telefono_fijo?: string; telefono_movil?: string;
     direccion?: string; localidad?: string; cp?: string;
     provincia?: string; pais?: string; iva_default?: number;
+    iban?: string; banco?: string; titular_cuenta?: string;
   },
 ): Promise<void> {
   const { error } = await supabase

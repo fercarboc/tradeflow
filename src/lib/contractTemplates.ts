@@ -256,9 +256,9 @@ export function buildContractHTML(v: ContractVars, oficio: string): string {
 
   const cuotaMes = v.cuota_mensual ? parseFloat(v.cuota_mensual.replace(',', '.')) : 0;
   const ivaPct = v.iva_pct ? parseFloat(v.iva_pct) : 21;
-  const cuotaConIva = v.cuota_mensual_con_iva || (cuotaMes * (1 + ivaPct / 100)).toFixed(2).replace('.', ',');
-  const cuotaAnual = v.cuota_anual || (cuotaMes * 12).toFixed(2).replace('.', ',');
-  const cuotaAnualConIva = (parseFloat(cuotaConIva.replace(',', '.')) * 12).toFixed(2).replace('.', ',');
+  const cuotaConIva = (cuotaMes * (1 + ivaPct / 100)).toFixed(2).replace('.', ',');
+  const cuotaAnualSinIva = (cuotaMes * 12).toFixed(2).replace('.', ',');
+  const cuotaAnualConIva = (cuotaMes * 12 * (1 + ivaPct / 100)).toFixed(2).replace('.', ',');
 
   return `<!DOCTYPE html>
 <html lang="es">
@@ -484,7 +484,7 @@ export function buildContractHTML(v: ContractVars, oficio: string): string {
     <tr><td>Cuota mensual sin IVA</td><td>${esc(v.cuota_mensual || '[ XXX,XX ]')} EUR</td></tr>
     <tr><td>IVA (${esc(v.iva_pct)}%)</td><td>${esc(((cuotaMes * ivaPct) / 100).toFixed(2).replace('.', ','))} EUR</td></tr>
     <tr class="total-row"><td>Cuota mensual TOTAL con IVA</td><td>${esc(cuotaConIva)} EUR</td></tr>
-    <tr><td>Cuota anual sin IVA</td><td>${esc(cuotaAnual)} EUR</td></tr>
+    <tr><td>Cuota anual sin IVA</td><td>${esc(cuotaAnualSinIva)} EUR</td></tr>
     <tr><td>Cuota anual con IVA</td><td>${esc(cuotaAnualConIva)} EUR</td></tr>
     <tr><td>Forma de pago</td><td>${esc(v.forma_pago)}</td></tr>
     <tr><td>IBAN para domiciliación</td><td>${esc(v.iban || '[ ES00 0000 0000 00 0000000000 ]')}</td></tr>
