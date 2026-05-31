@@ -4,6 +4,7 @@ import {
   Eye, Download, ArrowLeft, ChevronDown, ChevronUp,
   Building2, User, CalendarDays, DollarSign, Wrench, Shield,
 } from 'lucide-react';
+import { downloadAsWord } from '../lib/exportWord';
 import type { TradeOrganization, TradeContract, MaintenancePresupuesto } from '../lib/supabase';
 import {
   loadContracts, createContract, updateContract, signContract, deleteContract,
@@ -491,12 +492,21 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
             <ArrowLeft className="w-4 h-4" /> Volver al editor
           </button>
           <span className="flex-1 font-bold text-sm text-slate-800 truncate">{vars.referencia}</span>
-          <button
-            onClick={handlePrint}
-            className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-700 text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg cursor-pointer transition-colors"
-          >
-            <Download className="w-3.5 h-3.5" /> Imprimir / PDF
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => downloadAsWord(html, vars.referencia || 'contrato')}
+              className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-lg cursor-pointer transition-colors"
+              title="Descargar como Word editable"
+            >
+              <FileText className="w-3.5 h-3.5" /> Word / DOC
+            </button>
+            <button
+              onClick={handlePrint}
+              className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-700 text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg cursor-pointer transition-colors"
+            >
+              <Download className="w-3.5 h-3.5" /> Imprimir / PDF
+            </button>
+          </div>
         </div>
         <iframe
           ref={previewRef}
@@ -551,12 +561,24 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
               </>
             )}
             {isSigned && (
-              <button
-                onClick={handlePrint}
-                className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-700 text-white text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-lg cursor-pointer transition-colors"
-              >
-                <Download className="w-3.5 h-3.5" /> Imprimir / PDF
-              </button>
+              <>
+                <button
+                  onClick={() => downloadAsWord(
+                    contracts.find(c => c.id === editingId)?.contenido_html ?? getPreviewHTML(),
+                    vars.referencia || 'contrato'
+                  )}
+                  className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-lg cursor-pointer transition-colors"
+                  title="Descargar como Word editable"
+                >
+                  <FileText className="w-3.5 h-3.5" /> Word
+                </button>
+                <button
+                  onClick={handlePrint}
+                  className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-700 text-white text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-lg cursor-pointer transition-colors"
+                >
+                  <Download className="w-3.5 h-3.5" /> PDF
+                </button>
+              </>
             )}
           </div>
         </div>

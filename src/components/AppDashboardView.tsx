@@ -64,6 +64,7 @@ import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWo
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription, TemplateType } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { usePermissions } from '../hooks/usePermissions';
+import { downloadAsWord } from '../lib/exportWord';
 import CatalogImportModal from './CatalogImportModal';
 import GlobalCatalogModal from './GlobalCatalogModal';
 import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } from '../lib/catalogExcel';
@@ -273,6 +274,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [loginLoading, setLoginLoading] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(loginOnMount && !session);
   const [isLiveMode, setIsLiveMode] = useState(false);
+
+  // Biometric login state
+  const [bioAvailable, setBioAvailable] = useState(false);
+  const [bioLoading, setBioLoading] = useState(false);
+  const [bioSavedEmail, setBioSavedEmail] = useState<string | null>(null);
   const loadedUserRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -367,13 +373,63 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     }
   };
 
+  // Biometric helpers
+  const supportsCredentials = () =>
+    typeof window !== 'undefined' &&
+    'credentials' in navigator &&
+    typeof (window as any).PasswordCredential !== 'undefined';
+
+  const storeLoginCredential = async (emailVal: string, passwordVal: string) => {
+    if (!supportsCredentials()) return;
+    try {
+      const cred = new (window as any).PasswordCredential({ id: emailVal, password: passwordVal, name: emailVal });
+      await navigator.credentials.store(cred);
+    } catch {}
+  };
+
+  const handleBiometricLogin = async () => {
+    if (!supportsCredentials()) return;
+    setBioLoading(true);
+    setLoginError('');
+    try {
+      const cred = await (navigator.credentials as any).get({ password: true, mediation: 'required' });
+      if (cred?.id && cred?.password) {
+        const { error } = await supabase.auth.signInWithPassword({ email: cred.id, password: cred.password });
+        if (error) setLoginError('Error al autenticar. Inicia sesión manualmente.');
+      } else {
+        setLoginError('No hay credenciales guardadas. Inicia sesión con email primero.');
+      }
+    } catch (e: any) {
+      if (!e?.message?.includes('cancel')) setLoginError('Autenticación cancelada o no disponible.');
+    }
+    setBioLoading(false);
+  };
+
+  // Try silent credential retrieval on mount to pre-fill email and show bio button
+  useEffect(() => {
+    if (!supportsCredentials()) return;
+    (navigator.credentials as any)
+      .get({ password: true, mediation: 'silent' })
+      .then((cred: any) => {
+        if (cred?.id) {
+          setBioSavedEmail(cred.id);
+          setBioAvailable(true);
+          setLoginEmail(cred.id);
+        } else {
+          setBioAvailable(true);
+        }
+      })
+      .catch(() => { setBioAvailable(true); });
+  }, []);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginLoading(true);
     setLoginError('');
     const { error } = await supabase.auth.signInWithPassword({ email: loginEmail, password: loginPassword });
     setLoginLoading(false);
-    if (error) setLoginError(error.message);
+    if (error) { setLoginError(error.message); return; }
+    await storeLoginCredential(loginEmail.trim(), loginPassword);
   };
 
   const handleLogout = async () => {
@@ -1868,6 +1924,36 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </button>
               </div>
 
+              {bioAvailable && (
+                <>
+                  <button
+                    type="button"
+                    onClick={handleBiometricLogin}
+                    disabled={bioLoading}
+                    className="w-full mb-4 py-3 px-4 bg-slate-950 border border-emerald-500/30 hover:border-emerald-500/60 rounded-xl text-white font-bold flex items-center justify-center gap-3 transition-all disabled:opacity-50 cursor-pointer"
+                  >
+                    {bioLoading ? (
+                      <div className="w-4 h-4 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                      <svg className="h-5 w-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 1C7.37 1 3.6 4.07 3.6 7.8c0 1.49.56 2.87 1.5 3.95M12 1c4.63 0 8.4 3.07 8.4 6.8 0 1.49-.56 2.87-1.5 3.95M8.1 19.5c-.33-1.18-.5-2.43-.5-3.7 0-2.43 1.97-4.4 4.4-4.4s4.4 1.97 4.4 4.4c0 1.79-.57 3.46-1.54 4.82M5.5 12.5C4.56 11.32 4 9.83 4 8.2 4 4.22 7.58 1 12 1s8 3.22 8 7.2c0 1.63-.56 3.12-1.5 4.3M7 16.8c0-2.65 2.24-4.8 5-4.8s5 2.15 5 4.8c0 2.13-.97 4.03-2.5 5.2" />
+                      </svg>
+                    )}
+                    <div className="text-left">
+                      <span className="block text-xs font-bold text-white">
+                        {bioSavedEmail ? `Entrar como ${bioSavedEmail}` : 'Huella / Face ID'}
+                      </span>
+                      <span className="block text-[10px] text-slate-400 font-normal">Acceso biométrico</span>
+                    </div>
+                  </button>
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="flex-1 h-px bg-white/10" />
+                    <span className="text-[9px] text-slate-500 uppercase tracking-widest">o usa email</span>
+                    <div className="flex-1 h-px bg-white/10" />
+                  </div>
+                </>
+              )}
+
               <form onSubmit={handleLogin} className="space-y-3">
                 <div className="space-y-1">
                   <label className="text-[9px] font-bold text-slate-400 uppercase tracking-wider font-mono">Email</label>
@@ -2357,16 +2443,34 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <span className="text-white font-black text-xl">TF</span>
           </div>
           <div className="text-center space-y-2">
-            <h2 className="text-xl font-bold text-white">Sesion cerrada</h2>
-            <p className="text-sm text-slate-400">Inicia sesion para continuar usando TradeFlow AI</p>
+            <h2 className="text-xl font-bold text-white">Sesión cerrada</h2>
+            <p className="text-sm text-slate-400">Inicia sesión para continuar usando TradeFlow AI</p>
           </div>
-          <button
-            onClick={() => { setIsSessionClosed(false); setShowLoginModal(true); }}
-            className="w-full max-w-xs bg-blue-600 text-white font-bold py-4 rounded-2xl text-sm cursor-pointer active:opacity-80 transition-opacity"
-            style={{ boxShadow: '0 0 30px rgba(37,99,235,0.4)' }}
-          >
-            Iniciar sesion
-          </button>
+          <div className="w-full max-w-xs space-y-3">
+            {bioAvailable && (
+              <button
+                onClick={handleBiometricLogin}
+                disabled={bioLoading}
+                className="w-full py-4 bg-slate-900 border border-emerald-500/40 rounded-2xl text-white font-bold flex items-center justify-center gap-3 cursor-pointer active:opacity-70 transition-opacity disabled:opacity-50"
+              >
+                {bioLoading ? (
+                  <div className="w-5 h-5 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <svg className="h-6 w-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 1C7.37 1 3.6 4.07 3.6 7.8c0 1.49.56 2.87 1.5 3.95M12 1c4.63 0 8.4 3.07 8.4 6.8 0 1.49-.56 2.87-1.5 3.95M8.1 19.5c-.33-1.18-.5-2.43-.5-3.7 0-2.43 1.97-4.4 4.4-4.4s4.4 1.97 4.4 4.4c0 1.79-.57 3.46-1.54 4.82M5.5 12.5C4.56 11.32 4 9.83 4 8.2 4 4.22 7.58 1 12 1s8 3.22 8 7.2c0 1.63-.56 3.12-1.5 4.3M7 16.8c0-2.65 2.24-4.8 5-4.8s5 2.15 5 4.8c0 2.13-.97 4.03-2.5 5.2" />
+                  </svg>
+                )}
+                <span>{bioSavedEmail ? `Entrar como ${bioSavedEmail}` : 'Huella / Face ID'}</span>
+              </button>
+            )}
+            <button
+              onClick={() => { setIsSessionClosed(false); setShowLoginModal(true); }}
+              className="w-full bg-blue-600 text-white font-bold py-4 rounded-2xl text-sm cursor-pointer active:opacity-80 transition-opacity"
+              style={{ boxShadow: '0 0 30px rgba(37,99,235,0.4)' }}
+            >
+              Iniciar sesión con email
+            </button>
+          </div>
         </div>
       );
     }
@@ -2644,6 +2748,29 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <span>✍️ Crear manualmente</span>
                   </button>
                 </div>
+
+                {/* Mantenimientos y Contratos — plan empresa o empresa_plus */}
+                {(['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && (
+                  <>
+                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest font-mono block text-center pt-1">Mantenimientos</span>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        onClick={() => { setMobileTab('mantenimiento'); setShowFloatingMenu(false); }}
+                        className="bg-amber-500/10 border border-amber-500/20 text-amber-400 font-bold p-3 rounded-2xl flex items-center justify-center gap-2 text-xs cursor-pointer active:opacity-70"
+                      >
+                        <Wrench className="w-4 h-4" />
+                        <span>Mantenimientos</span>
+                      </button>
+                      <button
+                        onClick={() => { setMobileTab('contratos'); setShowFloatingMenu(false); }}
+                        className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold p-3 rounded-2xl flex items-center justify-center gap-2 text-xs cursor-pointer active:opacity-70"
+                      >
+                        <FileText className="w-4 h-4" />
+                        <span>Contratos</span>
+                      </button>
+                    </div>
+                  </>
+                )}
               </motion.div>
             </React.Fragment>
           )}
@@ -5316,6 +5443,29 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <FileText className="w-3.5 h-3.5" />
               PDF
             </button>
+            <button
+              onClick={() => {
+                const html = buildDocumentHTML({
+                  tipo: 'presupuesto',
+                  numero: selectedQuoteForPreview.id,
+                  fecha: selectedQuoteForPreview.fecha,
+                  clienteNombre: selectedQuoteForPreview.nombreCliente,
+                  clienteDireccion: clientes.find(c => c.nombre === selectedQuoteForPreview.nombreCliente)?.direccion,
+                  empresa: empresaAjustes,
+                  logoUrl: orgData?.logo_url ?? undefined,
+                  partidas: selectedQuoteForPreview.partidas,
+                  total: selectedQuoteForPreview.total,
+                  iva: empresaAjustes.ivaDefault || 21,
+                  estado: selectedQuoteForPreview.estado,
+                });
+                downloadAsWord(html, selectedQuoteForPreview.id);
+              }}
+              className="flex items-center gap-1.5 bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer"
+              title="Descargar como Word editable"
+            >
+              <FileText className="w-3.5 h-3.5" />
+              Word
+            </button>
             {selectedQuoteForPreview.estado !== 'Facturado' && (
               <button onClick={() => convertQuoteToInvoice(selectedQuoteForPreview)} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer flex items-center gap-1.5">
                 <FileText className="w-3.5 h-3.5" />
@@ -5939,6 +6089,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   >
                     <FileText className="w-3.5 h-3.5" />
                     PDF
+                  </button>
+                  <button
+                    onClick={() => {
+                      const cliente = clientes.find(c => c.nombre === f.nombreCliente);
+                      const quotePartidas = presupuestos.find(p => p.id === f.idPresupuesto)?.partidas ?? [];
+                      const partidas = quotePartidas.length > 0 ? quotePartidas : f.concepto ? [{ descripcion: f.concepto, tipo: 'mano_de_obra' as const, cantidad: 1, precioUnitario: f.importe, total: f.importe }] : [];
+                      const html = buildDocumentHTML({ tipo: 'factura', numero: f.numeroFactura, fecha: f.fecha, fechaVencimiento: f.fechaVencimiento, clienteNombre: f.nombreCliente, clienteDireccion: cliente?.direccion, clienteEmail: cliente?.email, empresa: empresaAjustes, logoUrl: orgData?.logo_url ?? undefined, partidas, total: f.importe, iva: empresaAjustes.ivaDefault || 21, estado: f.estado });
+                      downloadAsWord(html, f.numeroFactura);
+                    }}
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-blue-100 text-blue-700 text-[9px] font-bold uppercase tracking-wider hover:bg-blue-200 cursor-pointer transition-colors"
+                    title="Descargar como Word editable"
+                  >
+                    <FileText className="w-3.5 h-3.5" />
+                    Word
                   </button>
                   <button
                     onClick={() => handleRemindInvoice(f)}

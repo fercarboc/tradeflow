@@ -84,8 +84,8 @@ Deno.serve(async (req: Request) => {
     if (!orgId) {
       return new Response(JSON.stringify({ error: 'Organización no encontrada' }), { status: 404, headers: CORS });
     }
-    if (!['empresa_plus'].includes(plan)) {
-      return new Response(JSON.stringify({ error: 'El módulo de contratos requiere Plan Empresa+' }), { status: 403, headers: CORS });
+    if (!['empresa', 'empresa_plus'].includes(plan)) {
+      return new Response(JSON.stringify({ error: 'El módulo de contratos requiere Plan Empresa o Empresa+' }), { status: 403, headers: CORS });
     }
 
     const body = await req.json() as { texto: string };
