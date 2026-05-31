@@ -64,7 +64,7 @@ import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWo
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription, TemplateType } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { usePermissions } from '../hooks/usePermissions';
-import { downloadAsWord } from '../lib/exportWord';
+import { downloadAsWordDocx } from '../lib/exportWord';
 import CatalogImportModal from './CatalogImportModal';
 import GlobalCatalogModal from './GlobalCatalogModal';
 import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } from '../lib/catalogExcel';
@@ -5445,20 +5445,21 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </button>
             <button
               onClick={() => {
-                const html = buildDocumentHTML({
+                const cliente = clientes.find(c => c.nombre === selectedQuoteForPreview.nombreCliente);
+                downloadAsWordDocx({
                   tipo: 'presupuesto',
                   numero: selectedQuoteForPreview.id,
                   fecha: selectedQuoteForPreview.fecha,
                   clienteNombre: selectedQuoteForPreview.nombreCliente,
-                  clienteDireccion: clientes.find(c => c.nombre === selectedQuoteForPreview.nombreCliente)?.direccion,
+                  clienteDireccion: cliente?.direccion,
+                  clienteEmail: cliente?.email,
+                  clienteTelefono: cliente?.telefono,
                   empresa: empresaAjustes,
-                  logoUrl: orgData?.logo_url ?? undefined,
                   partidas: selectedQuoteForPreview.partidas,
                   total: selectedQuoteForPreview.total,
                   iva: empresaAjustes.ivaDefault || 21,
                   estado: selectedQuoteForPreview.estado,
-                });
-                downloadAsWord(html, selectedQuoteForPreview.id);
+                }, selectedQuoteForPreview.id);
               }}
               className="flex items-center gap-1.5 bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer"
               title="Descargar como Word editable"
@@ -6095,8 +6096,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       const cliente = clientes.find(c => c.nombre === f.nombreCliente);
                       const quotePartidas = presupuestos.find(p => p.id === f.idPresupuesto)?.partidas ?? [];
                       const partidas = quotePartidas.length > 0 ? quotePartidas : f.concepto ? [{ descripcion: f.concepto, tipo: 'mano_de_obra' as const, cantidad: 1, precioUnitario: f.importe, total: f.importe }] : [];
-                      const html = buildDocumentHTML({ tipo: 'factura', numero: f.numeroFactura, fecha: f.fecha, fechaVencimiento: f.fechaVencimiento, clienteNombre: f.nombreCliente, clienteDireccion: cliente?.direccion, clienteEmail: cliente?.email, empresa: empresaAjustes, logoUrl: orgData?.logo_url ?? undefined, partidas, total: f.importe, iva: empresaAjustes.ivaDefault || 21, estado: f.estado });
-                      downloadAsWord(html, f.numeroFactura);
+                      downloadAsWordDocx({ tipo: 'factura', numero: f.numeroFactura, fecha: f.fecha, fechaVencimiento: f.fechaVencimiento, clienteNombre: f.nombreCliente, clienteDireccion: cliente?.direccion, clienteEmail: cliente?.email, empresa: empresaAjustes, partidas, total: f.importe, iva: empresaAjustes.ivaDefault || 21, estado: f.estado }, f.numeroFactura);
                     }}
                     className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-blue-100 text-blue-700 text-[9px] font-bold uppercase tracking-wider hover:bg-blue-200 cursor-pointer transition-colors"
                     title="Descargar como Word editable"

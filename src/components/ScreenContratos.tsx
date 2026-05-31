@@ -4,7 +4,7 @@ import {
   Eye, Download, ArrowLeft, ChevronDown, ChevronUp,
   Building2, User, CalendarDays, DollarSign, Wrench, Shield,
 } from 'lucide-react';
-import { downloadAsWord } from '../lib/exportWord';
+import { downloadContractAsDocx } from '../lib/exportWord';
 import type { TradeOrganization, TradeContract, MaintenancePresupuesto } from '../lib/supabase';
 import {
   loadContracts, createContract, updateContract, signContract, deleteContract,
@@ -333,18 +333,15 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
 
   // ── Section content ───────────────────────────────────────────────────────
 
-  const F = (props: Omit<ContractFieldProps, 'vars' | 'isSigned' | 'setVars'>) =>
-    <ContractField {...props} vars={vars} isSigned={isSigned} setVars={setVars} />;
-
   const renderSectionContent = (id: Section) => {
     switch (id) {
       case 'prestador': return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <F field="empresa" label="Razón social / Nombre autónomo" />
-          <F field="cif_empresa" label="CIF / NIF empresa" />
-          <div className="sm:col-span-2"><F field="direccion_empresa" label="Dirección completa" placeholder="Calle, número, CP, ciudad, provincia" /></div>
-          <F field="telefono_empresa" label="Teléfono" />
-          <F field="email_empresa" label="Email" type="email" />
+          <ContractField field="empresa" label="Razón social / Nombre autónomo" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <ContractField field="cif_empresa" label="CIF / NIF empresa" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <div className="sm:col-span-2"><ContractField field="direccion_empresa" label="Dirección completa" placeholder="Calle, número, CP, ciudad, provincia" vars={vars} isSigned={isSigned} setVars={setVars} /></div>
+          <ContractField field="telefono_empresa" label="Teléfono" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <ContractField field="email_empresa" label="Email" type="email" vars={vars} isSigned={isSigned} setVars={setVars} />
         </div>
       );
       case 'cliente': return (
@@ -373,19 +370,19 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
             </select>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <F field="nombre_cliente" label="Razón social / Nombre cliente" />
-            <F field="cif_cliente" label="CIF / NIF cliente" />
-            <div className="sm:col-span-2"><F field="direccion_cliente" label="Dirección completa" placeholder="Calle, número, CP, ciudad, provincia" /></div>
-            <F field="telefono_cliente" label="Teléfono" />
-            <F field="email_cliente" label="Email" type="email" />
-            <F field="representante_cliente" label="Nombre representante / interlocutor" />
-            <F field="cargo_representante" label="Cargo del representante" />
+            <ContractField field="nombre_cliente" label="Razón social / Nombre cliente" vars={vars} isSigned={isSigned} setVars={setVars} />
+            <ContractField field="cif_cliente" label="CIF / NIF cliente" vars={vars} isSigned={isSigned} setVars={setVars} />
+            <div className="sm:col-span-2"><ContractField field="direccion_cliente" label="Dirección completa" placeholder="Calle, número, CP, ciudad, provincia" vars={vars} isSigned={isSigned} setVars={setVars} /></div>
+            <ContractField field="telefono_cliente" label="Teléfono" vars={vars} isSigned={isSigned} setVars={setVars} />
+            <ContractField field="email_cliente" label="Email" type="email" vars={vars} isSigned={isSigned} setVars={setVars} />
+            <ContractField field="representante_cliente" label="Nombre representante / interlocutor" vars={vars} isSigned={isSigned} setVars={setVars} />
+            <ContractField field="cargo_representante" label="Cargo del representante" vars={vars} isSigned={isSigned} setVars={setVars} />
           </div>
         </div>
       );
       case 'contrato': return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <F field="referencia" label="Referencia del contrato" placeholder="TF-MANT-2026-0001" />
+          <ContractField field="referencia" label="Referencia del contrato" placeholder="TF-MANT-2026-0001" vars={vars} isSigned={isSigned} setVars={setVars} />
           <div>
             <span className={LBL}>Oficio / Tipo de instalación</span>
             <select className={INP} disabled={isSigned} value={selectedOficio} onChange={e => setSelectedOficio(e.target.value)}>
@@ -395,10 +392,10 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
               <option value="general">General / Otros</option>
             </select>
           </div>
-          <F field="fecha_inicio" label="Fecha de inicio (DD/MM/AAAA)" placeholder="01/06/2026" />
-          <F field="fecha_fin" label="Fecha de fin inicial (DD/MM/AAAA)" placeholder="31/05/2027" />
-          <F field="duracion_meses" label="Duración (meses)" type="number" />
-          <F field="ciudad_firma" label="Ciudad de firma" />
+          <ContractField field="fecha_inicio" label="Fecha de inicio (DD/MM/AAAA)" placeholder="01/06/2026" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <ContractField field="fecha_fin" label="Fecha de fin inicial (DD/MM/AAAA)" placeholder="31/05/2027" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <ContractField field="duracion_meses" label="Duración (meses)" type="number" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <ContractField field="ciudad_firma" label="Ciudad de firma" vars={vars} isSigned={isSigned} setVars={setVars} />
           <div className="sm:col-span-2">
             <span className={LBL}>Pre-rellenar desde presupuesto de mantenimiento</span>
             <select
@@ -424,10 +421,10 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
       );
       case 'economico': return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <F field="cuota_mensual" label="Cuota mensual sin IVA (EUR)" placeholder="350,00" />
-          <F field="iva_pct" label="IVA (%)" type="number" />
-          <F field="cuota_mensual_con_iva" label="Cuota mensual con IVA (EUR)" placeholder="423,50" />
-          <F field="cuota_anual" label="Cuota anual sin IVA (EUR)" placeholder="4.200,00" />
+          <ContractField field="cuota_mensual" label="Cuota mensual sin IVA (EUR)" placeholder="350,00" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <ContractField field="iva_pct" label="IVA (%)" type="number" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <ContractField field="cuota_mensual_con_iva" label="Cuota mensual con IVA (EUR)" placeholder="423,50" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <ContractField field="cuota_anual" label="Cuota anual sin IVA (EUR)" placeholder="4.200,00" vars={vars} isSigned={isSigned} setVars={setVars} />
           <div>
             <span className={LBL}>Período de facturación</span>
             <select
@@ -446,34 +443,34 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
               {vars.periodo_facturacion === 'anual' && 'Se genera 1 factura anual. Aviso de renovación 1 mes antes del vencimiento.'}
             </p>
           </div>
-          <F field="forma_pago" label="Forma de pago" />
-          <F field="dia_vencimiento" label="Día de vencimiento" type="number" />
-          <div className="sm:col-span-2"><F field="iban" label="IBAN para domiciliación" placeholder="ES00 0000 0000 00 0000000000" /></div>
+          <ContractField field="forma_pago" label="Forma de pago" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <ContractField field="dia_vencimiento" label="Día de vencimiento" type="number" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <div className="sm:col-span-2"><ContractField field="iban" label="IBAN para domiciliación" placeholder="ES00 0000 0000 00 0000000000" vars={vars} isSigned={isSigned} setVars={setVars} /></div>
         </div>
       );
       case 'sla': return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <F field="horario_guardia" label="Horario de guardia ordinaria" placeholder="Lunes a viernes de 08:00 a 18:00 h" />
-          <F field="servicio_urgencias" label="Servicio de urgencias" placeholder="24 horas / 7 días" />
-          <div className="sm:col-span-2"><F field="tiempo_respuesta" label="Tiempo máximo de respuesta" placeholder="Máximo 4 horas en días laborables, 8 horas en festivos" /></div>
-          <div className="sm:col-span-2"><F field="tiempo_resolucion" label="Tiempo máximo de resolución" placeholder="24 horas para averías críticas, 72 horas para incidencias menores" /></div>
-          <F field="disponibilidad" label="Disponibilidad garantizada" placeholder="99% mensual en horario de guardia" />
-          <F field="penalizacion_sla" label="Penalización por incumplimiento SLA" placeholder="5% del importe mensual por día de retraso" />
+          <ContractField field="horario_guardia" label="Horario de guardia ordinaria" placeholder="Lunes a viernes de 08:00 a 18:00 h" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <ContractField field="servicio_urgencias" label="Servicio de urgencias" placeholder="24 horas / 7 días" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <div className="sm:col-span-2"><ContractField field="tiempo_respuesta" label="Tiempo máximo de respuesta" placeholder="Máximo 4 horas en días laborables, 8 horas en festivos" vars={vars} isSigned={isSigned} setVars={setVars} /></div>
+          <div className="sm:col-span-2"><ContractField field="tiempo_resolucion" label="Tiempo máximo de resolución" placeholder="24 horas para averías críticas, 72 horas para incidencias menores" vars={vars} isSigned={isSigned} setVars={setVars} /></div>
+          <ContractField field="disponibilidad" label="Disponibilidad garantizada" placeholder="99% mensual en horario de guardia" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <ContractField field="penalizacion_sla" label="Penalización por incumplimiento SLA" placeholder="5% del importe mensual por día de retraso" vars={vars} isSigned={isSigned} setVars={setVars} />
         </div>
       );
       case 'instalaciones': return (
         <div className="space-y-3">
           <p className="text-[10px] text-slate-500">Describe las instalaciones cubiertas por el contrato, una por línea. Al imprimir, el Anexo I se genera con filas en blanco para rellenar a mano.</p>
-          <F field="descripcion_instalaciones" label="Instalaciones / equipos (una por línea)" type="textarea" placeholder={"Caldera Baxi Luna 3, Sala técnica planta 1\nFan-coils zona oficinas (3 uds)\nCircuito ACS"} />
+          <ContractField field="descripcion_instalaciones" label="Instalaciones / equipos (una por línea)" type="textarea" placeholder={"Caldera Baxi Luna 3, Sala técnica planta 1\nFan-coils zona oficinas (3 uds)\nCircuito ACS"} vars={vars} isSigned={isSigned} setVars={setVars} />
           <div className="grid grid-cols-2 gap-3">
-            <F field="limite_correctivo" label="Límite coste reparación incluida (EUR)" placeholder="500" />
+            <ContractField field="limite_correctivo" label="Límite coste reparación incluida (EUR)" placeholder="500" vars={vars} isSigned={isSigned} setVars={setVars} />
           </div>
         </div>
       );
       case 'legal': return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <F field="ciudad_jurisdiccion" label="Ciudad de jurisdicción (fuero)" placeholder="Santander" />
-          <F field="cobertura_rc" label="Cobertura RC mínima (EUR)" placeholder="600.000" />
+          <ContractField field="ciudad_jurisdiccion" label="Ciudad de jurisdicción (fuero)" placeholder="Santander" vars={vars} isSigned={isSigned} setVars={setVars} />
+          <ContractField field="cobertura_rc" label="Cobertura RC mínima (EUR)" placeholder="600.000" vars={vars} isSigned={isSigned} setVars={setVars} />
         </div>
       );
     }
@@ -494,7 +491,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
           <span className="flex-1 font-bold text-sm text-slate-800 truncate">{vars.referencia}</span>
           <div className="flex gap-2">
             <button
-              onClick={() => downloadAsWord(html, vars.referencia || 'contrato')}
+              onClick={() => downloadContractAsDocx(vars, vars.referencia || 'contrato')}
               className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-lg cursor-pointer transition-colors"
               title="Descargar como Word editable"
             >
@@ -563,10 +560,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
             {isSigned && (
               <>
                 <button
-                  onClick={() => downloadAsWord(
-                    contracts.find(c => c.id === editingId)?.contenido_html ?? getPreviewHTML(),
-                    vars.referencia || 'contrato'
-                  )}
+                  onClick={() => downloadContractAsDocx(vars, vars.referencia || 'contrato')}
                   className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-lg cursor-pointer transition-colors"
                   title="Descargar como Word editable"
                 >
