@@ -2247,6 +2247,28 @@ export async function markFacturaPagada(id: string): Promise<void> {
   if (error) throw error;
 }
 
+// Loads trade_invoices linked to any maintenance contrato for this org
+export async function loadMaintenanceInvoicesByOrg(orgId: string): Promise<TradeInvoice[]> {
+  const { data: contratos, error: err1 } = await supabase
+    .from('trade_maintenance_contratos')
+    .select('contract_id')
+    .eq('org_id', orgId)
+    .not('contract_id', 'is', null);
+  if (err1) throw err1;
+
+  const contractIds = (contratos ?? []).map((c: { contract_id: string | null }) => c.contract_id).filter(Boolean) as string[];
+  if (contractIds.length === 0) return [];
+
+  const { data, error } = await supabase
+    .from('trade_invoices')
+    .select('*')
+    .eq('org_id', orgId)
+    .in('contract_id', contractIds)
+    .order('fecha_vencimiento', { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as TradeInvoice[];
+}
+
 type MaintenanceEmailType =
   | 'presupuesto_enviado'
   | 'contrato_activado'

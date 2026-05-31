@@ -13,7 +13,7 @@ import {
   updateMaintenancePresupuesto, deleteMaintenancePresupuesto,
   generateMaintenanceDocument, convertPresupuestoToContrato,
   loadMaintenanceModelos, saveMaintenanceModelo, deleteMaintenanceModelo, useMaintenanceModelo,
-  loadMaintenanceFacturas, markFacturaPagada, sendMaintenanceNotification,
+  loadMaintenanceInvoicesByOrg, markInvoicePaid, sendMaintenanceNotification,
   saveMaintenanceIncidencia, updateMaintenanceIncidencia, sendParteTrabajo,
   loadOrgMembers,
 } from '../lib/supabase';
@@ -21,7 +21,7 @@ import type {
   MaintenancePlantilla, MaintenancePresupuesto, MaintenanceContrato,
   MaintenanceIncidencia, MaintenanceDetectResult, MaintenanceDocumento,
   MaintenanceSLA, MaintenanceSector, MaintenanceOficio, MaintenanceModelo,
-  MaintenanceFactura, OrgMember,
+  TradeInvoice, OrgMember,
 } from '../lib/supabase';
 
 interface Props {
@@ -1273,7 +1273,7 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
   const [oficios, setOficios] = useState<MaintenanceOficio[]>([]);
 
   const [modelos, setModelos] = useState<MaintenanceModelo[]>([]);
-  const [facturas, setFacturas] = useState<MaintenanceFactura[]>([]);
+  const [facturas, setFacturas] = useState<TradeInvoice[]>([]);
   const [markingPagada, setMarkingPagada] = useState<string | null>(null);
   const [sendingEmail, setSendingEmail] = useState<string | null>(null);
 
@@ -1306,7 +1306,7 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
         loadMaintenanceContratos(orgId),
         loadMaintenanceIncidencias(orgId),
         loadMaintenanceModelos(orgId),
-        loadMaintenanceFacturas(orgId),
+        loadMaintenanceInvoicesByOrg(orgId),
         loadOrgMembers(orgId),
       ]);
       setPlantillas(catalogs.plantillas);
@@ -1332,7 +1332,7 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
   const mrrContratos = contratos.filter(c => c.estado === 'activo').reduce((s, c) => s + (c.cuota_mensual ?? 0), 0);
   const incidenciasAbiertas = incidencias.filter(i => i.estado === 'abierta' || i.estado === 'en_curso').length;
   const presupuestosPendientes = presupuestos.filter(p => p.estado === 'borrador' || p.estado === 'enviado').length;
-  const pendienteCobro = facturas.filter(f => f.estado === 'pendiente').reduce((s, f) => s + Number(f.total_con_iva), 0);
+  const pendienteCobro = facturas.filter(f => f.estado === 'Pendiente' || f.estado === 'Vencida').reduce((s, f) => s + Number(f.total), 0);
 
   const handleDeletePresup = async (id: string) => {
     setDeletingId(id);
@@ -1357,8 +1357,8 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
   const handleMarkPagada = async (id: string) => {
     setMarkingPagada(id);
     try {
-      await markFacturaPagada(id);
-      setFacturas(prev => prev.map(f => f.id === id ? { ...f, estado: 'pagada', fecha_pago: new Date().toISOString().split('T')[0] } : f));
+      await markInvoicePaid(id);
+      setFacturas(prev => prev.map(f => f.id === id ? { ...f, estado: 'Pagada' as const, paid_at: new Date().toISOString() } : f));
       showToast('Factura marcada como pagada', 'success');
     } catch { showToast('Error al marcar como pagada', 'error'); }
     finally { setMarkingPagada(null); }
@@ -1574,67 +1574,59 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <Receipt className="w-10 h-10 text-slate-200 mb-3" />
               <p className="text-slate-400 text-sm font-semibold">Sin facturas de mantenimiento</p>
-              <p className="text-slate-300 text-xs mt-1">Las facturas se generan automáticamente cada mes para los contratos activos</p>
+              <p className="text-slate-300 text-xs mt-1">Las facturas se generan automáticamente al firmar un contrato de mantenimiento</p>
             </div>
           ) : (
             <div className="divide-y divide-slate-100">
               {facturas.map(f => {
-                const contrato = f.trade_maintenance_contratos;
-                const isPendiente = f.estado === 'pendiente';
-                const isVencida = isPendiente && f.fecha_vencimiento && new Date(f.fecha_vencimiento) < new Date();
+                const isPendiente = f.estado === 'Pendiente';
+                const isVencida = f.estado === 'Vencida' || (isPendiente && !!f.fecha_vencimiento && new Date(f.fecha_vencimiento) < new Date());
+                const isPagada = f.estado === 'Pagada';
+                // Extract client name from concepto: "Mantenimiento REF — NOMBRE — periodo"
+                const clientName = f.concepto?.split('—')[1]?.trim() ?? '—';
+                const periodo = f.concepto?.split('—').slice(2).join('—').trim() ?? '';
                 return (
                   <div key={f.id} className="py-3.5 flex items-start gap-3">
-                    <div className={`shrink-0 w-8 h-8 rounded-xl flex items-center justify-center ${isPendiente ? (isVencida ? 'bg-red-50 text-red-500' : 'bg-orange-50 text-orange-500') : 'bg-emerald-50 text-emerald-500'}`}>
+                    <div className={`shrink-0 w-8 h-8 rounded-xl flex items-center justify-center ${isPagada ? 'bg-emerald-50 text-emerald-500' : isVencida ? 'bg-red-50 text-red-500' : 'bg-orange-50 text-orange-500'}`}>
                       <Receipt className="w-4 h-4" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-bold text-slate-900 text-sm">{contrato?.nombre_cliente ?? '—'}</span>
+                        <span className="font-bold text-slate-900 text-sm">{clientName}</span>
                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                          f.estado === 'pagada' ? 'bg-emerald-100 text-emerald-700' :
+                          isPagada ? 'bg-emerald-100 text-emerald-700' :
                           isVencida ? 'bg-red-100 text-red-700' :
                           'bg-orange-100 text-orange-700'
                         }`}>
-                          {f.estado === 'pagada' ? 'Pagada' : isVencida ? 'Vencida' : 'Pendiente'}
+                          {isPagada ? 'Pagada' : isVencida ? 'Vencida' : 'Pendiente'}
                         </span>
                         {f.numero && <span className="text-[10px] text-slate-400 font-mono">{f.numero}</span>}
                       </div>
-                      <p className="text-xs text-slate-500 mt-0.5 capitalize">{contrato?.oficio ?? ''}</p>
+                      {periodo && <p className="text-xs text-slate-500 mt-0.5">{periodo}</p>}
                       <div className="flex items-center gap-3 mt-1">
-                        <span className="text-[10px] text-slate-400">
-                          {fmtDate(f.periodo_inicio)} – {fmtDate(f.periodo_fin)}
-                        </span>
-                        {f.fecha_vencimiento && isPendiente && (
+                        {f.fecha_vencimiento && !isPagada && (
                           <span className={`text-[10px] font-semibold ${isVencida ? 'text-red-500' : 'text-slate-400'}`}>
                             Vto: {fmtDate(f.fecha_vencimiento)}
                           </span>
                         )}
-                        {f.fecha_pago && (
-                          <span className="text-[10px] text-emerald-600 font-semibold">Pagada {fmtDate(f.fecha_pago)}</span>
+                        {f.paid_at && (
+                          <span className="text-[10px] text-emerald-600 font-semibold">Pagada {fmtDate(f.paid_at)}</span>
                         )}
                       </div>
                     </div>
                     <div className="shrink-0 flex items-center gap-2">
                       <div className="text-right mr-1">
-                        <span className="text-sm font-black text-slate-900">{fmtEur(Number(f.total_con_iva))}</span>
-                        <span className="text-[10px] text-slate-400 block">+IVA {f.iva_pct}%</span>
+                        <span className="text-sm font-black text-slate-900">{fmtEur(f.total)}</span>
+                        <span className="text-[10px] text-slate-400 block">IVA {f.iva_pct}%</span>
                       </div>
-                      <button
-                        onClick={() => void handleSendEmail('factura_pendiente', f.id)}
-                        disabled={sendingEmail === f.id}
-                        title="Enviar email"
-                        className="p-1.5 rounded-lg text-slate-300 hover:text-blue-500 hover:bg-blue-50 cursor-pointer disabled:opacity-40 transition-colors"
-                      >
-                        {sendingEmail === f.id ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
-                      </button>
-                      {isPendiente && (
+                      {(isPendiente || isVencida) && (
                         <button
                           onClick={() => void handleMarkPagada(f.id)}
                           disabled={markingPagada === f.id}
                           className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-600 text-[10px] font-bold hover:bg-emerald-100 cursor-pointer disabled:opacity-40 flex items-center gap-1 transition-colors"
                         >
                           {markingPagada === f.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
-                          Pagada
+                          Cobrada
                         </button>
                       )}
                     </div>

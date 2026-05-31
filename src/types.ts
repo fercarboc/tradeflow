@@ -100,6 +100,8 @@ importe: number;
 fecha: string;
 fechaVencimiento: string;
 estado: 'Pagada' | 'Pendiente' | 'Vencida' | 'Devuelta';
+concepto?: string;
+esMantenimineto?: boolean;
 }
 
 export interface Cliente {

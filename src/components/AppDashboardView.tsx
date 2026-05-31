@@ -315,7 +315,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       // Always replace demo clients with real data (even if empty list)
       setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
       setPresupuestos(data.quotes.map(q => ({ id: q.numero, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '' })));
-      setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : '', idPresupuesto: f.quote_id ?? '', importe: f.subtotal, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any })));
+      setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : (f.concepto?.split('—')[1]?.trim() ?? ''), idPresupuesto: f.quote_id ?? '', importe: f.subtotal, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any, concepto: f.concepto ?? undefined, esMantenimineto: !!f.contract_id })));
       if (org) {
         setOrgId(org.id);
         setOrgData(org);
@@ -3496,15 +3496,28 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   function MobileScreenFacturas() {
     const now = new Date();
     const in15 = new Date(now); in15.setDate(now.getDate() + 15);
+    const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    const currentMonthEnd   = new Date(now.getFullYear(), now.getMonth() + 1, 0);
 
-    const proximas = facturas
+    // Exclude future maintenance invoices (months 2–12); they live in Mantenimientos
+    const facturasFacturacion = facturas.filter(f => {
+      if (!f.esMantenimineto) return true;
+      if (f.estado === 'Vencida' || f.estado === 'Devuelta' || f.estado === 'Pagada') return true;
+      if (f.estado === 'Pendiente' && f.fechaVencimiento) {
+        const v = new Date(f.fechaVencimiento);
+        return v >= currentMonthStart && v <= currentMonthEnd;
+      }
+      return false;
+    });
+
+    const proximas = facturasFacturacion
       .filter(f => f.estado === 'Pendiente' && f.fechaVencimiento)
       .filter(f => { const v = new Date(f.fechaVencimiento); return v >= now && v <= in15; })
       .sort((a, b) => a.fechaVencimiento.localeCompare(b.fechaVencimiento));
 
-    const devueltas = facturas.filter(f => f.estado === 'Devuelta');
+    const devueltas = facturasFacturacion.filter(f => f.estado === 'Devuelta');
 
-    const sorted = [...facturas]
+    const sorted = [...facturasFacturacion]
       .filter(f => {
         const matchClient = !facturaClientFilter || f.nombreCliente?.toLowerCase().includes(facturaClientFilter.toLowerCase());
         if (!matchClient) return false;
@@ -5678,6 +5691,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   function printInvoice(factura: Factura) {
     const cliente = clientes.find(c => c.nombre === factura.nombreCliente);
+    const quotePartidas = presupuestos.find(p => p.id === factura.idPresupuesto)?.partidas ?? [];
+    const partidas: PartidaPresupuesto[] = quotePartidas.length > 0
+      ? quotePartidas
+      : factura.concepto
+        ? [{ descripcion: factura.concepto, tipo: 'mano_de_obra', cantidad: 1, precioUnitario: factura.importe, total: factura.importe }]
+        : [];
     const html = buildDocumentHTML({
       tipo: 'factura',
       numero: factura.numeroFactura,
@@ -5689,7 +5708,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       clienteTelefono: cliente?.telefono,
       empresa: empresaAjustes,
       logoUrl: orgData?.logo_url ?? undefined,
-      partidas: presupuestos.find(p => p.id === factura.idPresupuesto)?.partidas ?? [],
+      partidas,
       total: factura.importe,
       iva: empresaAjustes.ivaDefault || 21,
       estado: factura.estado,
@@ -5702,14 +5721,28 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     const today = new Date();
     const in15 = new Date(today); in15.setDate(today.getDate() + 15);
     const in30 = new Date(today); in30.setDate(today.getDate() + 30);
+    const currentMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+    const currentMonthEnd   = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
-    const pendiente = facturas.filter(f => f.estado === 'Pendiente' || f.estado === 'Vencida').reduce((s, f) => s + f.importe * 1.21, 0);
-    const cobradoTotal = facturas.filter(f => f.estado === 'Pagada').reduce((s, f) => s + f.importe * 1.21, 0);
-    const vencidas = facturas.filter(f => f.estado === 'Vencida').length;
-    const devueltas = facturas.filter(f => f.estado === 'Devuelta');
+    // Maintenance future invoices belong in Mantenimientos, not Facturación.
+    // Show maintenance invoices here only if: overdue, devuelta, or due within current month.
+    const facturasFacturacion = facturas.filter(f => {
+      if (!f.esMantenimineto) return true;
+      if (f.estado === 'Vencida' || f.estado === 'Devuelta' || f.estado === 'Pagada') return true;
+      if (f.estado === 'Pendiente' && f.fechaVencimiento) {
+        const v = new Date(f.fechaVencimiento);
+        return v >= currentMonthStart && v <= currentMonthEnd;
+      }
+      return false;
+    });
+
+    const pendiente = facturasFacturacion.filter(f => f.estado === 'Pendiente' || f.estado === 'Vencida').reduce((s, f) => s + f.importe * 1.21, 0);
+    const cobradoTotal = facturasFacturacion.filter(f => f.estado === 'Pagada').reduce((s, f) => s + f.importe * 1.21, 0);
+    const vencidas = facturasFacturacion.filter(f => f.estado === 'Vencida').length;
+    const devueltas = facturasFacturacion.filter(f => f.estado === 'Devuelta');
 
     // Próximas a cobrar: pendientes con vencimiento en los próximos 15 días
-    const proximas = facturas
+    const proximas = facturasFacturacion
       .filter(f => f.estado === 'Pendiente' && f.fechaVencimiento)
       .filter(f => {
         const v = new Date(f.fechaVencimiento);
@@ -5718,7 +5751,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       .sort((a, b) => a.fechaVencimiento.localeCompare(b.fechaVencimiento));
 
     // Próximas renovaciones anuales: dentro de 30 días
-    const renovaciones = facturas
+    const renovaciones = facturasFacturacion
       .filter(f => f.estado === 'Pendiente' && f.fechaVencimiento)
       .filter(f => {
         const v = new Date(f.fechaVencimiento);
@@ -5726,7 +5759,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       })
       .sort((a, b) => a.fechaVencimiento.localeCompare(b.fechaVencimiento));
 
-    const filtered = filterEstado === 'todas' ? facturas : facturas.filter(f => f.estado === filterEstado);
+    const filtered = filterEstado === 'todas' ? facturasFacturacion : facturasFacturacion.filter(f => f.estado === filterEstado);
     const sorted = [...filtered].sort((a, b) => {
       const order: Record<string, number> = { Vencida: 0, Pendiente: 1, Devuelta: 2, Pagada: 3 };
       return (order[a.estado] ?? 1) - (order[b.estado] ?? 1);
