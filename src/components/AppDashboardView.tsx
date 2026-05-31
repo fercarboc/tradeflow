@@ -746,12 +746,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       // Modo real: MediaRecorder
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 'audio/mp4';
+        const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+          ? 'audio/webm'
+          : MediaRecorder.isTypeSupported('audio/webm')
+            ? 'audio/webm'
+            : 'audio/mp4';
         audioMimeTypeRef.current = mimeType;
         const recorder = new MediaRecorder(stream, { mimeType });
         mediaRecorderRef.current = recorder;
         audioChunksRef.current = [];
         recorder.ondataavailable = (e) => { if (e.data.size > 0) audioChunksRef.current.push(e.data); };
+        recorder.onerror = () => {
+          showToast('Error en la grabación de audio', 'error');
+          setVoiceStep('idle');
+          mediaRecorderRef.current = null;
+          audioChunksRef.current = [];
+        };
         recorder.start(250);
         startWaveform();
       } catch {
@@ -955,11 +965,21 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setVoiceStep('thinking');
     setVoiceText('Transcribiendo con IA...');
 
+    // Detener el MediaRecorder de forma segura con fallback por timeout
     await new Promise<void>(resolve => {
-      if (mediaRecorderRef.current) {
-        mediaRecorderRef.current.onstop = () => resolve();
-        mediaRecorderRef.current.stop();
-      } else { resolve(); }
+      const recorder = mediaRecorderRef.current;
+      if (!recorder || recorder.state === 'inactive') {
+        resolve();
+        return;
+      }
+      const fallback = setTimeout(resolve, 3000);
+      recorder.onstop = () => { clearTimeout(fallback); resolve(); };
+      try {
+        recorder.stop();
+      } catch {
+        clearTimeout(fallback);
+        resolve();
+      }
     });
 
     mediaRecorderRef.current?.stream.getTracks().forEach(t => t.stop());
@@ -970,17 +990,28 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     if (blob.size < 100) {
       showToast('Audio demasiado corto — habla un poco más', 'error');
       setVoiceStep('idle');
+      mediaRecorderRef.current = null;
+      audioChunksRef.current = [];
       return;
     }
     const formData = new FormData();
     formData.append('audio', blob, `audio.${ext}`);
 
+    const controller = new AbortController();
+    const fetchTimeout = setTimeout(() => controller.abort(), 60000);
+
     try {
       const { data: { session } } = await supabase.auth.getSession();
       const res = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-voice-to-quote`,
-        { method: 'POST', headers: { 'Authorization': `Bearer ${session?.access_token ?? ''}` }, body: formData },
+        {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${session?.access_token ?? ''}` },
+          body: formData,
+          signal: controller.signal,
+        },
       );
+      clearTimeout(fetchTimeout);
       if (!res.ok) {
         const err = await res.json().catch(() => ({ error: 'Error del servidor' }));
         if (err.plan_restriction) {
@@ -997,7 +1028,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       const result: { transcript: string; quote: AIQuote } = await res.json();
       handleVoiceResult(result.transcript, result.quote);
     } catch (e: any) {
-      showToast('Error al procesar audio: ' + e.message, 'error');
+      clearTimeout(fetchTimeout);
+      const isAbort = e.name === 'AbortError';
+      showToast(isAbort ? 'La IA tardó demasiado — inténtalo de nuevo' : 'Error al procesar audio: ' + e.message, 'error');
       setVoiceStep('idle');
       mediaRecorderRef.current = null;
       audioChunksRef.current = [];
