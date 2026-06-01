@@ -16,9 +16,10 @@ import {
   adminLoadNotes, adminAddNote, adminDeleteNote, adminLogAction, adminLoadActivityLog, adminSetOrgFlag,
   adminMarkInvoicePaid,
   adminLoadAutoConfig, adminSaveAutoConfig, adminGetTrialsExpiringSoon, adminRunChurnRiskNow,
+  loadInstallerNeeds, markNeedReviewed,
   AdminOrgRow, TradeSubscription, TradePlatformInvoice, TradeWaitlistLead,
   WaitlistEstado, WaitlistPrioridad, TradeCatalogSuggestion, AdminSupportNote, AdminActivityLog,
-  AdminAutoConfig, TrialExpiringSoon,
+  AdminAutoConfig, TrialExpiringSoon, InstallerNeed,
 } from '../lib/supabase';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { exportToCsv } from '../lib/exportCsv';
@@ -32,7 +33,7 @@ import {
   FileText, Contact, Phone, MessageCircle, Star, Trash2, UserCheck,
   Inbox, Filter, LogOut, Download, WifiOff, Globe, ThumbsUp, ThumbsDown,
   X, StickyNote, Activity, Repeat, BarChart2, PackageOpen,
-  Zap, Bell, BellOff, PlayCircle, Send,
+  Zap, Bell, BellOff, PlayCircle, Send, HelpCircle, Eye, EyeOff as EyeOffIcon,
 } from 'lucide-react';
 
 const PLAN_PRICES: Record<string, { monthly: number; yearly: number }> = {
@@ -761,7 +762,12 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [detailOrg, setDetailOrg]     = useState<AdminOrgRow | null>(null);
 
   // Sección activa
-  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions'>('dashboard');
+  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs'>('dashboard');
+
+  // Necesidades instaladores (chatbot)
+  const [needs, setNeeds]               = useState<InstallerNeed[]>([]);
+  const [needsLoading, setNeedsLoading] = useState(false);
+  const [needsFilter, setNeedsFilter]   = useState<string>('all');
 
   // Dashboard — datos de gráficos
   const [weeklyQuotes, setWeeklyQuotes] = useState<Array<{ week: string; count: number }>>([]);
@@ -861,6 +867,14 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   useEffect(() => { if (isAdmin && section === 'leads') loadLeads(); }, [isAdmin, section]);
   useEffect(() => { if (isAdmin && section === 'invoices') loadInvoices(); }, [isAdmin, section]);
   useEffect(() => { if (isAdmin && section === 'suggestions') loadSuggestions(); }, [isAdmin, section]);
+  useEffect(() => {
+    if (!isAdmin || section !== 'needs') return;
+    setNeedsLoading(true);
+    loadInstallerNeeds()
+      .then(setNeeds)
+      .catch(() => setNeeds([]))
+      .finally(() => setNeedsLoading(false));
+  }, [isAdmin, section]);
   useEffect(() => {
     if (!isAdmin || section !== 'automations') return;
     setAutoConfigLoading(true);
@@ -1259,6 +1273,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     { id: 'exports'       as const, label: 'Exportar',        Icon: PackageOpen },
     { id: 'automations'   as const, label: 'Automaciones',    Icon: Zap },
     { id: 'suggestions'   as const, label: 'Sugerencias',     Icon: Globe,       badge: pendingSuggestions },
+    { id: 'needs'         as const, label: 'Necesidades',     Icon: HelpCircle },
   ];
 
   const handleMarkInvoicePaid = async (inv: TradePlatformInvoice) => {
@@ -2862,6 +2877,126 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
             </>
           );
         })()}
+
+        {/* ════════════════════════════════════════════════════════
+            SECCIÓN: NECESIDADES INSTALADORES (CHATBOT)
+        ════════════════════════════════════════════════════════ */}
+        {section === 'needs' && (
+          <div className="space-y-5">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h2 className="text-base font-bold text-white">Necesidades de instaladores</h2>
+                <p className="text-xs text-slate-400 mt-0.5">Preguntas sin respuesta y oficios desconocidos detectados por el chatbot</p>
+              </div>
+              <button onClick={() => { setNeedsLoading(true); loadInstallerNeeds().then(setNeeds).catch(() => {}).finally(() => setNeedsLoading(false)); }}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold bg-slate-800 border border-slate-700 text-slate-300 hover:text-white cursor-pointer transition-colors">
+                <RefreshCw className={`h-3.5 w-3.5 ${needsLoading ? 'animate-spin' : ''}`} /> Actualizar
+              </button>
+            </div>
+
+            {/* Filtros */}
+            <div className="flex flex-wrap gap-2">
+              {[
+                { id: 'all',             label: 'Todas' },
+                { id: 'unanswered',      label: 'Sin respuesta' },
+                { id: 'unknown_oficio',  label: 'Oficio desconocido' },
+                { id: 'feature_request', label: 'Feature request' },
+              ].map(f => (
+                <button key={f.id} onClick={() => setNeedsFilter(f.id)}
+                  className={`px-3 py-1.5 rounded text-xs font-semibold cursor-pointer transition-colors ${
+                    needsFilter === f.id ? 'bg-blue-600 text-white' : 'bg-slate-800 border border-slate-700 text-slate-400 hover:text-white'
+                  }`}>
+                  {f.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Métricas */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {[
+                { label: 'Sin respuesta',      value: needs.filter(n => n.tipo === 'unanswered').length,      color: 'text-red-400' },
+                { label: 'Oficio desconocido', value: needs.filter(n => n.tipo === 'unknown_oficio').length,  color: 'text-amber-400' },
+                { label: 'Feature request',    value: needs.filter(n => n.tipo === 'feature_request').length, color: 'text-purple-400' },
+                { label: 'Revisadas',          value: needs.filter(n => n.reviewed).length,                  color: 'text-emerald-400' },
+              ].map(({ label, value, color }) => (
+                <div key={label} className="bg-slate-800/50 border border-slate-700 rounded-lg p-3">
+                  <div className="text-[9px] text-slate-400 uppercase tracking-wider mb-1">{label}</div>
+                  <div className={`text-xl font-bold ${color}`}>{value}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Tabla */}
+            {needsLoading ? (
+              <div className="text-center py-12 text-slate-400 text-sm">Cargando...</div>
+            ) : (
+              <div className="bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden">
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="border-b border-slate-700 bg-slate-800">
+                        {['Fecha', 'Tipo', 'Oficio', 'Pregunta / Necesidad', 'Contexto', 'Revisada', ''].map(h => (
+                          <th key={h} className="text-left px-4 py-2.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {needs
+                        .filter(n => needsFilter === 'all' || n.tipo === needsFilter)
+                        .map(n => (
+                          <tr key={n.id} className={`border-b border-slate-800 hover:bg-slate-700/30 transition-colors ${n.reviewed ? 'opacity-50' : ''}`}>
+                            <td className="px-4 py-2.5 text-slate-400 whitespace-nowrap">
+                              {new Date(n.created_at).toLocaleDateString('es-ES')}
+                            </td>
+                            <td className="px-4 py-2.5">
+                              <span className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase ${
+                                n.tipo === 'unanswered'      ? 'bg-red-900/40 text-red-300 border border-red-800' :
+                                n.tipo === 'unknown_oficio'  ? 'bg-amber-900/40 text-amber-300 border border-amber-800' :
+                                                               'bg-purple-900/40 text-purple-300 border border-purple-800'
+                              }`}>
+                                {n.tipo === 'unanswered' ? 'Sin resp.' : n.tipo === 'unknown_oficio' ? 'Oficio nuevo' : 'Feature'}
+                              </span>
+                            </td>
+                            <td className="px-4 py-2.5 text-slate-300">{n.oficio ?? '—'}</td>
+                            <td className="px-4 py-2.5 text-slate-200 max-w-xs">
+                              <p className="truncate">{n.question}</p>
+                            </td>
+                            <td className="px-4 py-2.5 text-slate-400 text-[10px]">
+                              {n.context?.plan && <span>Plan: {n.context.plan} · </span>}
+                              {n.context?.currentScreen && <span>Screen: {n.context.currentScreen}</span>}
+                            </td>
+                            <td className="px-4 py-2.5 text-center">
+                              {n.reviewed
+                                ? <CheckCircle className="h-3.5 w-3.5 text-emerald-400 mx-auto" />
+                                : <span className="text-slate-600">—</span>}
+                            </td>
+                            <td className="px-4 py-2.5">
+                              {!n.reviewed && (
+                                <button
+                                  onClick={async () => {
+                                    try {
+                                      await markNeedReviewed(n.id);
+                                      setNeeds(prev => prev.map(x => x.id === n.id ? { ...x, reviewed: true } : x));
+                                    } catch { toast('error', 'Error al marcar como revisada'); }
+                                  }}
+                                  className="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-bold cursor-pointer bg-slate-700 border border-slate-600 text-slate-300 hover:bg-emerald-900/40 hover:border-emerald-700 hover:text-emerald-300 transition-colors"
+                                >
+                                  <Eye className="h-3 w-3" /> Revisada
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                  {needs.filter(n => needsFilter === 'all' || n.tipo === needsFilter).length === 0 && (
+                    <div className="text-center py-10 text-slate-500 text-sm">No hay registros</div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         </div>{/* max-w-6xl */}
         </main>

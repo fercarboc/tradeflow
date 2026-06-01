@@ -1008,6 +1008,18 @@ export async function sendTrabflowEmail(payload: {
   // Fire-and-forget: no lanzamos error si el email falla, para no bloquear el flujo UX
 }
 
+export async function sendClientEmail(to: string, subject: string, text: string): Promise<void> {
+  const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-email`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type: 'send_to_client', to, subject, text }),
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Error al enviar email: ${err}`);
+  }
+}
+
 /**
  * Fuzzy match del texto detectado por IA contra el catálogo cargado.
  * Usa solapamiento Jaccard sobre tokens relevantes — mínimo 40% de overlap.
@@ -2759,5 +2771,72 @@ export async function signContract(id: string, contenido_html: string): Promise<
 
 export async function deleteContract(id: string): Promise<void> {
   const { error } = await supabase.from('trade_contracts').delete().eq('id', id);
+  if (error) throw error;
+}
+
+// ── Chatbot ───────────────────────────────────────────────────────────────────
+
+export interface InstallerNeed {
+  id: string;
+  org_id?: string;
+  oficio?: string;
+  question: string;
+  context: Record<string, string>;
+  tipo: 'unanswered' | 'unknown_oficio' | 'feature_request';
+  reviewed: boolean;
+  created_at: string;
+}
+
+export interface ChatbotMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+export interface ChatbotContext {
+  oficio?: string;
+  plan?: string;
+  currentScreen?: string;
+  orgId?: string;
+}
+
+export interface ChatbotResponse {
+  answer: string;
+  chips: string[];
+  action: { label: string; page: string } | null;
+  canAnswer: boolean;
+  unknownOficio: boolean;
+}
+
+export async function callChatbot(
+  message: string,
+  history: ChatbotMessage[],
+  context: ChatbotContext,
+): Promise<ChatbotResponse> {
+  const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-chatbot`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, history, context }),
+  });
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Chatbot error: ${err}`);
+  }
+  return res.json();
+}
+
+export async function loadInstallerNeeds(): Promise<InstallerNeed[]> {
+  const { data, error } = await supabase
+    .from('trade_installer_needs')
+    .select('*')
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as InstallerNeed[];
+}
+
+export async function markNeedReviewed(id: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_installer_needs')
+    .update({ reviewed: true })
+    .eq('id', id);
   if (error) throw error;
 }

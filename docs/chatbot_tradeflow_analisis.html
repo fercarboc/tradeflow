@@ -1,0 +1,256 @@
+
+<style>
+  .section { margin-bottom: 2rem; }
+  .section-title { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: .07em; margin-bottom: .75rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  .card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: .9rem 1rem; }
+  .card-icon { font-size: 20px; margin-bottom: 6px; color: var(--color-text-secondary); }
+  .card-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .card-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+  .intent-row { display: flex; gap: 8px; align-items: flex-start; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+  .intent-row:last-child { border-bottom: none; }
+  .badge { font-size: 11px; padding: 2px 8px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; font-weight: 500; }
+  .badge-blue { background: var(--color-background-info); color: var(--color-text-info); }
+  .badge-green { background: var(--color-background-success); color: var(--color-text-success); }
+  .badge-amber { background: #FAEEDA; color: #854F0B; }
+  .badge-purple { background: #EEEDFE; color: #3C3489; }
+  .badge-red { background: var(--color-background-danger); color: var(--color-text-danger); }
+  .intent-text { font-size: 13px; color: var(--color-text-primary); line-height: 1.4; }
+  .intent-answer { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; line-height: 1.4; }
+  .flow { display: flex; flex-direction: column; gap: 0; }
+  .flow-step { display: flex; gap: 12px; align-items: flex-start; }
+  .flow-num { width: 24px; height: 24px; border-radius: 50%; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-secondary); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; color: var(--color-text-secondary); flex-shrink: 0; margin-top: 2px; }
+  .flow-line { width: 0.5px; background: var(--color-border-tertiary); flex-shrink: 0; margin-left: 11px; height: 18px; }
+  .flow-content { padding-bottom: 6px; }
+  .flow-label { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+  .flow-sub { font-size: 12px; color: var(--color-text-secondary); line-height: 1.4; }
+  .plan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .plan-card { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: .75rem; }
+  .plan-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .plan-price { font-size: 11px; color: var(--color-text-secondary); margin-bottom: 6px; }
+  .plan-feat { font-size: 11px; color: var(--color-text-secondary); display: flex; align-items: center; gap: 4px; line-height: 1.5; }
+  .check { color: var(--color-text-success); } .cross { color: var(--color-text-danger); }
+  .prompt-chip { display: inline-block; background: var(--color-background-secondary); border: 0.5px solid var(--color-border-secondary); border-radius: 20px; padding: 4px 10px; font-size: 12px; color: var(--color-text-primary); margin: 3px 3px 0 0; cursor: pointer; transition: background .15s; }
+  .prompt-chip:hover { background: var(--color-background-primary); border-color: var(--color-border-primary); }
+  .system-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .sys-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: .75rem 1rem; }
+  .sys-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .sys-item { font-size: 12px; color: var(--color-text-secondary); line-height: 1.6; }
+</style>
+
+<div style="padding: 1rem 0 0;">
+
+  <div class="section">
+    <div class="section-title">Módulos del chatbot — ¿sobre qué puede preguntar el instalador?</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon"><i class="ti ti-file-invoice" aria-hidden="true"></i></div>
+        <div class="card-title">Presupuestos de obra</div>
+        <div class="card-desc">Cómo crear, editar partidas, cambiar precios, enviar y convertir en trabajo</div>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
+        <div class="card-title">Contratos mantenimiento</div>
+        <div class="card-desc">Crear por dictado IA, SLA, horarios, recargos, exclusiones, convertir a contrato activo</div>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="ti ti-book" aria-hidden="true"></i></div>
+        <div class="card-title">Catálogo y precios</div>
+        <div class="card-desc">Cómo añadir productos, editar precios inline, importar Excel, filtrar por familia</div>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="ti ti-send" aria-hidden="true"></i></div>
+        <div class="card-title">Envío email / WhatsApp</div>
+        <div class="card-desc">Enviar presupuesto, contrato o factura por email; compartir enlace por WhatsApp</div>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="ti ti-credit-card" aria-hidden="true"></i></div>
+        <div class="card-title">Plan y suscripción</div>
+        <div class="card-desc">Ver plan actual, diferencias entre planes, cómo actualizar, gestionar facturación</div>
+      </div>
+      <div class="card">
+        <div class="card-icon"><i class="ti ti-receipt" aria-hidden="true"></i></div>
+        <div class="card-title">Facturación</div>
+        <div class="card-desc">Crear facturas desde contrato, tipos (mensual, urgencia, materiales), estados y cobro</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Intents principales — preguntas reales del instalador</div>
+    <div style="background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: .75rem 1rem;">
+
+      <div class="intent-row">
+        <span class="badge badge-blue">Presupuesto</span>
+        <div>
+          <div class="intent-text">"¿Cómo hago un presupuesto de fontanería?"</div>
+          <div class="intent-answer">→ Explica el flujo de dictado IA o creación manual, partidas del catálogo, envío</div>
+        </div>
+      </div>
+      <div class="intent-row">
+        <span class="badge badge-blue">Presupuesto</span>
+        <div>
+          <div class="intent-text">"¿Qué tipos de presupuesto puedo hacer?"</div>
+          <div class="intent-answer">→ Obra puntual vs contrato de mantenimiento; muestra diferencia y cuándo usar cada uno</div>
+        </div>
+      </div>
+      <div class="intent-row">
+        <span class="badge badge-green">Mantenimiento</span>
+        <div>
+          <div class="intent-text">"¿Cómo creo un contrato de mantenimiento?"</div>
+          <div class="intent-answer">→ Dictado IA → detección oficio/sector → plantilla → revisión → envío (solo Plan Empresa)</div>
+        </div>
+      </div>
+      <div class="intent-row">
+        <span class="badge badge-green">Mantenimiento</span>
+        <div>
+          <div class="intent-text">"¿Puedo añadir guardias y festivos al contrato?"</div>
+          <div class="intent-answer">→ Sí, explica recargos automáticos (fin semana +25%, festivo +50%, nocturno +35%, urgencia +40/60%)</div>
+        </div>
+      </div>
+      <div class="intent-row">
+        <span class="badge badge-amber">Catálogo</span>
+        <div>
+          <div class="intent-text">"¿Cómo actualizo los precios de mis productos?"</div>
+          <div class="intent-answer">→ Edición inline con el lápiz en cada fila, importación Excel masiva, o editar por familia</div>
+        </div>
+      </div>
+      <div class="intent-row">
+        <span class="badge badge-amber">Catálogo</span>
+        <div>
+          <div class="intent-text">"¿Puedo importar mi tarifa en Excel?"</div>
+          <div class="intent-answer">→ Sí, hasta 5000 referencias; guía de formato y pasos de importación</div>
+        </div>
+      </div>
+      <div class="intent-row">
+        <span class="badge badge-purple">Envío</span>
+        <div>
+          <div class="intent-text">"¿Cómo envío el presupuesto por WhatsApp?"</div>
+          <div class="intent-answer">→ Botón compartir desde el presupuesto → genera enlace → abre WhatsApp href automático</div>
+        </div>
+      </div>
+      <div class="intent-row">
+        <span class="badge badge-purple">Envío</span>
+        <div>
+          <div class="intent-text">"¿Cómo mando el contrato firmado por email?"</div>
+          <div class="intent-answer">→ Desde el contrato activo → botón "Enviar por email" → plantilla predefinida Resend API</div>
+        </div>
+      </div>
+      <div class="intent-row">
+        <span class="badge badge-red">Plan</span>
+        <div>
+          <div class="intent-text">"¿Cómo cambio al plan Empresa?"</div>
+          <div class="intent-answer">→ Ajustes → Suscripción → botón "Gestionar suscripción" (Portal Stripe) o "Activar plan"</div>
+        </div>
+      </div>
+      <div class="intent-row">
+        <span class="badge badge-red">Plan</span>
+        <div>
+          <div class="intent-text">"¿Qué diferencia hay entre los planes?"</div>
+          <div class="intent-answer">→ Tabla comparativa: Básico €49 / Profesional €99 / Empresa €179 con contratos mantenimiento</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Flujo conversacional recomendado</div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content"><div class="flow-label">Bienvenida contextual</div><div class="flow-sub">El chatbot detecta en qué pantalla está el instalador (presupuestos, contratos, catálogo) y adapta el saludo</div></div>
+      </div>
+      <div class="flow-line"></div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content"><div class="flow-label">Clasificación del intent</div><div class="flow-sub">La IA detecta si la pregunta es sobre presupuesto, contrato, catálogo, envío, plan o facturación</div></div>
+      </div>
+      <div class="flow-line"></div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content"><div class="flow-label">Respuesta guiada + acción directa</div><div class="flow-sub">Responde con pasos concretos y, si es posible, ofrece un botón "Ir a [sección]" dentro de la app</div></div>
+      </div>
+      <div class="flow-line"></div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-content"><div class="flow-label">Detección de plan insuficiente</div><div class="flow-sub">Si la funcionalidad requiere Plan Empresa y el usuario tiene otro, explica y redirige a Ajustes</div></div>
+      </div>
+      <div class="flow-line"></div>
+      <div class="flow-step">
+        <div class="flow-num">5</div>
+        <div class="flow-content"><div class="flow-label">Sugerencias proactivas</div><div class="flow-sub">Tras responder, el chatbot sugiere 2-3 preguntas relacionadas con chips clicables</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Chips de inicio rápido sugeridos</div>
+    <div>
+      <span class="prompt-chip" onclick="sendPrompt('¿Qué chips de inicio rápido recomiendas para el chatbot de TradeFlow?')">📋 Crear presupuesto</span>
+      <span class="prompt-chip" onclick="sendPrompt('¿Cómo explicaría el chatbot cómo crear un contrato de mantenimiento por dictado?')">🛡️ Contrato mantenimiento</span>
+      <span class="prompt-chip" onclick="sendPrompt('¿Cómo actualizar precios en el catálogo TradeFlow?')">💰 Actualizar precios</span>
+      <span class="prompt-chip" onclick="sendPrompt('¿Cómo enviar un presupuesto por WhatsApp en TradeFlow?')">📱 Enviar por WhatsApp</span>
+      <span class="prompt-chip" onclick="sendPrompt('Explícame la diferencia entre los planes de TradeFlow')">🔄 Cambiar plan</span>
+      <span class="prompt-chip" onclick="sendPrompt('¿Cómo crear una factura desde un contrato de mantenimiento en TradeFlow?')">🧾 Crear factura</span>
+      <span class="prompt-chip" onclick="sendPrompt('¿Qué tipos de presupuesto puedo hacer en TradeFlow?')">❓ Tipos de presupuesto</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Comparativa de planes para el chatbot</div>
+    <div class="plan-grid">
+      <div class="plan-card">
+        <div class="plan-name">Básico</div>
+        <div class="plan-price">€49/mes</div>
+        <div class="plan-feat"><span class="check">✓</span> Presupuestos obra</div>
+        <div class="plan-feat"><span class="check">✓</span> Catálogo</div>
+        <div class="plan-feat"><span class="check">✓</span> Envío email/WhatsApp</div>
+        <div class="plan-feat"><span class="cross">✗</span> Contratos mantenimiento</div>
+        <div class="plan-feat"><span class="cross">✗</span> Facturación recurrente</div>
+        <div class="plan-feat"><span class="cross">✗</span> Multi-usuario</div>
+      </div>
+      <div class="plan-card">
+        <div class="plan-name">Profesional</div>
+        <div class="plan-price">€99/mes</div>
+        <div class="plan-feat"><span class="check">✓</span> Presupuestos obra</div>
+        <div class="plan-feat"><span class="check">✓</span> Catálogo</div>
+        <div class="plan-feat"><span class="check">✓</span> Facturación</div>
+        <div class="plan-feat"><span class="cross">✗</span> Contratos mantenimiento</div>
+        <div class="plan-feat"><span class="cross">✗</span> Multi-usuario</div>
+        <div class="plan-feat"><span class="cross">✗</span> Facturación recurrente</div>
+      </div>
+      <div class="plan-card" style="border: 2px solid var(--color-border-info);">
+        <div style="font-size:10px;background:var(--color-background-info);color:var(--color-text-info);border-radius:20px;padding:2px 8px;display:inline-block;margin-bottom:4px;">Recomendado</div>
+        <div class="plan-name">Empresa</div>
+        <div class="plan-price">€179/mes</div>
+        <div class="plan-feat"><span class="check">✓</span> Todo lo anterior</div>
+        <div class="plan-feat"><span class="check">✓</span> Contratos mantenimiento</div>
+        <div class="plan-feat"><span class="check">✓</span> Facturación recurrente</div>
+        <div class="plan-feat"><span class="check">✓</span> 10 usuarios con roles</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Arquitectura técnica recomendada</div>
+    <div class="system-row">
+      <div class="sys-card">
+        <div class="sys-title"><i class="ti ti-brain" aria-hidden="true"></i> Modelo IA</div>
+        <div class="sys-item">Claude Sonnet como LLM principal. System prompt con contexto de la pantalla actual y plan del usuario. Historial de los últimos 10 mensajes para mantener contexto.</div>
+      </div>
+      <div class="sys-card">
+        <div class="sys-title"><i class="ti ti-database" aria-hidden="true"></i> Base de conocimiento</div>
+        <div class="sys-item">FAQs estructuradas en JSON por módulo. Documentación de funcionalidades por plan. Reglas de negocio (recargos, SLA, exclusiones, límites de usuarios).</div>
+      </div>
+      <div class="sys-card">
+        <div class="sys-title"><i class="ti ti-layout-sidebar" aria-hidden="true"></i> Integración en app</div>
+        <div class="sys-item">Botón flotante 💬 en todas las vistas. Panel lateral en escritorio. Modal full-screen en móvil. Context injection automático: pantalla actual + plan + oficio del usuario.</div>
+      </div>
+      <div class="sys-card">
+        <div class="sys-title"><i class="ti ti-route" aria-hidden="true"></i> Deep-links</div>
+        <div class="sys-item">El chatbot puede responder con botones de acción que naveguen directamente: "Ir al catálogo", "Abrir presupuesto", "Ver planes", "Ir a Ajustes".</div>
+      </div>
+    </div>
+  </div>
+
+</div>

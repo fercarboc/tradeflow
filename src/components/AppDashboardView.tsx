@@ -60,7 +60,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription, TemplateType } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { usePermissions } from '../hooks/usePermissions';
@@ -78,6 +78,7 @@ import ScreenContratos from './ScreenContratos';
 import { resolveTemplate, buildTemplateVars, DEFAULT_TEMPLATES, VARIABLE_GROUPS } from '../lib/templateEngine';
 import PlanUpgradeModal from './PlanUpgradeModal';
 import OnboardingWizard from './OnboardingWizard';
+import ChatbotWidget from './ChatbotWidget';
 import type { TradeOrganization } from '../lib/supabase';
 
 const InvoiceIcon = FileText;
@@ -262,6 +263,137 @@ interface PresetPhoto {
   url: string;
   category: string;
   detections: { label: string; x: number; y: number; w: number; h: number; price: number; type: 'material' | 'mano_de_obra'; confidence: number }[];
+}
+
+// ── SendEmailModal ────────────────────────────────────────────────────────────
+// Componente a nivel de módulo (nunca dentro del padre) para evitar re-mount
+
+const EMAIL_TEMPLATE_OPTIONS: Array<{ tipo: TemplateType; label: string; defaultSubject: (nombre: string) => string }> = [
+  { tipo: 'email_presupuesto',  label: 'Envío de Presupuesto',  defaultSubject: n => `Presupuesto de ${n}` },
+  { tipo: 'email_factura',      label: 'Envío de Factura',      defaultSubject: n => `Factura de ${n}` },
+  { tipo: 'recordatorio_pago',  label: 'Recordatorio de Pago',  defaultSubject: n => `Recordatorio de pago — ${n}` },
+  { tipo: 'aviso_visita',       label: 'Aviso de Visita',       defaultSubject: n => `Aviso de visita — ${n}` },
+];
+
+interface SendEmailModalProps {
+  cliente: Cliente;
+  empresa: { nombre: string; nif: string; email: string; telefono: string };
+  orgTemplates: Partial<Record<TemplateType, string>>;
+  onClose: () => void;
+  onSent: () => void;
+}
+
+function SendEmailModal({ cliente, empresa, orgTemplates, onClose, onSent }: SendEmailModalProps) {
+  const [selectedTipo, setSelectedTipo] = useState<TemplateType | null>(null);
+  const [subject, setSubject] = useState('');
+  const [body, setBody] = useState('');
+  const [sending, setSending] = useState(false);
+
+  const vars = buildTemplateVars({
+    empresa: { nombre: empresa.nombre, nif: empresa.nif, telefono: empresa.telefono, email: empresa.email },
+    cliente: { nombre: cliente.nombre, telefono: cliente.telefono, email: cliente.email, direccion: cliente.direccion },
+  });
+
+  function pickTemplate(tipo: TemplateType) {
+    setSelectedTipo(tipo);
+    const opt = EMAIL_TEMPLATE_OPTIONS.find(o => o.tipo === tipo)!;
+    const rawContent = orgTemplates[tipo] ?? (DEFAULT_TEMPLATES as Record<string, string>)[tipo] ?? '';
+    setBody(resolveTemplate(rawContent, vars));
+    setSubject(opt.defaultSubject(empresa.nombre || 'TrabFlow'));
+  }
+
+  async function handleSend() {
+    if (!selectedTipo || !cliente.email || !subject.trim() || !body.trim()) return;
+    setSending(true);
+    try {
+      await sendClientEmail(cliente.email, subject, body);
+      onSent();
+      onClose();
+    } catch {
+      onSent();
+    }
+    setSending(false);
+  }
+
+  return (
+    <div className="fixed inset-0 bg-black/60 z-[70] flex items-end sm:items-center justify-center p-0 sm:p-4">
+      <div className="bg-white dark:bg-slate-900 rounded-t-3xl sm:rounded-2xl w-full sm:max-w-lg max-h-[90vh] flex flex-col shadow-2xl">
+        {/* Cabecera */}
+        <div className="px-5 pt-5 pb-3 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center shrink-0">
+          <div>
+            <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white">Enviar Email</h3>
+            <p className="text-[10px] text-slate-400 mt-0.5">{cliente.nombre} · {cliente.email ?? 'sin email registrado'}</p>
+          </div>
+          <button onClick={onClose} className="text-slate-400 hover:text-slate-700 cursor-pointer"><X className="w-5 h-5" /></button>
+        </div>
+
+        <div className="overflow-y-auto flex-1 p-5 space-y-4">
+          {!cliente.email && (
+            <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl p-3 text-xs text-amber-700 dark:text-amber-400">
+              Este cliente no tiene email guardado. Añade su email en el CRM antes de enviar.
+            </div>
+          )}
+
+          {/* Selector de plantilla */}
+          <div>
+            <label className="text-[9px] font-mono uppercase text-slate-400 block mb-2">Selecciona una plantilla</label>
+            <div className="space-y-2">
+              {EMAIL_TEMPLATE_OPTIONS.map(opt => (
+                <button
+                  key={opt.tipo}
+                  onClick={() => pickTemplate(opt.tipo)}
+                  className={`w-full text-left px-4 py-3 rounded-xl border text-xs font-bold cursor-pointer transition-colors ${
+                    selectedTipo === opt.tipo
+                      ? 'bg-blue-600 border-blue-600 text-white'
+                      : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-blue-300'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {selectedTipo && (
+            <>
+              <div>
+                <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Asunto</label>
+                <input
+                  type="text"
+                  value={subject}
+                  onChange={e => setSubject(e.target.value)}
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Contenido del email</label>
+                <textarea
+                  value={body}
+                  onChange={e => setBody(e.target.value)}
+                  rows={10}
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500 resize-none font-mono"
+                />
+              </div>
+            </>
+          )}
+
+          <div className="flex gap-3 pt-1">
+            <button onClick={onClose} className="flex-1 py-2.5 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 cursor-pointer">
+              Cancelar
+            </button>
+            <button
+              disabled={sending || !selectedTipo || !cliente.email || !subject.trim() || !body.trim()}
+              onClick={handleSend}
+              className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 rounded-xl text-xs font-bold text-white cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2"
+            >
+              <Mail className="w-3.5 h-3.5" />
+              {sending ? 'Enviando...' : 'Enviar email'}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default function AppDashboardView({ setCurrentPage, initialMobile = true, session, loginOnMount = false, workerOrgId, checkoutSuccess = false }: AppDashboardViewProps) {
@@ -1606,6 +1738,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   const [isClientModalOpen, setIsClientModalOpen] = useState<boolean>(false);
   const [newClient, setNewClient] = useState<Partial<Cliente>>({ nombre: '', telefono: '', email: '', direccion: '' });
+  const [emailModalCliente, setEmailModalCliente] = useState<Cliente | null>(null);
 
   const TARIFA_SUGERIDA = 52;
   const [showPricingSuggestion, setShowPricingSuggestion] = useState<boolean>(
@@ -2261,6 +2394,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         </div>
       )}
 
+      {/* ================= MODAL ENVIAR EMAIL CLIENTE ================= */}
+      {emailModalCliente && (
+        <SendEmailModal
+          cliente={emailModalCliente}
+          empresa={{
+            nombre: empresaAjustes.nombre,
+            nif: empresaAjustes.nif,
+            email: empresaAjustes.email,
+            telefono: empresaAjustes.telefonoMovil,
+          }}
+          orgTemplates={orgTemplates}
+          onClose={() => setEmailModalCliente(null)}
+          onSent={() => showToast('Email enviado ✓', 'success')}
+        />
+      )}
+
       {/* ================= MODAL NUEVO CLIENTE ================= */}
       {isClientModalOpen && (
         <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4">
@@ -2426,6 +2575,45 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         )}
       </AnimatePresence>
+
+      {/* ================= CHATBOT WIDGET ================= */}
+      {isLiveMode && (
+        <ChatbotWidget
+          context={{
+            oficio: orgData?.oficio ?? '',
+            plan: subscription?.plan ?? orgData?.plan ?? '',
+            currentScreen: isNativeDevice ? mobileTab : activeTab,
+            orgId: orgId ?? undefined,
+          }}
+          onNavigate={(page) => {
+            if (isNativeDevice) {
+              const mobilePageMap: Record<string, typeof mobileTab> = {
+                presupuestos: 'presupuestos',
+                facturas: 'facturas',
+                clientes: 'clientes',
+                ajustes: 'ajustes',
+                mantenimientos: 'mantenimiento',
+                planificacion: 'trabajos',
+                catalogo: 'catalogo',
+              };
+              const t = mobilePageMap[page];
+              if (t) setMobileTab(t);
+            } else {
+              const desktopPageMap: Record<string, string> = {
+                presupuestos: 'quotes',
+                facturas: 'invoices',
+                clientes: 'crm',
+                ajustes: 'settings',
+                mantenimientos: 'mantenimiento',
+                planificacion: 'planificacion',
+                catalogo: 'catalogo',
+              };
+              const t = desktopPageMap[page];
+              if (t) setActiveTab(t);
+            }
+          }}
+        />
+      )}
 
     </div>
   );
@@ -3480,7 +3668,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
 
             {/* Botones contacto */}
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-3 gap-2">
               <a
                 href={`tel:${selectedCliente.telefono}`}
                 className="bg-slate-900 dark:bg-slate-800 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[10px] uppercase"
@@ -3494,6 +3682,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               >
                 <MessageSquare className="w-3.5 h-3.5" /> WhatsApp
               </a>
+              <button
+                onClick={() => setEmailModalCliente(selectedCliente)}
+                className="bg-blue-600 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[10px] uppercase cursor-pointer"
+              >
+                <Mail className="w-3.5 h-3.5" /> Email
+              </button>
             </div>
           </div>
 
@@ -5613,6 +5807,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     className="text-[9px] text-blue-600 hover:underline font-bold uppercase tracking-wider cursor-pointer whitespace-nowrap"
                   >
                     + Presupuesto
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setEmailModalCliente(c); }}
+                    className="text-[9px] text-blue-600 hover:underline font-bold uppercase tracking-wider cursor-pointer whitespace-nowrap flex items-center gap-0.5"
+                  >
+                    <Mail className="w-3 h-3" /> Email
                   </button>
                   <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
                 </div>
