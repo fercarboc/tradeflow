@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import {
-  Camera, Mic, MicOff, X, ChevronLeft,
-  Loader2, CheckCircle, Sparkles, ImageIcon, AlertCircle, Send,
+  Camera, Mic, MicOff, X,
+  Loader2, CheckCircle, Sparkles, ImageIcon, AlertCircle, Send, ChevronLeft,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
@@ -19,6 +19,7 @@ interface ApiResult {
   partidas: PartidaResult[];
   visualizacionUrl: string | null;
   visualizacionB64: string | null;
+  visualizacionError: string | null;
 }
 
 interface QuoteConfirm {
@@ -35,42 +36,68 @@ export interface ScreenPresupuestoFotoProps {
 
 type Phase = 'photo' | 'voice' | 'processing' | 'result';
 
+// Comprime la imagen a max 1024px y calidad 0.85 para no superar límites de la edge function
+async function compressImage(file: File, maxPx = 1024, quality = 0.85): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const ratio = Math.min(1, maxPx / Math.max(img.width, img.height));
+      const w = Math.round(img.width * ratio);
+      const h = Math.round(img.height * ratio);
+      const canvas = document.createElement('canvas');
+      canvas.width  = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(img, 0, 0, w, h);
+      const dataUrl = canvas.toDataURL('image/jpeg', quality);
+      resolve(dataUrl.split(',')[1]); // devuelve solo el base64
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
 export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, showToast }: ScreenPresupuestoFotoProps) {
-  const [phase, setPhase]             = useState<Phase>('photo');
-  const [photoFile, setPhotoFile]     = useState<File | null>(null);
-  const [photoUrl, setPhotoUrl]       = useState<string | null>(null);
-  const [photoB64, setPhotoB64]       = useState<string | null>(null);
-  const [recording, setRecording]     = useState(false);
-  const [audioBlob, setAudioBlob]     = useState<Blob | null>(null);
-  const [audioMime, setAudioMime]     = useState<string>('audio/webm');
-  const [textInput, setTextInput]     = useState('');
-  const [showTextInput, setShowTextInput] = useState(false);
-  const [result, setResult]           = useState<ApiResult | null>(null);
-  const [showAfter, setShowAfter]     = useState(true);
+  const [phase, setPhase]           = useState<Phase>('photo');
+  const [photoFile, setPhotoFile]   = useState<File | null>(null);
+  const [photoUrl, setPhotoUrl]     = useState<string | null>(null);
+  const [photoB64, setPhotoB64]     = useState<string | null>(null);
+  const [recording, setRecording]   = useState(false);
+  const [audioBlob, setAudioBlob]   = useState<Blob | null>(null);
+  const [audioMime, setAudioMime]   = useState<string>('audio/webm');
+  const [textInput, setTextInput]   = useState('');
+  const [result, setResult]         = useState<ApiResult | null>(null);
   const [processingStep, setProcessingStep] = useState('');
 
-  const mediaRef = useRef<MediaRecorder | null>(null);
-  const fileRef  = useRef<HTMLInputElement | null>(null);
-  const chunksRef = useRef<Blob[]>([]);
+  const mediaRef    = useRef<MediaRecorder | null>(null);
+  const cameraRef   = useRef<HTMLInputElement | null>(null); // con capture — móvil cámara
+  const galleryRef  = useRef<HTMLInputElement | null>(null); // sin capture — galería y PC
+  const chunksRef   = useRef<Blob[]>([]);
 
-  // ── Photo selection ──────────────────────────────────────────────────────────
-  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+  // ── Selección de foto ──────────────────────────────────────────────────────
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    const url = URL.createObjectURL(file);
-    setPhotoFile(file);
-    setPhotoUrl(url);
+    // Reset input value para poder seleccionar la misma foto otra vez
+    e.target.value = '';
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const b64 = (reader.result as string).split(',')[1];
+    const previewUrl = URL.createObjectURL(file);
+    setPhotoFile(file);
+    setPhotoUrl(previewUrl);
+
+    try {
+      // Comprimir antes de guardar: fotos de móvil pueden ser >5MB
+      const b64 = await compressImage(file);
       setPhotoB64(b64);
       setPhase('voice');
-    };
-    reader.readAsDataURL(file);
+    } catch {
+      showToast('Error al procesar la imagen', 'error');
+    }
   }
 
-  // ── Voice recording (tap to start/stop) ─────────────────────────────────────
+  // ── Grabación de voz ──────────────────────────────────────────────────────
   async function toggleRecording() {
     if (recording) {
       mediaRef.current?.stop();
@@ -78,18 +105,13 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
     }
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
-      // Pick a codec supported by this browser (iOS uses audio/mp4)
       const mime =
         MediaRecorder.isTypeSupported('audio/webm;codecs=opus') ? 'audio/webm;codecs=opus' :
         MediaRecorder.isTypeSupported('audio/webm')             ? 'audio/webm'             :
-        MediaRecorder.isTypeSupported('audio/mp4')              ? 'audio/mp4'              :
-        '';
+        MediaRecorder.isTypeSupported('audio/mp4')              ? 'audio/mp4'              : '';
       setAudioMime(mime || 'audio/webm');
-
       const mr = new MediaRecorder(stream, mime ? { mimeType: mime } : {});
       chunksRef.current = [];
-
       mr.ondataavailable = e => { if (e.data.size > 0) chunksRef.current.push(e.data); };
       mr.onstop = () => {
         stream.getTracks().forEach(t => t.stop());
@@ -97,7 +119,6 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
         setAudioBlob(blob);
         setRecording(false);
       };
-
       mr.start();
       mediaRef.current = mr;
       setRecording(true);
@@ -106,11 +127,9 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
     }
   }
 
-  // ── Submit to edge function ──────────────────────────────────────────────────
+  // ── Envío a edge function ──────────────────────────────────────────────────
   async function handleSubmit(blobArg?: Blob) {
     if (!photoB64) return;
-
-    // Require either audio or text
     const blobToUse = blobArg ?? audioBlob;
     if (!blobToUse && !textInput.trim()) {
       showToast('Graba tu voz o escribe lo que quieres cambiar', 'error');
@@ -125,7 +144,7 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
       let usedMime = audioMime;
 
       if (blobToUse) {
-        const buf = await blobToUse.arrayBuffer();
+        const buf   = await blobToUse.arrayBuffer();
         const bytes = new Uint8Array(buf);
         let bin = '';
         for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
@@ -134,13 +153,13 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
       }
 
       setProcessingStep('Analizando foto con IA...');
-      const mimeType = photoFile?.type ?? 'image/jpeg';
-
+      await new Promise(r => setTimeout(r, 200));
       setProcessingStep('Generando presupuesto...');
+
       const { data, error } = await supabase.functions.invoke('trade-presupuesto-foto', {
         body: {
           photo: photoB64,
-          mimeType,
+          mimeType: 'image/jpeg', // siempre jpeg tras comprimir
           ...(audioB64 ? { audio: audioB64, audioMimeType: usedMime } : {}),
           ...(textInput.trim() ? { text: textInput.trim() } : {}),
         },
@@ -149,32 +168,30 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
       if (error) throw new Error(String(error.message ?? error));
 
       setProcessingStep('Creando visualización...');
-      await new Promise(r => setTimeout(r, 400));
+      await new Promise(r => setTimeout(r, 300));
 
       setResult(data as ApiResult);
       setPhase('result');
-    } catch (err) {
-      showToast('Error al procesar. Intenta de nuevo.', 'error');
+    } catch {
+      showToast('Error al procesar. Comprueba tu conexión e inténtalo de nuevo.', 'error');
       setPhase('voice');
     }
   }
 
-  // When recording stops, auto-submit
+  // Para cuando acaba de grabar: auto-submit
   function stopAndSubmit() {
     if (!recording || !mediaRef.current) return;
     const mr = mediaRef.current;
     const originalOnStop = mr.onstop;
     mr.onstop = async (e) => {
       if (originalOnStop) (originalOnStop as EventListener)(e);
-      // Wait a tick for onstop to set audioBlob
-      await new Promise(r => setTimeout(r, 100));
+      await new Promise(r => setTimeout(r, 120));
       const blob = new Blob(chunksRef.current, { type: audioMime });
       handleSubmit(blob);
     };
     mr.stop();
   }
 
-  // ── Confirm quote ────────────────────────────────────────────────────────────
   function handleConfirm() {
     if (!result) return;
     onConfirm({
@@ -190,14 +207,24 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
     });
   }
 
-  // Visualization image source: b64 preferred, then URL
   function vizSrc(): string | null {
     if (!result) return null;
     if (result.visualizacionB64) return `data:image/png;base64,${result.visualizacionB64}`;
     return result.visualizacionUrl ?? null;
   }
 
-  // ── UI ────────────────────────────────────────────────────────────────────────
+  function resetAll() {
+    setPhase('photo');
+    setPhotoUrl(null);
+    setPhotoFile(null);
+    setPhotoB64(null);
+    setAudioBlob(null);
+    setResult(null);
+    setTextInput('');
+    setProcessingStep('');
+  }
+
+  // ── UI ────────────────────────────────────────────────────────────────────
   return (
     <div className="fixed inset-0 bg-[#0B0F14] z-[60] flex flex-col">
 
@@ -217,16 +244,22 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
       <div className="flex items-center justify-center gap-2 py-3 border-b border-white/8 shrink-0">
         {(['photo', 'voice', 'processing', 'result'] as Phase[]).map((p, i) => (
           <div key={p} className="flex items-center gap-1">
-            <div className={`w-2 h-2 rounded-full transition-all ${phase === p ? 'bg-violet-400 scale-125' : ((['photo', 'voice', 'processing', 'result'].indexOf(phase) > i) ? 'bg-violet-600' : 'bg-white/10')}`} />
+            <div className={`w-2 h-2 rounded-full transition-all ${
+              phase === p
+                ? 'bg-violet-400 scale-125'
+                : (['photo', 'voice', 'processing', 'result'].indexOf(phase) > i)
+                  ? 'bg-violet-600'
+                  : 'bg-white/10'
+            }`} />
           </div>
         ))}
       </div>
 
       <div className="flex-1 overflow-y-auto overscroll-contain">
 
-        {/* ── PHASE: PHOTO ── */}
+        {/* ── FASE: FOTO ── */}
         {phase === 'photo' && (
-          <div className="flex flex-col items-center justify-center h-full px-6 space-y-6">
+          <div className="flex flex-col items-center justify-center h-full px-6 space-y-5">
             <div className="text-center space-y-2">
               <div className="w-20 h-20 rounded-3xl bg-violet-600/20 border border-violet-500/30 flex items-center justify-center mx-auto mb-4">
                 <Camera className="w-10 h-10 text-violet-400" />
@@ -237,67 +270,75 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
               </p>
             </div>
 
+            {/* Input con capture: solo abre cámara en móvil */}
             <input
-              ref={fileRef}
+              ref={cameraRef}
               type="file"
               accept="image/*"
               capture="environment"
               className="hidden"
               onChange={handleFileChange}
             />
+            {/* Input sin capture: abre galería/explorador en cualquier dispositivo */}
+            <input
+              ref={galleryRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleFileChange}
+            />
 
+            {/* Botón cámara (móvil) */}
             <button
-              onClick={() => fileRef.current?.click()}
+              onClick={() => cameraRef.current?.click()}
               className="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-3 text-sm cursor-pointer"
             >
               <Camera className="w-5 h-5" />
-              Hacer foto o subir imagen
+              Hacer foto con la cámara
             </button>
 
+            {/* Botón galería (móvil y PC) */}
             <button
-              onClick={() => {
-                if (fileRef.current) {
-                  fileRef.current.removeAttribute('capture');
-                  fileRef.current.click();
-                }
-              }}
-              className="w-full bg-white/5 border border-white/10 text-slate-300 font-bold py-3 rounded-2xl flex items-center justify-center gap-3 text-sm cursor-pointer"
+              onClick={() => galleryRef.current?.click()}
+              className="w-full bg-white/5 border border-white/10 text-slate-300 font-bold py-3.5 rounded-2xl flex items-center justify-center gap-3 text-sm cursor-pointer"
             >
               <ImageIcon className="w-4 h-4" />
-              Elegir de la galería
+              Subir desde galería / ordenador
             </button>
+
+            <p className="text-[10px] text-slate-600 text-center">
+              La foto se comprime automáticamente antes de enviar
+            </p>
           </div>
         )}
 
-        {/* ── PHASE: VOICE ── */}
+        {/* ── FASE: VOZ / TEXTO ── */}
         {phase === 'voice' && (
           <div className="flex flex-col h-full">
-            {/* Photo preview */}
+            {/* Preview foto */}
             {photoUrl && (
-              <div className="relative h-48 shrink-0 overflow-hidden">
+              <div className="relative h-44 shrink-0 overflow-hidden">
                 <img src={photoUrl} alt="Espacio actual" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#0B0F14]" />
                 <button
-                  onClick={() => { setPhase('photo'); setPhotoUrl(null); setPhotoFile(null); setPhotoB64(null); setAudioBlob(null); setTextInput(''); setShowTextInput(false); }}
+                  onClick={resetAll}
                   className="absolute top-3 left-3 bg-black/60 rounded-full p-1.5 cursor-pointer"
                 >
                   <ChevronLeft className="w-4 h-4 text-white" />
                 </button>
-                <div className="absolute bottom-3 left-4">
+                <div className="absolute bottom-2 left-4">
                   <span className="text-[9px] font-bold uppercase text-slate-400 tracking-wider">Foto actual</span>
                 </div>
               </div>
             )}
 
             <div className="flex-1 flex flex-col items-center justify-center px-6 space-y-5 py-6">
-              <div className="text-center space-y-2">
+              <div className="text-center space-y-1.5">
                 <h2 className="text-lg font-bold text-white">¿Qué quieres cambiar?</h2>
-                <p className="text-slate-400 text-sm leading-relaxed">
-                  Pulsa el micrófono y describe la reforma
-                </p>
+                <p className="text-slate-400 text-sm">Pulsa el micrófono y describe la reforma, o escribe abajo</p>
               </div>
 
-              {/* Mic button — tap to start, tap again to stop */}
+              {/* Botón micrófono */}
               <button
                 onClick={recording ? stopAndSubmit : toggleRecording}
                 className={`w-24 h-24 rounded-full flex items-center justify-center cursor-pointer transition-all select-none ${
@@ -310,29 +351,25 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
               </button>
 
               {recording ? (
-                <div className="flex items-center gap-2 text-red-400 text-sm font-bold animate-pulse">
-                  <div className="w-2 h-2 rounded-full bg-red-400" />
-                  Grabando… pulsa para parar y enviar
-                </div>
-              ) : (
-                <p className="text-[11px] text-slate-500 text-center">
-                  Toca el micrófono para hablar
+                <p className="text-red-400 text-sm font-bold animate-pulse flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-red-400 inline-block" />
+                  Grabando… pulsa para parar y analizar
                 </p>
+              ) : (
+                <p className="text-[11px] text-slate-500 text-center">Toca el micrófono para hablar</p>
               )}
 
-              {/* Divider */}
               <div className="flex items-center gap-3 w-full">
                 <div className="flex-1 h-px bg-white/10" />
                 <span className="text-[10px] text-slate-500 font-mono">o escribe</span>
                 <div className="flex-1 h-px bg-white/10" />
               </div>
 
-              {/* Text input fallback */}
               <div className="w-full space-y-2">
                 <textarea
                   value={textInput}
                   onChange={e => setTextInput(e.target.value)}
-                  placeholder='Ej: "Cambiar la bañera por ducha y poner azulejos nuevos"'
+                  placeholder='Ej: "Reformar cocina estilo nórdico, muebles blancos y azulejos grises"'
                   rows={3}
                   className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-violet-500 resize-none"
                 />
@@ -350,7 +387,7 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
           </div>
         )}
 
-        {/* ── PHASE: PROCESSING ── */}
+        {/* ── FASE: PROCESANDO ── */}
         {phase === 'processing' && (
           <div className="flex flex-col items-center justify-center h-full px-6 space-y-6">
             <div className="w-20 h-20 rounded-3xl bg-violet-600/20 border border-violet-500/30 flex items-center justify-center">
@@ -374,65 +411,70 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
           </div>
         )}
 
-        {/* ── PHASE: RESULT ── */}
+        {/* ── FASE: RESULTADO ── */}
         {phase === 'result' && result && (
           <div className="space-y-4 px-4 py-4 pb-32">
 
-            {/* Before / After toggle */}
+            {/* Antes / Después — lado a lado */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Visualización IA</h3>
-                {vizSrc() && (
-                  <div className="flex gap-1 bg-white/5 rounded-xl p-1">
-                    <button
-                      onClick={() => setShowAfter(false)}
-                      className={`px-3 py-1 rounded-lg text-[10px] font-bold cursor-pointer transition-all ${!showAfter ? 'bg-white/10 text-white' : 'text-slate-500'}`}
-                    >
-                      Antes
-                    </button>
-                    <button
-                      onClick={() => setShowAfter(true)}
-                      className={`px-3 py-1 rounded-lg text-[10px] font-bold cursor-pointer transition-all ${showAfter ? 'bg-violet-600 text-white' : 'text-slate-500'}`}
-                    >
-                      Después ✨
-                    </button>
-                  </div>
-                )}
+                <span className="text-[9px] text-violet-400 font-bold uppercase tracking-wider flex items-center gap-1">
+                  <Sparkles className="w-3 h-3" /> Generado con IA
+                </span>
               </div>
 
-              <div className="relative rounded-2xl overflow-hidden bg-slate-900">
-                {vizSrc() && showAfter ? (
-                  <>
-                    <img
-                      src={vizSrc()!}
-                      alt="Visualización IA"
-                      className="w-full aspect-square object-cover"
-                    />
-                    <div className="absolute top-3 right-3 bg-violet-600/90 backdrop-blur-sm rounded-full px-2.5 py-1 flex items-center gap-1.5">
-                      <Sparkles className="w-3 h-3 text-white" />
-                      <span className="text-[9px] font-bold text-white uppercase">IA</span>
+              {/* Grid lado a lado */}
+              <div className="grid grid-cols-2 gap-2">
+                {/* Antes */}
+                <div className="relative rounded-2xl overflow-hidden bg-slate-900 aspect-square">
+                  {photoUrl ? (
+                    <>
+                      <img src={photoUrl} alt="Estado actual" className="w-full h-full object-cover" />
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent py-2 px-2">
+                        <span className="text-[9px] font-bold text-slate-300 uppercase tracking-wider">Antes</span>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <ImageIcon className="w-8 h-8 text-slate-600" />
                     </div>
-                  </>
-                ) : photoUrl ? (
-                  <>
-                    <img src={photoUrl} alt="Estado actual" className="w-full aspect-square object-cover" />
-                    <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm rounded-full px-2.5 py-1">
-                      <span className="text-[9px] font-bold text-slate-300 uppercase">Estado actual</span>
-                    </div>
-                  </>
-                ) : (
-                  <div className="aspect-square flex items-center justify-center">
-                    <p className="text-slate-500 text-sm">Sin imagen</p>
-                  </div>
-                )}
+                  )}
+                </div>
 
-                {!vizSrc() && (
-                  <div className="absolute bottom-3 left-3 right-3 bg-amber-500/80 backdrop-blur-sm rounded-xl px-3 py-2 flex items-start gap-2">
-                    <AlertCircle className="w-4 h-4 text-white shrink-0 mt-0.5" />
-                    <p className="text-[10px] text-white leading-snug">La visualización no está disponible. El presupuesto está generado correctamente.</p>
-                  </div>
-                )}
+                {/* Después */}
+                <div className="relative rounded-2xl overflow-hidden bg-slate-900 aspect-square">
+                  {vizSrc() ? (
+                    <>
+                      <img src={vizSrc()!} alt="Visualización IA" className="w-full h-full object-cover" />
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-violet-900/80 to-transparent py-2 px-2">
+                        <span className="text-[9px] font-bold text-violet-300 uppercase tracking-wider flex items-center gap-1">
+                          <Sparkles className="w-2.5 h-2.5" /> Después
+                        </span>
+                      </div>
+                    </>
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center gap-2 p-3">
+                      <AlertCircle className="w-5 h-5 text-amber-500" />
+                      <p className="text-[9px] text-slate-400 text-center leading-snug font-semibold">
+                        Visualización no disponible
+                      </p>
+                      {result?.visualizacionError && (
+                        <p className="text-[8px] text-slate-600 text-center leading-snug break-all">
+                          {result.visualizacionError.slice(0, 80)}
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
+
+              {/* Descripción ampliada — ver la imagen grande */}
+              {vizSrc() && (
+                <p className="text-[9px] text-slate-500 text-center">
+                  Ejemplo orientativo generado por IA · El resultado real puede variar
+                </p>
+              )}
             </div>
 
             {/* Análisis */}
@@ -441,7 +483,7 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
               <p className="text-xs text-slate-300 leading-relaxed">{result.analisis}</p>
             </div>
 
-            {/* Petición */}
+            {/* Solicitud */}
             {result.transcripcion && result.transcripcion !== 'Reformar y mejorar este espacio' && (
               <div className="bg-violet-950/40 border border-violet-800/40 rounded-2xl px-4 py-3">
                 <p className="text-[9px] font-bold text-violet-400 uppercase tracking-widest mb-1">Tu solicitud:</p>
@@ -460,14 +502,12 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
                   <div key={i} className={`px-4 py-3 flex items-center justify-between gap-3 ${i < result.partidas.length - 1 ? 'border-b border-slate-800' : ''}`}>
                     <div className="min-w-0 flex-1">
                       <p className="text-xs text-white font-medium truncate">{p.descripcion}</p>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded-full ${
-                          p.categoria === 'Mano de obra'    ? 'bg-blue-500/10 text-blue-400'    :
-                          p.categoria === 'Desmontaje'      ? 'bg-orange-500/10 text-orange-400' :
-                          p.categoria === 'Gestión residuos'? 'bg-slate-500/10 text-slate-400'   :
-                                                              'bg-emerald-500/10 text-emerald-400'
-                        }`}>{p.categoria}</span>
-                      </div>
+                      <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded-full mt-0.5 inline-block ${
+                        p.categoria === 'Mano de obra'    ? 'bg-blue-500/10 text-blue-400'    :
+                        p.categoria === 'Desmontaje'      ? 'bg-orange-500/10 text-orange-400' :
+                        p.categoria === 'Gestión residuos'? 'bg-slate-500/10 text-slate-400'   :
+                                                            'bg-emerald-500/10 text-emerald-400'
+                      }`}>{p.categoria}</span>
                     </div>
                     <div className="text-right shrink-0">
                       <p className="text-xs font-mono text-slate-300">{p.cantidad} {p.unidad}</p>
@@ -479,9 +519,9 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
               <p className="text-[9px] text-slate-500 text-center">Confirma para asignar precios en el siguiente paso</p>
             </div>
 
-            {/* Start again */}
+            {/* Volver a hacer otra foto */}
             <button
-              onClick={() => { setPhase('photo'); setPhotoUrl(null); setPhotoFile(null); setPhotoB64(null); setAudioBlob(null); setResult(null); setTextInput(''); setShowTextInput(false); }}
+              onClick={resetAll}
               className="w-full py-3 rounded-2xl text-xs font-bold text-slate-400 border border-slate-800 cursor-pointer"
             >
               Hacer otra foto
@@ -490,7 +530,7 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
         )}
       </div>
 
-      {/* Footer CTA (only in result) */}
+      {/* Footer CTA (solo en resultado) */}
       {phase === 'result' && result && (
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
           <button
