@@ -104,14 +104,6 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
     { label: 'CCTV / Seguridad',     icon: Camera },
   ];
 
-  const basicFeatures = [
-    'Hasta 15 presupuestos/mes',
-    'Presupuestos por voz con IA',
-    'Hasta 50 clientes',
-    'PDF profesional',
-    'Envío por WhatsApp y Email',
-  ];
-
   const proFeatures = [
     'Presupuestos ilimitados',
     'Clientes ilimitados',
@@ -548,33 +540,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
-
-            {/* Básico */}
-            <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-7 flex flex-col gap-5">
-              <div>
-                <div className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-2">Básico</div>
-                <div className="flex items-end gap-1">
-                  <span className="text-4xl font-black text-white leading-none">29€</span>
-                  <span className="text-sm text-white/35 mb-1">/mes</span>
-                </div>
-                <p className="text-xs text-white/35 mt-1">Individual · 1 usuario</p>
-              </div>
-              <ul className="space-y-2.5 flex-1">
-                {basicFeatures.map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-sm text-white/65">
-                    <CheckCircle className="h-4 w-4 text-[#00CFE8] shrink-0" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <button
-                onClick={() => go(ActivePage.Registro)}
-                className="w-full rounded-xl border border-white/20 py-3 text-sm font-bold uppercase tracking-wider text-white/60 hover:border-white/40 hover:text-white transition-colors cursor-pointer"
-              >
-                Empezar
-              </button>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
 
             {/* Profesional */}
             <div className="rounded-2xl bg-[#0d1f38] border border-[#00CFE8]/30 p-7 flex flex-col gap-5 relative">

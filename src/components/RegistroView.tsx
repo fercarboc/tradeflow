@@ -42,14 +42,6 @@ const TRADE_OPTIONS = [
 
 const PLANS = [
   {
-    id: 'basico' as const,
-    name: 'Plan Básico',
-    monthlyPrice: 29,
-    yearlyPrice: 23,
-    desc: 'Para autónomos con bajo volumen de trabajo.',
-    features: ['Hasta 15 presupuestos/mes', 'Escáner foto IA (5/mes)', 'PDF profesional', 'Soporte por Email'],
-  },
-  {
     id: 'profesional' as const,
     name: 'Plan Profesional',
     monthlyPrice: 49,
@@ -85,7 +77,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
   const [step, setStep] = useState<Step>(1);
   const [selectedTrades, setSelectedTrades] = useState<string[]>([]);
   const [businessType, setBusinessType] = useState<'autonomo' | 'empresa'>('autonomo');
-  const [selectedPlan, setSelectedPlan] = useState<'basico' | 'profesional' | 'empresa' | 'empresa_plus'>('profesional');
+  const [selectedPlan, setSelectedPlan] = useState<'profesional' | 'empresa' | 'empresa_plus'>('profesional');
   const [billingCycle] = useState<'monthly' | 'yearly'>('monthly');
   const [form, setForm] = useState({
     fullName: '',

@@ -12,15 +12,6 @@ interface Props {
 
 const PLANS = [
   {
-    id: 'basico',
-    label: 'Básico',
-    tier: 0,
-    monthly: 29,
-    yearly: 23,
-    color: 'slate' as const,
-    features: ['Hasta 15 presupuestos/mes', 'Escaneo foto IA (5/mes)', 'PDF profesional', 'Soporte email'],
-  },
-  {
     id: 'profesional',
     label: 'Profesional',
     tier: 1,
@@ -215,7 +206,7 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose, onUpgra
           </div>
         )}
 
-        {/* ── Vista principal: 4 planes ── */}
+        {/* ── Vista principal: 3 planes ── */}
         {view === 'plans' && (
           <>
             {/* Ciclo */}
@@ -239,7 +230,7 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose, onUpgra
             </div>
 
             {/* Cards */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 p-5">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-5">
               {PLANS.map(plan => {
                 const tier = plan.tier;
                 const isCurrent = plan.id === currentPlan;

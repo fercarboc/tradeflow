@@ -14,24 +14,6 @@ interface PreciosViewProps {
 
 const PLANS = [
   {
-    key: 'basico',
-    name: 'Básico',
-    monthlyPrice: 29,
-    users: '1 usuario',
-    desc: 'Para el autónomo ocasional que quiere digitalizar sus presupuestos sin complicaciones.',
-    features: [
-      'Hasta 15 presupuestos/mes',
-      'Presupuestos por voz con IA',
-      'Hasta 50 clientes',
-      'Hasta 5 facturas/mes',
-      'Escáner foto IA (5/mes)',
-      'PDF profesional',
-    ],
-    popular: false,
-    highlight: false,
-    cta: 'Empezar gratis',
-  },
-  {
     key: 'profesional',
     name: 'Profesional',
     monthlyPrice: 49,
