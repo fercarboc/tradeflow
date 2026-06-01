@@ -2613,21 +2613,18 @@ export async function createQuoteToken(
 }
 
 export async function getQuoteByToken(token: string): Promise<QuoteToken | null> {
-  const { data, error } = await supabase
-    .from('trade_quote_tokens')
-    .select('*')
-    .eq('token', token)
-    .maybeSingle();
+  const { data, error } = await supabase.functions.invoke('trade-quote-public', {
+    body: { token, action: 'get' },
+  });
   if (error) throw error;
-  return data as QuoteToken | null;
+  return (data?.data ?? null) as QuoteToken | null;
 }
 
 export async function respondQuoteToken(token: string, action: 'accepted' | 'rejected'): Promise<void> {
-  const { error } = await supabase
-    .from('trade_quote_tokens')
-    .update({ status: action, accepted_at: action === 'accepted' ? new Date().toISOString() : null })
-    .eq('token', token)
-    .eq('status', 'pending');
+  const edgeAction = action === 'accepted' ? 'accept' : 'reject';
+  const { error } = await supabase.functions.invoke('trade-quote-public', {
+    body: { token, action: edgeAction },
+  });
   if (error) throw error;
 }
 
