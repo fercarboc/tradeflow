@@ -1498,6 +1498,45 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setMobileTab('presupuestos');
   };
 
+  const handleTextToAI = async () => {
+    const text = (wizardQuote.descripcion ?? '').trim();
+    if (!text) { showToast('Escribe una descripción del trabajo primero', 'error'); return; }
+
+    if (isLiveMode) {
+      setVoiceStep('thinking');
+      setVoiceText(text);
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        const res = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-voice-to-quote`,
+          {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${session?.access_token ?? ''}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text }),
+          },
+        );
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({ error: 'Error del servidor' }));
+          if (err.limit_reached) { showToast(err.error ?? 'Límite alcanzado', 'error'); setVoiceStep('idle'); setShowUpgradeModal(true); return; }
+          if (err.plan_restriction) { showToast(err.error ?? 'Tu plan no permite esta función', 'error'); setVoiceStep('idle'); setShowUpgradeModal(true); return; }
+          throw new Error(err.error ?? `HTTP ${res.status}`);
+        }
+        const result: { transcript: string; quote: AIQuote } = await res.json();
+        handleVoiceResult(result.transcript || text, result.quote);
+      } catch (e: unknown) {
+        showToast('Error al procesar con IA: ' + (e instanceof Error ? e.message : String(e)), 'error');
+        setVoiceStep('idle');
+      }
+    } else {
+      setVoiceStep('thinking');
+      setVoiceText(text);
+      handleStartAIThinking();
+    }
+  };
+
   const handleNextWizardStep = async () => {
     if (wizardStep === 4 && (!wizardQuote.partidas || wizardQuote.partidas.length === 0)) {
       showToast('Añada al menos una partida de presupuesto', 'error');
@@ -4186,10 +4225,29 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <textarea
                   value={wizardQuote.descripcion}
                   onChange={(e) => setWizardQuote(prev => ({ ...prev, descripcion: e.target.value }))}
-                  placeholder="Detalla la avería o el trabajo..."
+                  placeholder="Ej: instalar piscina de obra 8x4 en jardín de chalet con depuradora y luces..."
                   className="w-full bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 rounded-xl p-3 text-xs focus:outline-none"
-                  rows={2}
+                  rows={3}
                 />
+                {(wizardQuote.descripcion ?? '').trim().length > 10 && (
+                  <button
+                    onClick={handleTextToAI}
+                    disabled={voiceStep === 'thinking'}
+                    className="w-full bg-blue-600 active:bg-blue-700 text-white font-bold py-3 rounded-xl text-[10px] uppercase tracking-wider cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2 transition-opacity"
+                  >
+                    {voiceStep === 'thinking' ? (
+                      <>
+                        <div className="w-3.5 h-3.5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+                        Procesando con IA...
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-3.5 h-3.5" />
+                        Generar partidas con IA →
+                      </>
+                    )}
+                  </button>
+                )}
               </div>
             </div>
           )}

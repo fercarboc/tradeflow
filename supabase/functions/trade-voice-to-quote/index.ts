@@ -204,6 +204,93 @@ tipo_presupuesto: "reforma"
 oficio: pladur_escayola
 Partidas por m²: estructura metálica + placa pladur (material, precio=0) + colocación (35€/m²)
 
+========================
+REGLAS PARA PISCINAS E INSTALACIONES ACUÁTICAS
+========================
+
+Cuando el usuario mencione: instalar piscina, construir piscina, piscina en chalet/jardín/terraza, piscina de obra, piscina prefabricada, jacuzzi exterior, spa exterior, estanque decorativo, reforma de piscina…
+
+tipo_presupuesto: "reforma"
+oficios: albanileria + fontaneria + electricidad (siempre los tres)
+
+Partidas a generar SIEMPRE para piscina nueva:
+1. concepto:"Replanteo, excavación y movimiento de tierras para vaso de piscina" | oficio:albanileria | mano_obra | precio_unitario: 40 €/h | estimar horas según tamaño
+2. concepto:"Suministro de hormigón armado y materiales estructura vaso" | oficio:albanileria | material | precio_unitario: 0 | requiere_revision: true | motivo: "Precio varía según dimensiones y tipo de piscina"
+3. concepto:"Construcción estructura vaso piscina (encofrado, ferrallado, hormigonado)" | oficio:albanileria | mano_obra | precio_unitario: 40 €/h
+4. concepto:"Impermeabilización interior vaso piscina" | oficio:albanileria | mano_obra | precio_unitario: 40 €/h | unidad: m2
+5. concepto:"Suministro e instalación sistema de filtración y depuradora" | oficio:fontaneria | material | precio_unitario: 0 | requiere_revision: true
+6. concepto:"Instalación red hidráulica piscina (tuberías, skimmer, boquillas de impulsión y retorno)" | oficio:fontaneria | mano_obra | precio_unitario: 50 €/h
+7. concepto:"Instalación eléctrica bomba depuradora, iluminación subacuática y cuadro de control" | oficio:electricidad | mano_obra | precio_unitario: 50 €/h
+8. concepto:"Suministro e instalación liner/gresite/azulejo acabado interior" | oficio:albanileria | material | precio_unitario: 0 | requiere_revision: true
+9. concepto:"Colocación acabados interiores vaso (gresite/liner/azulejo)" | oficio:albanileria | mano_obra | precio_unitario: 40 €/h | unidad: m2
+10. concepto:"Suministro e instalación escalera/escalinata piscina" | oficio:albanileria | material | precio_unitario: 0 | requiere_revision: true
+11. concepto:"Solado perimetral (terraza/bordillo piscina)" | oficio:albanileria | mano_obra | precio_unitario: 35 €/h | unidad: m2
+
+Para piscina prefabricada (fibra/poliéster): reducir partidas, enfatizar suministro prefabricado (precio=0, requiere_revision) + instalación hidráulica + eléctrica.
+Para reforma de piscina existente: solo las partidas afectadas (ej: solo cambio liner, solo renovación depuradora).
+
+EJEMPLOS:
+- "instalar piscina 8x4 en chalet": albanileria (estructura+acabados) + fontaneria (hidráulica) + electricidad (bomba+luz)
+- "cambiar el liner de la piscina": albanileria mano_obra (vaciado, retirada liner viejo, colocación nuevo) + material liner (precio=0)
+- "instalar jacuzzi exterior": fontaneria (conexión agua) + electricidad (bomba+calefacción) + albanileria (base/bancada si es necesaria)
+
+========================
+REGLAS PARA PUERTAS Y CARPINTERÍA ESPECIAL
+========================
+
+Cuando el usuario mencione: puerta, puertas, ventana, ventanas, armario, armarios, clóset, tarima flotante de madera, parquet de madera, carpintería de madera, carpintería de aluminio, carpintería de PVC…
+
+Subcategorías especiales:
+
+PUERTAS RESISTENTES AL FUEGO / RF / CORTAFUEGO / IGNÍFUGAS:
+- Palabras clave: "resistente al fuego", "RF", "cortafuego", "cortafuegos", "EI30", "EI60", "EI90", "ignífuga", "ignífugo", "anti-incendios", "seguridad contraincendios"
+- oficio: carpinteria (puertas de madera RF) o cerrajeria (puertas metálicas RF)
+- tipo_presupuesto: "reforma"
+- Partidas:
+  1. concepto:"Desmontaje y retirada de puerta existente" | oficio:carpinteria | mano_obra | cantidad: 1 | precio_unitario: 45 | total: 45
+  2. concepto:"Suministro de puerta [resistente al fuego EI60 / cortafuego] incluyendo marco y herrajes homologados" | oficio:carpinteria | material | precio_unitario: 0 | requiere_revision: true | motivo: "Precio varía según dimensiones, clasificación RF y fabricante"
+  3. concepto:"Instalación y ajuste de puerta resistente al fuego (fijación marco, colgado hoja, regulación)" | oficio:carpinteria | mano_obra | cantidad: 1 | precio_unitario: 45 | total: 180 (aprox 4h)
+  4. SI lleva cierre automático/pivote: concepto:"Suministro e instalación brazo cierre automático homologado" | oficio:cerrajeria | material | precio_unitario: 0 | requiere_revision: true
+
+PUERTAS DE PASO NORMALES (interior, exterior, blindada, acorazada):
+- oficio: carpinteria (madera/PVC) o cerrajeria (metálica/blindada/acorazada)
+- Partidas: desmontaje existente + suministro nueva (precio=0) + instalación
+
+VENTANAS (madera, aluminio, PVC, rotura puente térmico):
+- oficio: carpinteria
+- Partidas: desmontaje ventana existente + suministro nueva (precio=0) + instalación y sellado + persianas/contraventanas si aplica
+
+ARMARIOS A MEDIDA (empotrados, modulares):
+- oficio: carpinteria
+- Partidas: diseño/medición + suministro materiales/módulos (precio=0) + montaje e instalación
+
+EJEMPLOS:
+- "puerta de madera resistente al fuego": carpinteria — desmontaje + suministro puerta RF (precio=0) + instalación
+- "puerta cortafuegos para el garaje": cerrajeria — desmontaje + suministro puerta metálica RF EI60 (precio=0) + instalación
+- "cambiar ventanas por PVC con doble acristalamiento": carpinteria — desmontaje + suministro ventanas PVC (precio=0) + instalación + sellado
+
+========================
+REGLAS PARA INSTALACIONES ESPECIALES (PISCINAS, ASCENSORES, SOLAR, DOMÓTICA)
+========================
+
+Cuando no encuentres el oficio exacto en el catálogo, NO inventes precios. En su lugar:
+- Usa el oficio más cercano para la mano de obra (albanileria, fontaneria, electricidad, etc.)
+- Marca los suministros y equipos especializados como material precio=0 + requiere_revision=true
+- Añade la sugerencia al catálogo con nuevo_oficio: true
+- Crea una alerta en resumen.alertas explicando qué requiere revisión
+
+Ejemplos de trabajos especiales y a qué oficios mapear:
+- Ascensor doméstico → electricidad (instalación) + albanileria (obra civil hueco)
+- Paneles solares fotovoltaicos → energia_solar o electricidad si no existe
+- Domótica / automatización → telecomunicaciones o electricidad
+- Riego automático jardín → fontaneria + jardineria
+- Barbacoa de obra → albanileria
+- Chimenea de obra / hogar → albanileria + albanileria (suministro material precio=0)
+- Sauna / baño turco → albanileria + fontaneria + electricidad
+- Pérgola de madera → carpinteria
+- Pérgola de aluminio → cerrajeria o carpinteria
+- Cerramiento de terraza → carpinteria (vidrio/PVC) o cerrajeria (aluminio)
+
 REGLA ANTI-ERROR: Si el usuario describe una reforma, obra o trabajos de instalación → tipo_presupuesto: "reforma". NUNCA confundas una reforma con un servicio de mantenimiento recurrente.
 
 ========================
@@ -320,7 +407,7 @@ Deno.serve(async (req: Request) => {
     let transcript = '';
     const contentType = req.headers.get('content-type') ?? '';
 
-    if (isAnonRequest && contentType.includes('application/json')) {
+    if (contentType.includes('application/json')) {
       const body = await req.json() as { text?: string };
       transcript = body.text?.trim() ?? '';
       if (!transcript) {
