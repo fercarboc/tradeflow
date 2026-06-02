@@ -515,7 +515,7 @@ BASE DE CONOCIMIENTO — ACTUACIONES DETECTADAS (score: ${kbScore.toFixed(2)})
 
 ${sections}
 
-INSTRUCCIÓN: Si alguna de estas actuaciones coincide con lo que pide el profesional, ÚSALA como plantilla base para las partidas. Adapta cantidades y añade o quita partidas según el contexto específico. Si crees que faltan partidas importantes, usa la búsqueda web para completarlas.`;
+INSTRUCCIÓN: Usa estas actuaciones como plantilla base para las partidas. Adapta cantidades y añade o quita partidas según el contexto específico.`;
       } else {
         knowledgeContext = `\n\n========================
 BASE DE CONOCIMIENTO — SIN COINCIDENCIAS
@@ -539,7 +539,7 @@ No se encontraron plantillas para este trabajo. Aplica las REGLAS DEL SISTEMA PR
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-sonnet-4-6',
         max_tokens: 4096,
         system: AI_SYSTEM_PROMPT + knowledgeContext,
         messages: [{ role: 'user', content: userMessage }],
