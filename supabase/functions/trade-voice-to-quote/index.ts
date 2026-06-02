@@ -578,7 +578,7 @@ No se encontraron plantillas para este trabajo. Aplica las REGLAS DEL SISTEMA PR
         metadata: {
           kb_score: kbScore,
           actuaciones_used: matchedActuacionIds.length,
-          web_search_used: !needsWebSearch ? false : true,
+          web_search_used: false,
           partidas_nuevas: ((quote as Record<string, unknown[]>).partidas_nuevas_detectadas ?? []).length,
         },
       });
