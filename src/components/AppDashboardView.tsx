@@ -1074,6 +1074,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }
 
   const quoteToPartidas = (quote: AIQuote): PartidaPresupuesto[] => {
+    if (!Array.isArray(quote?.partidas)) return [];
     return quote.partidas.map(p => {
       const tipo: PartidaPresupuesto['tipo'] = p.tipo_partida === 'material' ? 'material' : 'mano_de_obra';
 
@@ -1107,45 +1108,61 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   const handleVoiceResult = (transcript: string, quote: AIQuote) => {
-    // Auto-detectar si es una solicitud de mantenimiento
-    const isMaintenanceRequest = /mantenimiento|contrato\s*(de\s*)?(servicio|revisión|limpieza)|revisión\s*(mensual|anual|semestral|trimestral|periódic)|servicio\s*(de\s*)?mantenimiento/i.test(transcript);
-    const canAccessMaintenance = subscription?.plan === 'empresa_plus' || subscription?.plan === 'empresa';
+    try {
+      // Auto-detectar si es una solicitud de mantenimiento
+      const isMaintenanceRequest = /mantenimiento|contrato\s*(de\s*)?(servicio|revisión|limpieza)|revisión\s*(mensual|anual|semestral|trimestral|periódic)|servicio\s*(de\s*)?mantenimiento/i.test(transcript);
+      const canAccessMaintenance = subscription?.plan === 'empresa_plus' || subscription?.plan === 'empresa';
 
-    if (isMaintenanceRequest && canAccessMaintenance) {
+      if (isMaintenanceRequest && canAccessMaintenance) {
+        setVoiceStep('done');
+        mediaRecorderRef.current = null;
+        audioChunksRef.current = [];
+        showToast('Solicitud de mantenimiento detectada — abriendo módulo', 'success');
+        setTimeout(() => {
+          setVoiceStep('idle');
+          setIsVoiceModalOpen(false);
+          setMantenimientoInitialText(transcript);
+          setActiveTab('mantenimiento');
+          setWizardActive(false);
+        }, 900);
+        return;
+      }
+
+      const partidas = quoteToPartidas(quote);
+      if (partidas.length === 0) {
+        showToast('La IA no detectó partidas — revisa la descripción e inténtalo de nuevo', 'error');
+        setVoiceStep('idle');
+        mediaRecorderRef.current = null;
+        audioChunksRef.current = [];
+        return;
+      }
+
+      const total = quote.calculos?.total ?? partidas.reduce((s, p) => s + (p.total ?? 0), 0);
+      const desc = (
+        (typeof quote.resumen === 'string' ? quote.resumen : quote.resumen?.tipo_presupuesto || quote.resumen?.texto_original) || transcript
+      ).slice(0, 80);
+
+      setWizardQuote(prev => ({ ...prev, descripcion: desc, partidas, total, estado: 'Borrador' as const }));
+      setEditingQuote(prev => ({ ...prev, descripcion: desc, partidas, total }));
+      setVoiceText(transcript);
       setVoiceStep('done');
       mediaRecorderRef.current = null;
       audioChunksRef.current = [];
-      showToast('Solicitud de mantenimiento detectada — abriendo módulo', 'success');
+      showToast('Voz procesada por IA ✓', 'success');
       setTimeout(() => {
         setVoiceStep('idle');
         setIsVoiceModalOpen(false);
-        setMantenimientoInitialText(transcript);
-        setActiveTab('mantenimiento');
-        setWizardActive(false);
+        setDesktopModalText('');
+        setActiveTab('create_quote');
+        setWizardActive(true);
+        setWizardStep(4);
       }, 900);
-      return;
-    }
-
-    const partidas = quoteToPartidas(quote);
-    const total = quote.calculos?.total ?? partidas.reduce((s, p) => s + (p.total ?? 0), 0);
-    const desc = (
-      (typeof quote.resumen === 'string' ? quote.resumen : quote.resumen?.tipo_presupuesto || quote.resumen?.texto_original) || transcript
-    ).slice(0, 80);
-
-    setWizardQuote(prev => ({ ...prev, descripcion: desc, partidas, total, estado: 'Borrador' as const }));
-    setEditingQuote(prev => ({ ...prev, descripcion: desc, partidas, total }));
-    setVoiceText(transcript);
-    setVoiceStep('done');
-    mediaRecorderRef.current = null;
-    audioChunksRef.current = [];
-    showToast('Voz procesada por IA ✓', 'success');
-    setTimeout(() => {
+    } catch (err: unknown) {
+      showToast('Error procesando respuesta IA: ' + (err instanceof Error ? err.message : String(err)), 'error');
       setVoiceStep('idle');
-      setIsVoiceModalOpen(false);
-      setActiveTab('create_quote');
-      setWizardActive(true);
-      setWizardStep(4);
-    }, 900);
+      mediaRecorderRef.current = null;
+      audioChunksRef.current = [];
+    }
   };
 
   // Parar grabación real y enviar a la edge function
@@ -1498,8 +1515,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setMobileTab('presupuestos');
   };
 
-  const handleTextToAI = async () => {
-    const text = (wizardQuote.descripcion ?? '').trim();
+  const handleTextToAI = async (overrideText?: string) => {
+    const text = overrideText ?? (wizardQuote.descripcion ?? '').trim();
     if (!text) { showToast('Escribe una descripción del trabajo primero', 'error'); return; }
 
     if (isLiveMode) {
@@ -1749,6 +1766,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const [isVoiceModalOpen, setIsVoiceModalOpen] = useState<boolean>(false);
+  const [desktopModalText, setDesktopModalText] = useState<string>('');
   const [selectedQuoteForPreview, setSelectedQuoteForPreview] = useState<Presupuesto | null>(null);
 
   useEffect(() => {
@@ -2290,11 +2308,27 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </span>
                 
                 {voiceStep === 'idle' && (
-                  <div className="py-2">
-                    <p className="text-[10px] text-slate-500 italic">Pulsa el micrófono...</p>
-                    <p className="text-[9.5px] text-slate-400 mt-2 font-medium bg-slate-900 p-2 rounded-lg border border-slate-800">
+                  <div className="py-2 space-y-2">
+                    <p className="text-[10px] text-slate-500 italic">Pulsa el micrófono o escribe aquí abajo...</p>
+                    <p className="text-[9.5px] text-slate-400 font-medium bg-slate-900 p-2 rounded-lg border border-slate-800">
                       💡 <strong>Ejemplo:</strong> "Instalar termo estanco de gas Vaillant y dos latiguillos de cobre."
                     </p>
+                    <textarea
+                      rows={2}
+                      placeholder="O escribe la descripción del trabajo..."
+                      value={desktopModalText}
+                      onChange={e => setDesktopModalText(e.target.value)}
+                      className="w-full bg-slate-900 border border-slate-700 text-slate-200 rounded-lg px-3 py-2 text-[10px] placeholder-slate-600 resize-none focus:outline-none focus:border-blue-500 mt-1"
+                    />
+                    {desktopModalText.trim().length > 10 && (
+                      <button
+                        onClick={() => handleTextToAI(desktopModalText.trim())}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg text-[9.5px] uppercase tracking-wider cursor-pointer flex items-center justify-center gap-1.5"
+                      >
+                        <Sparkles className="w-3 h-3" />
+                        Generar partidas con IA →
+                      </button>
+                    )}
                   </div>
                 )}
 
@@ -4231,7 +4265,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 />
                 {(wizardQuote.descripcion ?? '').trim().length > 10 && (
                   <button
-                    onClick={handleTextToAI}
+                    onClick={() => handleTextToAI()}
                     disabled={voiceStep === 'thinking'}
                     className="w-full bg-blue-600 active:bg-blue-700 text-white font-bold py-3 rounded-xl text-[10px] uppercase tracking-wider cursor-pointer disabled:opacity-50 flex items-center justify-center gap-2 transition-opacity"
                   >

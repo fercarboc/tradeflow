@@ -517,7 +517,7 @@ INSTRUCCIÓN: Si alguna de estas actuaciones coincide con lo que pide el profesi
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 2048,
+        max_tokens: 4096,
         system: AI_SYSTEM_PROMPT + knowledgeContext,
         messages: [{ role: 'user', content: `El profesional dice: "${transcript}"` }],
       }),
