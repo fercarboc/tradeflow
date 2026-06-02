@@ -1,0 +1,816 @@
+# ============================================================
+# BASE MAESTRA TRABFLOW
+# OFICIO 02 — ELECTRICIDAD
+# 100 actuaciones
+# Version 1.0 | Junio 2026 | TrabFlow Technologies S.L.
+# ============================================================
+# FORMATO:
+# ACTUACION: codigo_unico
+# PALABRAS_CLAVE: variantes coloquiales y tecnicas (min 8)
+# PARTIDAS_OBLIGATORIAS: materiales que SIEMPRE van
+# PARTIDAS_AUXILIARES: desmontajes, medios aux, retiradas
+# REGLAS_CALCULO: formulas y criterios de medicion
+# UNIDAD: ud / ml / m2 / h / pa
+# OBSERVACIONES: normativa, advertencias, derivaciones
+# ============================================================
+
+ACTUACION: cambio_cuadro_electrico_vivienda
+PALABRAS_CLAVE: cambiar cuadro electrico, cuadro nuevo, cuadro viejo, cuadro obsoleto, actualizar cuadro, cuadro sin diferencial, instalar cuadro, sustituir cuadro, cuadro de luz, caja fusibles, actualizar instalacion electrica, cuadro antiguo, cuadro no tiene tierra
+PARTIDAS_OBLIGATORIAS: caja_cuadro_24mod, iga, diferencial_40a_30ma_tipo_a, magnetotermico_16a, magnetotermico_20a, magnetotermico_25a, cable_conexion_interno, boletin_electrico, pequeno_material
+PARTIDAS_AUXILIARES: medios_auxiliares
+REGLAS_CALCULO: identificar_todos_circuitos_antes; minimo_2_diferenciales; diferencial_tipoA_si_motores_o_electrodomesticos; IGA_segun_potencia_contratada; legalizar_distribuidor_obligatorio
+UNIDAD: ud
+OBSERVACIONES: BOLETIN_ELECTRICO_OBLIGATORIO; REBT_vigente; legalizar_en_distribuidora; sin_boletin_no_hay_suministro
+
+ACTUACION: instalacion_enchufe_nuevo
+PALABRAS_CLAVE: poner enchufe, instalar enchufe, enchufe nuevo, falta enchufe, enchufe no funciona, enchufe roto, toma corriente, base enchufe, instalar toma, anadir enchufe, enchufe quemado, no hay enchufe ahi, necesito mas enchufes
+PARTIDAS_OBLIGATORIAS: base_enchufe_schuko_16a, cable_h07vk_2_5mm2, caja_empotrar_universal, pequeno_material
+PARTIDAS_AUXILIARES: tubo_corrugado_m20_si_vista, rozas_y_reposicion_si_empotrado
+REGLAS_CALCULO: verificar_capacidad_circuito_destino; tierra_obligatoria_todos_enchufes; distancia_60cm_banos_a_agua; seccion_2_5mm2_enchufes
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_24; schuko_obligatorio_banos; tierra_en_todos_enchufes; no_sobrecargar_circuito
+
+ACTUACION: cambio_luminaria_interior
+PALABRAS_CLAVE: cambiar luz, poner luz, cambiar plafon, instalar foco, luminaria nueva, cambiar lampara, luz rota, punto de luz, cambiar aplique, instalar downlight, cambiar bombilla techo, poner foco led, luz no funciona, cambiar tulipa
+PARTIDAS_OBLIGATORIAS: luminaria_segun_tipo, pequeno_material
+PARTIDAS_AUXILIARES: cable_1_5mm2_si_deteriorado, caja_derivacion_si_no_existe
+REGLAS_CALCULO: comprobar_cableado_existente; potencia_compatible_circuito; IP_adecuado_segun_zona
+UNIDAD: ud
+OBSERVACIONES: cableado_tela_en_edificios_antiguos_sustituir; IP44_zona1_bano; IP21_zona2_bano; gestionar_luminaria_antigua
+
+ACTUACION: diagnostico_averia_diferencial
+PALABRAS_CLAVE: salta diferencial, diferencial salta, luz se va, se va la luz, disyuntor salta, diferencial baja, corta la luz, averia electrica, fallo diferencial, diferencial defectuoso, diferencial antiguo, salta cuando llueve, salta con la lavadora
+PARTIDAS_OBLIGATORIAS: diagnostico_electrico_1h, pequeno_material
+PARTIDAS_AUXILIARES: diferencial_40a_30ma_si_defectuoso, hora_adicional_si_necesario
+REGLAS_CALCULO: desconectar_circuitos_uno_a_uno; si_salta_sin_carga_diferencial_defectuoso; si_salta_con_lluvia_buscar_humedad_instalacion; si_salta_con_electrodomestico_problema_en_aparato
+UNIDAD: h, ud
+OBSERVACIONES: emitir_informe_diagnostico; si_instalacion_antigua_recomendar_revision_completa
+
+ACTUACION: instalacion_punto_de_luz_nuevo
+PALABRAS_CLAVE: poner punto de luz, nuevo punto de luz, instalar luz nueva, no hay luz ahi, anadir luz, crear punto luz, poner interruptor y luz, instalar iluminacion nueva, hacer punto luz, luz nueva habitacion
+PARTIDAS_OBLIGATORIAS: cable_h07vk_1_5mm2, interruptor_10a, caja_empotrar_universal, luminaria_basica, caja_derivacion, pequeno_material
+PARTIDAS_AUXILIARES: tubo_corrugado_m16, rozas_y_reposicion
+REGLAS_CALCULO: verificar_capacidad_circuito_iluminacion; cable_1_5mm2_iluminacion; tierra_siempre; max_10_puntos_luz_por_circuito_16a
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_24; si_requiere_roza_coordinar_albanileria; no_sobrecargar_circuito
+
+ACTUACION: cambio_interruptor_averiado
+PALABRAS_CLAVE: poner interruptor, instalar interruptor, cambiar interruptor, interruptor roto, interruptor averiado, interruptor nuevo, cambiar pulsador, interruptor no funciona, interruptor no enciende luz, interruptor chispa
+PARTIDAS_OBLIGATORIAS: interruptor_10a, caja_empotrar_si_necesario, pequeno_material
+PARTIDAS_AUXILIARES: cable_si_deteriorado
+REGLAS_CALCULO: verificar_cableado_existente; correcto_montaje_fase_neutro; mismo_marco_si_se_puede_igualar
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_24; comprobar_funcionamiento; mismo_serie_si_posible
+
+ACTUACION: instalacion_conmutador_doble_encendido
+PALABRAS_CLAVE: poner conmutador, instalar conmutador, encender luz dos sitios, dos interruptores misma luz, conmutador nuevo, cambiar conmutador, luz encender dos puntos, dos interruptores una luz, conmutador pasillo
+PARTIDAS_OBLIGATORIAS: conmutador_10a_x2ud, caja_empotrar, cable_h07vk_1_5mm2, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion, tubo_corrugado
+REGLAS_CALCULO: 3_hilos_entre_conmutadores; verificar_circuito; longitud_cable_entre_conmutadores
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_24; comprobar_funcionamiento_ambos_puntos; 3_conductores_entre_puntos
+
+ACTUACION: instalacion_cruzamiento_triple_encendido
+PALABRAS_CLAVE: tres interruptores misma luz, cruzamiento, control luz tres puntos, luz encender tres sitios, anadir punto encendido, tercero interruptor luz, cruce electricidad
+PARTIDAS_OBLIGATORIAS: conmutador_10a_x2ud, cruzamiento_10a, caja_empotrar, cable_h07vk_1_5mm2, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion
+REGLAS_CALCULO: instalar_cruzamiento_entre_dos_conmutadores; 4_conductores_tramo_cruzamiento
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_24; comprobar_funcionamiento_todos_puntos; 4_hilos_en_tramo_cruzamiento
+
+ACTUACION: instalacion_regulador_dimmer_luz
+PALABRAS_CLAVE: dimmer, regulador luz, atenuar luz, instalar dimmer, poner regulador, luz regulable, regulador intensidad, luz tenue, luz atenuada, atenuar iluminacion, dimmer led
+PARTIDAS_OBLIGATORIAS: regulador_triac_o_led_compatible, caja_empotrar, pequeno_material
+PARTIDAS_AUXILIARES: cambio_luminaria_compatible_si_necesario
+REGLAS_CALCULO: verificar_compatibilidad_luminaria_dimmable; potencia_maxima_regulador; carga_minima_segun_modelo; no_compatible_fluorescentes_estandar
+UNIDAD: ud
+OBSERVACIONES: verificar_luminaria_es_dimmable; carga_minima_segun_regulador; led_requiere_driver_dimmable
+
+ACTUACION: instalacion_automatico_escalera_temporizador
+PALABRAS_CLAVE: automatico escalera, temporizador escalera, luz escalera automatica, pulsador escalera, luz se apaga sola escalera, automatico comunidad, luz escalera temporizador, reloj escalera
+PARTIDAS_OBLIGATORIAS: automatico_escalera_electronico, pulsadores_por_planta, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion, luminaria_si_acordado
+REGLAS_CALCULO: tiempo_regulable_1_5min; 1_pulsador_por_planta; potencia_maxima_segun_luminarias; verificar_numero_plantas
+UNIDAD: ud
+OBSERVACIONES: ajustar_tiempo_apagado; comprobar_todas_plantas; potencia_maxima_automatico
+
+ACTUACION: instalacion_detector_movimiento_pir
+PALABRAS_CLAVE: detector movimiento, sensor movimiento, pir, instalar detector presencia, luz automatica movimiento, luz que se enciende sola, sensor presencia, detector infrarrojo, sensor pir exterior
+PARTIDAS_OBLIGATORIAS: detector_movimiento_pir, caja_superficie_o_empotrar, pequeno_material
+PARTIDAS_AUXILIARES: cable_si_necesario, relacion_con_luminaria
+REGLAS_CALCULO: angulo_deteccion_120_180_grados; alcance_6_12m; tiempo_apagado_ajustable; potencia_max_segun_modelo
+UNIDAD: ud
+OBSERVACIONES: orientar_correctamente; evitar_fuentes_calor_cerca; no_apuntar_a_ventanas_con_sol
+
+ACTUACION: reparacion_cortocircuito
+PALABRAS_CLAVE: cortocircuito, salta magnetotermico, magnetotermico salta siempre, averia electrica, circuito en cortocircuito, no funciona circuito, fallo electrico, chispazo, quemado cable, cable quemado
+PARTIDAS_OBLIGATORIAS: diagnostico_electrico_1h, pequeno_material
+PARTIDAS_AUXILIARES: cable_si_deteriorado, reparacion_punto_defectuoso, hora_adicional
+REGLAS_CALCULO: aislar_circuito_antes; medir_resistencia_aislamiento_con_megger; localizar_punto_fallo_exacto
+UNIDAD: h, ud
+OBSERVACIONES: medir_aislamiento_con_megger; emitir_informe_diagnostico; no_reponer_hasta_reparar
+
+ACTUACION: instalacion_toma_television_coaxial
+PALABRAS_CLAVE: poner toma tv, instalar antena, toma television, instalar toma television, anadir punto tv, conectar television, toma tv nueva, punto de tv, toma antena, coaxial tv
+PARTIDAS_OBLIGATORIAS: toma_television_final_linea, cable_coaxial_rg6, caja_empotrar, pequeno_material
+PARTIDAS_AUXILIARES: derivador_si_reparte_mas_tomas, amplificador_si_nivel_bajo
+REGLAS_CALCULO: calcular_nivel_senal_en_toma_minimo_47dbu; amplificar_si_menor; derivar_correctamente_sin_perdidas_excesivas
+UNIDAD: ud
+OBSERVACIONES: RITS_telecomunicaciones; verificar_nivel_senal; comprobar_canales_tras_instalar
+
+ACTUACION: instalacion_toma_red_ethernet_cat6
+PALABRAS_CLAVE: poner toma red, instalar red, toma ethernet, punto de red, instalar rj45, toma cat6, punto red informatica, toma internet cableado, internet por cable, cat6 nuevo punto
+PARTIDAS_OBLIGATORIAS: toma_rj45_cat6, cable_utp_cat6, caja_empotrar, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion, patch_panel_si_rack, switch_si_necesario
+REGLAS_CALCULO: cable_max_100m_sin_repetidor; certificar_con_tester_cat6; instalar_en_armario_rack_si_varios_puntos
+UNIDAD: ud
+OBSERVACIONES: certificar_instalacion_con_tester; RITS_si_edificio_colectivo; max_100m_por_segmento
+
+ACTUACION: instalacion_cuadro_electrico_secundario
+PALABRAS_CLAVE: subcuadro, cuadro secundario, cuadro garage, cuadro taller, cuadro local, segundo cuadro electrico, instalar cuadro secundario, cuadro electrico nave, cuadro adicional
+PARTIDAS_OBLIGATORIAS: caja_cuadro_12_24mod, magnetotermicos_segun_circuitos, diferencial_40a, cable_derivacion_individual, pequeno_material
+PARTIDAS_AUXILIARES: cable_a_cuadro_principal
+REGLAS_CALCULO: dimensionar_segun_consumo_previsto; diferencial_obligatorio; calibre_derivacion_segun_potencia; distancia_a_cuadro_principal_determina_seccion
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_17; distancia_determina_seccion_cable; diferencial_obligatorio
+
+ACTUACION: cambio_magnetotermico_averiado
+PALABRAS_CLAVE: cambiar magnetotermico, magnetotermico roto, magnetotermico no salta, magnetotermico averiado, cambiar disyuntor, fusible roto, cambiar fusible, magnetotermico defectuoso, magnetotermico no dispara
+PARTIDAS_OBLIGATORIAS: magnetotermico_calibre_segun_circuito, pequeno_material
+PARTIDAS_AUXILIARES: verificacion_circuito_antes
+REGLAS_CALCULO: calibre_igual_al_existente_salvo_recalculo; verificar_causa_averia_primero; no_subir_calibre_sin_verificar_cable
+UNIDAD: ud
+OBSERVACIONES: verificar_causa_disparo_antes_cambiar; calibre_adecuado; no_subir_calibre_sin_verificar_seccion_cable
+
+ACTUACION: cambio_diferencial_averiado
+PALABRAS_CLAVE: cambiar diferencial, diferencial roto, diferencial averiado, sustituir diferencial, diferencial no funciona, diferencial antiguo, poner diferencial nuevo, diferencial que no dispara, diferencial defectuoso
+PARTIDAS_OBLIGATORIAS: diferencial_40a_30ma_tipo_adecuado, pequeno_material
+PARTIDAS_AUXILIARES: verificacion_instalacion
+REGLAS_CALCULO: misma_sensibilidad_que_existente; tipo_A_si_cargas_electronicas_o_motores; verificar_causa_disparo_primero
+UNIDAD: ud
+OBSERVACIONES: verificar_causa_antes_cambiar; tipo_A_para_electrodomesticos_con_motor; mismo_calibre
+
+ACTUACION: instalacion_alumbrado_emergencia
+PALABRAS_CLAVE: luz emergencia, alumbrado emergencia, instalar emergencia, luz verde salida, senalizacion emergencia, luces verdes, emergencia led, bloque autonomo emergencia, luz emergencia obligatoria
+PARTIDAS_OBLIGATORIAS: bloque_autonomo_emergencia_led, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: senalizacion_salida_si_necesario
+REGLAS_CALCULO: 1_cada_15m_en_pasillo; sobre_salidas_y_escaleras; autonomia_1h_minimo; iluminancia_1lux_vias_evacuacion
+UNIDAD: ud
+OBSERVACIONES: CTE_SI_REBT_ITC_28; mantenimiento_mensual_obligatorio; prueba_autonomia_anual
+
+ACTUACION: instalacion_alumbrado_exterior_jardin
+PALABRAS_CLAVE: luz jardin, instalar alumbrado exterior, farola jardin, luz exterior, alumbrado fachada, luz terraza, luz camino, alumbrado exterior vivienda, iluminar jardin, foco exterior
+PARTIDAS_OBLIGATORIAS: luminaria_exterior_ip65, cable_h07rn_f, tubo_pvc_enterrado_o_canaleta, toma_tierra, pequeno_material
+PARTIDAS_AUXILIARES: foto_celula_si_automatico, detector_movimiento_si_necesario
+REGLAS_CALCULO: IP65_minimo_exterior; cable_h07rn_exterior; proteccion_diferencial_30ma_obligatoria
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_43; IP65_minimo; proteccion_diferencial_obligatoria; tubo_protector_si_enterrado
+
+ACTUACION: instalacion_alumbrado_garaje
+PALABRAS_CLAVE: luz garaje, instalar luz garaje, alumbrado garaje, luz parking, alumbrado parking, iluminar garaje, luz aparcamiento, fluorescente garaje, led garaje
+PARTIDAS_OBLIGATORIAS: luminaria_estanca_ip65, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: detector_movimiento_o_temporizador, canaleta_o_tubo_pvc
+REGLAS_CALCULO: minimo_100lux_garaje_privado; 200lux_aparcamiento_uso_publico; IP65_recomendado; detector_movimiento_ahorra_energia
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_29; CTE_SUA_luminancia_minima; IP_adecuado_ambiente_garaje
+
+ACTUACION: instalacion_toma_tierra_nueva
+PALABRAS_CLAVE: poner tierra, instalar toma tierra, toma de tierra, no hay tierra, tierra instalacion, pica tierra, cable verde amarillo, tierra electrica, instalacion sin tierra, poner pica tierra
+PARTIDAS_OBLIGATORIAS: pica_cobre_2m, cable_cobre_35mm2_verde_amarillo, abrazadera_pica, arqueta_registro_tierra, pequeno_material
+PARTIDAS_AUXILIARES: medicion_resistencia_tierra_posterior
+REGLAS_CALCULO: resistencia_tierra_menor_37ohm_residencial; picas_adicionales_si_no_cumple; profundidad_minima_1m; medir_tras_instalar
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_18; medir_resistencia_tras_instalar; emitir_certificado; picas_adicionales_paralelo_si_resistencia_alta
+
+ACTUACION: revision_instalacion_electrica_vivienda
+PALABRAS_CLAVE: revision electrica, revision instalacion electrica, inspection electrica, auditoria electrica, chequeo instalacion, revisar instalacion, boletin electrico, certificado electrico, inspeccion electrica casa
+PARTIDAS_OBLIGATORIAS: revision_instalacion_completa, informe_escrito_con_fotos, pequeno_material
+PARTIDAS_AUXILIARES: medicion_aislamiento_megger, boletin_si_necesario
+REGLAS_CALCULO: precio_por_vivienda_o_hora; informe_con_deficiencias_y_prioridades; legalizar_si_reformas_importantes
+UNIDAD: ud
+OBSERVACIONES: emitir_boletin_si_reformas_importantes; REBT; clasificar_deficiencias_por_gravedad
+
+ACTUACION: instalacion_cargador_vehiculo_electrico_wallbox
+PALABRAS_CLAVE: cargador coche electrico, wallbox, instalar cargador ev, punto carga coche, cargador electrico garaje, instalar wallbox, cargador tipo 2, cargador ev, punto recarga coche, cargar coche en casa
+PARTIDAS_OBLIGATORIAS: wallbox_7_4kw_o_11kw, cable_manguera_6_10mm2, magnetotermico_40a, diferencial_tipo_a_40a, cable_tierra, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion, cuadro_secundario_garaje_si_necesario
+REGLAS_CALCULO: derivacion_minima_6mm2_para_7_4kw; 10mm2_para_11kw; diferencial_tipo_A_obligatorio; circuito_exclusivo; comunicar_a_distribuidora
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_52_vehiculos; comunicar_a_distribuidora; diferencial_tipo_A_obligatorio; no_cargar_con_base_normal_prolongado
+
+ACTUACION: instalacion_fotovoltaica_autoconsumo
+PALABRAS_CLAVE: placas solares, fotovoltaica, autoconsumo solar, instalar solar fotovoltaica, energia solar, placas fotovoltaicas, solar vivienda, paneles solares, instalar fotovoltaica, energia solar casa
+PARTIDAS_OBLIGATORIAS: paneles_fotovoltaicos, inversor_red, estructura_soporte, cable_solar_rv_k, protecciones_dc_y_ac, contador_bidireccional, pequeno_material
+PARTIDAS_AUXILIARES: bateria_acumulacion_si_necesario, obra_cubierta_si_necesario
+REGLAS_CALCULO: potencia_segun_consumo_anual; orientacion_sur_inclinacion_30_35; perdidas_sombras_max_10pct
+UNIDAD: ud, kWp
+OBSERVACIONES: RD_244_2019_autoconsumo; tramitar_con_distribuidora; legalizacion_industria; subvenciones_disponibles
+
+ACTUACION: instalacion_baterias_almacenamiento_energia
+PALABRAS_CLAVE: bateria solar, acumulacion energia, bateria domestica, powerwall, bateria vivienda, almacenar energia solar, bateria litio hogar, bateria fotovoltaica, acumulador energia solar
+PARTIDAS_OBLIGATORIAS: bateria_litio_lfe, inversor_hibrido, cables_interconexion, pequeno_material
+PARTIDAS_AUXILIARES: sistema_gestion_energia_bms
+REGLAS_CALCULO: capacidad_segun_consumo_nocturno; profundidad_descarga_90pct_litio; temperatura_operacion_0_45grados
+UNIDAD: ud, kWh
+OBSERVACIONES: instalacion_en_lugar_ventilado; REBT; legalizar_con_distribuidor; no_instalar_en_zona_con_humedad
+
+ACTUACION: instalacion_grupo_electrogeno
+PALABRAS_CLAVE: grupo electrogeno, generador electrico, instalar generador, luz de emergencia, suministro emergencia, generador diesel, generador gasolina, generador luz, cortes de luz solucion
+PARTIDAS_OBLIGATORIAS: grupo_electrogeno, cuadro_transferencia_automatico, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: obra_caseta_si_exterior, deposito_combustible_si_grande
+REGLAS_CALCULO: potencia_segun_cargas_criticas; arranque_automatico_si_continuo; tiempo_conmutacion_segun_uso
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_52; deposito_combustible_normativa; mantenimiento_mensual_arranque_prueba
+
+ACTUACION: instalacion_sai_ups_servidor
+PALABRAS_CLAVE: sai, ups, instalar sai, sistema alimentacion ininterrumpida, ups informatica, sai servidor, proteger equipos, sai electrico, sai ordenadores, ups ordenador
+PARTIDAS_OBLIGATORIAS: sai_ups_segun_kva, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: rack_si_sala_servidores, regleta_filtrada
+REGLAS_CALCULO: autonomia_segun_baterias; potencia_kva_segun_cargas; factor_potencia_0_8; autonomia_tipica_10_30min
+UNIDAD: ud
+OBSERVACIONES: revisar_baterias_cada_2_anos; temperatura_optima_operacion_25grados; probar_autonomia_al_instalar
+
+ACTUACION: instalacion_domotica_basica_wifi
+PALABRAS_CLAVE: domotica, casa inteligente, instalar domotica, automatizar casa, control iluminacion, interruptores inteligentes, wifi interruptores, smart home, casa domótica, interruptor inteligente wifi
+PARTIDAS_OBLIGATORIAS: interruptores_inteligentes_wifi, hub_o_controlador, pequeno_material
+PARTIDAS_AUXILIARES: pasarela_cloud, sensores_adicionales, instalacion_electrica_si_necesario
+REGLAS_CALCULO: compatibilidad_asistentes_voz; cobertura_wifi_en_todos_puntos; neutro_necesario_en_caja_interruptor
+UNIDAD: ud
+OBSERVACIONES: verificar_cobertura_wifi; neutro_necesario_en_caja_mecanismo; configurar_antes_entregar
+
+ACTUACION: instalacion_sistema_knx_bus
+PALABRAS_CLAVE: knx, bus knx, sistema knx, automatizacion knx, instalacion bus, edificio inteligente knx, control centralizado knx, domótica profesional knx
+PARTIDAS_OBLIGATORIAS: fuente_alimentacion_knx, actuadores_knx, sensores_knx, cable_bus_knx_verde, software_ets, pequeno_material
+PARTIDAS_AUXILIARES: pantalla_tactil_visualizacion, integracion_hvac
+REGLAS_CALCULO: 1_fuente_por_64_dispositivos; programacion_ets_obligatoria; topologia_linea_area_dominio; verificar_antes_entregar
+UNIDAD: ud
+OBSERVACIONES: INSTALADOR_KNX_CERTIFICADO; programacion_requiere_software_ets_licencia; documentar_programacion
+
+ACTUACION: instalacion_iluminacion_led_completa
+PALABRAS_CLAVE: cambiar a led, instalar led, luminarias led, cambio led, iluminacion led eficiente, sustituir halogenos por led, led ahorro energia, cambiar fluorescentes led, poner todo led, renovar iluminacion led
+PARTIDAS_OBLIGATORIAS: luminarias_led_segun_tipo, pequeno_material
+PARTIDAS_AUXILIARES: cambio_driver_si_necesario, cableado_si_deteriorado
+REGLAS_CALCULO: lm_segun_uso_300lux_oficina_500lux_taller_150lux_pasillos; color_luz_3000k_calido_4000k_neutro; eficiencia_mayor_100lm_W
+UNIDAD: ud
+OBSERVACIONES: garantia_minima_3_anos_led; verificar_compatibilidad_dimmer_si_regulable; calcular_ahorro_energetico
+
+ACTUACION: instalacion_sistema_cctv_videovigilancia
+PALABRAS_CLAVE: camaras seguridad, instalar camaras, cctv, videovigilancia, camaras vigilancia, instalar vigilancia, camara ip, nvr dvr camaras, instalar camara seguridad, sistema vigilancia casa
+PARTIDAS_OBLIGATORIAS: camaras_ip_o_analogicas, grabador_nvr_dvr, cable_utp_cat6_o_coaxial, fuente_alimentacion, disco_duro_grabacion, pequeno_material
+PARTIDAS_AUXILIARES: pantalla_monitorizacion, acceso_remoto_app, cartel_aviso_videovigilancia
+REGLAS_CALCULO: 1_camara_por_zona_clave; angulo_vision_segun_camara; almacenamiento_30_dias_minimo; resolucion_minima_2mp
+UNIDAD: ud
+OBSERVACIONES: LOPD_cartel_obligatorio; notificar_agencia_proteccion_datos; resolucion_minima_2mp
+
+ACTUACION: instalacion_alarma_intrusion
+PALABRAS_CLAVE: alarma, instalar alarma, sistema alarma, alarma intrusion, alarma casa, alarma robo, alarma vivienda, central alarma, instalar seguridad, sistema antiintrusos
+PARTIDAS_OBLIGATORIAS: central_alarma, detectores_pir, contactos_magneticos_puertas, sirena_exterior, teclado_control, pequeno_material
+PARTIDAS_AUXILIARES: comunicador_ip_o_gsm, conexion_cts_si_contrata_monitoreo
+REGLAS_CALCULO: 1_pir_por_estancia_principal; contactos_en_puertas_y_ventanas_accesibles; sirena_visible_fachada
+UNIDAD: ud
+OBSERVACIONES: RD_2364_1994_instalaciones_seguridad; empresa_autorizada_si_conectada_cts; homologacion_obligatoria
+
+ACTUACION: instalacion_control_acceso_rfid
+PALABRAS_CLAVE: control acceso, lector tarjeta, teclado acceso, control entrada, acceso con tarjeta, lector huella, control puerta, cerradura electrica, acceso rfid, puerta con tarjeta
+PARTIDAS_OBLIGATORIAS: controladora_acceso, lector_rfid_o_teclado, cerradura_electrica_o_electromagneto, fuente_alimentacion_backup, pequeno_material
+PARTIDAS_AUXILIARES: software_gestion_acceso, tarjetas_rfid, cable_utp_comunicacion
+REGLAS_CALCULO: 1_controladora_por_puerta; fuente_alimentacion_con_bateria_backup; cable_utp_cat5_comunicacion
+UNIDAD: ud
+OBSERVACIONES: LOPD_si_datos_biometricos; reglamento_proteccion_datos; bateria_backup_obligatoria
+
+ACTUACION: instalacion_videoportero_vivienda
+PALABRAS_CLAVE: portero automatico, videoportero, instalar portero, cambiar portero, portero nuevo, interfono, videoportero nuevo, poner portero automatico, portero con camara, video portero
+PARTIDAS_OBLIGATORIAS: placa_exterior_con_camara, monitor_interior_con_pantalla, cable_2_o_4_hilos, fuente_alimentacion, pequeno_material
+PARTIDAS_AUXILIARES: cerradura_electrica, cambio_cable_si_deteriorado
+REGLAS_CALCULO: 1_monitor_por_vivienda; fuente_central_o_en_placa; cable_bus_o_2hilos_segun_marca
+UNIDAD: ud
+OBSERVACIONES: verificar_compatibilidad_con_existente; comprobar_apertura_puerta; configurar_app_si_wifi
+
+ACTUACION: instalacion_timbre_nuevo
+PALABRAS_CLAVE: poner timbre, instalar timbre, timbre nuevo, timbre roto, cambiar timbre, timbre no funciona, timbre wifi, timbre inalambrico, timbre vivienda, campanilla puerta
+PARTIDAS_OBLIGATORIAS: timbre_o_campanilla, transformador_si_necesario, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: pulsador_exterior_si_separado
+REGLAS_CALCULO: transformador_8_12v_si_timbre_analogico; wifi_si_smart_timbre; distancia_cable_segun_ubicacion
+UNIDAD: ud
+OBSERVACIONES: comprobar_funcionamiento; verificar_tension_alimentacion; smart_timbre_requiere_wifi
+
+ACTUACION: instalacion_calefactor_electrico_pared
+PALABRAS_CLAVE: calefactor electrico techo, calefactor infrarrojos, panel radiante electrico, calefaccion electrica, instalar calefactor, panel calefactor, radiador electrico pared, emisor termico
+PARTIDAS_OBLIGATORIAS: panel_calefactor_electrico, cable_conexion, termostato_programable, pequeno_material
+PARTIDAS_AUXILIARES: circuito_exclusivo_si_mayor_2kw
+REGLAS_CALCULO: 100w_m2_para_calefaccion_principal; 50w_m2_si_apoyo; circuito_exclusivo_si_potencia_mayor_2kw; IP_banos
+UNIDAD: ud
+OBSERVACIONES: REBT_banos_grado_proteccion; no_instalar_zona_0_bano; circuito_exclusivo_si_potencia_alta
+
+ACTUACION: revision_instalacion_electrica_local_comercial
+PALABRAS_CLAVE: revision electrica local, revision electrica comercio, inspeccion electrica local, certificado electrico actividad, boletin local, legalizacion local electrica, revision electrica negocio
+PARTIDAS_OBLIGATORIAS: revision_instalacion_comercial, informe_escrito, boletin_electrico, pequeno_material
+PARTIDAS_AUXILIARES: mejoras_si_deficiencias
+REGLAS_CALCULO: normativa_REBT_y_normativa_local; inspeccion_OCA_si_necesaria; incluir_alumbrado_emergencia
+UNIDAD: ud
+OBSERVACIONES: REBT; OCA_si_instalacion_mayor_100kw; licencia_actividad_lo_requiere; emergencia_obligatoria
+
+ACTUACION: instalacion_luminaria_senalizacion_emergencia
+PALABRAS_CLAVE: luz salida emergencia, senalizacion salida, instalar senalizacion, cartel salida, luz verde salida, cartel luminoso emergencia, senalizacion evacuacion, cartel salida luminoso
+PARTIDAS_OBLIGATORIAS: bloque_autonomo_led_emergencia, cartel_senalizacion_led_salida, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: senalizacion_horizontal_si_necesario
+REGLAS_CALCULO: iluminancia_1lux_vias_evacuacion; 5lux_en_puntos_equipos_seguridad; senalizacion_sobre_todas_salidas; autonomia_1h
+UNIDAD: ud
+OBSERVACIONES: CTE_SI_3_alumbrado_emergencia; mantenimiento_mensual_verificacion; prueba_anual_autonomia_obligatoria
+
+ACTUACION: instalacion_proteccion_contra_rayos_pararrayo
+PALABRAS_CLAVE: pararrayos, proteccion rayos, instalar pararrayos, rayo edificio, proteccion descarga, para rayo, instalacion pararrayo, pararrayos edificio, proteccion descarga electrica
+PARTIDAS_OBLIGATORIAS: cabezal_pararrayos, bajante_cobre_70mm2, electrodo_tierra_pararrayos, arqueta_puesta_a_tierra, pequeno_material
+PARTIDAS_AUXILIARES: sujecion_bajante_fachada, medicion_resistencia_tierra
+REGLAS_CALCULO: CTE_SU_8; nivel_de_proteccion_segun_uso_edificio; radio_proteccion_segun_tipo; resistencia_tierra_menor_10ohm
+UNIDAD: ud
+OBSERVACIONES: CTE_SUA_8; obligatorio_edificios_ciertas_alturas_y_usos; instalador_autorizado; medicion_resistencia_obligatoria
+
+ACTUACION: instalacion_cuadro_electrico_industrial_trifasico
+PALABRAS_CLAVE: cuadro industrial, cuadro trifasico, cuadro electrico nave, cuadro potencia industrial, instalar cuadro trifasico, cuadro nave industrial, cuadro trifasico nuevo
+PARTIDAS_OBLIGATORIAS: armario_metalico_ip55, seccionador_general, fusibles_gg, magnetotermicos_trifasicos, diferencial_trifasico, bornas, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: medicion_aislamiento, puesta_a_tierra_industrial
+REGLAS_CALCULO: dimensionar_segun_potencia_total; selectividad_protecciones; coordinacion_protecciones; inspeccion_OCA_si_mayor_100kw
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_47; coordinacion_protecciones; inspeccion_OCA_si_instalacion_mayor_100kw
+
+ACTUACION: instalacion_compensacion_energia_reactiva
+PALABRAS_CLAVE: condensadores, bateria condensadores, compensar reactiva, penalizacion reactiva, coseno phi, factor potencia, instalar condensadores, reactiva factura, penalizacion electricidad
+PARTIDAS_OBLIGATORIAS: bateria_condensadores, regulador_automatico_pasos, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: medicion_reactiva_previa_analizador
+REGLAS_CALCULO: medir_reactiva_antes_dimensionar; cos_phi_objetivo_0_95; pasos_segun_variacion_carga; instalacion_aguas_abajo_del_contador
+UNIDAD: ud, kVAR
+OBSERVACIONES: medir_reactiva_antes_instalar; reduccion_penalizacion_factura; regulador_automatico_si_cargas_variables
+
+ACTUACION: instalacion_red_electrica_nave_industrial
+PALABRAS_CLAVE: instalacion electrica nave, electrica nave industrial, instalar electrica nave, cableado nave, circuitos nave, nave electrica, red electrica industrial, instalacion completa nave
+PARTIDAS_OBLIGATORIAS: cable_rv_k_4x16_35_50mm2, bandejas_portacables, luminarias_industriales_led, enchufes_trifasicos_cee, cuadro_electrico_nave, puesta_a_tierra, pequeno_material
+PARTIDAS_AUXILIARES: canalizaciones, obra_civil_bancada
+REGLAS_CALCULO: disenar_segun_potencia_maquinaria; selectividad_protecciones; iluminacion_minima_300lux_taller; 500lux_trabajos_precision
+UNIDAD: ml, ud
+OBSERVACIONES: REBT; OCA_inspeccion_si_mayor_100kw; inspeccion_inicial_obligatoria; proyecto_tecnico_si_mayor_100kw
+
+ACTUACION: instalacion_circuito_exclusivo_cocina
+PALABRAS_CLAVE: circuito cocina, nuevo circuito electrico cocina, circuito vitroceramica, circuito horno, circuito lavavajillas, circuito frigorifico, cables cocina, linea exclusiva cocina
+PARTIDAS_OBLIGATORIAS: cable_h07vk_segun_potencia, magnetotermico_calibre_adecuado, caja_empotrar, base_enchufe_schuko, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion, diferencial_si_no_hay_en_cuadro
+REGLAS_CALCULO: vitro_6mm2_25_32a; horno_4mm2_20a; lavavajillas_2_5mm2_16a; frigorifico_2_5mm2_16a; circuitos_todos_independientes
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_24_cocinas; circuitos_independientes_grandes_cargas; no_compartir_circuito_vitro_y_horno
+
+ACTUACION: instalacion_suelo_radiante_electrico
+PALABRAS_CLAVE: suelo radiante electrico, cable calefactor, manta calefactora, suelo electrico radiante, calefaccion suelo electrico, instalar suelo caliente electrico, suelo calefactado electrico
+PARTIDAS_OBLIGATORIAS: cable_calefactor_o_manta_electrica, termostato_con_sonda_suelo, cable_conexion, sensor_suelo, pequeno_material
+PARTIDAS_AUXILIARES: mortero_nivelador_conductor
+REGLAS_CALCULO: 100_150w_m2; circuito_exclusivo_si_mayor_3kw; termostato_con_sensor_suelo; separacion_cables_segun_fabricante
+UNIDAD: m2
+OBSERVACIONES: REBT; no_cubrir_con_alfombra_permanente; potencia_segun_aislamiento_existente; mortero_especifico
+
+ACTUACION: instalacion_termostato_programable_caldera
+PALABRAS_CLAVE: termostato, instalar termostato, poner termostato, termostato programable, termostato wifi, control calefaccion, regular temperatura, termostato inteligente, termostato caldera nuevo
+PARTIDAS_OBLIGATORIAS: termostato_programable, cable_conexion_2_4_hilos, pequeno_material
+PARTIDAS_AUXILIARES: adaptador_wifi_si_necesario
+REGLAS_CALCULO: compatibilidad_con_caldera_verificar; conexion_2_4_hilos_segun_tipo; configurar_programas_horarios_con_cliente
+UNIDAD: ud
+OBSERVACIONES: verificar_compatibilidad_con_caldera; configurar_horarios_con_cliente; wifi_requiere_cobertura
+
+ACTUACION: instalacion_downlight_empotrado_techo
+PALABRAS_CLAVE: downlight empotrado, instalar empotrado techo, foco empotrado, downlight nuevo, instalar downlight, foco techo empotrado, punto luz empotrado techo, downlight led
+PARTIDAS_OBLIGATORIAS: downlight_led, caja_empotrar_redonda_si_necesario, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: refuerzo_techo_si_necesario
+REGLAS_CALCULO: diametro_hueco_segun_downlight; verificar_espacio_plenum_minimo_5cm; potencia_led_segun_m2_y_uso
+UNIDAD: ud
+OBSERVACIONES: verificar_espacio_sobre_techo; no_cubrir_con_aislante_sin_separacion; IP_adecuado_segun_zona
+
+ACTUACION: instalacion_aplique_pared
+PALABRAS_CLAVE: aplique pared, instalar aplique, luz pared, aplique nuevo, poner aplique, aplique decorativo, aplique bano, aplique pasillo, aplique salon, lampara pared
+PARTIDAS_OBLIGATORIAS: aplique_pared, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: caja_empotrar_si_necesario
+REGLAS_CALCULO: comprobar_cableado_existente; IP_adecuado_segun_ubicacion; fase_neutro_tierra_obligatorio
+UNIDAD: ud
+OBSERVACIONES: IP_banos_minimo_ip24_zona2; comprobar_funcionamiento; caja_si_no_existe
+
+ACTUACION: instalacion_tiras_led_ambiente
+PALABRAS_CLAVE: tira led, instalar tira led, luz led indirecta, luz ambiental led, iluminacion led bajo mueble, tira led cocina, tira led ambiente, perfil led, cinta led, led ambiental
+PARTIDAS_OBLIGATORIAS: tira_led_segun_uso_ip_adecuado, perfil_aluminio_con_difusor, fuente_alimentacion_led, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: controlador_rgb_si_color, mando_o_app_wifi
+REGLAS_CALCULO: fuente_con_20pct_margen_sobre_consumo_tira; ip65_si_exterior_o_bajo_mueble_cocina; calcular_longitud_real; fuente_calidad_anti_parpadeo
+UNIDAD: ml, ud
+OBSERVACIONES: fuente_calidad_para_no_parpadeo; temperatura_color_segun_uso; perfil_aluminio_para_disipar_calor
+
+ACTUACION: recableado_parcial_vivienda
+PALABRAS_CLAVE: cambiar cables, recablear, cables viejos, cables deteriorados, cableado antiguo, cambiar cableado, renovar instalacion, cables de tela, cableado tela, cables quemados vivienda
+PARTIDAS_OBLIGATORIAS: cable_h07vk_1_5_2_5mm2, tubos_corrugados, cajas_empotrar, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion, actualizacion_cuadro_electrico
+REGLAS_CALCULO: seccion_segun_circuito; tubos_corrugados_para_facilitar_futuro; agrupar_circuitos_correctamente; boletin_si_reforma_importante
+UNIDAD: ml, ud
+OBSERVACIONES: REBT; boletin_electrico_si_reforma_importante; documentar_circuitos; cables_tela_sustituir_completo
+
+ACTUACION: instalacion_protector_sobretensiones_dps
+PALABRAS_CLAVE: protector sobretensiones, limitador sobretension, DPS, proteccion sobretension, instalar protector, proteger electrodomesticos, proteccion rayos cuadro, sobretensiones electricas
+PARTIDAS_OBLIGATORIAS: descargador_sobretensiones_tipo_2, pequeno_material
+PARTIDAS_AUXILIARES: tipo_1_si_exposicion_directa_rayos
+REGLAS_CALCULO: tipo_2_para_vivienda_normal; tipo_1_si_pararrayos_o_alta_exposicion; instalar_tras_IGA_en_cuadro
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_23; obligatorio_instalacion_nueva_desde_REBT_2002; muy_recomendable_zonas_tormentas
+
+ACTUACION: instalacion_linea_electrica_electrodomestico
+PALABRAS_CLAVE: linea electrodomestico, circuito exclusivo, nueva linea, circuito independiente, nuevo circuito, linea dedicada, cable nuevo electrodomestico, circuito para lavadora, linea para horno
+PARTIDAS_OBLIGATORIAS: cable_h07vk_segun_potencia, magnetotermico_calibre_adecuado, base_enchufe_schuko, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion
+REGLAS_CALCULO: vitro_6mm2_25a; horno_4mm2_20a; lavadora_2_5mm2_16a; secadora_2_5mm2_16a; frigorifico_2_5mm2_16a; siempre_circuito_independiente
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_24; circuito_independiente_para_grandes_cargas; no_compartir_circuito_varios_grandes_aparatos
+
+ACTUACION: instalacion_alumbrado_publico_urbanizacion
+PALABRAS_CLAVE: alumbrado publico, farolas, instalar alumbrado, luz calle, instalar farolas, alumbrado exterior urbanizacion, farolas urbanizacion, alumbrado vial
+PARTIDAS_OBLIGATORIAS: farola_led_vial, cable_rv_k, arqueta_registro, tubo_enterrado, cuadro_maniobra, pequeno_material
+PARTIDAS_AUXILIARES: obra_civil_zanjas, cimentacion_farolas, conexion_a_red
+REGLAS_CALCULO: niveles_luminosos_segun_CIE_115; eficiencia_energetica_clase_a; control_encendido_celula_o_reloj
+UNIDAD: ud, ml
+OBSERVACIONES: reglamento_alumbrado_exterior; eficiencia_energetica_obligatoria; proyecto_tecnico_obligatorio
+
+ACTUACION: instalacion_conexion_maquina_industrial
+PALABRAS_CLAVE: maquina industrial electrica, electrica maquina, instalar conexion maquina, electrica industria, trifasico maquina, enchufar maquina industrial, conexion maquinaria, instalar maquina
+PARTIDAS_OBLIGATORIAS: cable_rz1k_4x_segun_potencia, magnetotermico_trifasico_calibre, enchufe_cee_32_63a, pequeno_material
+PARTIDAS_AUXILIARES: guardamotor_si_motor, arrancador_si_necesario, bandeja_portacables
+REGLAS_CALCULO: seccion_segun_potencia_y_longitud; proteccion_adecuada_a_corriente_nominal; guardamotor_para_motores_obligatorio
+UNIDAD: ud
+OBSERVACIONES: REBT; instrucciones_fabricante; arranque_estrella_triangulo_si_gran_motor; guardamotor_obligatorio
+
+ACTUACION: instalacion_red_equipotencial_bano
+PALABRAS_CLAVE: red equipotencial, equipotencial bano, tierra masas bano, conexion equipotencial, cable tierra bano, equipotencialidad bano, equipotencial obligatorio bano
+PARTIDAS_OBLIGATORIAS: cable_cobre_4mm2_verde_amarillo, abrazaderas_tuberias, bornes_equipotencial, pequeno_material
+PARTIDAS_AUXILIARES: conexion_a_barra_equipotencial_cuadro
+REGLAS_CALCULO: conectar_todas_masas_metalicas_bano; tuberias_radiadores_estructura_metalica; conexion_a_barra_equipotencial
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_27_obligatoria_banos; verificar_continuidad_conexiones; imprescindible_en_reforma_bano
+
+ACTUACION: instalacion_foco_solar_exterior
+PALABRAS_CLAVE: proyector solar, foco solar, instalar foco solar exterior, luz solar exterior, foco exterior solar, luz solar jardin, foco led solar, faro solar jardin
+PARTIDAS_OBLIGATORIAS: proyector_led_solar, sensor_movimiento_integrado, soporte_orientable, pequeno_material
+PARTIDAS_AUXILIARES: poste_si_necesario
+REGLAS_CALCULO: horas_sol_zona_minimo_4h_dia; autonomia_segun_bateria_integrada; orientacion_al_sur
+UNIDAD: ud
+OBSERVACIONES: no_requiere_cableado; verificar_horas_sol_en_zona; limpieza_panel_periodica
+
+ACTUACION: instalacion_carril_electrificado_focos
+PALABRAS_CLAVE: carril trifasico, carril para focos, rail focos, carril electroducto, instalar carril luz, focos carril, carril monofasico, riel focos, carril orientable focos
+PARTIDAS_OBLIGATORIAS: carril_trifasico_o_monofasico, adaptador_carril, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: focos_carril_led_segun_necesidad
+REGLAS_CALCULO: 1_circuito_por_carril; potencia_maxima_segun_carril_fabricante; conectar_correctamente_fases
+UNIDAD: ml, ud
+OBSERVACIONES: verificar_potencia_maxima_carril; focos_led_recomendados; flexibilidad_orientacion_focos
+
+ACTUACION: instalacion_proyector_sala_presentaciones
+PALABRAS_CLAVE: instalar proyector, poner proyector, soporte proyector, proyector sala, pantalla proyector, instalar pantalla proyeccion, proyector reunion, proyector oficina
+PARTIDAS_OBLIGATORIAS: soporte_proyector_techo, cable_hdmi_o_extension, enchufe_proximidad_proyector, pequeno_material
+PARTIDAS_AUXILIARES: pantalla_proyeccion_motorizada, cable_audiovisual, hdmi_por_pared
+REGLAS_CALCULO: distancia_proyeccion_segun_modelo; orientacion_pantalla_correcta; fuente_alimentacion_proxima
+UNIDAD: ud
+OBSERVACIONES: comprobar_imagen_antes_fijar_definitivo; ocultar_cables_si_posible; considerar_HDMI_por_tubo
+
+ACTUACION: instalacion_sistema_hilo_musical_multizona
+PALABRAS_CLAVE: hilo musical, sistema audio multizona, instalar musica, altavoces empotrados, sistema sonido, amplificador multizona, altavoces techo, musica zona
+PARTIDAS_OBLIGATORIAS: amplificador_multizona, altavoces_empotrados, cable_altavoz, fuente_senalizacion, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion, paneles_control_zona
+REGLAS_CALCULO: 2_altavoces_por_zona_minimo; cable_altavoz_2x1_5_minimo; calibrar_nivel_por_zona
+UNIDAD: ud, ml
+OBSERVACIONES: calibrar_sistema_antes_entregar; cable_altavoz_correcto; considerar_impedancias
+
+ACTUACION: mantenimiento_instalacion_electrica_anual
+PALABRAS_CLAVE: mantenimiento electrico, revision electrica anual, mantenimiento anual instalacion, revisar cuadro, chequeo electrico, mantenimiento preventivo electrico
+PARTIDAS_OBLIGATORIAS: revision_visual_instalacion, comprobacion_funcionamiento_protecciones, informe_escrito, pequeno_material
+PARTIDAS_AUXILIARES: apriete_bornas_si_necesario, termografia_si_industrial
+REGLAS_CALCULO: revision_anual_industrial; revision_cada_5_anos_residencial; incluir_prueba_diferenciales
+UNIDAD: ud
+OBSERVACIONES: probar_diferenciales_pulsando_boton_mensualmente; emitir_informe; termografia_detecta_conexiones_flojas
+
+ACTUACION: instalacion_punto_recarga_bicicleta_electrica
+PALABRAS_CLAVE: cargador bicicleta electrica, punto carga bici, cargar bici electrica, instalar cargador bici, punto carga patinete, recarga vehiculo personal
+PARTIDAS_OBLIGATORIAS: base_enchufe_schuko_16a, cable_h07vk_2_5mm2, magnetotermico_16a, pequeno_material
+PARTIDAS_AUXILIARES: carcasa_exterior_ip44_si_exterior, soporte_mural
+REGLAS_CALCULO: circuito_independiente_recomendable; IP44_si_exterior; diferencial_30ma_proteccion
+UNIDAD: ud
+OBSERVACIONES: ip44_si_exterior; no_usar_alargaderas_permanentes; circuito_independiente_recomendado
+
+ACTUACION: instalacion_iluminacion_comercial_led
+PALABRAS_CLAVE: iluminacion comercio, luz tienda, iluminacion local, led comercio, instalar luz local, iluminacion retail, luz escaparate, luminaria comercial, iluminacion tienda
+PARTIDAS_OBLIGATORIAS: luminaria_led_comercial, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: carril_electrificado_si_necesario, regulacion_dali_si_necesario
+REGLAS_CALCULO: 500_750lux_zona_venta; 300lux_zona_trastienda; cri_minimo_90_para_colores; temperatura_color_3000_4000k
+UNIDAD: ud
+OBSERVACIONES: CRI_alto_para_mostrar_colores_correctos; verificar_luxes_instalados; planificacion_luminotecnica_previa
+
+ACTUACION: instalacion_iluminacion_oficinas
+PALABRAS_CLAVE: iluminacion oficina, luz oficina, luminaria oficina, instalar luz oficina, mejorar iluminacion oficina, led oficina, pantalla led oficina, iluminar oficina
+PARTIDAS_OBLIGATORIAS: luminaria_led_empotrada_ugr16, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: regulacion_dali_o_1_10v, sensor_presencia_oficina
+REGLAS_CALCULO: 500lux_puestos_trabajo; UGR_menor_16_obligatorio; temperatura_4000k_neutro; sensor_presencia_ahorro_energia
+UNIDAD: ud
+OBSERVACIONES: normativa_UNE_EN_12464; UGR_menor_16_puestos_pantalla; sensor_presencia_obligatorio_edificios_nuevos
+
+ACTUACION: instalacion_megafonia_evacuacion
+PALABRAS_CLAVE: megafonia, sistema megafonia, instalacion megafonia, altavoces evacuacion, megafonia emergencia, sistema audio evacuacion, altavoces publicos
+PARTIDAS_OBLIGATORIAS: central_megafonia, altavoces_8ohm, amplificador, cable_apantallado, pequeno_material
+PARTIDAS_AUXILIARES: microfono_zona_control, conexion_central_alarma
+REGLAS_CALCULO: cobertura_minima_65dba_sobre_ruido_ambiente; 1_altavoz_por_zona; circuito_supervisado_obligatorio
+UNIDAD: ud
+OBSERVACIONES: CTE_SI_oblitatorio_ciertos_usos; supervison_linea_altavoces_obligatoria; conexion_con_central_incendios
+
+ACTUACION: instalacion_iluminacion_exterior_fachada
+PALABRAS_CLAVE: iluminar fachada, iluminacion fachada edificio, luz fachada, proyector fachada, alumbrado fachada, fachada iluminada, luz decorativa fachada, proyector exterior fachada
+PARTIDAS_OBLIGATORIAS: proyector_led_ip65, cable_h07rn_f, tubo_protector, toma_tierra, pequeno_material
+PARTIDAS_AUXILIARES: foto_celula_astronomica, programador_horario
+REGLAS_CALCULO: IP65_minimo; cable_exterior_adecuado; proteccion_diferencial_30ma; orientacion_correcta_sin_deslumbramiento
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_43; eficiencia_energetica_reglamento_alumbrado; no_deslumbrar_via_publica
+
+ACTUACION: instalacion_enchufe_exterior_ip44
+PALABRAS_CLAVE: enchufe exterior, toma corriente exterior, enchufe jardin, enchufe fuera, enchufe terraza, enchufe exterior ip44, toma exterior vivienda, enchufe para jardin
+PARTIDAS_OBLIGATORIAS: base_enchufe_schuko_ip44_exterior, cable_h07rn_f, caja_superficie_ip44, pequeno_material
+PARTIDAS_AUXILIARES: tubo_enterrado_si_necesario, diferencial_si_no_hay
+REGLAS_CALCULO: IP44_minimo_exterior; cable_h07rn_exterior; diferencial_30ma_obligatorio; proteccion_tierra
+UNIDAD: ud
+OBSERVACIONES: IP44_minimo_exterior; diferencial_30ma_obligatorio; proteccion_ante_lluvia
+
+ACTUACION: instalacion_cuadro_contadores_garaje
+PALABRAS_CLAVE: cuadro garaje, cuadro contadores garaje, cuadro electrico garaje, instalar cuadro garaje, electrica garaje completa, cuadro garaje nuevo
+PARTIDAS_OBLIGATORIAS: cuadro_superficie_ip55, magnetotermicos, diferencial_30ma, cable_derivacion, iluminacion_garaje, pequeno_material
+PARTIDAS_AUXILIARES: tomas_de_corriente, base_enchufe_ip44
+REGLAS_CALCULO: dimensionar_segun_uso_garaje; IP55_obligatorio_garaje; diferencial_obligatorio
+UNIDAD: ud
+OBSERVACIONES: IP55_obligatorio_en_garajes; REBT_ITC_29; emergencia_si_uso_colectivo
+
+ACTUACION: legalización_instalacion_electrica
+PALABRAS_CLAVE: legalizar instalacion, boletin electrico, certificado instalacion, legalizacion electrica, boletin de instalacion, certificado electrico, tramitar boletin, homologar instalacion
+PARTIDAS_OBLIGATORIAS: revision_instalacion_completa, informe_tecnico, boletin_electrico, tramitacion_distribuidora, pequeno_material
+PARTIDAS_AUXILIARES: mejoras_si_deficiencias_para_legalizar
+REGLAS_CALCULO: verificar_cumplimiento_REBT; reparar_deficiencias_antes; tramitar_con_distribuidora
+UNIDAD: ud
+OBSERVACIONES: sin_boletin_no_hay_alta_suministro; REBT_vigente; tramite_obligatorio_reformas_importantés
+
+ACTUACION: instalacion_linea_general_alimentacion
+PALABRAS_CLAVE: linea general alimentacion, LGA, cable general edificio, derivacion individual, cable contador, linea principal edificio, cable alimentacion principal
+PARTIDAS_OBLIGATORIAS: cable_rz1k_o_xlpe_segun_seccion, tubo_protector_o_bandeja, fusible_compania, pequeno_material
+PARTIDAS_AUXILIARES: obra_galeria_si_necesario
+REGLAS_CALCULO: seccion_segun_potencia_maxima_prevista; caida_tension_max_0_5pct; REBT_ITC_14
+UNIDAD: ml
+OBSERVACIONES: REBT_ITC_14; coordinar_con_distribuidora; caida_tension_maxima_0_5pct
+
+ACTUACION: instalacion_derivacion_individual_vivienda
+PALABRAS_CLAVE: derivacion individual, cable vivienda, linea vivienda, cable desde contador, derivacion vivienda, cable contador a cuadro, linea individual piso
+PARTIDAS_OBLIGATORIAS: cable_h07vk_o_rz1k_segun_seccion, tubo_corrugado_o_bandeja, pequeno_material
+PARTIDAS_AUXILIARES: interruptor_control_potencia_ICP
+REGLAS_CALCULO: seccion_segun_potencia_contratada; 6mm2_hasta_40a; 10mm2_hasta_63a; caida_tension_max_1pct
+UNIDAD: ml
+OBSERVACIONES: REBT_ITC_15; caida_tension_maxima_1pct; seccion_segun_potencia_contratada
+
+ACTUACION: instalacion_automatizacion_persianas_motores
+PALABRAS_CLAVE: motor persiana electrico, automatizar persiana, persiana motorizada electrica, instalar motor persiana, persiana automatica, persiana con motor, persiana wifi, domótica persiana
+PARTIDAS_OBLIGATORIAS: motor_persiana_radio_o_cable, receptor_o_interruptor, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: pulsador_pared, control_app_si_wifi, sistema_domotico_si_integrado
+REGLAS_CALCULO: potencia_motor_segun_peso_persiana; verificar_carril_persiana_compatible; 1_motor_por_persiana
+UNIDAD: ud
+OBSERVACIONES: verificar_peso_persiana_antes; comprobar_limites_subida_bajada; programar_horarios_si_wifi
+
+ACTUACION: instalacion_ventilacion_mecanica_controlada_vmc
+PALABRAS_CLAVE: vmc, ventilacion controlada, recuperador calor, instalar vmc, ventilacion mecanica, aire fresco casa, recuperador entalpico, ventilacion vivienda
+PARTIDAS_OBLIGATORIAS: unidad_vmc_o_recuperador, conductos, rejillas_impulsion_extraccion, cable_alimentacion, pequeno_material
+PARTIDAS_AUXILIARES: obra_paso_conductos, filtros_adicionales
+REGLAS_CALCULO: caudal_segun_m2_vivienda_0_63l_s_m2; eficiencia_recuperacion_mayor_75pct; filtro_minimo_g4_m5
+REGLAS_CALCULO: caudal_segun_m2_vivienda; eficiencia_recuperacion_mayor_75pct
+UNIDAD: ud
+OBSERVACIONES: CTE_HS3_ventilacion; mantenimiento_filtros_semestral; obligatorio_edificios_nuevos
+
+ACTUACION: instalacion_extractor_bano_cocina
+PALABRAS_CLAVE: extractor bano, poner extractor, instalar extractor, extractor cocina, campana extractor, ventilacion bano, extractor humedad, instalar ventilador bano
+PARTIDAS_OBLIGATORIAS: extractor_bano_o_cocina_segun_tipo, cable_conexion, conducto_salida_si_necesario, pequeno_material
+PARTIDAS_AUXILIARES: rejilla_exterior_antirretorno, conexion_temporizador_o_humidostato
+REGLAS_CALCULO: caudal_minimo_15_l_s_bano; 50_l_s_cocina_sin_campana; ruido_max_35dba_bano
+UNIDAD: ud
+OBSERVACIONES: CTE_HS3; antirretorno_obligatorio; extraer_al_exterior_no_a_patinillo_sin_salida
+
+ACTUACION: instalacion_campana_extractora_cocina
+PALABRAS_CLAVE: campana extractora, instalar campana cocina, campana nueva, poner campana, campana recirculacion, campana exterior, campana cocina nueva, extractor cocina pared
+PARTIDAS_OBLIGATORIAS: campana_extractora, tubo_flexible_inox, boquilla_salida, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: tubo_rigido_si_exterior, antiretorno, rejilla_exterior
+REGLAS_CALCULO: caudal_minimo_400_m3_h_cocina_normal; 600_m3_h_cocina_intensa; ruido_max_55dba; salida_exterior_optima
+UNIDAD: ud
+OBSERVACIONES: recirculacion_menos_eficaz; salida_exterior_mejor; filtros_limpiar_mensualmente
+
+ACTUACION: instalacion_calefaccion_electrica_acumulacion
+PALABRAS_CLAVE: acumulador calor, acumulador electrico, calefaccion acumulacion, calefactor acumulacion, acumulador nocturno, calefaccion tarifa nocturna, acumuladores calor
+PARTIDAS_OBLIGATORIAS: acumulador_calor_electrico, cable_conexion_potencia, reloj_programador_tarifa, pequeno_material
+PARTIDAS_AUXILIARES: circuito_exclusivo, contador_discriminacion_horaria
+REGLAS_CALCULO: potencia_segun_perdidas_termicas_estancia; programar_carga_horario_valle; circuito_exclusivo_obligatorio
+UNIDAD: ud
+OBSERVACIONES: rentable_con_tarifa_discriminacion_horaria; programar_carga_en_horas_valle
+
+ACTUACION: instalacion_horno_industrial_electrico
+PALABRAS_CLAVE: horno industrial, instalar horno industrial, conexion horno industrial, horno restaurante electrico, horno pizzeria electrico, horno electrico industrial, conexion trifasica horno
+PARTIDAS_OBLIGATORIAS: cable_rz1k_4x6_o_mas, magnetotermico_trifasico, enchufe_cee_o_conexion_directa, pequeno_material
+PARTIDAS_AUXILIARES: cuadro_secundario_si_necesario, obra_bancada
+REGLAS_CALCULO: potencia_segun_horno_tipico_6_30kw; cable_segun_potencia_y_longitud; trifasico_si_mayor_7kw
+UNIDAD: ud
+OBSERVACIONES: REBT; instrucciones_fabricante; trifasico_si_potencia_mayor_7kw; proteccion_adecuada
+
+ACTUACION: instalacion_cuadro_electrico_piscina
+PALABRAS_CLAVE: cuadro piscina, electrica piscina, cuadro bomba piscina, instalacion electrica piscina, cuadro control piscina, electrica exterior piscina
+PARTIDAS_OBLIGATORIAS: cuadro_ip65_exterior, magnetotermicos, diferencial_superinmunizado_30ma, cable_exterior, toma_tierra, pequeno_material
+PARTIDAS_AUXILIARES: programador_horario_bomba, iluminacion_subacuatica_12v
+REGLAS_CALCULO: IP65_obligatorio_exterior; diferencial_30ma_tipo_a; separacion_minima_3_5m_de_vaso; baja_tension_12v_para_iluminacion_subacuatica
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_31_piscinas; 12v_obligatorio_iluminacion_subacuatica; IP65_minimo
+
+ACTUACION: instalacion_generacion_fotovoltaica_bombeo
+PALABRAS_CLAVE: solar para bomba, fotovoltaica bombeo, riego solar, bomba solar, instalar solar bomba riego, energia solar bomba agua, fotovoltaica para riego
+PARTIDAS_OBLIGATORIAS: paneles_fotovoltaicos, variador_frecuencia_solar, bomba_sumergible_o_superficie, cable_solar, pequeno_material
+PARTIDAS_AUXILIARES: bateria_si_funciona_sin_sol, estructura_soporte
+REGLAS_CALCULO: potencia_segun_caudal_bomba; variador_adapta_frecuencia_a_irradiacion; sin_bateria_solo_funciona_con_sol
+UNIDAD: ud, kWp
+OBSERVACIONES: sin_bateria_solo_funciona_de_dia; variador_obligatorio_sin_bateria; eficiencia_alta
+
+ACTUACION: instalacion_sistema_ahorro_energia_oficina
+PALABRAS_CLAVE: ahorro energia oficina, eficiencia energetica, sensor presencia oficina, apagado automatico, optimizar energia, sistema ahorro luz, regulacion luz natural
+PARTIDAS_OBLIGATORIAS: sensores_presencia_dali, reguladores_luz_dali, controlador_central, cable_bus_dali, pequeno_material
+PARTIDAS_AUXILIARES: sensores_luz_natural, integracion_bms
+REGLAS_CALCULO: ahorro_30_50pct_iluminacion; apagado_15min_sin_presencia; regulacion_segun_luz_natural
+UNIDAD: ud
+OBSERVACIONES: normativa_eficiencia_energetica_edificios; calculo_ahorro_ROI_para_cliente; certificacion_energetica_mejora
+
+ACTUACION: instalacion_red_electrica_local_comercial
+PALABRAS_CLAVE: instalacion electrica local, electrica comercio, instalar electrica tienda, cableado local, circuitos local comercial, electrica negocio, instalacion completa local
+PARTIDAS_OBLIGATORIAS: cuadro_electrico_local, circuitos_iluminacion, circuitos_enchufes, circuitos_aire_acondicionado, alumbrado_emergencia, boletin_electrico, pequeno_material
+PARTIDAS_AUXILIARES: cableado_completo, rozas_y_reposicion
+REGLAS_CALCULO: dimensionar_segun_actividad_prevista; alumbrado_emergencia_obligatorio; boletin_para_licencia_actividad
+UNIDAD: ud
+OBSERVACIONES: boletin_necesario_para_licencia_actividad; emergencia_obligatoria; dimensionar_para_actividad_real
+
+ACTUACION: instalacion_electrica_reforma_integral_vivienda
+PALABRAS_CLAVE: electrica completa vivienda, instalacion completa electrica, reforma electrica integral, nueva instalacion vivienda, instalacion electrica nueva vivienda, electrica desde cero
+PARTIDAS_OBLIGATORIAS: cuadro_electrico_nuevo, cableado_completo_vivienda, mecanismos_completos, toma_tierra, boletin_electrico, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion, coordinacion_con_albanileria
+REGLAS_CALCULO: minimo_14_circuitos_vivienda_100m2; seccion_segun_circuito; cuadro_nuevo_actualizado_REBT
+UNIDAD: ud
+OBSERVACIONES: REBT_completo; boletin_obligatorio; coordinar_con_albanileria_para_rozas; documentar_todos_circuitos
+
+ACTUACION: instalacion_panel_solar_termico_electrico_hibrido
+PALABRAS_CLAVE: panel hibrido solar termico electrico, placa solar dual, solar hibrido, fotovoltaico termico, pvt, panel pvt, solar doble funcion
+PARTIDAS_OBLIGATORIAS: panel_pvt_hibrido, inversor_red, circuito_hidraulico_solar, cable_solar, pequeno_material
+PARTIDAS_AUXILIARES: acumulador_acs, estructura_soporte, legalizacion
+REGLAS_CALCULO: mayor_rendimiento_que_solo_fotovoltaico_o_termico; instalar_orientacion_sur; legalizar_ambas_instalaciones
+UNIDAD: ud, m2
+OBSERVACIONES: legalizar_instalacion_electrica_e_hidraulica; mayor_aprovechamiento_superficie_cubierta
+
+ACTUACION: instalacion_electrica_ascensor
+PALABRAS_CLAVE: electrica ascensor, instalar electrica ascensor, circuito ascensor, linea ascensor, alimentacion ascensor, electrica elevador, conexion ascensor
+PARTIDAS_OBLIGATORIAS: cable_rv_k_segun_potencia, cuadro_ascensor, magnetotermico, diferencial, toma_tierra, pequeno_material
+PARTIDAS_AUXILIARES: alumbrado_sala_maquinas, enchufe_mantenimiento
+REGLAS_CALCULO: potencia_segun_motor_ascensor; linea_independiente_obligatoria; iluminacion_sala_maquinas
+UNIDAD: ud
+OBSERVACIONES: REBT; normativa_ascensores_UNE_EN_81; empresa_instaladora_ascensor_coordina; inspeccion_OCA
+
+ACTUACION: instalacion_cuadro_electrico_piscina_publica
+PALABRAS_CLAVE: cuadro piscina publica, electrica piscina comunidad, instalacion electrica piscina comunitaria, cuadro piscina urbanizacion
+PARTIDAS_OBLIGATORIAS: cuadro_acero_inox_ip65, magnetotermicos_trifasicos, diferenciales_superinmunizados, cable_exterior, toma_tierra, pequeno_material
+PARTIDAS_AUXILIARES: programadores_bombas, automatismo_depuracion, alumbrado_perimetral
+REGLAS_CALCULO: IP65_obligatorio; diferenciales_superinmunizados_obligatorios; separacion_3_5m_vaso; 12v_iluminacion_subacuatica
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_31; inspección_OCA_si_publica; superinmunizados_obligatorios
+
+ACTUACION: instalacion_electrica_local_hosteleria
+PALABRAS_CLAVE: electrica bar, electrica restaurante, instalacion electrica hosteleria, electrica cocina profesional, electrica cafeteria, instalacion bar, electrica para hosteleria
+PARTIDAS_OBLIGATORIAS: cuadro_electrico_trifasico, circuitos_cocina_profesional, circuitos_iluminacion, circuitos_climatizacion, alumbrado_emergencia, boletin_electrico, pequeno_material
+PARTIDAS_AUXILIARES: conexion_maquinaria_cocina, sistema_extraccion, cctv
+REGLAS_CALCULO: dimensionar_para_maquinaria_cocina; trifasico_si_potencia_mayor_15kw; boletin_para_licencia
+UNIDAD: ud
+OBSERVACIONES: boletin_para_licencia_actividad; emergencia_obligatoria; trifasico_para_cocina_profesional; dimensionar_bien_desde_inicio
+
+ACTUACION: instalacion_electrica_garaje_comunitario
+PALABRAS_CLAVE: electrica garaje comunitario, instalacion garaje comunidad, cuadro garaje edificio, electrica parking, instalacion aparcamiento, electrica garaje vecinos
+PARTIDAS_OBLIGATORIAS: cuadro_principal_garaje, iluminacion_emergencia, detectores_co_gas, ventilacion_forzada, circuitos_portales, pequeno_material
+PARTIDAS_AUXILIARES: puntos_carga_vehiculos_electricos, control_acceso
+REGLAS_CALCULO: detector_co_obligatorio_garajes_cerrados; ventilacion_mecanica_obligatoria; emergencia_obligatoria
+UNIDAD: ud
+OBSERVACIONES: detector_CO_obligatorio; ventilacion_mecanica_obligatoria; CTE; emergencia_obligatoria
+
+ACTUACION: instalacion_sistema_monitoreo_energia
+PALABRAS_CLAVE: monitor energia, sistema monitoreo consumo, medidor consumo, analizador red electrica, smart meter, control consumo electrico, medir consumo, monitorizar energia
+PARTIDAS_OBLIGATORIAS: analizador_red_electrica, cable_comunicacion, software_visualizacion, pequeno_material
+PARTIDAS_AUXILIARES: transformadores_intensidad, gateway_comunicacion
+REGLAS_CALCULO: 1_analizador_por_cuadro; comunicacion_modbus_o_tcp; datos_en_tiempo_real
+UNIDAD: ud
+OBSERVACIONES: util_para_detectar_consumos_anormales; base_para_optimizacion_energetica; exportar_datos_para_facturacion
+
+ACTUACION: instalacion_electrica_exterior_piscina_iluminacion
+PALABRAS_CLAVE: iluminacion piscina, luz piscina, focos piscina, luz subacuatica, iluminar piscina, foco subacuatico, iluminacion nocturna piscina, luz bajo agua piscina
+PARTIDAS_OBLIGATORIAS: focos_led_subacuaticos_12v, transformador_12v_ip68, cable_subacuatico, caja_conexion_ip68, pequeno_material
+PARTIDAS_AUXILIARES: mando_rgb_si_color, programador_encendido
+REGLAS_CALCULO: 12v_OBLIGATORIO_iluminacion_subacuatica; IP68_obligatorio; transformador_fuera_zona_riesgo; cable_especial_subacuatico
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_31; 12V_OBLIGATORIO_ILUMINACION_SUBACUATICA; transformador_exterior_zona_riesgo
+
+ACTUACION: instalacion_electrica_trastero_o_almacen
+PALABRAS_CLAVE: luz trastero, electrica trastero, instalar luz trastero, instalacion trastero, electrica almacen, luz cuarto trastero, enchufe trastero
+PARTIDAS_OBLIGATORIAS: luminaria_estanca_o_basica, enchufe_schuko, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: interruptor_o_detector_movimiento, diferencial_si_no_hay
+REGLAS_CALCULO: iluminacion_minima_100lux; enchufe_para_usos_varios; diferencial_proteccion
+UNIDAD: ud
+OBSERVACIONES: luminaria_estanca_si_puede_haber_humedad; detector_movimiento_comodidad
+
+ACTUACION: instalacion_electrica_cuarto_contadores_comunitario
+PALABRAS_CLAVE: cuarto contadores, electrica cuarto contadores, instalar contadores, armario contadores, centralizar contadores, cuarto medidores
+PARTIDAS_OBLIGATORIAS: centralización_contadores, embarrado_general, fusibles_compania, cable_derivaciones, iluminacion_cuarto, pequeno_material
+PARTIDAS_AUXILIARES: toma_tierra_cuadro
+REGLAS_CALCULO: REBT_ITC_16; centralización_segun_numero_viviendas; acceso_compania_suministradora
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_16; acceso_compania_suministradora_obligatorio; proyecto_tecnico_si_mas_12_viviendas
+
+ACTUACION: instalacion_electrica_cubierta_solar
+PALABRAS_CLAVE: electrica cubierta solar, instalacion electrica para placas, cableado solar cubierta, instalacion fotovoltaica completa, electrica para solar, cableado para fotovoltaica
+PARTIDAS_OBLIGATORIAS: cable_solar_rv_k_dc, canaleta_o_bandeja_cubierta, protecciones_dc, caja_conexion_ip65, cable_ac, pequeno_material
+PARTIDAS_AUXILIARES: pararrayos_si_necesario, conexion_a_cuadro_principal
+REGLAS_CALCULO: cable_dc_tipo_rv_k_especifico_solar; protecciones_dc_fusibles_y_seccionador; caida_tension_max_1pct_en_dc
+UNIDAD: ml, ud
+OBSERVACIONES: cable_solar_especifico_RV_K_DC; protecciones_dc_obligatorias; conectar_correctamente_polaridades
+
+ACTUACION: instalacion_electrica_zona_humeda_bano_completo
+PALABRAS_CLAVE: electrica bano completo, instalacion bano electrica, reforma electrica bano, circuitos bano, instalar electrica bano, mejorar electrica bano, electrica bano nueva
+PARTIDAS_OBLIGATORIAS: circuito_iluminacion_ip44, circuito_enchufe_ip44, red_equipotencial_bano, diferencial_30ma, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: secador_empotrado_si_acordado, calefactor_toallero
+REGLAS_CALCULO: zonas_bano_0_1_2_3_volumenes; IP_segun_zona; red_equipotencial_obligatoria; diferencial_30ma_obligatorio
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_27_obligatorio; volumenes_bano_determinan_IP; red_equipotencial_imprescindible
+
+ACTUACION: instalacion_electrica_cocina_completa
+PALABRAS_CLAVE: electrica cocina completa, instalacion electrica cocina, reforma electrica cocina, circuitos cocina, instalar electrica cocina nueva, electrica reforma cocina
+PARTIDAS_OBLIGATORIAS: circuito_vitroceramica_6mm2, circuito_horno_4mm2, circuito_lavavajillas_2_5mm2, circuito_frigorifico_2_5mm2, circuito_iluminacion, enchufes_cocina, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion, campana_extractora_si_acordado
+REGLAS_CALCULO: REBT_ITC_24_circuitos_minimos_cocina; circuito_exclusivo_por_gran_aparato; dimensionar_segun_electrodomesticos
+UNIDAD: ud
+OBSERVACIONES: REBT_ITC_24; circuito_exclusivo_cada_gran_electrodomestico; campana_circuito_propio
+
+ACTUACION: instalacion_electrica_local_nuevo
+PALABRAS_CLAVE: instalacion electrica local nuevo, electrica desde cero local, instalar electrica local, instalacion completa local nuevo, electrica para actividad, electrica local vacio
+PARTIDAS_OBLIGATORIAS: linea_acometida, cuadro_electrico_local, cableado_completo, iluminacion, enchufes, alumbrado_emergencia, boletin_electrico, pequeno_material
+PARTIDAS_AUXILIARES: trifasico_si_necesario, exterior_si_terraza
+REGLAS_CALCULO: dimensionar_segun_actividad_prevista; emergencia_obligatoria; boletin_para_licencia_actividad
+UNIDAD: ud
+OBSERVACIONES: boletin_para_licencia_actividad; emergencia_obligatoria; dimensionar_con_margen
+
+ACTUACION: instalacion_linea_maquina_lavanderia
+PALABRAS_CLAVE: linea lavanderia, electrica lavanderia, instalacion lavanderia, linea lavadora industrial, conexion lavanderia, electrica lavanderia industrial
+PARTIDAS_OBLIGATORIAS: cable_rz1k_4x_segun_potencia, magnetotermico_trifasico, enchufe_cee_o_directo, diferencial, pequeno_material
+PARTIDAS_AUXILIARES: cuadro_secundario_si_necesario
+REGLAS_CALCULO: lavadora_industrial_tipica_4_15kw; trifasico_si_mayor_7kw; seccion_segun_potencia_y_longitud
+UNIDAD: ud
+OBSERVACIONES: REBT; instrucciones_fabricante; trifasico_si_potencia_alta
+
+ACTUACION: reparacion_cableado_deteriorado
+PALABRAS_CLAVE: cable roto, cable quemado, cableado deteriorado, reparar cable, cable pelado, cable pinchado, cable averia, reparar instalacion, cable fundido, cable viejo deteriorado
+PARTIDAS_OBLIGATORIAS: cable_h07vk_segun_seccion, conectores_o_empalmes_cajas, caja_derivacion, pequeno_material
+PARTIDAS_AUXILIARES: tubo_corrugado_si_necesario, cinta_aislante_profesional
+REGLAS_CALCULO: sustituir_tramo_completo_nunca_empalme_libre; empalmes_siempre_en_caja; misma_seccion_que_existente
+UNIDAD: ml, ud
+OBSERVACIONES: empalmes_siempre_en_caja_registro; nunca_empalme_libre_sin_caja; misma_seccion_cable
+
+ACTUACION: instalacion_reloj_programador_circuito
+PALABRAS_CLAVE: reloj programador, temporizador circuito, programador electrico, reloj horario electrico, programar circuito, temporizador electrico, reloj electrico circuito
+PARTIDAS_OBLIGATORIAS: rele_horario_programable, cable_conexion, pequeno_material
+PARTIDAS_AUXILIARES: rail_din_si_en_cuadro
+REGLAS_CALCULO: programar_segun_necesidad_cliente; horario_semanal_si_necesario; verificar_potencia_maxima_rele
+UNIDAD: ud
+OBSERVACIONES: programar_con_cliente_antes_entregar; verificar_potencia_maxima_rele; hora_correcta
+
+ACTUACION: instalacion_electrica_pergola_terraza
+PALABRAS_CLAVE: electrica pergola, luz pergola, instalar luz terraza, electricidad terraza, electrica exterior terraza, enchufes terraza, puntos luz terraza, iluminar pergola
+PARTIDAS_OBLIGATORIAS: cable_h07rn_f_exterior, luminarias_ip65, enchufes_ip44_si_necesario, diferencial_30ma, pequeno_material
+PARTIDAS_AUXILIARES: guia_cables_exterior, detector_movimiento_o_fotocélula
+REGLAS_CALCULO: IP65_luminarias; IP44_enchufes; cable_exterior_adecuado; diferencial_30ma_obligatorio
+UNIDAD: ud
+OBSERVACIONES: IP_adecuado_exterior; diferencial_30ma_obligatorio; materiales_resistentes_intemperie
+
+ACTUACION: instalacion_electrica_caseta_jardin
+PALABRAS_CLAVE: electrica caseta jardin, luz caseta, instalar electrica caseta, electricidad caseta, caseta con luz, enchufe caseta jardin, electrica cobertizo
+PARTIDAS_OBLIGATORIAS: cable_enterrado_rv_k, cuadro_pequeno_ip65, luminaria, enchufe_ip44, diferencial_30ma, toma_tierra, pequeno_material
+PARTIDAS_AUXILIARES: tubo_protector_enterrado, arqueta_paso
+REGLAS_CALCULO: tubo_enterrado_profundidad_minima_60cm; IP65_cuadro_si_exterior; diferencial_y_tierra_obligatorios
+UNIDAD: ud
+OBSERVACIONES: cable_enterrado_rv_k_obligatorio; profundidad_minima_60cm; tierra_y_diferencial_obligatorios
+
+ACTUACION: instalacion_electrica_oficina_completa
+PALABRAS_CLAVE: electrica oficina completa, instalacion electrica oficina, reforma electrica oficina, circuitos oficina, instalar electrica oficina nueva, electrica oficina desde cero
+PARTIDAS_OBLIGATORIAS: cuadro_electrico_oficina, circuitos_iluminacion_led, circuitos_enchufes_puestos, circuitos_climatizacion, red_datos_cat6, alumbrado_emergencia, boletin_electrico, pequeno_material
+PARTIDAS_AUXILIARES: sistema_dali_si_eficiencia, suelo_tecnico_si_necesario
+REGLAS_CALCULO: 500lux_puestos_trabajo; UGR_menor_16; circuito_datos_independiente_electrico; emergencia_obligatoria
+UNIDAD: ud
+OBSERVACIONES: normativa_UNE_EN_12464; UGR_menor_16_pantallas; boletin_para_licencia; emergencia_obligatoria
+
+ACTUACION: instalacion_electrica_exterior_urbanizacion
+PALABRAS_CLAVE: electrica urbanizacion, alumbrado urbanizacion, instalar electrica exterior, luz zonas comunes, instalacion exterior comunidad, alumbrado zonas comunes, electrica partes comunes
+PARTIDAS_OBLIGATORIAS: cable_rv_k_enterrado, arquetas_registro, cuadro_maniobra_exterior, farolas_led, fotocélula_o_reloj, pequeno_material
+PARTIDAS_AUXILIARES: obra_civil_zanjas, cimentaciones_farolas
+REGLAS_CALCULO: profundidad_cable_minima_70cm_acera; calcular_carga_total_alumbrado; control_encendido_fotocélula_astronomica
+UNIDAD: ud, ml
+OBSERVACIONES: proyecto_tecnico_obligatorio; reglamento_alumbrado_exterior; eficiencia_energetica

@@ -1,0 +1,815 @@
+# ============================================================
+# BASE MAESTRA TRABFLOW
+# OFICIO 01 — FONTANERIA
+# 100 actuaciones
+# Version 1.0 | Junio 2026 | TrabFlow Technologies S.L.
+# ============================================================
+# FORMATO:
+# ACTUACION: codigo_unico
+# PALABRAS_CLAVE: variantes coloquiales y tecnicas (min 8)
+# PARTIDAS_OBLIGATORIAS: materiales que SIEMPRE van
+# PARTIDAS_AUXILIARES: desmontajes, medios aux, retiradas
+# REGLAS_CALCULO: formulas y criterios de medicion
+# UNIDAD: ud / ml / m2 / h / pa
+# OBSERVACIONES: normativa, advertencias, derivaciones
+# ============================================================
+
+ACTUACION: sustitucion_bajante
+PALABRAS_CLAVE: cambiar bajante, sustituir bajante, bajante rota, bajante nueva, renovar bajante, bajante vieja, bajante fisurada, reponer bajante, bajante pvc, bajante hierro fundido, cambio bajante completo, bajante agrietada
+PARTIDAS_OBLIGATORIAS: tubo_pvc_110, derivacion_y_110, codo_45_110, abrazadera_isofonica, manguito_union, manguito_dilatacion, sellado_pasamuros, pequeno_material
+PARTIDAS_AUXILIARES: medios_auxiliares, retirada_bajante_existente, gestion_residuos
+REGLAS_CALCULO: metros=nplantas*altura_planta+1m_margen; 1_abrazadera_por_planta; 1_derivacion_Y_por_planta; 1_manguito_dilatacion_cada_3_plantas; 1_sellado_cortafuego_por_forjado; merma_15%
+UNIDAD: ml, ud
+OBSERVACIONES: comprobar_ventilacion_bote; normativa_contraincendios_forjados; edificio_mas_4plantas_incluir_andamio
+
+ACTUACION: puente_bajante
+PALABRAS_CLAVE: puente bajante, desvio bajante, mover bajante, salvar bajante, rodear bajante, desviar tuberia bajante, cambiar recorrido bajante, sacar bajante, esquivar bajante, bypass bajante, paso bajante, desvio saneamiento
+PARTIDAS_OBLIGATORIAS: tubo_pvc_110, codo_45_110, manguito_union, abrazadera_110, soporte_fijacion, adhesivo_pvc, pequeno_material
+PARTIDAS_AUXILIARES: medios_auxiliares
+REGLAS_CALCULO: minimo_2_codos_45; 1_abrazadera_cada_1.5m; merma_10%; si_desvio_mayor_3m_anadir_medios_auxiliares
+UNIDAD: ml, ud
+OBSERVACIONES: no_usar_codos_90_en_saneamiento_horizontal; verificar_pendiente_minima_2pct; prueba_estanqueidad
+
+ACTUACION: reparacion_fuga_tuberia
+PALABRAS_CLAVE: fuga tuberia, escape agua, tuberia rota, tuberia pinchada, pierde tuberia, tuberia reventada, fuga empotrada, rotura tuberia, fuga en pared, tubazo, perdida agua tuberia, tuberia fisurada, agua en pared
+PARTIDAS_OBLIGATORIAS: tubo_multicapa, manguito_reparacion, abrazadera_reparacion, junta_goma, pequeno_material
+PARTIDAS_AUXILIARES: rotura_reposicion_alicatado, rotura_reposicion_escayola, retirada_escombros, medios_auxiliares
+REGLAS_CALCULO: incluir_corte_agua_general; longitud_minima_50cm_zona_afectada; merma_10%
+UNIDAD: ud, ml
+OBSERVACIONES: prueba_estanqueidad_obligatoria; fotografia_antes_y_despues; si_empotrada_coordinar_albanileria
+
+ACTUACION: sustitucion_llave_paso
+PALABRAS_CLAVE: llave rota, cambiar llave paso, fuga llave, llave no cierra, llave atascada, llave paso general, cambiar llave esfera, llave paso cocina, llave paso bano, llave paso vivienda, sustituir llave, llave paso averiada, llave que no corta
+PARTIDAS_OBLIGATORIAS: llave_esfera_1_2, racor_union, teflon, pequeno_material
+PARTIDAS_AUXILIARES: corte_agua_general
+REGLAS_CALCULO: 1_llave_por_circuito; verificar_diametro_existente_12_o_34; incluir_purga_posterior
+UNIDAD: ud
+OBSERVACIONES: verificar_presion_posterior; incluir_prueba_cierre_completo
+
+ACTUACION: cambio_grifo_lavabo
+PALABRAS_CLAVE: cambiar grifo lavabo, grifo lavabo roto, grifo lavabo gotea, poner grifo nuevo lavabo, instalar grifo lavabo, mezclador lavabo, grifo lavabo averiado, grifo monomando lavabo, grifo no cierra lavabo, grifo pierde lavabo, cambio grifo bano
+PARTIDAS_OBLIGATORIAS: grifo_monomando_lavabo, latiguillos_flex_40cm, silicona_sanitaria, pequeno_material
+PARTIDAS_AUXILIARES: llaves_escuadra_si_defectuosas
+REGLAS_CALCULO: incluir_desmontaje; 2_latiguillos_fria_y_caliente; verificar_llaves_escuadra
+UNIDAD: ud
+OBSERVACIONES: comprobar_fugas_conexiones; purgar_instalacion; verificar_llaves_escuadra
+
+ACTUACION: cambio_grifo_cocina
+PALABRAS_CLAVE: cambiar grifo cocina, grifo fregadero roto, poner grifo fregadero, grifo cocina averiado, grifo cocina pierde, instalar grifo cocina, mezclador cocina, grifo extraible cocina, grifo cocina nuevo, cambiar grifo fregadero, grifo cocina gotea
+PARTIDAS_OBLIGATORIAS: grifo_monomando_cocina, latiguillos_flex_40cm, silicona_sanitaria, pequeno_material
+PARTIDAS_AUXILIARES: llaves_escuadra_si_defectuosas
+REGLAS_CALCULO: incluir_desmontaje; 2_latiguillos; verificar_diametro_conexion
+UNIDAD: ud
+OBSERVACIONES: comprobar_presion_red; verificar_llaves_escuadra_bajo_fregadero
+
+ACTUACION: cambio_grifo_bano_general
+PALABRAS_CLAVE: cambiar grifo bano, grifo bano roto, poner grifo bano, grifo bano averiado, grifo bano pierde, grifo bano no cierra, cambiar monomando bano, grifo bano nuevo, mezclador bano, grifo bano gotea
+PARTIDAS_OBLIGATORIAS: grifo_monomando_bano, latiguillos_flex_40cm, silicona_sanitaria, pequeno_material
+PARTIDAS_AUXILIARES: llaves_escuadra_si_defectuosas
+REGLAS_CALCULO: incluir_desmontaje; 2_latiguillos; verificar_presion_red
+UNIDAD: ud
+OBSERVACIONES: comprobar_fugas; purgar_instalacion; verificar_llaves_escuadra
+
+ACTUACION: cambio_sifon
+PALABRAS_CLAVE: sifon roto, cambiar sifon, fuga sifon, sifon lavabo, sifon fregadero, sifon atascado, sustituir sifon, sifon goteando, sifon nuevo, pierde sifon, sifon banera, sifon ducha, sifon huele mal, sifon obstruido
+PARTIDAS_OBLIGATORIAS: sifon_pvc, junta_goma, tubo_evacuacion_40, pequeno_material
+PARTIDAS_AUXILIARES: producto_limpieza_tuberias
+REGLAS_CALCULO: incluir_limpieza_ramal; verificar_pendiente_desague
+UNIDAD: ud
+OBSERVACIONES: comprobar_estanqueidad; prueba_evacuacion_5min
+
+ACTUACION: sustitucion_termo_electrico
+PALABRAS_CLAVE: cambiar termo, termo averiado, sustitucion calentador, termo electrico roto, poner termo nuevo, instalar termo, termo no calienta, cambio calentador electrico, termo viejo, termo 50l, termo 80l, termo 100l, termo 150l, calentador electrico roto
+PARTIDAS_OBLIGATORIAS: termo_electrico, latiguillos_3_4, valvula_seguridad_3_4, valvula_retencion_3_4, pequeno_material
+PARTIDAS_AUXILIARES: soporte_mural_si_necesario, retirada_termo_antiguo, gestion_residuos_aparato
+REGLAS_CALCULO: mantener_capacidad_existente; valvula_seguridad_obligatoria_RITE; verificar_desague_valvula
+UNIDAD: ud
+OBSERVACIONES: comprobar_instalacion_electrica; verificar_toma_tierra; prueba_llenado_completo; informar_tiempo_calentamiento
+
+ACTUACION: cambio_mecanismo_cisterna
+PALABRAS_CLAVE: cisterna pierde, mecanismo wc, cisterna rota, wc gasta agua, cisterna no llena, mecanismo cisterna averiado, flotador cisterna, tirador cisterna, cisterna hace ruido, cambiar mecanismo wc, wc pierde agua cisterna, cisterna sigue llenando
+PARTIDAS_OBLIGATORIAS: mecanismo_descarga_completo, flotador, junta_descarga_wc, pequeno_material
+PARTIDAS_AUXILIARES: llave_escuadra_si_defectuosa
+REGLAS_CALCULO: incluir_regulacion_nivel; verificar_presion_entrada
+UNIDAD: ud
+OBSERVACIONES: prueba_funcionamiento_10_ciclos; verificar_llenado_correcto
+
+ACTUACION: desatasco_fregadero
+PALABRAS_CLAVE: atasco cocina, fregadero atascado, desague lento cocina, fregadero no desagua, atasco fregadero, desatascar cocina, desague cocina obstruido, fregadero embozado, limpiar desague fregadero, cocina no desagua, fregadero tarda en vaciar
+PARTIDAS_OBLIGATORIAS: muelle_desatasco, producto_desatascante_profesional, pequeno_material
+PARTIDAS_AUXILIARES: limpieza_sifon
+REGLAS_CALCULO: incluir_limpieza_sifon; si_no_resuelve_1h_inspeccion_camara
+UNIDAD: ud
+OBSERVACIONES: comprobar_evacuacion_completa; informar_medidas_preventivas
+
+ACTUACION: desatasco_wc
+PALABRAS_CLAVE: wc atascado, wc no tira, atasco bano, inodoro atascado, wc no evacua, tapon wc, desatascar wc, wc embozado, wc bloqueado, inodoro bloqueado, atasco sanitario, desatascar inodoro, wc no funciona
+PARTIDAS_OBLIGATORIAS: bomba_desatasco, varilla_desatasco, producto_desatascante, pequeno_material
+PARTIDAS_AUXILIARES: inspeccion_camara_si_no_resuelve
+REGLAS_CALCULO: incluir_proteccion_zona_trabajo; si_problema_en_bajante_presupuesto_aparte
+UNIDAD: ud
+OBSERVACIONES: verificar_causa_atasco; si_recurrente_recomendar_inspeccion_camara
+
+ACTUACION: desatasco_banera_ducha
+PALABRAS_CLAVE: banera atascada, ducha no desagua, atasco bano ducha, banera lenta, ducha atascada, desague banera obstruido, atasco plato ducha, banera embozada, ducha tarda vaciar, plato ducha atascado, desague lento bano
+PARTIDAS_OBLIGATORIAS: muelle_desatasco, producto_desatascante, pequeno_material
+PARTIDAS_AUXILIARES: limpieza_sifon_banera
+REGLAS_CALCULO: incluir_limpieza_sifon; verificar_pendiente
+UNIDAD: ud
+OBSERVACIONES: comprobar_evacuacion; limpiar_pelo_acumulado
+
+ACTUACION: desatasco_lavabo
+PALABRAS_CLAVE: lavabo atascado, lavabo no desagua, desague lavabo lento, atasco lavabo, lavabo embozado, desatascar lavabo, lavabo tarda vaciar, desague lavabo obstruido
+PARTIDAS_OBLIGATORIAS: muelle_desatasco, producto_desatascante, pequeno_material
+PARTIDAS_AUXILIARES: limpieza_sifon_lavabo
+REGLAS_CALCULO: incluir_limpieza_sifon; verificar_evacuacion
+UNIDAD: ud
+OBSERVACIONES: comprobar_evacuacion_correcta; limpiar_sifon
+
+ACTUACION: cambio_inodoro
+PALABRAS_CLAVE: sustituir wc, cambiar inodoro, sanitario roto, inodoro agrietado, wc nuevo, poner inodoro, instalar inodoro, inodoro roto, cambio wc completo, inodoro averiado, wc agrietado, inodoro viejo, wc nuevo completo
+PARTIDAS_OBLIGATORIAS: inodoro_completo, manguito_descarga_wc, latiguillos_flex, llave_escuadra, junta_descarga, silicona_sanitaria, tacos_fijacion, pequeno_material
+PARTIDAS_AUXILIARES: desmontaje_inodoro_antiguo, gestion_residuos_sanitario
+REGLAS_CALCULO: incluir_desmontaje; verificar_ramal_desague; ramal_mayor_30a_recomendar_sustitucion
+UNIDAD: ud
+OBSERVACIONES: verificar_nivelacion; comprobar_fijacion_al_suelo; prueba_10_ciclos_descarga
+
+ACTUACION: cambio_lavabo
+PALABRAS_CLAVE: lavabo roto, sustituir lavabo, lavabo agrietado, lavabo nuevo, poner lavabo, instalar lavabo, cambio lavabo, lavabo averiado, lavabo fisurado, lavabo viejo, lavabo nuevo completo, cambiar lavabo entero
+PARTIDAS_OBLIGATORIAS: lavabo, sifon_pvc, griferia_monomando, latiguillos, llaves_escuadra, silicona_sanitaria, fijaciones_lavabo, pequeno_material
+PARTIDAS_AUXILIARES: desmontaje_lavabo_antiguo, gestion_residuos
+REGLAS_CALCULO: incluir_sellado_completo; verificar_evacuacion
+UNIDAD: ud
+OBSERVACIONES: verificar_evacuacion_correcta; nivelar_perfectamente
+
+ACTUACION: sustitucion_banera
+PALABRAS_CLAVE: cambiar banera, banera rota, banera agrietada, banera nueva, sustituir banera, quitar banera, banera vieja, renovar banera, banera averiada, banera fisurada, banera nueva completa
+PARTIDAS_OBLIGATORIAS: banera_acrilica, valvula_desague_banera, sifon_banera, silicona_sanitaria, soporte_patas, griferia_banera, pequeno_material
+PARTIDAS_AUXILIARES: desmontaje_banera_antigua, gestion_residuos, reposicion_alicatado_perimetral
+REGLAS_CALCULO: incluir_desmontaje; verificar_nivel; incluir_sellado_perimetral
+UNIDAD: ud
+OBSERVACIONES: comprobar_nivel_exacto; prueba_llenado_y_vaciado; coordinar_alicatado_si_necesario
+
+ACTUACION: sustitucion_banera_por_ducha
+PALABRAS_CLAVE: cambiar banera por ducha, quitar banera poner ducha, convertir banera en ducha, banera a ducha, plato ducha en lugar banera, reforma bano banera ducha, eliminar banera, adaptacion banera ducha, cambiar banera plato ducha, convertir bano
+PARTIDAS_OBLIGATORIAS: plato_ducha, valvula_desague_ducha, sifon_ducha, griferia_ducha, mampara_ducha, silicona_sanitaria, pequeno_material
+PARTIDAS_AUXILIARES: desmontaje_banera, gestion_residuos, adaptacion_fontaneria, reposicion_alicatado, impermeabilizacion
+REGLAS_CALCULO: incluir_adaptacion_desague; verificar_pendiente; impermeabilizacion_obligatoria; coordinar_albanileria
+UNIDAD: ud
+OBSERVACIONES: obra_asociada_necesaria; impermeabilizacion_antes_alicatar; coordinar_albanileria_para_reposicion
+
+ACTUACION: cambio_plato_ducha
+PALABRAS_CLAVE: sustituir ducha, plato roto, plato ducha agrietado, plato ducha nuevo, cambiar plato ducha, plato ducha averiado, plato ducha fisurado, instalar plato ducha, plato ducha resina, plato ducha porcelana, plato ducha nuevo
+PARTIDAS_OBLIGATORIAS: plato_ducha, valvula_desague_ducha, sifon_ducha, silicona_sanitaria, pequeno_material
+PARTIDAS_AUXILIARES: desmontaje_plato_antiguo, gestion_residuos, reposicion_alicatado_perimetral
+REGLAS_CALCULO: incluir_sellado; verificar_evacuacion; impermeabilizacion_si_necesaria
+UNIDAD: ud
+OBSERVACIONES: prueba_evacuacion; comprobar_nivel_plato
+
+ACTUACION: instalacion_mampara_ducha
+PALABRAS_CLAVE: montar mampara, instalar mampara, mampara ducha nueva, poner mampara bano, mampara ducha, mampara banera, colocar mampara, mampara corredera, mampara abatible, mampara fija, mampara nueva bano
+PARTIDAS_OBLIGATORIAS: mampara_ducha, perfiles_aluminio, silicona_sanitaria, tornilleria_inox, pequeno_material
+PARTIDAS_AUXILIARES: tacos_especiales_si_gresite
+REGLAS_CALCULO: incluir_nivelacion; sellado_perimetral_completo; verificar_medidas_in_situ_antes_pedir
+UNIDAD: ud
+OBSERVACIONES: sellado_completo_imprescindible; verificar_verticalidad
+
+ACTUACION: sustitucion_columna_ducha
+PALABRAS_CLAVE: columna ducha, cambiar grifo ducha, grifo ducha roto, poner columna ducha, instalar columna ducha, columna hidromasaje, grifo ducha averiado, columna termostatica, ducha rota, roseton ducha roto
+PARTIDAS_OBLIGATORIAS: columna_ducha, excentricas_1_2, embellecedores_cromo, pequeno_material
+PARTIDAS_AUXILIARES: llaves_escuadra_si_defectuosas
+REGLAS_CALCULO: incluir_ajuste_distancia_excentricas; verificar_presion_minima_2bar
+UNIDAD: ud
+OBSERVACIONES: verificar_presion_red; distancia_estandar_excentricas_150mm
+
+ACTUACION: reparacion_fuga_cisterna
+PALABRAS_CLAVE: pierde cisterna, fuga wc, cisterna gota, wc gasta agua, agua en suelo wc, cisterna filtra, cisterna gotea, wc pierde agua, fuga inodoro, cisterna perdiendo agua, agua debajo inodoro
+PARTIDAS_OBLIGATORIAS: junta_descarga_cisterna, flotador_cisterna, junta_tapa_cisterna, pequeno_material
+PARTIDAS_AUXILIARES: llave_escuadra_si_defectuosa
+REGLAS_CALCULO: incluir_regulacion; verificar_mecanismo_completo
+UNIDAD: ud
+OBSERVACIONES: comprobar_llenado_completo; prueba_estanqueidad
+
+ACTUACION: sustitucion_tuberia_multicapa
+PALABRAS_CLAVE: cambiar tuberia, multicapa rota, tuberia multicapa averiada, sustituir tuberia agua, tuberia cobre rota, tuberia vieja, renovar tuberia, tuberia nueva, cambiar instalacion agua, tuberia cobre pinchada, tuberia deteriorada
+PARTIDAS_OBLIGATORIAS: tubo_multicapa_pex_al_pex, racores_multicapa, abrazaderas_plastico, pequeno_material
+PARTIDAS_AUXILIARES: corte_y_reposicion_rozas, gestion_residuos
+REGLAS_CALCULO: calcular_longitud_real_mas_15%; incluir_todos_accesorios; merma_10%
+UNIDAD: ml
+OBSERVACIONES: prueba_presion_10bar; verificar_dilataciones
+
+ACTUACION: instalacion_contador_agua
+PALABRAS_CLAVE: contador agua, nuevo contador, instalar contador, poner contador, contador particular, contador vivienda, sustituir contador, contador nuevo, contador averiado, contador agua casa, medidor agua
+PARTIDAS_OBLIGATORIAS: contador_frio_qn2_5, llave_paso_contador, racores_contador, soporte_contador, pequeno_material
+PARTIDAS_AUXILIARES: arqueta_si_exterior
+REGLAS_CALCULO: incluir_precinto_compania; cumplir_normativa_empresa_suministradora; DN_segun_caudal
+UNIDAD: ud
+OBSERVACIONES: tramitar_con_compania_suministradora; verificar_caudal_necesario
+
+ACTUACION: cambio_bomba_presion
+PALABRAS_CLAVE: bomba averiada, grupo presion, bomba rota, bomba presion falla, sin presion agua, presion baja agua, bomba no arranca, grupo presion averiado, bomba agua edificio, bomba circulacion averiada, poca presion agua
+PARTIDAS_OBLIGATORIAS: bomba_presion, valvula_retencion, racores_union, manometro, presostato, pequeno_material
+PARTIDAS_AUXILIARES: conexion_electrica_bomba, base_antivibracion
+REGLAS_CALCULO: verificar_caudal_y_altura_manometrica; seleccionar_potencia_segun_consumo
+UNIDAD: ud
+OBSERVACIONES: prueba_funcionamiento_presion; verificar_conexion_electrica
+
+ACTUACION: reparacion_fuga_radiador
+PALABRAS_CLAVE: pierde radiador, fuga calefaccion, radiador gotea, radiador pierde agua, calefaccion pierde, fuga calefaccion, agua bajo radiador, calefaccion fuga, radiador humedad, manchas bajo radiador
+PARTIDAS_OBLIGATORIAS: junta_radiador, detentor_radiador, purgador_automatico, pequeno_material
+PARTIDAS_AUXILIARES: vacia_y_llenado_circuito
+REGLAS_CALCULO: purgar_circuito_completo_tras_reparacion; verificar_presion_circuito_1_5bar
+UNIDAD: ud
+OBSERVACIONES: comprobar_presion_circuito; aditivo_anticongelante_si_necesario
+
+ACTUACION: cambio_radiador
+PALABRAS_CLAVE: sustituir radiador, radiador roto, radiador nuevo, poner radiador, instalar radiador, radiador averiado, radiador viejo, radiador de aluminio, radiador acero, cambio radiador calefaccion, radiador que no calienta
+PARTIDAS_OBLIGATORIAS: radiador_aluminio, soportes_radiador, detentor_radiador, llave_radiador, purgador, tapon_radiador, pequeno_material
+PARTIDAS_AUXILIARES: vacia_y_llenado_circuito
+REGLAS_CALCULO: incluir_purgado; verificar_potencia_KW_segun_estancia; nElementos_segun_m2
+UNIDAD: ud
+OBSERVACIONES: verificar_potencia_necesaria; purgar_tras_instalar
+
+ACTUACION: instalacion_llave_escuadra
+PALABRAS_CLAVE: llave escuadra, cambiar llave lavabo, llave escuadra rota, llave escuadra no cierra, poner llave escuadra, instalar llave escuadra, llave escuadra nueva, llave escuadra averiada, cambiar llave bano, llave que no corta bien
+PARTIDAS_OBLIGATORIAS: llave_escuadra_1_2, teflon, pequeno_material
+PARTIDAS_AUXILIARES: corte_agua_general
+REGLAS_CALCULO: 1_unidad_por_toma; verificar_cierre_completo
+UNIDAD: ud
+OBSERVACIONES: verificar_cierre_completo; prueba_estanqueidad
+
+ACTUACION: sustitucion_desague_lavadora
+PALABRAS_CLAVE: desague lavadora, tubo lavadora, desague lavadora roto, lavadora no desagua, cambiar desague lavadora, instalar desague lavadora, desague lavavajillas, manguera desague lavadora, lavadora pierde agua salida
+PARTIDAS_OBLIGATORIAS: tubo_pvc_40, abrazadera, sifon_lavadora, pequeno_material
+PARTIDAS_AUXILIARES: soporte_tubo_si_necesario
+REGLAS_CALCULO: incluir_fijacion_adecuada; altura_maxima_desague_90cm
+UNIDAD: ud
+OBSERVACIONES: prueba_evacuacion_ciclo_completo
+
+ACTUACION: reparacion_fuga_calentador_gas
+PALABRAS_CLAVE: calentador pierde, fuga calentador, calentador gas gotea, calentador gas fuga, agua calentador, calentador pierde agua, fuga agua caliente, calentador pierde por abajo, latiguillo calentador, calentador gas fuga agua
+PARTIDAS_OBLIGATORIAS: junta_calentador, latiguillo_inox, valvula_seguridad_calentador, pequeno_material
+PARTIDAS_AUXILIARES: verificacion_instalacion_gas
+REGLAS_CALCULO: verificar_todas_conexiones_agua_y_gas; prueba_estanqueidad_agua_y_gas
+UNIDAD: ud
+OBSERVACIONES: REQUIERE_INSTALADOR_GAS_HABILITADO; prueba_gas_y_agua_obligatoria
+
+ACTUACION: instalacion_toma_agua_nueva
+PALABRAS_CLAVE: nueva toma agua, derivacion agua, poner toma agua, instalar toma agua, nueva salida agua, punto agua nuevo, derivar agua, conexion agua nueva, toma agua lavadora, toma agua lavavajillas, toma agua nueva vivienda
+PARTIDAS_OBLIGATORIAS: tubo_multicapa, tes_multicapa, llave_paso, abrazaderas, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion, corte_agua_general
+REGLAS_CALCULO: calcular_longitud_real; incluir_fijaciones; prueba_presion
+UNIDAD: ud, ml
+OBSERVACIONES: prueba_estanqueidad_obligatoria; verificar_presion_red
+
+ACTUACION: instalacion_calefaccion_radiadores_completa
+PALABRAS_CLAVE: instalar calefaccion, poner calefaccion, calefaccion nueva, instalacion radiadores, poner radiadores, caldera nueva radiadores, instalacion calefaccion completa, poner calefaccion desde cero
+PARTIDAS_OBLIGATORIAS: caldera_gas, tubo_multicapa, radiadores, llaves_radiador, detentores, colectores, vaso_expansion, bomba_circulacion, pequeno_material
+PARTIDAS_AUXILIARES: rozas_instalacion, reposicion_rozas, legalizacion_instalacion_gas
+REGLAS_CALCULO: calcular_KW_por_estancia; nElementos_por_temperatura_diseno; diametros_segun_caudal
+UNIDAD: ud, ml
+OBSERVACIONES: REQUIERE_INSTALADOR_GAS_HABILITADO; legalizar_instalacion; equilibrado_hidraulico_obligatorio
+
+ACTUACION: instalacion_suelo_radiante_agua
+PALABRAS_CLAVE: suelo radiante, calefaccion suelo, suelo calefactor, instalar suelo radiante, suelo radiante agua, calor suelo, calefaccion por suelo, suelo radiante hidraulico
+PARTIDAS_OBLIGATORIAS: tubo_pex_suelo_radiante, colector_distribucion, bomba_circulacion, termostatos, aislamiento_base, malla_soporte, pequeno_material
+PARTIDAS_AUXILIARES: mortero_autonivelante, rozas_retorno
+REGLAS_CALCULO: calcular_m2_por_estancia; separacion_tubos_15_20cm; potencia_segun_perdidas_termicas
+UNIDAD: m2, ud
+OBSERVACIONES: mortero_especial_conductividad_termica; temperatura_maxima_suelo_29grados
+
+ACTUACION: instalacion_acs_solar_termica
+PALABRAS_CLAVE: solar termica, acs solar, agua caliente solar, instalacion solar termica, captadores solares, energia solar agua caliente, placa solar agua, termosifon solar, placa termica agua
+PARTIDAS_OBLIGATORIAS: captador_solar_plano, acumulador_acs, bomba_circulacion_solar, regulador_solar, vaso_expansion, tuberias_cobre_solar, liquido_anticongelante, pequeno_material
+PARTIDAS_AUXILIARES: estructura_soporte_cubierta, instalacion_electrica_bomba, legalizacion
+REGLAS_CALCULO: 1_2m2_captador_por_persona; acumulador_50_60l_por_persona; orientacion_sur_inclinacion_30_45grados
+UNIDAD: ud, m2
+OBSERVACIONES: CTE_HE4_contribucion_minima_solar; legalizacion_industria; mantenimiento_anual
+
+ACTUACION: instalacion_osmosis_inversa
+PALABRAS_CLAVE: osmosis inversa, purificador agua, filtro agua cocina, instalar osmosis, agua purificada grifo, filtro grifo, osmosis bajo fregadero, depuradora cocina, agua sin cal osmosis, purificador debajo fregadero
+PARTIDAS_OBLIGATORIAS: equipo_osmosis_5_etapas, grifo_osmosis, tubo_acometida_1_4, valvula_corte_alimentacion, pequeno_material
+PARTIDAS_AUXILIARES: conexion_desague
+REGLAS_CALCULO: verificar_presion_minima_3bar; espacio_bajo_fregadero; instalacion_toma_desague
+UNIDAD: ud
+OBSERVACIONES: mantenimiento_filtros_cada_6_meses; verificar_presion_red
+
+ACTUACION: instalacion_descalcificador
+PALABRAS_CLAVE: descalcificador, instalar descalcificador, agua blanda, suavizador agua, cal agua, agua dura, filtro cal, tratamiento agua, descalcificacion, quitar cal agua, agua con mucha cal
+PARTIDAS_OBLIGATORIAS: descalcificador_duplex, sal_regeneracion, tuberias_conexion, valvulas_bypass, pequeno_material
+PARTIDAS_AUXILIARES: conexion_desague_regeneracion, soporte_equipo
+REGLAS_CALCULO: caudal_segun_vivienda; dureza_agua_local; capacidad_resina_segun_dureza
+UNIDAD: ud
+OBSERVACIONES: programar_regeneracion; analisis_agua_previo_recomendable
+
+ACTUACION: instalacion_riego_automatico
+PALABRAS_CLAVE: riego automatico, instalar riego, programador riego, aspersores jardin, goteo automatico, riego jardin, instalar aspersores, riego programado, sistema riego automatico, riego jardin automatico
+PARTIDAS_OBLIGATORIAS: programador_riego, electrovalvulas, tubo_polietileno_16_20, aspersores_difusores, goteros, filtro_riego, pequeno_material
+PARTIDAS_AUXILIARES: arqueta_electrovalvulas, conexion_red_agua
+REGLAS_CALCULO: calcular_m2_zona_riego; precipitacion_segun_tipo_vegetal; caudal_segun_numero_difusores
+UNIDAD: ud, ml
+OBSERVACIONES: equilibrar_zonas_caudal; programar_segun_estacion
+
+ACTUACION: reparacion_fuga_piscina
+PALABRAS_CLAVE: piscina pierde agua, fuga piscina, perdida agua piscina, piscina baja nivel, fuga vaso piscina, piscina filtra, perdida piscina, piscina pierde nivel, piscina se vacia sola
+PARTIDAS_OBLIGATORIAS: producto_impermeabilizante_piscina, parche_liner_si_liner, sellador_fisuras, pequeno_material
+PARTIDAS_AUXILIARES: vaciado_parcial_piscina, test_burbujas
+REGLAS_CALCULO: localizar_fuga_antes_reparar; prueba_estanqueidad_tras_reparacion
+UNIDAD: ud
+OBSERVACIONES: test_de_balde_para_confirmar_fuga; verificar_fuga_no_es_evaporacion
+
+ACTUACION: instalacion_bomba_calor_acs
+PALABRAS_CLAVE: bomba calor agua caliente, aerotermia acs, bomba calor termico, aerotermia agua caliente sanitaria, instalacion aerotermia acs, calentador bomba calor, aerotermia acs, bomba calor agua sanitaria
+PARTIDAS_OBLIGATORIAS: bomba_calor_acs, acumulador_acs, conexiones_hidraulicas, latiguillos, valvula_seguridad, pequeno_material
+PARTIDAS_AUXILIARES: instalacion_electrica, soporte_equipo, condensados_desague
+REGLAS_CALCULO: acumulador_50_60l_persona; ubicacion_ventilada; COP_segun_zona_climatica
+UNIDAD: ud
+OBSERVACIONES: REBT_conexion_electrica; mantenimiento_anual; subvenciones_disponibles
+
+ACTUACION: instalacion_valvula_reductora_presion
+PALABRAS_CLAVE: reductora presion, valvula reduccion presion, presion alta agua, regular presion agua, instalar reductora, presion excesiva agua, valvula presion, agua mucha presion, presion red muy alta
+PARTIDAS_OBLIGATORIAS: valvula_reductora_presion_ajustable, manometro, racores, pequeno_material
+PARTIDAS_AUXILIARES: corte_agua_general
+REGLAS_CALCULO: regular_a_3_4bar; verificar_presion_aguas_abajo; instalar_despues_contador
+UNIDAD: ud
+OBSERVACIONES: presion_red_mayor_5bar_reductora_obligatoria; manometro_para_verificacion
+
+ACTUACION: sustitucion_caldera_condensacion
+PALABRAS_CLAVE: cambiar caldera, caldera vieja, caldera averiada, caldera nueva, instalar caldera condensacion, caldera no calienta, caldera rota, sustituir caldera, caldera gas averiada, caldera estropeada, caldera muerta
+PARTIDAS_OBLIGATORIAS: caldera_condensacion, latiguillo_gas, valvulas_seguridad, vaso_expansion, kit_evacuacion_humos, conexion_hidraulica, pequeno_material
+PARTIDAS_AUXILIARES: retirada_caldera_antigua, gestion_residuos, legalizacion_gas
+REGLAS_CALCULO: potencia_segun_perdidas_termicas_y_acs; condensacion_obligatoria_nueva_instalacion
+UNIDAD: ud
+OBSERVACIONES: REQUIERE_INSTALADOR_GAS_HABILITADO; legalizar_con_industria; mantenimiento_anual
+
+ACTUACION: reparacion_caldera_gas
+PALABRAS_CLAVE: caldera rota, caldera no enciende, caldera falla, caldera averia, error caldera, caldera no da calor, caldera se apaga, caldera pitidos, caldera bloqueo, caldera no calienta agua, caldera error pantalla
+PARTIDAS_OBLIGATORIAS: diagnostico_caldera, pequeno_material
+PARTIDAS_AUXILIARES: pieza_averiada_segun_diagnostico
+REGLAS_CALCULO: primero_diagnostico; piezas_segun_averia_detectada; precio_hora_mas_piezas
+UNIDAD: ud, h
+OBSERVACIONES: REQUIERE_INSTALADOR_GAS_HABILITADO; codigo_error_para_diagnostico_previo
+
+ACTUACION: mantenimiento_anual_caldera
+PALABRAS_CLAVE: revision caldera, mantenimiento caldera, puesta a punto caldera, limpiar caldera, revision anual caldera, servicio caldera, caldera revision, mantenimiento anual calderas, itv caldera
+PARTIDAS_OBLIGATORIAS: limpieza_quemador, analisis_combustion, purgado_circuito, limpieza_filtros, verificacion_presion, pequeno_material
+PARTIDAS_AUXILIARES: antiincrustante_si_necesario
+REGLAS_CALCULO: revision_anual_obligatoria; incluir_informe_combustion
+UNIDAD: ud
+OBSERVACIONES: obligatorio_anual_por_normativa; emitir_certificado_revision
+
+ACTUACION: instalacion_grifo_termostatico_ducha
+PALABRAS_CLAVE: grifo termostatico, termostatico ducha, instalar termostatico, mezclador termostatico, grifo temperatura constante, grifo termostatico banera, seguridad escaldadura, termostatico bano
+PARTIDAS_OBLIGATORIAS: grifo_termostatico, excentricas, embellecedores, pequeno_material
+PARTIDAS_AUXILIARES: llaves_escuadra_si_defectuosas
+REGLAS_CALCULO: temperatura_regulacion_38grados; verificar_presion_minima_1_5bar; diferencia_presion_frio_caliente_max_20pct
+UNIDAD: ud
+OBSERVACIONES: obligatorio_instalaciones_colectivas; verificar_presion_equilibrada
+
+ACTUACION: instalacion_fontaneria_cocina_completa
+PALABRAS_CLAVE: fontaneria cocina nueva, instalar fontaneria cocina, tuberia cocina, conexion cocina, reforma cocina fontaneria, agua cocina nueva, instalacion agua cocina, tuberia nueva cocina completa
+PARTIDAS_OBLIGATORIAS: tubo_multicapa, llaves_paso, racores, sifon_fregadero, latiguillos, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion, desmontaje_instalacion_antigua
+REGLAS_CALCULO: calcular_longitud_real; incluir_llaves_independientes_frio_caliente
+UNIDAD: ml, ud
+OBSERVACIONES: verificar_presion_red; prueba_estanqueidad
+
+ACTUACION: instalacion_fontaneria_bano_completa
+PALABRAS_CLAVE: fontaneria bano nueva, instalar fontaneria bano, tuberia bano, reforma bano fontaneria, conexion bano, agua bano, tuberia completa bano, instalacion agua bano completa
+PARTIDAS_OBLIGATORIAS: tubo_multicapa, llaves_paso_independientes, racores, latiguillos, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion, desmontaje_instalacion_antigua
+REGLAS_CALCULO: calcular_longitud_real; llaves_independientes_por_aparato; prueba_presion
+UNIDAD: ml, ud
+OBSERVACIONES: DBHS_CTE; verificar_presion; distancias_minimas_entre_tubos
+
+ACTUACION: instalacion_hidroforo
+PALABRAS_CLAVE: hidroforo, grupo presion hidroforo, instalar hidroforo, grupo bombeo, presion vivienda, bomba deposito, grupo presion edificio, sin presion en planta alta, poca presion pisos altos
+PARTIDAS_OBLIGATORIAS: grupo_hidroforo_membrana, vaso_expansion_presurizado, cuadro_electrico_bomba, manometro, valvulas, pequeno_material
+PARTIDAS_AUXILIARES: instalacion_electrica, deposito_si_necesario
+REGLAS_CALCULO: caudal_punta_segun_viviendas; presion_servicio_3_5bar; potencia_segun_altura
+UNIDAD: ud
+OBSERVACIONES: mantenimiento_semestral; verificar_presion_membrana
+
+ACTUACION: instalacion_calentador_gas_instantaneo
+PALABRAS_CLAVE: calentador gas instantaneo, calentador sin deposito, calentador paso gas, instalar calentador instantaneo, calentador gas nuevo, calentador estanco, agua caliente instantanea gas, calentador a gas nuevo
+PARTIDAS_OBLIGATORIAS: calentador_instantaneo_gas, latiguillo_gas_homologado, latiguillos_agua, kit_evacuacion_humos, pequeno_material
+PARTIDAS_AUXILIARES: obra_adaptar_salida_humos, legalizacion
+REGLAS_CALCULO: potencia_segun_caudal_necesario; salida_humos_obligatoria; presion_gas_correcta
+UNIDAD: ud
+OBSERVACIONES: REQUIERE_INSTALADOR_GAS_HABILITADO; certificado_obligatorio
+
+ACTUACION: inspeccion_camara_tv_saneamiento
+PALABRAS_CLAVE: inspeccion camara, camara tv tuberia, revisar tuberia camara, inspeccionar colector, endoscopia tuberia, ver dentro tuberia, inspeccion bajante, camara saneamiento, ver tuberia por dentro
+PARTIDAS_OBLIGATORIAS: inspeccion_camara_tv, informe_escrito, pequeno_material
+PARTIDAS_AUXILIARES: limpieza_previa_hidrojetting
+REGLAS_CALCULO: precio_por_metro_inspeccionado; informe_con_fotos_obligatorio
+UNIDAD: ml, ud
+OBSERVACIONES: emitir_informe_con_capturas; recomendaciones_tras_inspeccion
+
+ACTUACION: limpieza_hidrojetting_tuberias
+PALABRAS_CLAVE: limpiar tuberia presion, hidrojetting, hidrojet, limpiar colector presion, desatasco presion agua, limpiar bajante presion, desincrustar tuberia, limpiar tuberias alta presion
+PARTIDAS_OBLIGATORIAS: equipo_hidrojetting, consumo_agua, pequeno_material
+PARTIDAS_AUXILIARES: inspeccion_camara_posterior
+REGLAS_CALCULO: presion_segun_diametro_tuberia; precio_por_metro_o_por_hora
+UNIDAD: ml, h
+OBSERVACIONES: gestionar_agua_residual; inspeccion_camara_posterior_recomendable
+
+ACTUACION: instalacion_bomba_circulacion_calefaccion
+PALABRAS_CLAVE: bomba circulacion, bomba calefaccion, circuladora calefaccion, instalar circuladora, bomba calor calefaccion, circuladora averiada, cambiar bomba calefaccion, circuladora calefaccion nueva
+PARTIDAS_OBLIGATORIAS: bomba_circulacion_calefaccion, racores_union, valvulas_cierre, pequeno_material
+PARTIDAS_AUXILIARES: purgado_circuito, vaciado_y_llenado
+REGLAS_CALCULO: caudal_segun_potencia_caldera; perdida_carga_segun_circuito
+UNIDAD: ud
+OBSERVACIONES: purgar_circuito_tras_instalar; verificar_sentido_flujo
+
+ACTUACION: instalacion_vaso_expansion_calefaccion
+PALABRAS_CLAVE: vaso expansion, recipiente expansion, instalar vaso expansion, vaso expansion caldera, vaso expansion roto, presion circuito baja, calefaccion baja presion siempre
+PARTIDAS_OBLIGATORIAS: vaso_expansion_8_24l, racor_conexion, valvula_aislamiento, pequeno_material
+PARTIDAS_AUXILIARES: purga_circuito
+REGLAS_CALCULO: volumen_segun_potencia_instalacion; precarga_1_5bar; verificar_presion_red
+UNIDAD: ud
+OBSERVACIONES: verificar_precarga_nitrogeno; presion_correcta_circuito
+
+ACTUACION: instalacion_trampa_grasa_cocina
+PALABRAS_CLAVE: trampa grasa, separador grasas, instalar trampa grasa, grasa fregadero, separador aceite, trampa grasa cocina industrial, grasa en desague, trampa grasa restaurante
+PARTIDAS_OBLIGATORIAS: trampa_grasa_inox_o_pvc, tuberias_conexion, tapa_revision, pequeno_material
+PARTIDAS_AUXILIARES: obra_civil_si_exterior
+REGLAS_CALCULO: capacidad_segun_caudal; limpieza_periodica_obligatoria
+UNIDAD: ud
+OBSERVACIONES: obligatoria_cocinas_industriales; mantenimiento_limpieza_mensual
+
+ACTUACION: instalacion_saneamiento_exterior
+PALABRAS_CLAVE: saneamiento exterior, colector exterior, tuberia saneamiento exterior, desague exterior, evacuacion exterior, instalacion colector, tuberia desague exterior, red saneamiento exterior
+PARTIDAS_OBLIGATORIAS: tubo_pvc_saneamiento_200, collarines, arquetas_registro, solera_base, pequeno_material
+PARTIDAS_AUXILIARES: excavacion_zanja, relleno_compactado, reposicion_pavimento
+REGLAS_CALCULO: pendiente_minima_2pct; DN_segun_caudal; arqueta_cada_15m_o_cambio_direccion
+UNIDAD: ml, ud
+OBSERVACIONES: DBHS_CTE; necesita_licencia_obras
+
+ACTUACION: instalacion_purgador_automatico
+PALABRAS_CLAVE: purgador automatico, purgador calefaccion, cambiar purgador, purgador averiado, purgador gotea, instalar purgador, purgar circuito calefaccion, purgador que pierde
+PARTIDAS_OBLIGATORIAS: purgador_automatico, pequeno_material
+PARTIDAS_AUXILIARES: recogida_agua
+REGLAS_CALCULO: instalar_en_punto_mas_alto_circuito; 1_por_radiador_si_necesario
+UNIDAD: ud
+OBSERVACIONES: purgar_con_cuidado; verificar_presion_tras_purga
+
+ACTUACION: instalacion_valvula_mezcladora_suelo_radiante
+PALABRAS_CLAVE: mezcladora termica, valvula mezcla, valvula termica, valvula tres vias, regulacion temperatura suelo radiante, mezcladora temperatura suelo, valvula mezcladora calefaccion
+PARTIDAS_OBLIGATORIAS: valvula_mezcladora_termica, actuador_termoelectrico, sonda_temperatura, pequeno_material
+PARTIDAS_AUXILIARES: controlador_temperatura
+REGLAS_CALCULO: regular_temperatura_salida_40_45grados_suelo_radiante
+UNIDAD: ud
+OBSERVACIONES: temperatura_suelo_radiante_max_45grados_ida
+
+ACTUACION: instalacion_grifo_exterior_jardin
+PALABRAS_CLAVE: grifo jardin, poner grifo exterior, instalar grifo jardin, toma agua jardin, grifo manguera, grifo exterior, grifo antihelada, toma agua exterior, grifo exterior vivienda
+PARTIDAS_OBLIGATORIAS: grifo_jardin_antihelada, llave_paso_interior, tubo_multicapa_exterior, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion, proteccion_heladas
+REGLAS_CALCULO: incluir_llave_paso_interior_para_invierno; proteccion_antihelada
+UNIDAD: ud
+OBSERVACIONES: vaciar_tuberia_exterior_en_invierno; posicion_accesible
+
+ACTUACION: reparacion_tuberia_plomo
+PALABRAS_CLAVE: tuberia plomo, cambiar plomo, tubo plomo, tuberia antigua plomo, sustituir plomo, instalacion plomo, tuberia plomo vieja, tuberia plomo riesgo, plomo instalacion antigua
+PARTIDAS_OBLIGATORIAS: tubo_multicapa_o_cobre, racores_adaptacion, pequeno_material
+PARTIDAS_AUXILIARES: retirada_instalacion_plomo, gestion_residuos_especiales
+REGLAS_CALCULO: sustitucion_total_recomendada; no_mezclar_plomo_con_cobre; gestion_especial_residuos
+UNIDAD: ml
+OBSERVACIONES: RIESGO_SALUD_sustitucion_completa_recomendada; gestion_residuos_especiales_plomo
+
+ACTUACION: instalacion_sistema_deteccion_fugas
+PALABRAS_CLAVE: detector fugas, alarma agua, sensor inundacion, detector inundacion, alarma fuga agua, corte automatico agua, valvula electronica, prevenir inundacion, sistema antiinundacion
+PARTIDAS_OBLIGATORIAS: valvula_corte_electronica, sensores_agua, central_alarma_agua, pequeno_material
+PARTIDAS_AUXILIARES: instalacion_electrica, conexion_domotica_si_necesario
+REGLAS_CALCULO: 1_sensor_por_zona_riesgo; valvula_en_acometida_general
+UNIDAD: ud
+OBSERVACIONES: probar_funcionamiento_completo; garantia_contra_inundaciones
+
+ACTUACION: instalacion_filtro_particulas_red
+PALABRAS_CLAVE: filtro agua, instalar filtro, filtro red agua, filtro particulas, sedimentos agua, agua sucia, filtrar agua, limpiar agua red, filtro entrada agua, agua con sedimentos
+PARTIDAS_OBLIGATORIAS: filtro_particulas_100micras, manometros_diferencial, llave_vaciado, pequeno_material
+PARTIDAS_AUXILIARES: corte_agua_general
+REGLAS_CALCULO: instalar_despues_contador_antes_instalacion; DN_segun_caudal
+UNIDAD: ud
+OBSERVACIONES: limpiar_filtro_periodicamente; verificar_caida_presion
+
+ACTUACION: instalacion_ducha_exterior
+PALABRAS_CLAVE: ducha exterior, ducha jardin, ducha piscina, instalar ducha fuera, ducha solar exterior, grifo ducha exterior, ducha al aire libre, ducha exterior vivienda
+PARTIDAS_OBLIGATORIAS: ducha_exterior_inox_o_pvc, toma_agua_fria, llave_paso, pequeno_material
+PARTIDAS_AUXILIARES: desague_exterior, solera_si_necesaria
+REGLAS_CALCULO: incluir_desague; llave_paso_para_invierno
+UNIDAD: ud
+OBSERVACIONES: vaciar_instalacion_en_invierno; proteccion_solar_panel_si_solar
+
+ACTUACION: instalacion_acometida_gas_natural
+PALABRAS_CLAVE: acometida gas, nueva acometida gas, instalar acometida gas, conexion gas natural, instalar gas natural, nueva instalacion gas, enganche gas, acometida gas vivienda
+PARTIDAS_OBLIGATORIAS: tubo_polietileno_gas, llave_acometida_gas, armario_contador_gas, pequeno_material
+PARTIDAS_AUXILIARES: obra_civil_zanja, reposicion_pavimento, tramites_compania_gas
+REGLAS_CALCULO: DN_segun_consumo_previsto; profundidad_minima_60cm
+UNIDAD: ml, ud
+OBSERVACIONES: REQUIERE_INSTALADOR_GAS_HABILITADO; tramitar_con_distribuidora; legalizacion_obligatoria
+
+ACTUACION: instalacion_red_gas_interior
+PALABRAS_CLAVE: instalacion gas interior, poner gas, instalar gas vivienda, red gas interior, tuberia gas interior, instalar tuberia gas, conexion gas aparato, instalacion gas casa, tuberia gas nueva
+PARTIDAS_OBLIGATORIAS: tubo_cobre_gas, racores_gas, llave_paso_gas, regulador_presion, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion, legalizacion_gas
+REGLAS_CALCULO: caida_presion_maxima_1mbar; calcular_caudal_aparatos; DN_segun_longitud_y_consumo
+UNIDAD: ml, ud
+OBSERVACIONES: REQUIERE_INSTALADOR_GAS_HABILITADO; legalizar_con_industria
+
+ACTUACION: revision_instalacion_gas
+PALABRAS_CLAVE: revision gas, revision instalacion gas, inspeccionar gas, comprobar gas, certificado gas, inspeccion gas, revision periodica gas, OCA gas, revision obligatoria gas
+PARTIDAS_OBLIGATORIAS: revision_instalacion_gas, informe_escrito, pequeno_material
+PARTIDAS_AUXILIARES: reparaciones_menores_si_defectos
+REGLAS_CALCULO: revision_obligatoria_cada_5_anos_gas_natural
+UNIDAD: ud
+OBSERVACIONES: REQUIERE_INSTALADOR_GAS_HABILITADO; emitir_certificado_revision
+
+ACTUACION: reparacion_fuga_gas
+PALABRAS_CLAVE: fuga gas, escape gas, olor a gas, pierde gas, fuga instalacion gas, tuberia gas pinchada, gas en ambiente, huele a gas, escape gas cocina
+PARTIDAS_OBLIGATORIAS: localizacion_fuga_detectores, reparacion_punto_fuga, prueba_estanqueidad, pequeno_material
+PARTIDAS_AUXILIARES: vaciado_instalacion_gas
+REGLAS_CALCULO: URGENCIA_MAXIMA_cortar_suministro_primero; ventilar_antes_trabajar; prueba_jabon_obligatoria
+UNIDAD: ud
+OBSERVACIONES: URGENCIA_MAXIMA; REQUIERE_INSTALADOR_GAS_HABILITADO; no_encender_llamas_ni_interruptores
+
+ACTUACION: instalacion_cocina_gas
+PALABRAS_CLAVE: poner cocina gas, instalar cocina gas, cocina nueva gas, conexion cocina gas, cambiar cocina gas, cocina gas nueva, instalar horno gas, conectar cocina gas
+PARTIDAS_OBLIGATORIAS: latiguillo_gas_homologado, regulador_gas_si_bombona, llave_paso_gas, pequeno_material
+PARTIDAS_AUXILIARES: instalacion_electrica_enchufe_cocina
+REGLAS_CALCULO: latiguillo_maximo_1_5m; verificar_caudal_suficiente; comprobar_ventilacion
+UNIDAD: ud
+OBSERVACIONES: REQUIERE_INSTALADOR_GAS_HABILITADO; ventilacion_obligatoria; latiguillo_homologado
+
+ACTUACION: instalacion_llave_paso_gas_aparato
+PALABRAS_CLAVE: llave gas cocina, cambiar llave gas, instalar llave gas, llave paso gas cocina, llave gas averiada, cambiar llave paso gas, llave paso gas aparato
+PARTIDAS_OBLIGATORIAS: llave_paso_gas_1_2, pequeno_material
+PARTIDAS_AUXILIARES: corte_gas_general
+REGLAS_CALCULO: verificar_cierre_completo; prueba_estanqueidad_obligatoria
+UNIDAD: ud
+OBSERVACIONES: REQUIERE_INSTALADOR_GAS_HABILITADO; prueba_jabon_obligatoria
+
+ACTUACION: instalacion_detector_gas_co
+PALABRAS_CLAVE: detector gas, alarma gas, sensor gas, instalar detector gas, alarma fuga gas, detector monoxido, sensor co, alarma co, detector gas cocina
+PARTIDAS_OBLIGATORIAS: detector_gas_butano_propano, detector_co, soporte_mural, pequeno_material
+PARTIDAS_AUXILIARES: instalacion_electrica_enchufe
+REGLAS_CALCULO: 1_detector_por_zona_aparatos_gas; altura_segun_tipo_gas_propano_bajo_natural_alto
+UNIDAD: ud
+OBSERVACIONES: probar_tras_instalar; pila_de_respaldo; revision_anual
+
+ACTUACION: cambio_valvula_seguridad_caldera
+PALABRAS_CLAVE: valvula seguridad caldera, valvula escapa caldera, valvula seguridad salta, caldera escapa agua, valvula 3bar caldera, cambiar valvula caldera, valvula caldera pierde
+PARTIDAS_OBLIGATORIAS: valvula_seguridad_3bar, racor_union, pequeno_material
+PARTIDAS_AUXILIARES: vaciado_parcial
+REGLAS_CALCULO: taraje_3bar_generalmente; verificar_desague_correcto
+UNIDAD: ud
+OBSERVACIONES: REQUIERE_INSTALADOR_GAS_HABILITADO_si_toca_caldera; verificar_desague_correcto
+
+ACTUACION: instalacion_valvula_antiretorno
+PALABRAS_CLAVE: valvula antiretorno, valvula de retencion, retorno agua, agua retorna, antiretorno instalacion, instalar antiretorno, valvula retencion, valvula antirretorno
+PARTIDAS_OBLIGATORIAS: valvula_retencion_inox, racores, pequeno_material
+PARTIDAS_AUXILIARES: corte_agua_general
+REGLAS_CALCULO: instalar_segun_plano_instalacion; DN_segun_diametro_tuberia
+UNIDAD: ud
+OBSERVACIONES: obligatoria_en_instalaciones_solares_y_bombas
+
+ACTUACION: instalacion_acumulador_acs_solar
+PALABRAS_CLAVE: acumulador acs, deposito agua caliente, instalar acumulador, deposito acumulacion, termoacumulador, puffer acs, deposito inercia acs, acumulador solar, deposito solar acs
+PARTIDAS_OBLIGATORIAS: acumulador_acs_inox, valvula_seguridad, latiguillos, sondas_temperatura, pequeno_material
+PARTIDAS_AUXILIARES: soporte_si_necesario, instalacion_hidraulica
+REGLAS_CALCULO: capacidad_50_60l_por_persona; verificar_presion_red
+UNIDAD: ud
+OBSERVACIONES: purga_legionela_60grados_semanal; verificar_presion_red
+
+ACTUACION: mantenimiento_instalacion_fontaneria
+PALABRAS_CLAVE: revision fontaneria, mantenimiento instalacion agua, chequeo fontaneria, revisar tuberias, inspeccion fontaneria, revision anual fontaneria, mantenimiento anual fontaneria
+PARTIDAS_OBLIGATORIAS: revision_visual_instalacion, informe_estado, pequeno_material
+PARTIDAS_AUXILIARES: reparaciones_menores_detectadas
+REGLAS_CALCULO: precio_por_hora_o_vivienda; informe_escrito_con_recomendaciones
+UNIDAD: h, ud
+OBSERVACIONES: emitir_informe_estado_y_recomendaciones
+
+ACTUACION: instalacion_piscina_fontaneria_completa
+PALABRAS_CLAVE: piscina fontaneria, instalar piscina, fontaneria piscina, vasos piscina, filtros piscina, bomba piscina, instalacion hidraulica piscina, instalacion completa piscina
+PARTIDAS_OBLIGATORIAS: bomba_filtrado_piscina, filtro_arena, skimmer, boquillas_impulsion, desague_fondo, tubo_pvc_63_90, valvulas, pequeno_material
+PARTIDAS_AUXILIARES: dosificador_cloro, calentador_piscina
+REGLAS_CALCULO: bomba_segun_volumen_piscina; caudal_minimo_recirculacion_4h
+UNIDAD: ud, ml
+OBSERVACIONES: normativa_piscinas_privadas; tratamiento_agua
+
+ACTUACION: instalacion_caldera_biomasa_pellets
+PALABRAS_CLAVE: caldera biomasa, caldera pellets, instalar biomasa, calefaccion pellets, caldera lena, caldera madera, calefaccion biomasa, caldera pellets nueva
+PARTIDAS_OBLIGATORIAS: caldera_biomasa_pellets, silo_combustible, sistema_extraccion_cenizas, chimenea_acero_inox, vaso_expansion, pequeno_material
+PARTIDAS_AUXILIARES: obra_sala_calderas, aislamiento_chimenea, legalizacion
+REGLAS_CALCULO: potencia_segun_perdidas_termicas; silo_segun_consumo_mensual; tiro_chimenea_correcto
+UNIDAD: ud
+OBSERVACIONES: legalizar_con_industria; revision_anual_obligatoria
+
+ACTUACION: instalacion_sistema_antilegionela
+PALABRAS_CLAVE: antilegionela, legionela, prevencion legionela, instalacion antilegionela, sistema legionela, tratamiento legionela, protocolo legionela, prevencion legionela edificio
+PARTIDAS_OBLIGATORIAS: valvula_termostatica_antifrio, termometros, purga_termica, pequeno_material
+PARTIDAS_AUXILIARES: equipo_cloracion_si_colectivo, analisis_agua, protocolo_mantenimiento
+REGLAS_CALCULO: temperatura_acumulacion_minima_60grados; purga_60grados_semanal; analisis_agua_periodico
+UNIDAD: ud
+OBSERVACIONES: RD_865_2003_obligatorio_colectivos; protocolo_mantenimiento_obligatorio
+
+ACTUACION: instalacion_cisterna_enterrada_aljibe
+PALABRAS_CLAVE: cisterna enterrada, deposito enterrado agua, deposito agua pluvial, aljibe, cisterna agua, instalar deposito agua, deposito agua lluvia, aljibe vivienda
+PARTIDAS_OBLIGATORIAS: cisterna_pead_1000_5000l, tapa_registro, tubo_llenado, tubo_rebose, bomba_extraccion, pequeno_material
+PARTIDAS_AUXILIARES: excavacion, relleno_lateral, instalacion_electrica_bomba
+REGLAS_CALCULO: volumen_segun_consumo; calcular_escorrentia_superficial
+UNIDAD: ud
+OBSERVACIONES: verificar_nivel_freatico; normativa_local_recogida_pluviales
+
+ACTUACION: instalacion_recuperacion_aguas_pluviales
+PALABRAS_CLAVE: agua lluvia, recuperar pluviales, reutilizar agua lluvia, deposito agua lluvia, cisterna pluviales, instalar pluviales, aprovechar lluvia, sistema recogida lluvia
+PARTIDAS_OBLIGATORIAS: cisterna_pluviales, filtro_hojas, filtro_fino, bomba_presion, red_distribucion_secundaria, pequeno_material
+PARTIDAS_AUXILIARES: instalacion_electrica_bomba, conexion_red_principal_respaldo
+REGLAS_CALCULO: calcular_superficie_captacion; calcular_precipitaciones_media_zona; estimar_consumo_jardin_wc
+UNIDAD: ud
+OBSERVACIONES: RED_PLUVIALES_INDEPENDIENTE_DE_CONSUMO_HUMANO; cumplir_normativa_local
+
+ACTUACION: instalacion_contador_divisionario
+PALABRAS_CLAVE: contador individual, contador vivienda, contador divisional, contador piso, instalar contador, medicion individual agua, contador apartamento, subcontador agua
+PARTIDAS_OBLIGATORIAS: contador_qn2_5, llave_contador, racores_contador, pequeno_material
+PARTIDAS_AUXILIARES: arqueta_si_necesaria, obra_adaptacion
+REGLAS_CALCULO: cumplir_norma_compania; caudal_maximo_segun_vivienda
+UNIDAD: ud
+OBSERVACIONES: legalizar_con_compania; precinto_obligatorio
+
+ACTUACION: reparacion_arqueta_saneamiento
+PALABRAS_CLAVE: arqueta rota, arreglar arqueta, arqueta atascada, arqueta saneamiento, limpiar arqueta, arqueta obstruida, arqueta tapada, reparar arqueta, arqueta rota tapa
+PARTIDAS_OBLIGATORIAS: marco_tapa_arqueta, mortero_reparacion, pequeno_material
+PARTIDAS_AUXILIARES: limpieza_arqueta, hidrolimpiadora, rodapie_ladrillo_si_necesario
+REGLAS_CALCULO: limpiar_antes_reparar; tapa_segun_carga_transito
+UNIDAD: ud
+OBSERVACIONES: verificar_estanqueidad_posterior; coordinar_con_albanileria
+
+ACTUACION: sustitucion_tuberias_hierro_fundido
+PALABRAS_CLAVE: cambiar tuberia hierro, sustituir hierro por pvc, tuberias hierro fundido, tuberia hierro oxidada, tuberia hierro vieja, cambiar tuberia antigua, tuberia hierro comunidad, tuberia hierro rota
+PARTIDAS_OBLIGATORIAS: tubo_pvc_o_multicapa, racores_adaptacion, abrazaderas, pequeno_material
+PARTIDAS_AUXILIARES: retirada_tuberia_hierro, gestion_residuos, rozas_y_reposicion
+REGLAS_CALCULO: calcular_longitud_real; merma_15%; incluir_todos_accesorios; prueba_presion
+UNIDAD: ml, ud
+OBSERVACIONES: verificar_diametros_equivalentes; prueba_presion_obligatoria
+
+ACTUACION: instalacion_llave_general_vivienda
+PALABRAS_CLAVE: llave general vivienda, llave paso general, instalar llave general, llave paso entrada, llave corte general, llave agua vivienda, llave general agua casa
+PARTIDAS_OBLIGATORIAS: llave_esfera_3_4_o_1, racores, pequeno_material
+PARTIDAS_AUXILIARES: corte_agua_general
+REGLAS_CALCULO: DN_segun_instalacion; instalar_accesible; verificar_cierre_completo
+UNIDAD: ud
+OBSERVACIONES: posicion_accesible_y_conocida; prueba_cierre_completo
+
+ACTUACION: reparacion_fuga_suelo_radiante
+PALABRAS_CLAVE: suelo radiante pierde, fuga suelo radiante, perdida suelo radiante, suelo radiante averia, tuberia suelo radiante rota, fuga calefaccion suelo, detectar fuga suelo radiante, suelo radiante humedad
+PARTIDAS_OBLIGATORIAS: localizacion_fuga_camara_termica, reparacion_tuberia_pex, mortero_reparacion, pequeno_material
+PARTIDAS_AUXILIARES: reposicion_solado
+REGLAS_CALCULO: localizar_con_camara_termica_antes_de_romper; vaciado_y_llenado_tras_reparacion
+UNIDAD: ud
+OBSERVACIONES: camara_termica_para_localizar; coordinar_albanileria_para_solado
+
+ACTUACION: instalacion_calefactor_electrico_bano
+PALABRAS_CLAVE: radiador electrico, toallero electrico, calefactor electrico bano, poner radiador electrico, instalar toallero, radiador bano, calefactor fijo electrico bano, toallero bano electrico
+PARTIDAS_OBLIGATORIAS: calefactor_electrico_o_toallero, soporte_mural, cable_conexion, termostato_si_necesario, pequeno_material
+PARTIDAS_AUXILIARES: instalacion_electrica_circuito
+REGLAS_CALCULO: potencia_segun_estancia_100W_m2; circuito_exclusivo_si_mayor_2kw
+UNIDAD: ud
+OBSERVACIONES: REBT_instalacion_electrica_banos_IP_adecuado
+
+ACTUACION: instalacion_grupo_presion_edificio
+PALABRAS_CLAVE: grupo presion edificio, bomba edificio averiada, sin presion en pisos altos, presion baja edificio, grupo bombeo edificio, bomba comunitaria, grupo presion comunidad, instalar grupo presion
+PARTIDAS_OBLIGATORIAS: grupo_presion_multietapa, cuadro_electrico, manometros, presostatos, valvulas, pequeno_material
+PARTIDAS_AUXILIARES: instalacion_electrica, deposito_pulmón_si_necesario
+REGLAS_CALCULO: caudal_punta_segun_numero_viviendas; presion_punto_mas_desfavorable; potencia_segun_altura_y_caudal
+UNIDAD: ud
+OBSERVACIONES: verificar_presion_punto_mas_desfavorable; mantenimiento_semestral
+
+ACTUACION: reparacion_grupo_presion_existente
+PALABRAS_CLAVE: grupo presion roto, bomba edificio rota, reparar grupo presion, grupo presion averia, bomba comunitaria averia, arreglar grupo presion, presion edificio falla
+PARTIDAS_OBLIGATORIAS: diagnostico_grupo_presion, pequeno_material
+PARTIDAS_AUXILIARES: piezas_segun_diagnostico
+REGLAS_CALCULO: verificar_presion_en_punto_mas_desfavorable; revisar_manometro_y_presostato
+UNIDAD: ud, h
+OBSERVACIONES: verificar_esquema_instalacion; calculo_presion_punto_mas_desfavorable
+
+ACTUACION: instalacion_distribuidor_calefaccion
+PALABRAS_CLAVE: colector calefaccion, distribuidor calefaccion, instalar colector, colector suelo radiante, distribuidor hidraulico, colector multivias, colector calefaccion nuevo
+PARTIDAS_OBLIGATORIAS: colector_distribuidor, llaves_derivacion, caudalimetros, soporte_colector, pequeno_material
+PARTIDAS_AUXILIARES: caja_empotrar_colector
+REGLAS_CALCULO: bocas_segun_numero_circuitos; equilibrado_hidraulico_obligatorio
+UNIDAD: ud
+OBSERVACIONES: equilibrar_caudales_circuitos; acceso_para_mantenimiento
+
+ACTUACION: instalacion_quemador_caldera
+PALABRAS_CLAVE: quemador caldera, cambiar quemador, quemador averiado, instalar quemador, quemador gas averiado, quemador no enciende, cambiar quemador caldera, quemador nuevo caldera
+PARTIDAS_OBLIGATORIAS: quemador_gas_modular, kit_adaptacion, pequeno_material
+PARTIDAS_AUXILIARES: puesta_a_punto_combustion, analisis_gases
+REGLAS_CALCULO: potencia_segun_caldera; analisis_combustion_tras_instalar
+UNIDAD: ud
+OBSERVACIONES: REQUIERE_INSTALADOR_GAS_HABILITADO; calibrar_combustion; analisis_gases_obligatorio
+
+ACTUACION: instalacion_bano_completo_reforma
+PALABRAS_CLAVE: reforma bano completo, bano nuevo completo, instalar bano completo, reformar bano entero, bano desde cero, nuevo bano completo, reforma integral bano
+PARTIDAS_OBLIGATORIAS: inodoro, lavabo, plato_ducha_o_banera, griferia_completa, mampara, fontaneria_completa, pequeno_material
+PARTIDAS_AUXILIARES: alicatado, impermeabilizacion, electricidad_bano, ventilacion
+REGLAS_CALCULO: coordinar_todos_gremios; fontaneria_primero_luego_albanileria_luego_acabados; impermeabilizacion_obligatoria
+UNIDAD: ud
+OBSERVACIONES: coordinar_gremios; impermeabilizacion_obligatoria; plazo_2_3_semanas
+
+ACTUACION: instalacion_cocina_completa_fontaneria
+PALABRAS_CLAVE: reforma cocina fontaneria completa, cocina nueva fontaneria, instalacion completa cocina agua, fontaneria cocina reforma, tuberia cocina nueva completa
+PARTIDAS_OBLIGATORIAS: fontaneria_fregadero, toma_lavadora, toma_lavavajillas, desague_completo, llaves_paso, pequeno_material
+PARTIDAS_AUXILIARES: rozas_y_reposicion
+REGLAS_CALCULO: prever_todas_tomas_necesarias; llaves_independientes_por_aparato; prueba_presion_final
+UNIDAD: ud
+OBSERVACIONES: planificar_antes_de_ejecutar; coordinacion_con_albanileria
+
+ACTUACION: revision_general_fontaneria_comunidad
+PALABRAS_CLAVE: revision fontaneria comunidad, mantenimiento comunidad fontaneria, revision tuberias comunidad, inspeccion fontaneria edificio, revisar instalacion edificio, fontaneria comunidad propietarios
+PARTIDAS_OBLIGATORIAS: revision_instalacion_general, informe_escrito_con_fotos, pequeno_material
+PARTIDAS_AUXILIARES: reparaciones_menores_si_acordado
+REGLAS_CALCULO: precio_por_hora_o_por_edificio; informe_detallado_por_zonas
+UNIDAD: h, ud
+OBSERVACIONES: emitir_informe_completo; priorizar_deficiencias_por_urgencia
+
+ACTUACION: instalacion_hidromasaje_banera
+PALABRAS_CLAVE: banera hidromasaje, banera jacuzzi, instalar jacuzzi, banera jets, banera masaje, instalar hidromasaje, banera spa, jacuzzi bano, banera con jets, hidromasaje vivienda
+PARTIDAS_OBLIGATORIAS: banera_hidromasaje, bomba_hidromasaje, conexion_electrica_ip67, silicona_sanitaria, valvula_desague, pequeno_material
+PARTIDAS_AUXILIARES: acceso_revision_bomba, instalacion_electrica, obra_adaptacion
+REGLAS_CALCULO: conexion_electrica_circuito_exclusivo; IP67_obligatorio; espacio_acceso_bomba
+UNIDAD: ud
+OBSERVACIONES: REBT_instalacion_electrica_banos; circuito_independiente_obligatorio
+
+ACTUACION: instalacion_ducha_lluvia_techo
+PALABRAS_CLAVE: ducha lluvia, rain shower, instalar ducha techo, ducha efecto lluvia, cabezal lluvia techo, ducha encastrada techo, ducha techo empotrada
+PARTIDAS_OBLIGATORIAS: cabezal_lluvia_techo, brazo_techo, grifo_termostatico, tuberias_empotradas_techo, pequeno_material
+PARTIDAS_AUXILIARES: rozas_techo, reposicion_acabados, impermeabilizacion_techo
+REGLAS_CALCULO: presion_minima_2bar; tuberia_empotrada_en_techo; caudal_minimo_15l_min
+UNIDAD: ud
+OBSERVACIONES: presion_red_suficiente; impermeabilizacion_imprescindible
+
+ACTUACION: cambio_calentador_gas_por_caldera
+PALABRAS_CLAVE: cambiar calentador por caldera, quitar calentador poner caldera, sustituir calentador gas por caldera, caldera en lugar calentador, instalar caldera donde habia calentador, caldera en vez de calentador
+PARTIDAS_OBLIGATORIAS: caldera_mixta_gas, kit_humos, latiguillo_gas, valvulas, vaso_expansion, conexion_hidraulica, pequeno_material
+PARTIDAS_AUXILIARES: retirada_calentador, gestion_residuos, obra_adaptacion_humos, legalizacion
+REGLAS_CALCULO: verificar_salida_humos; dimensionar_caldera_potencia; legalizar_instalacion_gas
+UNIDAD: ud
+OBSERVACIONES: REQUIERE_INSTALADOR_GAS_HABILITADO; salida_humos_puede_requerir_obra
+
+ACTUACION: instalacion_grifo_monomando_bano_empotrado
+PALABRAS_CLAVE: grifo empotrado bano, instalar grifo empotrado, grifo encastrado, grifo empotrado pared, grifo bano empotrado, grifo oculto, grifo flush bano, grifo pared bano empotrado
+PARTIDAS_OBLIGATORIAS: grifo_empotrado_pared, cuerpo_empotrable, embellecedores, rozas_fontaneria, pequeno_material
+PARTIDAS_AUXILIARES: obra_adaptacion_pared, reposicion_alicatado
+REGLAS_CALCULO: obra_necesaria_para_empotrar; cuerpo_empotrar_antes_alicatar
+UNIDAD: ud
+OBSERVACIONES: cuerpo_empotrar_antes_alicatar; coordinar_con_albanileria
+
+ACTUACION: instalacion_conjunto_bano_suspendido
+PALABRAS_CLAVE: inodoro suspendido, wc suspendido, wc en pared, inodoro pared, instalar wc suspendido, cisterna empotrada, cisterna pared, wc rimless suspendido
+PARTIDAS_OBLIGATORIAS: inodoro_suspendido, bastidor_empotrable, cisterna_empotrada, pulsador_flush, latiguillos, pequeno_material
+PARTIDAS_AUXILIARES: obra_tabique_instalacion, reposicion_alicatado
+REGLAS_CALCULO: bastidor_empotrable_en_tabique; obra_necesaria; cisterna_antes_alicatar
+UNIDAD: ud
+OBSERVACIONES: tabique_o_bastidor_exento_obligatorio; cisterna_antes_de_alicatar
+
+ACTUACION: reparacion_colector_bajante_pie
+PALABRAS_CLAVE: colector pie bajante, colector saneamiento, pie bajante roto, conexion bajante colector, colector horizontal roto, bajante conexion suelo
+PARTIDAS_OBLIGATORIAS: colector_pvc_horizontal, codo_87_pvc, manguito_union, pequeno_material
+PARTIDAS_AUXILIARES: excavacion_si_enterrado, reposicion_solera
+REGLAS_CALCULO: pendiente_minima_2pct; conexion_correcta_a_arqueta; verificar_cota
+UNIDAD: ud, ml
+OBSERVACIONES: verificar_pendiente; conexion_correcta_a_arqueta
+
+ACTUACION: instalacion_valvula_flotador_cisterna_grande
+PALABRAS_CLAVE: flotador deposito, valvula flotador, flotador aljibe, valvula llenado deposito, flotador cisterna grande, regulador nivel deposito, flotador deposito agua
+PARTIDAS_OBLIGATORIAS: valvula_flotador_1_2_o_3_4, racor_entrada, pequeno_material
+PARTIDAS_AUXILIARES: corte_agua_general
+REGLAS_CALCULO: DN_segun_caudal_llenado; verificar_nivel_regulacion
+UNIDAD: ud
+OBSERVACIONES: regular_nivel_adecuado; prueba_funcionamiento
+
+ACTUACION: limpieza_general_saneamiento_comunidad
+PALABRAS_CLAVE: limpiar bajantes comunidad, limpieza saneamiento edificio, mantenimiento bajantes, desatascar bajantes, limpiar colectores comunidad, limpieza red saneamiento comunidad
+PARTIDAS_OBLIGATORIAS: equipo_hidrojetting, acceso_bocas_limpieza, pequeno_material
+PARTIDAS_AUXILIARES: inspeccion_camara_posterior, informe_estado
+REGLAS_CALCULO: precio_por_bajante_o_por_hora; limpiar_de_arriba_abajo; informe_tras_limpieza
+UNIDAD: ud, h
+OBSERVACIONES: hacerlo_anualmente_preventivo; informe_estado_tras_limpieza
+
+ACTUACION: instalacion_depuradora_agua_vivienda
+PALABRAS_CLAVE: depuradora agua, depuracion agua vivienda, filtrado agua completo, sistema depuracion agua, agua purificada vivienda, purificador agua completo
+PARTIDAS_OBLIGATORIAS: prefiltro_sedimentos, filtro_carbon_activo, equipo_osmosis_o_uv, grifo_agua_filtrada, pequeno_material
+PARTIDAS_AUXILIARES: instalacion_hidraulica_completa, conexion_desague
+REGLAS_CALCULO: sistema_segun_analisis_agua_local; caudal_segun_consumo
+UNIDAD: ud
+OBSERVACIONES: analisis_agua_previo_recomendable; mantenimiento_periodico_filtros
+
+ACTUACION: recalificacion_instalacion_fontaneria_comunidad
+PALABRAS_CLAVE: renovar instalacion comunidad, sustituir tuberias edificio, renovacion completa fontaneria comunidad, nueva instalacion edificio, renovar red agua comunidad
+PARTIDAS_OBLIGATORIAS: tuberias_multicapa_o_pvc, llaves_generales, contadores_individuales, arquetas, pequeno_material
+PARTIDAS_AUXILIARES: proyecto_tecnico, obra_rozas, legalizacion
+REGLAS_CALCULO: proyecto_tecnico_necesario; calcular_diametros_segun_caudal; presion_en_punto_mas_desfavorable
+UNIDAD: ml, ud
+OBSERVACIONES: REQUIERE_PROYECTO_TECNICO; coordinacion_vecinos; plazo_largo

@@ -1,0 +1,583 @@
+# ============================================================
+# BASE MAESTRA TRABFLOW
+# OFICIO 04 — PLADUR / SISTEMAS DE PLACAS DE YESO LAMINADO
+# 100 actuaciones
+# Version 1.0 | Junio 2026 | TrabFlow Technologies S.L.
+# ============================================================
+# FORMATO:
+# ACTUACION: codigo_unico
+# PALABRAS_CLAVE: variantes coloquiales y tecnicas (min 8)
+# PARTIDAS_OBLIGATORIAS: materiales que SIEMPRE van
+# PARTIDAS_AUXILIARES: desmontajes, medios aux, retiradas
+# REGLAS_CALCULO: formulas y criterios de medicion
+# UNIDAD: ud / ml / m2 / h / pa
+# OBSERVACIONES: normativa, advertencias, derivaciones
+# ============================================================
+
+ACTUACION: tabique_pladur_sencillo_72mm
+PALABRAS_CLAVE: tabique pladur, pared pladur, poner pladur, hacer tabique, division pladur, separar habitacion pladur, tabique yeso laminado, pared nueva pladur, tabique interior pladur, hacer pared interior
+PARTIDAS_OBLIGATORIAS: placa_yeso_laminado_standard_15mm, perfil_canal_48, perfil_montante_48, tornilleria_pladur, cinta_papel_juntas, pasta_juntas, angulo_metalico_esquinas, taco_fijacion_suelo_techo, pequeño_material
+PARTIDAS_AUXILIARES: lana_mineral_aislante_40mm_si_acustico, banda_estanca_perimetral, masilla_acabado_fino
+REGLAS_CALCULO: medir_superficie_neta_sin_huecos_puertas; montantes_cada_400mm_o_600mm_segun_altura; placa_a_ambos_lados; precio_por_m2_incluye_estructura_y_placas; altura_maxima_sin_refuerzo_3_5m
+UNIDAD: m2
+OBSERVACIONES: CTE_DB_HR_para_aislamiento_acustico; montantes_cada_400mm_si_altura_mayor_3m; placa_15mm_estandar_o_12_5mm_si_altura_menor_3m; coordinacion_con_electricista_antes_de_cerrar; dejar_paso_instalaciones
+
+ACTUACION: tabique_pladur_doble_placa_alta_resistencia
+PALABRAS_CLAVE: tabique doble pladur, tabique reforzado pladur, pladur doble placa, tabique pladur resistente golpes, tabique grueso pladur, pladur resistente, doble placa yeso, tabique pladur solido
+PARTIDAS_OBLIGATORIAS: placa_yeso_laminado_15mm_x2_cada_lado, perfil_canal_70, perfil_montante_70, tornilleria_pladur, cinta_papel_juntas, pasta_juntas, angulo_metalico_esquinas, taco_fijacion, pequeño_material
+PARTIDAS_AUXILIARES: lana_mineral_70mm_si_acustico, banda_estanca_perimetral
+REGLAS_CALCULO: medir_superficie_neta; montantes_cada_400mm; dos_placas_cada_cara; precio_mayor_que_tabique_sencillo; grosor_total_148mm_con_montante_70
+UNIDAD: m2
+OBSERVACIONES: mayor_resistencia_mecanica_y_acustica; necesario_si_paredes_para_colgar_muebles_pesados; doble_placa_mejora_aislamiento_acustico_significativamente; coordinar_instalaciones_antes_de_cerrar
+
+ACTUACION: tabique_pladur_hidrofugo_bano_o_cocina
+PALABRAS_CLAVE: pladur bano, pladur cocina, pladur verde, placa hidrofuga, pladur zona humeda, tabique bano pladur, pladur resistente humedad, tabique cocina pladur, placa yeso verde humedad, pladur para bano
+PARTIDAS_OBLIGATORIAS: placa_yeso_hidrofugo_verde_15mm, perfil_canal_48_o_70, perfil_montante_48_o_70, tornilleria_inox_o_galvanizada, cinta_papel_juntas, pasta_juntas_hidrofuga, pequeño_material
+PARTIDAS_AUXILIARES: lamina_impermeabilizante_liquida_si_ducha_o_bano, banda_estanca_perimetral, angulo_metalico_esquinas
+REGLAS_CALCULO: obligatorio_placa_hidrofuga_en_bano_y_cocina; si_ducha_aplicar_impermeabilizante_sobre_placa_antes_de_alicatar; montantes_galvanizados_en_zona_humeda
+UNIDAD: m2
+OBSERVACIONES: placa_verde_hidrofuga_obligatoria_en_zonas_humedad; si_va_a_recibir_agua_directa_impermeabilizar_antes_de_alicatar; tornilleria_galvanizada_o_inox; NO_placa_standard_en_bano
+
+ACTUACION: tabique_pladur_cortafuego_RF60_o_RF120
+PALABRAS_CLAVE: pladur cortafuego, pladur ignifugo, tabique resistencia fuego pladur, pladur rf60, pladur rf120, tabique cortafuego, pladur rosa, placa ignifuga, tabique fuego resistente, separacion cortafuego pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_ignifuga_rosa_15mm, perfil_canal_acero, perfil_montante_acero, tornilleria_pladur, cinta_papel_juntas, pasta_juntas, lana_roca_densidad_alta_si_RF_mayor, pequeño_material
+PARTIDAS_AUXILIARES: doble_placa_si_RF120, sellador_intumescente_pasos_instalaciones, angulo_metalico
+REGLAS_CALCULO: RF60_con_placa_sencilla_ignifuga_lana_roca; RF120_con_doble_placa_ignifuga; sellar_todos_los_pasos_instalaciones_con_intumescente; certificado_fabricante_obligatorio
+UNIDAD: m2
+OBSERVACIONES: sistema_certificado_por_fabricante_obligatorio_no_improvisar; sellado_pasos_instalaciones_con_producto_intumescente_certificado; CTE_DB_SI; lana_roca_no_lana_vidrio_en_cortafuegos; exigir_certificado_sistema
+
+ACTUACION: trasdosado_directo_pladur_sobre_pared_existente
+PALABRAS_CLAVE: trasdosar pared, pladur sobre pared, forrar pared con pladur, mejorar aislamiento pared, trasdosado pladur, pladur pegado pared, adherido pladur pared, mejorar pared con pladur, placa pegada pared, pladur sin estructura
+PARTIDAS_OBLIGATORIAS: placa_yeso_laminado_12_5mm_o_15mm, pasta_agarre_o_pelladas_yeso, cinta_papel_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: imprimacion_pared_base_si_porosa, angulo_metalico_esquinas, masilla_acabado
+REGLAS_CALCULO: medicion_m2_superficie_trasdosada; placa_pegada_directamente_con_pelladas_pasta_yeso; rapido_y_economico_pero_no_permite_instalar_cables_ni_aislante_entre_medias; grosor_total_pequeño
+UNIDAD: m2
+OBSERVACIONES: opcion_rapida_y_economica; no_permite_paso_instalaciones_ni_aislante_significativo; pared_base_debe_estar_sana_y_seca; no_recomendado_si_hay_humedad_en_pared; si_quieren_aislamiento_usar_trasdosado_con_estructura
+
+ACTUACION: trasdosado_con_estructura_pladur_y_aislante
+PALABRAS_CLAVE: trasdosar con aislante, trasdosado pladur aislante, pladur con lana roca, mejorar aislamiento termico pared, forrar pared con aislante pladur, trasdosado termico, pladur aislante termico pared, mejorar aislamiento interior
+PARTIDAS_OBLIGATORIAS: placa_yeso_laminado_15mm, perfil_canal_y_montante_46_o_70, lana_mineral_o_lana_roca_aislante, tornilleria, cinta_papel_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: barrera_vapor_si_zona_fria, banda_estanca_perimetral, angulo_metalico_esquinas
+REGLAS_CALCULO: estructura_separada_de_pared_base_3_5cm; aislante_entre_estructura_y_pared; medir_m2_superficie_trasdosada; pierde_espacio_interior_segun_espesor_total
+UNIDAD: m2
+OBSERVACIONES: mejor_solucion_para_aislamiento_termico_y_acustico; permite_paso_instalaciones_entre_estructura_y_pared; barrera_vapor_en_fachadas_frias; CTE_DB_HE; informar_perdida_espacio_interior_al_cliente
+
+ACTUACION: falso_techo_pladur_continuo_plano
+PALABRAS_CLAVE: falso techo pladur, techo pladur, techo nuevo pladur, instalar falso techo, falso techo plano, techo yeso laminado, pladur techo, bajar techo pladur, techo continuo pladur, hacer techo nuevo
+PARTIDAS_OBLIGATORIAS: placa_yeso_laminado_12_5mm_techo, perfil_canal_perimetral, varilla_roscada_cuelgue, horquilla_cuelgue, perfil_primario_y_secundario_maestras, tornilleria, cinta_papel_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: lana_mineral_aislante_si_acustico_o_termico, angulo_metalico_esquinas, masilla_acabado_fino
+REGLAS_CALCULO: medir_superficie_horizontal_neta; maestras_cada_1200mm; cuelgues_cada_900mm; varilla_roscada_M6; placa_perpendicular_a_maestras; precio_aumenta_con_altura_trabajo
+UNIDAD: m2
+OBSERVACIONES: coordinar_con_electricista_para_puntos_luz_y_escayolistas_si_molduras; lana_mineral_mejora_acustica_entre_plantas; comprobar_resistencia_forjado_para_cuelgues; mayor_precio_si_altura_mayor_3m_por_andamio
+
+ACTUACION: falso_techo_pladur_con_curvas_o_diseno
+PALABRAS_CLAVE: falso techo curvo, techo con curvas pladur, techo diseno pladur, techo ondulado pladur, techo con formas, pladur curvo techo, techo con desniveles pladur, techo artistico pladur, techo irregular pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_flexible_6mm_para_curvas_o_placa_kerflexible, perfil_canal_flexible_o_cortado, varilla_roscada, horquilla_cuelgue, tornilleria, cinta_papel_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: plantillas_formas, andamio, doble_o_triple_placa_flexible_para_curvas_cerradas
+REGLAS_CALCULO: precio_muy_superior_a_techo_plano; presupuesto_alzado_tras_ver_plano_o_diseno; mayor_tiempo_ejecucion; curvas_requieren_placa_flexible_o_kerflexes
+UNIDAD: m2, pa (precio alzado)
+OBSERVACIONES: placa_flexible_o_kerflex_para_curvas; cuanto_mas_cerrada_la_curva_mas_capas_necesarias; requiere_mano_de_obra_especializada; aprobar_diseno_con_plano_o_croquis_antes_de_empezar; precio_por_m2_mucho_mayor_que_techo_plano
+
+ACTUACION: falso_techo_pladur_registrable_o_con_trampillas
+PALABRAS_CLAVE: falso techo registrable, techo con trampilla, trampilla registro pladur, acceso instalaciones techo, techo con registro, techo pladur trampilla, registro instalaciones falso techo, techo registrable
+PARTIDAS_OBLIGATORIAS: placa_yeso_laminado_12_5mm, estructura_cuelgue, trampilla_registro_metalica_o_yeso, tornilleria, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: marco_trampilla, refuerzo_perimetral_trampilla
+REGLAS_CALCULO: precio_techo_base_mas_extra_por_trampilla; ubicar_trampillas_sobre_elementos_instalaciones_que_requieran_mantenimiento; minimo_40x40cm_para_acceso_persona
+UNIDAD: m2 (techo), ud (trampilla)
+OBSERVACIONES: situar_trampillas_en_lugares_accesibles_y_funcionales; coordinar_con_instaladores_para_ubicacion_correcta; trampilla_minimo_40x40cm_para_acceso_persona; marcar_plano_con_ubicacion
+
+ACTUACION: falso_techo_pladur_con_cajon_o_cenefa
+PALABRAS_CLAVE: cajon pladur techo, cenefa pladur, rebaje techo pladur, cajon iluminacion pladur, techo con cajon, cajon luz indirecta, doble altura pladur, cenefa led pladur, cajon decorativo techo, iluminacion indirecta pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm_vertical_cajon, placa_techo_12_5mm, perfil_canal_y_montante, tornilleria, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: perfil_en_L_angulo_para_remate, led_o_fluorescente_si_iluminacion_incluida, varilla_cuelgue
+REGLAS_CALCULO: precio_alzado_por_cajon_segun_dimensiones_y_complejidad; medir_ml_cajon_perimetral_o_precio_ud; incluir_techo_horizontal_si_aplica
+UNIDAD: ml (cenefa), ud (cajón), m2 (techo incluido)
+OBSERVACIONES: coordinar_electricista_para_iluminacion_indirecta_led; cajon_decorativo_muy_demandado_en_salones_y_dormitorios; comprobar_altura_libre_tras_cajon_minimo_2_5m; indicar_posicion_tira_led_en_presupuesto
+
+ACTUACION: tabique_pladur_con_hueco_pasaplatos_o_ventana_interior
+PALABRAS_CLAVE: hueco pladur, ventana interior pladur, pasaplatos pladur, hueco en tabique, abertura pladur, tabique con hueco decorativo, hueco paso pladur, pladur con abertura, ventana entre habitaciones pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_y_montante, refuerzo_perimetral_hueco_perfil_doble, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico_esquinas_hueco, pequeño_material
+PARTIDAS_AUXILIARES: dintel_reforzado_hueco_si_mas_120cm, acabado_jamba_interior
+REGLAS_CALCULO: refuerzo_perimetral_obligatorio_en_huecos; si_hueco_mayor_120cm_anadir_dintel_metalico; precio_tabique_base_mas_extra_por_hueco
+UNIDAD: m2 (tabique), ud (hueco)
+OBSERVACIONES: refuerzo_perimetral_obligatorio_en_cualquier_hueco; si_hueco_grande_o_peso_encima_calcular_dintel; acabado_jambas_y_dintel_incluido_en_precio; indicar_dimensiones_exactas_hueco
+
+ACTUACION: tabique_pladur_con_puerta_nueva
+PALABRAS_CLAVE: pladur con puerta, tabique pladur y puerta, instalar puerta en pladur, tabique nuevo con puerta, puerta en tabique pladur, poner puerta pladur, hueco puerta pladur, pladur y carpinteria puerta
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_y_montante, refuerzo_perimetral_hueco_puerta_perfil_doble, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico, pequeño_material
+PARTIDAS_AUXILIARES: puerta_si_incluida_en_presupuesto, marco_y_tapetas, bisagras_y_manilla
+REGLAS_CALCULO: hueco_estandar_puerta_paso_2050x825mm; refuerzo_doble_montante_jambas_puerta; dintel_si_hoja_mayor_900mm; puerta_como_partida_separada_o_incluida_segun_acuerdo
+UNIDAD: ud (tabique con hueco), ud (puerta aparte si procede)
+OBSERVACIONES: especificar_si_la_puerta_va_incluida_en_presupuesto_o_no; refuerzo_jambas_obligatorio_para_fijacion_marco; coordinar_con_carpintero_si_puerta_especial; ancho_estandar_paso_segun_CTE_DB_SUA_800mm_minimo_vivienda
+
+ACTUACION: reparacion_gotera_o_humedad_en_pladur
+PALABRAS_CLAVE: reparar pladur mojado, pladur con gotera, pladur dañado humedad, cambiar placa pladur mojada, pladur hinchado, pladur con manchas humedad, reparar falso techo gotera, pladur podrido humedad
+PARTIDAS_OBLIGATORIAS: placa_yeso_laminado_repuesto, tornilleria, cinta_papel_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: pintura_antimoho_si_hay_hongos, imprimacion_fijadora, desinfectante_hongos
+REGLAS_CALCULO: precio_por_m2_reparado_o_precio_alzado_zona; SIEMPRE_identificar_y_reparar_origen_gotera_primero; no_cerrar_pladur_con_humedad_activa
+UNIDAD: m2, pa (precio alzado)
+OBSERVACIONES: NUNCA_cerrar_pladur_si_humedad_activa; primero_reparar_origen_gotera_o_filtracion; si_hay_moho_tratar_con_fungicida_antes_de_instalar_placa_nueva; documentar_causa_y_reparacion
+
+ACTUACION: reparacion_golpe_o_agujero_en_pladur
+PALABRAS_CLAVE: agujero pladur, reparar agujero pladur, parche pladur, pladur roto, golpe pladur, pladur con hueco, arreglar pladur, reparar pladur dañado, pladur con boquete, pladur con rotura
+PARTIDAS_OBLIGATORIAS: trozo_placa_yeso_repuesto, tornilleria, cinta_papel_juntas, pasta_juntas_o_yeso_fino, pequeño_material
+PARTIDAS_AUXILIARES: listones_madera_o_perfil_soporte_si_agujero_grande, masilla_acabado
+REGLAS_CALCULO: agujero_pequeno_menos_10cm_precio_fijo; agujero_grande_precio_por_m2_o_alzado; si_requiere_soporte_coste_mayor
+UNIDAD: ud, m2
+OBSERVACIONES: agujeros_pequeños_con_parche_y_pasta; agujeros_grandes_requieren_soporte_y_placa_nueva; lijar_y_masillar_bien_para_acabado_invisible; luego_pintar_toda_la_pared_para_uniformidad
+
+ACTUACION: tabique_pladur_curvo
+PALABRAS_CLAVE: tabique curvo pladur, pared curva pladur, pladur con curva, tabique redondeado pladur, pared semicircular pladur, columna pladur, pladur curvado, pilar redondo pladur, curva pladur tabique, formas curvas pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_flexible_6mm_o_placa_humedecida, perfil_canal_flexible_o_cortado_para_curva, montante_recto, tornilleria, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: doble_o_triple_capa_placa_flexible_curvas_cerradas, angulo_flexible_perimetro
+REGLAS_CALCULO: precio_muy_superior_tabique_recto; curva_radio_mayor_1m_con_placa_humedecida_o_kerflex; curva_menor_1m_placa_flexible_o_multiple_capa; presupuesto_alzado_segun_radio_y_longitud
+UNIDAD: ml (curva), m2, pa (precio alzado)
+OBSERVACIONES: cuanto_mas_cerrada_la_curva_mayor_dificultad_y_precio; placa_flexible_de_6mm_para_radios_pequeños; maximo_cuidado_en_acabados_curvas; requiere_experiencia_en_el_oficio
+
+ACTUACION: revestimiento_pladur_columna_o_pilar_existente
+PALABRAS_CLAVE: forrar columna pladur, revestir pilar pladur, columna con pladur, pilar forrado pladur, disimular pilar pladur, forrar pilar salon, columna recta pladur, pilar rectangular pladur, cuadrar pilar pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_y_montante_pequeno, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico_esquinas, pequeño_material
+PARTIDAS_AUXILIARES: placa_flexible_si_pilar_redondo
+REGLAS_CALCULO: precio_por_ud_pilar_segun_tamano_y_forma; mas_cara_si_pilar_redondo; incluir_4_caras_o_las_necesarias; altura_pilar_determina_complejidad
+UNIDAD: ud, m2
+OBSERVACIONES: verificar_que_pilar_no_sea_estructura_necesaria_sin_cubrir_ventilacion_o_elementos_criticos; si_pilar_redondo_usar_placa_flexible_o_multiples_estrechas; acabados_impecables_en_esquinas
+
+ACTUACION: desmontaje_tabique_pladur_existente
+PALABRAS_CLAVE: quitar pladur, tirar tabique pladur, derribar pladur, eliminar tabique pladur, desmontar pladur, retirar tabique yeso, quitar pared pladur, demoler tabique pladur, abrir espacio quitando pladur
+PARTIDAS_OBLIGATORIAS: herramientas_corte_y_extraccion, contenedor_o_sacos_escombros, pequeño_material
+PARTIDAS_AUXILIARES: proteccion_zona_contigua_polvo, aspiracion_polvo_si_limpieza_incluida
+REGLAS_CALCULO: precio_por_m2_o_precio_alzado; incluir_retirada_escombros; verificar_que_no_hay_instalaciones_antes_de_demoler
+UNIDAD: m2, pa (precio alzado)
+OBSERVACIONES: verificar_SIEMPRE_que_no_hay_instalaciones_electricas_o_fontaneria_antes_de_cortar; coordinar_con_electricista_si_hay_cables; gestionar_residuos_correctamente; precio_incluye_retirada_material
+
+ACTUACION: tabique_pladur_con_aislamiento_acustico_alta_prestacion
+PALABRAS_CLAVE: pladur acustico, tabique insonorizado, pladur sonido, insonorizacion pladur, tabique ruido pladur, reducir ruido pladur, pladur silencioso, tabique aislante ruido, pladur aislamiento acustico, separacion acustica pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_laminado_15mm_doble_cara, perfil_montante_acustico_omega_o_con_junta, lana_mineral_densidad_alta_70mm, banda_resiliente_perimetral, tornilleria, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: perfil_antivibracion, doble_placa_ambas_caras_si_mayor_aislamiento, sellado_perimetral_silicona
+REGLAS_CALCULO: mayor_masa_y_doble_placa_mas_aislamiento; banda_resiliente_perimetral_obligatoria; sellado_perimetral_silicona_para_eliminar_puentes_acusticos; rendimiento_segun_sistema_certificado
+UNIDAD: m2
+OBSERVACIONES: CTE_DB_HR_valores_minimos_acusticos; puentes_acusticos_son_la_principal_causa_de_mal_resultado; banda_resiliente_en_suelo_techo_y_encuentros_obligatoria; sellado_perimetral_con_silicona; cuanto_mas_masa_mejor_resultado; certificar_sistema
+
+ACTUACION: trasdosado_acustico_pared_medianera
+PALABRAS_CLAVE: trasdosado acustico, insonorizar pared, reducir ruido vecinos, pared medianera ruido, trasdosar pared ruido, aislar ruido vecinos, pared con ruido pladur, medianera con pladur, reducir ruido medianera
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_con_banda_resiliente_o_sistema_acustico, lana_mineral_alta_densidad, banda_resiliente_perimetral, tornilleria, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: doble_placa_si_mayor_aislamiento, sellado_silicona_perimetral, barrera_vapor_si_exterior
+REGLAS_CALCULO: NO_anclar_estructura_a_pared_medianera_para_evitar_transmision_rigida; estructura_apoyada_solo_en_suelo_y_techo_con_bandas_resilientes; lana_mineral_alta_densidad_70_80_kg_m3
+UNIDAD: m2
+OBSERVACIONES: sistema_desvinculado_de_pared_medianera_clave_para_buen_resultado; anclar_a_medianera_anula_el_aislamiento_acustico; lana_mineral_alta_densidad_no_normal; sellado_absolutamente_hermetico_perimetros; pierde_5_10cm_de_espacio_interior
+
+ACTUACION: tabique_pladur_para_ducha_o_plato_de_ducha
+PALABRAS_CLAVE: tabique ducha pladur, pladur para ducha, mampara pladur, division ducha pladur, tabique bano con ducha, pladur ducha recibir azulejo, tabique para plato ducha, pladur zona ducha, pared ducha nueva pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_hidrofugo_verde_15mm, perfil_canal_galvanizado, perfil_montante_galvanizado, tornilleria_inox, membrana_impermeabilizante_liquida, cinta_impermeabilizacion_juntas, pasta_juntas_hidrofuga, pequeño_material
+PARTIDAS_AUXILIARES: malla_refuerzo_impermeabilizacion, angulo_metalico_inox_esquinas
+REGLAS_CALCULO: placa_hidrofuga_obligatoria; impermeabilizacion_liquida_sobre_placa_en_zona_ducha_obligatoria; membrana_hasta_20cm_fuera_zona_mojada; dos_manos_membrana_impermeabilizante
+UNIDAD: m2
+OBSERVACIONES: placa_hidrofuga_mas_impermeabilizacion_liquida_en_zona_ducha_OBLIGATORIO; sin_impermeabilizacion_pladur_se_daña_aunque_sea_hidrofugo; dos_manos_membrana; dejar_curar_antes_de_alicatar; tornilleria_inox_en_todo_el_conjunto
+
+ACTUACION: tabique_pladur_con_instalacion_electrica_integrada
+PALABRAS_CLAVE: pladur con electricidad, tabique pladur electrico, pladur con enchufes, pladur con interruptores, tabique pladur y electricidad, pladur con puntos luz, instalar electrico en pladur, cableado pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_y_montante, cajas_empotrar_pladur_especiales, tornilleria, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: tubo_corrugado_m20_si_instalacion_nueva, cable_electrico_segun_circuito, caja_derivacion_registro
+REGLAS_CALCULO: pasar_instalacion_antes_de_cerrar_segunda_cara; cajas_empotrar_especificas_para_pladur; precio_tabique_mas_instalacion_electrica_como_partida_separada_o_incluida
+UNIDAD: m2 (tabique), ud (puntos electricos si incluido)
+OBSERVACIONES: pasar_cableado_ANTES_de_cerrar_segunda_placa; coordinar_con_electricista_OBLIGATORIO; cajas_empotrar_de_pladur_no_convencionales; dejar_registros_accesibles_si_necesario; no_cerrar_sin_haber_pasado_instalaciones
+
+ACTUACION: falso_techo_pladur_hidrofugo_bano_o_cocina
+PALABRAS_CLAVE: falso techo bano pladur, techo pladur bano, techo pladur cocina, pladur verde techo, techo hidrofugo pladur, techo zona humeda pladur, techo pladur resistente humedad, falso techo cocina pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_hidrofugo_verde_12_5mm, perfil_canal_perimetral, varilla_roscada_cuelgue, horquilla, maestras_perfil, tornilleria_galvanizada, cinta_juntas, pasta_hidrofuga, pequeño_material
+PARTIDAS_AUXILIARES: lana_mineral_si_aislante, angulo_metalico, trampilla_si_instalaciones_techo
+REGLAS_CALCULO: placa_hidrofuga_obligatoria_en_bano_y_cocina; tornilleria_galvanizada_o_inox; precio_similar_techo_estandar_pero_material_hidrofugo
+UNIDAD: m2
+OBSERVACIONES: placa_hidrofuga_verde_obligatoria_en_zonas_humedad; tornilleria_galvanizada_obligatoria; si_hay_iluminacion_empotrada_coordinar_electricista; si_bano_sin_ventilacion_adecuada_recomendar_extractor
+
+ACTUACION: falso_techo_pladur_ignifugo_o_cortafuego
+PALABRAS_CLAVE: falso techo ignifugo, techo cortafuego pladur, techo rf60 pladur, techo resistencia fuego, techo pladur rosa, falso techo ignifugo, techo proteccion incendio, techo cortafuego edificio
+PARTIDAS_OBLIGATORIAS: placa_yeso_ignifuga_rosa_15mm, estructura_cuelgue_acero, varilla_roscada, horquilla, maestras_perfil, tornilleria, lana_roca_si_RF_mayor, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: doble_placa_si_RF120, sellador_intumescente_pasos
+REGLAS_CALCULO: sistema_certificado_fabricante_para_RF_requerida; no_improvisar_mezcla_productos; sellado_pasos_instalaciones_obligatorio; documentar_sistema_usado
+UNIDAD: m2
+OBSERVACIONES: sistema_certificado_OBLIGATORIO_no_mezclar_productos_diferentes_marcas; sellado_pasos_instalaciones_con_intumescente; CTE_DB_SI; documentar_sistema_y_marca_para_inspeccion; lana_roca_no_lana_vidrio
+
+ACTUACION: remate_y_acabado_juntas_pladur_para_pintar
+PALABRAS_CLAVE: masillar pladur, juntas pladur, acabado pladur para pintar, pasta juntas pladur, cinta juntas pladur, masillar y lijar pladur, preparar pladur para pintar, acabado pladur, remates pladur, juntas pladur pintura
+PARTIDAS_OBLIGATORIAS: pasta_juntas_secado_quimico_o_secado_aereo, cinta_papel_juntas_o_fibra_vidrio, lija_grano_120_y_220, pequeño_material
+PARTIDAS_AUXILIARES: angulo_metalico_esquinas_si_no_puesto, masilla_acabado_fino, angulo_plano_esquinas
+REGLAS_CALCULO: precio_por_m2_como_partida_independiente_si_se_encarga_solo; tres_manos_pasta_lijar_entre_manos; esquinas_con_angulo_metalico_o_plano; tiempo_secado_entre_manos
+UNIDAD: m2
+OBSERVACIONES: tres_pasadas_de_pasta_minimo_para_buen_resultado; lijar_entre_manos; primera_cinta_y_primera_pasta_segunda_pasta_lijado_tercera_pasta_fino_lijado_final; imprimacion_obligatoria_antes_de_pintar; acabado_invisible_requiere_experiencia
+
+ACTUACION: tabique_pladur_separacion_zona_oficina
+PALABRAS_CLAVE: tabique oficina pladur, dividir oficina pladur, separacion oficina pladur, pladur oficinas, tabique diafano oficina, division despacho pladur, compartimentar oficina pladur, pladur open space, separar zona trabajo pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_y_montante_70, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico_esquinas, pequeño_material
+PARTIDAS_AUXILIARES: lana_mineral_acustica_si_requiere_privacidad, banda_resiliente_si_alto_aislamiento, doble_placa_si_acustico, cristal_o_mampara_superior_si_semi_diafano
+REGLAS_CALCULO: definir_si_llega_a_techo_o_parcial; si_parcial_refuerzo_superior; si_acustico_seguir_sistema_certificado; precio_por_m2_segun_especificacion_acustica
+UNIDAD: m2
+OBSERVACIONES: especificar_si_tabique_llega_a_techo_real_o_a_falso_techo; si_no_llega_a_techo_real_aislamiento_acustico_nulo; coordinacion_con_electricista_para_enchufes_e_interruptores; normativa_CTE_DB_HR_en_edificios_habitables
+
+ACTUACION: nicho_o_estanteria_empotrada_en_pladur
+PALABRAS_CLAVE: nicho pladur, estanteria pladur, empotrar estanteria pladur, hueco estanteria pladur, cajon empotrado pladur, nicho decorativo pladur, pladur con estanteria, alcoba empotrada pladur, nicho pared pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_y_montante, refuerzo_madera_o_perfil_interior_para_baldas, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico_esquinas, pequeño_material
+PARTIDAS_AUXILIARES: pintura_interior_nicho, iluminacion_interior_si_solicitado, balda_tablero_si_incluida
+REGLAS_CALCULO: precio_alzado_por_nicho_segun_dimensiones; refuerzo_interior_obligatorio_para_baldas; profundidad_maxima_limitada_por_espacio_entre_montantes_o_espesor_tabique
+UNIDAD: ud, pa (precio alzado)
+OBSERVACIONES: refuerzo_interior_madera_o_metal_para_sostener_baldas; iluminacion_interior_led_muy_demandada; profundidad_disponible_segun_grosor_tabique; coordinar_con_electricista_si_lleva_luz; acabado_interior_pintado_incluir_en_precio
+
+ACTUACION: tabique_pladur_para_buhardilla_o_espacio_abuhardillado
+PALABRAS_CLAVE: pladur buhardilla, tabique buhardilla, forrar buhardilla pladur, yeso laminado buhardilla, pladur bajo cubierta, pladur techo inclinado, acondicionar buhardilla pladur, pladur cubierta inclinada, buhardilla habitable pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_y_montante_ajustado_a_inclinacion, lana_mineral_o_lana_roca_aislante, barrera_vapor, tornilleria, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: perfil_especial_inclinacion, andamio_o_caballetes, fijaciones_especiales_a_par_cubierta
+REGLAS_CALCULO: precio_mayor_por_dificultad_inclinaciones_y_rincones; medir_superficie_real_inclinada; barrera_vapor_obligatoria_en_bajo_cubierta; aislante_entre_pars_y_contra_el_frio
+UNIDAD: m2
+OBSERVACIONES: barrera_vapor_obligatoria_bajo_cubierta; aislante_minimo_80mm_en_zona_climatica_espana; trabajo_mas_complejo_que_tabiques_rectos_por_inclinaciones_y_rincones_irregulares; CTE_DB_HE_transmitancia_cubierta
+
+ACTUACION: tabique_pladur_para_proteger_viga_o_bajante
+PALABRAS_CLAVE: forrar bajante pladur, tapar bajante pladur, esconder bajante pladur, cajero bajante pladur, forrar viga pladur, tapar viga pladur, disimular viga pladur, cajon bajante pladur, tapar tubo pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_12_5mm_o_15mm, perfil_canal_y_montante_adaptado, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico_esquinas, pequeño_material
+PARTIDAS_AUXILIARES: trampilla_si_bajante_requiere_mantenimiento, placa_hidrofuga_si_bajante_agua_fria_con_condensacion
+REGLAS_CALCULO: precio_por_ml_de_cajon_o_precio_alzado; incluir_trampilla_si_requiere_revision; si_bajante_pluvial_o_condensacion_placa_hidrofuga
+UNIDAD: ml, ud
+OBSERVACIONES: SIEMPRE_dejar_trampilla_en_arquetas_o_elementos_con_mantenimiento_como_llaves_de_paso; si_bajante_con_condensacion_placa_hidrofuga; coordinar_con_fontanero_antes_de_cerrar
+
+ACTUACION: tabique_pladur_armario_empotrado_nuevo
+PALABRAS_CLAVE: armario pladur, hacer armario pladur, armario empotrado pladur, estructura armario pladur, armario con pladur, cajon armario pladur, armario nuevo pladur, hacer armario empotrado pladur, caja armario pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_y_montante_70, refuerzo_madera_interior_para_barras_y_baldas, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico, pequeño_material
+PARTIDAS_AUXILIARES: puerta_corredera_o_abatible_si_incluida, barras_colgar_ropa, baldas_tablero
+REGLAS_CALCULO: precio_alzado_por_armario_segun_dimensiones; refuerzo_interior_madera_para_barra_ropa_y_baldas; puerta_como_partida_separada_o_incluida
+UNIDAD: ud, pa (precio alzado)
+OBSERVACIONES: refuerzo_interior_madera_para_fijacion_barra_y_baldas_OBLIGATORIO; especificar_si_puerta_va_incluida; coordinar_con_electricista_si_lleva_luz_interior; interior_sin_pintar_o_pintado_segun_acuerdo
+
+ACTUACION: eliminacion_y_reposicion_placa_pladur_para_acceso_instalaciones
+PALABRAS_CLAVE: abrir pladur para instalacion, cortar pladur para fontanero, quitar pladur acceso, abrir falso techo instalacion, retirar pladur fontaneria, abrir pladur electricidad, quitar placa pladur y reponer, acceso instalaciones pladur
+PARTIDAS_OBLIGATORIAS: herramienta_corte, placa_repuesto_misma_tipologia, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: imprimacion_y_pintura_si_repintar_incluido
+REGLAS_CALCULO: precio_por_ud_zona_o_precio_alzado; incluir_reposicion_y_acabado; si_se_va_a_pintar_incluir_o_no_en_presupuesto
+UNIDAD: ud, pa (precio alzado)
+OBSERVACIONES: dejar_acabado_igual_o_mejor_que_el_existente; pintura_de_reposicion_puede_quedar_diferente_al_original_informar_cliente; si_zona_grande_quiza_mejor_trampilla_registrable_para_futuras_incidencias
+
+ACTUACION: tabique_pladur_en_local_comercial_o_bar
+PALABRAS_CLAVE: pladur local comercial, tabique local comercial pladur, dividir local pladur, tabique bar pladur, separacion local pladur, pladur para negocio, tabique restaurante pladur, compartimentar local pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_y_montante_70, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico, pequeño_material
+PARTIDAS_AUXILIARES: placa_ignifuga_si_normativa_incendio, lana_mineral_acustica, doble_placa_si_necesario
+REGLAS_CALCULO: verificar_si_local_requiere_RF_especifica_por_normativa; en_restauracion_RF_obligatoria_normalmente; precio_por_m2_segun_especificaciones
+UNIDAD: m2
+OBSERVACIONES: verificar_normativa_incendios_local_actividad_CTE_DB_SI; posible_RF_obligatoria_en_hosteleria_y_locales_publicos; coordinar_con_arquitecto_o_tecnico_si_hay_proyecto; alicatado_en_cocinas_coordinar_con_alicatador
+
+ACTUACION: tabique_pladur_resistente_humedad_y_cortafuego
+PALABRAS_CLAVE: pladur hidrofugo ignifugo, pladur verde rosa, pladur bano cortafuego, placa hidrofuga ignifuga, pladur doble funcion, zona humeda y fuego pladur, pladur combinado bano rf
+PARTIDAS_OBLIGATORIAS: placa_yeso_hidrofugo_ignifugo_combinada_o_ambas_especiales, perfil_canal_galvanizado, perfil_montante_galvanizado, tornilleria_inox, cinta_juntas, pasta_juntas_hidrofuga, pequeño_material
+PARTIDAS_AUXILIARES: lana_roca_si_RF_mayor, sellador_intumescente, membrana_impermeabilizante
+REGLAS_CALCULO: placa_combinada_si_existe_para_el_sistema_o_hidrofuga_mas_ignifuga_segun_fabricante; verificar_compatibilidad_sistema; certficacion_fabricante_obligatoria
+UNIDAD: m2
+OBSERVACIONES: verificar_si_fabricante_tiene_placa_combinada_hidrofuga_ignifuga_o_usar_dos_tipos; sistema_certificado; zonas_cocina_en_edificio_con_uso_publico_normalmente_requieren_RF; CTE_DB_SI_y_DB_HR
+
+ACTUACION: tabique_pladur_con_estructura_metalica_para_grandes_alturas
+PALABRAS_CLAVE: pladur altura, tabique pladur alto, pladur para altura grande, tabique 4 metros pladur, pladur techo alto, tabique pladur edificio alto, pladur mas de 3 metros, tabique alto pladur reforzado, pladur naves altura
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_100_o_mayor, perfil_montante_100_o_mayor_reforzado, arriostramientos_horizontales, tornilleria_reforzada, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: calculo_tecnico_si_altura_mayor_5m, andamio, plataforma_elevadora, doble_placa_si_necesario
+REGLAS_CALCULO: altura_mayor_3_5m_requiere_montante_reforzado_o_mayor_seccion; altura_mayor_5m_requiere_calculo_tecnico; arriostramientos_horizontales_cada_2m_en_grandes_alturas; precio_mayor_por_medios_y_complejidad
+UNIDAD: m2
+OBSERVACIONES: alturas_mayores_3_5m_requieren_seccion_mayor_o_montante_rigidizado; alturas_mayores_5m_requieren_calculo_de_tecnico_competente; andamio_obligatorio_a_partir_de_3m; plataforma_elevadora_en_naves
+
+ACTUACION: falso_techo_pladur_con_lucernario_o_claraboya_artificial
+PALABRAS_CLAVE: lucernario pladur, claraboya falsa pladur, techo con luz cenital falsa, pladur con lucernario, techo decorativo lucernario, ventana techo falsa pladur, claraboya decorativa, luz cenital pladur falso techo
+PARTIDAS_OBLIGATORIAS: placa_yeso_12_5mm, estructura_cuelgue_especial, cristal_o_panel_translucido_interior, marco_aluminio_o_acero, tornilleria, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: tira_led_perimetral_si_iluminacion_artificial_interior, varilla_cuelgue
+REGLAS_CALCULO: precio_alzado_por_lucernario_segun_dimensiones; incluir_carpinteria_interior_marco_y_panel; electricidad_led_aparte_o_incluida
+UNIDAD: ud, pa (precio alzado)
+OBSERVACIONES: lucernario_falso_con_luz_interior_muy_efecto_decorativo; coordinar_electricista_para_iluminacion_led; definir_material_panel_translucido_resina_o_vidrio; mantenimiento_de_la_iluminacion_acceso
+
+ACTUACION: tabique_pladur_para_zona_exterior_o_semi_exterior
+PALABRAS_CLAVE: pladur exterior, pladur para terraza, pladur para porche, pladur semi exterior, cerramiento exterior pladur, pladur resistente exterior, pladur zona exterior, tabique exterior pladur, pladur intemperie
+PARTIDAS_OBLIGATORIAS: placa_cemento_o_fibrocemento_para_exterior_NO_yeso, perfil_galvanizado_exterior, tornilleria_inox, sellador_silicona_intemperie, pequeño_material
+PARTIDAS_AUXILIARES: lana_roca_aislante, barrera_vapor, imprimacion_y_acabado_exterior
+REGLAS_CALCULO: NUNCA_placa_yeso_en_exterior_expuesto; usar_placa_cemento_fibrocemento_o_sistema_SATE; precio_superior_a_pladur_interior; sistemas_certificados
+UNIDAD: m2
+OBSERVACIONES: IMPORTANTE_placa_de_yeso_laminado_NO_es_apta_para_exterior_expuesto; usar_placa_cemento_fibrocemento_o_panel_sandwich_exterior; informar_al_cliente_de_esta_limitacion; tornilleria_inox_obligatoria_exterior; sistema_certificado_para_exteriores
+
+ACTUACION: revestimiento_pladur_sobre_escalera_interior
+PALABRAS_CLAVE: pladur escalera, revestir escalera pladur, forrar escalera pladur, pladur bajo escalera, espacio bajo escalera pladur, tabique bajo escalera, forrar hueco escalera pladur, cerramiento bajo escalera pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_12_5mm_o_15mm, perfil_canal_y_montante_adaptado_inclinacion, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico, pequeño_material
+PARTIDAS_AUXILIARES: puerta_acceso_si_espacio_bajo_escalera, refuerzo_si_zona_de_golpes
+REGLAS_CALCULO: precio_alzado_por_zona_o_precio_m2_mayor_por_dificultad_geometria; geometria_irregular_requiere_mas_tiempo; incluir_posible_acceso_si_hay_espacio_util_bajo_escalera
+UNIDAD: m2, pa (precio alzado)
+OBSERVACIONES: geometria_compleja_bajo_escalera_aumenta_precio; si_hay_espacio_util_bajo_escalera_valorar_puerta_acceso; acabados_esquinas_dificiles_por_angulos_irregulares
+
+ACTUACION: cerramiento_pladur_para_maquina_aire_acondicionado_split
+PALABRAS_CLAVE: cajon split pladur, tapar split pladur, cajon aire acondicionado pladur, esconder maquina aire pladur, forrar maquina pladur, cajon fancoil pladur, cerramiento maquina climatizacion pladur, pladur aire acondicionado
+PARTIDAS_OBLIGATORIAS: placa_yeso_12_5mm, perfil_canal_y_montante, tornilleria, cinta_juntas, pasta_juntas, rejilla_retorno_y_impulsion, pequeño_material
+PARTIDAS_AUXILIARES: trampilla_acceso_filtros, angulo_metalico, placa_hidrofuga_si_zona_condensacion
+REGLAS_CALCULO: precio_alzado_por_cajon_segun_dimensiones; incluir_rejillas_de_impulsion_y_retorno; trampilla_acceso_para_mantenimiento_filtros_OBLIGATORIA
+UNIDAD: ud, pa (precio alzado)
+OBSERVACIONES: trampilla_acceso_filtros_OBLIGATORIA; rejillas_impulsion_y_retorno_correctamente_dimensionadas; coordinar_con_tecnico_climatizacion_para_dimensiones_y_flujo; placa_hidrofuga_si_hay_condensaciones
+
+ACTUACION: tabique_pladur_de_madera_o_metalico_con_lamas
+PALABRAS_CLAVE: tabique lamas pladur, pladur con lamas, tabique decorativo lamas, separacion con lamas, muro lamas decorativo, tabique calado, celosía pladur, tabique abierto lamas, separador lamas madera, separacion vertical lamas
+PARTIDAS_OBLIGATORIAS: estructura_metalica_o_madera_segun_diseno, tableros_o_lamas_segun_material, tornilleria, pequeño_material
+PARTIDAS_AUXILIARES: placa_pladur_si_combinado, pintura_acabado_lamas, barniz_si_madera
+REGLAS_CALCULO: precio_alzado_por_modulo_o_m2; material_lamas_muy_variable_precio; presupuesto_tras_diseno_definitivo_aprobado
+UNIDAD: m2, ud (módulo), pa (precio alzado)
+OBSERVACIONES: definir_material_y_separacion_lamas_antes_de_presupuestar; si_es_decorativo_sin_funcion_acustica_no_mejora_aislamiento; coordinar_con_carpintero_si_es_madera; muy_usado_en_separadores_salon_comedor
+
+ACTUACION: falso_techo_pladur_en_local_con_normativa_incendios
+PALABRAS_CLAVE: falso techo ignifugo local, techo rf local, falso techo resistencia fuego local, techo cortafuego local, pladur techo local normativa fuego, techo rf60 local comercial, pladur rosa techo local, falso techo norma incendios
+PARTIDAS_OBLIGATORIAS: placa_yeso_ignifuga_rosa_15mm, estructura_cuelgue_acero, varilla_roscada, horquilla, maestras_perfil_acero, lana_roca_segun_rf, tornilleria, cinta_juntas, pasta_juntas, sellador_intumescente, pequeño_material
+PARTIDAS_AUXILIARES: doble_placa_si_rf120, documentacion_sistema_certificado
+REGLAS_CALCULO: sistema_certificado_obligatorio_con_rf_requerida; verificar_normativa_local_y_actividad; sellado_pasos_instalaciones_obligatorio; documentar_sistema_para_expediente_licencia
+UNIDAD: m2
+OBSERVACIONES: sistema_certificado_CTE_DB_SI_OBLIGATORIO; verificar_con_tecnico_rf_requerida_segun_uso_y_sector; documentar_marca_y_sistema_para_expediente_licencia_actividad; sellado_pasos_instalaciones; no_mezclar_productos_sistemas_certificados
+
+ACTUACION: trasdosado_pladur_para_mejora_energetica_fachada
+PALABRAS_CLAVE: mejora energetica pladur, trasdosar fachada pladur, aislamiento termico pladur fachada, mejorar frio calor pladur, pladur fachada interior aislante, trasdosado fachada aislante, pladur ahorro energia, mejora termica pladur fachada
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_y_montante_70_o_100, lana_mineral_o_lana_roca_alta_densidad_80mm, barrera_vapor, tornilleria, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: perfil_antisismico_si_zona_sismica, sellado_perimetral_silicona
+REGLAS_CALCULO: barrera_vapor_obligatoria_en_fachada; espesor_aislante_segun_zona_climatica_CTE_DB_HE; evitar_puentes_termicos_en_perfiles; pierde_espacio_interior_10_20cm
+UNIDAD: m2
+OBSERVACIONES: barrera_vapor_imprescindible_en_fachada; espesor_aislante_segun_CTE_DB_HE_y_zona_climatica; trasdosado_interior_pierde_espacio_pero_mas_facil_que_SATE_exterior; puentes_termicos_en_perfiles_metalicos_reducir_con_perfil_termicamente_roto_o_aislante_continuo; puede_dar_derecho_a_deduccion_fiscal
+
+ACTUACION: tabique_pladur_para_sala_tecnica_o_CPD
+PALABRAS_CLAVE: tabique sala servidores, pladur sala tecnica, tabique cpd pladur, sala servidores pladur, sala tecnica pladur, pladur sala ti, cerramiento sala electronica, pladur sala ordenadores, tabique sala racks
+PARTIDAS_OBLIGATORIAS: placa_yeso_ignifuga_rosa_15mm, perfil_canal_y_montante, lana_roca_aislante_acustico, tornilleria, cinta_juntas, pasta_juntas, sellador_intumescente_pasos, pequeño_material
+PARTIDAS_AUXILIARES: suelo_tecnico_si_necesario, rejillas_paso_cables, trampillas_registro, barrera_vapor_si_climatizacion_fria
+REGLAS_CALCULO: RF_obligatoria_sala_tecnica; sellado_pasos_obligatorio; verificar_normativa_especifica_CPD; coordinar_con_tecnico_TI_para_necesidades
+UNIDAD: m2
+OBSERVACIONES: RF_obligatoria_en_salas_tecnicas; sellado_hermetico_todos_los_pasos; coordinar_necesidades_tecnicas_previas_paso_de_cables_registros_accesos; barrera_vapor_si_climatizacion_por_condensaciones; suelo_tecnico_partida_aparte
+
+ACTUACION: tabique_pladur_para_sala_de_ensayo_o_estudio_musica
+PALABRAS_CLAVE: insonorizar sala musica, pladur sala ensayo, sala musica pladur, estudio musica pladur, sala ensayo insonorizada, pladur sala grabacion, insonorizacion sala musica, pladur sala con ruido, aislar sala musica
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm_doble_cara, perfil_montante_con_banda_resiliente, lana_roca_densidad_alta_100mm, banda_resiliente_perimetral, masa_aditiva_si_necesario, tornilleria, cinta_juntas, pasta_juntas, sellador_silicona_hermetico, pequeño_material
+PARTIDAS_AUXILIARES: triple_placa_si_musica_electrica, suelo_flotante_si_percusion, puerta_acustica_especial
+REGLAS_CALCULO: aislamiento_acustico_requiere_masa_y_desvinculacion; cuanto_mas_masa_mas_aislamiento; suelo_flotante_para_ruido_de_impacto_percusion; todos_los_pasos_sellados_hermeticamente; precio_muy_superior_a_tabique_convencional
+UNIDAD: m2, pa (precio alzado sala completa)
+OBSERVACIONES: sala_musica_es_caso_exigente_que_requiere_especializacion; la_cadena_acustica_es_tan_fuerte_como_su_eslabon_mas_debil; suelo_flotante_si_hay_percusion_o_bajos_importantes; puertas_acusticas_especificas; presupuesto_alzado_sala_completa
+
+ACTUACION: falso_techo_pladur_con_iluminacion_empotrada
+PALABRAS_CLAVE: techo pladur con focos, falso techo pladur y focos, techo con downlight pladur, iluminacion empotrada pladur, focos empotrables pladur, pladur con focos empotrados, techo pladur luz empotrada, focos led empotrables falso techo
+PARTIDAS_OBLIGATORIAS: placa_yeso_12_5mm, estructura_cuelgue, tornilleria, cinta_juntas, pasta_juntas, pequeno_material
+PARTIDAS_AUXILIARES: aro_empotrable_recortable_pladur, refuerzo_perimetral_aro_si_necesario, cable_electrico_segun_circuito
+REGLAS_CALCULO: precio_techo_base_mas_apertura_y_refuerzo_por_foco; coordinar_con_electricista_para_circuitos; marcado_posicion_focos_antes_de_cerrar; espacio_libre_sobre_placa_para_luminaria_empotrable
+UNIDAD: m2 (techo), ud (punto luz empotrado)
+OBSERVACIONES: coordinar_electricista_OBLIGATORIO_antes_de_cerrar_placa; marcar_posicion_focos_en_estructura_antes_de_instalar_placa; luminaria_con_IP_adecuado_si_bano; espacio_libre_sobre_placa_minimo_segun_luminaria; si_led_calefactado_distancia_minima_lana_mineral
+
+ACTUACION: estructura_pladur_para_escalera_interior_nueva
+PALABRAS_CLAVE: escalera pladur, estructura pladur escalera, forrar escalera nueva pladur, peldanos pladur estructura, escalera interior pladur, estructura escalera yeso, hacer escalera pladur, pladur para escalones
+PARTIDAS_OBLIGATORIAS: perfil_canal_y_montante_reforzado, placa_yeso_15mm, refuerzo_metalico_o_madera_para_peldanos, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico_esquinas, pequeño_material
+PARTIDAS_AUXILIARES: tabica_y_huella_acabado_madera_o_ceramica_aparte, barandilla_aparte
+REGLAS_CALCULO: precio_alzado_por_escalera_segun_numero_peldanos_y_diseno; refuerzo_obligatorio_en_peldanos; acabado_madera_o_ceramica_como_partida_separada_o_incluida
+UNIDAD: ud (escalera completa), pa (precio alzado)
+OBSERVACIONES: estructura_pladur_solo_es_la_base; acabado_peldanos_en_madera_ceramica_o_moqueta_partida_aparte; barandilla_partida_separada; refuerzo_metalico_o_madera_interior_peldanos_obligatorio_para_carga; verificar_resistencia_mecanica
+
+ACTUACION: cerramiento_pladur_para_trastero_o_almacen
+PALABRAS_CLAVE: pladur trastero, cerramiento trastero pladur, cerrar trastero pladur, tabique trastero pladur, pladur almacen, cerrar almacen pladur, pladur zona almacenamiento, division trasteros pladur, tabique separacion trasteros
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_y_montante_48_o_70, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico, pequeño_material
+PARTIDAS_AUXILIARES: puerta_acceso_si_incluida, cerradura, placa_ignifuga_si_normativa_exige
+REGLAS_CALCULO: verificar_normativa_incendios_trastero_puede_requerir_RF; precio_por_m2; incluir_puerta_acceso_si_procede
+UNIDAD: m2, pa (precio alzado trastero)
+OBSERVACIONES: trasteros_en_edificios_residenciales_pueden_requerir_RF_segun_CTE_DB_SI; verificar_normativa_antes_de_presupuestar; puerta_acceso_con_cerradura_partida_aparte_o_incluida; ventilacion_minima_trastero
+
+ACTUACION: tabique_pladur_prefabricado_modular
+PALABRAS_CLAVE: tabique modular pladur, pladur prefabricado, modulo pladur, tabique kit pladur, pladur rapido, sistema modular yeso, tabique pladur prefabricado, pladur rapido instalacion
+PARTIDAS_OBLIGATORIAS: paneles_pladur_prefabricados_segun_sistema, sistemas_union_clip_o_tornillo, sellador_juntas, pequeño_material
+PARTIDAS_AUXILIARES: remates_esquinas_sistema, elementos_complementarios_sistema
+REGLAS_CALCULO: precio_por_m2_o_por_modulo; instalacion_mas_rapida_que_sistema_convencional; verificar_que_sistema_permite_paso_instalaciones
+UNIDAD: m2, ud (módulo)
+OBSERVACIONES: sistemas_modulares_mas_rapidos_pero_mas_rigidos_en_diseño; verificar_que_permiten_paso_instalaciones; algunos_sistemas_ya_llevan_aislante_incorporado; compatibilidad_con_acabados_estandar
+
+ACTUACION: renovacion_o_reparacion_falso_techo_pladur_existente
+PALABRAS_CLAVE: reparar falso techo, arreglar techo pladur, techo pladur caido, reparar techo yeso, rehacer techo pladur, techo pladur con daños, renovar falso techo, techo pladur deteriorado, techo pladur que se cae
+PARTIDAS_OBLIGATORIAS: placa_yeso_12_5mm_repuesto, varilla_cuelgue_nueva_si_necesario, tornilleria, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: pintura_si_repintar_incluido, imprimacion, andamio_o_escalera
+REGLAS_CALCULO: precio_alzado_por_zona_o_por_m2; diagnosticar_causa_antes_de_reparar; si_caida_verificar_estado_cuelgues
+UNIDAD: m2, pa (precio alzado)
+OBSERVACIONES: diagnosticar_causa_caida_o_deterioro_antes_de_reparar; si_caida_por_gotera_primero_resolver_gotera; verificar_estado_cuelgues_y_estructura_existente; si_estructura_en_mal_estado_mejor_rehacer_todo; pintura_posterior_puede_ser_necesaria
+
+ACTUACION: tabique_pladur_para_sepultar_conductos_climatizacion
+PALABRAS_CLAVE: tapar conductos climatizacion pladur, cajon conductos climatizacion, pladur para ductwork, esconder conductos pladur, tapar aire conductos pladur, cajon climatizacion pladur, forrar conductos pladur, pladur climatizacion
+PARTIDAS_OBLIGATORIAS: placa_yeso_12_5mm_o_15mm, perfil_canal_y_montante_adaptado, tornilleria, cinta_juntas, pasta_juntas, rejilla_retorno_impulsion, pequeño_material
+PARTIDAS_AUXILIARES: trampilla_acceso_mantenimiento, placa_hidrofuga_si_condensaciones, angulo_metalico
+REGLAS_CALCULO: precio_por_ml_cajon_o_alzado; incluir_rejillas_de_ventilacion; trampilla_acceso_mantenimiento_obligatoria; coordinar_con_tecnico_climatizacion
+UNIDAD: ml, ud, pa (precio alzado)
+OBSERVACIONES: trampilla_acceso_OBLIGATORIA_para_mantenimiento; rejillas_impulsion_retorno_correctamente_dimensionadas_coordinar_tecnico; placa_hidrofuga_si_hay_condensaciones_en_conductos; verificar_que_cajon_no_reduce_seccion_conducto
+
+ACTUACION: tabique_pladur_en_piscina_cubierta_o_spa
+PALABRAS_CLAVE: pladur piscina cubierta, pladur spa, pladur zona piscina, tabique zona humeda piscina, pladur con cloro, pladur zona bano turco, pladur sauna, pladur humedad extrema, pladur ambiente saturado humedad
+PARTIDAS_OBLIGATORIAS: placa_silicato_calcico_o_cemento_para_alta_humedad_NO_yeso, perfil_aluminio_o_acero_inox, tornilleria_inox, sellador_silicona_neutra, pequeño_material
+PARTIDAS_AUXILIARES: membrana_impermeabilizante_total, barrera_vapor
+REGLAS_CALCULO: NUNCA_placa_yeso_en_ambiente_saturado_de_humedad_como_piscina_cubierta; usar_placa_silicato_calcico_o_cemento; precio_superior_a_pladur_estandar; perfil_inox_o_aluminio_obligatorio
+UNIDAD: m2
+OBSERVACIONES: IMPORTANTE_placa_yeso_aunque_sea_hidrofuga_NO_apta_para_ambientes_saturados_humedad_cronica_como_piscina_cubierta_o_sauna; usar_silicato_calcico_o_fibrocemento; informar_al_cliente; perfiles_aluminio_o_inox_obligatorios
+
+ACTUACION: tabique_pladur_con_ventana_de_paso_o_barra_americana
+PALABRAS_CLAVE: barra americana pladur, ventana paso pladur, apertura cocina salon pladur, comunicar cocina salon pladur, abrir pared pladur cocina, ventana interior cocina pladur, pasaplatos pladur cocina, comunicacion cocina salon
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_y_montante_70, refuerzo_perimetral_hueco_doble_montante, dintel_metalico_o_madera, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico, pequeño_material
+PARTIDAS_AUXILIARES: encimera_si_barra_americana, repisa_madera_si_pasaplatos, acabado_jamba_y_dintel
+REGLAS_CALCULO: precio_tabique_mas_extra_por_hueco_y_refuerzo; dintel_si_hueco_mayor_90cm; encimera_barra_americana_partida_aparte
+UNIDAD: m2 (tabique), ud (hueco/barra)
+OBSERVACIONES: refuerzo_perimetral_y_dintel_obligatorios; encimera_o_repisa_como_partida_aparte_o_incluida; coordinar_con_carpintero_si_encimera_especial; si_se_abre_en_pared_existente_verificar_que_no_hay_instalaciones
+
+ACTUACION: certificado_y_documentacion_sistema_pladur
+PALABRAS_CLAVE: certificado pladur, documentacion pladur, certificar tabique pladur, documentar sistema pladur, certificado rf pladur, certificado acustico pladur, documentacion sistema yeso, ficha tecnica pladur, certificacion sistema
+PARTIDAS_OBLIGATORIAS: recopilacion_fichas_tecnicas_sistema_usado, etiquetas_placas_y_perfiles, registro_fotografico_durante_ejecucion, pequeño_material
+PARTIDAS_AUXILIARES: informe_tecnico_si_requiere_visado, ensayo_acustico_in_situ_si_exigido
+REGLAS_CALCULO: precio_adicional_por_documentacion_si_se_requiere_formal; incluir_registro_fotografico_en_todas_las_obras
+UNIDAD: ud (juego documentacion), pa (precio alzado)
+OBSERVACIONES: documentacion_del_sistema_usado_importante_para_seguros_y_garantias; en_obra_nueva_puede_ser_exigida_por_direccion_facultativa; conservar_albaranes_y_fichas_tecnicas_de_los_materiales_usados; registro_fotografico_proceso_recomendado_siempre
+
+ACTUACION: tabique_pladur_en_rehabilitacion_edificio_existente
+PALABRAS_CLAVE: pladur rehabilitacion, pladur en piso antiguo, pladur edificio viejo, tabique pladur reforma, pladur en reforma integral, tabique nuevo en piso antiguo, pladur en edificio rehabilitado, sustituir tabique viejo por pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_y_montante_70, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico, banda_estanca_perimetral, pequeño_material
+PARTIDAS_AUXILIARES: demolicion_tabique_existente_si_incluida, lana_mineral_si_acustico, adaptacion_instalaciones_existentes
+REGLAS_CALCULO: precio_incluye_solo_tabique_nuevo_no_demolicion; demolicion_como_partida_separada; adaptacion_instalaciones_existentes_puede_ser_coste_adicional; suelos_existentes_pueden_no_estar_nivelados
+UNIDAD: m2
+OBSERVACIONES: en_rehabilitacion_suelos_techos_y_paredes_existentes_pueden_estar_fuera_de_nivel_o_plomo; adaptacion_instalaciones_electricas_y_fontaneria_existentes_suele_ser_partida_adicional; demolicion_tabiques_existentes_partida_separada
+
+ACTUACION: falso_techo_pladur_diseno_casetones_o_artesonado
+PALABRAS_CLAVE: techo artesonado pladur, techo casetones pladur, techo clasico pladur, techo decorativo casetones, techo con recuadros pladur, casetones techo yeso, artesonado pladur, techo decoracion historica pladur, techo elegante pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_12_5mm, estructura_cuelgue, perfiles_para_enmarcado_casetones, tornilleria, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: molduras_decorativas_si_bordes_casetones, pintura_diferente_colores_si_diseño_bicromia, andamio
+REGLAS_CALCULO: precio_muy_superior_a_techo_plano; presupuesto_alzado_tras_ver_diseño; mayor_tiempo_ejecucion; definir_dimensiones_casetones_y_profundidad
+UNIDAD: m2, pa (precio alzado)
+OBSERVACIONES: diseño_previo_con_medidas_casetones_obligatorio; muy_demandado_en_clasicos_y_rehabilitaciones_viviendas_historicas; combinar_con_escayolistas_para_molduras_si_se_requiere; presupuesto_alzado_tras_ver_plano
+
+ACTUACION: reparacion_junta_de_dilatacion_en_pladur
+PALABRAS_CLAVE: junta dilatacion pladur, fisura junta pladur, grieta junta pladur, abertura junta pladur, reparar junta pladur, junta estructural pladur, junta expansion pladur, fisura pladur junta
+PARTIDAS_OBLIGATORIAS: masilla_elastica_para_juntas_de_dilatacion, cinta_juntas_elastica_o_sellador_silicona, pequeño_material
+PARTIDAS_AUXILIARES: perfileria_de_junta_especial_si_no_existe, lija_suave
+REGLAS_CALCULO: precio_por_ml_junta_o_por_ud_zona; juntas_de_dilatacion_no_se_tapan_con_pasta_rigida_usar_masilla_elastica; si_no_habia_junta_estudiar_causa_fisura
+UNIDAD: ml, ud
+OBSERVACIONES: junta_de_dilatacion_debe_sellarse_con_material_elastico_NUNCA_con_pasta_rigida_de_juntas; si_no_habia_junta_de_dilatacion_crear_una; fisuras_en_pladur_sin_junta_pueden_indicar_movimientos_estructura; diagnosticar_causa
+
+ACTUACION: tabique_pladur_con_acabado_panel_o_laminado_decorativo
+PALABRAS_CLAVE: pladur con panel decorativo, pladur con laminado, tabique pladur acabado madera, pladur con chapa, pladur con revestimiento decorativo, pladur con panel PVC, tabique revestido pladur, pladur con lamina decorativa, acabado decorativo sobre pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_base_15mm, perfil_canal_y_montante, panel_o_laminado_decorativo_segun_tipo, adhesivo_o_tornilleria_segun_panel, tornilleria_base, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: angulo_metalico_remates, sellador_perimetral
+REGLAS_CALCULO: precio_tabique_base_mas_extra_panel_decorativo; panel_como_partida_aparte_o_incluida; precio_muy_variable_segun_material_panel
+UNIDAD: m2
+OBSERVACIONES: definir_material_panel_antes_de_presupuestar; panel_puede_ir_en_toda_la_superficie_o_solo_parte_decorativa; remates_perimetrales_y_esquinas_importantes_para_acabado_profesional; combinar_con_pinturas_resto_de_paredes
+
+ACTUACION: tabique_pladur_con_caja_mecanismos_electricos_empotrada
+PALABRAS_CLAVE: caja mecanismo pladur, caja enchufes pladur, mecanismo empotrado pladur, caja para interruptores pladur, pladur con caja electrica, caja enchufes integrada pladur, mecanismos pladur, instalar enchufe pladur
+PARTIDAS_OBLIGATORIAS: caja_empotrar_especifica_pladur, tornilleria_o_sistema_fijacion_sin_taladro_pladur, pequeño_material
+PARTIDAS_AUXILIARES: caja_derivacion_pladur, caja_reforzada_si_mecanismo_pesado
+REGLAS_CALCULO: precio_por_ud_caja_instalada; incluir_apertura_placa_y_fijacion; cajas_especificas_para_pladur_no_cajas_de_obra
+UNIDAD: ud
+OBSERVACIONES: cajas_especificas_pladur_con_aleta_fijacion_OBLIGATORIO; no_usar_cajas_convencionales_sin_soporte; si_mecanismo_pesado_caja_reforzada_o_soporte_adicional; coordinar_con_electricista
+
+ACTUACION: aplicacion_pasta_de_agarre_y_nivelacion_pladur
+PALABRAS_CLAVE: pasta agarre pladur, nivelar pladur, adherir pladur pared, pasta colocar pladur, pelladas pladur, pladur con pasta pegado, pegar pladur, nivelacion con pasta, pladur adherido
+PARTIDAS_OBLIGATORIAS: pasta_agarre_yeso_o_escayola_especifica, placa_yeso_12_5mm_o_15mm, regle_o_nivel, pequeño_material
+PARTIDAS_AUXILIARES: imprimacion_pared_base_si_porosa, regles_guia_si_muy_irregular
+REGLAS_CALCULO: precio_por_m2_pared_trasdosada_directamente; rapido_y_economico_pero_limitaciones; pared_base_debe_ser_solida
+UNIDAD: m2
+OBSERVACIONES: metodo_rapido_pero_limita_paso_instalaciones_y_aislamiento; si_pared_base_muy_irregular_trasdosado_con_estructura_mejor_resultado; si_humedad_en_pared_no_usar_este_metodo; desviacion_maxima_pared_base_5mm_para_buen_resultado
+
+ACTUACION: tabique_pladur_para_caja_escalera_comunitaria
+PALABRAS_CLAVE: pladur caja escalera, tabique caja escalera pladur, pladur escalera comunitaria, compartimentar caja escalera pladur, pladur zona evacuacion, tabique pladur vestibulo, pladur zona comunitaria, compartimentacion escalera pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_ignifuga_rosa_15mm, perfil_canal_y_montante_acero, lana_roca_si_rf_mayor, tornilleria, sellador_intumescente_pasos, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: puerta_RF_acceso, documentacion_sistema
+REGLAS_CALCULO: RF_obligatoria_en_caja_escalera_CTE_DB_SI; sistema_certificado_obligatorio; coordinar_con_tecnico_para_RF_requerida_segun_altura_edificio
+UNIDAD: m2
+OBSERVACIONES: caja_escalera_sectorizacion_incendios_obligatoria_CTE_DB_SI; RF_segun_altura_edificio_y_uso; sistema_certificado_obligatorio; puertas_RF_coordinadas; documentar_para_expediente
+
+ACTUACION: trasdosado_pladur_para_proteccion_acustica_suelo_techo
+PALABRAS_CLAVE: aislamiento impacto techo, ruido pisadas techo, reducir ruido impacto, pladur techo acustico, falso techo acustico, reducir ruido pisadas, techo acustico pladur, aislar impacto techo, pladur reducir ruido piso superior
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, estructura_cuelgue_con_muelle_antivibratorio_o_perfil_acustico, lana_mineral_alta_densidad, cinta_perimetral_sellado, tornilleria, cinta_juntas, pasta_juntas, pequeño_material
+PARTIDAS_AUXILIARES: doble_placa_si_mayor_aislamiento, sellado_silicona_hermetico_perimetro
+REGLAS_CALCULO: muelle_antivibratorio_o_perfil_acustico_obligatorio; desvinculacion_de_estructura_edificio_clave; mayor_masa_mayor_aislamiento; precio_muy_superior_techo_estandar; pierde_altura_libre
+UNIDAD: m2
+OBSERVACIONES: ruido_impacto_muy_dificil_de_aislar_solo_con_techo; lo_ideal_es_suelo_flotante_en_piso_superior; techo_acustico_reduce_pero_no_elimina_totalmente_impacto; muelle_antivibratorio_o_perfil_acustico_desvinculado_obligatorio; sellar_absolutamente_hermetico
+
+ACTUACION: tabique_pladur_zona_exterior_cubierta_sotillo
+PALABRAS_CLAVE: pladur bajo cubierta exterior, pladur alero, pladur sotillo exterior, tabique bajo tejado pladur, pladur zona exterior bajo alero, pladur en galeria exterior cubierta, pladur zona lluvia no directa
+PARTIDAS_OBLIGATORIAS: placa_fibrocemento_o_silicato_calcico_resistente_humedad, perfil_aluminio_o_galvanizado, tornilleria_inox, sellador_silicona_neutra_exterior, pequeño_material
+PARTIDAS_AUXILIARES: lana_roca_aislante, barrera_vapor, tratamiento_hidrofugo_superficie
+REGLAS_CALCULO: placa_yeso_NO_apta_exterior_aunque_protegida_por_cubierta_si_hay_humedad_o_condensacion; usar_fibrocemento_o_silicato_calcico; precio_superior; perfil_aluminio_o_galvanizado
+UNIDAD: m2
+OBSERVACIONES: zona_bajo_cubierta_puede_tener_condensaciones_o_lluvia_lateral; placa_yeso_no_recomendada_usar_fibrocemento_o_silicato_calcico; perfil_aluminio_o_galvanizado; informar_al_cliente_diferencia_material
+
+ACTUACION: instalacion_perfileria_vista_decorativa_en_pladur
+PALABRAS_CLAVE: perfil visto pladur, perfileria decorativa pladur, pladur con juntas metalicas, juntas metalicas decorativas pladur, perfil aluminio decorativo pladur, acabado industrial pladur juntas, pladur efecto industrial, perfil en T pladur decorativo
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfiles_decorativos_aluminio_o_acero_inox, tornilleria, pequeño_material
+PARTIDAS_AUXILIARES: masilla_si_juntas_entre_placas, angulo_metalico_esquinas_vistas
+REGLAS_CALCULO: precio_por_m2_mas_extra_perfileria_decorativa; perfileria_visible_como_elemento_estetico; precio_muy_variable_segun_material_y_diseno_perfileria
+UNIDAD: m2
+OBSERVACIONES: perfileria_vista_en_lugar_de_masillar_y_ocultar_juntas; efecto_muy_industrial_y_de_diseno; muy_usado_en_espacios_comerciales_y_oficinas_modernas; material_perfileria_aluminio_bruto_negro_o_inox
+
+ACTUACION: tabique_pladur_para_caja_de_persiana_o_capialzado
+PALABRAS_CLAVE: cajon persiana pladur, capialzado pladur, caja persiana pladur, tapar caja persiana pladur, forrar caja persiana, pladur capialzado, cajero persiana pladur, revestir caja persiana, cajon roller pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_12_5mm_o_15mm, perfil_canal_y_montante_adaptado, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico, trampilla_acceso_mecanismo, pequeño_material
+PARTIDAS_AUXILIARES: aislante_si_zona_fria, placa_hidrofuga_si_zona_humedad
+REGLAS_CALCULO: precio_por_ml_de_caja_persiana_o_ud_por_ventana; incluir_trampilla_acceso_mecanismo; aislante_si_caja_en_fachada_exterior
+UNIDAD: ml, ud
+OBSERVACIONES: trampilla_acceso_mecanismo_OBLIGATORIA_para_mantenimiento; aislante_en_zona_fria_para_evitar_puente_termico; coordinar_con_carpintero_ventanas_antes_de_ejecutar; si_es_capialzado_en_fachada_usar_aislante
+
+ACTUACION: tabique_pladur_para_zona_de_bar_o_cafeteria
+PALABRAS_CLAVE: pladur bar, tabique cafeteria pladur, pladur zona hosteleria, tabique hosteleria pladur, pladur para cocina profesional, pladur zona lavado, tabique zona humeda hosteleria, pladur local hosteleria
+PARTIDAS_OBLIGATORIAS: placa_yeso_hidrofuga_verde_15mm_o_fibrocemento_si_alta_humedad, placa_ignifuga_si_normativa, perfil_canal_galvanizado, perfil_montante_galvanizado, tornilleria_inox, cinta_juntas, pasta_hidrofuga, pequeño_material
+PARTIDAS_AUXILIARES: membrana_impermeabilizante_si_zona_lavado, sellador_silicona_perimetros
+REGLAS_CALCULO: verificar_normativa_incendios_hosteleria_RF_probable; hidrofuga_en_zonas_limpieza_y_lavado; precio_por_m2_segun_especificaciones
+UNIDAD: m2
+OBSERVACIONES: normativa_incendios_hosteleria_requiere_generalmente_RF; placa_hidrofuga_en_cocinas_y_zonas_lavado; verificar_con_tecnico_o_arquitecto_requisitos_licencia_actividad; coordinacion_con_alicatador_en_cocina
+
+ACTUACION: tabique_pladur_de_gran_formato_o_sin_juntas
+PALABRAS_CLAVE: pladur sin juntas, pladur gran formato, tabique sin juntas pladur, pladur continuo sin marcas, tabique pladur acabado perfecto, pladur sin juntas visibles, pladur acabado lacado, pladur para lacar
+PARTIDAS_OBLIGATORIAS: placa_yeso_gran_formato_o_sistema_sin_juntas, pasta_juntas_especial, cinta_fibra_vidrio_amplia, lija_fina_220, imprimacion_selladora, pequeño_material
+PARTIDAS_AUXILIARES: masilla_acabado_fino_alta_calidad, lijado_en_humedo_si_acabado_premium
+REGLAS_CALCULO: precio_superior_a_tabique_estandar; mayor_tiempo_acabado; usar_placa_gran_formato_reduce_juntas; acabado_perfectamente_liso_requiere_varias_pasadas_masilla_y_lijado
+UNIDAD: m2
+OBSERVACIONES: acabado_sin_juntas_visibles_requiere_mucha_dedicacion_en_masillado_y_lijado; usar_placa_de_gran_formato_reduce_numero_juntas; imprimacion_selladora_antes_de_pintar_muy_importante; si_va_lacado_exige_acabado_perfecto
+
+ACTUACION: trasdosado_pladur_en_suelo_tarima_o_solera
+PALABRAS_CLAVE: solera pladur, suelo seco pladur, suelo pladur seco, tarima seca sobre pladur, contrachapado sobre pladur, suelo seco yeso, sistema suelo seco, suelo tecnico pladur seco, suelo con placa yeso
+PARTIDAS_OBLIGATORIAS: placa_yeso_fibra_o_doble_placa_especifica_suelo, aislante_termico_acustico_EPS_o_lana_mineral, barrera_vapor, adhesivo_union_placas, pequeño_material
+PARTIDAS_AUXILIARES: perfil_perimetral_dilatacion, acabado_parquet_o_ceramica_aparte
+REGLAS_CALCULO: sistema_suelo_seco_alternativa_a_mortero; rapido_y_sin_obra_humeda; precio_por_m2_incluye_placa_y_aislante_no_acabado; verificar_resistencia_mecanica_segun_uso
+UNIDAD: m2
+OBSERVACIONES: sistema_suelo_seco_muy_util_en_rehabilitacion_sin_obra_humeda; verificar_capacidad_de_carga_segun_uso; acabado_ceramico_o_parquet_partida_aparte; junta_perimetral_de_dilatacion_obligatoria; barrera_vapor_si_sobre_solera_con_humedad
+
+ACTUACION: reparacion_fisura_en_tabique_pladur
+PALABRAS_CLAVE: fisura pladur, grieta pladur, pladur con grieta, agrietamiento pladur, grieta en junta pladur, fisura tabique yeso, reparar fisura pladur, grieta entre placas pladur, fisura junta pladur, arreglar grieta pladur
+PARTIDAS_OBLIGATORIAS: cinta_fibra_vidrio_para_fisuras, pasta_juntas_o_masilla_flexible, lija_fina, pequeño_material
+PARTIDAS_AUXILIARES: imprimacion_si_repintar, masilla_acabado_fino
+REGLAS_CALCULO: precio_por_ml_fisura_o_precio_alzado; diagnosticar_causa_antes_de_reparar; si_fisura_recurrente_buscar_causa_estructural
+UNIDAD: ml, ud, pa (precio alzado)
+OBSERVACIONES: diagnosticar_causa_antes_de_reparar; si_fisura_sigue_apareciendo_puede_ser_movimiento_estructura_o_falta_junta_dilatacion; usar_cinta_de_fibra_en_reparacion_para_evitar_que_vuelva_a_abrir; informar_al_cliente_si_causa_no_resuelta
+
+ACTUACION: trasdosado_pladur_pilar_de_esquina
+PALABRAS_CLAVE: pilar esquina pladur, forrar esquina pladur, pladur en esquina pilar, revestir esquina pilar, pilar esquina recto pladur, cuadrar esquina con pladur, pilar esq salon pladur, forrar rincón pilar pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_12_5mm_o_15mm, perfil_canal_adaptado_a_esquina, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico_esquinas_exteriores, pequeño_material
+PARTIDAS_AUXILIARES: angulo_plano_si_esquina_interior, refuerzo_si_golpes_frecuentes
+REGLAS_CALCULO: precio_por_ud_pilar_o_por_m2; angulo_metalico_en_aristas_exteriores_obligatorio; incluir_las_caras_necesarias_segun_pillar
+UNIDAD: ud, m2
+OBSERVACIONES: angulo_metalico_en_aristas_exteriores_obligatorio_para_proteger_esquina; si_esquina_muy_expuesta_a_golpes_angulo_acero_mas_reforzado; incluir_en_precio_todas_las_caras_del_pilar
+
+ACTUACION: tabique_pladur_en_vivienda_unifamiliar_nueva
+PALABRAS_CLAVE: pladur casa nueva, tabique pladur obra nueva, pladur vivienda nueva, tabique yeso laminado casa nueva, pladur en construccion, pladur obra construccion nueva, tabique pladur construccion, instalar pladur obra nueva
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_70, perfil_montante_70, lana_mineral_acustica_minima_CTE_DB_HR, banda_resiliente_perimetral, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico, pequeño_material
+PARTIDAS_AUXILIARES: barrera_vapor_si_zona_fachada, placa_hidrofuga_si_bano_o_cocina, placa_ignifuga_si_normativa
+REGLAS_CALCULO: CTE_DB_HR_obligatorio_en_obra_nueva; lana_mineral_en_separaciones_vivienda_y_zonas_comunes; verificar_indices_aislamiento_requeridos_segun_CTE; coordinacion_total_con_electricista_fontanero_y_carpintero
+UNIDAD: m2
+OBSERVACIONES: CTE_DB_HR_obligatorio_en_obra_nueva; verificar_con_arquitecto_especificaciones_tecnicas_proyecto; coordinacion_con_todos_gremios_es_critica_en_obra_nueva; no_cerrar_hasta_que_instalaciones_esten_pasadas_y_revisadas
+
+ACTUACION: trasdosado_pladur_en_edificio_con_humedad_por_capilaridad
+PALABRAS_CLAVE: pladur con humedad pared, trasdosar pared humedad capilar, pladur en pared con humedad, forrar pared humeda pladur, pladur muro con humedad, tratar humedad con pladur, pladur humedad capilar
+PARTIDAS_OBLIGATORIAS: placa_yeso_hidrofugo_15mm, perfil_canal_y_montante_galvanizado, lana_roca_aislante_si_necesario, tornilleria_galvanizada, cinta_juntas, pasta_hidrofuga, pequeño_material
+PARTIDAS_AUXILIARES: banda_antihumedad_base_perimetral, dejar_camara_ventilada_base_si_capilaridad_activa
+REGLAS_CALCULO: trasdosado_NO_elimina_humedad_solo_la_oculta; tratar_origen_antes_o_simultaneamente; estructura_desvinculada_de_pared_humeda; dejar_ventilacion_en_base_si_humedad_activa
+UNIDAD: m2
+OBSERVACIONES: IMPORTANTE_trasdosar_sobre_pared_humeda_sin_tratar_origen_es_mal_resultado_a_largo_plazo; informar_al_cliente_que_esto_no_soluciona_la_humedad_solo_la_oculta_temporalmente; si_quieren_solucion_real_tratar_origen_humedad_capilaridad; dejar_camara_ventilada_en_base_si_humedad_activa
+
+ACTUACION: estructura_pladur_para_zona_expositiva_o_showroom
+PALABRAS_CLAVE: pladur exposicion, pladur showroom, pladur zona exposicion, display pladur, estructura exhibicion pladur, tabique exposicion pladur, pladur para exponer, muros exposicion pladur, pladur sala exposicion
+PARTIDAS_OBLIGATORIAS: placa_yeso_15mm, perfil_canal_y_montante, tornilleria, cinta_juntas, pasta_juntas, angulo_metalico, pequeño_material
+PARTIDAS_AUXILIARES: refuerzo_puntos_fijacion_obras_o_estantes, iluminacion_empotrada_si_incluida, acabado_premium_liso_para_lacar
+REGLAS_CALCULO: precio_por_m2_con_extra_acabado_si_liso_o_lacado; refuerzo_puntos_fijacion_arte_u_objetos_si_necesario; coordinar_iluminacion_con_electricista
+UNIDAD: m2, pa (precio alzado zona)
+OBSERVACIONES: acabado_perfecto_critico_en_showroom_o_galeria; refuerzo_en_puntos_donde_van_obras_o_estantes_pesados; iluminacion_empotrada_coordinar_con_electricista; si_lacado_acabado_impecable_sin_juntas_visibles
+
+ACTUACION: instalacion_sistema_pladur_knauf_lafarge_o_equivalente
+PALABRAS_CLAVE: knauf pladur, sistema knauf, lafarge pladur, placo pladur, sistema certificado pladur, marca pladur especifica, pladur de marca, sistema homologado pladur, pladur rigips, especificar marca pladur
+PARTIDAS_OBLIGATORIAS: placa_yeso_marca_especificada, perfil_marca_especificada, pasta_juntas_marca_especificada, tornilleria_homologada_sistema, cinta_papel_o_fibra_marca, pequeño_material
+PARTIDAS_AUXILIARES: elementos_complementarios_sistema_especifico
+REGLAS_CALCULO: usar_siempre_elementos_del_mismo_sistema_para_mantener_garantia_y_certificacion; no_mezclar_marcas_en_sistemas_certificados_RF_o_acusticos
+UNIDAD: m2
+OBSERVACIONES: en_sistemas_certificados_RF_y_acusticos_OBLIGATORIO_usar_mismo_fabricante_en_todos_los_elementos; mezclar_marcas_anula_la_certificacion; en_obra_comun_no_certificada_puede_usar_diferentes_marcas_si_son_compatibles; guardar_etiquetas_materiales_para_documentacion

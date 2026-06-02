@@ -385,6 +385,41 @@ Deno.serve(async (req: Request) => {
       }), { status: 403, headers: { ...CORS, 'Content-Type': 'application/json' } });
     }
 
+    // ── Step 2.5: Search knowledge base for matching actuaciones ─────────────
+    let knowledgeContext = '';
+    try {
+      const { data: actuaciones } = await supabase.rpc('search_actuaciones_scored', {
+        p_transcript: transcript.slice(0, 500),
+        p_limit: 4,
+      }) as { data: Array<{
+        actuacion_id: string; oficio: string;
+        partidas_obligatorias: string[]; partidas_auxiliares: string[];
+        reglas_calculo: string; unidad: string; observaciones: string; score: number;
+      }> | null };
+
+      if (actuaciones && actuaciones.length > 0) {
+        const sections = actuaciones.map(a =>
+          `ACTUACION: ${a.actuacion_id}
+OFICIO: ${a.oficio}
+PARTIDAS_OBLIGATORIAS: ${a.partidas_obligatorias.join(', ')}
+PARTIDAS_AUXILIARES: ${a.partidas_auxiliares.join(', ')}
+REGLAS_CALCULO: ${a.reglas_calculo}
+UNIDAD: ${a.unidad}
+OBSERVACIONES: ${a.observaciones}`
+        ).join('\n\n');
+
+        knowledgeContext = `\n\n========================
+BASE DE CONOCIMIENTO — ACTUACIONES DETECTADAS (usa estas partidas como plantilla)
+========================
+
+${sections}
+
+INSTRUCCIÓN: Si alguna de estas actuaciones coincide con lo que pide el profesional, ÚSALA como plantilla base para las partidas. Adapta cantidades y añade o quita partidas según el contexto específico.`;
+      }
+    } catch (kbErr) {
+      console.warn('[knowledge-base] search error:', (kbErr as Error).message);
+    }
+
     // ── Step 3: Generate quote structure (Claude Haiku) ──────────────────────
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -396,7 +431,7 @@ Deno.serve(async (req: Request) => {
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 2048,
-        system: AI_SYSTEM_PROMPT,
+        system: AI_SYSTEM_PROMPT + knowledgeContext,
         messages: [{ role: 'user', content: `El profesional dice: "${transcript}"` }],
       }),
     });
