@@ -571,7 +571,7 @@ Usa las ACTUACIONES de la BASE DE CONOCIMIENTO como base. Si detectas que faltan
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
+        model: 'claude-sonnet-4-6',
         max_tokens: 4096,
         tools: [
           {
@@ -588,56 +588,69 @@ Usa las ACTUACIONES de la BASE DE CONOCIMIENTO como base. Si detectas que faltan
 
     if (!claudeRes.ok) {
       const err = await claudeRes.text();
-      // Si web_search no soportado, reintentar sin tool
-      if (claudeRes.status === 400 && err.includes('web_search')) {
-        console.warn('[claude] web_search not available, retrying without tool');
-        const retryRes = await fetch('https://api.anthropic.com/v1/messages', {
-          method: 'POST',
-          headers: {
-            'x-api-key': ANTHROPIC_API_KEY,
-            'anthropic-version': '2023-06-01',
-            'content-type': 'application/json',
-          },
-          body: JSON.stringify({
-            model: 'claude-haiku-4-5-20251001',
-            max_tokens: 4096,
-            system: AI_SYSTEM_PROMPT + knowledgeContext,
-            messages: [{ role: 'user', content: `El profesional dice: "${transcript}"` }],
-          }),
-        });
-        if (!retryRes.ok) {
-          const retryErr = await retryRes.text();
-          throw new Error(`Claude error ${retryRes.status}: ${retryErr}`);
-        }
-        const retryData = await retryRes.json() as { content: Array<{ type: string; text?: string }> };
-        const retryText = retryData.content.filter(b => b.type === 'text').map(b => b.text).join('');
-        let fallbackQuote: Record<string, unknown>;
-        try {
-          fallbackQuote = JSON.parse(retryText.replace(/```json?\n?/g, '').replace(/```/g, '').trim());
-        } catch {
-          fallbackQuote = { ...EMPTY_QUOTE };
-        }
-        if (orgId) await supabase.from('trade_ai_usage').insert({ org_id: orgId, feature: 'voice' });
-        return new Response(
-          JSON.stringify({ transcript, quote: fallbackQuote, actuacion_ids_matched: matchedActuacionIds }),
-          { headers: { ...CORS, 'Content-Type': 'application/json' } },
-        );
+      // Reintentar sin tool si hay error
+      console.warn('[claude] main call failed, retrying without tool. Status:', claudeRes.status);
+      const retryRes = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'x-api-key': ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-6',
+          max_tokens: 4096,
+          system: AI_SYSTEM_PROMPT + knowledgeContext,
+          messages: [{ role: 'user', content: `El profesional dice: "${transcript}"` }],
+        }),
+      });
+      if (!retryRes.ok) {
+        const retryErr = await retryRes.text();
+        throw new Error(`Claude error ${claudeRes.status} (original), retry ${retryRes.status}: ${retryErr.slice(0, 200)}`);
       }
-      throw new Error(`Claude error ${claudeRes.status}: ${err}`);
+      const retryData = await retryRes.json() as { content: Array<{ type: string; text?: string }> };
+      const retryRaw = retryData.content.filter(b => b.type === 'text').map(b => b.text ?? '').join('');
+      let fallbackQuote: Record<string, unknown>;
+      try {
+        const jsonMatch = retryRaw.match(/\{[\s\S]*\}/);
+        fallbackQuote = JSON.parse(jsonMatch?.[0] ?? '{}');
+      } catch {
+        fallbackQuote = { ...EMPTY_QUOTE };
+      }
+      if (orgId) await supabase.from('trade_ai_usage').insert({ org_id: orgId, feature: 'voice' });
+      return new Response(
+        JSON.stringify({ transcript, quote: fallbackQuote, actuacion_ids_matched: matchedActuacionIds }),
+        { headers: { ...CORS, 'Content-Type': 'application/json' } },
+      );
     }
 
     // Extraer texto del response (puede tener bloques de web_search_tool_result + text)
     const claudeData = await claudeRes.json() as { content: Array<{ type: string; text?: string }> };
     const textBlocks = claudeData.content.filter(b => b.type === 'text');
-    const rawText = textBlocks[textBlocks.length - 1]?.text ?? '{}';
+    const allText = textBlocks.map(b => b.text ?? '').join('');
 
     let quote: Record<string, unknown>;
     try {
-      const clean = rawText.replace(/```json?\n?/g, '').replace(/```/g, '').trim();
-      quote = JSON.parse(clean);
+      // Primero intentar el último bloque de texto (debería ser el JSON final)
+      const lastBlock = textBlocks[textBlocks.length - 1]?.text ?? '';
+      const clean = lastBlock.replace(/```json?\n?/g, '').replace(/```/g, '').trim();
+      // Si empieza con { lo parseamos directamente
+      if (clean.startsWith('{')) {
+        quote = JSON.parse(clean);
+      } else {
+        // Extraer JSON con regex del texto completo
+        const jsonMatch = allText.match(/\{[\s\S]*\}/);
+        quote = JSON.parse(jsonMatch?.[0] ?? '{}');
+      }
     } catch {
-      console.error('[claude] JSON parse failed, rawText:', rawText.slice(0, 200));
-      quote = { ...EMPTY_QUOTE };
+      console.error('[claude] JSON parse failed, trying regex extraction');
+      try {
+        const jsonMatch = allText.match(/\{[\s\S]*\}/);
+        quote = JSON.parse(jsonMatch?.[0] ?? '{}');
+      } catch {
+        console.error('[claude] total JSON parse failure, rawText sample:', allText.slice(0, 300));
+        quote = { ...EMPTY_QUOTE };
+      }
     }
 
     // ── Registrar uso en trade_ai_usage ──────────────────────────────────────

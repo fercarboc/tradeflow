@@ -1238,7 +1238,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     formData.append('audio', blob, `audio.${ext}`);
 
     const controller = new AbortController();
-    const fetchTimeout = setTimeout(() => controller.abort(), 60000);
+    const fetchTimeout = setTimeout(() => controller.abort(), 90000);
 
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -1598,6 +1598,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     if (isLiveMode) {
       setVoiceStep('thinking');
       setVoiceText(text);
+      const ctrl = new AbortController();
+      const textTimeout = setTimeout(() => ctrl.abort(), 90000);
       try {
         const { data: { session } } = await supabase.auth.getSession();
         const res = await fetch(
@@ -1609,8 +1611,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({ text }),
+            signal: ctrl.signal,
           },
         );
+        clearTimeout(textTimeout);
         if (!res.ok) {
           const err = await res.json().catch(() => ({ error: 'Error del servidor' }));
           if (err.limit_reached) { showToast(err.error ?? 'Límite alcanzado', 'error'); setVoiceStep('idle'); setShowUpgradeModal(true); return; }
@@ -1620,7 +1624,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         const result: { transcript: string; quote: AIQuote; actuacion_ids_matched?: string[] } = await res.json();
         handleVoiceResult(result.transcript || text, result.quote, result.actuacion_ids_matched ?? []);
       } catch (e: unknown) {
-        showToast('Error al procesar con IA: ' + (e instanceof Error ? e.message : String(e)), 'error');
+        clearTimeout(textTimeout);
+        const isAbort = (e as Error).name === 'AbortError';
+        showToast(isAbort ? 'La IA tardó demasiado — inténtalo de nuevo' : 'Error al procesar con IA: ' + (e instanceof Error ? e.message : String(e)), 'error');
         setVoiceStep('idle');
       }
     } else {
