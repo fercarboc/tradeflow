@@ -407,11 +407,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [showLoginModal, setShowLoginModal] = useState(loginOnMount && !session);
   const [isLiveMode, setIsLiveMode] = useState(false);
 
-  // Biometric login state
-  const [bioAvailable, setBioAvailable] = useState(false);
-  const [bioLoading, setBioLoading] = useState(false);
-  const [bioSavedEmail, setBioSavedEmail] = useState<string | null>(null);
   const loadedUserRef = useRef<string | null>(null);
+  const realtimeChannelRef = useRef<ReturnType<typeof supabase.channel> | null>(null);
 
   useEffect(() => {
     if (session) {
@@ -426,6 +423,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       setIsLiveMode(false);
       loadedUserRef.current = null;
     }
+    return () => {
+      if (realtimeChannelRef.current) {
+        supabase.removeChannel(realtimeChannelRef.current);
+        realtimeChannelRef.current = null;
+      }
+    };
   }, [session]);
 
   const loadLiveData = async (s: Session) => {
@@ -493,7 +496,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         if (org.logo_url) setLogoPreview(org.logo_url);
 
         // Real-time sync: reload jobs when another device adds/updates one
-        supabase
+        if (realtimeChannelRef.current) {
+          supabase.removeChannel(realtimeChannelRef.current);
+        }
+        realtimeChannelRef.current = supabase
           .channel(`jobs-${org.id}`)
           .on('postgres_changes', { event: '*', schema: 'public', table: 'trade_jobs', filter: `org_id=eq.${org.id}` }, () => {
             loadJobs(org.id).then(setJobs).catch(() => {});
@@ -505,54 +511,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     }
   };
 
-  // Biometric helpers
-  const supportsCredentials = () =>
-    typeof window !== 'undefined' &&
-    'credentials' in navigator &&
-    typeof (window as any).PasswordCredential !== 'undefined';
-
-  const storeLoginCredential = async (emailVal: string, passwordVal: string) => {
-    if (!supportsCredentials()) return;
-    try {
-      const cred = new (window as any).PasswordCredential({ id: emailVal, password: passwordVal, name: emailVal });
-      await navigator.credentials.store(cred);
-    } catch {}
-  };
-
-  const handleBiometricLogin = async () => {
-    if (!supportsCredentials()) return;
-    setBioLoading(true);
-    setLoginError('');
-    try {
-      const cred = await (navigator.credentials as any).get({ password: true, mediation: 'required' });
-      if (cred?.id && cred?.password) {
-        const { error } = await supabase.auth.signInWithPassword({ email: cred.id, password: cred.password });
-        if (error) setLoginError('Error al autenticar. Inicia sesión manualmente.');
-      } else {
-        setLoginError('No hay credenciales guardadas. Inicia sesión con email primero.');
-      }
-    } catch (e: any) {
-      if (!e?.message?.includes('cancel')) setLoginError('Autenticación cancelada o no disponible.');
-    }
-    setBioLoading(false);
-  };
-
-  // Try silent credential retrieval on mount to pre-fill email and show bio button
-  useEffect(() => {
-    if (!supportsCredentials()) return;
-    (navigator.credentials as any)
-      .get({ password: true, mediation: 'silent' })
-      .then((cred: any) => {
-        if (cred?.id) {
-          setBioSavedEmail(cred.id);
-          setBioAvailable(true);
-          setLoginEmail(cred.id);
-        } else {
-          setBioAvailable(true);
-        }
-      })
-      .catch(() => { setBioAvailable(true); });
-  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -561,7 +519,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     const { error } = await supabase.auth.signInWithPassword({ email: loginEmail, password: loginPassword });
     setLoginLoading(false);
     if (error) { setLoginError(error.message); return; }
-    await storeLoginCredential(loginEmail.trim(), loginPassword);
   };
 
   const handleLogout = async () => {
@@ -2227,35 +2184,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </button>
               </div>
 
-              {bioAvailable && (
-                <>
-                  <button
-                    type="button"
-                    onClick={handleBiometricLogin}
-                    disabled={bioLoading}
-                    className="w-full mb-4 py-3 px-4 bg-slate-950 border border-emerald-500/30 hover:border-emerald-500/60 rounded-xl text-white font-bold flex items-center justify-center gap-3 transition-all disabled:opacity-50 cursor-pointer"
-                  >
-                    {bioLoading ? (
-                      <div className="w-4 h-4 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
-                    ) : (
-                      <svg className="h-5 w-5 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 1C7.37 1 3.6 4.07 3.6 7.8c0 1.49.56 2.87 1.5 3.95M12 1c4.63 0 8.4 3.07 8.4 6.8 0 1.49-.56 2.87-1.5 3.95M8.1 19.5c-.33-1.18-.5-2.43-.5-3.7 0-2.43 1.97-4.4 4.4-4.4s4.4 1.97 4.4 4.4c0 1.79-.57 3.46-1.54 4.82M5.5 12.5C4.56 11.32 4 9.83 4 8.2 4 4.22 7.58 1 12 1s8 3.22 8 7.2c0 1.63-.56 3.12-1.5 4.3M7 16.8c0-2.65 2.24-4.8 5-4.8s5 2.15 5 4.8c0 2.13-.97 4.03-2.5 5.2" />
-                      </svg>
-                    )}
-                    <div className="text-left">
-                      <span className="block text-xs font-bold text-white">
-                        {bioSavedEmail ? `Entrar como ${bioSavedEmail}` : 'Huella / Face ID'}
-                      </span>
-                      <span className="block text-[10px] text-slate-400 font-normal">Acceso biométrico</span>
-                    </div>
-                  </button>
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="flex-1 h-px bg-white/10" />
-                    <span className="text-[9px] text-slate-500 uppercase tracking-widest">o usa email</span>
-                    <div className="flex-1 h-px bg-white/10" />
-                  </div>
-                </>
-              )}
 
               <form onSubmit={handleLogin} className="space-y-3">
                 <div className="space-y-1">
@@ -2821,22 +2749,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <p className="text-sm text-slate-400">Inicia sesión para continuar usando TradeFlow AI</p>
           </div>
           <div className="w-full max-w-xs space-y-3">
-            {bioAvailable && (
-              <button
-                onClick={handleBiometricLogin}
-                disabled={bioLoading}
-                className="w-full py-4 bg-slate-900 border border-emerald-500/40 rounded-2xl text-white font-bold flex items-center justify-center gap-3 cursor-pointer active:opacity-70 transition-opacity disabled:opacity-50"
-              >
-                {bioLoading ? (
-                  <div className="w-5 h-5 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
-                ) : (
-                  <svg className="h-6 w-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 1C7.37 1 3.6 4.07 3.6 7.8c0 1.49.56 2.87 1.5 3.95M12 1c4.63 0 8.4 3.07 8.4 6.8 0 1.49-.56 2.87-1.5 3.95M8.1 19.5c-.33-1.18-.5-2.43-.5-3.7 0-2.43 1.97-4.4 4.4-4.4s4.4 1.97 4.4 4.4c0 1.79-.57 3.46-1.54 4.82M5.5 12.5C4.56 11.32 4 9.83 4 8.2 4 4.22 7.58 1 12 1s8 3.22 8 7.2c0 1.63-.56 3.12-1.5 4.3M7 16.8c0-2.65 2.24-4.8 5-4.8s5 2.15 5 4.8c0 2.13-.97 4.03-2.5 5.2" />
-                  </svg>
-                )}
-                <span>{bioSavedEmail ? `Entrar como ${bioSavedEmail}` : 'Huella / Face ID'}</span>
-              </button>
-            )}
             <button
               onClick={() => { setIsSessionClosed(false); setShowLoginModal(true); }}
               className="w-full bg-blue-600 text-white font-bold py-4 rounded-2xl text-sm cursor-pointer active:opacity-80 transition-opacity"
@@ -8079,42 +7991,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           );
         })()}
 
-        {/* ── 7. Seguridad & Acceso (solo móvil) ── */}
-        {(isMobileMode || isNativeDevice) && (
-          <div className={sec}>
-            <div className="flex items-center gap-3 pb-3 border-b border-slate-100">
-              <div className="w-9 h-9 bg-violet-100 rounded-xl flex items-center justify-center shrink-0">
-                <Shield className="w-5 h-5 text-violet-600" />
-              </div>
-              <div>
-                <h3 className="font-black uppercase text-xs text-slate-700 tracking-wide">Seguridad & Acceso</h3>
-                <p className="text-[9px] text-slate-400 mt-0.5">Opciones de autenticación en este dispositivo</p>
-              </div>
-            </div>
-            <div className="flex items-center justify-between py-1">
-              <div>
-                <p className="text-xs font-bold text-slate-700">Acceso con biometría</p>
-                <p className="text-[10px] text-slate-400 mt-0.5">
-                  {typeof window !== 'undefined' && window.PublicKeyCredential
-                    ? 'Usa huella dactilar o Face ID para entrar a la app sin contraseña.'
-                    : 'Tu dispositivo no soporta autenticación biométrica.'}
-                </p>
-              </div>
-              {typeof window !== 'undefined' && window.PublicKeyCredential ? (
-                <button
-                  onClick={() => showToast('Biometría — próximamente en TradeFlow', 'info')}
-                  className="shrink-0 px-3 py-1.5 rounded-lg text-[10px] font-bold transition cursor-pointer bg-slate-100 text-slate-500 hover:bg-slate-200"
-                >
-                  Próximamente
-                </button>
-              ) : (
-                <span className="shrink-0 text-[10px] text-slate-400 font-mono">No disponible</span>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* ── 8. Notificaciones push ── */}
+        {/* ── 7. Notificaciones push ── */}
         {isLiveMode && 'Notification' in window && (
           <div className={sec}>
             <h3 className={secTitle}>Notificaciones</h3>

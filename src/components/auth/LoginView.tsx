@@ -6,11 +6,6 @@ interface LoginViewProps {
   setCurrentPage: (page: ActivePage) => void;
 }
 
-const supportsCredentials = () =>
-  typeof window !== 'undefined' &&
-  'credentials' in navigator &&
-  typeof (window as any).PasswordCredential !== 'undefined';
-
 export default function LoginView({ setCurrentPage }: LoginViewProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,36 +13,11 @@ export default function LoginView({ setCurrentPage }: LoginViewProps) {
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const [emailConfirmed, setEmailConfirmed] = useState(false);
-  const [bioAvailable, setBioAvailable] = useState(false);
-  const [bioLoading, setBioLoading] = useState(false);
-  const [savedEmail, setSavedEmail] = useState<string | null>(null);
 
   useEffect(() => {
     if (localStorage.getItem('trabflow_email_confirmed')) {
       localStorage.removeItem('trabflow_email_confirmed');
       setEmailConfirmed(true);
-    }
-    // Intentar obtener credenciales guardadas silenciosamente
-    if (supportsCredentials()) {
-      (navigator.credentials as any)
-        .get({ password: true, mediation: 'silent' })
-        .then((cred: any) => {
-          if (cred?.id) {
-            setSavedEmail(cred.id);
-            setBioAvailable(true);
-            setEmail(cred.id);
-            // Auto-login silencioso si hay credencial guardada
-            doLogin(cred.id, cred.password).catch(() => {
-              // Si falla el auto-login silencioso, solo pre-rellenar el email
-            });
-          } else if (supportsCredentials()) {
-            // No hay credencial silenciosa, pero la API existe — mostrar botón
-            setBioAvailable(true);
-          }
-        })
-        .catch(() => {
-          if (supportsCredentials()) setBioAvailable(true);
-        });
     }
   }, []);
 
@@ -59,54 +29,17 @@ export default function LoginView({ setCurrentPage }: LoginViewProps) {
     if (authError) throw authError;
   };
 
-  const storeCredential = async (emailVal: string, passwordVal: string) => {
-    if (!supportsCredentials()) return;
-    try {
-      const cred = new (window as any).PasswordCredential({
-        id: emailVal,
-        password: passwordVal,
-        name: emailVal,
-      });
-      await navigator.credentials.store(cred);
-    } catch {}
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
     try {
       await doLogin(email, password);
-      await storeCredential(email.trim(), password);
     } catch (authError: any) {
       setError(translateError(authError.message ?? ''));
     }
     setLoading(false);
   };
-
-  const handleBiometricLogin = async () => {
-    if (!supportsCredentials()) return;
-    setBioLoading(true);
-    setError(null);
-    try {
-      const cred = await (navigator.credentials as any).get({
-        password: true,
-        mediation: 'required',
-      });
-      if (cred?.id && cred?.password) {
-        await doLogin(cred.id, cred.password);
-      } else {
-        setError('No se encontraron credenciales guardadas.');
-      }
-    } catch (e: any) {
-      if (!e?.message?.includes('cancel')) {
-        setError('Autenticación cancelada o no disponible.');
-      }
-    }
-    setBioLoading(false);
-  };
-
-  const isMobileUA = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
 
   return (
     <div className="min-h-screen bg-[#020B16] flex items-center justify-center px-4">
@@ -126,47 +59,7 @@ export default function LoginView({ setCurrentPage }: LoginViewProps) {
           </div>
         )}
 
-        {/* Botón biométrico — solo si hay API y es móvil o hay credencial guardada */}
-        {bioAvailable && (isMobileUA || savedEmail) && (
-          <button
-            onClick={handleBiometricLogin}
-            disabled={bioLoading}
-            className="w-full mb-4 py-3.5 px-4 bg-[#0d1f38] border border-[#00CFE8]/30 hover:border-[#00CFE8]/60 rounded-2xl text-white font-bold flex items-center justify-center gap-3 transition-all disabled:opacity-50 cursor-pointer group"
-          >
-            {bioLoading ? (
-              <>
-                <svg className="animate-spin h-5 w-5 text-[#00CFE8]" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                </svg>
-                <span className="text-[#00CFE8]">Verificando...</span>
-              </>
-            ) : (
-              <>
-                {/* Fingerprint icon */}
-                <svg className="h-6 w-6 text-[#00CFE8] group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 1C7.37 1 3.6 4.07 3.6 7.8c0 1.49.56 2.87 1.5 3.95M12 1c4.63 0 8.4 3.07 8.4 6.8 0 1.49-.56 2.87-1.5 3.95M12 1v0M8.1 19.5c-.33-1.18-.5-2.43-.5-3.7 0-2.43 1.97-4.4 4.4-4.4s4.4 1.97 4.4 4.4c0 1.79-.57 3.46-1.54 4.82M12 11.1v0M9.6 23c.07-2.3.9-4.4 2.23-6.06M14.4 23c-.34-1.54-1-2.95-1.92-4.13" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5.5 12.5C4.56 11.32 4 9.83 4 8.2 4 4.22 7.58 1 12 1s8 3.22 8 7.2c0 1.63-.56 3.12-1.5 4.3M7 16.8c0-2.65 2.24-4.8 5-4.8s5 2.15 5 4.8c0 2.13-.97 4.03-2.5 5.2" />
-                </svg>
-                <div className="text-left">
-                  <span className="block text-sm font-bold text-white">
-                    {savedEmail ? `Entrar como ${savedEmail}` : 'Entrar con huella / Face ID'}
-                  </span>
-                  <span className="block text-[10px] text-white/40 font-normal">Acceso biométrico rápido</span>
-                </div>
-              </>
-            )}
-          </button>
-        )}
-
         <div className="bg-[#0d1f38] rounded-2xl border border-white/10 p-8 shadow-2xl">
-          {bioAvailable && (isMobileUA || savedEmail) && (
-            <div className="flex items-center gap-3 mb-5">
-              <div className="flex-1 h-px bg-white/10" />
-              <span className="text-[10px] text-white/30 uppercase tracking-widest">o entra con email</span>
-              <div className="flex-1 h-px bg-white/10" />
-            </div>
-          )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
