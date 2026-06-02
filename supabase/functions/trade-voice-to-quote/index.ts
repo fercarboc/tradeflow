@@ -71,12 +71,17 @@ CATÁLOGO DE OFICIOS (€/hora)
   "pintura":               { "min": 22, "recomendado": 32, "max": 45 },
   "albanileria":           { "min": 28, "recomendado": 40, "max": 60 },
   "carpinteria":           { "min": 30, "recomendado": 45, "max": 65 },
+  "suelos_tarimas":        { "min": 22, "recomendado": 32, "max": 45, "nota": "€/m² colocación" },
+  "pladur_escayola":       { "min": 25, "recomendado": 35, "max": 50 },
   "cerrajeria":            { "min": 40, "recomendado": 60, "max": 90 },
   "mecanica":              { "min": 35, "recomendado": 55, "max": 85 },
   "mecanica_especializada":{ "min": 45, "recomendado": 65, "max": 95 },
   "informatica":           { "min": 35, "recomendado": 60, "max": 95 },
   "instalador_cctv":       { "min": 35, "recomendado": 50, "max": 75 },
   "persianas":             { "min": 30, "recomendado": 45, "max": 65 },
+  "energia_solar":         { "min": 45, "recomendado": 65, "max": 90 },
+  "telecomunicaciones":    { "min": 35, "recomendado": 50, "max": 75 },
+  "cristaleria":           { "min": 30, "recomendado": 45, "max": 65 },
   "multiservicio":         { "min": 25, "recomendado": 38, "max": 55 }
 }
 
@@ -167,6 +172,37 @@ OTROS EJEMPLOS DE DETECCIÓN:
 - "cambiar ventanas": carpinteria (desmontaje + instalación) + suministro ventanas (precio=0)
 - "instalar suelo laminado": albanileria (preparación) + carpinteria (colocación) + material (precio=0)
 - "reforma de fachada": albanileria + pintura + material (precio=0)
+
+========================
+REGLAS PARA SUELOS Y TARIMAS (parquet, laminado, vinilo, tarima, moqueta)
+========================
+
+Cuando el usuario diga: cambiar parquet, instalar tarima, colocar suelo laminado, cambiar suelo, suelo vinílico, suelo de madera, moqueta, suelo de baldosas, suelo técnico…
+
+tipo_presupuesto: "reforma"
+oficio principal: suelos_tarimas
+
+Partidas SIEMPRE por m²:
+1. concepto:"Levantado y retirada de pavimento existente" | oficio:albanileria | mano_obra | cantidad: m² indicados | precio_unitario: 8 €/m² | total: m² × 8
+2. concepto:"Suministro de [tipo de suelo indicado]" | oficio:suelos_tarimas | material | precio_unitario: 0 | requiere_revision: true | motivo: "Precio varía según calidad y marca del suelo"
+3. concepto:"Colocación de [tipo de suelo] incluyendo rodapié" | oficio:suelos_tarimas | mano_obra | unidad: m2 | cantidad: m² indicados | precio_unitario: 32 | total: m² × 32
+4. SI hay preparación de base: concepto:"Autonivelante/preparación de base" | oficio:albanileria | mano_obra | cantidad: m² | precio_unitario: 5 | total: m² × 5
+
+EJEMPLO — "cambiar parquet en 100m2":
+1. Levantado pavimento existente: 100m² × 8€ = 800€
+2. Suministro parquet (precio=0, requiere_revision)
+3. Colocación parquet + rodapié: 100m² × 32€ = 3.200€
+4. Preparación base: 100m² × 5€ = 500€
+Total mano obra estimada: 4.500€ (material pendiente de definir)
+
+========================
+REGLAS PARA PLADUR Y ESCAYOLA
+========================
+
+Cuando el usuario diga: pladur, tabique, trasdosado, falso techo, escayola, tabiquería seca…
+tipo_presupuesto: "reforma"
+oficio: pladur_escayola
+Partidas por m²: estructura metálica + placa pladur (material, precio=0) + colocación (35€/m²)
 
 REGLA ANTI-ERROR: Si el usuario describe una reforma, obra o trabajos de instalación → tipo_presupuesto: "reforma". NUNCA confundas una reforma con un servicio de mantenimiento recurrente.
 

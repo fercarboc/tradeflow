@@ -2613,19 +2613,24 @@ export async function createQuoteToken(
 }
 
 export async function getQuoteByToken(token: string): Promise<QuoteToken | null> {
-  const { data, error } = await supabase.functions.invoke('trade-quote-public', {
-    body: { token, action: 'get' },
+  const res = await fetch(`${SUPABASE_URL}/functions/v1/trade-quote-public`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
+    body: JSON.stringify({ token, action: 'get' }),
   });
-  if (error) throw error;
-  return (data?.data ?? null) as QuoteToken | null;
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const json = await res.json();
+  return (json.data ?? null) as QuoteToken | null;
 }
 
 export async function respondQuoteToken(token: string, action: 'accepted' | 'rejected'): Promise<void> {
   const edgeAction = action === 'accepted' ? 'accept' : 'reject';
-  const { error } = await supabase.functions.invoke('trade-quote-public', {
-    body: { token, action: edgeAction },
+  const res = await fetch(`${SUPABASE_URL}/functions/v1/trade-quote-public`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
+    body: JSON.stringify({ token, action: edgeAction }),
   });
-  if (error) throw error;
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
 }
 
 // ── Org templates ─────────────────────────────────────────────────────────────
