@@ -213,26 +213,35 @@ Cuando el usuario mencione: instalar piscina, construir piscina, piscina en chal
 tipo_presupuesto: "reforma"
 oficios: albanileria + fontaneria + electricidad (siempre los tres)
 
-Partidas a generar SIEMPRE para piscina nueva:
-1. concepto:"Replanteo, excavación y movimiento de tierras para vaso de piscina" | oficio:albanileria | mano_obra | precio_unitario: 40 €/h | estimar horas según tamaño
-2. concepto:"Suministro de hormigón armado y materiales estructura vaso" | oficio:albanileria | material | precio_unitario: 0 | requiere_revision: true | motivo: "Precio varía según dimensiones y tipo de piscina"
-3. concepto:"Construcción estructura vaso piscina (encofrado, ferrallado, hormigonado)" | oficio:albanileria | mano_obra | precio_unitario: 40 €/h
-4. concepto:"Impermeabilización interior vaso piscina" | oficio:albanileria | mano_obra | precio_unitario: 40 €/h | unidad: m2
-5. concepto:"Suministro e instalación sistema de filtración y depuradora" | oficio:fontaneria | material | precio_unitario: 0 | requiere_revision: true
-6. concepto:"Instalación red hidráulica piscina (tuberías, skimmer, boquillas de impulsión y retorno)" | oficio:fontaneria | mano_obra | precio_unitario: 50 €/h
-7. concepto:"Instalación eléctrica bomba depuradora, iluminación subacuática y cuadro de control" | oficio:electricidad | mano_obra | precio_unitario: 50 €/h
-8. concepto:"Suministro e instalación liner/gresite/azulejo acabado interior" | oficio:albanileria | material | precio_unitario: 0 | requiere_revision: true
-9. concepto:"Colocación acabados interiores vaso (gresite/liner/azulejo)" | oficio:albanileria | mano_obra | precio_unitario: 40 €/h | unidad: m2
-10. concepto:"Suministro e instalación escalera/escalinata piscina" | oficio:albanileria | material | precio_unitario: 0 | requiere_revision: true
-11. concepto:"Solado perimetral (terraza/bordillo piscina)" | oficio:albanileria | mano_obra | precio_unitario: 35 €/h | unidad: m2
+Partidas a generar SIEMPRE para piscina nueva de obra:
+1. concepto:"Replanteo, excavación y movimiento de tierras para vaso de piscina" | oficio:albanileria | mano_obra | unidad:m3 | cantidad: largo×ancho×2.5 | precio_unitario: 40 | total: cantidad×40
+2. concepto:"Retirada y transporte de tierras excavadas" | oficio:albanileria | mano_obra | unidad:m3 | cantidad: mismo que excavación | precio_unitario: 22 | total: cantidad×22
+3. concepto:"Suministro de hormigón armado y ferralla para estructura vaso" | oficio:albanileria | material | precio_unitario: 0 | requiere_revision: true
+4. concepto:"Construcción estructura vaso piscina (encofrado, ferrallado, hormigonado)" | oficio:albanileria | mano_obra | unidad:m2 | cantidad: superficie_vaso=(largo×ancho)+(2×(largo+ancho)×1.5) | precio_unitario: 55 | total: cantidad×55
+5. concepto:"Impermeabilización interior vaso piscina" | oficio:albanileria | mano_obra | unidad:m2 | cantidad: misma superficie_vaso | precio_unitario: 28 | total: cantidad×28
+6. concepto:"Suministro e instalación skimmer, sumidero y boquillas de impulsión/retorno" | oficio:fontaneria | material | precio_unitario: 380 | requiere_revision: false
+7. concepto:"Instalación red hidráulica PVC piscina (tuberías, conexiones, accesorios)" | oficio:fontaneria | mano_obra | unidad:h | cantidad: 16 | precio_unitario: 50 | total: 800
+8. concepto:"Suministro e instalación depuradora + bomba piscina (filtro arena + bomba)" | oficio:fontaneria | material | precio_unitario: 1200 | requiere_revision: true | motivo: "Precio varía según volumen piscina y marca"
+9. concepto:"Instalación eléctrica bomba depuradora y cuadro de control piscina" | oficio:electricidad | mano_obra | unidad:h | cantidad: 8 | precio_unitario: 50 | total: 400
+10. concepto:"Suministro e instalación revestimiento interior gresite/liner" | oficio:albanileria | material | precio_unitario: 0 | requiere_revision: true
+11. concepto:"Colocación acabados interiores vaso (gresite/liner/azulejo)" | oficio:albanileria | mano_obra | unidad:m2 | cantidad: superficie_vaso | precio_unitario: 42 | total: cantidad×42
+12. concepto:"Coronación y solado perimetral piscina" | oficio:albanileria | mano_obra | unidad:ml | cantidad: 2×(largo+ancho) | precio_unitario: 75 | total: cantidad×75
+13. concepto:"Llenado, puesta en marcha y tratamiento inicial del agua" | oficio:fontaneria | servicio | unidad:ud | cantidad: 1 | precio_unitario: 250 | total: 250
 
-Para piscina prefabricada (fibra/poliéster): reducir partidas, enfatizar suministro prefabricado (precio=0, requiere_revision) + instalación hidráulica + eléctrica.
-Para reforma de piscina existente: solo las partidas afectadas (ej: solo cambio liner, solo renovación depuradora).
+EJEMPLOS CON CÁLCULOS:
+- "piscina 8x4 metros":
+  * excavacion_m3 = 8×4×2.5 = 80m3
+  * superficie_vaso_m2 = (8×4)+(2×(8+4)×1.5) = 32+36 = 68m2
+  * coronacion_ml = 2×(8+4) = 24ml
+  * Partida 1: 80m3 × 40€ = 3.200€ excavación
+  * Partida 2: 80m3 × 22€ = 1.760€ retirada tierras
+  * Partida 4: 68m2 × 55€ = 3.740€ estructura
+  * Partida 5: 68m2 × 28€ = 1.904€ impermeabilización
+  * Partida 11: 68m2 × 42€ = 2.856€ revestimiento
+  * Partida 12: 24ml × 75€ = 1.800€ coronación
 
-EJEMPLOS:
-- "instalar piscina 8x4 en chalet": albanileria (estructura+acabados) + fontaneria (hidráulica) + electricidad (bomba+luz)
-- "cambiar el liner de la piscina": albanileria mano_obra (vaciado, retirada liner viejo, colocación nuevo) + material liner (precio=0)
-- "instalar jacuzzi exterior": fontaneria (conexión agua) + electricidad (bomba+calefacción) + albanileria (base/bancada si es necesaria)
+Para piscina prefabricada (fibra/poliéster): eliminar partidas 3-5 y 10-11. Añadir suministro piscina prefabricada (precio=0, requiere_revision) + excavación + instalación hidráulica + eléctrica.
+Para reforma piscina existente: solo las partidas afectadas.
 
 ========================
 REGLAS PARA PUERTAS Y CARPINTERÍA ESPECIAL
@@ -264,32 +273,14 @@ ARMARIOS A MEDIDA (empotrados, modulares):
 - oficio: carpinteria
 - Partidas: diseño/medición + suministro materiales/módulos (precio=0) + montaje e instalación
 
-EJEMPLOS:
-- "puerta de madera resistente al fuego": carpinteria — desmontaje + suministro puerta RF (precio=0) + instalación
-- "puerta cortafuegos para el garaje": cerrajeria — desmontaje + suministro puerta metálica RF EI60 (precio=0) + instalación
-- "cambiar ventanas por PVC con doble acristalamiento": carpinteria — desmontaje + suministro ventanas PVC (precio=0) + instalación + sellado
-
 ========================
-REGLAS PARA INSTALACIONES ESPECIALES (PISCINAS, ASCENSORES, SOLAR, DOMÓTICA)
+REGLAS PARA INSTALACIONES ESPECIALES
 ========================
 
 Cuando no encuentres el oficio exacto en el catálogo, NO inventes precios. En su lugar:
 - Usa el oficio más cercano para la mano de obra (albanileria, fontaneria, electricidad, etc.)
 - Marca los suministros y equipos especializados como material precio=0 + requiere_revision=true
 - Añade la sugerencia al catálogo con nuevo_oficio: true
-- Crea una alerta en resumen.alertas explicando qué requiere revisión
-
-Ejemplos de trabajos especiales y a qué oficios mapear:
-- Ascensor doméstico → electricidad (instalación) + albanileria (obra civil hueco)
-- Paneles solares fotovoltaicos → energia_solar o electricidad si no existe
-- Domótica / automatización → telecomunicaciones o electricidad
-- Riego automático jardín → fontaneria + jardineria
-- Barbacoa de obra → albanileria
-- Chimenea de obra / hogar → albanileria + albanileria (suministro material precio=0)
-- Sauna / baño turco → albanileria + fontaneria + electricidad
-- Pérgola de madera → carpinteria
-- Pérgola de aluminio → cerrajeria o carpinteria
-- Cerramiento de terraza → carpinteria (vidrio/PVC) o cerrajeria (aluminio)
 
 REGLA ANTI-ERROR: Si el usuario describe una reforma, obra o trabajos de instalación → tipo_presupuesto: "reforma". NUNCA confundas una reforma con un servicio de mantenimiento recurrente.
 
@@ -337,19 +328,12 @@ JSON válido. Sin markdown. Sin texto fuera del JSON.
     "total": 0
   },
   "sugerencias_catalogo": [],
-  "partidas_nuevas_detectadas": [
-    {
-      "concepto": "",
-      "oficio": "",
-      "fuente": "web",
-      "motivo": ""
-    }
-  ]
+  "partidas_nuevas_detectadas": []
 }
 
 tipo_partida: "mano_obra" | "material" | "servicio"
-unidad: "hora" | "unidad" | "m2" | "mes" | "servicio" | "jornada" | "kit"
-precio_origen: "catalogo" | "usuario" | "estimado" | "pendiente" | "web"
+unidad: "hora" | "unidad" | "m2" | "m3" | "ml" | "mes" | "servicio" | "jornada" | "kit"
+precio_origen: "catalogo" | "usuario" | "estimado" | "pendiente" | "tarifa_instalador"
 
 IMPORTANTE: Los calculos.subtotal, calculos.iva y calculos.total deben ser la suma real de todos los totales de partidas.`;
 
@@ -360,6 +344,111 @@ const EMPTY_QUOTE = {
   calculos: { subtotal: 0, iva_porcentaje: 21, iva: 0, total: 0 },
   sugerencias_catalogo: [],
 };
+
+// ── Enriquece precios de partidas con tarifas del instalador ──────────────────
+// Arquitectura: IA genera partidas (ya sabe lo que necesita un trabajo)
+// Catálogo traduce partidas → artículos tarifables reales con precio del instalador
+interface Partida {
+  concepto?: string;
+  tipo_partida?: string;
+  requiere_revision?: boolean;
+  precio_unitario?: number;
+  cantidad?: number;
+  total?: number;
+  precio_origen?: string;
+  catalog_codigo?: string;
+}
+
+interface Calculos {
+  subtotal: number;
+  iva_porcentaje: number;
+  iva: number;
+  total: number;
+}
+
+async function enrichWithCatalogPrices(
+  supabase: ReturnType<typeof createClient>,
+  orgId: string,
+  quote: Record<string, unknown>,
+): Promise<void> {
+  const partidas = quote.partidas as Partida[] | undefined;
+  if (!partidas || partidas.length === 0) return;
+
+  // Cargar tarifas del instalador (primero) y catálogo global (fallback)
+  const [{ data: tarifas }, { data: globalItems }] = await Promise.all([
+    supabase
+      .from('trade_tarifas')
+      .select('descripcion, precio_base, unidad, codigo')
+      .eq('org_id', orgId)
+      .eq('activo', true),
+    supabase
+      .from('trade_global_catalog')
+      .select('descripcion, precio_referencia, unidad, codigo, oficio')
+      .eq('activo', true)
+      .gt('precio_referencia', 0),  // solo items con precio de referencia real
+  ]);
+
+  const allItems = [
+    ...(tarifas ?? []).map((t: Record<string, unknown>) => ({ ...t, precio: t.precio_base, fuente: 'tarifa_instalador' })),
+    ...(globalItems ?? []).map((g: Record<string, unknown>) => ({ ...g, precio: g.precio_referencia, fuente: 'catalogo_global' })),
+  ] as Array<{ descripcion: string; precio: number; unidad: string; codigo: string; fuente: string }>;
+
+  if (allItems.length === 0) return;
+
+  let recalculated = false;
+
+  for (const partida of partidas) {
+    // Solo enriquecer partidas que ya tienen precio estimado (mano_obra o servicios con precio)
+    // No tocar partidas de materiales marcadas requiere_revision (precio=0 pendiente)
+    if (partida.requiere_revision && (partida.precio_unitario ?? 0) === 0) continue;
+
+    const concepto = (partida.concepto ?? '').toLowerCase();
+    // Extraer palabras clave de más de 4 letras del concepto
+    const keywords = concepto
+      .split(/[\s,+()\/\-]+/)
+      .filter((w: string) => w.length > 4);
+
+    if (keywords.length === 0) continue;
+
+    // Buscar mejor coincidencia: tarifa instalador primero, luego catálogo global
+    const instaladorMatch = (tarifas ?? []).find((t: Record<string, unknown>) => {
+      const desc = String(t.descripcion ?? '').toLowerCase();
+      return keywords.some((kw: string) => desc.includes(kw));
+    });
+
+    const globalMatch = !instaladorMatch
+      ? (globalItems ?? []).find((g: Record<string, unknown>) => {
+          const desc = String(g.descripcion ?? '').toLowerCase();
+          return keywords.some((kw: string) => desc.includes(kw));
+        })
+      : null;
+
+    const match = instaladorMatch
+      ? { descripcion: instaladorMatch.descripcion, precio: Number(instaladorMatch.precio_base), codigo: String(instaladorMatch.codigo), fuente: 'tarifa_instalador' }
+      : globalMatch
+      ? { descripcion: globalMatch.descripcion, precio: Number(globalMatch.precio_referencia), codigo: String(globalMatch.codigo), fuente: 'catalogo_global' }
+      : null;
+
+    if (match && match.precio > 0) {
+      partida.precio_unitario = match.precio;
+      partida.total = (partida.cantidad ?? 1) * match.precio;
+      partida.precio_origen = match.fuente;
+      partida.catalog_codigo = match.codigo;
+      recalculated = true;
+    }
+  }
+
+  // Recalcular totales si alguna partida fue enriquecida
+  if (recalculated) {
+    const subtotal = partidas.reduce((s: number, p: Partida) => s + (p.total ?? 0), 0);
+    const calculos = quote.calculos as Calculos | undefined;
+    if (calculos) {
+      calculos.subtotal = Math.round(subtotal * 100) / 100;
+      calculos.iva = Math.round(subtotal * 0.21 * 100) / 100;
+      calculos.total = Math.round(subtotal * 1.21 * 100) / 100;
+    }
+  }
+}
 
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
@@ -424,7 +513,7 @@ Deno.serve(async (req: Request) => {
         });
       }
     } else {
-      // ── Step 1: Receive audio ──────────────────────────────────────────────
+      // ── Recibir audio ──────────────────────────────────────────────────────
       const formData = await req.formData();
       const audioFile = formData.get('audio') as File | null;
       if (!audioFile) {
@@ -433,15 +522,13 @@ Deno.serve(async (req: Request) => {
         });
       }
 
-      // Validar tamaño mínimo (audio muy corto/vacío falla en Whisper)
       if (audioFile.size < 100) {
         return new Response(JSON.stringify({ error: 'Audio demasiado corto — habla un poco más tiempo' }), {
           status: 422, headers: { ...CORS, 'Content-Type': 'application/json' },
         });
       }
 
-      // ── Step 2: Transcription (OpenAI Whisper) ─────────────────────────────
-      // Preservar extensión original para que Whisper detecte el formato correctamente
+      // ── Transcripción (OpenAI Whisper) ─────────────────────────────────────
       const originalName = audioFile.name || 'audio.webm';
       const whisperForm = new FormData();
       whisperForm.append('file', audioFile, originalName);
@@ -480,57 +567,9 @@ Deno.serve(async (req: Request) => {
       }), { status: 403, headers: { ...CORS, 'Content-Type': 'application/json' } });
     }
 
-    // ── Step 2.5: Search knowledge base for matching actuaciones ─────────────
-    let knowledgeContext = '';
-    let matchedActuacionIds: string[] = [];
-    let kbScore = 0;
-
-    try {
-      const { data: actuaciones } = await supabase.rpc('search_actuaciones_scored', {
-        p_transcript: transcript.slice(0, 500),
-        p_limit: 4,
-      }) as { data: Array<{
-        actuacion_id: string; oficio: string;
-        partidas_obligatorias: string[]; partidas_auxiliares: string[];
-        reglas_calculo: string; unidad: string; observaciones: string; score: number;
-      }> | null };
-
-      if (actuaciones && actuaciones.length > 0) {
-        matchedActuacionIds = actuaciones.map(a => a.actuacion_id);
-        kbScore = actuaciones[0].score ?? 0;
-
-        const sections = actuaciones.map(a =>
-          `ACTUACION: ${a.actuacion_id}
-OFICIO: ${a.oficio}
-PARTIDAS_OBLIGATORIAS: ${a.partidas_obligatorias.join(', ')}
-PARTIDAS_AUXILIARES: ${a.partidas_auxiliares.join(', ')}
-REGLAS_CALCULO: ${a.reglas_calculo}
-UNIDAD: ${a.unidad}
-OBSERVACIONES: ${a.observaciones}`
-        ).join('\n\n');
-
-        knowledgeContext = `\n\n========================
-BASE DE CONOCIMIENTO — ACTUACIONES DETECTADAS (score: ${kbScore.toFixed(2)})
-========================
-
-${sections}
-
-INSTRUCCIÓN: Usa estas actuaciones como plantilla base para las partidas. Adapta cantidades y añade o quita partidas según el contexto específico.`;
-      } else {
-        knowledgeContext = `\n\n========================
-BASE DE CONOCIMIENTO — SIN COINCIDENCIAS
-========================
-No se encontraron plantillas para este trabajo. Aplica las REGLAS DEL SISTEMA PROMPT y genera el presupuesto completo con todas las partidas necesarias para este tipo de trabajo.`;
-      }
-    } catch (kbErr) {
-      console.warn('[knowledge-base] search error:', (kbErr as Error).message);
-    }
-
-    // ── Step 3: Generate quote structure (Claude Haiku — sin web search para máxima velocidad) ──
-    const userMessage = matchedActuacionIds.length > 0
-      ? `El profesional dice: "${transcript}"\n\nUsa las ACTUACIONES de la BASE DE CONOCIMIENTO como base y genera el presupuesto completo.`
-      : `El profesional dice: "${transcript}"\n\nNo hay plantillas en la base de conocimiento para este trabajo. Aplica las REGLAS DEL SISTEMA PROMPT para generar el presupuesto completo con todas las partidas necesarias.`;
-
+    // ── Generar presupuesto con IA (Haiku — velocidad máxima ~3-5s) ───────────
+    // Arquitectura: la IA ya sabe qué necesita cada trabajo (piscina, reforma, etc.)
+    // No depende del KB (trade_actuaciones). El catálogo enriquece precios DESPUÉS.
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -539,10 +578,10 @@ No se encontraron plantillas para este trabajo. Aplica las REGLAS DEL SISTEMA PR
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
+        model: 'claude-haiku-4-5-20251001',
         max_tokens: 4096,
-        system: AI_SYSTEM_PROMPT + knowledgeContext,
-        messages: [{ role: 'user', content: userMessage }],
+        system: AI_SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: `El profesional dice: "${transcript}"` }],
       }),
     });
 
@@ -556,12 +595,10 @@ No se encontraron plantillas para este trabajo. Aplica las REGLAS DEL SISTEMA PR
 
     let quote: Record<string, unknown>;
     try {
-      // Intentar parsear directamente si empieza con {
       const trimmed = allText.replace(/```json?\n?/g, '').replace(/```/g, '').trim();
       if (trimmed.startsWith('{')) {
         quote = JSON.parse(trimmed);
       } else {
-        // Extraer el bloque JSON con regex
         const jsonMatch = allText.match(/\{[\s\S]*\}/);
         quote = JSON.parse(jsonMatch?.[0] ?? '{}');
       }
@@ -570,27 +607,27 @@ No se encontraron plantillas para este trabajo. Aplica las REGLAS DEL SISTEMA PR
       quote = { ...EMPTY_QUOTE };
     }
 
-    // ── Registrar uso en trade_ai_usage ──────────────────────────────────────
+    // ── Enriquecer precios con catálogo del instalador ────────────────────────
+    // INTENCIÓN (IA) → PARTIDAS (IA genera) → ARTÍCULOS (catálogo precio) → PRESUPUESTO
+    if (orgId && quote.partidas) {
+      await enrichWithCatalogPrices(supabase, orgId, quote);
+    }
+
+    // ── Registrar uso ─────────────────────────────────────────────────────────
     if (orgId) {
-      await supabase.from('trade_ai_usage').insert({
+      supabase.from('trade_ai_usage').insert({
         org_id: orgId,
         feature: 'voice',
         metadata: {
-          kb_score: kbScore,
-          actuaciones_used: matchedActuacionIds.length,
-          web_search_used: false,
-          partidas_nuevas: ((quote as Record<string, unknown[]>).partidas_nuevas_detectadas ?? []).length,
+          model: 'haiku',
+          catalog_enriched: true,
+          partidas_count: ((quote as Record<string, unknown[]>).partidas ?? []).length,
         },
-      });
-    }
-
-    // ── Incrementar uso de actuaciones (para scoring futuro) ─────────────────
-    if (matchedActuacionIds.length > 0) {
-      supabase.rpc('increment_actuacion_usage', { p_actuacion_ids: matchedActuacionIds }).then(() => {/* fire-and-forget */});
+      }).then(() => {/* fire-and-forget */});
     }
 
     return new Response(
-      JSON.stringify({ transcript, quote, actuacion_ids_matched: matchedActuacionIds }),
+      JSON.stringify({ transcript, quote }),
       { headers: { ...CORS, 'Content-Type': 'application/json' } },
     );
 
