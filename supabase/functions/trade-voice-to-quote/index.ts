@@ -294,28 +294,6 @@ Ejemplos de trabajos especiales y a qué oficios mapear:
 REGLA ANTI-ERROR: Si el usuario describe una reforma, obra o trabajos de instalación → tipo_presupuesto: "reforma". NUNCA confundas una reforma con un servicio de mantenimiento recurrente.
 
 ========================
-BÚSQUEDA WEB — CUÁNDO Y CÓMO USARLA
-========================
-
-Tienes acceso a la herramienta de búsqueda web. Úsala así:
-
-CUANDO BUSCAR (obligatorio):
-- Si la BASE DE CONOCIMIENTO está vacía o tiene score < 0.3 para el trabajo descrito → BUSCA SIEMPRE
-- Si el trabajo descrito involucra instalaciones poco comunes (piscinas, ascensores, domótica, energía solar, etc.) → BUSCA
-- Si la descripción es muy específica y las plantillas existentes no la cubren bien → BUSCA
-
-QUÉ BUSCAR:
-- "presupuesto [tipo de trabajo] partidas instalador España 2024"
-- "cómo hacer presupuesto de [trabajo] paso a paso"
-- "partidas presupuesto [oficio] [trabajo específico] España"
-
-CÓMO USAR EL RESULTADO WEB:
-1. Compara las partidas encontradas en internet con las que ya tienes en la BASE DE CONOCIMIENTO
-2. Si internet tiene partidas adicionales importantes que NO están en nuestra base → inclúyelas en "partidas" Y en "partidas_nuevas_detectadas"
-3. Si nuestra base ya era suficientemente completa → "partidas_nuevas_detectadas" queda vacío
-4. Marca las partidas que vienen de internet con precio_origen: "web"
-
-========================
 FORMATO DE SALIDA OBLIGATORIO
 ========================
 
@@ -542,26 +520,16 @@ INSTRUCCIÓN: Si alguna de estas actuaciones coincide con lo que pide el profesi
         knowledgeContext = `\n\n========================
 BASE DE CONOCIMIENTO — SIN COINCIDENCIAS
 ========================
-No se encontraron plantillas para este tipo de trabajo en la base de conocimiento local. USA LA BÚSQUEDA WEB para encontrar qué partidas incluye normalmente este trabajo en España.`;
+No se encontraron plantillas para este trabajo. Aplica las REGLAS DEL SISTEMA PROMPT y genera el presupuesto completo con todas las partidas necesarias para este tipo de trabajo.`;
       }
     } catch (kbErr) {
       console.warn('[knowledge-base] search error:', (kbErr as Error).message);
     }
 
-    // ── Step 3: Generate quote structure (Claude Haiku + Web Search) ──────────
-    // Si no hay KB o el score es bajo → forzar búsqueda web
-    const needsWebSearch = matchedActuacionIds.length === 0 || kbScore < 0.3;
-
-    const userMessage = needsWebSearch
-      ? `El profesional dice: "${transcript}"
-
-La BASE DE CONOCIMIENTO no tiene plantillas suficientes para este trabajo (score: ${kbScore.toFixed(2)}).
-DEBES usar la búsqueda web para encontrar qué partidas incluye este tipo de trabajo en España.
-Busca "presupuesto ${transcript.slice(0, 60)} partidas instalador España" o similar.
-Genera el presupuesto más completo posible y reporta en "partidas_nuevas_detectadas" las partidas que encontraste en internet.`
-      : `El profesional dice: "${transcript}"
-
-Usa las ACTUACIONES de la BASE DE CONOCIMIENTO como base. Si detectas que faltan partidas importantes comparado con la práctica real, usa la búsqueda web para completarlas y repórtalas en "partidas_nuevas_detectadas".`;
+    // ── Step 3: Generate quote structure (Claude Haiku — sin web search para máxima velocidad) ──
+    const userMessage = matchedActuacionIds.length > 0
+      ? `El profesional dice: "${transcript}"\n\nUsa las ACTUACIONES de la BASE DE CONOCIMIENTO como base y genera el presupuesto completo.`
+      : `El profesional dice: "${transcript}"\n\nNo hay plantillas en la base de conocimiento para este trabajo. Aplica las REGLAS DEL SISTEMA PROMPT para generar el presupuesto completo con todas las partidas necesarias.`;
 
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -571,16 +539,8 @@ Usa las ACTUACIONES de la BASE DE CONOCIMIENTO como base. Si detectas que faltan
         'content-type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
+        model: 'claude-haiku-4-5-20251001',
         max_tokens: 4096,
-        tools: [
-          {
-            type: 'web_search_20250305',
-            name: 'web_search',
-            max_uses: 2,
-          }
-        ],
-        tool_choice: needsWebSearch ? { type: 'any' } : { type: 'auto' },
         system: AI_SYSTEM_PROMPT + knowledgeContext,
         messages: [{ role: 'user', content: userMessage }],
       }),
@@ -588,69 +548,26 @@ Usa las ACTUACIONES de la BASE DE CONOCIMIENTO como base. Si detectas que faltan
 
     if (!claudeRes.ok) {
       const err = await claudeRes.text();
-      // Reintentar sin tool si hay error
-      console.warn('[claude] main call failed, retrying without tool. Status:', claudeRes.status);
-      const retryRes = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'x-api-key': ANTHROPIC_API_KEY,
-          'anthropic-version': '2023-06-01',
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-6',
-          max_tokens: 4096,
-          system: AI_SYSTEM_PROMPT + knowledgeContext,
-          messages: [{ role: 'user', content: `El profesional dice: "${transcript}"` }],
-        }),
-      });
-      if (!retryRes.ok) {
-        const retryErr = await retryRes.text();
-        throw new Error(`Claude error ${claudeRes.status} (original), retry ${retryRes.status}: ${retryErr.slice(0, 200)}`);
-      }
-      const retryData = await retryRes.json() as { content: Array<{ type: string; text?: string }> };
-      const retryRaw = retryData.content.filter(b => b.type === 'text').map(b => b.text ?? '').join('');
-      let fallbackQuote: Record<string, unknown>;
-      try {
-        const jsonMatch = retryRaw.match(/\{[\s\S]*\}/);
-        fallbackQuote = JSON.parse(jsonMatch?.[0] ?? '{}');
-      } catch {
-        fallbackQuote = { ...EMPTY_QUOTE };
-      }
-      if (orgId) await supabase.from('trade_ai_usage').insert({ org_id: orgId, feature: 'voice' });
-      return new Response(
-        JSON.stringify({ transcript, quote: fallbackQuote, actuacion_ids_matched: matchedActuacionIds }),
-        { headers: { ...CORS, 'Content-Type': 'application/json' } },
-      );
+      throw new Error(`Claude error ${claudeRes.status}: ${err.slice(0, 200)}`);
     }
 
-    // Extraer texto del response (puede tener bloques de web_search_tool_result + text)
     const claudeData = await claudeRes.json() as { content: Array<{ type: string; text?: string }> };
-    const textBlocks = claudeData.content.filter(b => b.type === 'text');
-    const allText = textBlocks.map(b => b.text ?? '').join('');
+    const allText = claudeData.content.filter(b => b.type === 'text').map(b => b.text ?? '').join('');
 
     let quote: Record<string, unknown>;
     try {
-      // Primero intentar el último bloque de texto (debería ser el JSON final)
-      const lastBlock = textBlocks[textBlocks.length - 1]?.text ?? '';
-      const clean = lastBlock.replace(/```json?\n?/g, '').replace(/```/g, '').trim();
-      // Si empieza con { lo parseamos directamente
-      if (clean.startsWith('{')) {
-        quote = JSON.parse(clean);
+      // Intentar parsear directamente si empieza con {
+      const trimmed = allText.replace(/```json?\n?/g, '').replace(/```/g, '').trim();
+      if (trimmed.startsWith('{')) {
+        quote = JSON.parse(trimmed);
       } else {
-        // Extraer JSON con regex del texto completo
+        // Extraer el bloque JSON con regex
         const jsonMatch = allText.match(/\{[\s\S]*\}/);
         quote = JSON.parse(jsonMatch?.[0] ?? '{}');
       }
     } catch {
-      console.error('[claude] JSON parse failed, trying regex extraction');
-      try {
-        const jsonMatch = allText.match(/\{[\s\S]*\}/);
-        quote = JSON.parse(jsonMatch?.[0] ?? '{}');
-      } catch {
-        console.error('[claude] total JSON parse failure, rawText sample:', allText.slice(0, 300));
-        quote = { ...EMPTY_QUOTE };
-      }
+      console.error('[claude] JSON parse failed, sample:', allText.slice(0, 300));
+      quote = { ...EMPTY_QUOTE };
     }
 
     // ── Registrar uso en trade_ai_usage ──────────────────────────────────────
