@@ -1,0 +1,215 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); }
+  .header { padding: 1.5rem 0 1rem; border-bottom: 0.5px solid var(--color-border-tertiary); margin-bottom: 1.5rem; }
+  .header h1 { font-size: 18px; font-weight: 500; color: var(--color-text-primary); }
+  .header p { font-size: 13px; color: var(--color-text-secondary); margin-top: 4px; }
+  .urgency-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--color-background-danger); color: var(--color-text-danger); font-size: 12px; padding: 4px 10px; border-radius: var(--border-radius-md); margin-top: 8px; }
+  .phases { display: flex; flex-direction: column; gap: 1.5rem; }
+  .phase { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; }
+  .phase-header { display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; background: var(--color-background-secondary); user-select: none; }
+  .phase-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; flex-shrink: 0; }
+  .phase-title { flex: 1; }
+  .phase-title strong { font-size: 14px; font-weight: 500; color: var(--color-text-primary); display: block; }
+  .phase-title span { font-size: 12px; color: var(--color-text-secondary); }
+  .phase-chevron { font-size: 16px; color: var(--color-text-tertiary); transition: transform 0.2s; }
+  .phase-body { padding: 16px; display: none; }
+  .phase-body.open { display: block; }
+  .steps { display: flex; flex-direction: column; gap: 10px; }
+  .step { display: flex; gap: 12px; align-items: flex-start; }
+  .step-dot { width: 20px; height: 20px; border-radius: 50%; border: 0.5px solid var(--color-border-secondary); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--color-text-secondary); flex-shrink: 0; margin-top: 2px; }
+  .step-content strong { font-size: 13px; font-weight: 500; color: var(--color-text-primary); display: block; }
+  .step-content p { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; line-height: 1.5; }
+  .step-content .tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-top: 4px; }
+  .section-saas { margin-top: 1.5rem; }
+  .section-saas h2 { font-size: 14px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-size: 11px; }
+  .saas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  .saas-card { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px; cursor: pointer; }
+  .saas-card:hover { background: var(--color-background-secondary); }
+  .saas-card .saas-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+  .saas-card .saas-desc { font-size: 11px; color: var(--color-text-secondary); margin-top: 3px; }
+  .saas-card .saas-status { font-size: 11px; margin-top: 6px; padding: 2px 7px; border-radius: 4px; display: inline-block; }
+  .status-live { background: var(--color-background-success); color: var(--color-text-success); }
+  .status-dev { background: var(--color-background-warning); color: var(--color-text-warning); }
+  .status-planned { background: var(--color-background-secondary); color: var(--color-text-tertiary); }
+  .timeline-bar { margin-top: 1.5rem; }
+  .tl-row { display: flex; gap: 0; margin-bottom: 6px; }
+  .tl-label { width: 120px; font-size: 11px; color: var(--color-text-secondary); padding-top: 4px; flex-shrink: 0; }
+  .tl-track { flex: 1; height: 22px; background: var(--color-background-secondary); border-radius: 4px; overflow: hidden; position: relative; }
+  .tl-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding: 0 8px; font-size: 10px; font-weight: 500; }
+  .p1-color { background: #5DCAA5; color: #04342C; }
+  .p2-color { background: #FAC775; color: #412402; }
+  .p3-color { background: #85B7EB; color: #042C53; }
+  .p4-color { background: #F0997B; color: #4A1B0C; }
+  .p5-color { background: #AFA9EC; color: #26215C; }
+  .warning-box { border: 0.5px solid var(--color-border-danger); border-radius: var(--border-radius-md); padding: 12px 14px; margin-top: 1rem; font-size: 12px; color: var(--color-text-danger); line-height: 1.6; }
+</style>
+
+<div class="header">
+  <h1>Plan de constitución — Trabflow Technologies, S.L.</h1>
+  <p>Denominación reservada · Registro Mercantil Central · 29/05/2026</p>
+  <div class="urgency-badge"><i class="ti ti-clock" aria-hidden="true"></i> Plazo escritura: antes del 29/08/2026 (3 meses)</div>
+</div>
+
+<div class="warning-box">
+  La denominación queda reservada 6 meses (hasta 29/11/2026) pero la certificación para otorgar escritura vence a los 3 meses: <strong>antes del 29 de agosto de 2026.</strong> Actuar ya.
+</div>
+
+<div class="phases" style="margin-top: 1.5rem;">
+
+  <!-- Fase 1 -->
+  <div class="phase">
+    <div class="phase-header" onclick="toggle(this)">
+      <div class="phase-num" style="background:#E1F5EE;color:#0F6E56;">1</div>
+      <div class="phase-title">
+        <strong>Preparación previa (semana 1)</strong>
+        <span>Documentación notarial · Capital · Socios</span>
+      </div>
+      <span class="phase-chevron"><i class="ti ti-chevron-down"></i></span>
+    </div>
+    <div class="phase-body open">
+      <div class="steps">
+        <div class="step"><div class="step-dot">1</div><div class="step-content"><strong>Capital social mínimo</strong><p>Mínimo legal: 3.000 € (Ley 14/2013 si te acoges a la SL exprés). Recomendado: 3.000–10.000 € en efectivo o bien aportación no dineraria. Hay que acreditar la realidad de la aportación ante notario.</p><span class="tag" style="background:var(--color-background-info);color:var(--color-text-info);">LSC art. 4 — capital mínimo SL</span></div></div>
+        <div class="step"><div class="step-dot">2</div><div class="step-content"><strong>Obtener NIF provisional de la sociedad</strong><p>Trámite en la AEAT antes o en paralelo a la escritura. Necesario para abrir cuenta bancaria y justificar el desembolso del capital.</p></div></div>
+        <div class="step"><div class="step-dot">3</div><div class="step-content"><strong>Abrir cuenta bancaria societaria</strong><p>Ingresar el capital social. El banco emite certificado que se lleva al notario. Entidades habituales para startups: BBVA, Revolut Business, Penta.</p></div></div>
+        <div class="step"><div class="step-dot">4</div><div class="step-content"><strong>Redactar estatutos sociales amplios</strong><p>Los estatutos que entregamos en este plan cubren todos los SaaS previstos. Llevarlos revisados al notario antes de la cita.</p><span class="tag" style="background:var(--color-background-warning);color:var(--color-text-warning);">Documento entregado en esta sesión</span></div></div>
+        <div class="step"><div class="step-dot">5</div><div class="step-content"><strong>Definir estructura de participaciones</strong><p>Si eres único socio fundador: 100 % participaciones. Si hay cofundador: establecer porcentajes, pacto de socios, vesting (4 años, cliff 1 año).</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fase 2 -->
+  <div class="phase">
+    <div class="phase-header" onclick="toggle(this)">
+      <div class="phase-num" style="background:#E6F1FB;color:#185FA5;">2</div>
+      <div class="phase-title">
+        <strong>Otorgamiento de escritura (semana 1-2)</strong>
+        <span>Notario · DUE · Escritura pública</span>
+      </div>
+      <span class="phase-chevron"><i class="ti ti-chevron-down"></i></span>
+    </div>
+    <div class="phase-body">
+      <div class="steps">
+        <div class="step"><div class="step-dot">1</div><div class="step-content"><strong>Reservar cita notarial (urgente)</strong><p>Llevar: certificación del RMC (CSV: 12814001-INC-26103817-INR-38071240), DNI, certificado bancario del capital, borrador de estatutos y objeto social amplio.</p></div></div>
+        <div class="step"><div class="step-dot">2</div><div class="step-content"><strong>Optar por vía exprés (PAE) o notario directo</strong><p>Vía PAE (Punto de Atención al Emprendedor): más rápida, coste ~300 €, plazo ~48h para inscripción. Vía notario directo: más control sobre estatutos, coste ~500-800 €, plazo ~15 días.</p><span class="tag" style="background:var(--color-background-info);color:var(--color-text-info);">Recomendado: notario directo por estatutos personalizados</span></div></div>
+        <div class="step"><div class="step-dot">3</div><div class="step-content"><strong>Firmar escritura pública de constitución</strong><p>Escritura que incluye: razón social, domicilio social, objeto social, capital, administrador único o consejo.</p></div></div>
+        <div class="step"><div class="step-dot">4</div><div class="step-content"><strong>Liquidar Impuesto sobre Transmisiones Patrimoniales (ITP)</strong><p>Operaciones societarias: exento desde 2010. No hay pago pero hay que presentar modelo 600 (autoliquidación exenta) ante la Comunidad Autónoma correspondiente.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fase 3 -->
+  <div class="phase">
+    <div class="phase-header" onclick="toggle(this)">
+      <div class="phase-num" style="background:#FAEEDA;color:#854F0B;">3</div>
+      <div class="phase-title">
+        <strong>Inscripción en el Registro Mercantil (semana 2-4)</strong>
+        <span>RM Provincial · NIF definitivo · Alta censal</span>
+      </div>
+      <span class="phase-chevron"><i class="ti ti-chevron-down"></i></span>
+    </div>
+    <div class="phase-body">
+      <div class="steps">
+        <div class="step"><div class="step-dot">1</div><div class="step-content"><strong>Presentar escritura en el RM provincial</strong><p>Registro Mercantil de la provincia del domicilio social. Se puede hacer telemáticamente (firma electrónica del notario) o presencialmente. Plazo de calificación: 15 días hábiles.</p></div></div>
+        <div class="step"><div class="step-dot">2</div><div class="step-content"><strong>Obtener NIF definitivo (AEAT)</strong><p>Con la escritura inscrita, acudir a la AEAT para canjear el NIF provisional por definitivo. Presentar modelo 036.</p></div></div>
+        <div class="step"><div class="step-dot">3</div><div class="step-content"><strong>Alta censal y en el IAE</strong><p>Modelo 036: alta en el Censo de Empresarios, alta en el epígrafe IAE correspondiente (7499 o 7240 para actividades informáticas y servicios tecnológicos).</p></div></div>
+        <div class="step"><div class="step-dot">4</div><div class="step-content"><strong>Alta del administrador en el RETA (si procede)</strong><p>Si el administrador/socio tiene control efectivo (≥25 % participaciones o ≥50 % con familiares), obligación de alta como autónomo societario en Seguridad Social.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fase 4 -->
+  <div class="phase">
+    <div class="phase-header" onclick="toggle(this)">
+      <div class="phase-num" style="background:#EEEDFE;color:#534AB7;">4</div>
+      <div class="phase-title">
+        <strong>Operativa legal post-constitución (semana 3-6)</strong>
+        <span>OEPM · RGPD · Contratos · Marca</span>
+      </div>
+      <span class="phase-chevron"><i class="ti ti-chevron-down"></i></span>
+    </div>
+    <div class="phase-body">
+      <div class="steps">
+        <div class="step"><div class="step-dot">1</div><div class="step-content"><strong>Registrar marca "TradeFlow" en OEPM</strong><p>Clases Nice: 42 (servicios SaaS/software) y 35 (servicios empresariales). Coste: ~150 € por clase (tasas oficiales). Plazo tramitación: 6-12 meses.</p><span class="tag" style="background:var(--color-background-danger);color:var(--color-text-danger);">Hacerlo antes del lanzamiento público</span></div></div>
+        <div class="step"><div class="step-dot">2</div><div class="step-content"><strong>Registrar las demás marcas en OEPM</strong><p>InmoStay, NexCore, GestEnergy/CertiGestion, Debacu — en las clases Nice correspondientes. Se pueden presentar en bloque como titular la SL.</p></div></div>
+        <div class="step"><div class="step-dot">3</div><div class="step-content"><strong>Asignar propiedad intelectual del código a la SL</strong><p>Contrato de cesión de derechos de autor del código ya desarrollado, firmado entre el fundador como persona física y la SL. Necesario para que el activo esté en la empresa.</p></div></div>
+        <div class="step"><div class="step-dot">4</div><div class="step-content"><strong>Cumplimiento RGPD</strong><p>Registro de actividades de tratamiento. DPA con Supabase, Stripe, Brevo, Resend. Política de privacidad y cookies publicadas en todas las apps. Delegado de Protección de Datos (no obligatorio para PYMEs salvo tratamiento masivo).</p></div></div>
+        <div class="step"><div class="step-dot">5</div><div class="step-content"><strong>Términos y condiciones SaaS</strong><p>Un contrato de suscripción SaaS diferente por producto (TrabFlow, InmoStay, NexCore…). Incluye: limitación de responsabilidad, SLA, condiciones de pago Stripe, jurisdicción española.</p></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fase 5 -->
+  <div class="phase">
+    <div class="phase-header" onclick="toggle(this)">
+      <div class="phase-num" style="background:#FAECE7;color:#993C1D;">5</div>
+      <div class="phase-title">
+        <strong>Estructura holding y futuras filiales (mes 6+)</strong>
+        <span>Subsidiarias · Licencias · Inversores</span>
+      </div>
+      <span class="phase-chevron"><i class="ti ti-chevron-down"></i></span>
+    </div>
+    <div class="phase-body">
+      <div class="steps">
+        <div class="step"><div class="step-dot">1</div><div class="step-content"><strong>Trabflow Technologies SL como holding principal</strong><p>Todos los SaaS operan bajo licencia de la SL o como marcas propias de la SL. Si crecen, se pueden segregar en filiales con la SL como socio mayoritario (estructura holding).</p></div></div>
+        <div class="step"><div class="step-dot">2</div><div class="step-content"><strong>Licencias inter-societarias</strong><p>Si se crean filiales (InmoStay SL, NexCore SL), la matriz puede cobrarles royalties por el uso de la tecnología/marca. Fiscalmente eficiente si se estructura correctamente con precios de transferencia.</p></div></div>
+        <div class="step"><div class="step-dot">3</div><div class="step-content"><strong>Captación de inversores</strong><p>Los estatutos amplios permiten: ampliaciones de capital, entrada de inversores, creación de participaciones preferentes, derechos de veto, drag-along/tag-along — sin necesidad de modificar estatutos.</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-saas">
+  <h2>Ecosistema de productos bajo Trabflow Technologies, S.L.</h2>
+  <div class="saas-grid">
+    <div class="saas-card" onclick="sendPrompt('Cuéntame más sobre TrabFlow AI')">
+      <div class="saas-name">TrabFlow AI</div>
+      <div class="saas-desc">Gestión para instaladores y gremios</div>
+      <div class="saas-status status-live">En producción</div>
+    </div>
+    <div class="saas-card" onclick="sendPrompt('Cuéntame más sobre GestEnergy / CertiGestion')">
+      <div class="saas-name">GestEnergy</div>
+      <div class="saas-desc">Certificados energéticos e instaladores</div>
+      <div class="saas-status status-dev">En desarrollo</div>
+    </div>
+    <div class="saas-card" onclick="sendPrompt('Cuéntame más sobre InmoStay')">
+      <div class="saas-name">InmoStay</div>
+      <div class="saas-desc">Servicios inmobiliarios + Capital</div>
+      <div class="saas-status status-dev">En desarrollo</div>
+    </div>
+    <div class="saas-card" onclick="sendPrompt('Cuéntame más sobre NexCore y casas rurales')">
+      <div class="saas-name">NexCore / StayNex</div>
+      <div class="saas-desc">Alquiler rural y apartamentos turísticos</div>
+      <div class="saas-status status-dev">En desarrollo</div>
+    </div>
+    <div class="saas-card" onclick="sendPrompt('Cuéntame más sobre Debacu Evaluation360')">
+      <div class="saas-name">Debacu Eval360</div>
+      <div class="saas-desc">Incidencias hoteleras + Revenue Intelligence</div>
+      <div class="saas-status status-planned">Planificado</div>
+    </div>
+    <div class="saas-card" onclick="sendPrompt('Qué otros SaaS podría incluir bajo Trabflow Technologies')">
+      <div class="saas-name">Trasteros / Storage</div>
+      <div class="saas-desc">Gestión de trasteros y self-storage</div>
+      <div class="saas-status status-planned">Planificado</div>
+    </div>
+  </div>
+</div>
+
+<div class="timeline-bar" style="margin-top: 1.5rem;">
+  <p style="font-size: 11px; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px;">Línea temporal estimada desde hoy</p>
+  <div class="tl-row"><span class="tl-label">Preparación</span><div class="tl-track"><div class="tl-fill p1-color" style="width:10%">Sem. 1</div></div></div>
+  <div class="tl-row"><span class="tl-label">Escritura</span><div class="tl-track"><div class="tl-fill p2-color" style="width:15%;margin-left:10%">Sem. 1-2</div></div></div>
+  <div class="tl-row"><span class="tl-label">RM + AEAT</span><div class="tl-track"><div class="tl-fill p3-color" style="width:20%;margin-left:25%">Sem. 2-4</div></div></div>
+  <div class="tl-row"><span class="tl-label">Operativa legal</span><div class="tl-track"><div class="tl-fill p4-color" style="width:25%;margin-left:40%">Sem. 3-6</div></div></div>
+  <div class="tl-row"><span class="tl-label">Holding / filiales</span><div class="tl-track"><div class="tl-fill p5-color" style="width:35%;margin-left:65%">Mes 6+</div></div></div>
+</div>
+
+<script>
+function toggle(header) {
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('.phase-chevron i');
+  body.classList.toggle('open');
+  chevron.style.transform = body.classList.contains('open') ? 'rotate(180deg)' : '';
+}
+</script>
