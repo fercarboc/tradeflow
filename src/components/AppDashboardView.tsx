@@ -1149,13 +1149,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       }
 
       // Guardar datos para el sistema de aprendizaje
+      const nuevosOficios = (quote.oficios_detectados ?? [])
+        .filter(o => o.nuevo_oficio === true)
+        .map(o => ({ oficio: o.oficio, motivo: o.motivo ?? '' }));
       setAiLearningData({
         transcript,
         actuacionIds,
         aiPartidas: partidas,
         nuevasPartidas: quote.partidas_nuevas_detectadas ?? [],
         kbScore,
+        nuevosOficios,
       });
+      setSavedActuacion(false);
 
       const total = quote.calculos?.total ?? partidas.reduce((s, p) => s + (p.total ?? 0), 0);
       const desc = (
@@ -1636,6 +1641,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     }
   };
 
+  const handleSaveActuacion = async () => {
+    if (!aiLearningData || !orgId || !isLiveMode) return;
+    const oficio = aiLearningData.nuevosOficios[0]?.oficio ?? aiLearningData.aiPartidas[0]?.tipo ?? 'multiservicio';
+    const transcript = aiLearningData.transcript;
+    const actuacionId = transcript.toLowerCase().replace(/[^a-z0-9]+/g, '_').slice(0, 50) + '_' + Date.now().toString(36);
+    const keywords = transcript.toLowerCase().split(/\s+/).filter(w => w.length > 3).slice(0, 10);
+    const partidas = aiLearningData.aiPartidas.map(p => p.descripcion);
+    const ok = await createActuacionFromLearning(oficio, actuacionId, keywords, partidas, transcript);
+    if (ok) {
+      setSavedActuacion(true);
+      showToast('Plantilla guardada — se usará en futuros presupuestos', 'success');
+    } else {
+      showToast('Error al guardar la plantilla', 'error');
+    }
+  };
+
   const handleNextWizardStep = async () => {
     if (wizardStep === 4 && (!wizardQuote.partidas || wizardQuote.partidas.length === 0)) {
       showToast('Añada al menos una partida de presupuesto', 'error');
@@ -1856,7 +1877,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     aiPartidas: PartidaPresupuesto[];
     nuevasPartidas: Array<{ concepto: string; oficio: string; fuente: string; motivo?: string }>;
     kbScore: number;
+    nuevosOficios: Array<{ oficio: string; motivo: string }>;
   } | null>(null);
+  const [savedActuacion, setSavedActuacion] = useState<boolean>(false);
   const [selectedQuoteForPreview, setSelectedQuoteForPreview] = useState<Presupuesto | null>(null);
 
   useEffect(() => {
@@ -4548,6 +4571,40 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
               )}
 
+              {/* Banner: guardar nueva actuación detectada */}
+              {aiLearningData && aiLearningData.nuevosOficios.length > 0 && isLiveMode && (
+                savedActuacion ? (
+                  <div className="flex items-center gap-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-300/50 dark:border-blue-700/40 rounded-xl px-3 py-2 text-[10px] text-blue-700 dark:text-blue-400">
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-blue-500" />
+                    <span><strong>Plantilla guardada</strong> — la próxima vez se detectará automáticamente</span>
+                  </div>
+                ) : (
+                  <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-300/50 dark:border-violet-700/40 rounded-xl px-3 py-2.5 text-[10px]">
+                    <div className="flex items-start gap-2 mb-2">
+                      <Sparkles className="w-3.5 h-3.5 shrink-0 mt-0.5 text-violet-500" />
+                      <div>
+                        <span className="font-bold text-violet-700 dark:text-violet-300 block">Trabajo nuevo detectado: <em>{aiLearningData.nuevosOficios[0].oficio}</em></span>
+                        <span className="text-violet-600 dark:text-violet-400 leading-relaxed">¿Guardar estas partidas como plantilla para futuros presupuestos?</span>
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={handleSaveActuacion}
+                        className="flex-1 bg-violet-600 active:bg-violet-700 text-white font-bold py-2 rounded-lg text-[9.5px] uppercase tracking-wider cursor-pointer"
+                      >
+                        Guardar plantilla
+                      </button>
+                      <button
+                        onClick={() => setSavedActuacion(true)}
+                        className="px-3 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-bold py-2 rounded-lg text-[9.5px] uppercase tracking-wider cursor-pointer"
+                      >
+                        Ignorar
+                      </button>
+                    </div>
+                  </div>
+                )
+              )}
+
               {/* Listado editable de partidas */}
               <div className="space-y-2">
                 {wizardQuote.partidas?.map((part, idx) => {
@@ -5567,6 +5624,42 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         </div>
 
         <div className="space-y-4">
+          {/* Banner desktop: guardar nueva actuación */}
+          {aiLearningData && aiLearningData.nuevosOficios.length > 0 && isLiveMode && (
+            savedActuacion ? (
+              <div className="flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 text-xs text-blue-700">
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-blue-500" />
+                <span><strong>Plantilla guardada</strong> — la próxima vez se detectará automáticamente</span>
+              </div>
+            ) : (
+              <div className="bg-violet-50 border border-violet-200 rounded-xl px-4 py-3 text-xs">
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-2.5">
+                    <Sparkles className="w-4 h-4 shrink-0 text-violet-500" />
+                    <div>
+                      <span className="font-bold text-violet-800 block">Trabajo nuevo: <em>{aiLearningData.nuevosOficios[0].oficio}</em></span>
+                      <span className="text-violet-600 text-[10px]">¿Guardar estas partidas como plantilla para futuros presupuestos?</span>
+                    </div>
+                  </div>
+                  <div className="flex gap-2 shrink-0">
+                    <button
+                      onClick={handleSaveActuacion}
+                      className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-1.5 px-3 rounded-lg text-[9.5px] uppercase tracking-wider cursor-pointer"
+                    >
+                      Guardar plantilla
+                    </button>
+                    <button
+                      onClick={() => setSavedActuacion(true)}
+                      className="bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold py-1.5 px-3 rounded-lg text-[9.5px] uppercase tracking-wider cursor-pointer"
+                    >
+                      Ignorar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )
+          )}
+
           <div className="flex justify-between items-center">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">Partidas de Obra</h4>
             <button
