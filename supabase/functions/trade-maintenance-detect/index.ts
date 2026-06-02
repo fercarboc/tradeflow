@@ -136,6 +136,13 @@ Deno.serve(async (req: Request) => {
       return new Response(JSON.stringify({ error: 'La IA no devolvió JSON válido', raw: rawText }), { status: 502, headers: CORS });
     }
 
+    // Guardar trazabilidad en trade_ai_usage con el texto original
+    await supabaseUser.from('trade_ai_usage').insert({
+      org_id: orgId,
+      feature: 'maintenance_detect',
+      metadata: { texto: body.texto.trim().slice(0, 500), confianza: parsed.confianza ?? 0 },
+    }).then(() => {/* fire-and-forget */});
+
     return new Response(JSON.stringify({ ok: true, data: parsed }), {
       headers: { ...CORS, 'Content-Type': 'application/json' },
     });

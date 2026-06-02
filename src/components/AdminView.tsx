@@ -17,9 +17,10 @@ import {
   adminMarkInvoicePaid,
   adminLoadAutoConfig, adminSaveAutoConfig, adminGetTrialsExpiringSoon, adminRunChurnRiskNow,
   loadInstallerNeeds, markNeedReviewed,
+  adminLoadAIFeedback, adminMarkFeedbackApplied,
   AdminOrgRow, TradeSubscription, TradePlatformInvoice, TradeWaitlistLead,
   WaitlistEstado, WaitlistPrioridad, TradeCatalogSuggestion, AdminSupportNote, AdminActivityLog,
-  AdminAutoConfig, TrialExpiringSoon, InstallerNeed,
+  AdminAutoConfig, TrialExpiringSoon, InstallerNeed, AIFeedbackRow,
 } from '../lib/supabase';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { exportToCsv } from '../lib/exportCsv';
@@ -34,6 +35,7 @@ import {
   Inbox, Filter, LogOut, Download, WifiOff, Globe, ThumbsUp, ThumbsDown,
   X, StickyNote, Activity, Repeat, BarChart2, PackageOpen,
   Zap, Bell, BellOff, PlayCircle, Send, HelpCircle, Eye, EyeOff as EyeOffIcon,
+  Brain, ChevronRight,
 } from 'lucide-react';
 
 const PLAN_PRICES: Record<string, { monthly: number; yearly: number }> = {
@@ -762,12 +764,18 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [detailOrg, setDetailOrg]     = useState<AdminOrgRow | null>(null);
 
   // Sección activa
-  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs'>('dashboard');
+  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback'>('dashboard');
 
   // Necesidades instaladores (chatbot)
   const [needs, setNeeds]               = useState<InstallerNeed[]>([]);
   const [needsLoading, setNeedsLoading] = useState(false);
   const [needsFilter, setNeedsFilter]   = useState<string>('all');
+
+  // AI Feedback (aprendizaje automático)
+  const [aiFeedback, setAiFeedback]               = useState<AIFeedbackRow[]>([]);
+  const [aiFeedbackLoading, setAiFeedbackLoading] = useState(false);
+  const [aiFeedbackFilter, setAiFeedbackFilter]   = useState<'pending' | 'all'>('pending');
+  const [aiFeedbackExpanded, setAiFeedbackExpanded] = useState<string | null>(null);
 
   // Dashboard — datos de gráficos
   const [weeklyQuotes, setWeeklyQuotes] = useState<Array<{ week: string; count: number }>>([]);
@@ -874,6 +882,14 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
       .then(setNeeds)
       .catch(() => setNeeds([]))
       .finally(() => setNeedsLoading(false));
+  }, [isAdmin, section]);
+  useEffect(() => {
+    if (!isAdmin || section !== 'ai_feedback') return;
+    setAiFeedbackLoading(true);
+    adminLoadAIFeedback()
+      .then(setAiFeedback)
+      .catch(() => setAiFeedback([]))
+      .finally(() => setAiFeedbackLoading(false));
   }, [isAdmin, section]);
   useEffect(() => {
     if (!isAdmin || section !== 'automations') return;
@@ -1274,6 +1290,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     { id: 'automations'   as const, label: 'Automaciones',    Icon: Zap },
     { id: 'suggestions'   as const, label: 'Sugerencias',     Icon: Globe,       badge: pendingSuggestions },
     { id: 'needs'         as const, label: 'Necesidades',     Icon: HelpCircle },
+    { id: 'ai_feedback'   as const, label: 'IA Feedback',      Icon: Brain },
   ];
 
   const handleMarkInvoicePaid = async (inv: TradePlatformInvoice) => {
@@ -2995,6 +3012,159 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                 </div>
               </div>
             )}
+          </div>
+        )}
+
+        {/* ════════════════════════════════════════════════════════
+            SECCIÓN: IA FEEDBACK (APRENDIZAJE AUTOMÁTICO)
+        ════════════════════════════════════════════════════════ */}
+        {section === 'ai_feedback' && (
+          <div className="space-y-5">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h2 className="text-base font-bold text-white">Feedback de aprendizaje IA</h2>
+                <p className="text-xs text-slate-400 mt-0.5">Comparativa entre partidas sugeridas por IA y las partidas finales guardadas por el instalador</p>
+              </div>
+              <button onClick={() => { setAiFeedbackLoading(true); adminLoadAIFeedback().then(setAiFeedback).catch(() => {}).finally(() => setAiFeedbackLoading(false)); }}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-semibold bg-slate-800 border border-slate-700 text-slate-300 hover:text-white cursor-pointer transition-colors">
+                <RefreshCw className={`h-3.5 w-3.5 ${aiFeedbackLoading ? 'animate-spin' : ''}`} /> Actualizar
+              </button>
+            </div>
+
+            {/* Filtro */}
+            <div className="flex gap-2">
+              {[
+                { id: 'pending' as const, label: 'Pendientes de aplicar' },
+                { id: 'all'     as const, label: 'Todos' },
+              ].map(f => (
+                <button key={f.id} onClick={() => setAiFeedbackFilter(f.id)}
+                  className={`px-3 py-1.5 rounded text-xs font-semibold cursor-pointer transition-colors ${
+                    aiFeedbackFilter === f.id ? 'bg-blue-600 text-white' : 'bg-slate-800 border border-slate-700 text-slate-400 hover:text-white'
+                  }`}>
+                  {f.label}
+                </button>
+              ))}
+            </div>
+
+            {aiFeedbackLoading ? (
+              <div className="text-center py-12 text-slate-400 text-sm">Cargando...</div>
+            ) : (() => {
+              const rows = aiFeedbackFilter === 'pending'
+                ? aiFeedback.filter(r => !r.applied)
+                : aiFeedback;
+              return (
+                <div className="space-y-3">
+                  {rows.length === 0 && (
+                    <div className="text-center py-10 text-slate-500 text-sm">No hay registros</div>
+                  )}
+                  {rows.map(row => {
+                    const aiCount    = Array.isArray(row.ai_partidas)    ? row.ai_partidas.length    : 0;
+                    const finalCount = Array.isArray(row.final_partidas) ? row.final_partidas.length : 0;
+                    const nuevasCount = Array.isArray(row.nuevas_partidas) ? row.nuevas_partidas.length : 0;
+                    const isExpanded = aiFeedbackExpanded === row.id;
+                    return (
+                      <div key={row.id} className={`bg-slate-800/50 border rounded-lg overflow-hidden transition-colors ${
+                        row.applied ? 'border-slate-700/50 opacity-60' : 'border-slate-700'
+                      }`}>
+                        {/* Header row */}
+                        <div className="flex items-center gap-3 px-4 py-3">
+                          <button onClick={() => setAiFeedbackExpanded(isExpanded ? null : row.id)}
+                            className="flex-1 flex items-center gap-3 text-left cursor-pointer">
+                            <ChevronRight className={`h-4 w-4 text-slate-400 flex-shrink-0 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs text-slate-300 truncate">{row.transcript || '(sin transcripción)'}</p>
+                              <p className="text-[10px] text-slate-500 mt-0.5">
+                                {new Date(row.created_at).toLocaleString('es-ES')}
+                                {' · '}KB score: <span className={`font-bold ${(row.kb_score ?? 0) >= 0.5 ? 'text-emerald-400' : 'text-yellow-400'}`}>{((row.kb_score ?? 0) * 100).toFixed(0)}%</span>
+                              </p>
+                            </div>
+                          </button>
+                          <div className="flex items-center gap-2 flex-shrink-0">
+                            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-blue-900/40 text-blue-300 border border-blue-800">
+                              IA: {aiCount}
+                            </span>
+                            <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-purple-900/40 text-purple-300 border border-purple-800">
+                              Final: {finalCount}
+                            </span>
+                            {nuevasCount > 0 && (
+                              <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-900/40 text-emerald-300 border border-emerald-800">
+                                +{nuevasCount} web
+                              </span>
+                            )}
+                            {row.applied ? (
+                              <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-700 text-slate-400">
+                                Aplicado
+                              </span>
+                            ) : (
+                              <button
+                                onClick={async () => {
+                                  try {
+                                    await adminMarkFeedbackApplied(row.id);
+                                    setAiFeedback(prev => prev.map(x => x.id === row.id ? { ...x, applied: true } : x));
+                                  } catch { toast('error', 'Error al marcar como aplicado'); }
+                                }}
+                                className="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-bold cursor-pointer bg-slate-700 border border-slate-600 text-slate-300 hover:bg-emerald-900/40 hover:border-emerald-700 hover:text-emerald-300 transition-colors"
+                              >
+                                <CheckCircle className="h-3 w-3" /> Aplicado
+                              </button>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Expanded detail */}
+                        {isExpanded && (
+                          <div className="border-t border-slate-700 px-4 py-3 grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                              <p className="text-[10px] font-bold text-blue-400 mb-2 uppercase tracking-wider">Partidas IA ({aiCount})</p>
+                              <ul className="space-y-1">
+                                {(row.ai_partidas as Array<{descripcion?: string; precio_unitario?: number}> ?? []).map((p, i) => (
+                                  <li key={i} className="text-[11px] text-slate-300 flex justify-between gap-2">
+                                    <span className="truncate">{p.descripcion ?? String(p)}</span>
+                                    {p.precio_unitario != null && <span className="text-slate-500 flex-shrink-0">{p.precio_unitario}€</span>}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                            <div>
+                              <p className="text-[10px] font-bold text-purple-400 mb-2 uppercase tracking-wider">Partidas finales ({finalCount})</p>
+                              <ul className="space-y-1">
+                                {(row.final_partidas as Array<{descripcion?: string; precio_unitario?: number}> ?? []).map((p, i) => (
+                                  <li key={i} className="text-[11px] text-slate-300 flex justify-between gap-2">
+                                    <span className="truncate">{p.descripcion ?? String(p)}</span>
+                                    {p.precio_unitario != null && <span className="text-slate-500 flex-shrink-0">{p.precio_unitario}€</span>}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                            <div>
+                              <p className="text-[10px] font-bold text-emerald-400 mb-2 uppercase tracking-wider">Nuevas (web) ({nuevasCount})</p>
+                              {nuevasCount === 0 ? (
+                                <p className="text-[11px] text-slate-500">Ninguna</p>
+                              ) : (
+                                <ul className="space-y-1">
+                                  {(row.nuevas_partidas as Array<{concepto?: string; oficio?: string; fuente?: string}> ?? []).map((p, i) => (
+                                    <li key={i} className="text-[11px] text-emerald-300">
+                                      {p.concepto ?? String(p)}
+                                      {p.oficio && <span className="text-slate-500 ml-1">({p.oficio})</span>}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                              {row.actuacion_ids?.length > 0 && (
+                                <div className="mt-3">
+                                  <p className="text-[10px] font-bold text-yellow-400 mb-1 uppercase tracking-wider">Actuaciones KB usadas</p>
+                                  <p className="text-[11px] text-slate-400">{row.actuacion_ids.length} actuación(es)</p>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })()}
           </div>
         )}
 

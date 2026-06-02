@@ -4534,12 +4534,24 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
               )}
 
+              {/* Banner si se usó búsqueda web */}
+              {aiLearningData && aiLearningData.nuevasPartidas.length > 0 && (
+                <div className="flex items-center gap-2 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-300/50 dark:border-emerald-700/40 rounded-xl px-3 py-2 text-[10px] text-emerald-700 dark:text-emerald-400">
+                  <span className="text-base leading-none">🌐</span>
+                  <span><strong>{aiLearningData.nuevasPartidas.length} partida{aiLearningData.nuevasPartidas.length > 1 ? 's' : ''} nueva{aiLearningData.nuevasPartidas.length > 1 ? 's' : ''}</strong> encontrada{aiLearningData.nuevasPartidas.length > 1 ? 's' : ''} en internet y añadida{aiLearningData.nuevasPartidas.length > 1 ? 's' : ''} al presupuesto</span>
+                </div>
+              )}
+
               {/* Listado editable de partidas */}
               <div className="space-y-2">
-                {wizardQuote.partidas?.map((part, idx) => (
+                {wizardQuote.partidas?.map((part, idx) => {
+                  const esDeInternet = aiLearningData?.nuevasPartidas.some(
+                    np => np.concepto.toLowerCase().trim() === part.descripcion.toLowerCase().trim()
+                  ) ?? false;
+                  return (
                   <div
                     key={idx}
-                    className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-3 rounded-2xl space-y-2 text-xs"
+                    className={`bg-white dark:bg-slate-900 border p-3 rounded-2xl space-y-2 text-xs ${esDeInternet ? 'border-emerald-300/60 dark:border-emerald-700/50' : 'border-slate-200 dark:border-slate-800'}`}
                   >
                     {/* Descripción editable */}
                     <div className="flex items-center gap-2">
@@ -4550,6 +4562,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         onChange={e => handleUpdateWizardItem(idx, { descripcion: e.target.value })}
                         className="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
                       />
+                      {esDeInternet && (
+                        <span className="shrink-0 text-[8px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700/50 rounded-full px-1.5 py-0.5 leading-none">
+                          Web
+                        </span>
+                      )}
                       <button onClick={() => handleRemoveItem(idx)} className="text-slate-400 hover:text-red-500 p-1 shrink-0">
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -4642,7 +4659,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       </span>
                     </div>
                   </div>
-                ))}
+                );
+                })}
               </div>
 
               <button

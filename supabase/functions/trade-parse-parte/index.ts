@@ -34,7 +34,7 @@ async function transcribeAudio(audioBase64: string, mimeType: string): Promise<s
 
   const form = new FormData();
   form.append('file', blob, `audio.${ext}`);
-  form.append('model', 'whisper-1');
+  form.append('model', 'gpt-4o-mini-transcribe');
   form.append('language', 'es');
   form.append('prompt', 'Parte de trabajo de instalador, nombres de materiales y herramientas técnicas en español. Pueden mencionarse: juntas, latiguillos, grifos, válvulas, bombas, tuberías, calorifugado, termos, calderas, cuadros eléctricos, etc.');
 

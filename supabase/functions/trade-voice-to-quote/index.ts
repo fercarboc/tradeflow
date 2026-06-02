@@ -642,7 +642,21 @@ Usa las ACTUACIONES de la BASE DE CONOCIMIENTO como base. Si detectas que faltan
 
     // ── Registrar uso en trade_ai_usage ──────────────────────────────────────
     if (orgId) {
-      await supabase.from('trade_ai_usage').insert({ org_id: orgId, feature: 'voice' });
+      await supabase.from('trade_ai_usage').insert({
+        org_id: orgId,
+        feature: 'voice',
+        metadata: {
+          kb_score: kbScore,
+          actuaciones_used: matchedActuacionIds.length,
+          web_search_used: !needsWebSearch ? false : true,
+          partidas_nuevas: ((quote as Record<string, unknown[]>).partidas_nuevas_detectadas ?? []).length,
+        },
+      });
+    }
+
+    // ── Incrementar uso de actuaciones (para scoring futuro) ─────────────────
+    if (matchedActuacionIds.length > 0) {
+      supabase.rpc('increment_actuacion_usage', { p_actuacion_ids: matchedActuacionIds }).then(() => {/* fire-and-forget */});
     }
 
     return new Response(
