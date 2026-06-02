@@ -1938,6 +1938,63 @@ export async function learnPriceToCatalog(
   }).then(() => {/* fire-and-forget */});
 }
 
+// ── Aprendizaje de actuaciones IA ─────────────────────────────────────────────
+
+export async function saveAIFeedback(
+  orgId: string,
+  transcript: string,
+  actuacionIds: string[],
+  aiPartidas: unknown[],
+  finalPartidas: unknown[],
+  nuevasPartidas: unknown[],
+  kbScore: number,
+): Promise<void> {
+  if (!orgId) return;
+  await supabase.from('trade_ai_feedback').insert({
+    org_id: orgId,
+    transcript,
+    actuacion_ids: actuacionIds,
+    ai_partidas: aiPartidas,
+    final_partidas: finalPartidas,
+    nuevas_partidas: nuevasPartidas,
+    kb_score: kbScore,
+    applied: false,
+  });
+}
+
+export async function applyActuacionLearning(
+  actuacionId: string,
+  newPartidas: string[],
+  newKeywords: string[],
+): Promise<{ ok: boolean; partidas_añadidas?: number }> {
+  if (!actuacionId || newPartidas.length === 0) return { ok: false };
+  const { data, error } = await supabase.rpc('update_actuacion_learned', {
+    p_actuacion_id: actuacionId,
+    p_new_partidas: newPartidas,
+    p_new_keywords: newKeywords,
+  });
+  if (error) { console.warn('[learn]', error.message); return { ok: false }; }
+  return data as { ok: boolean; partidas_añadidas?: number };
+}
+
+export async function createActuacionFromLearning(
+  oficio: string,
+  actuacionId: string,
+  keywords: string[],
+  partidas: string[],
+  transcript: string,
+): Promise<boolean> {
+  const { data, error } = await supabase.rpc('insert_actuacion_learned', {
+    p_oficio: oficio,
+    p_actuacion_id: actuacionId,
+    p_keywords: keywords,
+    p_partidas: partidas,
+    p_transcript: transcript,
+  });
+  if (error) { console.warn('[learn-create]', error.message); return false; }
+  return (data as { ok: boolean })?.ok ?? false;
+}
+
 // ── Módulo Contratos de Mantenimiento ─────────────────────────────────────────
 
 export interface MaintenanceOficio {

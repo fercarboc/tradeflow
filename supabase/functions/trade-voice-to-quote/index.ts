@@ -294,6 +294,28 @@ Ejemplos de trabajos especiales y a qué oficios mapear:
 REGLA ANTI-ERROR: Si el usuario describe una reforma, obra o trabajos de instalación → tipo_presupuesto: "reforma". NUNCA confundas una reforma con un servicio de mantenimiento recurrente.
 
 ========================
+BÚSQUEDA WEB — CUÁNDO Y CÓMO USARLA
+========================
+
+Tienes acceso a la herramienta de búsqueda web. Úsala así:
+
+CUANDO BUSCAR (obligatorio):
+- Si la BASE DE CONOCIMIENTO está vacía o tiene score < 0.3 para el trabajo descrito → BUSCA SIEMPRE
+- Si el trabajo descrito involucra instalaciones poco comunes (piscinas, ascensores, domótica, energía solar, etc.) → BUSCA
+- Si la descripción es muy específica y las plantillas existentes no la cubren bien → BUSCA
+
+QUÉ BUSCAR:
+- "presupuesto [tipo de trabajo] partidas instalador España 2024"
+- "cómo hacer presupuesto de [trabajo] paso a paso"
+- "partidas presupuesto [oficio] [trabajo específico] España"
+
+CÓMO USAR EL RESULTADO WEB:
+1. Compara las partidas encontradas en internet con las que ya tienes en la BASE DE CONOCIMIENTO
+2. Si internet tiene partidas adicionales importantes que NO están en nuestra base → inclúyelas en "partidas" Y en "partidas_nuevas_detectadas"
+3. Si nuestra base ya era suficientemente completa → "partidas_nuevas_detectadas" queda vacío
+4. Marca las partidas que vienen de internet con precio_origen: "web"
+
+========================
 FORMATO DE SALIDA OBLIGATORIO
 ========================
 
@@ -336,12 +358,20 @@ JSON válido. Sin markdown. Sin texto fuera del JSON.
     "iva": 0,
     "total": 0
   },
-  "sugerencias_catalogo": []
+  "sugerencias_catalogo": [],
+  "partidas_nuevas_detectadas": [
+    {
+      "concepto": "",
+      "oficio": "",
+      "fuente": "web",
+      "motivo": ""
+    }
+  ]
 }
 
 tipo_partida: "mano_obra" | "material" | "servicio"
 unidad: "hora" | "unidad" | "m2" | "mes" | "servicio" | "jornada" | "kit"
-precio_origen: "catalogo" | "usuario" | "estimado" | "pendiente"
+precio_origen: "catalogo" | "usuario" | "estimado" | "pendiente" | "web"
 
 IMPORTANTE: Los calculos.subtotal, calculos.iva y calculos.total deben ser la suma real de todos los totales de partidas.`;
 
@@ -474,6 +504,9 @@ Deno.serve(async (req: Request) => {
 
     // ── Step 2.5: Search knowledge base for matching actuaciones ─────────────
     let knowledgeContext = '';
+    let matchedActuacionIds: string[] = [];
+    let kbScore = 0;
+
     try {
       const { data: actuaciones } = await supabase.rpc('search_actuaciones_scored', {
         p_transcript: transcript.slice(0, 500),
@@ -485,6 +518,9 @@ Deno.serve(async (req: Request) => {
       }> | null };
 
       if (actuaciones && actuaciones.length > 0) {
+        matchedActuacionIds = actuaciones.map(a => a.actuacion_id);
+        kbScore = actuaciones[0].score ?? 0;
+
         const sections = actuaciones.map(a =>
           `ACTUACION: ${a.actuacion_id}
 OFICIO: ${a.oficio}
@@ -496,18 +532,37 @@ OBSERVACIONES: ${a.observaciones}`
         ).join('\n\n');
 
         knowledgeContext = `\n\n========================
-BASE DE CONOCIMIENTO — ACTUACIONES DETECTADAS (usa estas partidas como plantilla)
+BASE DE CONOCIMIENTO — ACTUACIONES DETECTADAS (score: ${kbScore.toFixed(2)})
 ========================
 
 ${sections}
 
-INSTRUCCIÓN: Si alguna de estas actuaciones coincide con lo que pide el profesional, ÚSALA como plantilla base para las partidas. Adapta cantidades y añade o quita partidas según el contexto específico.`;
+INSTRUCCIÓN: Si alguna de estas actuaciones coincide con lo que pide el profesional, ÚSALA como plantilla base para las partidas. Adapta cantidades y añade o quita partidas según el contexto específico. Si crees que faltan partidas importantes, usa la búsqueda web para completarlas.`;
+      } else {
+        knowledgeContext = `\n\n========================
+BASE DE CONOCIMIENTO — SIN COINCIDENCIAS
+========================
+No se encontraron plantillas para este tipo de trabajo en la base de conocimiento local. USA LA BÚSQUEDA WEB para encontrar qué partidas incluye normalmente este trabajo en España.`;
       }
     } catch (kbErr) {
       console.warn('[knowledge-base] search error:', (kbErr as Error).message);
     }
 
-    // ── Step 3: Generate quote structure (Claude Haiku) ──────────────────────
+    // ── Step 3: Generate quote structure (Claude Haiku + Web Search) ──────────
+    // Si no hay KB o el score es bajo → forzar búsqueda web
+    const needsWebSearch = matchedActuacionIds.length === 0 || kbScore < 0.3;
+
+    const userMessage = needsWebSearch
+      ? `El profesional dice: "${transcript}"
+
+La BASE DE CONOCIMIENTO no tiene plantillas suficientes para este trabajo (score: ${kbScore.toFixed(2)}).
+DEBES usar la búsqueda web para encontrar qué partidas incluye este tipo de trabajo en España.
+Busca "presupuesto ${transcript.slice(0, 60)} partidas instalador España" o similar.
+Genera el presupuesto más completo posible y reporta en "partidas_nuevas_detectadas" las partidas que encontraste en internet.`
+      : `El profesional dice: "${transcript}"
+
+Usa las ACTUACIONES de la BASE DE CONOCIMIENTO como base. Si detectas que faltan partidas importantes comparado con la práctica real, usa la búsqueda web para completarlas y repórtalas en "partidas_nuevas_detectadas".`;
+
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -518,25 +573,71 @@ INSTRUCCIÓN: Si alguna de estas actuaciones coincide con lo que pide el profesi
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 4096,
+        tools: [
+          {
+            type: 'web_search_20250305',
+            name: 'web_search',
+            max_uses: 2,
+          }
+        ],
+        tool_choice: needsWebSearch ? { type: 'any' } : { type: 'auto' },
         system: AI_SYSTEM_PROMPT + knowledgeContext,
-        messages: [{ role: 'user', content: `El profesional dice: "${transcript}"` }],
+        messages: [{ role: 'user', content: userMessage }],
       }),
     });
 
     if (!claudeRes.ok) {
       const err = await claudeRes.text();
+      // Si web_search no soportado, reintentar sin tool
+      if (claudeRes.status === 400 && err.includes('web_search')) {
+        console.warn('[claude] web_search not available, retrying without tool');
+        const retryRes = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'x-api-key': ANTHROPIC_API_KEY,
+            'anthropic-version': '2023-06-01',
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            model: 'claude-haiku-4-5-20251001',
+            max_tokens: 4096,
+            system: AI_SYSTEM_PROMPT + knowledgeContext,
+            messages: [{ role: 'user', content: `El profesional dice: "${transcript}"` }],
+          }),
+        });
+        if (!retryRes.ok) {
+          const retryErr = await retryRes.text();
+          throw new Error(`Claude error ${retryRes.status}: ${retryErr}`);
+        }
+        const retryData = await retryRes.json() as { content: Array<{ type: string; text?: string }> };
+        const retryText = retryData.content.filter(b => b.type === 'text').map(b => b.text).join('');
+        let fallbackQuote: Record<string, unknown>;
+        try {
+          fallbackQuote = JSON.parse(retryText.replace(/```json?\n?/g, '').replace(/```/g, '').trim());
+        } catch {
+          fallbackQuote = { ...EMPTY_QUOTE };
+        }
+        if (orgId) await supabase.from('trade_ai_usage').insert({ org_id: orgId, feature: 'voice' });
+        return new Response(
+          JSON.stringify({ transcript, quote: fallbackQuote, actuacion_ids_matched: matchedActuacionIds }),
+          { headers: { ...CORS, 'Content-Type': 'application/json' } },
+        );
+      }
       throw new Error(`Claude error ${claudeRes.status}: ${err}`);
     }
 
-    const claudeData = await claudeRes.json() as { content: Array<{ text: string }> };
-    const rawText = claudeData.content[0]?.text ?? '{}';
+    // Extraer texto del response (puede tener bloques de web_search_tool_result + text)
+    const claudeData = await claudeRes.json() as { content: Array<{ type: string; text?: string }> };
+    const textBlocks = claudeData.content.filter(b => b.type === 'text');
+    const rawText = textBlocks[textBlocks.length - 1]?.text ?? '{}';
 
     let quote: Record<string, unknown>;
     try {
       const clean = rawText.replace(/```json?\n?/g, '').replace(/```/g, '').trim();
       quote = JSON.parse(clean);
     } catch {
-      quote = { ...EMPTY_QUOTE, resumen: transcript };
+      console.error('[claude] JSON parse failed, rawText:', rawText.slice(0, 200));
+      quote = { ...EMPTY_QUOTE };
     }
 
     // ── Registrar uso en trade_ai_usage ──────────────────────────────────────
@@ -545,7 +646,7 @@ INSTRUCCIÓN: Si alguna de estas actuaciones coincide con lo que pide el profesi
     }
 
     return new Response(
-      JSON.stringify({ transcript, quote }),
+      JSON.stringify({ transcript, quote, actuacion_ids_matched: matchedActuacionIds }),
       { headers: { ...CORS, 'Content-Type': 'application/json' } },
     );
 

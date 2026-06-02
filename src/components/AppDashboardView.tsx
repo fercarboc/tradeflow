@@ -60,7 +60,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning } from '../lib/supabase';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription, TemplateType } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { usePermissions } from '../hooks/usePermissions';
@@ -1071,6 +1071,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       max: number;
       motivo: string;
     }>;
+    partidas_nuevas_detectadas?: Array<{
+      concepto: string;
+      oficio: string;
+      fuente: string;
+      motivo?: string;
+    }>;
   }
 
   const quoteToPartidas = (quote: AIQuote): PartidaPresupuesto[] => {
@@ -1107,7 +1113,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     });
   };
 
-  const handleVoiceResult = (transcript: string, quote: AIQuote) => {
+  const handleVoiceResult = (
+    transcript: string,
+    quote: AIQuote,
+    actuacionIds: string[] = [],
+    kbScore: number = 0,
+  ) => {
     try {
       // Auto-detectar si es una solicitud de mantenimiento
       const isMaintenanceRequest = /mantenimiento|contrato\s*(de\s*)?(servicio|revisión|limpieza)|revisión\s*(mensual|anual|semestral|trimestral|periódic)|servicio\s*(de\s*)?mantenimiento/i.test(transcript);
@@ -1137,10 +1148,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         return;
       }
 
+      // Guardar datos para el sistema de aprendizaje
+      setAiLearningData({
+        transcript,
+        actuacionIds,
+        aiPartidas: partidas,
+        nuevasPartidas: quote.partidas_nuevas_detectadas ?? [],
+        kbScore,
+      });
+
       const total = quote.calculos?.total ?? partidas.reduce((s, p) => s + (p.total ?? 0), 0);
       const desc = (
         (typeof quote.resumen === 'string' ? quote.resumen : quote.resumen?.tipo_presupuesto || quote.resumen?.texto_original) || transcript
       ).slice(0, 80);
+
+      // Informar si se usó búsqueda web
+      const usedWebSearch = (quote.partidas_nuevas_detectadas ?? []).length > 0;
+      const toastMsg = usedWebSearch
+        ? `IA procesada ✓ — ${quote.partidas_nuevas_detectadas!.length} partidas nuevas encontradas en internet`
+        : 'Voz procesada por IA ✓';
 
       setWizardQuote(prev => ({ ...prev, descripcion: desc, partidas, total, estado: 'Borrador' as const }));
       setEditingQuote(prev => ({ ...prev, descripcion: desc, partidas, total }));
@@ -1148,7 +1174,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       setVoiceStep('done');
       mediaRecorderRef.current = null;
       audioChunksRef.current = [];
-      showToast('Voz procesada por IA ✓', 'success');
+      showToast(toastMsg, 'success');
       setTimeout(() => {
         setVoiceStep('idle');
         setIsVoiceModalOpen(false);
@@ -1239,8 +1265,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         }
         throw new Error(err.error ?? `HTTP ${res.status}`);
       }
-      const result: { transcript: string; quote: AIQuote } = await res.json();
-      handleVoiceResult(result.transcript, result.quote);
+      const result: { transcript: string; quote: AIQuote; actuacion_ids_matched?: string[] } = await res.json();
+      handleVoiceResult(result.transcript, result.quote, result.actuacion_ids_matched ?? []);
     } catch (e: any) {
       clearTimeout(fetchTimeout);
       const isAbort = e.name === 'AbortError';
@@ -1472,6 +1498,56 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     const finalQuote = { ...wizardQuote, nombreCliente: clientName || 'Sin nombre', telefonoCliente: clientPhone } as Presupuesto;
     // Aprender precios rellenados por el usuario antes de guardar
     autoLearnPrices(finalQuote.partidas ?? [], wizardOrigin);
+
+    // ── Aprendizaje IA: comparar partidas finales con propuesta original ──────
+    if (aiLearningData && orgId && isLiveMode) {
+      const finalDescripciones = new Set((finalQuote.partidas ?? []).map(p => p.descripcion.toLowerCase().trim()));
+      const aiDescripciones = new Set(aiLearningData.aiPartidas.map(p => p.descripcion.toLowerCase().trim()));
+
+      // Partidas que el instalador AÑADIÓ (no estaban en la propuesta de la IA)
+      const partidasNuevasInstalador = (finalQuote.partidas ?? [])
+        .filter(p => !aiDescripciones.has(p.descripcion.toLowerCase().trim()))
+        .map(p => p.descripcion);
+
+      // Partidas nuevas de internet que el instalador confirmó (las mantuvo)
+      const partidasWebConfirmadas = aiLearningData.nuevasPartidas
+        .filter(p => finalDescripciones.has(p.concepto.toLowerCase().trim()))
+        .map(p => p.concepto);
+
+      const todasNuevasPartidas = [...new Set([...partidasNuevasInstalador, ...partidasWebConfirmadas])];
+      const transcript = aiLearningData.transcript;
+      const keywords = transcript.toLowerCase().split(/\s+/).filter(w => w.length > 4).slice(0, 8);
+
+      // Guardar feedback en BD (fire-and-forget)
+      saveAIFeedback(
+        orgId, transcript,
+        aiLearningData.actuacionIds,
+        aiLearningData.aiPartidas as unknown[],
+        (finalQuote.partidas ?? []) as unknown[],
+        aiLearningData.nuevasPartidas as unknown[],
+        aiLearningData.kbScore,
+      ).catch(() => {});
+
+      // Actualizar actuaciones existentes con nuevas partidas
+      if (todasNuevasPartidas.length > 0) {
+        for (const actuacionId of aiLearningData.actuacionIds) {
+          applyActuacionLearning(actuacionId, todasNuevasPartidas, keywords).catch(() => {});
+        }
+        // Si no había actuaciones (trabajo desconocido), crear una nueva
+        if (aiLearningData.actuacionIds.length === 0) {
+          const oficio = (finalQuote.partidas?.[0] as PartidaPresupuesto & { oficio?: string } | undefined)?.oficio
+            ?? 'multiservicio';
+          const newActuacionId = `aprendido_${Date.now()}`;
+          createActuacionFromLearning(
+            oficio, newActuacionId, keywords,
+            (finalQuote.partidas ?? []).map(p => p.descripcion),
+            transcript,
+          ).catch(() => {});
+        }
+      }
+
+      setAiLearningData(null);
+    }
     let savedQuote = finalQuote;
     if (isLiveMode && orgId && finalQuote.partidas?.length) {
       const phone = clientPhone.trim().replace(/\s/g, '');
@@ -1541,8 +1617,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           if (err.plan_restriction) { showToast(err.error ?? 'Tu plan no permite esta función', 'error'); setVoiceStep('idle'); setShowUpgradeModal(true); return; }
           throw new Error(err.error ?? `HTTP ${res.status}`);
         }
-        const result: { transcript: string; quote: AIQuote } = await res.json();
-        handleVoiceResult(result.transcript || text, result.quote);
+        const result: { transcript: string; quote: AIQuote; actuacion_ids_matched?: string[] } = await res.json();
+        handleVoiceResult(result.transcript || text, result.quote, result.actuacion_ids_matched ?? []);
       } catch (e: unknown) {
         showToast('Error al procesar con IA: ' + (e instanceof Error ? e.message : String(e)), 'error');
         setVoiceStep('idle');
@@ -1767,6 +1843,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
   const [isVoiceModalOpen, setIsVoiceModalOpen] = useState<boolean>(false);
   const [desktopModalText, setDesktopModalText] = useState<string>('');
+  // Aprendizaje IA: guardar propuesta original para detectar correcciones del instalador
+  const [aiLearningData, setAiLearningData] = useState<{
+    transcript: string;
+    actuacionIds: string[];
+    aiPartidas: PartidaPresupuesto[];
+    nuevasPartidas: Array<{ concepto: string; oficio: string; fuente: string; motivo?: string }>;
+    kbScore: number;
+  } | null>(null);
   const [selectedQuoteForPreview, setSelectedQuoteForPreview] = useState<Presupuesto | null>(null);
 
   useEffect(() => {
