@@ -61,12 +61,13 @@ limpieza=20 | jardineria=25 | electricidad=50 | fontaneria=50 | climatizacion=60
 
 REGLAS UNIVERSALES:
 1. Genera TODAS las partidas necesarias para el trabajo descrito. Usa tu conocimiento de construcción/instalaciones.
-2. MANO DE OBRA → precio_unitario = tarifa de la tabla. MATERIALES → precio_unitario = 0, requiere_revision = true.
-3. Nunca inventes precio de materiales. Si no sabes el precio exacto de una pieza → precio=0, requiere_revision=true.
-4. Para SUSTITUCIÓN ("cambiar X por Y"): genera siempre desmontaje + suministro(precio=0) + instalación.
-5. Para REFORMA: múltiples oficios. Para MANTENIMIENTO RECURRENTE (servicio mensual): tipo="mantenimiento_recurrente".
-6. Oficio desconocido → nuevo_oficio=true, usa el oficio más cercano para mano de obra.
-7. calculos.subtotal = suma de todos los totales. iva = subtotal×0.21. total = subtotal+iva.
+2. AGRUPA: NUNCA una partida por unidad. Si son 4 ventanas → UNA partida "Desmontaje de 4 ventanas de madera" con cantidad=4. Si son 10 enchufes → UNA partida con cantidad=10. El campo "cantidad" es para eso.
+3. MANO DE OBRA → precio_unitario = tarifa de la tabla. MATERIALES → precio_unitario = 0, requiere_revision = true.
+4. Nunca inventes precio de materiales. Si no sabes el precio exacto de una pieza → precio=0, requiere_revision=true.
+5. Para SUSTITUCIÓN ("cambiar X por Y"): genera siempre desmontaje + suministro(precio=0) + instalación. Agrupados.
+6. Para REFORMA: múltiples oficios. Para MANTENIMIENTO RECURRENTE (servicio mensual): tipo="mantenimiento_recurrente".
+7. Oficio desconocido → nuevo_oficio=true, usa el oficio más cercano para mano de obra.
+8. calculos.subtotal = suma de todos los totales. iva = subtotal×0.21. total = subtotal+iva.
 
 GUÍA DE OFICIOS POR TIPO DE TRABAJO:
 - Ventanas/puertas/armarios → carpinteria (madera/PVC) o cerrajeria (metal/aluminio)
