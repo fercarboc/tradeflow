@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import {
   Camera, Mic, MicOff, X,
-  Loader2, CheckCircle, Sparkles, ImageIcon, AlertCircle, Send, ChevronLeft,
+  Loader2, CheckCircle, Sparkles, ImageIcon, AlertCircle, Send, ChevronLeft, Share2,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
@@ -35,6 +35,25 @@ export interface ScreenPresupuestoFotoProps {
 }
 
 type Phase = 'photo' | 'voice' | 'processing' | 'result';
+
+function loadImg(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+}
+
+function drawImageCover(ctx: CanvasRenderingContext2D, img: HTMLImageElement, x: number, y: number, w: number, h: number) {
+  const scale = Math.max(w / img.width, h / img.height);
+  const sw = w / scale;
+  const sh = h / scale;
+  const sx = (img.width - sw) / 2;
+  const sy = (img.height - sh) / 2;
+  ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+}
 
 // Comprime la imagen a max 1024px y calidad 0.85 para no superar límites de la edge function
 async function compressImage(file: File, maxPx = 1024, quality = 0.85): Promise<string> {
@@ -70,6 +89,7 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
   const [textInput, setTextInput]   = useState('');
   const [result, setResult]         = useState<ApiResult | null>(null);
   const [processingStep, setProcessingStep] = useState('');
+  const [sharing, setSharing]               = useState(false);
 
   const mediaRef    = useRef<MediaRecorder | null>(null);
   const cameraRef   = useRef<HTMLInputElement | null>(null); // con capture — móvil cámara
@@ -205,6 +225,125 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
         total: 0,
       })),
     });
+  }
+
+  async function handleShare() {
+    if (!result) return;
+    setSharing(true);
+    try {
+      const W = 1080, H = 1350;
+      const canvas = document.createElement('canvas');
+      canvas.width = W;
+      canvas.height = H;
+      const ctx = canvas.getContext('2d')!;
+
+      ctx.fillStyle = '#0B0F14';
+      ctx.fillRect(0, 0, W, H);
+
+      // Header
+      ctx.fillStyle = '#7C3AED';
+      ctx.fillRect(0, 0, W, 68);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = 'bold 26px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText('Visualización de Reforma · TradeFlow AI', W / 2, 45);
+
+      const imgY = 68, imgH = 900;
+
+      // Before
+      if (photoUrl) {
+        try {
+          const beforeImg = await loadImg(photoUrl);
+          drawImageCover(ctx, beforeImg, 0, imgY, W / 2, imgH);
+        } catch {
+          ctx.fillStyle = '#1E293B';
+          ctx.fillRect(0, imgY, W / 2, imgH);
+        }
+      } else {
+        ctx.fillStyle = '#1E293B';
+        ctx.fillRect(0, imgY, W / 2, imgH);
+      }
+      ctx.fillStyle = 'rgba(0,0,0,0.65)';
+      ctx.fillRect(0, imgY, W / 2, 38);
+      ctx.fillStyle = '#94A3B8';
+      ctx.font = 'bold 21px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText('ANTES', W / 4, imgY + 26);
+
+      // After
+      const afterSrcVal = result.visualizacionB64
+        ? `data:image/png;base64,${result.visualizacionB64}`
+        : result.visualizacionUrl ?? null;
+      if (afterSrcVal) {
+        try {
+          const afterImg = await loadImg(afterSrcVal);
+          drawImageCover(ctx, afterImg, W / 2, imgY, W / 2, imgH);
+        } catch {
+          ctx.fillStyle = '#1E293B';
+          ctx.fillRect(W / 2, imgY, W / 2, imgH);
+        }
+      } else {
+        ctx.fillStyle = '#1E293B';
+        ctx.fillRect(W / 2, imgY, W / 2, imgH);
+        ctx.fillStyle = '#4B5563';
+        ctx.font = '20px Arial';
+        ctx.fillText('Sin visualización', (W * 3) / 4, imgY + imgH / 2);
+      }
+      ctx.fillStyle = 'rgba(124,58,237,0.72)';
+      ctx.fillRect(W / 2, imgY, W / 2, 38);
+      ctx.fillStyle = '#C4B5FD';
+      ctx.font = 'bold 21px Arial';
+      ctx.fillText('DESPUÉS · IA', (W * 3) / 4, imgY + 26);
+
+      // Divider
+      ctx.strokeStyle = '#7C3AED';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(W / 2, imgY);
+      ctx.lineTo(W / 2, imgY + imgH);
+      ctx.stroke();
+
+      // Summary
+      const botY = imgY + imgH;
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = 'bold 28px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText((result.resumen ?? 'Reforma').slice(0, 48), W / 2, botY + 52);
+
+      ctx.fillStyle = '#7C3AED';
+      ctx.font = 'bold 20px Arial';
+      ctx.fillText(`${result.partidas.length} partidas de presupuesto incluidas`, W / 2, botY + 90);
+
+      ctx.fillStyle = '#374151';
+      ctx.font = '17px Arial';
+      ctx.fillText('tradeflow.app', W / 2, H - 28);
+
+      await new Promise<void>((res, rej) => {
+        canvas.toBlob(async (blob) => {
+          if (!blob) { rej(new Error('blob null')); return; }
+          const file = new File([blob], 'reforma-tradeflow.jpg', { type: 'image/jpeg' });
+          try {
+            if (navigator.canShare?.({ files: [file] })) {
+              await navigator.share({ files: [file], title: result!.resumen ?? 'Reforma', text: `${result!.resumen} — ${result!.partidas.length} partidas` });
+            } else {
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'reforma-tradeflow.jpg';
+              a.click();
+              setTimeout(() => URL.revokeObjectURL(url), 1000);
+            }
+          } catch (shareErr: unknown) {
+            if ((shareErr as { name?: string })?.name !== 'AbortError') showToast('Error al compartir', 'error');
+          }
+          res();
+        }, 'image/jpeg', 0.9);
+      });
+    } catch {
+      showToast('Error al generar imagen', 'error');
+    } finally {
+      setSharing(false);
+    }
   }
 
   function vizSrc(): string | null {
@@ -533,14 +672,26 @@ export default function ScreenPresupuestoFoto({ onConfirm, onClose, isLiveMode, 
       {/* Footer CTA (solo en resultado) */}
       {phase === 'result' && result && (
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
-          <button
-            onClick={handleConfirm}
-            className="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer"
-            style={{ boxShadow: '0 4px 24px rgba(124,58,237,0.5)' }}
-          >
-            <CheckCircle className="w-4 h-4" />
-            Confirmar y asignar precios
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={handleShare}
+              disabled={sharing}
+              className="flex-1 bg-white/5 border border-white/10 text-slate-300 font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer disabled:opacity-50"
+            >
+              {sharing
+                ? <Loader2 className="w-4 h-4 animate-spin" />
+                : <Share2 className="w-4 h-4" />}
+              {sharing ? 'Generando...' : 'Compartir'}
+            </button>
+            <button
+              onClick={handleConfirm}
+              className="flex-1 bg-violet-600 hover:bg-violet-700 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer"
+              style={{ boxShadow: '0 4px 24px rgba(124,58,237,0.5)' }}
+            >
+              <CheckCircle className="w-4 h-4" />
+              Confirmar precios
+            </button>
+          </div>
         </div>
       )}
     </div>

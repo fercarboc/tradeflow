@@ -1,25 +1,54 @@
 import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-const OPENAI_API_KEY    = Deno.env.get('OPENAI_API_KEY') ?? '';
-const ANTHROPIC_API_KEY = Deno.env.get('ANTHROPIC_API_KEY') ?? '';
+const OPENAI_API_KEY       = Deno.env.get('OPENAI_API_KEY') ?? '';
+const SUPABASE_URL         = Deno.env.get('SUPABASE_URL') ?? '';
+const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
+const SUPABASE_ANON_KEY    = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-interface Partida {
-  descripcion: string;
-  cantidad: number;
-  unidad: string;
-  categoria: string;
+const PHOTO_VIZ_LIMITS: Record<string, number> = {
+  basico:       3,
+  profesional:  Infinity,
+  empresa:      Infinity,
+  empresa_plus: Infinity,
+};
+
+async function resolveOrgAndPlan(supabase: ReturnType<typeof createClient>, userId: string) {
+  const [ownRes, memberRes] = await Promise.all([
+    supabase.from('trade_organizations').select('id').eq('owner_id', userId).maybeSingle(),
+    supabase.from('trade_org_members').select('org_id').eq('user_id', userId).eq('activo', true).maybeSingle(),
+  ]);
+  const orgId = ownRes.data?.id ?? memberRes.data?.org_id ?? null;
+  if (!orgId) return { orgId: null, plan: 'basico' as const };
+
+  const { data: sub } = await supabase
+    .from('trade_subscriptions')
+    .select('plan, status')
+    .eq('org_id', orgId)
+    .maybeSingle();
+
+  const plan = (sub?.plan ?? 'basico') as 'basico' | 'profesional' | 'empresa' | 'empresa_plus';
+  return { orgId, plan };
 }
 
-interface AnalysisResult {
-  analisis: string;
-  visualPrompt: string;
-  resumen: string;
-  partidas: Partida[];
+async function countUsageThisMonth(supabase: ReturnType<typeof createClient>, orgId: string) {
+  const monthStart = new Date();
+  monthStart.setDate(1);
+  monthStart.setHours(0, 0, 0, 0);
+
+  const { count } = await supabase
+    .from('trade_ai_usage')
+    .select('*', { count: 'exact', head: true })
+    .eq('org_id', orgId)
+    .eq('feature', 'photo_viz')
+    .gte('created_at', monthStart.toISOString());
+
+  return count ?? 0;
 }
 
 // ── 1. Transcribe audio with Whisper ──────────────────────────────────────────
@@ -48,6 +77,13 @@ async function transcribeAudio(audioBase64: string, mimeType: string): Promise<s
 }
 
 // ── 2. Analyze photo + request → quote outline + DALL-E prompt ────────────────
+interface AnalysisResult {
+  analisis: string;
+  visualPrompt: string;
+  resumen: string;
+  partidas: { descripcion: string; cantidad: number; unidad: string; categoria: string }[];
+}
+
 async function analyzePhotoAndRequest(
   photoBase64: string,
   mimeType: string,
@@ -93,10 +129,7 @@ Reglas:
           content: [
             {
               type: 'image_url',
-              image_url: {
-                url: `data:${mimeType};base64,${photoBase64}`,
-                detail: 'high',
-              },
+              image_url: { url: `data:${mimeType};base64,${photoBase64}`, detail: 'high' },
             },
             {
               type: 'text',
@@ -121,7 +154,7 @@ Reglas:
 
 // ── 3. Generate DALL-E 3 visualization ───────────────────────────────────────
 async function generateVisualization(prompt: string): Promise<{ b64: string | null; error: string | null }> {
-  if (!OPENAI_API_KEY) return { b64: null, error: 'No API key' };
+  if (!OPENAI_API_KEY) return { b64: null, error: 'No OPENAI_API_KEY' };
   try {
     const res = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
@@ -154,6 +187,45 @@ async function generateVisualization(prompt: string): Promise<{ b64: string | nu
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
 
+  const authHeader = req.headers.get('Authorization');
+  if (!authHeader) {
+    return new Response(JSON.stringify({ error: 'Sin autorización' }), {
+      status: 401, headers: { ...CORS, 'Content-Type': 'application/json' },
+    });
+  }
+  const token = authHeader.replace('Bearer ', '');
+  const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
+
+  const isAnonRequest = SUPABASE_ANON_KEY && token === SUPABASE_ANON_KEY;
+
+  let orgId: string | null = null;
+  let plan: 'basico' | 'profesional' | 'empresa' | 'empresa_plus' = 'basico';
+
+  if (!isAnonRequest) {
+    const { data: { user }, error: authErr } = await supabase.auth.getUser(token);
+    if (authErr || !user) {
+      return new Response(JSON.stringify({ error: 'Token inválido' }), {
+        status: 401, headers: { ...CORS, 'Content-Type': 'application/json' },
+      });
+    }
+    ({ orgId, plan } = await resolveOrgAndPlan(supabase, user.id));
+  }
+
+  const limit = isAnonRequest ? Infinity : (PHOTO_VIZ_LIMITS[plan] ?? 3);
+
+  if (orgId && limit !== Infinity) {
+    const used = await countUsageThisMonth(supabase, orgId);
+    if (used >= limit) {
+      return new Response(JSON.stringify({
+        error: `Has alcanzado el límite de ${limit} visualizaciones IA este mes en el plan Básico. Actualiza a Pro para visualizaciones ilimitadas.`,
+        limit_reached: true,
+        plan,
+        used,
+        limit,
+      }), { status: 403, headers: { ...CORS, 'Content-Type': 'application/json' } });
+    }
+  }
+
   try {
     const body = await req.json() as {
       photo: string;
@@ -170,22 +242,23 @@ Deno.serve(async (req: Request) => {
       );
     }
 
-    // 1. Obtener descripción de texto
     let descripcion = body.text ?? '';
     if (body.audio && OPENAI_API_KEY) {
       descripcion = await transcribeAudio(body.audio, body.audioMimeType ?? 'audio/webm');
     }
     if (!descripcion.trim()) descripcion = 'Reformar y mejorar este espacio';
 
-    // 2. Analizar foto + solicitud (GPT-4o Vision)
     const analysis = await analyzePhotoAndRequest(
       body.photo,
       body.mimeType ?? 'image/jpeg',
       descripcion,
     );
 
-    // 3. Generar visualización con DALL-E 3
     const viz = await generateVisualization(analysis.visualPrompt);
+
+    if (orgId) {
+      await supabase.from('trade_ai_usage').insert({ org_id: orgId, feature: 'photo_viz' });
+    }
 
     return new Response(
       JSON.stringify({
@@ -200,8 +273,10 @@ Deno.serve(async (req: Request) => {
       { headers: { ...CORS, 'Content-Type': 'application/json' } },
     );
   } catch (err) {
+    const msg = (err as Error).message ?? String(err);
+    console.error('[trade-presupuesto-foto]', msg);
     return new Response(
-      JSON.stringify({ error: String(err) }),
+      JSON.stringify({ error: msg }),
       { status: 500, headers: { ...CORS, 'Content-Type': 'application/json' } },
     );
   }
