@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import {
   Mic, MicOff, X, Loader2, CheckCircle, Sparkles, ChevronLeft,
-  ShieldCheck, Clock, Wrench, AlertTriangle,
+  ShieldCheck, Clock, Wrench, AlertTriangle, Plus, Trash2,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
@@ -46,6 +46,26 @@ export interface ScreenMantenimientoWizardProps {
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
 }
 
+// ── Equipos típicos por sector (cuando el usuario no describe nada) ────────────
+const EQUIPOS_TIPICOS: Record<string, string> = {
+  'Industrial / Fábrica':
+    'Equipos instalados típicos: compresores de aire comprimido (tornillo y pistón), enfriadoras de agua (chillers), torres de refrigeración, sistemas VRV/VRF de climatización industrial, grupos electrógenos de emergencia, cuadros eléctricos de fuerza y control, bombas hidráulicas, sistemas de aspiración industrial, filtros y descalcificadores de agua.',
+  'Alimentación / Frío':
+    'Equipos instalados típicos: cámaras frigoríficas positivas (+2/+4°C), cámaras de congelación (-18/-22°C), túneles de congelación en espiral, vitrinas refrigeradas de exposición y murales, evaporadores y condensadores de media/alta temperatura, compresores semi-herméticos y herméticos, centrales de refrigeración, cuadros de regulación electrónica.',
+  'Hostelería':
+    'Equipos instalados típicos: unidades split de climatización sala y cocina, campanas extractoras de acero inoxidable con motor y filtros de grasas, lavavajillas industrial tipo capota y cinta, cámaras frigoríficas de cocina (positivos y negativos), maquinaria de cocina industrial, termo acumuladores, sistemas de renovación de aire con recuperación de calor.',
+  'Hospital / Clínica':
+    'Equipos instalados típicos: UTAs (unidades de tratamiento de aire) hospitalarias con filtros HEPA H14, climatización de quirófanos (ISO 5-7) con flujo laminar, grupos de presión de agua sanitaria con redundancia, grupos electrógenos de emergencia con ATS, SAI hospitalario para equipos críticos, sistemas de gases medicinales (oxígeno, vacío, aire medicinal), calderas de vapor y agua caliente.',
+  'Oficinas':
+    'Equipos instalados típicos: unidades split de climatización inverter (cassette y conducto), fancoils de agua fría/caliente, recuperadores de calor entálpicos, ventilación mecánica controlada (VMC), SAI (sistemas de alimentación ininterrumpida) para servidores y CPD ofimático, cuadros eléctricos y grupo de fuerza, sistemas de control y gestión técnica del edificio (BMS/GTB).',
+  'Redes IT':
+    'Equipos instalados típicos: servidores rack (torre y blade) en CPD, climatización precisión (precision cooling) tipo downflow y upflow, SAI/UPS de rack y modulares con bypass, switches de core, distribución y acceso (capa 2/3), routers y firewalls perimetrales, sistemas de vigilancia CCTV IP, sistemas de detección precoz de incendio (VESDA), PDUs de rack con monitorización.',
+  'Retail / Supermercado':
+    'Equipos instalados típicos: murales frigoríficos de lácteos, charcutería y bebidas, islas y arcones de congelados, cámaras de producto terminado y trastienda, racks centralizados de compresores (Bitzer, Copeland), condensadores remotos en cubierta, equipos split de climatización sala de ventas, sistema de monitorización centralizada de temperaturas.',
+  'Comunidades':
+    'Equipos instalados típicos: ascensores (cabina, grupo tractor, cuadro de maniobras), grupos de presión de agua para suministro, calderas de condensación y biomasa para calefacción centralizada, bombas de recirculación de ACS, depuradora de piscina comunitaria (bomba, filtro, dosificador de cloro, climatizador), ventilación forzada de garaje (jet fans y centralita CO), sistema de intercomunicación y control de accesos.',
+};
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const DEFAULT_DETALLES: SectorDetalles = {
   num_equipos: '1',
@@ -73,7 +93,12 @@ function buildMantenimientoTexto(
   if (d.incluye_piezas) lines.push('Incluye repuestos y piezas en el contrato');
   if (d.recargo_urgencias) lines.push('Incluye recargos por urgencias nocturnas/festivos (según tabla: +25% sábados hasta +70% guardia 24h)');
   if (d.zona) lines.push(`Zona geográfica: ${d.zona}`);
-  if (extra.trim()) lines.push(`Descripción adicional del cliente: ${extra.trim()}`);
+  if (extra.trim()) {
+    lines.push(`Descripción adicional del cliente: ${extra.trim()}`);
+  } else {
+    const tipicos = EQUIPOS_TIPICOS[sector.label];
+    if (tipicos) lines.push(tipicos);
+  }
 
   lines.push('');
   lines.push('Genera las partidas de servicio del contrato de mantenimiento:');
@@ -105,6 +130,31 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, showToas
   function setD<K extends keyof SectorDetalles>(key: K, val: SectorDetalles[K]) {
     setDetalles(prev => ({ ...prev, [key]: val }));
   }
+
+  function updateClausula(i: number, key: keyof ClausulaItem, value: ClausulaItem[keyof ClausulaItem]) {
+    setClausulas(prev => {
+      const next = [...prev];
+      const updated = { ...next[i], [key]: value };
+      if (key === 'precioUnitario' || key === 'cantidad') {
+        updated.total = (key === 'precioUnitario' ? Number(value) : updated.precioUnitario) *
+                        (key === 'cantidad' ? Number(value) : updated.cantidad);
+      }
+      next[i] = updated;
+      return next;
+    });
+  }
+
+  function deleteClausula(i: number) {
+    setClausulas(prev => prev.filter((_, idx) => idx !== i));
+  }
+
+  function addClausula() {
+    setClausulas(prev => [...prev, {
+      descripcion: '', tipo: 'servicio', cantidad: 1, unidad: 'ud', precioUnitario: 0, total: 0,
+    }]);
+  }
+
+  const totalContrato = clausulas.reduce((s, c) => s + (c.precioUnitario * c.cantidad), 0);
 
   function startRecording() {
     if (!SpeechAPI) { showToast('Dictado no disponible en este navegador. Escribe directamente.', 'info'); return; }
@@ -419,23 +469,77 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, showToas
               </div>
             </div>
 
-            {/* Partidas */}
+            {/* Partidas editables */}
             <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
               {clausulas.map((c, i) => (
-                <div key={i} className={`px-4 py-3 flex items-center justify-between gap-3 ${i < clausulas.length - 1 ? 'border-b border-slate-800' : ''}`}>
-                  <div className="min-w-0 flex-1">
-                    <p className="text-xs text-white font-medium truncate">{c.descripcion}</p>
-                    <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full mt-0.5 inline-block ${
-                      c.tipo === 'mano_de_obra' ? 'bg-blue-500/10 text-blue-400'
-                      : c.tipo === 'servicio' ? 'bg-violet-500/10 text-violet-400'
-                      : 'bg-emerald-500/10 text-emerald-400'
-                    }`}>
-                      {c.tipo === 'mano_de_obra' ? 'Mano de obra' : c.tipo === 'servicio' ? 'Servicio' : 'Material'}
-                    </span>
+                <div key={i} className={`px-3 py-2.5 space-y-1.5 ${i < clausulas.length - 1 ? 'border-b border-slate-800' : ''}`}>
+                  <div className="flex items-start gap-2">
+                    <div className="flex-1 min-w-0">
+                      <input
+                        value={c.descripcion}
+                        onChange={e => updateClausula(i, 'descripcion', e.target.value)}
+                        className="w-full bg-transparent text-xs text-white font-medium focus:outline-none focus:bg-slate-800 rounded px-1 py-0.5 -mx-1"
+                        placeholder="Descripción de la partida…"
+                      />
+                      <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full mt-0.5 inline-block ${
+                        c.tipo === 'mano_de_obra' ? 'bg-blue-500/10 text-blue-400'
+                        : c.tipo === 'servicio' ? 'bg-violet-500/10 text-violet-400'
+                        : 'bg-emerald-500/10 text-emerald-400'
+                      }`}>
+                        {c.tipo === 'mano_de_obra' ? 'Mano de obra' : c.tipo === 'servicio' ? 'Servicio' : 'Material'}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => deleteClausula(i)}
+                      className="p-1 rounded-lg text-slate-600 hover:text-red-400 hover:bg-red-500/10 cursor-pointer shrink-0 transition-colors"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
                   </div>
-                  <p className="text-xs text-slate-400 shrink-0 font-mono">{c.cantidad} {c.unidad}</p>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1 text-[10px] text-slate-500">
+                      <input
+                        type="number" min="0" step="0.5"
+                        value={c.cantidad}
+                        onChange={e => updateClausula(i, 'cantidad', Number(e.target.value))}
+                        className="w-10 bg-slate-800 rounded px-1 py-0.5 text-white text-center text-[10px] focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      />
+                      <span>{c.unidad}</span>
+                    </div>
+                    <span className="text-slate-700">×</span>
+                    <div className="flex items-center gap-1">
+                      <input
+                        type="number" min="0" step="1"
+                        value={c.precioUnitario || ''}
+                        onChange={e => updateClausula(i, 'precioUnitario', Number(e.target.value))}
+                        className="w-20 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-right text-xs text-white focus:outline-none focus:border-blue-500"
+                        placeholder="0,00"
+                      />
+                      <span className="text-[10px] text-slate-500">€</span>
+                    </div>
+                    <div className="flex-1" />
+                    <p className="text-xs font-bold text-slate-200 font-mono shrink-0">
+                      {(c.precioUnitario * c.cantidad).toLocaleString('es-ES', { minimumFractionDigits: 2 })} €
+                    </p>
+                  </div>
                 </div>
               ))}
+
+              {/* Añadir partida */}
+              <button
+                onClick={addClausula}
+                className="w-full py-2.5 flex items-center justify-center gap-1.5 text-[11px] font-bold text-blue-400 hover:bg-blue-500/5 transition-colors border-t border-slate-800 cursor-pointer"
+              >
+                <Plus className="w-3.5 h-3.5" /> Añadir partida
+              </button>
+            </div>
+
+            {/* Total */}
+            <div className="bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 flex items-center justify-between">
+              <span className="text-xs text-slate-400 font-bold uppercase tracking-wide">Total estimado</span>
+              <span className="text-lg font-bold text-white">
+                {totalContrato.toLocaleString('es-ES', { minimumFractionDigits: 2 })} €
+              </span>
             </div>
 
             <button
