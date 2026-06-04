@@ -26,9 +26,11 @@ interface PartidaItem {
 }
 
 interface MudanzaDetalles {
+  fecha_mudanza: string;
   origen: string;
   destino: string;
   km: string;
+  tipo_traslado: 'local' | 'interprovincial';
   pisos_origen: string;
   ascensor_origen: boolean;
   pisos_destino: string;
@@ -37,6 +39,7 @@ interface MudanzaDetalles {
   guardamuebles_meses: string;
   num_vehiculos: string;
   m3_aprox: string;
+  num_cajas: string;
 }
 
 interface RedInformaticaDetalles {
@@ -79,16 +82,21 @@ export interface ScreenPresupuestoIncrementalProps {
 type Phase = 'categoria' | 'mudanza_detalles' | 'red_detalles' | 'acumulando' | 'resultado';
 
 const DEFAULT_MUDANZA: MudanzaDetalles = {
+  fecha_mudanza: '',
   origen: '', destino: '', km: '',
+  tipo_traslado: 'local',
   pisos_origen: '1', ascensor_origen: false,
   pisos_destino: '1', ascensor_destino: false,
   guardamuebles: false, guardamuebles_meses: '1',
   num_vehiculos: '1', m3_aprox: '',
+  num_cajas: '0',
 };
 
 function buildMudanzaTexto(m: MudanzaDetalles, categoria: string): string {
   const lines: string[] = [];
   lines.push(categoria);
+  if (m.fecha_mudanza) lines.push(`Fecha de mudanza: ${m.fecha_mudanza}`);
+  lines.push(`Tipo de traslado: ${m.tipo_traslado === 'interprovincial' ? 'Interprovincial / nacional' : 'Local / municipal'}`);
   if (m.origen) lines.push(`Recogida en: ${m.origen}`);
   if (m.destino) lines.push(`Entrega en: ${m.destino}`);
   if (m.km) lines.push(`Distancia aproximada: ${m.km} km`);
@@ -103,12 +111,15 @@ function buildMudanzaTexto(m: MudanzaDetalles, categoria: string): string {
 
   lines.push(`${m.num_vehiculos} vehículo${Number(m.num_vehiculos) > 1 ? 's' : ''} de mudanza`);
   if (m.m3_aprox) lines.push(`Volumen aproximado: ${m.m3_aprox} m³`);
+  const cajas = Number(m.num_cajas ?? 0);
+  if (cajas > 0) lines.push(`Cajas de embalaje: ${cajas} unidades (precio referencia 2,00€/caja)`);
   if (m.guardamuebles) lines.push(`Guardamuebles: ${m.guardamuebles_meses} mes${Number(m.guardamuebles_meses) > 1 ? 'es' : ''}`);
 
   lines.push('Incluir partidas: embalaje y protección de muebles, desmontaje y montaje de mobiliario, carga y descarga, transporte.');
   if (!m.ascensor_origen && Number(m.pisos_origen) > 2) lines.push('Considerar montacargas o grúa exterior en origen.');
   if (!m.ascensor_destino && Number(m.pisos_destino) > 2) lines.push('Considerar montacargas o grúa exterior en destino.');
   if (m.guardamuebles) lines.push('Incluir partida guardamuebles por meses (precio mensual unitario).');
+  if (m.tipo_traslado === 'interprovincial') lines.push('Precio transporte nacional: incluir dietas y desplazamiento equipo.');
 
   return lines.join('\n');
 }
@@ -340,6 +351,38 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
               <p className="text-slate-400 text-xs">Rellena lo que sepas — el resto lo añades después</p>
             </div>
 
+            {/* Fecha y tipo */}
+            <div className="space-y-2">
+              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Fecha y tipo de traslado</p>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-1.5">
+                  <p className="text-[10px] text-slate-400">Fecha de mudanza</p>
+                  <input
+                    type="date"
+                    value={mudanza.fecha_mudanza}
+                    onChange={e => setM('fecha_mudanza', e.target.value)}
+                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-sm text-white focus:outline-none focus:border-amber-500 [color-scheme:dark]"
+                  />
+                </div>
+                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-1.5">
+                  <p className="text-[10px] text-slate-400">Tipo de traslado</p>
+                  <div className="flex flex-col gap-1.5">
+                    {(['local', 'interprovincial'] as const).map(t => (
+                      <button
+                        key={t}
+                        onClick={() => setM('tipo_traslado', t)}
+                        className={`py-1 rounded-lg text-[10px] font-bold cursor-pointer transition-colors ${
+                          mudanza.tipo_traslado === t ? 'bg-amber-500 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                        }`}
+                      >
+                        {t === 'local' ? 'Local / municipal' : 'Interprovincial'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Origen / Destino */}
             <div className="space-y-2">
               <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
@@ -461,6 +504,36 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
                     className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-sm text-white text-center focus:outline-none focus:border-amber-500"
                   />
                 </div>
+              </div>
+              {/* Cajas de embalaje */}
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-[10px] text-slate-400">Cajas de embalaje</p>
+                    <p className="text-[9px] text-slate-600">Precio referencia: 2,00 €/caja</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setM('num_cajas', String(Math.max(0, Number(mudanza.num_cajas) - 5)))}
+                      className="w-7 h-7 rounded-lg bg-slate-800 text-slate-300 font-bold text-sm cursor-pointer hover:bg-slate-700 flex items-center justify-center"
+                    >−</button>
+                    <input
+                      type="number" min="0" step="5"
+                      value={mudanza.num_cajas}
+                      onChange={e => setM('num_cajas', e.target.value)}
+                      className="w-14 bg-slate-800 border border-slate-700 rounded-lg px-1 py-1 text-sm text-white text-center focus:outline-none focus:border-amber-500"
+                    />
+                    <button
+                      onClick={() => setM('num_cajas', String(Number(mudanza.num_cajas) + 5))}
+                      className="w-7 h-7 rounded-lg bg-slate-800 text-slate-300 font-bold text-sm cursor-pointer hover:bg-slate-700 flex items-center justify-center"
+                    >+</button>
+                  </div>
+                </div>
+                {Number(mudanza.num_cajas) > 0 && (
+                  <p className="text-[10px] text-amber-400">
+                    {mudanza.num_cajas} cajas × 2,00€ = {(Number(mudanza.num_cajas) * 2).toFixed(2)}€
+                  </p>
+                )}
               </div>
             </div>
 

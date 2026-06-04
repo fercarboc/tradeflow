@@ -5138,6 +5138,78 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </AnimatePresence>
           </div>
         </div>
+
+        {/* Presupuesto con Foto overlay */}
+        {showPresupuestoFoto && (
+          <ScreenPresupuestoFoto
+            isLiveMode={isLiveMode}
+            showToast={showToast}
+            onClose={() => setShowPresupuestoFoto(false)}
+            onConfirm={(q) => {
+              setShowPresupuestoFoto(false);
+              setWizardQuote({
+                id: '',
+                nombreCliente: '',
+                telefonoCliente: '',
+                emailCliente: '',
+                descripcion: q.descripcion,
+                fecha: new Date().toISOString().split('T')[0],
+                estado: 'Borrador',
+                partidas: q.partidas.map(p => {
+                  const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
+                  const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : 0;
+                  return {
+                    descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion,
+                    tipo: p.tipo,
+                    cantidad: p.cantidad,
+                    precioUnitario: pu,
+                    total: pu * p.cantidad,
+                  };
+                }),
+                total: 0,
+              });
+              setWizardOrigin('foto');
+              setWizardStep(4);
+              setWizardActive(true);
+            }}
+          />
+        )}
+
+        {/* Presupuesto por Pasos overlay */}
+        {showPresupuestoIncremental && (
+          <ScreenPresupuestoIncremental
+            showToast={showToast}
+            onClose={() => setShowPresupuestoIncremental(false)}
+            onConfirm={(q) => {
+              setShowPresupuestoIncremental(false);
+              setWizardQuote({
+                id: '',
+                nombreCliente: '',
+                telefonoCliente: '',
+                emailCliente: '',
+                descripcion: q.descripcion,
+                fecha: new Date().toISOString().split('T')[0],
+                estado: 'Borrador',
+                partidas: q.partidas.map(p => {
+                  const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
+                  const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : 0;
+                  return {
+                    descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion,
+                    tipo: p.tipo,
+                    cantidad: p.cantidad,
+                    precioUnitario: pu,
+                    total: pu * p.cantidad,
+                  };
+                }),
+                total: 0,
+              });
+              setWizardOrigin('voz');
+              setWizardStep(4);
+              setWizardActive(true);
+            }}
+          />
+        )}
+
       </React.Fragment>
     );
 
