@@ -7,14 +7,29 @@ import { supabase } from '../lib/supabase';
 
 // ── Sectores ──────────────────────────────────────────────────────────────────
 const SECTORES = [
-  { icon: '🏭', label: 'Industrial / Fábrica',      sla: '1h urgente',  cobertura: '8/5',      criticidad: 'Muy alta' },
-  { icon: '🧊', label: 'Alimentación / Frío',        sla: '1h',          cobertura: '24/7',     criticidad: 'Muy alta' },
-  { icon: '🏨', label: 'Hostelería',                 sla: '2h',          cobertura: '8/5',      criticidad: 'Alta' },
-  { icon: '🏥', label: 'Hospital / Clínica',         sla: '15 min',      cobertura: '24/7/365', criticidad: 'Extrema' },
-  { icon: '🏢', label: 'Oficinas',                   sla: '4h',          cobertura: '8/5',      criticidad: 'Normal' },
-  { icon: '🌐', label: 'Redes IT',                   sla: '1h remoto',   cobertura: '8/5',      criticidad: 'Alta' },
-  { icon: '🛒', label: 'Retail / Supermercado',      sla: '30 min frío', cobertura: '24/7',     criticidad: 'Muy alta' },
-  { icon: '🏘️', label: 'Comunidades',               sla: '4h',          cobertura: '8/5',      criticidad: 'Normal' },
+  { icon: '🏭', label: 'Industrial / Fábrica',        sla: '1h urgente',   cobertura: '8/5',          criticidad: 'Muy alta' },
+  { icon: '🧊', label: 'Alimentación / Frío',          sla: '1h',           cobertura: '24/7',         criticidad: 'Muy alta' },
+  { icon: '🏨', label: 'Hostelería',                   sla: '2h',           cobertura: '8/5',          criticidad: 'Alta' },
+  { icon: '🏥', label: 'Hospital / Clínica',           sla: '15 min',       cobertura: '24/7/365',     criticidad: 'Extrema' },
+  { icon: '🔥', label: 'PCI — Contra Incendios',       sla: 'Inmediato',    cobertura: '24/7/365',     criticidad: 'Extrema' },
+  { icon: '🏢', label: 'Oficinas',                     sla: '4h',           cobertura: '8/5',          criticidad: 'Normal' },
+  { icon: '🌐', label: 'Redes IT',                     sla: '1h remoto',    cobertura: '8/5',          criticidad: 'Alta' },
+  { icon: '🛒', label: 'Retail / Supermercado',        sla: '30 min frío',  cobertura: '24/7',         criticidad: 'Muy alta' },
+  { icon: '🏘️', label: 'Comunidades',                 sla: '4h',           cobertura: '8/5',          criticidad: 'Normal' },
+  { icon: '🏦', label: 'Banca y Seguros',              sla: '2h',           cobertura: '8/5',          criticidad: 'Muy alta' },
+  { icon: '💊', label: 'Farmacéutico / Lab.',          sla: '1h',           cobertura: '8/5',          criticidad: 'Muy alta' },
+  { icon: '🏛️', label: 'Admin. Pública',              sla: '4h',           cobertura: '8/5',          criticidad: 'Normal' },
+  { icon: '🎓', label: 'Colegios y Educación',         sla: '4h',           cobertura: '8/5',          criticidad: 'Normal' },
+  { icon: '🧓', label: 'Residencias de Mayores',       sla: '1h',           cobertura: '24/7/365',     criticidad: 'Extrema' },
+  { icon: '🌾', label: 'Agricultura y Ganadería',      sla: '2h',           cobertura: '8/5',          criticidad: 'Alta' },
+  { icon: '🚛', label: 'Naves Logísticas',             sla: '1h',           cobertura: '24/7',         criticidad: 'Muy alta' },
+  { icon: '🏋️', label: 'Centros Deportivos',          sla: '2h',           cobertura: '8/5',          criticidad: 'Alta' },
+  { icon: '☀️', label: 'Energía Solar / FV',           sla: '4h',           cobertura: '8/5',          criticidad: 'Normal' },
+  { icon: '🚗', label: 'Automoción / Taller',          sla: '2h',           cobertura: '8/5',          criticidad: 'Alta' },
+  { icon: '🖥️', label: 'Data Center / CPD',           sla: '15 min',       cobertura: '24/7/365',     criticidad: 'Extrema' },
+  { icon: '🅿️', label: 'Parking y Garajes',           sla: '1h acceso',    cobertura: 'personalizada', criticidad: 'Alta' },
+  { icon: '🏗️', label: 'Obras y Construcción',        sla: '4h',           cobertura: 'personalizada', criticidad: 'Alta' },
+  { icon: '📡', label: 'Telecomunicaciones',           sla: '1h red',       cobertura: '24/7',         criticidad: 'Muy alta' },
 ];
 
 // ── Interfaces ────────────────────────────────────────────────────────────────
@@ -64,6 +79,36 @@ const EQUIPOS_TIPICOS: Record<string, string> = {
     'Equipos instalados típicos: murales frigoríficos de lácteos, charcutería y bebidas, islas y arcones de congelados, cámaras de producto terminado y trastienda, racks centralizados de compresores (Bitzer, Copeland), condensadores remotos en cubierta, equipos split de climatización sala de ventas, sistema de monitorización centralizada de temperaturas.',
   'Comunidades':
     'Equipos instalados típicos: ascensores (cabina, grupo tractor, cuadro de maniobras), grupos de presión de agua para suministro, calderas de condensación y biomasa para calefacción centralizada, bombas de recirculación de ACS, depuradora de piscina comunitaria (bomba, filtro, dosificador de cloro, climatizador), ventilación forzada de garaje (jet fans y centralita CO), sistema de intercomunicación y control de accesos.',
+  'PCI — Contra Incendios':
+    'Sistemas PCI instalados típicos: extintores portátiles (polvo ABC, CO₂), bocas de incendio equipadas (BIE 25mm y 45mm), rociadores automáticos (sprinklers), central de detección de incendios con detectores ópticos y termovelocimétricos, pulsadores manuales de alarma, sirenas y pilotos de señalización, alumbrado de emergencia y señalización evacuación, grupo de presión contra incendios (electrobomba + jockey), hidrantes exteriores, columnas secas, sistema de extinción automática de cocina (ansul/amerex).',
+  'Banca y Seguros':
+    'Equipos instalados típicos: sistemas de control de acceso biométrico y por tarjeta (Lenel, Honeywell, Bosch), cámaras CCTV IP de alta resolución con grabación redundante, cajas de seguridad y cámaras acorazadas, cajeros automáticos (ATM), sistemas de alarma anti-intrusión y anti-atraco, climatización salas de servidores y CPD interno, SAI/UPS para sistemas críticos, detectores de billetes falsos, puertas blindadas con control de apertura.',
+  'Farmacéutico / Lab.':
+    'Equipos instalados típicos: UTAs (unidades de tratamiento de aire) con filtros HEPA H13/H14 para salas blancas (ISO 5-7), sistemas de presión diferencial entre zonas (manómetros y control BMS), cámaras de temperatura controlada para medicamentos (+5°C, -20°C, -80°C), autoclaves y esterilizadores, campanas de flujo laminar y de gases, incubadores y centrífugas de laboratorio, sistemas de agua purificada (osmosis inversa, agua para inyección), registradores de temperatura con trazabilidad certificada.',
+  'Admin. Pública':
+    'Equipos instalados típicos: climatización edificios administrativos (unidades fancoil, UTA central), instalaciones de iluminación LED y alumbrado público (luminarias, armarios de maniobra), fuentes ornamentales y sistemas de riego municipal, semáforos y sistemas de señalización vial, depuradoras de agua y estaciones de bombeo, vehículos y maquinaria municipal (opcional), sistemas de megafonía y CCTV en espacios públicos.',
+  'Colegios y Educación':
+    'Equipos instalados típicos: calefacción y climatización aulas (radiadores, splits, UTA), sistema de ventilación con control de CO₂ (calidad de aire en aulas), instalaciones de fontanería y aseos (grifos, cisternas, duchas gimnasio), alumbrado de emergencia y señalización evacuación, control de acceso y portería (videoportero, tornos), sistema de megafonía escolar, pantallas digitales y proyectores (no incluidos salvo pacto), pistas deportivas (iluminación, sistemas de riego).',
+  'Residencias de Mayores':
+    'Equipos instalados típicos: sistemas de climatización 24h con redundancia (cassettes, fancoils, UTA con filtración), ACS centralizada con sistema anti-legionella (acumuladores 60°C, recirculación), grupo electrógeno de emergencia (para sistemas críticos), ascensores con homologación para camillas, sistema de llamada de enfermería (pulsadores habitaciones y baños), instalación contra incendios completa (sprinklers, detección, BIE), sistema de control de accesos, compresor para oxígeno medicinal.',
+  'Agricultura y Ganadería':
+    'Equipos instalados típicos: motores y bombas de riego (goteo, aspersión, pivot central), sistemas de fertirrigación y dosificación, cámaras frigoríficas para cosecha y productos hortofrutícolas, túneles de secado o frío para almacenamiento, instalaciones de ventilación y climatización de naves ganaderas, equipos de ordeño automático (DeLaval, GEA), silos y transportadores de grano, grupos electrógenos para fincas sin suministro fiable, instalaciones eléctricas de finca (transformadores, cuadros).',
+  'Naves Logísticas':
+    'Equipos instalados típicos: puertas de muelle seccionales con abrigo de muelle (niveladores, burletes), muelles de carga eléctricos e hidráulicos, puertas rápidas enrollables de alta velocidad, sistemas de transporte automático (cintas, carros AGV), sprinklers y sistema de detección de incendios de gran superficie, instalaciones de carga de baterías para carretillas, climatización de oficinas y zonas de valor añadido, sistemas de gestión de almacén integrados con SCADA, alumbrado LED industrial con telgestión.',
+  'Centros Deportivos':
+    'Equipos instalados típicos: sistema depuración piscinas (bomba, filtro, dosificador cloro/ácido, sistema UV), climatización vasos de piscina y vestuarios (deshumectadoras), sistemas de Legionella en duchas y ACS, climatización pabellones deportivos (UTA, cortinas de aire), sistemas de ventilación y renovación de aire en salas fitness, máquinas de fitness (no incluidas salvo pacto — garantía fabricante), sistemas de iluminación LED con control DALI, acceso y tornos con sistema de abono, suelos técnicos de parqué flotante (revisión y barnizado).',
+  'Energía Solar / FV':
+    'Equipos instalados típicos: módulos fotovoltaicos (monocristalinos/policristalinos/bifaciales), inversores de cadena y centrales (SMA, Fronius, Huawei, SolarEdge), optimizadores de potencia y string boxes, contadores de energía bidireccionales, baterías de almacenamiento BYD/Tesla/PYLONTECH, estructura de soporte (cubierta, suelo, marquesina), cableado DC y AC, protecciones (fusibles, varistores, magnetotérmicos), plataforma de monitorización en tiempo real.',
+  'Automoción / Taller':
+    'Equipos instalados típicos: elevadores de vehículos de 2 y 4 columnas (Ravaglioli, Cascos, Launch), columnas de elevación de tijeras y de fosa, compresores de aire tornillo y pistón con depósito, pistola de impacto y herramienta neumática, máquina de cambio de neumáticos (desmontadora) y equilibradora de ruedas, alineador de dirección 3D, equipos de diagnosis multimarca (Bosch, Snap-on, Texa), puente de lavado automático, banco de pruebas de frenos y emisiones, cargadores de baterías EV.',
+  'Data Center / CPD':
+    'Equipos instalados típicos: servidores blade y rack (HPE, Dell, Cisco UCS), sistemas UPS modulares redundantes (Vertiv, Eaton, APC) con baterías de litio, climatización de precisión downflow/upflow (Stulz, Liebert, Schneider), grupos electrógenos con ATS automático, sistemas de supresión de incendios gaseoso (FM200, Inergen, CO₂), sistema de monitorización DCIM (temperatura, humedad, energía, seguridad), PDUs de rack inteligentes con medición por toma, switches de core de alta densidad (Cisco Nexus, Juniper), sistemas de KVM y gestión remota.',
+  'Parking y Garajes':
+    'Equipos instalados típicos: barreras automáticas de acceso (Came, BFT, Faac), terminales de pago automático (parquímetros), sistemas de guiado de vehículos (señalización LED verde/rojo por plaza), detectores de CO/NOx con centralita de alarma y control de ventilación, ventiladores axiales y jet fans para extracción de gases, puertas enrollables y seccionales de acceso, cámaras CCTV con ANPR (lectura de matrículas), alumbrado LED con sensor de presencia, alumbrado de emergencia y señalización evacuación.',
+  'Obras y Construcción':
+    'Equipos instalados típicos: grúas torre (Liebherr, Potain, Jaso) con cuadro de maniobras, montacargas de obra y plataformas elevadoras (GEDA, Alimak), instalaciones eléctricas provisionales de obra (cuadros ICT, generales y secundarios), grupos electrógenos de obra (400V trifásico), bombas de agua para achique y hormigonado, hormigoneras y camiones bomba (no incluidos), compresores de aire para herramienta neumática, maquinaria de corte y rozadora (no incluidas), instalaciones de alumbrado provisional.',
+  'Telecomunicaciones':
+    'Equipos instalados típicos: torres de telecomunicación autoportantes y arriostradas (Rohn, Comesa), mástiles en cubierta con pararrayos, equipos de radio BTS/NodeB/eNodeB/gNodeB (Ericsson, Nokia, Huawei, ZTE), sistemas de energía de telecomunicación (rectificadores 48V, baterías AGM/Gel/LFP), sistemas de vigilancia remota NOC (SNMP, NetAct), shelter y abrigos climatizados, líneas de transmisión y sistemas de antenas (RRU, AAU), equipos de microondas PDH/SDH, sistemas fibra óptica y DWDM.',
 };
 
 // ── Helpers ───────────────────────────────────────────────────────────────────

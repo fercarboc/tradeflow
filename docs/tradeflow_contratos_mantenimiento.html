@@ -581,7 +581,7 @@
     <h1>Módulo de <em>Contratos</em><br>de Mantenimiento</h1>
     <p class="hero-sub">Arquitectura completa: contrato base + cláusulas por sector + esquema de base de datos + motor de precios e IA para generación automática de documentos.</p>
     <div class="hero-meta">
-      <div class="hero-stat"><span class="val">14</span><span class="lbl">Sectores</span></div>
+      <div class="hero-stat"><span class="val">23</span><span class="lbl">Sectores</span></div>
       <div class="hero-stat"><span class="val">7</span><span class="lbl">Oficios v1.0</span></div>
       <div class="hero-stat"><span class="val">~60s</span><span class="lbl">Generación contrato</span></div>
       <div class="hero-stat"><span class="val">18</span><span class="lbl">Tablas BD</span></div>
@@ -642,7 +642,7 @@
     <div class="section-head">
       <span class="section-num">02 —</span>
       <h2>Modelo de Contrato Base</h2>
-      <span class="section-desc">Cláusulas comunes a todos los sectores</span>
+      <span class="section-desc">23 sectores cubiertos</span>
     </div>
 
     <div class="callout">
@@ -734,6 +734,7 @@
     <div class="section-head">
       <span class="section-num">03 —</span>
       <h2>Cláusulas Especiales por Sector</h2>
+      <span class="section-desc">23 sectores cubiertos</span>
     </div>
 
     <div class="callout blue">
@@ -871,6 +872,277 @@
           <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">1</span></div>
           <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Acuerdo con presidente/administrador</span></div>
           <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">150–800 €</span></div>
+        </div>
+      </div>
+
+      <!-- BANCA Y SEGUROS -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#eef3fb">
+          <h3>Banca y Compañías de Seguros</h3>
+          <span class="criticidad crit-muy-alta">Muy Alta</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">2h</span></div>
+          <div class="sector-row"><span class="lbl">SLA alarma / acceso</span><span class="val mono">30 min 24/7</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">08:00–20:00 L–V</span></div>
+          <div class="sector-row"><span class="lbl">Fines de semana</span><span class="val">Guardia disponibilidad (cajeros)</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">2 (sistemas eléctricos + seguridad)</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">Banco de España — instalaciones de seguridad</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Confidencialidad NDA obligatoria · Acceso con escolta · Trabajos fuera de horario comercial obligatorios para obra · Cámaras CCTV y control de acceso bajo protocolo bancario · Responsabilidad civil ampliada mínimo 1M€</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">800–5.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- FARMACÉUTICO Y LABORATORIOS -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#fdf0eb">
+          <h3>Farmacéutico y Laboratorios</h3>
+          <span class="criticidad crit-muy-alta">Muy Alta</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">1h</span></div>
+          <div class="sector-row"><span class="lbl">SLA cadena frío lab.</span><span class="val mono">30 min 24/7</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">07:00–21:00 L–S</span></div>
+          <div class="sector-row"><span class="lbl">Guardias</span><span class="val">Sí — cámaras de temperatura y salas blancas</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">4 (HVAC + frío + electricidad)</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">GMP / EU GDP · RD 1345/2007 · AEMPS</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Salas blancas: personal certificado y vestimenta específica · Registro de temperatura obligatorio (trazabilidad) · Climatización con presiones diferenciales controladas · Validación de equipos tras intervención · Seguro responsabilidad civil específico farmacéutico</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">1.500–12.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- AYUNTAMIENTOS / ADMINISTRACIÓN PÚBLICA -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#f5f5ef">
+          <h3>Ayuntamientos / Administración Pública</h3>
+          <span class="criticidad crit-normal">Normal</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">4h</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">08:00–15:00 L–V (jornada administrativa)</span></div>
+          <div class="sector-row"><span class="lbl">Guardias</span><span class="val">No — salvo instalaciones especiales (depuradoras, iluminación viaria)</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">1–2</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">LCSP — Ley 9/2017 Contratos Sector Público</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Licitación pública obligatoria para nuevos contratos · Pago a 30 días (Ley Morosidad) · Libro de registro de intervenciones exigido · Coordinador de seguridad requerido en obras · Posibilidad de auditorías de Intervención · Confidencialidad datos ciudadanos (RGPD)</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">500–8.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- COLEGIOS / CENTROS EDUCATIVOS -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#eef7f2">
+          <h3>Colegios y Centros Educativos</h3>
+          <span class="criticidad crit-normal">Normal</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">4h</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">07:30–18:00 L–V (período lectivo)</span></div>
+          <div class="sector-row"><span class="lbl">Trabajos intrusivos</span><span class="val">Solo en vacaciones escolares (julio/agosto/navidad/semana santa)</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">1 (inicio y fin de curso + trimestral)</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">Orden ECI — instalaciones escolares · CTE</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Personal con certificado de delitos sexuales (obligatorio por ley) · Trabajos ruidosos o con polvo solo en períodos no lectivos · Acceso regulado — acompañado en todo momento · Protección de menores — sin fotografías de instalaciones con alumnos · Coordinación con dirección del centro</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">400–3.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- RESIDENCIAS DE ANCIANOS -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#1a0808">
+          <h3 style="color:#ffc0a0">Residencias de Mayores / Sociosanitario</h3>
+          <span class="criticidad crit-extrema">Extrema</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">1h</span></div>
+          <div class="sector-row"><span class="lbl">SLA crítico</span><span class="val mono">30 min 24/7 (climatización, electricidad)</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val mono">24h / 365 días</span></div>
+          <div class="sector-row"><span class="lbl">Guardias</span><span class="val">Obligatorias — técnico localizable siempre</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">4 (climatización + fontanería + electricidad)</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">RD centros sociosanitarios · Legionella obligatoria · Plan emergencias</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Protocolo Legionella: revisión mensual ACS obligatoria + registro · Temperatura ACS mínima 60°C verificada · Climatización: no interrumpir en ningún caso (usuarios vulnerables) · Personal con formación en entornos geriátricos · Responsabilidad civil ampliada · Coordinación con dirección médica</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">1.500–10.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- AGRICULTURA Y GANADERÍA -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#eef7f2">
+          <h3>Agricultura y Ganadería</h3>
+          <span class="criticidad crit-alta">Alta</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">2h (temporada recolección)</span></div>
+          <div class="sector-row"><span class="lbl">SLA ganadería</span><span class="val mono">1h (cámaras frío / ventilación)</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">06:00–20:00 todos los días</span></div>
+          <div class="sector-row"><span class="lbl">Temporada crítica</span><span class="val">Verano (recolección) — SLA reforzado y sin vacaciones técnico</span></div>
+          <div class="sector-row"><span class="lbl">Guardias</span><span class="val">Sí en ganadería intensiva y riegos automatizados</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">2 + revisión pretemporada</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Maquinaria agrícola excluida salvo pacto expreso · Instalaciones de riego: revisión pre-campaña obligatoria · Cámaras frigoríficas de cosecha: SLA 30 min en campaña · Desplazamiento a finca: incluir radio o facturar km · Disponibilidad técnico en vendimia/cosecha sin festivos</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">600–5.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- NAVES LOGÍSTICAS -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#fdf0eb">
+          <h3>Naves Logísticas y Almacenes</h3>
+          <span class="criticidad crit-muy-alta">Muy Alta</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">1h</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">06:00–22:00 L–S (operativa logística)</span></div>
+          <div class="sector-row"><span class="lbl">Guardias</span><span class="val">Sí — operativas 24h en grandes centros</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">2 (puertas de muelle + electricidad + PCI)</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">RD 2267/2004 seguridad contra incendios industrial</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Puertas de muelle: SLA 2h (parada operativa) · Muelles de carga excluidos si son de terceros · Racks y estanterías: excluidos del contrato (mantenimiento específico) · Sistemas PCI obligatorios por normativa industrial · Coordinación con jefe de almacén para acceso en operativa · Parada de carretillas y transpaletas: responsabilidad cliente</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">1.000–8.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- CENTROS DEPORTIVOS -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#eef7f2">
+          <h3>Centros Deportivos y Gimnasios</h3>
+          <span class="criticidad crit-alta">Alta</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">2h</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">07:00–23:00 L–D</span></div>
+          <div class="sector-row"><span class="lbl">Fines de semana</span><span class="val">Incluidos (cobertura básica)</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">2 (piscina + vestuarios + HVAC)</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">RD 742/2013 piscinas · Legionella · Salud pública</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Piscina: análisis agua quincenal obligatorio + registro · Legionella: revisión ACS y vasos mensual · Vestuarios: Legionella duchas obligatorio · Maquinaria fitness excluida (contrato específico con fabricante) · Climatización: no interrumpir en zonas de entrenamiento · Cierre de instalación por obra: acuerdo previo con dirección</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">800–6.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- PCI — PROTECCIÓN CONTRA INCENDIOS -->
+      <div class="sector-card" style="border: 2px solid #b5451b;">
+        <div class="sector-header" style="background:#1a0808">
+          <h3 style="color:#ff9060">PCI — Protección Contra Incendios</h3>
+          <span class="criticidad crit-extrema">Extrema + Normativa Legal</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">1h (sistema comprometido)</span></div>
+          <div class="sector-row"><span class="lbl">SLA alarma activa</span><span class="val mono">Inmediato — 24/7/365</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val mono">24h / 365 — sin excepciones</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">Según normativa: trimestral/semestral/anual por tipo</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">RD 513/2017 · RIPCI · CTE DB-SI · Normas UNE 23007/23033/23500</span></div>
+          <div class="sector-row"><span class="lbl">Empresa instaladora</span><span class="val">Habilitada por CCAA obligatorio (Registro Empresas Instaladoras)</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial — CRÍTICA</span><span class="val">
+            <strong style="color:#b5451b">MANTENIMIENTO OBLIGATORIO POR LEY</strong> — No es opcional · 
+            El contrato debe especificar TODOS los sistemas incluidos: extintores, BIE, rociadores, detección, señalización, alumbrado emergencia, grupo de presión, hidrantes · 
+            Revisión trimestral extintores y BIE: obligatoria con certificado · 
+            Revisión semestral detección: obligatoria · 
+            Revisión anual completa + prueba hidráulica: obligatoria · 
+            Empresa debe entregar <strong>Certificado de Mantenimiento</strong> firmado por técnico competente · 
+            Libro de mantenimiento en instalación (no en empresa) · 
+            Comunicación a Industria de cualquier deficiencia grave en 48h · 
+            Sustitución de extintores caducados: partida separada (material no incluido) · 
+            Recarga extintores: partida separada · 
+            En caso de alarma: empresa debe poder enviar técnico inmediatamente o tener protocolo con CRA
+          </span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">300–5.000 € (según instalación y nº sistemas)</span></div>
+        </div>
+      </div>
+
+      <!-- ENERGÍA SOLAR / FOTOVOLTAICA -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#f5ecd4">
+          <h3>Energía Solar / Fotovoltaica</h3>
+          <span class="criticidad crit-normal">Normal</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">4h</span></div>
+          <div class="sector-row"><span class="lbl">SLA fallo producción</span><span class="val mono">24h (no emergencia)</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">08:00–18:00 L–V</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/año</span><span class="val mono">2 (semestral)</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">RD 244/2019 autoconsumo · RD 1110/2007 · RITE</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Limpieza de paneles incluida (frecuencia a pactar) · Revisión inversores y string boxes semestral · Monitorización de producción: plataforma de telemetría obligatoria · Termografía infrarroja anual · Sustitución de módulos degradados: presupuesto independiente · Gestión trámites autoconsumo: servicio extra</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">80–1.500 €</span></div>
+        </div>
+      </div>
+
+      <!-- AUTOMOCIÓN / TALLER Y CONCESIONARIO -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#fdf0eb">
+          <h3>Automoción / Taller y Concesionario</h3>
+          <span class="criticidad crit-alta">Alta</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">2h</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">08:00–20:00 L–S</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">2 (elevadores + compresor)</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">RD 1457/2002 talleres · ITC-MIE-AEM-3 elevadores vehículos</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Elevadores de vehículos: certificación y revisión periódica obligatoria (ITC-MIE-AEM-3) · Compresores de aire: revisión de presión y seguridades trimestral · Puentes de lavado automático: preventivo mensual · Equipos de diagnosis: no incluidos (mantenimiento por fabricante) · Fosa de inspección: revisión de iluminación y ventilación</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">400–3.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- DATA CENTER / CPD DEDICADO -->
+      <div class="sector-card" style="border: 2px solid #1e4a7a;">
+        <div class="sector-header" style="background:#0a1020">
+          <h3 style="color:#80b0ff">Data Center / CPD Dedicado</h3>
+          <span class="criticidad crit-extrema">Extrema</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">15 min</span></div>
+          <div class="sector-row"><span class="lbl">SLA crítico (energía/frío)</span><span class="val mono">Inmediato — 24/7/365</span></div>
+          <div class="sector-row"><span class="lbl">Cobertura</span><span class="val mono">24h / 365 días</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">1 (revisión mensual completa)</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">EN 50600 · TIER I–IV · RGPD acceso físico · ENS</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">UPS/SAI: prueba de descarga trimestral obligatoria · Climatización precisión: supervisión continua temperatura/humedad · Grupos electrógenos: prueba de arranque mensual con carga · Sistema de supresión de incendios (FM200/Inergen): inspección semestral · Personal con NDA y acceso físico controlado · Ventana de mantenimiento fuera de horas críticas pactada con cliente</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">2.000–30.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- PARKING Y GARAJES -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#eef3fb">
+          <h3>Parking y Garajes</h3>
+          <span class="criticidad crit-alta">Alta</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA barrera/acceso</span><span class="val mono">1h</span></div>
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">2h</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">07:00–23:00 todos los días</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">1</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">RD 513/2017 PCI · RITE ventilación garaje · REBT · Ordenanza municipal</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Control CO/NOx: monitorización continua obligatoria (umbral alarma 50 ppm CO) · Barreras y cajeros de pago: SLA 1h (pérdida de ingresos directa) · Ventilación forzada: revisión mensual (seguridad por acumulación de gases) · Puertas de acceso motorizadas: preventivo trimestral · Alumbrado de emergencia: revisión semestral obligatoria (RIPCI) · PCI del parking: mantenimiento específico según RIPCI</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">300–4.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- OBRAS Y CONSTRUCCIÓN -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#fdf0eb">
+          <h3>Obras y Construcción</h3>
+          <span class="criticidad crit-alta">Alta</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">4h</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">07:00–18:00 L–S</span></div>
+          <div class="sector-row"><span class="lbl">Guardias</span><span class="val">No — parada nocturna de obra aceptable</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos</span><span class="val">Variable por equipo y fase de obra</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">RD 1215/1997 equipos de trabajo · ITC Grúas Torre · REBT provisional</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Grúas torre: revisiones reglamentarias obligatorias (ITC-MIE-AEM-2) · Instalaciones eléctricas provisionales: revisión mensual por electricista autorizado · Grupos electrógenos de obra: preventivo mensual · Equipos en propiedad del cliente excluidos salvo pacto expreso · Duración del contrato ligada a duración de la obra · Técnicos con EPI obligatorio para acceso a obra</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">500–5.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- TELECOMUNICACIONES / INFRAESTRUCTURA -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#eef3fb">
+          <h3>Telecomunicaciones / Infraestructura</h3>
+          <span class="criticidad crit-muy-alta">Muy Alta</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">2h</span></div>
+          <div class="sector-row"><span class="lbl">SLA fallo de red</span><span class="val mono">1h 24/7</span></div>
+          <div class="sector-row"><span class="lbl">Cobertura</span><span class="val mono">24/7</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/trimestre</span><span class="val mono">1 por instalación</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">Ley 9/2014 General Telecomunicaciones · CNAF · RD 346/2011</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Torres y mástiles: inspección estructural anual + boletín · Equipos BTS/Node B: mantenimiento según fabricante (Ericsson/Nokia/Huawei) · Sistemas de energía (rectificadores, baterías 48V): prueba trimestral · Climatización de abrigos y shelter: preventivo mensual en verano · Técnicos con formación en trabajos en altura obligatoria · Robo y vandalismo de equipos excluido del contrato</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">800–8.000 €</span></div>
         </div>
       </div>
 
