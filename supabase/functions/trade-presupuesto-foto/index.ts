@@ -153,8 +153,8 @@ Reglas:
 }
 
 // ── 3. Generate DALL-E 3 visualization ───────────────────────────────────────
-async function generateVisualization(prompt: string): Promise<{ b64: string | null; error: string | null }> {
-  if (!OPENAI_API_KEY) return { b64: null, error: 'No OPENAI_API_KEY' };
+async function generateVisualization(prompt: string): Promise<{ url: string | null; error: string | null }> {
+  if (!OPENAI_API_KEY) return { url: null, error: 'No OPENAI_API_KEY' };
   try {
     const res = await fetch('https://api.openai.com/v1/images/generations', {
       method: 'POST',
@@ -168,18 +168,17 @@ async function generateVisualization(prompt: string): Promise<{ b64: string | nu
         n: 1,
         size: '1024x1024',
         quality: 'standard',
-        response_format: 'b64_json',
       }),
     });
     if (!res.ok) {
       const errText = await res.text();
-      return { b64: null, error: `DALL-E ${res.status}: ${errText.slice(0, 200)}` };
+      return { url: null, error: `DALL-E ${res.status}: ${errText.slice(0, 200)}` };
     }
     const data = await res.json();
-    const b64 = (data.data?.[0]?.b64_json ?? null) as string | null;
-    return { b64, error: null };
+    const url = (data.data?.[0]?.url ?? null) as string | null;
+    return { url, error: null };
   } catch (e) {
-    return { b64: null, error: String(e) };
+    return { url: null, error: String(e) };
   }
 }
 
@@ -266,8 +265,8 @@ Deno.serve(async (req: Request) => {
         analisis: analysis.analisis,
         resumen: analysis.resumen,
         partidas: analysis.partidas,
-        visualizacionUrl: null,
-        visualizacionB64: viz.b64,
+        visualizacionUrl: viz.url,
+        visualizacionB64: null,
         visualizacionError: viz.error,
       }),
       { headers: { ...CORS, 'Content-Type': 'application/json' } },

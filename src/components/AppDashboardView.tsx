@@ -3505,39 +3505,86 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         )}
 
-        {/* ── HERO CARD — Nuevo presupuesto ── */}
-        <div className="relative rounded-3xl overflow-hidden border border-blue-500/20" style={{ boxShadow: '0 8px 40px rgba(37,99,235,0.18)' }}>
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-700/30 via-blue-900/20 to-[#0B0F14]" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(37,99,235,0.15),transparent_65%)]" />
-
-          <div className="relative p-6 space-y-5">
-            <div>
-              <h3 className="text-xl font-black text-white tracking-tight">Nuevo presupuesto</h3>
-              <p className="text-sm text-blue-300/70 mt-0.5">Habla o toma una foto del trabajo</p>
+        {/* ── QUICK ACTIONS ── */}
+        <div className="space-y-2.5">
+          <button
+            onClick={() => startWizard(2)}
+            className="w-full flex items-center gap-4 rounded-2xl px-5 py-4 cursor-pointer active:scale-98 transition-transform text-left"
+            style={{ background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', boxShadow: '0 4px 20px rgba(37,99,235,0.35)' }}
+          >
+            <div className="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center shrink-0">
+              <Mic className="w-6 h-6 text-white" />
             </div>
-
-            {/* Mic button */}
-            <div className="flex flex-col items-center gap-3 py-1">
-              <button
-                onClick={() => startWizard(2)}
-                className="relative w-28 h-28 rounded-full bg-blue-600 flex items-center justify-center cursor-pointer active:scale-95 transition-transform"
-                style={{ boxShadow: '0 0 48px rgba(37,99,235,0.6), 0 0 100px rgba(37,99,235,0.2)' }}
-              >
-                <div className="absolute inset-0 rounded-full bg-blue-400/15 animate-ping" style={{ animationDuration: '2.5s' }} />
-                <Mic className="w-12 h-12 text-white relative z-10" />
-              </button>
-              <span className="text-sm text-blue-200/60 font-medium">Pulsa para dictar</span>
+            <div className="min-w-0">
+              <p className="text-sm font-black text-white">Presupuesto directo</p>
+              <p className="text-[11px] text-blue-200/70 mt-0.5">Dicta el trabajo y la IA genera el presupuesto</p>
             </div>
+            <span className="text-white/40 ml-auto text-lg shrink-0">›</span>
+          </button>
 
-            {/* Foto */}
+          <button
+            onClick={() => setShowPresupuestoIncremental(true)}
+            className="w-full flex items-center gap-4 rounded-2xl px-5 py-4 cursor-pointer active:scale-98 transition-transform text-left"
+            style={{ background: 'linear-gradient(135deg,#16a34a,#15803d)', boxShadow: '0 4px 20px rgba(22,163,74,0.35)' }}
+          >
+            <div className="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center shrink-0">
+              <span className="text-xl">📋</span>
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-black text-white">Presupuesto por pasos</p>
+              <p className="text-[11px] text-green-200/70 mt-0.5">Mudanzas, reformas, redes — guiado y estructurado</p>
+            </div>
+            <span className="text-white/40 ml-auto text-lg shrink-0">›</span>
+          </button>
+
+          {((['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial')) && (
             <button
-              onClick={() => startWizard(3)}
-              className="w-full flex items-center justify-center gap-2 bg-white/6 border border-white/10 rounded-2xl py-4 text-white text-sm font-semibold active:bg-white/10 transition-colors cursor-pointer"
+              onClick={() => setMobileTab('mantenimiento')}
+              className="w-full flex items-center gap-4 rounded-2xl px-5 py-4 cursor-pointer active:scale-98 transition-transform text-left"
+              style={{ background: 'linear-gradient(135deg,#7c3aed,#6d28d9)', boxShadow: '0 4px 20px rgba(124,58,237,0.35)' }}
             >
-              <Camera className="w-5 h-5 text-blue-300" />
-              Escanear con foto IA
+              <div className="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center shrink-0">
+                <Wrench className="w-6 h-6 text-white" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-black text-white">Mantenimientos</p>
+                <p className="text-[11px] text-violet-200/70 mt-0.5">Gestiona contratos de mantenimiento activos</p>
+              </div>
+              <span className="text-white/40 ml-auto text-lg shrink-0">›</span>
             </button>
-          </div>
+          )}
+
+          {((['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial')) && (
+            <button
+              onClick={() => setMobileTab('contratos')}
+              className="w-full flex items-center gap-4 rounded-2xl px-5 py-4 cursor-pointer active:scale-98 transition-transform text-left"
+              style={{ background: 'linear-gradient(135deg,#d97706,#b45309)', boxShadow: '0 4px 20px rgba(217,119,6,0.35)' }}
+            >
+              <div className="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center shrink-0">
+                <FileText className="w-6 h-6 text-white" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-black text-white">Contratos</p>
+                <p className="text-[11px] text-amber-200/70 mt-0.5">Consulta y administra tus contratos</p>
+              </div>
+              <span className="text-white/40 ml-auto text-lg shrink-0">›</span>
+            </button>
+          )}
+
+          <button
+            onClick={() => setShowPresupuestoFoto(true)}
+            className="w-full flex items-center gap-4 rounded-2xl px-5 py-4 cursor-pointer active:scale-98 transition-transform text-left"
+            style={{ background: 'linear-gradient(135deg,#0891b2,#0e7490)', boxShadow: '0 4px 20px rgba(8,145,178,0.35)' }}
+          >
+            <div className="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center shrink-0">
+              <Camera className="w-6 h-6 text-white" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-black text-white">Presupuesto con foto</p>
+              <p className="text-[11px] text-cyan-200/70 mt-0.5">Genera presupuestos con inteligencia artificial</p>
+            </div>
+            <span className="text-white/40 ml-auto text-lg shrink-0">›</span>
+          </button>
         </div>
 
         {/* ── BORRADOR ACTUAL ── */}

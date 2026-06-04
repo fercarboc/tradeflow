@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import {
   Mic, MicOff, X, Loader2, CheckCircle, Sparkles, ChevronLeft, Layers,
-  Truck, Package, Building2, MapPin,
+  Truck, Package, Building2, MapPin, Network, Server,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
@@ -39,13 +39,44 @@ interface MudanzaDetalles {
   m3_aprox: string;
 }
 
+interface RedInformaticaDetalles {
+  num_puestos: string;
+  metros_cable: string;
+  tipo_cable: string;
+  num_switches: string;
+  rack: boolean;
+  ap_wifi: boolean;
+  num_ap: string;
+  servidor: boolean;
+  cctv: boolean;
+}
+
+const DEFAULT_RED: RedInformaticaDetalles = {
+  num_puestos: '', metros_cable: '', tipo_cable: 'Cat6',
+  num_switches: '1', rack: false, ap_wifi: false, num_ap: '1',
+  servidor: false, cctv: false,
+};
+
+function buildRedInformaticaTexto(r: RedInformaticaDetalles, categoria: string): string {
+  const lines: string[] = [categoria];
+  if (r.num_puestos) lines.push(`${r.num_puestos} puestos de trabajo`);
+  if (r.metros_cable) lines.push(`Cableado estructurado: ${r.metros_cable} metros, ${r.tipo_cable}`);
+  lines.push(`${r.num_switches} switch${Number(r.num_switches) > 1 ? 'es' : ''}`);
+  if (r.rack) lines.push('Armario rack con panel de parcheo');
+  if (r.ap_wifi) lines.push(`${r.num_ap} punto${Number(r.num_ap) > 1 ? 's' : ''} de acceso WiFi`);
+  if (r.servidor) lines.push('Servidor o NAS');
+  if (r.cctv) lines.push('Cableado para CCTV/cámaras de seguridad');
+  lines.push('Incluir: canaletas o cableado bajo techo/suelo, tomas de red RJ45, etiquetado y certificación, conexión equipos, puesta en marcha.');
+  return lines.join('\n');
+}
+
 export interface ScreenPresupuestoIncrementalProps {
   onConfirm: (q: { descripcion: string; partidas: PartidaItem[] }) => void;
   onClose: () => void;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
 }
 
-type Phase = 'categoria' | 'mudanza_detalles' | 'acumulando' | 'resultado';
+type Phase = 'categoria' | 'mudanza_detalles' | 'red_detalles' | 'acumulando' | 'resultado';
 
 const DEFAULT_MUDANZA: MudanzaDetalles = {
   origen: '', destino: '', km: '',
@@ -91,16 +122,22 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
   const [recording, setRecording]       = useState(false);
   const [processing, setProcessing]     = useState(false);
   const [mudanza, setMudanza]           = useState<MudanzaDetalles>(DEFAULT_MUDANZA);
+  const [red, setRed]                   = useState<RedInformaticaDetalles>(DEFAULT_RED);
   const recognitionRef                  = useRef<unknown>(null);
 
   const SpeechAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
   const isMudanza = categoria.toLowerCase().includes('mudanza');
+  const isRed     = categoria.toLowerCase().includes('red') || categoria.toLowerCase().includes('inform') || categoria.toLowerCase().includes('network');
 
   function pickCategoria(label: string) {
     setCategoria(label);
-    if (label.toLowerCase().includes('mudanza')) {
+    const k = label.toLowerCase();
+    if (k.includes('mudanza')) {
       setMudanza(DEFAULT_MUDANZA);
       setPhase('mudanza_detalles');
+    } else if (k.includes('red') || k.includes('inform') || k.includes('network')) {
+      setRed(DEFAULT_RED);
+      setPhase('red_detalles');
     } else {
       setPhase('acumulando');
     }
@@ -176,6 +213,21 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     }
   }
 
+  async function addPartidasFromRedDetalles() {
+    setProcessing(true);
+    try {
+      const texto = buildRedInformaticaTexto(red, categoria);
+      const nuevas = await callAI(texto);
+      setPartidas(nuevas);
+      setPhase('acumulando');
+      showToast(`${nuevas.length} partidas base generadas`, 'success');
+    } catch {
+      showToast('Error al procesar. Inténtalo de nuevo.', 'error');
+    } finally {
+      setProcessing(false);
+    }
+  }
+
   async function addPartidas() {
     const texto = textInput.trim();
     if (!texto) return;
@@ -193,9 +245,11 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
   }
 
   function handleBack() {
-    if (phase === 'mudanza_detalles') { setPhase('categoria'); return; }
+    if (phase === 'mudanza_detalles' || phase === 'red_detalles') { setPhase('categoria'); return; }
     if (phase === 'acumulando') {
-      if (isMudanza) { setPhase('mudanza_detalles'); } else { setPhase('categoria'); }
+      if (isMudanza) { setPhase('mudanza_detalles'); }
+      else if (isRed) { setPhase('red_detalles'); }
+      else { setPhase('categoria'); }
       return;
     }
     if (phase === 'resultado') { setPhase('acumulando'); return; }
@@ -222,7 +276,7 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
 
       {/* Step indicators */}
       <div className="flex items-center justify-center gap-2 py-2.5 border-b border-white/8 shrink-0">
-        {(['categoria', isMudanza ? 'mudanza_detalles' : null, 'acumulando', 'resultado'] as (Phase | null)[])
+        {(['categoria', isMudanza ? 'mudanza_detalles' : isRed ? 'red_detalles' : null, 'acumulando', 'resultado'] as (Phase | null)[])
           .filter(Boolean)
           .map((p, i, arr) => (
           <div key={p!} className="flex items-center gap-1">
@@ -450,6 +504,129 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
           </div>
         )}
 
+        {/* ── FASE: DETALLES RED INFORMÁTICA ── */}
+        {phase === 'red_detalles' && (
+          <div className="px-4 py-5 space-y-5 pb-32">
+            <div className="text-center space-y-1">
+              <Network className="w-8 h-8 text-amber-400 mx-auto" />
+              <h2 className="text-base font-bold text-white">Detalles de la red</h2>
+              <p className="text-slate-400 text-xs">Rellena lo que sepas — el resto lo añades después</p>
+            </div>
+
+            {/* Puestos y cableado */}
+            <div className="space-y-2">
+              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Infraestructura</p>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-1.5">
+                  <p className="text-[10px] text-slate-400">Puestos de trabajo</p>
+                  <input
+                    type="number" min="1"
+                    value={red.num_puestos}
+                    onChange={e => setRed(prev => ({ ...prev, num_puestos: e.target.value }))}
+                    placeholder="Ej: 10"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-sm text-white text-center focus:outline-none focus:border-amber-500"
+                  />
+                </div>
+                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-1.5">
+                  <p className="text-[10px] text-slate-400">Metros cableado</p>
+                  <input
+                    type="number" min="0"
+                    value={red.metros_cable}
+                    onChange={e => setRed(prev => ({ ...prev, metros_cable: e.target.value }))}
+                    placeholder="Ej: 150"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-sm text-white text-center focus:outline-none focus:border-amber-500"
+                  />
+                </div>
+              </div>
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-1.5">
+                <p className="text-[10px] text-slate-400">Categoría de cable</p>
+                <div className="flex gap-1.5">
+                  {['Cat5e', 'Cat6', 'Cat6A', 'Cat7'].map(c => (
+                    <button
+                      key={c}
+                      onClick={() => setRed(prev => ({ ...prev, tipo_cable: c }))}
+                      className={`flex-1 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition-colors ${
+                        red.tipo_cable === c ? 'bg-amber-500 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                      }`}
+                    >
+                      {c}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Equipos activos */}
+            <div className="space-y-2">
+              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+                <Server className="w-3 h-3 text-amber-400" /> Equipos activos
+              </p>
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-slate-300">Nº switches</span>
+                  <div className="flex gap-1.5">
+                    {['1', '2', '3', '4+'].map(v => (
+                      <button
+                        key={v}
+                        onClick={() => setRed(prev => ({ ...prev, num_switches: v }))}
+                        className={`px-2.5 py-1 rounded-lg text-xs font-bold cursor-pointer transition-colors ${
+                          red.num_switches === v ? 'bg-amber-500 text-white' : 'bg-slate-800 text-slate-400'
+                        }`}
+                      >
+                        {v}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {[
+                  { key: 'rack', label: 'Armario rack' },
+                  { key: 'servidor', label: 'Servidor / NAS' },
+                  { key: 'cctv', label: 'Cableado CCTV' },
+                ].map(({ key, label }) => (
+                  <div key={key} className="flex items-center justify-between">
+                    <span className="text-xs text-slate-300">{label}</span>
+                    <div
+                      onClick={() => setRed(prev => ({ ...prev, [key]: !(prev as any)[key] }))}
+                      className={`w-9 h-5 rounded-full transition-colors relative cursor-pointer ${(red as any)[key] ? 'bg-amber-500' : 'bg-slate-700'}`}
+                    >
+                      <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform ${(red as any)[key] ? 'translate-x-4' : 'translate-x-0.5'}`} />
+                    </div>
+                  </div>
+                ))}
+
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-slate-300">WiFi / APs</span>
+                  <div
+                    onClick={() => setRed(prev => ({ ...prev, ap_wifi: !prev.ap_wifi }))}
+                    className={`w-9 h-5 rounded-full transition-colors relative cursor-pointer ${red.ap_wifi ? 'bg-amber-500' : 'bg-slate-700'}`}
+                  >
+                    <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform ${red.ap_wifi ? 'translate-x-4' : 'translate-x-0.5'}`} />
+                  </div>
+                </div>
+                {red.ap_wifi && (
+                  <div className="flex items-center gap-2 pt-1">
+                    <span className="text-xs text-slate-400">Nº APs:</span>
+                    <div className="flex gap-1.5">
+                      {['1', '2', '3', '4+'].map(v => (
+                        <button
+                          key={v}
+                          onClick={() => setRed(prev => ({ ...prev, num_ap: v }))}
+                          className={`px-2.5 py-1 rounded-lg text-xs font-bold cursor-pointer transition-colors ${
+                            red.num_ap === v ? 'bg-amber-500 text-white' : 'bg-slate-800 text-slate-400'
+                          }`}
+                        >
+                          {v}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* ── FASE: ACUMULANDO ── */}
         {phase === 'acumulando' && (
           <div className="flex flex-col">
@@ -573,6 +750,23 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
           </div>
         )}
       </div>
+
+      {/* Footer: generar partidas base (red detalles) */}
+      {phase === 'red_detalles' && (
+        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
+          <button
+            onClick={addPartidasFromRedDetalles}
+            disabled={processing}
+            className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer disabled:opacity-40"
+            style={{ boxShadow: '0 4px 24px rgba(245,158,11,0.4)' }}
+          >
+            {processing
+              ? <><Loader2 className="w-4 h-4 animate-spin" /> Generando partidas base…</>
+              : <><Sparkles className="w-4 h-4" /> Generar partidas y continuar</>
+            }
+          </button>
+        </div>
+      )}
 
       {/* Footer: generar partidas base (mudanza detalles) */}
       {phase === 'mudanza_detalles' && (
