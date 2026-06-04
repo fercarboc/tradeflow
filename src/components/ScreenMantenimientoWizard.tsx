@@ -1,0 +1,500 @@
+import { useState, useRef } from 'react';
+import {
+  Mic, MicOff, X, Loader2, CheckCircle, Sparkles, ChevronLeft,
+  ShieldCheck, Clock, Wrench, AlertTriangle,
+} from 'lucide-react';
+import { supabase } from '../lib/supabase';
+
+// ── Sectores ──────────────────────────────────────────────────────────────────
+const SECTORES = [
+  { icon: '🏭', label: 'Industrial / Fábrica',      sla: '1h urgente',  cobertura: '8/5',      criticidad: 'Muy alta' },
+  { icon: '🧊', label: 'Alimentación / Frío',        sla: '1h',          cobertura: '24/7',     criticidad: 'Muy alta' },
+  { icon: '🏨', label: 'Hostelería',                 sla: '2h',          cobertura: '8/5',      criticidad: 'Alta' },
+  { icon: '🏥', label: 'Hospital / Clínica',         sla: '15 min',      cobertura: '24/7/365', criticidad: 'Extrema' },
+  { icon: '🏢', label: 'Oficinas',                   sla: '4h',          cobertura: '8/5',      criticidad: 'Normal' },
+  { icon: '🌐', label: 'Redes IT',                   sla: '1h remoto',   cobertura: '8/5',      criticidad: 'Alta' },
+  { icon: '🛒', label: 'Retail / Supermercado',      sla: '30 min frío', cobertura: '24/7',     criticidad: 'Muy alta' },
+  { icon: '🏘️', label: 'Comunidades',               sla: '4h',          cobertura: '8/5',      criticidad: 'Normal' },
+];
+
+// ── Interfaces ────────────────────────────────────────────────────────────────
+interface SectorDetalles {
+  num_equipos: string;
+  potencia_kw: string;
+  cobertura: '8/5' | '24/7' | '24/7/365' | 'personalizada';
+  visitas_anuales: '1' | '2' | '4' | '12' | '24';
+  incluye_piezas: boolean;
+  recargo_urgencias: boolean;
+  zona: string;
+  notas_extra: string;
+}
+
+interface ClausulaItem {
+  descripcion: string;
+  tipo: 'servicio' | 'material' | 'mano_de_obra';
+  cantidad: number;
+  unidad: string;
+  precioUnitario: number;
+  total: number;
+}
+
+type Phase = 'sector' | 'detalles' | 'voz' | 'resultado';
+
+export interface ScreenMantenimientoWizardProps {
+  onConfirm: (texto: string, clausulas: ClausulaItem[]) => void;
+  onClose: () => void;
+  showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+const DEFAULT_DETALLES: SectorDetalles = {
+  num_equipos: '1',
+  potencia_kw: '',
+  cobertura: '8/5',
+  visitas_anuales: '2',
+  incluye_piezas: false,
+  recargo_urgencias: false,
+  zona: '',
+  notas_extra: '',
+};
+
+function buildMantenimientoTexto(
+  sector: typeof SECTORES[0],
+  d: SectorDetalles,
+  extra: string,
+): string {
+  const lines: string[] = [
+    `CONTRATO DE MANTENIMIENTO — ${sector.label.toUpperCase()}`,
+    `Criticidad: ${sector.criticidad} | SLA: ${sector.sla} | Cobertura: ${d.cobertura}`,
+    `Número de equipos/instalaciones: ${d.num_equipos}`,
+  ];
+  if (d.potencia_kw) lines.push(`Potencia total instalada: ${d.potencia_kw} kW`);
+  lines.push(`Visitas preventivas anuales: ${d.visitas_anuales}`);
+  if (d.incluye_piezas) lines.push('Incluye repuestos y piezas en el contrato');
+  if (d.recargo_urgencias) lines.push('Incluye recargos por urgencias nocturnas/festivos (según tabla: +25% sábados hasta +70% guardia 24h)');
+  if (d.zona) lines.push(`Zona geográfica: ${d.zona}`);
+  if (extra.trim()) lines.push(`Descripción adicional del cliente: ${extra.trim()}`);
+
+  lines.push('');
+  lines.push('Genera las partidas de servicio del contrato de mantenimiento:');
+  lines.push('- Visitas preventivas (precio/visita o precio anual)');
+  lines.push('- Guardia de disponibilidad 24h si aplica (precio/mes)');
+  lines.push('- Mano de obra correctiva (precio/hora)');
+  lines.push('- Desplazamiento (precio/visita)');
+  if (d.incluye_piezas) lines.push('- Repuestos incluidos (estimación anual)');
+  lines.push('- Limpieza y mantenimiento preventivo (filtros, consumibles)');
+  lines.push(`- Penalización SLA: -5%/hora por cada hora fuera de SLA de ${sector.sla}`);
+  lines.push('Expresa las partidas con cantidad, unidad (visita, mes, h, ud) y precio unitario estimado.');
+
+  return lines.join('\n');
+}
+
+// ── Componente ────────────────────────────────────────────────────────────────
+export default function ScreenMantenimientoWizard({ onConfirm, onClose, showToast }: ScreenMantenimientoWizardProps) {
+  const [phase, setPhase]             = useState<Phase>('sector');
+  const [sector, setSector]           = useState<typeof SECTORES[0] | null>(null);
+  const [detalles, setDetalles]       = useState<SectorDetalles>(DEFAULT_DETALLES);
+  const [textInput, setTextInput]     = useState('');
+  const [recording, setRecording]     = useState(false);
+  const [processing, setProcessing]   = useState(false);
+  const [clausulas, setClausulas]     = useState<ClausulaItem[]>([]);
+  const recognitionRef                = useRef<unknown>(null);
+
+  const SpeechAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+  function setD<K extends keyof SectorDetalles>(key: K, val: SectorDetalles[K]) {
+    setDetalles(prev => ({ ...prev, [key]: val }));
+  }
+
+  function startRecording() {
+    if (!SpeechAPI) { showToast('Dictado no disponible en este navegador. Escribe directamente.', 'info'); return; }
+    const r = new SpeechAPI();
+    r.lang = 'es-ES'; r.continuous = false; r.interimResults = false;
+    r.onresult = (e: any) => {
+      const text = (e.results[0]?.[0]?.transcript ?? '').trim();
+      setTextInput(prev => prev ? `${prev} ${text}` : text);
+    };
+    r.onerror = () => { showToast('Error al reconocer voz', 'error'); setRecording(false); };
+    r.onend = () => setRecording(false);
+    r.start();
+    recognitionRef.current = r;
+    setRecording(true);
+  }
+
+  function stopRecording() { (recognitionRef.current as any)?.stop(); setRecording(false); }
+
+  async function generarContrato() {
+    if (!sector) return;
+    setProcessing(true);
+    try {
+      const contexto = buildMantenimientoTexto(sector, detalles, textInput);
+      const { data, error } = await supabase.functions.invoke('trade-voice-to-quote', {
+        body: { text: `[MANTENIMIENTO — ${sector.label}]\n${contexto}` },
+      });
+      if (error) throw new Error(String((error as any).message ?? error));
+      const raw = (data?.quote?.partidas ?? []) as Array<{
+        concepto: string; cantidad: number; unidad: string;
+        tipo_partida?: string; precio_unitario?: number; total?: number;
+      }>;
+      const items: ClausulaItem[] = raw.map(p => ({
+        descripcion: p.concepto ?? '',
+        tipo: (p.tipo_partida === 'mano_obra' ? 'mano_de_obra' : p.tipo_partida === 'material' ? 'material' : 'servicio') as ClausulaItem['tipo'],
+        cantidad: p.cantidad ?? 1,
+        unidad: p.unidad ?? 'ud',
+        precioUnitario: p.precio_unitario ?? 0,
+        total: p.total ?? 0,
+      }));
+      setClausulas(items);
+      setPhase('resultado');
+      showToast(`${items.length} partidas de contrato generadas`, 'success');
+    } catch {
+      showToast('Error al generar el contrato. Inténtalo de nuevo.', 'error');
+    } finally {
+      setProcessing(false);
+    }
+  }
+
+  function handleBack() {
+    if (phase === 'detalles') { setPhase('sector'); return; }
+    if (phase === 'voz') { setPhase('detalles'); return; }
+    if (phase === 'resultado') { setPhase('voz'); return; }
+    onClose();
+  }
+
+  const STEPS: Phase[] = ['sector', 'detalles', 'voz', 'resultado'];
+  const stepIdx = STEPS.indexOf(phase);
+
+  return (
+    <div className="fixed inset-0 bg-[#0B0F14] z-[60] flex flex-col">
+
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-white/8 shrink-0">
+        <button
+          onClick={phase === 'sector' ? onClose : handleBack}
+          className="flex items-center gap-1.5 text-slate-400 text-sm cursor-pointer"
+        >
+          {phase === 'sector' ? <X className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+        </button>
+        <div className="flex items-center gap-2">
+          <ShieldCheck className="w-4 h-4 text-blue-400" />
+          <span className="text-sm font-bold text-white">Contrato de Mantenimiento</span>
+        </div>
+        <div className="w-8" />
+      </div>
+
+      {/* Step dots */}
+      <div className="flex items-center justify-center gap-2 py-2.5 border-b border-white/8 shrink-0">
+        {STEPS.map((s, i) => (
+          <div key={s} className={`w-2 h-2 rounded-full transition-all ${
+            i === stepIdx ? 'bg-blue-400 scale-125' : i < stepIdx ? 'bg-blue-800' : 'bg-white/10'
+          }`} />
+        ))}
+      </div>
+
+      <div className="flex-1 overflow-y-auto overscroll-contain">
+
+        {/* ── FASE: SECTOR ── */}
+        {phase === 'sector' && (
+          <div className="px-4 py-5 space-y-4">
+            <div className="text-center space-y-1.5">
+              <h2 className="text-lg font-bold text-white">¿Sector del cliente?</h2>
+              <p className="text-slate-400 text-sm">El sector determina el SLA, cobertura y cláusulas del contrato</p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+              {SECTORES.map(s => (
+                <button
+                  key={s.label}
+                  onClick={() => { setSector(s); setDetalles({ ...DEFAULT_DETALLES, cobertura: s.cobertura as SectorDetalles['cobertura'] }); setPhase('detalles'); }}
+                  className="bg-slate-900 border border-slate-700 hover:border-blue-500/40 rounded-2xl p-3.5 flex flex-col items-start gap-1.5 cursor-pointer active:opacity-70 text-left transition-colors"
+                >
+                  <span className="text-2xl">{s.icon}</span>
+                  <span className="text-xs font-bold text-slate-200 leading-tight">{s.label}</span>
+                  <div className="flex items-center gap-1 flex-wrap">
+                    <span className="text-[9px] bg-blue-500/10 text-blue-400 px-1.5 py-0.5 rounded font-bold">SLA {s.sla}</span>
+                    <span className="text-[9px] bg-slate-800 text-slate-500 px-1.5 py-0.5 rounded">{s.cobertura}</span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── FASE: DETALLES ── */}
+        {phase === 'detalles' && sector && (
+          <div className="px-4 py-5 space-y-5 pb-32">
+            <div className="text-center space-y-1">
+              <span className="text-3xl">{sector.icon}</span>
+              <h2 className="text-base font-bold text-white">{sector.label}</h2>
+              <div className="flex items-center justify-center gap-2 flex-wrap">
+                <span className="text-[9px] bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded-full font-bold">SLA {sector.sla}</span>
+                <span className="text-[9px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full">Criticidad {sector.criticidad}</span>
+              </div>
+            </div>
+
+            {/* Equipos y potencia */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-1.5">
+                <p className="text-[10px] text-slate-400">Nº equipos</p>
+                <div className="flex gap-1.5 flex-wrap">
+                  {['1', '2', '3', '4', '5+', '10+'].map(v => (
+                    <button key={v} onClick={() => setD('num_equipos', v)}
+                      className={`px-2 py-1 rounded-lg text-xs font-bold cursor-pointer transition-colors ${
+                        detalles.num_equipos === v ? 'bg-blue-500 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                      }`}>{v}</button>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-1.5">
+                <p className="text-[10px] text-slate-400">Potencia total (kW)</p>
+                <input
+                  type="number" min="0" step="1"
+                  value={detalles.potencia_kw}
+                  onChange={e => setD('potencia_kw', e.target.value)}
+                  placeholder="Ej: 50"
+                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-sm text-white text-center focus:outline-none focus:border-blue-500"
+                />
+              </div>
+            </div>
+
+            {/* Cobertura */}
+            <div className="space-y-2">
+              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+                <Clock className="w-3 h-3 text-blue-400" /> Cobertura horaria
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                {([
+                  { v: '8/5', label: '8/5 — Horario laboral' },
+                  { v: '24/7', label: '24/7 — Todos los días' },
+                  { v: '24/7/365', label: '24/7/365 — Crítico' },
+                  { v: 'personalizada', label: 'Horario personalizado' },
+                ] as const).map(({ v, label }) => (
+                  <button key={v} onClick={() => setD('cobertura', v)}
+                    className={`py-2 px-3 rounded-xl text-[10px] font-bold cursor-pointer transition-colors text-left ${
+                      detalles.cobertura === v ? 'bg-blue-500 text-white' : 'bg-slate-900 border border-slate-700 text-slate-400 hover:border-blue-500/40'
+                    }`}>{label}</button>
+                ))}
+              </div>
+            </div>
+
+            {/* Visitas preventivas */}
+            <div className="space-y-2">
+              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+                <Wrench className="w-3 h-3 text-blue-400" /> Visitas preventivas anuales
+              </p>
+              <div className="flex gap-2 flex-wrap">
+                {[
+                  { v: '1', label: '1 anual' },
+                  { v: '2', label: '2 semestrales' },
+                  { v: '4', label: '4 trimestrales' },
+                  { v: '12', label: '12 mensuales' },
+                  { v: '24', label: '24 quincenales' },
+                ].map(({ v, label }) => (
+                  <button key={v} onClick={() => setD('visitas_anuales', v as SectorDetalles['visitas_anuales'])}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition-colors ${
+                      detalles.visitas_anuales === v ? 'bg-blue-500 text-white' : 'bg-slate-900 border border-slate-700 text-slate-400 hover:border-blue-500/40'
+                    }`}>{label}</button>
+                ))}
+              </div>
+            </div>
+
+            {/* Toggles */}
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-3">
+              {[
+                { key: 'incluye_piezas', label: 'Repuestos incluidos', sub: 'El contrato cubre piezas y materiales' },
+                { key: 'recargo_urgencias', label: 'Recargos urgencias', sub: 'Sábados +25%, festivos +40%, guardia 24h +70%' },
+              ].map(({ key, label, sub }) => (
+                <div key={key} className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-xs text-slate-200 font-medium">{label}</p>
+                    <p className="text-[9px] text-slate-500">{sub}</p>
+                  </div>
+                  <div
+                    onClick={() => setD(key as keyof SectorDetalles, !((detalles as any)[key]) as any)}
+                    className={`w-9 h-5 rounded-full transition-colors relative cursor-pointer shrink-0 ${(detalles as any)[key] ? 'bg-blue-500' : 'bg-slate-700'}`}
+                  >
+                    <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform ${(detalles as any)[key] ? 'translate-x-4' : 'translate-x-0.5'}`} />
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Zona */}
+            <div className="space-y-1.5">
+              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Zona / Municipio</p>
+              <input
+                type="text"
+                value={detalles.zona}
+                onChange={e => setD('zona', e.target.value)}
+                placeholder="Ej: Madrid — zona norte"
+                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* ── FASE: VOZ / TEXTO ── */}
+        {phase === 'voz' && sector && (
+          <div className="flex flex-col">
+            <div className="px-4 py-3 bg-blue-600/10 border-b border-blue-500/20">
+              <p className="text-[9px] text-blue-400 font-bold uppercase tracking-widest mb-0.5">Sector activo</p>
+              <p className="text-sm font-bold text-white">{sector.icon} {sector.label}</p>
+              <p className="text-[10px] text-slate-400">SLA {sector.sla} · {detalles.cobertura} · {detalles.visitas_anuales} visitas/año</p>
+            </div>
+
+            <div className="flex flex-col items-center px-6 py-6 space-y-4">
+              <div className="text-center space-y-1">
+                <h3 className="text-base font-bold text-white">Describe el equipamiento</h3>
+                <p className="text-slate-400 text-xs">
+                  Habla o escribe sobre los equipos, instalación, condiciones especiales
+                </p>
+              </div>
+
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 w-full space-y-1">
+                <div className="flex items-center gap-1.5">
+                  <AlertTriangle className="w-3 h-3 text-amber-400 shrink-0" />
+                  <p className="text-[9px] text-amber-400 font-bold uppercase tracking-widest">SLA del sector</p>
+                </div>
+                <p className="text-xs text-slate-300">Respuesta en {sector.sla} · Penalización -5%/h por incumplimiento</p>
+              </div>
+
+              <button
+                onClick={recording ? stopRecording : startRecording}
+                className={`w-20 h-20 rounded-full flex items-center justify-center cursor-pointer transition-all select-none ${
+                  recording
+                    ? 'bg-red-500 shadow-[0_0_0_12px_rgba(239,68,68,0.2)] scale-110'
+                    : 'bg-blue-600 shadow-[0_4px_32px_rgba(37,99,235,0.4)]'
+                }`}
+              >
+                {recording ? <MicOff className="w-9 h-9 text-white" /> : <Mic className="w-9 h-9 text-white" />}
+              </button>
+
+              {recording
+                ? <p className="text-red-400 text-xs font-bold animate-pulse flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-400 inline-block" />
+                    Escuchando…
+                  </p>
+                : <p className="text-[11px] text-slate-500">Toca para hablar o escribe abajo</p>
+              }
+
+              <div className="w-full space-y-2">
+                <textarea
+                  value={textInput}
+                  onChange={e => setTextInput(e.target.value)}
+                  placeholder={`Ej: Tenemos ${detalles.num_equipos} equipos de climatización en una ${sector.label.toLowerCase()}. Los equipos llevan 5 años instalados. Necesitamos revisión de filtros, comprobación de gas, limpieza de condensadores...`}
+                  rows={4}
+                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 resize-none"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── FASE: RESULTADO ── */}
+        {phase === 'resultado' && sector && (
+          <div className="px-4 py-4 space-y-4 pb-32">
+            <div className="text-center space-y-1.5">
+              <CheckCircle className="w-10 h-10 text-blue-400 mx-auto" />
+              <h2 className="text-lg font-bold text-white">{sector.icon} {sector.label}</h2>
+              <p className="text-slate-400 text-sm">{clausulas.length} partidas de contrato generadas</p>
+            </div>
+
+            {/* Resumen del contrato */}
+            <div className="bg-blue-600/10 border border-blue-500/20 rounded-2xl p-3 space-y-1.5">
+              <p className="text-[9px] font-bold text-blue-400 uppercase tracking-widest">Condiciones del contrato</p>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                {[
+                  ['SLA urgente', sector.sla],
+                  ['Cobertura', detalles.cobertura],
+                  ['Visitas/año', detalles.visitas_anuales],
+                  ['Repuestos', detalles.incluye_piezas ? 'Incluidos' : 'No incluidos'],
+                  ['Equipos', detalles.num_equipos],
+                  ['Recargos', detalles.recargo_urgencias ? 'Sí' : 'No'],
+                ].map(([k, v]) => (
+                  <div key={k}>
+                    <span className="text-[9px] text-slate-500">{k}: </span>
+                    <span className="text-[10px] text-slate-200 font-bold">{v}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Partidas */}
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+              {clausulas.map((c, i) => (
+                <div key={i} className={`px-4 py-3 flex items-center justify-between gap-3 ${i < clausulas.length - 1 ? 'border-b border-slate-800' : ''}`}>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs text-white font-medium truncate">{c.descripcion}</p>
+                    <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full mt-0.5 inline-block ${
+                      c.tipo === 'mano_de_obra' ? 'bg-blue-500/10 text-blue-400'
+                      : c.tipo === 'servicio' ? 'bg-violet-500/10 text-violet-400'
+                      : 'bg-emerald-500/10 text-emerald-400'
+                    }`}>
+                      {c.tipo === 'mano_de_obra' ? 'Mano de obra' : c.tipo === 'servicio' ? 'Servicio' : 'Material'}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-400 shrink-0 font-mono">{c.cantidad} {c.unidad}</p>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={() => setPhase('voz')}
+              className="w-full py-3 rounded-2xl text-xs font-bold text-blue-400 border border-blue-500/30 cursor-pointer"
+            >
+              ← Ajustar descripción
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Footer: continuar de detalles a voz */}
+      {phase === 'detalles' && (
+        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
+          <button
+            onClick={() => setPhase('voz')}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer"
+            style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}
+          >
+            Continuar — describir equipamiento →
+          </button>
+        </div>
+      )}
+
+      {/* Footer: generar contrato (fase voz) */}
+      {phase === 'voz' && (
+        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
+          <button
+            onClick={generarContrato}
+            disabled={processing}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer disabled:opacity-40"
+            style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}
+          >
+            {processing
+              ? <><Loader2 className="w-4 h-4 animate-spin" /> Generando contrato con IA…</>
+              : <><Sparkles className="w-4 h-4" /> Generar partidas del contrato</>
+            }
+          </button>
+        </div>
+      )}
+
+      {/* Footer: confirmar (resultado) */}
+      {phase === 'resultado' && (
+        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
+          <button
+            onClick={() => {
+              if (!sector) return;
+              const texto = buildMantenimientoTexto(sector, detalles, textInput);
+              onConfirm(texto, clausulas);
+            }}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer"
+            style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}
+          >
+            <CheckCircle className="w-4 h-4" />
+            Crear contrato de mantenimiento
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}

@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import {
   Mic, MicOff, X, Loader2, CheckCircle, Sparkles, ChevronLeft, Layers,
-  Truck, Package, Building2, MapPin, Network, Server,
+  Truck, Package, Building2, MapPin, Network, Server, Wind,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
@@ -42,6 +42,15 @@ interface MudanzaDetalles {
   num_cajas: string;
 }
 
+interface ClimatizacionDetalles {
+  tipo_trabajo: 'instalacion_nueva' | 'sustitucion' | 'ampliacion';
+  tipo_sistema: string;
+  num_unidades: string;
+  potencia_kw: string;
+  desmontaje: boolean;
+  gas_refrigerante: boolean;
+}
+
 interface RedInformaticaDetalles {
   num_puestos: string;
   metros_cable: string;
@@ -54,11 +63,39 @@ interface RedInformaticaDetalles {
   cctv: boolean;
 }
 
+const DEFAULT_CLIMA: ClimatizacionDetalles = {
+  tipo_trabajo: 'instalacion_nueva',
+  tipo_sistema: 'Split mural',
+  num_unidades: '1',
+  potencia_kw: '',
+  desmontaje: false,
+  gas_refrigerante: false,
+};
+
 const DEFAULT_RED: RedInformaticaDetalles = {
   num_puestos: '', metros_cable: '', tipo_cable: 'Cat6',
   num_switches: '1', rack: false, ap_wifi: false, num_ap: '1',
   servidor: false, cctv: false,
 };
+
+function buildClimatizacionTexto(c: ClimatizacionDetalles, categoria: string): string {
+  const lines: string[] = [categoria];
+  const trabajos: Record<string, string> = {
+    instalacion_nueva: 'Instalación nueva',
+    sustitucion: 'Sustitución de equipo existente',
+    ampliacion: 'Ampliación del sistema existente',
+  };
+  lines.push(`Tipo de trabajo: ${trabajos[c.tipo_trabajo]}`);
+  lines.push(`Sistema: ${c.tipo_sistema}`);
+  lines.push(`Número de unidades interiores: ${c.num_unidades}`);
+  if (c.potencia_kw) lines.push(`Potencia frigorífica total: ${c.potencia_kw} kW`);
+  if (c.desmontaje) lines.push('Incluye desmontaje y retirada de equipo antiguo');
+  if (c.gas_refrigerante) lines.push('Requiere manejo de gas refrigerante (certificado F-Gas)');
+  lines.push('Incluir partidas: unidades exteriores e interiores, canaletas y tuberías, soporte y anclajes, conexión eléctrica, puesta en marcha y pruebas, permisos y trámites si aplica.');
+  if (c.desmontaje) lines.push('Añadir partida de desmontaje equipo antiguo y gestión residuos.');
+  if (c.gas_refrigerante) lines.push('Incluir carga de gas refrigerante como partida independiente.');
+  return lines.join('\n');
+}
 
 function buildRedInformaticaTexto(r: RedInformaticaDetalles, categoria: string): string {
   const lines: string[] = [categoria];
@@ -79,7 +116,7 @@ export interface ScreenPresupuestoIncrementalProps {
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
 }
 
-type Phase = 'categoria' | 'mudanza_detalles' | 'red_detalles' | 'acumulando' | 'resultado';
+type Phase = 'categoria' | 'mudanza_detalles' | 'red_detalles' | 'clima_detalles' | 'acumulando' | 'resultado';
 
 const DEFAULT_MUDANZA: MudanzaDetalles = {
   fecha_mudanza: '',
@@ -134,11 +171,13 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
   const [processing, setProcessing]     = useState(false);
   const [mudanza, setMudanza]           = useState<MudanzaDetalles>(DEFAULT_MUDANZA);
   const [red, setRed]                   = useState<RedInformaticaDetalles>(DEFAULT_RED);
+  const [clima, setClima]               = useState<ClimatizacionDetalles>(DEFAULT_CLIMA);
   const recognitionRef                  = useRef<unknown>(null);
 
   const SpeechAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
   const isMudanza = categoria.toLowerCase().includes('mudanza');
   const isRed     = categoria.toLowerCase().includes('red') || categoria.toLowerCase().includes('inform') || categoria.toLowerCase().includes('network');
+  const isClima   = categoria.toLowerCase().includes('climat') || categoria.toLowerCase().includes('aire') || categoria.toLowerCase().includes('split');
 
   function pickCategoria(label: string) {
     setCategoria(label);
@@ -149,6 +188,9 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     } else if (k.includes('red') || k.includes('inform') || k.includes('network')) {
       setRed(DEFAULT_RED);
       setPhase('red_detalles');
+    } else if (k.includes('climat') || k.includes('aire') || k.includes('split')) {
+      setClima(DEFAULT_CLIMA);
+      setPhase('clima_detalles');
     } else {
       setPhase('acumulando');
     }
@@ -239,6 +281,21 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     }
   }
 
+  async function addPartidasFromClimaDetalles() {
+    setProcessing(true);
+    try {
+      const texto = buildClimatizacionTexto(clima, categoria);
+      const nuevas = await callAI(texto);
+      setPartidas(nuevas);
+      setPhase('acumulando');
+      showToast(`${nuevas.length} partidas base generadas`, 'success');
+    } catch {
+      showToast('Error al procesar. Inténtalo de nuevo.', 'error');
+    } finally {
+      setProcessing(false);
+    }
+  }
+
   async function addPartidas() {
     const texto = textInput.trim();
     if (!texto) return;
@@ -256,10 +313,11 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
   }
 
   function handleBack() {
-    if (phase === 'mudanza_detalles' || phase === 'red_detalles') { setPhase('categoria'); return; }
+    if (phase === 'mudanza_detalles' || phase === 'red_detalles' || phase === 'clima_detalles') { setPhase('categoria'); return; }
     if (phase === 'acumulando') {
       if (isMudanza) { setPhase('mudanza_detalles'); }
       else if (isRed) { setPhase('red_detalles'); }
+      else if (isClima) { setPhase('clima_detalles'); }
       else { setPhase('categoria'); }
       return;
     }
@@ -287,7 +345,7 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
 
       {/* Step indicators */}
       <div className="flex items-center justify-center gap-2 py-2.5 border-b border-white/8 shrink-0">
-        {(['categoria', isMudanza ? 'mudanza_detalles' : isRed ? 'red_detalles' : null, 'acumulando', 'resultado'] as (Phase | null)[])
+        {(['categoria', isMudanza ? 'mudanza_detalles' : isRed ? 'red_detalles' : isClima ? 'clima_detalles' : null, 'acumulando', 'resultado'] as (Phase | null)[])
           .filter(Boolean)
           .map((p, i, arr) => (
           <div key={p!} className="flex items-center gap-1">
@@ -577,6 +635,103 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
           </div>
         )}
 
+        {/* ── FASE: DETALLES CLIMATIZACIÓN ── */}
+        {phase === 'clima_detalles' && (
+          <div className="px-4 py-5 space-y-5 pb-32">
+            <div className="text-center space-y-1">
+              <Wind className="w-8 h-8 text-amber-400 mx-auto" />
+              <h2 className="text-base font-bold text-white">Detalles de climatización</h2>
+              <p className="text-slate-400 text-xs">Rellena lo que sepas — el resto lo añades después</p>
+            </div>
+
+            {/* Tipo de trabajo */}
+            <div className="space-y-2">
+              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Tipo de trabajo</p>
+              <div className="grid grid-cols-3 gap-2">
+                {([
+                  { v: 'instalacion_nueva', label: 'Instalación nueva' },
+                  { v: 'sustitucion', label: 'Sustitución equipo' },
+                  { v: 'ampliacion', label: 'Ampliación sistema' },
+                ] as const).map(({ v, label }) => (
+                  <button
+                    key={v}
+                    onClick={() => setClima(prev => ({ ...prev, tipo_trabajo: v }))}
+                    className={`py-2 rounded-xl text-[10px] font-bold cursor-pointer transition-colors text-center ${
+                      clima.tipo_trabajo === v ? 'bg-amber-500 text-white' : 'bg-slate-900 border border-slate-700 text-slate-400 hover:border-amber-500/40'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Tipo de sistema */}
+            <div className="space-y-2">
+              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Tipo de sistema</p>
+              <div className="grid grid-cols-2 gap-2">
+                {['Split mural', 'Cassette', 'Conductos', 'Multi-split', 'VRV / VRF', 'Bomba de calor'].map(s => (
+                  <button
+                    key={s}
+                    onClick={() => setClima(prev => ({ ...prev, tipo_sistema: s }))}
+                    className={`py-2 rounded-xl text-[10px] font-bold cursor-pointer transition-colors text-center ${
+                      clima.tipo_sistema === s ? 'bg-amber-500 text-white' : 'bg-slate-900 border border-slate-700 text-slate-400 hover:border-amber-500/40'
+                    }`}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Unidades y potencia */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-1.5">
+                <p className="text-[10px] text-slate-400">Nº unidades interiores</p>
+                <div className="flex gap-1.5 flex-wrap">
+                  {['1', '2', '3', '4', '5+'].map(v => (
+                    <button key={v} onClick={() => setClima(prev => ({ ...prev, num_unidades: v }))}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-bold cursor-pointer transition-colors ${
+                        clima.num_unidades === v ? 'bg-amber-500 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                      }`}>{v}</button>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-1.5">
+                <p className="text-[10px] text-slate-400">Potencia total (kW)</p>
+                <input
+                  type="number" min="0" step="0.5"
+                  value={clima.potencia_kw}
+                  onChange={e => setClima(prev => ({ ...prev, potencia_kw: e.target.value }))}
+                  placeholder="Ej: 5.5"
+                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-sm text-white text-center focus:outline-none focus:border-amber-500"
+                />
+              </div>
+            </div>
+
+            {/* Opciones adicionales */}
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-3">
+              {[
+                { key: 'desmontaje', label: 'Desmontaje equipo existente', sub: 'Retirada y gestión de residuos del equipo antiguo' },
+                { key: 'gas_refrigerante', label: 'Manejo gas refrigerante', sub: 'Requiere técnico F-Gas certificado' },
+              ].map(({ key, label, sub }) => (
+                <div key={key} className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-xs text-slate-200 font-medium">{label}</p>
+                    <p className="text-[9px] text-slate-500">{sub}</p>
+                  </div>
+                  <div
+                    onClick={() => setClima(prev => ({ ...prev, [key]: !(prev as any)[key] }))}
+                    className={`w-9 h-5 rounded-full transition-colors relative cursor-pointer shrink-0 ${(clima as any)[key] ? 'bg-amber-500' : 'bg-slate-700'}`}
+                  >
+                    <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform ${(clima as any)[key] ? 'translate-x-4' : 'translate-x-0.5'}`} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* ── FASE: DETALLES RED INFORMÁTICA ── */}
         {phase === 'red_detalles' && (
           <div className="px-4 py-5 space-y-5 pb-32">
@@ -829,6 +984,23 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
           <button
             onClick={addPartidasFromRedDetalles}
+            disabled={processing}
+            className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer disabled:opacity-40"
+            style={{ boxShadow: '0 4px 24px rgba(245,158,11,0.4)' }}
+          >
+            {processing
+              ? <><Loader2 className="w-4 h-4 animate-spin" /> Generando partidas base…</>
+              : <><Sparkles className="w-4 h-4" /> Generar partidas y continuar</>
+            }
+          </button>
+        </div>
+      )}
+
+      {/* Footer: generar partidas base (climatización) */}
+      {phase === 'clima_detalles' && (
+        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
+          <button
+            onClick={addPartidasFromClimaDetalles}
             disabled={processing}
             className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer disabled:opacity-40"
             style={{ boxShadow: '0 4px 24px rgba(245,158,11,0.4)' }}

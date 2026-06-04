@@ -72,6 +72,7 @@ import ScreenPlanificacion from './ScreenPlanificacion';
 import ScreenParteTrabajo from './ScreenParteTrabajo';
 import ScreenPresupuestoFoto from './ScreenPresupuestoFoto';
 import ScreenPresupuestoIncremental from './ScreenPresupuestoIncremental';
+import ScreenMantenimientoWizard from './ScreenMantenimientoWizard';
 import ScreenEquipo from './ScreenEquipo';
 import ScreenIngresos from './ScreenIngresos';
 import ScreenMantenimiento from './ScreenMantenimiento';
@@ -566,6 +567,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [visitaDraft, setVisitaDraft] = useState<{ titulo: string; client_id: string | null; fecha: string }>({ titulo: '', client_id: null, fecha: new Date().toISOString().split('T')[0] });
   const [showPresupuestoFoto, setShowPresupuestoFoto] = useState(false);
   const [showPresupuestoIncremental, setShowPresupuestoIncremental] = useState(false);
+  const [showMantenimientoWizard, setShowMantenimientoWizard] = useState(false);
   const [pendingPresupuestoJobId, setPendingPresupuestoJobId] = useState<string | null>(null);
 
   // Pasos del Asistente Móvil (Wizard)
@@ -3035,6 +3037,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <span>📋 Presupuesto por Pasos</span>
                   </button>
                   <button
+                    onClick={() => { setShowFloatingMenu(false); setShowMantenimientoWizard(true); }}
+                    className="w-full bg-slate-900 dark:bg-slate-800 text-white font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider cursor-pointer"
+                  >
+                    <span>🔧 Contrato Mantenimiento</span>
+                  </button>
+                  <button
                     onClick={() => startWizard(1)} // Flujo desde paso 1
                     className="w-full bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider border border-slate-200 dark:border-slate-800 cursor-pointer"
                   >
@@ -3137,6 +3145,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               setWizardOrigin('voz');
               setWizardStep(4);
               setWizardActive(true);
+            }}
+          />
+        )}
+
+        {/* Mantenimiento Wizard overlay (mobile) */}
+        {showMantenimientoWizard && (
+          <ScreenMantenimientoWizard
+            showToast={showToast}
+            onClose={() => setShowMantenimientoWizard(false)}
+            onConfirm={(texto) => {
+              setShowMantenimientoWizard(false);
+              setMantenimientoInitialText(texto);
+              setActiveTab('mantenimiento');
             }}
           />
         )}
@@ -5147,30 +5168,34 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             onClose={() => setShowPresupuestoFoto(false)}
             onConfirm={(q) => {
               setShowPresupuestoFoto(false);
-              setWizardQuote({
+              const partidasDesktop = q.partidas.map(p => {
+                const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
+                const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : 0;
+                return {
+                  descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion,
+                  tipo: p.tipo,
+                  cantidad: p.cantidad,
+                  precioUnitario: pu,
+                  total: pu * p.cantidad,
+                };
+              });
+              const quoteBase = {
                 id: '',
                 nombreCliente: '',
                 telefonoCliente: '',
                 emailCliente: '',
                 descripcion: q.descripcion,
                 fecha: new Date().toISOString().split('T')[0],
-                estado: 'Borrador',
-                partidas: q.partidas.map(p => {
-                  const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
-                  const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : 0;
-                  return {
-                    descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion,
-                    tipo: p.tipo,
-                    cantidad: p.cantidad,
-                    precioUnitario: pu,
-                    total: pu * p.cantidad,
-                  };
-                }),
-                total: 0,
-              });
+                estado: 'Borrador' as const,
+                partidas: partidasDesktop,
+                total: partidasDesktop.reduce((s, p) => s + p.total, 0),
+              };
+              setWizardQuote(quoteBase);
+              setEditingQuote(quoteBase);
               setWizardOrigin('foto');
               setWizardStep(4);
               setWizardActive(true);
+              setActiveTab('create_quote');
             }}
           />
         )}
@@ -5182,30 +5207,47 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             onClose={() => setShowPresupuestoIncremental(false)}
             onConfirm={(q) => {
               setShowPresupuestoIncremental(false);
-              setWizardQuote({
+              const partidasDesktop = q.partidas.map(p => {
+                const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
+                const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : 0;
+                return {
+                  descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion,
+                  tipo: p.tipo,
+                  cantidad: p.cantidad,
+                  precioUnitario: pu,
+                  total: pu * p.cantidad,
+                };
+              });
+              const quoteBase = {
                 id: '',
                 nombreCliente: '',
                 telefonoCliente: '',
                 emailCliente: '',
                 descripcion: q.descripcion,
                 fecha: new Date().toISOString().split('T')[0],
-                estado: 'Borrador',
-                partidas: q.partidas.map(p => {
-                  const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
-                  const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : 0;
-                  return {
-                    descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion,
-                    tipo: p.tipo,
-                    cantidad: p.cantidad,
-                    precioUnitario: pu,
-                    total: pu * p.cantidad,
-                  };
-                }),
-                total: 0,
-              });
+                estado: 'Borrador' as const,
+                partidas: partidasDesktop,
+                total: partidasDesktop.reduce((s, p) => s + p.total, 0),
+              };
+              setWizardQuote(quoteBase);
+              setEditingQuote(quoteBase);
               setWizardOrigin('voz');
               setWizardStep(4);
               setWizardActive(true);
+              setActiveTab('create_quote');
+            }}
+          />
+        )}
+
+        {/* Mantenimiento Wizard overlay (desktop) */}
+        {showMantenimientoWizard && (
+          <ScreenMantenimientoWizard
+            showToast={showToast}
+            onClose={() => setShowMantenimientoWizard(false)}
+            onConfirm={(texto) => {
+              setShowMantenimientoWizard(false);
+              setMantenimientoInitialText(texto);
+              setActiveTab('mantenimiento');
             }}
           />
         )}
@@ -5316,20 +5358,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         </div>
 
         {/* Acciones */}
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-6 gap-4">
           <button
-            onClick={() => {
-              setEditingQuote({
-                id: 'P-2026-NEW',
-                nombreCliente: '',
-                descripcion: '',
-                fecha: new Date().toISOString().split('T')[0],
-                estado: 'Borrador',
-                partidas: [],
-                total: 0
-              });
-              startVoiceRecording();
-            }}
+            onClick={() => setIsVoiceModalOpen(true)}
             className="bg-blue-600 hover:bg-blue-700 text-white rounded-2xl p-5 text-center shadow-lg hover:shadow-blue-500/10 space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101 border border-blue-500"
           >
             <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
@@ -5384,6 +5415,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
             <span className="font-black uppercase tracking-wider text-xs block">Presupuesto por Pasos</span>
             <p className="text-[10px] text-amber-100 leading-normal max-w-xs">Añade partidas poco a poco: mudanzas, reformas, trabajos complejos.</p>
+          </button>
+
+          <button
+            onClick={() => setShowMantenimientoWizard(true)}
+            className="bg-blue-700 hover:bg-blue-800 text-white rounded-2xl p-5 text-center space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101 border border-blue-600"
+          >
+            <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+              <span className="text-2xl">🔧</span>
+            </div>
+            <span className="font-black uppercase tracking-wider text-xs block">Contrato Mantenimiento</span>
+            <p className="text-[10px] text-blue-200 leading-normal max-w-xs">8 sectores, SLA, cláusulas y voz IA. Catálogo se actualiza automáticamente.</p>
           </button>
         </div>
 
