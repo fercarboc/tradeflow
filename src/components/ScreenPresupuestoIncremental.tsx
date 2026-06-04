@@ -181,18 +181,18 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
   async function callAI(texto: string) {
     const contexto = `[PRESUPUESTO INCREMENTAL — ${categoria}]\nGenera SOLO las partidas de presupuesto para los elementos/trabajos descritos a continuación, sin calcular totales ni repetir lo anterior:\n\n${texto}`;
     const { data, error } = await supabase.functions.invoke('trade-voice-to-quote', {
-      body: { texto: contexto },
+      body: { text: contexto },
     });
     if (error) throw new Error(String((error as any).message ?? error));
-    const raw = (data?.presupuesto?.partidas ?? []) as Array<{
-      descripcion: string; cantidad: number; unidad: string;
-      categoria?: string; precio_unitario?: number; total?: number;
+    const raw = (data?.quote?.partidas ?? []) as Array<{
+      concepto: string; cantidad: number; unidad: string;
+      tipo_partida?: string; precio_unitario?: number; total?: number;
     }>;
     return raw.map(p => ({
-      descripcion: p.descripcion,
-      cantidad: p.cantidad,
-      unidad: p.unidad,
-      tipo: (p.categoria === 'Mano de obra' ? 'mano_de_obra' : 'material') as 'material' | 'mano_de_obra',
+      descripcion: p.concepto ?? '',
+      cantidad: p.cantidad ?? 1,
+      unidad: p.unidad ?? 'ud',
+      tipo: (p.tipo_partida === 'mano_obra' ? 'mano_de_obra' : 'material') as 'material' | 'mano_de_obra',
       precioUnitario: p.precio_unitario ?? 0,
       total: p.total ?? 0,
     }));
