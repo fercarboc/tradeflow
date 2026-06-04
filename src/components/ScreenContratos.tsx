@@ -100,6 +100,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
   const [openSection, setOpenSection] = useState<Section>('prestador');
   const [vars, setVars] = useState<ContractVars>({ ...defaultContractVars });
   const [selectedOficio, setSelectedOficio] = useState(oficio ?? orgData.oficio ?? 'fontaneria');
+  const [selectedSector, setSelectedSector] = useState('');
   const [sourceMantId, setSourceMantId] = useState<string | null>(null);
   const previewRef = useRef<HTMLIFrameElement>(null);
 
@@ -170,6 +171,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
       const m = mantenimientos.find(m => m.id === mantId);
       base = prefillFromMant(base, mantId);
       if (m?.oficio) setSelectedOficio(m.oficio);
+      if ((m as any)?.sector) setSelectedSector((m as any).sector);
     }
     base.referencia = nextRef(contracts);
     const today = new Date();
@@ -195,7 +197,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
     setView('editor');
   };
 
-  const getPreviewHTML = () => buildContractHTML(vars, selectedOficio);
+  const getPreviewHTML = () => buildContractHTML(vars, selectedOficio, selectedSector);
 
   const handleSaveDraft = async () => {
     setSaving(true);

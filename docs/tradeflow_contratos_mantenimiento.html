@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TradeFlow — Módulo Contratos de Mantenimiento</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0e8;
+    --bg-deep: #ede7d6;
+    --bg-card: #faf8f3;
+    --ink: #1a1610;
+    --ink-mid: #3d3528;
+    --ink-soft: #7a6e5e;
+    --accent: #b5451b;
+    --accent2: #2d6e4e;
+    --accent3: #1e4a7a;
+    --accent4: #8b3a8f;
+    --gold: #c8922a;
+    --rule: #c8bfaa;
+    --code-bg: #1e1a14;
+    --code-fg: #e8dcc8;
+    --code-key: #e8943a;
+    --code-str: #82c472;
+    --code-num: #7ec8e3;
+    --code-comment: #7a6e5e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--ink);
+    padding: 0 2rem;
+    display: flex; align-items: center; gap: 0;
+    height: 48px;
+    border-bottom: 2px solid var(--accent);
+  }
+  .nav-brand {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--code-fg);
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .12em;
+    padding-right: 2rem;
+    border-right: 1px solid #3d3528;
+    margin-right: 1.5rem;
+  }
+  .nav-brand span { color: var(--accent); }
+  nav a {
+    color: #a09070;
+    text-decoration: none;
+    font-size: .75rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: .05em;
+    padding: 0 .9rem;
+    height: 48px; display: flex; align-items: center;
+    border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s;
+    margin-bottom: -2px;
+  }
+  nav a:hover { color: var(--code-fg); border-color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    padding: 5rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(200,191,170,.07) 39px, rgba(200,191,170,.07) 40px),
+                      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(200,191,170,.05) 39px, rgba(200,191,170,.05) 40px);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+  .hero-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; letter-spacing: .2em;
+    color: var(--accent); text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 300;
+    color: var(--code-fg);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -.02em;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero-sub {
+    font-size: 1rem;
+    color: #8a7e6e;
+    max-width: 640px;
+    line-height: 1.7;
+  }
+  .hero-meta {
+    display: flex; gap: 2rem; margin-top: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    display: flex; flex-direction: column; gap: .2rem;
+  }
+  .hero-stat .val {
+    font-family: 'Crimson Pro', serif;
+    font-size: 2rem; font-weight: 600;
+    color: var(--accent);
+  }
+  .hero-stat .lbl {
+    font-size: .7rem; letter-spacing: .1em;
+    color: #5a5040;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
+
+  /* ── SECTION HEADERS ── */
+  .section-head {
+    display: flex; align-items: baseline; gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; font-weight: 600;
+    color: var(--accent);
+    letter-spacing: .1em;
+    min-width: 2.5rem;
+  }
+  .section-head h2 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.9rem; font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -.02em;
+  }
+  .section-head .section-desc {
+    margin-left: auto;
+    font-size: .75rem;
+    color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+  }
+
+  /* ── CARDS ── */
+  .card-grid { display: grid; gap: 1.5rem; }
+  .card-grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .card-grid-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 1.5rem;
+    position: relative;
+  }
+  .card-accent-left { border-left: 3px solid var(--accent); }
+  .card-accent-green { border-left: 3px solid var(--accent2); }
+  .card-accent-blue { border-left: 3px solid var(--accent3); }
+  .card-accent-purple { border-left: 3px solid var(--accent4); }
+  .card-accent-gold { border-left: 3px solid var(--gold); }
+
+  .card h3 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.1rem; font-weight: 600;
+    margin-bottom: .6rem;
+  }
+  .card p { font-size: .85rem; color: var(--ink-mid); line-height: 1.6; }
+
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .62rem; letter-spacing: .06em;
+    padding: .2rem .5rem;
+    border-radius: 1px;
+    text-transform: uppercase;
+    margin-bottom: .8rem;
+  }
+  .tag-red { background: #fde8e0; color: var(--accent); }
+  .tag-green { background: #e0f0e8; color: var(--accent2); }
+  .tag-blue { background: #dce8f5; color: var(--accent3); }
+  .tag-purple { background: #f0e0f4; color: var(--accent4); }
+  .tag-gold { background: #f5ecd4; color: var(--gold); }
+  .tag-gray { background: var(--bg-deep); color: var(--ink-soft); }
+
+  /* ── CODE BLOCKS ── */
+  .code-block {
+    background: var(--code-bg);
+    border-radius: 3px;
+    padding: 1.4rem 1.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .75rem;
+    line-height: 1.8;
+    overflow-x: auto;
+    color: var(--code-fg);
+    position: relative;
+  }
+  .code-block .file-label {
+    font-size: .65rem; letter-spacing: .1em;
+    color: #5a5040;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: .8rem;
+    padding-bottom: .6rem;
+    border-bottom: 1px solid #2e2a20;
+  }
+  .ck { color: var(--code-key); }    /* key */
+  .cs { color: var(--code-str); }    /* string */
+  .cn { color: var(--code-num); }    /* number */
+  .cc { color: var(--code-comment); font-style: italic; } /* comment */
+  .cb { color: #e8c87a; }            /* brackets */
+
+  /* ── TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .82rem;
+  }
+  .data-table th {
+    background: var(--ink);
+    color: var(--code-fg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .7rem 1rem;
+    text-align: left;
+    font-weight: 500;
+  }
+  .data-table td {
+    padding: .65rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-mid);
+    vertical-align: top;
+  }
+  .data-table tr:nth-child(even) td { background: var(--bg-deep); }
+  .data-table tr:hover td { background: #ece6d8; }
+  .data-table .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem;
+    color: var(--accent3);
+  }
+  .data-table .strong { font-weight: 600; color: var(--ink); }
+
+  /* ── PILL BADGES ── */
+  .pill {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .6rem;
+    padding: .15rem .45rem;
+    border-radius: 100px;
+    margin: .1rem;
+  }
+  .pill-red { background: #fde8e0; color: var(--accent); border: 1px solid #f5c4b0; }
+  .pill-green { background: #e0f0e8; color: var(--accent2); border: 1px solid #aad4be; }
+  .pill-blue { background: #dce8f5; color: var(--accent3); border: 1px solid #a8c4e0; }
+  .pill-gold { background: #f5ecd4; color: var(--gold); border: 1px solid #e0cc96; }
+  .pill-gray { background: var(--bg-deep); color: var(--ink-soft); border: 1px solid var(--rule); }
+
+  /* ── BD SCHEMA ── */
+  .db-table {
+    background: var(--code-bg);
+    border-radius: 3px;
+    overflow: hidden;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .db-table-head {
+    background: #2a251d;
+    padding: .6rem 1rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .db-table-name {
+    font-size: .75rem; font-weight: 600;
+    color: var(--code-key);
+    letter-spacing: .08em;
+  }
+  .db-table-type {
+    font-size: .6rem; color: var(--code-comment);
+    text-transform: uppercase; letter-spacing: .1em;
+  }
+  .db-field {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: .5rem;
+    padding: .35rem 1rem;
+    border-bottom: 1px solid #2e2a20;
+    align-items: center;
+    font-size: .7rem;
+  }
+  .db-field:last-child { border-bottom: none; }
+  .db-field:hover { background: #24201a; }
+  .db-fname { color: var(--code-fg); }
+  .db-ftype { color: var(--code-num); }
+  .db-fpk { color: var(--gold); font-size: .6rem; letter-spacing: .05em; }
+  .db-fk { color: var(--code-key); font-size: .6rem; }
+  .db-fflag { color: var(--code-str); font-size: .6rem; }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: .5rem;
+  }
+  .flow-step {
+    flex: 1; min-width: 120px;
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-right: none;
+    padding: 1rem;
+    position: relative;
+    display: flex; flex-direction: column; gap: .4rem;
+  }
+  .flow-step:last-child { border-right: 1px solid var(--rule); }
+  .flow-step::after {
+    content: '→';
+    position: absolute; right: -14px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent);
+    font-size: 1.2rem;
+    z-index: 1;
+  }
+  .flow-step:last-child::after { display: none; }
+  .flow-step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .6rem; color: var(--ink-soft);
+    letter-spacing: .1em;
+  }
+  .flow-step-name {
+    font-size: .8rem; font-weight: 600;
+    color: var(--ink);
+  }
+  .flow-step-desc { font-size: .72rem; color: var(--ink-soft); }
+  .flow-step.active { background: var(--ink); }
+  .flow-step.active .flow-step-name { color: var(--code-fg); }
+  .flow-step.active .flow-step-desc { color: #6a5e4e; }
+
+  /* ── SECTOR CARDS ── */
+  .sector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .sector-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .sector-header {
+    padding: .8rem 1.2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .sector-header h3 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.05rem; font-weight: 600;
+  }
+  .criticidad {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .6rem; letter-spacing: .08em;
+    padding: .2rem .5rem; border-radius: 1px;
+    text-transform: uppercase;
+  }
+  .crit-alta { background: #fde8e0; color: var(--accent); }
+  .crit-muy-alta { background: #fdd0c0; color: #9a300a; }
+  .crit-extrema { background: #2a0a0a; color: #ff8060; border: 1px solid #9a300a; }
+  .crit-normal { background: #e0f0e8; color: var(--accent2); }
+  .crit-baja { background: var(--bg-deep); color: var(--ink-soft); }
+
+  .sector-body { padding: .8rem 1.2rem 1.2rem; }
+  .sector-row {
+    display: flex; justify-content: space-between;
+    font-size: .78rem; padding: .3rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .sector-row:last-child { border-bottom: none; }
+  .sector-row .lbl { color: var(--ink-soft); }
+  .sector-row .val { font-weight: 500; color: var(--ink); text-align: right; max-width: 55%; }
+  .sector-row .val.mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .7rem; color: var(--accent3);
+  }
+
+  /* ── CONTRACT TEMPLATE ── */
+  .contract-preview {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--ink);
+    padding: 3rem;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #1a1610;
+    max-width: 780px;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,.08);
+  }
+  .contract-preview h2 {
+    font-size: 1.5rem; font-weight: 600;
+    text-align: center; margin-bottom: .5rem;
+    letter-spacing: .05em; text-transform: uppercase;
+    font-size: 1rem;
+  }
+  .contract-preview .contract-title {
+    font-size: 1.6rem; font-weight: 300;
+    text-align: center; margin-bottom: 2rem;
+    font-style: italic;
+  }
+  .contract-preview hr { border: none; border-top: 1px solid #ccc; margin: 1.5rem 0; }
+  .contract-preview .clause-num {
+    font-family: 'DM Sans', sans-serif;
+    font-size: .7rem; font-weight: 600;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: .3rem;
+    display: block;
+  }
+  .contract-preview .clause-title {
+    font-size: 1.15rem; font-weight: 600;
+    margin-bottom: .6rem;
+  }
+  .contract-preview .clause-body {
+    font-size: .92rem; margin-bottom: 1.5rem;
+    color: #2a2010;
+  }
+  .contract-preview .var-placeholder {
+    background: #fff8e0;
+    border: 1px dashed #c8922a;
+    padding: .05rem .3rem;
+    border-radius: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .75rem;
+    color: #8b6010;
+  }
+  .contract-preview .special-clause {
+    background: #fdf8f0;
+    border-left: 3px solid var(--gold);
+    padding: .8rem 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ── RECARGOS TABLE ── */
+  .recargo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .recargo-card {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    padding: 1.2rem;
+    text-align: center;
+    border-radius: 2px;
+  }
+  .recargo-pct {
+    font-family: 'Crimson Pro', serif;
+    font-size: 2.5rem; font-weight: 600;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: .4rem;
+  }
+  .recargo-label {
+    font-size: .78rem;
+    color: var(--ink-mid);
+    font-weight: 500;
+  }
+  .recargo-detail {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .65rem;
+    color: var(--ink-soft);
+    margin-top: .3rem;
+  }
+
+  /* ── SEPARATOR ── */
+  .sep {
+    text-align: center;
+    padding: 3rem 0 1rem;
+    color: var(--rule);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .8rem;
+    letter-spacing: .3em;
+  }
+
+  /* ── BD SCHEMA GRID ── */
+  .schema-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+
+  /* ── PRICE BUILDER ── */
+  .price-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: .6rem 0; border-bottom: 1px solid var(--rule);
+    font-size: .85rem;
+  }
+  .price-row:last-child { border-bottom: none; }
+  .price-row .item { color: var(--ink-mid); }
+  .price-row .amount {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .78rem; color: var(--ink);
+  }
+  .price-row.total .item { font-weight: 600; color: var(--ink); font-size: .9rem; }
+  .price-row.total .amount {
+    font-size: .95rem; color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ── IA MOTOR ── */
+  .motor-flow {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: .4rem 1rem;
+    align-items: center;
+    font-size: .82rem;
+  }
+  .motor-flow .arrow { color: var(--accent); font-weight: 600; text-align: center; }
+  .motor-flow .step { color: var(--ink-mid); padding: .3rem 0; }
+  .motor-flow .step strong { color: var(--ink); }
+
+  /* ── CALLOUT ── */
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: #fdf0eb;
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    font-size: .85rem;
+    border-radius: 0 2px 2px 0;
+  }
+  .callout.green { border-color: var(--accent2); background: #eef7f2; }
+  .callout.blue { border-color: var(--accent3); background: #eef3fb; }
+  .callout strong { color: var(--ink); }
+
+  .mt2 { margin-top: 2rem; }
+  .mt3 { margin-top: 3rem; }
+  .mb1 { margin-bottom: 1rem; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1.5rem; }
+    .page { padding: 2rem 1rem; }
+    nav a { display: none; }
+    .contract-preview { padding: 1.5rem; }
+    .flow { flex-direction: column; }
+    .flow-step { border-right: 1px solid var(--rule); border-bottom: none; }
+    .flow-step::after { content: '↓'; right: auto; bottom: -16px; left: 50%; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Trade<span>Flow</span> — Módulo Contratos</div>
+  <a href="#contrato-base">Contrato Base</a>
+  <a href="#sectores">Sectores</a>
+  <a href="#bd-schema">Base de Datos</a>
+  <a href="#precios">Precios</a>
+  <a href="#ia-motor">Motor IA</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">TradeFlow AI — Plan Empresa — Documento Técnico</div>
+    <h1>Módulo de <em>Contratos</em><br>de Mantenimiento</h1>
+    <p class="hero-sub">Arquitectura completa: contrato base + cláusulas por sector + esquema de base de datos + motor de precios e IA para generación automática de documentos.</p>
+    <div class="hero-meta">
+      <div class="hero-stat"><span class="val">14</span><span class="lbl">Sectores</span></div>
+      <div class="hero-stat"><span class="val">7</span><span class="lbl">Oficios v1.0</span></div>
+      <div class="hero-stat"><span class="val">~60s</span><span class="lbl">Generación contrato</span></div>
+      <div class="hero-stat"><span class="val">18</span><span class="lbl">Tablas BD</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="page">
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- 1. FLUJO GENERAL -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div id="flujo" class="mt3">
+    <div class="section-head">
+      <span class="section-num">01 —</span>
+      <h2>Flujo de Generación de Contrato</h2>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-step-num">PASO 01</div>
+        <div class="flow-step-name">Input natural</div>
+        <div class="flow-step-desc">"Contrato fontanería para fábrica láctea"</div>
+      </div>
+      <div class="flow-step active">
+        <div class="flow-step-num">PASO 02</div>
+        <div class="flow-step-name">Motor IA detecta</div>
+        <div class="flow-step-desc">oficio + sector + criticidad</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">PASO 03</div>
+        <div class="flow-step-name">Selecciona plantilla</div>
+        <div class="flow-step-desc">Matriz sector × oficio → template</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">PASO 04</div>
+        <div class="flow-step-name">Completa variables</div>
+        <div class="flow-step-desc">SLA, horarios, recargos, precios</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-num">PASO 05</div>
+        <div class="flow-step-name">Revisión usuario</div>
+        <div class="flow-step-desc">Editar, ajustar, aprobar borrador</div>
+      </div>
+      <div class="flow-step active">
+        <div class="flow-step-num">PASO 06</div>
+        <div class="flow-step-name">Contrato activo</div>
+        <div class="flow-step-desc">PDF firmado + facturación recurrente</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- 2. CONTRATO BASE -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div id="contrato-base" class="mt3">
+    <div class="section-head">
+      <span class="section-num">02 —</span>
+      <h2>Modelo de Contrato Base</h2>
+      <span class="section-desc">Cláusulas comunes a todos los sectores</span>
+    </div>
+
+    <div class="callout">
+      <strong>Principio rector:</strong> Este contrato base contiene las cláusulas comunes a <em>todos</em> los sectores. Sobre él se superponen las cláusulas especiales de sector. La IA completa las variables <code style="font-family:monospace;font-size:.85em;background:#f5e8d8;padding:.1rem .3rem">{{var}}</code> según el contexto detectado.
+    </div>
+
+    <div class="contract-preview">
+      <h2>Contrato de Prestación de Servicios de</h2>
+      <div class="contract-title">Mantenimiento y Asistencia Técnica</div>
+      <hr>
+
+      <span class="clause-num">Cláusula 1</span>
+      <div class="clause-title">Partes contratantes</div>
+      <div class="clause-body">
+        De una parte, <span class="var-placeholder">{{empresa_nombre}}</span>, con CIF <span class="var-placeholder">{{empresa_cif}}</span>, domiciliada en <span class="var-placeholder">{{empresa_direccion}}</span>, en adelante denominada <strong>LA EMPRESA MANTENEDORA</strong>.<br><br>
+        De otra parte, <span class="var-placeholder">{{cliente_nombre}}</span>, con NIF/CIF <span class="var-placeholder">{{cliente_cif}}</span>, domiciliada en <span class="var-placeholder">{{cliente_direccion}}</span>, en adelante denominada <strong>EL CLIENTE</strong>.
+      </div>
+
+      <span class="clause-num">Cláusula 2</span>
+      <div class="clause-title">Objeto del contrato</div>
+      <div class="clause-body">
+        La Empresa Mantenedora se compromete a prestar servicios de mantenimiento de <span class="var-placeholder">{{tipo_servicio}}</span> en las instalaciones ubicadas en <span class="var-placeholder">{{direccion_servicio}}</span>, según el alcance detallado en el <strong>Anexo I</strong> del presente contrato.
+      </div>
+
+      <span class="clause-num">Cláusula 3</span>
+      <div class="clause-title">Vigencia y renovación</div>
+      <div class="clause-body">
+        El contrato tendrá una vigencia de <span class="var-placeholder">{{duracion_meses}}</span> meses, con inicio el <span class="var-placeholder">{{fecha_inicio}}</span> y fin previsto el <span class="var-placeholder">{{fecha_fin}}</span>. Salvo preaviso de alguna de las partes con <span class="var-placeholder">{{dias_preaviso}}</span> días de antelación, el contrato se prorrogará automáticamente por períodos anuales.
+      </div>
+
+      <span class="clause-num">Cláusula 4</span>
+      <div class="clause-title">Cuota mensual e importe</div>
+      <div class="clause-body">
+        El CLIENTE abonará a la Empresa Mantenedora la cantidad de <span class="var-placeholder">{{importe_mensual}}</span> € mensuales (más IVA vigente), en concepto de cuota de mantenimiento. El pago se realizará mediante <span class="var-placeholder">{{forma_pago}}</span> dentro de los primeros <span class="var-placeholder">{{dias_pago}}</span> días de cada mes.<br><br>
+        La cuota podrá revisarse anualmente según el IPC publicado por el INE, con un máximo del <span class="var-placeholder">{{maximo_revision_pct}}</span>%.
+      </div>
+
+      <span class="clause-num">Cláusula 5 — CRÍTICA</span>
+      <div class="clause-title">Alcance de los servicios incluidos</div>
+      <div class="clause-body">
+        La cuota mensual comprende exclusivamente: <strong>mano de obra preventiva, mano de obra correctiva básica, desplazamientos</strong> (según lo indicado en Anexo I), <strong>revisiones programadas</strong> y <strong>diagnóstico de incidencias</strong>.<br><br>
+        <strong>Queda expresamente excluido</strong> del precio de la cuota: piezas, recambios, materiales, consumibles, equipos nuevos, maquinaria, sustituciones completas, trabajos de reforma o ampliación. Cualquier intervención que requiera materiales generará un presupuesto independiente previo a su ejecución.
+      </div>
+
+      <span class="clause-num">Cláusula 6</span>
+      <div class="clause-title">Horario de servicio y SLA</div>
+      <div class="clause-body">
+        La cobertura del presente contrato se prestará en el horario <span class="var-placeholder">{{horario_inicio}}</span> a <span class="var-placeholder">{{horario_fin}}</span>, de <span class="var-placeholder">{{dias_cobertura}}</span>.<br><br>
+        Los tiempos de respuesta garantizados son: <strong>Incidencia normal:</strong> <span class="var-placeholder">{{sla_normal}}</span> horas. <strong>Incidencia urgente:</strong> <span class="var-placeholder">{{sla_urgente}}</span> horas.
+      </div>
+
+      <span class="clause-num">Cláusula 7</span>
+      <div class="clause-title">Recargos aplicables fuera del horario base</div>
+      <div class="clause-body">
+        Las intervenciones realizadas fuera del horario base, los fines de semana, festivos o bajo condición de urgencia, serán facturadas adicionalmente con los siguientes recargos sobre el precio/hora estándar:
+      </div>
+
+      <span class="clause-num">Cláusula 8</span>
+      <div class="clause-title">Visitas preventivas programadas</div>
+      <div class="clause-body">
+        La Empresa Mantenedora realizará <span class="var-placeholder">{{preventivos_mes}}</span> visitas preventivas mensuales según el programa de mantenimiento preventivo detallado en el <strong>Anexo II</strong>. Las fechas se coordinarán con el CLIENTE con al menos <span class="var-placeholder">{{aviso_preventivos_dias}}</span> días de antelación.
+      </div>
+
+      <span class="clause-num">Cláusula 9</span>
+      <div class="clause-title">Penalizaciones por incumplimiento de SLA</div>
+      <div class="clause-body">
+        En caso de incumplimiento del tiempo de respuesta garantizado, se aplicará una penalización de <span class="var-placeholder">{{penalizacion_pct}}</span>% sobre la cuota mensual por cada hora de retraso, con un máximo del <span class="var-placeholder">{{penalizacion_max_pct}}</span>% mensual. Esta penalización se aplicará mediante descuento en la siguiente factura.
+      </div>
+
+      <span class="clause-num">Cláusula 10</span>
+      <div class="clause-title">Desplazamiento</div>
+      <div class="clause-body">
+        <span class="var-placeholder">{{desplazamiento_modo}}</span>. Radio de desplazamiento incluido: <span class="var-placeholder">{{radio_km}}</span> km desde el centro de operaciones. Los desplazamientos que superen este radio se facturarán a <span class="var-placeholder">{{precio_km}}</span> €/km adicional.
+      </div>
+
+      <span class="clause-num">Cláusulas 11–15</span>
+      <div class="clause-title">Resolución, responsabilidades, RGPD, jurisdicción, firma</div>
+      <div class="clause-body" style="color:#8a7060">
+        [Cláusulas estándar legales — generadas automáticamente. Ver plantilla legal base en Anexo III]
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- 3. CLÁUSULAS ESPECIALES POR SECTOR -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div id="sectores" class="mt3">
+    <div class="section-head">
+      <span class="section-num">03 —</span>
+      <h2>Cláusulas Especiales por Sector</h2>
+    </div>
+
+    <div class="callout blue">
+      <strong>Cómo funciona:</strong> La IA detecta el sector → añade automáticamente el bloque de cláusulas especiales correspondiente al contrato base. El usuario puede activar/desactivar cláusulas individualmente antes de generar el PDF.
+    </div>
+
+    <div class="sector-grid mt2">
+
+      <!-- INDUSTRIAL -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#fdf0eb">
+          <h3>Industrial / Fábrica</h3>
+          <span class="criticidad crit-muy-alta">Muy Alta</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">1h</span></div>
+          <div class="sector-row"><span class="lbl">SLA crítico (parada)</span><span class="val mono">30 min</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">08:00–20:00 L–V</span></div>
+          <div class="sector-row"><span class="lbl">Guardias</span><span class="val">Oferta opcional fines semana</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">2–4</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Parada de producción: penalización 5%/h</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">800–4.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- ALIMENTARIO -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#fdf0eb">
+          <h3>Alimentario / Cámaras frías</h3>
+          <span class="criticidad crit-muy-alta">Muy Alta</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">1h</span></div>
+          <div class="sector-row"><span class="lbl">SLA fallo cámara</span><span class="val mono">30 min 24/7</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">07:00–22:00 todos los días</span></div>
+          <div class="sector-row"><span class="lbl">Guardias</span><span class="val">Sí, incluida guardia 24h</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">APPCC / cadena frío</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Riesgo merma mercancía documentada</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">1.200–8.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- HOSTELERÍA -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#f0eef8">
+          <h3>Hostelería / Hotel / Restaurante</h3>
+          <span class="criticidad crit-alta">Alta</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">2h</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">08:00–22:00 L–D</span></div>
+          <div class="sector-row"><span class="lbl">Fines de semana</span><span class="val">Incluidos (cobertura básica)</span></div>
+          <div class="sector-row"><span class="lbl">Temporada crítica</span><span class="val">Julio-Agosto: SLA reforzado</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">2–4 (según temporada)</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Prioridad en festivos y puentes</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">600–6.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- HOSPITALES -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#1a0808">
+          <h3 style="color:#ffc0a0">Hospitalario / Clínica</h3>
+          <span class="criticidad crit-extrema">Extrema</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">15 min</span></div>
+          <div class="sector-row"><span class="lbl">Cobertura</span><span class="val mono">24h / 365 días</span></div>
+          <div class="sector-row"><span class="lbl">Guardias</span><span class="val">Obligatorias, técnico de guardia</span></div>
+          <div class="sector-row"><span class="lbl">Normativa</span><span class="val">Real Decreto instalaciones sanitarias</span></div>
+          <div class="sector-row"><span class="lbl">Documentación</span><span class="val">Libro mantenimiento obligatorio</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Responsabilidad civil ampliada</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">2.000–20.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- OFICINAS -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#eef7f2">
+          <h3>Oficinas / Coworking</h3>
+          <span class="criticidad crit-normal">Normal</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">4h</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">08:00–18:00 L–V</span></div>
+          <div class="sector-row"><span class="lbl">Fines de semana</span><span class="val">No incluidos (recargo +40%)</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">1</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Acceso coordinado con administrador</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">300–1.500 €</span></div>
+        </div>
+      </div>
+
+      <!-- REDES / IT -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#eef3fb">
+          <h3>Redes Informáticas / IT</h3>
+          <span class="criticidad crit-alta">Alta</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">1h (remoto) / 4h (presencial)</span></div>
+          <div class="sector-row"><span class="lbl">Soporte remoto</span><span class="val">24/7 incluido</span></div>
+          <div class="sector-row"><span class="lbl">Presencial</span><span class="val">09:00–18:00 L–V</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">1 + revisión remota semanal</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Backup verificación mensual, RGPD</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">400–2.500 €</span></div>
+        </div>
+      </div>
+
+      <!-- SUPERMERCADOS -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#fdf0eb">
+          <h3>Retail / Supermercado</h3>
+          <span class="criticidad crit-muy-alta">Muy Alta</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA fallo cámara</span><span class="val mono">30 min</span></div>
+          <div class="sector-row"><span class="lbl">Horario</span><span class="val mono">07:00–23:00 todos los días</span></div>
+          <div class="sector-row"><span class="lbl">Guardias</span><span class="val">24h para frío industrial</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">4 (equipos de frío)</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Responsabilidad pérdida producto</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">1.500–10.000 €</span></div>
+        </div>
+      </div>
+
+      <!-- COMUNIDAD -->
+      <div class="sector-card">
+        <div class="sector-header" style="background:#f5f5ef">
+          <h3>Comunidades de Vecinos</h3>
+          <span class="criticidad crit-baja">Baja</span>
+        </div>
+        <div class="sector-body">
+          <div class="sector-row"><span class="lbl">SLA urgente</span><span class="val mono">4h</span></div>
+          <div class="sector-row"><span class="lbl">Horario base</span><span class="val">08:00–18:00 L–V</span></div>
+          <div class="sector-row"><span class="lbl">Guardias</span><span class="val">No incluidas</span></div>
+          <div class="sector-row"><span class="lbl">Preventivos/mes</span><span class="val mono">1</span></div>
+          <div class="sector-row"><span class="lbl">Cláusula especial</span><span class="val">Acuerdo con presidente/administrador</span></div>
+          <div class="sector-row"><span class="lbl">Precio ref./mes</span><span class="val mono">150–800 €</span></div>
+        </div>
+      </div>
+
+    </div><!-- /sector-grid -->
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- 4. RECARGOS -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div id="precios" class="mt3">
+    <div class="section-head">
+      <span class="section-num">04 —</span>
+      <h2>Recargos y Penalizaciones</h2>
+    </div>
+
+    <div class="recargo-grid mb1">
+      <div class="recargo-card">
+        <div class="recargo-pct">+25%</div>
+        <div class="recargo-label">Sábado</div>
+        <div class="recargo-detail">sobre precio/hora base</div>
+      </div>
+      <div class="recargo-card">
+        <div class="recargo-pct">+40%</div>
+        <div class="recargo-label">Domingo</div>
+        <div class="recargo-detail">sobre precio/hora base</div>
+      </div>
+      <div class="recargo-card">
+        <div class="recargo-pct">+50%</div>
+        <div class="recargo-label">Festivo nacional</div>
+        <div class="recargo-detail">sobre precio/hora base</div>
+      </div>
+      <div class="recargo-card">
+        <div class="recargo-pct">+35%</div>
+        <div class="recargo-label">Nocturno</div>
+        <div class="recargo-detail">22:00 — 06:00 h</div>
+      </div>
+      <div class="recargo-card">
+        <div class="recargo-pct">+40%</div>
+        <div class="recargo-label">Urgencia &lt;2h</div>
+        <div class="recargo-detail">tiempo respuesta &lt; 2 horas</div>
+      </div>
+      <div class="recargo-card">
+        <div class="recargo-pct">+60%</div>
+        <div class="recargo-label">Urgencia &lt;1h</div>
+        <div class="recargo-detail">tiempo respuesta &lt; 1 hora</div>
+      </div>
+      <div class="recargo-card">
+        <div class="recargo-pct">+70%</div>
+        <div class="recargo-label">Guardia 24h</div>
+        <div class="recargo-detail">técnico de disponibilidad permanente</div>
+      </div>
+      <div class="recargo-card" style="border:2px solid var(--accent)">
+        <div class="recargo-pct" style="color:var(--accent2)">−5%/h</div>
+        <div class="recargo-label">Penalización SLA</div>
+        <div class="recargo-detail">por hora de retraso. Máx. −20%/mes</div>
+      </div>
+    </div>
+
+    <div class="callout green mt2">
+      <strong>Constructor de precio mensual — ejemplo Climatización Hotel (tamaño mediano):</strong>
+      <div class="price-row mt2"><span class="item">Cuota base (mano de obra preventiva + correctiva básica)</span><span class="amount">1.200,00 €</span></div>
+      <div class="price-row"><span class="item">Visitas preventivas: 4/mes × 90 €</span><span class="amount">360,00 €</span></div>
+      <div class="price-row"><span class="item">Cobertura fines de semana (sáb/dom) — disponibilidad</span><span class="amount">320,00 €</span></div>
+      <div class="price-row"><span class="item">Desplazamiento incluido (radio 30 km)</span><span class="amount">0,00 €</span></div>
+      <div class="price-row"><span class="item">Descuento contrato anual (−5%)</span><span class="amount">−94,00 €</span></div>
+      <div class="price-row total"><span class="item">TOTAL MENSUAL (sin IVA)</span><span class="amount">1.786,00 €</span></div>
+      <div class="price-row"><span class="item" style="color:var(--ink-soft);font-size:.78rem">Materiales y piezas → presupuesto independiente</span><span class="amount" style="color:var(--ink-soft);font-size:.78rem">NO incluido</span></div>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- 5. BASE DE DATOS -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div id="bd-schema" class="mt3">
+    <div class="section-head">
+      <span class="section-num">05 —</span>
+      <h2>Esquema de Base de Datos</h2>
+      <span class="section-desc">Supabase / PostgreSQL</span>
+    </div>
+
+    <div class="callout">
+      <strong>Arquitectura:</strong> 3 capas — (1) Catálogos estáticos (sectores, oficios, plantillas), (2) Contratos y SLA activos, (3) Facturación e incidencias. RLS por <code style="font-family:monospace">empresa_id</code>.
+    </div>
+
+    <div class="schema-grid mt2">
+
+      <!-- TABLA: contract_templates -->
+      <div class="db-table">
+        <div class="db-table-head">
+          <span class="db-table-name">contract_templates</span>
+          <span class="db-table-type">Catálogo — plantillas</span>
+        </div>
+        <div class="db-field"><span class="db-fname">id</span><span class="db-ftype">uuid</span><span class="db-fpk">PK</span></div>
+        <div class="db-field"><span class="db-fname">codigo</span><span class="db-ftype">text</span><span class="db-fflag">UNIQUE</span></div>
+        <div class="db-field"><span class="db-fname">nombre</span><span class="db-ftype">text</span><span></span></div>
+        <div class="db-field"><span class="db-fname">sector_id</span><span class="db-ftype">uuid</span><span class="db-fk">FK → sectors</span></div>
+        <div class="db-field"><span class="db-fname">oficio_id</span><span class="db-ftype">uuid</span><span class="db-fk">FK → trades</span></div>
+        <div class="db-field"><span class="db-fname">criticidad</span><span class="db-ftype">enum</span><span class="db-fflag">baja/normal/alta/muy_alta/extrema</span></div>
+        <div class="db-field"><span class="db-fname">sla_normal_h</span><span class="db-ftype">integer</span><span></span></div>
+        <div class="db-field"><span class="db-fname">sla_urgente_h</span><span class="db-ftype">integer</span><span></span></div>
+        <div class="db-field"><span class="db-fname">sla_critico_min</span><span class="db-ftype">integer</span><span></span></div>
+        <div class="db-field"><span class="db-fname">horario_inicio</span><span class="db-ftype">time</span><span></span></div>
+        <div class="db-field"><span class="db-fname">horario_fin</span><span class="db-ftype">time</span><span></span></div>
+        <div class="db-field"><span class="db-fname">dias_cobertura</span><span class="db-ftype">text[]</span><span class="db-fflag">L,M,X,J,V,S,D</span></div>
+        <div class="db-field"><span class="db-fname">guardias_incluidas</span><span class="db-ftype">boolean</span><span></span></div>
+        <div class="db-field"><span class="db-fname">preventivos_mes</span><span class="db-ftype">integer</span><span></span></div>
+        <div class="db-field"><span class="db-fname">precio_min</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">precio_recomendado</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">precio_max</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">clausulas_especiales</span><span class="db-ftype">jsonb</span><span class="db-fflag">array cláusulas</span></div>
+        <div class="db-field"><span class="db-fname">activa</span><span class="db-ftype">boolean</span><span></span></div>
+      </div>
+
+      <!-- TABLA: maintenance_contracts -->
+      <div class="db-table">
+        <div class="db-table-head">
+          <span class="db-table-name">maintenance_contracts</span>
+          <span class="db-table-type">Contratos activos</span>
+        </div>
+        <div class="db-field"><span class="db-fname">id</span><span class="db-ftype">uuid</span><span class="db-fpk">PK</span></div>
+        <div class="db-field"><span class="db-fname">empresa_id</span><span class="db-ftype">uuid</span><span class="db-fk">FK → companies</span></div>
+        <div class="db-field"><span class="db-fname">cliente_id</span><span class="db-ftype">uuid</span><span class="db-fk">FK → clients</span></div>
+        <div class="db-field"><span class="db-fname">template_id</span><span class="db-ftype">uuid</span><span class="db-fk">FK → contract_templates</span></div>
+        <div class="db-field"><span class="db-fname">numero_contrato</span><span class="db-ftype">text</span><span class="db-fflag">UNIQUE</span></div>
+        <div class="db-field"><span class="db-fname">estado</span><span class="db-ftype">enum</span><span class="db-fflag">borrador/pendiente_firma/activo/pausado/vencido/cancelado</span></div>
+        <div class="db-field"><span class="db-fname">fecha_inicio</span><span class="db-ftype">date</span><span></span></div>
+        <div class="db-field"><span class="db-fname">fecha_fin</span><span class="db-ftype">date</span><span></span></div>
+        <div class="db-field"><span class="db-fname">renovacion_automatica</span><span class="db-ftype">boolean</span><span></span></div>
+        <div class="db-field"><span class="db-fname">dias_preaviso</span><span class="db-ftype">integer</span><span></span></div>
+        <div class="db-field"><span class="db-fname">importe_mensual</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">forma_pago</span><span class="db-ftype">text</span><span></span></div>
+        <div class="db-field"><span class="db-fname">maximo_revision_ipc_pct</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">desplazamiento_incluido</span><span class="db-ftype">boolean</span><span></span></div>
+        <div class="db-field"><span class="db-fname">radio_km</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">precio_km_extra</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">penalizacion_sla_pct</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">penalizacion_max_pct</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">pdf_url</span><span class="db-ftype">text</span><span></span></div>
+        <div class="db-field"><span class="db-fname">presupuesto_origen_id</span><span class="db-ftype">uuid</span><span class="db-fk">FK → quotes</span></div>
+        <div class="db-field"><span class="db-fname">created_at</span><span class="db-ftype">timestamptz</span><span></span></div>
+      </div>
+
+      <!-- TABLA: contract_sla -->
+      <div class="db-table">
+        <div class="db-table-head">
+          <span class="db-table-name">contract_sla</span>
+          <span class="db-table-type">SLA por contrato</span>
+        </div>
+        <div class="db-field"><span class="db-fname">id</span><span class="db-ftype">uuid</span><span class="db-fpk">PK</span></div>
+        <div class="db-field"><span class="db-fname">contrato_id</span><span class="db-ftype">uuid</span><span class="db-fk">FK → maintenance_contracts</span></div>
+        <div class="db-field"><span class="db-fname">nivel</span><span class="db-ftype">enum</span><span class="db-fflag">normal/urgente/critico</span></div>
+        <div class="db-field"><span class="db-fname">tiempo_respuesta_h</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">tiempo_resolucion_h</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">aplica_horario</span><span class="db-ftype">boolean</span><span class="db-fflag">solo en horario base</span></div>
+        <div class="db-field"><span class="db-fname">aplica_24h</span><span class="db-ftype">boolean</span><span></span></div>
+        <div class="db-field"><span class="db-fname">penalizacion_pct_hora</span><span class="db-ftype">numeric</span><span></span></div>
+      </div>
+
+      <!-- TABLA: contract_surcharges -->
+      <div class="db-table">
+        <div class="db-table-head">
+          <span class="db-table-name">contract_surcharges</span>
+          <span class="db-table-type">Recargos por contrato</span>
+        </div>
+        <div class="db-field"><span class="db-fname">id</span><span class="db-ftype">uuid</span><span class="db-fpk">PK</span></div>
+        <div class="db-field"><span class="db-fname">contrato_id</span><span class="db-ftype">uuid</span><span class="db-fk">FK → maintenance_contracts</span></div>
+        <div class="db-field"><span class="db-fname">tipo</span><span class="db-ftype">enum</span><span class="db-fflag">sabado/domingo/festivo/nocturno/urgencia_2h/urgencia_1h/guardia_24h</span></div>
+        <div class="db-field"><span class="db-fname">porcentaje</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">activo</span><span class="db-ftype">boolean</span><span></span></div>
+      </div>
+
+      <!-- TABLA: contract_preventive_visits -->
+      <div class="db-table">
+        <div class="db-table-head">
+          <span class="db-table-name">contract_preventive_visits</span>
+          <span class="db-table-type">Visitas preventivas programadas</span>
+        </div>
+        <div class="db-field"><span class="db-fname">id</span><span class="db-ftype">uuid</span><span class="db-fpk">PK</span></div>
+        <div class="db-field"><span class="db-fname">contrato_id</span><span class="db-ftype">uuid</span><span class="db-fk">FK → maintenance_contracts</span></div>
+        <div class="db-field"><span class="db-fname">fecha_programada</span><span class="db-ftype">date</span><span></span></div>
+        <div class="db-field"><span class="db-fname">fecha_realizada</span><span class="db-ftype">date</span><span></span></div>
+        <div class="db-field"><span class="db-fname">tecnico_id</span><span class="db-ftype">uuid</span><span class="db-fk">FK → users</span></div>
+        <div class="db-field"><span class="db-fname">estado</span><span class="db-ftype">enum</span><span class="db-fflag">pendiente/realizada/cancelada</span></div>
+        <div class="db-field"><span class="db-fname">informe</span><span class="db-ftype">text</span><span></span></div>
+        <div class="db-field"><span class="db-fname">firmas_ok</span><span class="db-ftype">boolean</span><span></span></div>
+      </div>
+
+      <!-- TABLA: contract_incidents -->
+      <div class="db-table">
+        <div class="db-table-head">
+          <span class="db-table-name">contract_incidents</span>
+          <span class="db-table-type">Incidencias del contrato</span>
+        </div>
+        <div class="db-field"><span class="db-fname">id</span><span class="db-ftype">uuid</span><span class="db-fpk">PK</span></div>
+        <div class="db-field"><span class="db-fname">contrato_id</span><span class="db-ftype">uuid</span><span class="db-fk">FK → maintenance_contracts</span></div>
+        <div class="db-field"><span class="db-fname">nivel_urgencia</span><span class="db-ftype">enum</span><span class="db-fflag">normal/urgente/critico</span></div>
+        <div class="db-field"><span class="db-fname">descripcion</span><span class="db-ftype">text</span><span></span></div>
+        <div class="db-field"><span class="db-fname">fecha_comunicacion</span><span class="db-ftype">timestamptz</span><span></span></div>
+        <div class="db-field"><span class="db-fname">fecha_respuesta</span><span class="db-ftype">timestamptz</span><span></span></div>
+        <div class="db-field"><span class="db-fname">fecha_resolucion</span><span class="db-ftype">timestamptz</span><span></span></div>
+        <div class="db-field"><span class="db-fname">sla_cumplido</span><span class="db-ftype">boolean</span><span></span></div>
+        <div class="db-field"><span class="db-fname">penalizacion_aplicada</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">es_fuera_horario</span><span class="db-ftype">boolean</span><span></span></div>
+        <div class="db-field"><span class="db-fname">recargo_aplicado_pct</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">requiere_materiales</span><span class="db-ftype">boolean</span><span></span></div>
+        <div class="db-field"><span class="db-fname">presupuesto_materiales_id</span><span class="db-ftype">uuid</span><span class="db-fk">FK → quotes</span></div>
+      </div>
+
+      <!-- TABLA: contract_invoices -->
+      <div class="db-table">
+        <div class="db-table-head">
+          <span class="db-table-name">contract_invoices</span>
+          <span class="db-table-type">Facturas del contrato</span>
+        </div>
+        <div class="db-field"><span class="db-fname">id</span><span class="db-ftype">uuid</span><span class="db-fpk">PK</span></div>
+        <div class="db-field"><span class="db-fname">contrato_id</span><span class="db-ftype">uuid</span><span class="db-fk">FK → maintenance_contracts</span></div>
+        <div class="db-field"><span class="db-fname">tipo</span><span class="db-ftype">enum</span><span class="db-fflag">mensual/trimestral/anual/intervencion/urgencia/festivo/materiales</span></div>
+        <div class="db-field"><span class="db-fname">periodo_inicio</span><span class="db-ftype">date</span><span></span></div>
+        <div class="db-field"><span class="db-fname">periodo_fin</span><span class="db-ftype">date</span><span></span></div>
+        <div class="db-field"><span class="db-fname">base_imponible</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">iva_pct</span><span class="db-ftype">numeric</span><span class="db-fflag">default 21</span></div>
+        <div class="db-field"><span class="db-fname">total</span><span class="db-ftype">numeric</span><span></span></div>
+        <div class="db-field"><span class="db-fname">penalizaciones</span><span class="db-ftype">numeric</span><span class="db-fflag">deducción por SLA</span></div>
+        <div class="db-field"><span class="db-fname">estado</span><span class="db-ftype">enum</span><span class="db-fflag">borrador/emitida/enviada/pagada/vencida/cancelada</span></div>
+        <div class="db-field"><span class="db-fname">pdf_url</span><span class="db-ftype">text</span><span></span></div>
+      </div>
+
+      <!-- TABLA: sectors + trades (catálogos) -->
+      <div class="db-table">
+        <div class="db-table-head">
+          <span class="db-table-name">sectors / trades</span>
+          <span class="db-table-type">Catálogos base</span>
+        </div>
+        <div class="db-field"><span class="db-fname">id</span><span class="db-ftype">uuid</span><span class="db-fpk">PK</span></div>
+        <div class="db-field"><span class="db-fname">codigo</span><span class="db-ftype">text</span><span class="db-fflag">UNIQUE p.ej. 'hosteleria'</span></div>
+        <div class="db-field"><span class="db-fname">nombre</span><span class="db-ftype">text</span><span></span></div>
+        <div class="db-field"><span class="db-fname">criticidad_default</span><span class="db-ftype">enum</span><span></span></div>
+        <div class="db-field"><span class="db-fname">precio_hora_min</span><span class="db-ftype">numeric</span><span class="db-fflag">solo tabla trades</span></div>
+        <div class="db-field"><span class="db-fname">precio_hora_max</span><span class="db-ftype">numeric</span><span class="db-fflag">solo tabla trades</span></div>
+        <div class="db-field"><span class="db-fname">activo</span><span class="db-ftype">boolean</span><span></span></div>
+      </div>
+
+    </div><!-- /schema-grid -->
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════ -->
+  <!-- 6. MOTOR IA — GENERACIÓN DE DOCUMENTOS -->
+  <!-- ══════════════════════════════════════════════════ -->
+  <div id="ia-motor" class="mt3">
+    <div class="section-head">
+      <span class="section-num">06 —</span>
+      <h2>Motor IA — Generación de Contrato</h2>
+    </div>
+
+    <div class="card-grid card-grid-2">
+      <div class="card card-accent-left">
+        <span class="tag tag-red">Sistema Prompt</span>
+        <h3>Instrucciones para el motor de contratos</h3>
+        <div class="code-block" style="margin-top:.8rem">
+          <span class="file-label">system_prompt_contratos — extracto</span>
+          <span class="cc"># Eres el motor de contratos de TradeFlow AI.</span><br>
+          <span class="cc"># Tu función es generar JSON estructurado para</span><br>
+          <span class="cc"># contratos de mantenimiento. NUNCA inventas precios.</span><br><br>
+          <span class="ck">DETECTA SIEMPRE:</span><br>
+          <span class="cs">  oficio</span> <span class="cc">→ fontaneria|electricidad|climatizacion|it|...</span><br>
+          <span class="cs">  sector</span> <span class="cc">→ industrial|hosteleria|oficinas|...</span><br>
+          <span class="cs">  criticidad</span> <span class="cc">→ baja|normal|alta|muy_alta|extrema</span><br><br>
+          <span class="ck">SELECCIONA PLANTILLA:</span><br>
+          <span class="cn">  sector + oficio + criticidad → template_id</span><br><br>
+          <span class="ck">DEVUELVE SOLO JSON:</span><br>
+          <span class="cb">{</span><br>
+          &nbsp;&nbsp;<span class="cs">"template_id"</span>: <span class="cn">""</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"sector"</span>: <span class="cn">""</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"oficio"</span>: <span class="cn">""</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"criticidad"</span>: <span class="cn">""</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"sla"</span>: <span class="cb">{}</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"horario"</span>: <span class="cb">{}</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"recargos"</span>: <span class="cb">{}</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"preventivos_mes"</span>: <span class="cn">0</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"precio_mensual_sugerido"</span>: <span class="cn">0</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"clausulas_especiales"</span>: <span class="cb">[]</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"exclusiones"</span>: <span class="cb">[]</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"campos_pendientes"</span>: <span class="cb">[]</span><br>
+          <span class="cb">}</span>
+        </div>
+      </div>
+
+      <div class="card card-accent-green">
+        <span class="tag tag-green">Flujo de generación PDF</span>
+        <h3>De JSON a documento firmable</h3>
+        <div class="motor-flow" style="margin-top:1rem">
+          <span class="arrow">1</span><span class="step"><strong>IA genera JSON</strong> con todas las variables del contrato</span>
+          <span class="arrow">2</span><span class="step"><strong>Backend rellena plantilla</strong> HTML/Handlebars con las variables</span>
+          <span class="arrow">3</span><span class="step"><strong>Puppeteer / wkhtmltopdf</strong> convierte HTML → PDF</span>
+          <span class="arrow">4</span><span class="step"><strong>PDF sube a Supabase Storage</strong>, se guarda <code style="font-family:monospace;font-size:.8em">pdf_url</code></span>
+          <span class="arrow">5</span><span class="step"><strong>Email vía Resend</strong> al cliente con PDF adjunto</span>
+          <span class="arrow">6</span><span class="step"><strong>Cliente firma digitalmente</strong> o devuelve firmado → estado <code style="font-family:monospace;font-size:.8em">activo</code></span>
+          <span class="arrow">7</span><span class="step"><strong>Facturación recurrente</strong> auto-generada cada mes</span>
+        </div>
+      </div>
+
+      <div class="card card-accent-blue">
+        <span class="tag tag-blue">Cláusulas especiales — JSON</span>
+        <h3>Estructura de cláusula especial</h3>
+        <div class="code-block" style="margin-top:.8rem">
+          <span class="file-label">clausulas_especiales — estructura</span>
+          <span class="cb">[</span><br>
+          &nbsp;&nbsp;<span class="cb">{</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"id"</span>: <span class="cs">"parada_produccion"</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"sector"</span>: <span class="cs">"industrial"</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"titulo"</span>: <span class="cs">"Parada de Producción"</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"cuerpo"</span>: <span class="cs">"En caso de parada de línea de producción imputable a incumplimiento del SLA..."</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"variables"</span>: <span class="cb">[</span><span class="cs">"penalizacion_pct"</span><span class="cb">]</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"activa_por_defecto"</span>: <span class="ck">true</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"requiere_revision"</span>: <span class="ck">false</span><br>
+          &nbsp;&nbsp;<span class="cb">}</span>,<br>
+          &nbsp;&nbsp;<span class="cb">{</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"id"</span>: <span class="cs">"cadena_frio"</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"sector"</span>: <span class="cs">"alimentario"</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"titulo"</span>: <span class="cs">"Responsabilidad Cadena de Frío"</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"activa_por_defecto"</span>: <span class="ck">true</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"requiere_revision"</span>: <span class="ck">true</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">"motivo_revision"</span>: <span class="cs">"Revisar límite responsabilidad con asesor legal"</span><br>
+          &nbsp;&nbsp;<span class="cb">}</span><br>
+          <span class="cb">]</span>
+        </div>
+      </div>
+
+      <div class="card card-accent-gold">
+        <span class="tag tag-gold">Regla crítica</span>
+        <h3>Materiales siempre excluidos por defecto</h3>
+        <p style="margin:.6rem 0">La IA genera automáticamente el bloque de exclusiones para toda incidencia que requiera piezas o materiales:</p>
+        <div class="code-block" style="margin-top:.8rem">
+          <span class="file-text">Cuando se detecta necesidad de materiales:</span><br><br>
+          <span class="cb">{</span><br>
+          &nbsp;&nbsp;<span class="cs">"descripcion"</span>: <span class="cs">"Sustitución válvula de corte"</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"precio_unitario"</span>: <span class="cn">0</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"precio_origen"</span>: <span class="cs">"pendiente"</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"requiere_revision"</span>: <span class="ck">true</span>,<br>
+          &nbsp;&nbsp;<span class="cs">"motivo"</span>: <span class="cs">"Las piezas no están incluidas en el contrato"</span><br>
+          <span class="cb">}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabla de estados -->
+    <div class="mt2">
+      <h3 style="font-family:'Crimson Pro',serif;font-size:1.2rem;margin-bottom:1rem;color:var(--ink)">Estados del contrato y transiciones</h3>
+      <div style="overflow-x:auto">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Estado</th><th>Descripción</th><th>Acción disponible</th><th>Facturación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="pill pill-gray">borrador</span></td>
+              <td>Generado por IA, pendiente revisión</td>
+              <td>Editar, eliminar, enviar</td>
+              <td class="mono">No</td>
+            </tr>
+            <tr>
+              <td><span class="pill pill-gold">pendiente_firma</span></td>
+              <td>PDF enviado al cliente</td>
+              <td>Marcar como firmado, reenviar</td>
+              <td class="mono">No</td>
+            </tr>
+            <tr>
+              <td><span class="pill pill-green">activo</span></td>
+              <td>Contrato en vigor</td>
+              <td>Crear incidencia, facturar, pausar</td>
+              <td class="mono strong">Sí — recurrente</td>
+            </tr>
+            <tr>
+              <td><span class="pill pill-blue">pausado</span></td>
+              <td>Suspensión temporal acordada</td>
+              <td>Reactivar</td>
+              <td class="mono">No (suspendida)</td>
+            </tr>
+            <tr>
+              <td><span class="pill pill-gray">vencido</span></td>
+              <td>Fecha fin superada sin renovar</td>
+              <td>Renovar, archivar</td>
+              <td class="mono">No</td>
+            </tr>
+            <tr>
+              <td><span class="pill pill-red">cancelado</span></td>
+              <td>Cancelado por alguna de las partes</td>
+              <td>Solo consulta</td>
+              <td class="mono">No</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /ia-motor -->
+
+
+  <!-- FOOTER -->
+  <div class="sep">· · · TradeFlow AI — Plan Empresa · Módulo Contratos de Mantenimiento — v1.0 Mayo 2026 · · ·</div>
+
+</div><!-- /page -->
+</body>
+</html>

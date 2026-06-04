@@ -195,6 +195,153 @@ const OFICIO_CONTENT: Record<string, OficioContent> = {
       'Reglamento (UE) 2016/679 (RGPD) y Ley Orgánica 3/2018 (LOPDGDD).',
     ],
   },
+  informatica: {
+    titulo: 'Mantenimiento de Infraestructura Informática y Redes de Datos',
+    objeto: 'Mantenimiento preventivo y correctivo de la infraestructura informática, redes de datos estructuradas, sistemas Wi-Fi, servidores, equipos de usuario y comunicaciones, garantizando la continuidad y seguridad del servicio.',
+    serviciosIncluidos: [
+      'Mantenimiento y monitorización de la red de datos: switches, routers, firewalls y puntos de acceso Wi-Fi.',
+      'Revisión y gestión de servidores físicos y virtuales: parches de seguridad, actualizaciones, rendimiento.',
+      'Mantenimiento preventivo de equipos de usuario: PC, portátiles, impresoras y periféricos.',
+      'Soporte remoto y presencial para incidencias de usuario y sistema operativo.',
+      'Supervisión de copias de seguridad (backup) y verificación mensual de integridad.',
+      'Gestión de usuarios y permisos en Active Directory o equivalente.',
+      'Revisión periódica de antivirus, EDR y herramientas de seguridad perimetral.',
+      'Atención a incidencias críticas (caída de red, servidor inaccesible) según SLA acordado.',
+      'Emisión de informes técnicos mensuales sobre el estado de la infraestructura.',
+    ],
+    serviciosExcluidos: [
+      'Sustitución de hardware deteriorado (servidores, switches, PCs) cuyo coste supere el límite del Anexo I.',
+      'Desarrollo o modificación de software a medida, aplicaciones o bases de datos.',
+      'Migraciones completas de plataforma o implantación de nuevos sistemas ERP/CRM.',
+      'Recuperación de datos ante siniestro (ransomware, borrado accidental) de backups no gestionados bajo este contrato.',
+      'Instalación de cableado estructurado nuevo o reformas de red física.',
+      'Soporte de aplicaciones de terceros con acceso remoto propio del fabricante.',
+    ],
+    mantenimientoPreventivo: [
+      'Revisión mensual del estado de servidores: espacio, rendimiento, logs de errores y actualizaciones.',
+      'Verificación mensual de la integridad y restaurabilidad de las copias de seguridad.',
+      'Revisión trimestral de firewall, reglas de seguridad y certificados SSL/TLS.',
+      'Auditoría semestral de usuarios y permisos: altas, bajas y modificaciones.',
+      'Test anual de recuperación ante desastres (DRP) con informe de resultados.',
+      'Revisión semestral de licencias de software y cumplimiento normativo.',
+    ],
+    normativa: [
+      'Reglamento (UE) 2016/679 (RGPD) — Protección de Datos de Carácter Personal.',
+      'Ley Orgánica 3/2018 (LOPDGDD) — Protección de Datos y Garantía de Derechos Digitales.',
+      'Real Decreto-ley 12/2018 — Seguridad de las redes y sistemas de información (NIS).',
+      'Esquema Nacional de Seguridad (ENS) — Real Decreto 311/2022, si aplica al CLIENTE.',
+      'ISO/IEC 27001 — Sistemas de gestión de la seguridad de la información (referencia).',
+      'Ley 31/1995 de Prevención de Riesgos Laborales y normativa de desarrollo.',
+      'Real Decreto 171/2004 — Coordinación de actividades empresariales.',
+    ],
+  },
+  limpieza: {
+    titulo: 'Servicio de Limpieza y Mantenimiento Higiénico-Sanitario',
+    objeto: 'Prestación de servicios de limpieza, desinfección y mantenimiento higiénico-sanitario de las instalaciones del CLIENTE, garantizando los estándares de higiene y salubridad requeridos.',
+    serviciosIncluidos: [
+      'Limpieza diaria/semanal de superficies, suelos, ventanas interiores y zonas comunes.',
+      'Desinfección periódica de aseos, vestuarios y zonas de alta concurrencia.',
+      'Limpieza de cristales interiores y exteriores según frecuencia acordada.',
+      'Reposición de consumibles: papel higiénico, jabón, papel de manos (precio no incluido).',
+      'Tratamiento específico de zonas de cocina, comedor y áreas de preparación de alimentos.',
+      'Eliminación de residuos y gestión de contenedores de reciclaje.',
+      'Limpieza profunda trimestral/semestral de moquetas, tapicerías y difícil acceso.',
+      'Emisión de registro de actuaciones y albaranes por cada servicio prestado.',
+    ],
+    serviciosExcluidos: [
+      'Limpieza de fachadas exteriores o trabajos en altura que requieran plataformas o andamios.',
+      'Tratamientos de plagas o desratización (requieren empresa especializada y autorizada).',
+      'Lavado y planchado de ropa o uniformes del CLIENTE.',
+      'Limpieza de maquinaria industrial, equipos de producción o instalaciones técnicas específicas.',
+      'Consumibles y productos de limpieza (se facturarán por separado o son suministrados por el CLIENTE).',
+    ],
+    mantenimientoPreventivo: [
+      'Planificación mensual del programa de limpieza con calendar y frecuencias acordadas.',
+      'Revisión trimestral del plan de higiene y ajuste de frecuencias si se detectan deficiencias.',
+      'Auditoría semestral de calidad con ficha de inspección firmada por ambas partes.',
+      'Formación anual del personal en técnicas de limpieza e higiene (APPCC si aplica).',
+    ],
+    normativa: [
+      'Real Decreto 783/2001 — Reglamento sobre protección sanitaria contra radiaciones ionizantes.',
+      'Real Decreto 1254/1999 — Medidas de control de los riesgos inherentes a los accidentes graves.',
+      'Ley 31/1995 de Prevención de Riesgos Laborales y normativa de desarrollo.',
+      'Real Decreto 171/2004 — Coordinación de actividades empresariales.',
+      'Reglamento (UE) 2016/679 (RGPD) y Ley Orgánica 3/2018 (LOPDGDD).',
+    ],
+  },
+  jardineria: {
+    titulo: 'Servicio de Jardinería y Mantenimiento de Espacios Verdes',
+    objeto: 'Mantenimiento periódico de jardines, zonas verdes, arbolado y espacios exteriores de las instalaciones del CLIENTE, garantizando su estado óptimo, seguridad y valor estético durante todo el año.',
+    serviciosIncluidos: [
+      'Siega y recorte de céspedes y praderas en la frecuencia acordada según temporada.',
+      'Poda y formación de setos, arbustos y árboles según calendario fitosanitario.',
+      'Escarda y control de malas hierbas en zonas ajardinadas y caminos.',
+      'Abonado y tratamientos fitosanitarios preventivos según necesidades del arbolado.',
+      'Riego manual o supervisión del sistema de riego automático existente.',
+      'Limpieza de hojas, ramas y residuos vegetales en toda la zona ajardinada.',
+      'Plantación estacional de flores y plantas de temporada (coste de plantas no incluido).',
+      'Emisión de informes periódicos sobre el estado de las zonas verdes.',
+    ],
+    serviciosExcluidos: [
+      'Instalación o reparación de sistemas de riego automático y redes de agua.',
+      'Tala de árboles de gran porte que requieran maquinaria especializada o permisos municipales.',
+      'Suministro de plantas, árboles, semillas o materiales de jardinería (se presupuestan por separado).',
+      'Obras de paisajismo: diseño, construcción de jardines, pavimentación o movimientos de tierra.',
+      'Tratamientos de plagas con productos fitosanitarios que requieran empresa homologada nivel 2.',
+    ],
+    mantenimientoPreventivo: [
+      'Programa mensual de visitas adaptado a la temporada: alta frecuencia primavera-verano, menor en otoño-invierno.',
+      'Poda de formación anual de arbolado ornamental y revisión de estado fitosanitario.',
+      'Análisis anual del suelo y planificación de abonados y enmiendas si aplica.',
+      'Revisión semestral del sistema de riego automático: emisores, programación y estanqueidad.',
+    ],
+    normativa: [
+      'Real Decreto 1311/2012 — Uso sostenible de productos fitosanitarios.',
+      'Ley 43/2003 — Montes y normativa autonómica de arbolado urbano aplicable.',
+      'Ley 31/1995 de Prevención de Riesgos Laborales y normativa de desarrollo.',
+      'Real Decreto 171/2004 — Coordinación de actividades empresariales.',
+      'Reglamento (UE) 2016/679 (RGPD) y Ley Orgánica 3/2018 (LOPDGDD).',
+    ],
+  },
+  ascensores: {
+    titulo: 'Mantenimiento de Aparatos Elevadores — Ascensores y Plataformas',
+    objeto: 'Mantenimiento preventivo y correctivo de ascensores, montacargas, salvaescaleras y plataformas elevadoras, conforme al Real Decreto 57/2005 y la instrucción técnica complementaria ITC-AEM1, garantizando la seguridad de los usuarios y la conformidad reglamentaria.',
+    serviciosIncluidos: [
+      'Mantenimiento mensual reglamentario conforme a ITC-AEM1 y normativa EN 13015.',
+      'Revisión de puertas de cabina y rellano: cierre, apertura de emergencia y mecanismos de seguridad.',
+      'Inspección de guías, contrapesos, cables de tracción y poleas.',
+      'Comprobación de paracaídas, limitador de velocidad y sistema amortiguador.',
+      'Revisión del cuadro de maniobras, contactores, relés de seguridad e iluminación.',
+      'Verificación del sistema de comunicación de emergencia y alarma.',
+      'Atención a averías y rescate de personas atrapadas en cabina (24h según SLA).',
+      'Acompañamiento en inspecciones reglamentarias (OCA/OIT) y tramitación de comunicaciones.',
+      'Emisión de libro de mantenimiento reglamentario y partes de trabajo.',
+    ],
+    serviciosExcluidos: [
+      'Modernización o renovación completa del ascensor (guías, grupo tractor, cuadro de maniobras).',
+      'Reparación de daños por vandalismo, mal uso intencionado o causas ajenas al mantenimiento.',
+      'Obras civiles: reformas del hueco, foso o sala de máquinas.',
+      'Tramitación de licencias o permisos administrativos ante organismos públicos.',
+      'Adaptación reglamentaria a nuevas normativas de accesibilidad o seguridad (requiere presupuesto específico).',
+    ],
+    mantenimientoPreventivo: [
+      'Visita mensual de mantenimiento reglamentario con registro en libro de aparato.',
+      'Prueba semestral de paracaídas, limitador de velocidad y dispositivos de seguridad.',
+      'Revisión anual completa del grupo tractor, reductor y freno.',
+      'Engrase semestral de guías, poleas y mecanismos de movimiento.',
+      'Coordinación y acompañamiento en la inspección periódica de OCA/OIT (cada 2 o 4 años según uso).',
+    ],
+    normativa: [
+      'Real Decreto 57/2005 — Prescripciones para el incremento de la seguridad del parque de ascensores existente.',
+      'ITC-AEM1 — Ascensores (Instrucción Técnica Complementaria).',
+      'Real Decreto 1644/2008 — Normas para la comercialización y puesta en servicio de las máquinas.',
+      'EN 81-20 y EN 81-50 — Normas de seguridad para ascensores.',
+      'EN 13015 — Mantenimiento de ascensores y escaleras mecánicas.',
+      'Ley 31/1995 de Prevención de Riesgos Laborales y normativa de desarrollo.',
+      'Real Decreto 171/2004 — Coordinación de actividades empresariales.',
+      'Reglamento (UE) 2016/679 (RGPD) y Ley Orgánica 3/2018 (LOPDGDD).',
+    ],
+  },
   general: {
     titulo: 'Mantenimiento de Instalaciones y Servicios Técnicos',
     objeto: 'Mantenimiento preventivo y correctivo de las instalaciones y sistemas técnicos de las instalaciones del CLIENTE, según el alcance definido en las presentes condiciones.',
@@ -226,11 +373,132 @@ const OFICIO_CONTENT: Record<string, OficioContent> = {
 };
 
 export function getOficioContent(oficio: string): OficioContent {
-  const key = oficio.toLowerCase().replace(/í/g, 'i').replace(/ó/g, 'o').replace(/á/g, 'a').replace(/é/g, 'e').replace(/ú/g, 'u');
-  if (key.includes('font') || key.includes('plom') || key.includes('agua')) return OFICIO_CONTENT.fontaneria;
-  if (key.includes('electr')) return OFICIO_CONTENT.electricidad;
-  if (key.includes('clima') || key.includes('frig') || key.includes('aire')) return OFICIO_CONTENT.climatizacion;
+  const k = oficio.toLowerCase()
+    .replace(/í/g, 'i').replace(/ó/g, 'o').replace(/á/g, 'a').replace(/é/g, 'e').replace(/ú/g, 'u');
+  if (k.includes('font') || k.includes('plom') || k.includes('agua')) return OFICIO_CONTENT.fontaneria;
+  if (k.includes('electr')) return OFICIO_CONTENT.electricidad;
+  if (k.includes('clima') || k.includes('frig') || k.includes('aire') || k.includes('hvac')) return OFICIO_CONTENT.climatizacion;
+  if (k.includes('inform') || k.includes('red') || k.includes('it') || k.includes('datos') || k.includes('servidor') || k.includes('wifi') || k.includes('redes')) return OFICIO_CONTENT.informatica;
+  if (k.includes('limpiez') || k.includes('higien') || k.includes('sanitari')) return OFICIO_CONTENT.limpieza;
+  if (k.includes('jardin') || k.includes('zona verde') || k.includes('paisaj')) return OFICIO_CONTENT.jardineria;
+  if (k.includes('ascensor') || k.includes('elevador') || k.includes('montacargas') || k.includes('escalera mecanica')) return OFICIO_CONTENT.ascensores;
   return OFICIO_CONTENT.general;
+}
+
+// ── Sector-specific clauses ───────────────────────────────────────────────────
+
+const SECTOR_CLAUSES: Record<string, { titulo: string; cuerpo: string }> = {
+  industrial: {
+    titulo: 'Condiciones Especiales — Entorno Industrial',
+    cuerpo: `<p>Dado el carácter industrial de las instalaciones del CLIENTE, se establecen las siguientes condiciones adicionales:</p>
+<ul>
+<li><strong>Parada de producción:</strong> Las intervenciones que puedan implicar parada de línea de producción serán planificadas y coordinadas con al menos 48 horas de antelación, salvo emergencias críticas documentadas. En caso de parada no pactada imputable a EL PRESTADOR, se aplicará una penalización adicional del 3% de la cuota mensual por cada hora de paralización, hasta un máximo del 15% mensual.</li>
+<li><strong>Guardia de disponibilidad:</strong> EL PRESTADOR garantizará técnico de guardia localizable 24h/7 días para atención telefónica inmediata e intervención presencial según SLA crítico acordado.</li>
+<li><strong>Coordinación de actividades:</strong> Todas las intervenciones se ajustarán al Plan de Coordinación de Actividades Empresariales del CLIENTE conforme al Real Decreto 171/2004.</li>
+<li><strong>Equipos de protección:</strong> El personal de EL PRESTADOR portará en todo momento los EPIs reglamentarios exigidos en las instalaciones industriales del CLIENTE.</li>
+</ul>`,
+  },
+  alimentario: {
+    titulo: 'Condiciones Especiales — Sector Alimentario y Cadena de Frío',
+    cuerpo: `<p>En consideración a los requisitos específicos del sector alimentario, las partes acuerdan las siguientes condiciones:</p>
+<ul>
+<li><strong>Garantía de cadena de frío:</strong> Para instalaciones de refrigeración y congelación, EL PRESTADOR garantiza tiempo de respuesta máximo de 30 minutos ante alarma de temperatura fuera de rango, 24 horas al día, 7 días a la semana.</li>
+<li><strong>APPCC y trazabilidad:</strong> Todas las actuaciones en zonas de manipulación de alimentos se realizarán cumpliendo el sistema APPCC del CLIENTE y la normativa de higiene alimentaria. EL PRESTADOR aportará la documentación de trazabilidad requerida.</li>
+<li><strong>Responsabilidad por merma de producto:</strong> En caso de avería de equipos de frío con pérdida de producto directamente imputable al incumplimiento del SLA de respuesta por parte de EL PRESTADOR, y previa documentación fehaciente de la merma, EL PRESTADOR responderá hasta el límite establecido en su póliza de RC. Las partes deberán notificar la incidencia de forma inmediata y documentar las temperaturas registradas.</li>
+<li><strong>Normativa alimentaria:</strong> Se cumplirá en todo momento el Reglamento (CE) 852/2004 sobre higiene de los productos alimenticios y el Real Decreto 993/2014 sobre frío industrial.</li>
+</ul>`,
+  },
+  hospitalario: {
+    titulo: 'Condiciones Especiales — Entorno Sanitario y Hospitalario',
+    cuerpo: `<p>Dado el carácter crítico de los servicios sanitarios, se establecen las condiciones especiales siguientes:</p>
+<ul>
+<li><strong>Cobertura 24/7/365:</strong> El servicio se prestará ininterrumpidamente las 24 horas del día, los 365 días del año, sin excepciones por festivos, puentes o períodos vacacionales.</li>
+<li><strong>SLA crítico:</strong> El tiempo máximo de respuesta para incidencias que afecten a sistemas de soporte vital, quirófanos o UCI es de 15 minutos desde la notificación. La no atención en este plazo conllevará las penalizaciones máximas establecidas en la Cláusula 5.</li>
+<li><strong>Responsabilidad civil ampliada:</strong> EL PRESTADOR mantendrá en vigor una póliza de Responsabilidad Civil específica para actividades en centros sanitarios con cobertura no inferior a 1.000.000 EUR, aportando certificado de vigencia con carácter anual.</li>
+<li><strong>Libro de mantenimiento sanitario:</strong> Se llevará el libro de mantenimiento reglamentario según el Real Decreto 1027/2007 y la normativa autonómica de instalaciones sanitarias aplicable.</li>
+<li><strong>Formación específica:</strong> El personal asignado acreditará formación en prevención de infecciones nosocomiales y conocimiento de los protocolos del CLIENTE antes del inicio del servicio.</li>
+</ul>`,
+  },
+  hostelero: {
+    titulo: 'Condiciones Especiales — Sector Hostelería y Restauración',
+    cuerpo: `<p>En atención a las necesidades específicas del sector hostelero, se acuerdan las siguientes condiciones:</p>
+<ul>
+<li><strong>Cobertura en fines de semana y festivos:</strong> El servicio incluye cobertura básica de urgencias los fines de semana y festivos, con recargo aplicable sobre el precio/hora estándar según la tabla de la Cláusula 7.</li>
+<li><strong>Temporada alta:</strong> Durante los períodos de máxima ocupación (julio-agosto y Semana Santa), los tiempos de respuesta SLA se reducirán en un 30% respecto a los valores estándar, sin coste adicional.</li>
+<li><strong>Intervención discreta:</strong> Las actuaciones en zonas comunes o de atención al público se realizarán preferentemente fuera del horario de servicio al cliente o en momentos de menor afluencia, coordinando acceso con el responsable del establecimiento.</li>
+<li><strong>Equipos de cocina:</strong> Las intervenciones en maquinaria de cocina (hornos, cámaras, lavavajillas industriales) se coordinarán con el jefe de cocina para minimizar la interrupción del servicio.</li>
+</ul>`,
+  },
+  hotelero: {
+    titulo: 'Condiciones Especiales — Sector Hotelero',
+    cuerpo: `<p>En atención a las necesidades específicas del sector hotelero, se acuerdan las siguientes condiciones:</p>
+<ul>
+<li><strong>Cobertura en fines de semana y festivos:</strong> El servicio incluye cobertura básica de urgencias los fines de semana y festivos, con recargo aplicable según la tabla de la Cláusula 7.</li>
+<li><strong>Temporada alta:</strong> Durante los períodos de máxima ocupación (julio-agosto y Semana Santa), los tiempos de respuesta se reducirán en un 30% respecto a los valores estándar.</li>
+<li><strong>Acceso a habitaciones:</strong> Las actuaciones en habitaciones de huéspedes se coordinarán con la dirección del hotel y se realizarán respetando la privacidad y las normas internas del establecimiento.</li>
+<li><strong>Discreción y uniformidad:</strong> El personal de EL PRESTADOR portará uniforme identificativo y actuará con la discreción propia de los estándares hoteleros exigidos por el CLIENTE.</li>
+</ul>`,
+  },
+  retail: {
+    titulo: 'Condiciones Especiales — Sector Retail y Gran Superficie',
+    cuerpo: `<p>Para instalaciones de retail y gran superficie, se establecen las siguientes condiciones:</p>
+<ul>
+<li><strong>SLA de equipos de frío:</strong> Para cámaras de conservación, expositores frigoríficos y equipos de congelación, el tiempo de respuesta máximo es de 30 minutos desde la notificación de avería, 24 horas al día, 7 días a la semana.</li>
+<li><strong>Responsabilidad por pérdida de producto:</strong> Ante avería de frio directamente imputable al incumplimiento del SLA de respuesta, y previa documentación de la pérdida, EL PRESTADOR responderá hasta el límite de su póliza de RC, previa comunicación inmediata de la incidencia.</li>
+<li><strong>Horario de intervención:</strong> Las actuaciones en sala de ventas o zonas de acceso al público se realizarán preferentemente antes de apertura o después del cierre del establecimiento, salvo urgencias que requieran intervención inmediata.</li>
+<li><strong>Guardia 24h frío industrial:</strong> EL PRESTADOR garantizará técnico de guardia localizable 24h/7 días para incidencias relacionadas con equipos de refrigeración industrial.</li>
+</ul>`,
+  },
+  supermercado: {
+    titulo: 'Condiciones Especiales — Supermercado y Distribución Alimentaria',
+    cuerpo: `<p>Para establecimientos de distribución alimentaria, se establecen las condiciones del sector alimentario/retail indicadas a continuación:</p>
+<ul>
+<li><strong>SLA de equipos de frío:</strong> Tiempo de respuesta máximo de 30 minutos ante alarma de temperatura fuera de rango en cámaras o expositores, 24h/7 días.</li>
+<li><strong>APPCC:</strong> Las intervenciones en zonas de manipulación de alimentos cumplirán los requisitos del sistema APPCC del CLIENTE.</li>
+<li><strong>Guardia frío industrial:</strong> Técnico de guardia localizable 24h/7 días para frío industrial.</li>
+<li><strong>Responsabilidad pérdida producto:</strong> EL PRESTADOR responderá por pérdida de producto en caso de incumplimiento documentado del SLA de respuesta, hasta el límite de su póliza de RC.</li>
+</ul>`,
+  },
+  oficinas: {
+    titulo: 'Condiciones Especiales — Edificio de Oficinas',
+    cuerpo: `<p>Para edificios de oficinas y espacios de trabajo, se acuerdan las siguientes condiciones:</p>
+<ul>
+<li><strong>Acceso coordinado:</strong> Todas las actuaciones serán coordinadas con el administrador o responsable de las instalaciones del edificio, respetando los protocolos de seguridad y acceso establecidos.</li>
+<li><strong>Horario de intervención:</strong> Las intervenciones de carácter no urgente se realizarán preferentemente en horario de 08:00 a 18:00 h, lunes a viernes, para minimizar la interrupción de la actividad del CLIENTE.</li>
+<li><strong>Actuaciones en fin de semana:</strong> Las intervenciones urgentes en fin de semana o festivos tendrán el recargo establecido en la tabla de la Cláusula 7 y requerirán confirmación por parte del responsable del CLIENTE.</li>
+</ul>`,
+  },
+  comunidad: {
+    titulo: 'Condiciones Especiales — Comunidad de Propietarios',
+    cuerpo: `<p>Para comunidades de propietarios, se acuerdan las siguientes condiciones:</p>
+<ul>
+<li><strong>Interlocución:</strong> EL CLIENTE designará al Presidente de la Comunidad o al Administrador de Fincas como interlocutor válido para la solicitud de servicios, aprobación de presupuestos y firma de partes de trabajo.</li>
+<li><strong>Aprobación de gastos:</strong> Las reparaciones que superen el límite correctivo del Anexo I requerirán aprobación previa de la Junta de Propietarios o de la persona expresamente autorizada por ésta.</li>
+<li><strong>Aviso a propietarios:</strong> Para intervenciones que puedan afectar a los suministros de la comunidad (agua, electricidad) se notificará a los propietarios con al menos 24 horas de antelación.</li>
+</ul>`,
+  },
+};
+
+export function getSectorClauseHTML(sector: string): string | null {
+  const k = (sector ?? '').toLowerCase()
+    .replace(/í/g, 'i').replace(/ó/g, 'o').replace(/á/g, 'a').replace(/é/g, 'e').replace(/ú/g, 'u');
+
+  let entry: { titulo: string; cuerpo: string } | undefined;
+  if (k.includes('industrial') || k.includes('fabrica') || k.includes('fabr')) entry = SECTOR_CLAUSES.industrial;
+  else if (k.includes('alimentari') || k.includes('aliment') || k.includes('haccp') || k.includes('appcc')) entry = SECTOR_CLAUSES.alimentario;
+  else if (k.includes('hospital') || k.includes('clinic') || k.includes('sanitari')) entry = SECTOR_CLAUSES.hospitalario;
+  else if (k.includes('hotel') && !k.includes('hostel')) entry = SECTOR_CLAUSES.hotelero;
+  else if (k.includes('hostel') || k.includes('restaur') || k.includes('hosteleri')) entry = SECTOR_CLAUSES.hostelero;
+  else if (k.includes('supermercado') || k.includes('super ')) entry = SECTOR_CLAUSES.supermercado;
+  else if (k.includes('retail') || k.includes('gran superficie') || k.includes('tienda')) entry = SECTOR_CLAUSES.retail;
+  else if (k.includes('oficina') || k.includes('coworking')) entry = SECTOR_CLAUSES.oficinas;
+  else if (k.includes('comunidad') || k.includes('vecinos') || k.includes('propietarios')) entry = SECTOR_CLAUSES.comunidad;
+
+  if (!entry) return null;
+  return `<div class="section">
+  <div class="section-title"><span>${esc(entry.titulo)}</span></div>
+  ${entry.cuerpo}
+</div>`;
 }
 
 // ── HTML builder ─────────────────────────────────────────────────────────────
@@ -248,7 +516,7 @@ function installationList(raw: string): string {
   return lines.map((l, i) => `<li><strong>${i + 1}.</strong> ${esc(l.trim())}</li>`).join('');
 }
 
-export function buildContractHTML(v: ContractVars, oficio: string): string {
+export function buildContractHTML(v: ContractVars, oficio: string, sector?: string): string {
   const c = getOficioContent(oficio);
   const logoHtml = v.logo_url
     ? `<img src="${v.logo_url}" alt="Logo" style="max-height:52px;max-width:160px;object-fit:contain" />`
@@ -556,6 +824,8 @@ export function buildContractHTML(v: ContractVars, oficio: string): string {
   </ul>
   <p>La resolución anticipada por causa imputable a una de las partes dará derecho a la otra a exigir el pago de los daños y perjuicios ocasionados conforme a lo establecido en el Código Civil.</p>
 </div>
+
+${sector ? (getSectorClauseHTML(sector) ?? '') : ''}
 
 <div class="section">
   <div class="section-title"><span>Cláusula 14. Jurisdicción y Legislación Aplicable</span></div>

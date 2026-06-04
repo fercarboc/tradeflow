@@ -71,6 +71,7 @@ import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } fr
 import ScreenPlanificacion from './ScreenPlanificacion';
 import ScreenParteTrabajo from './ScreenParteTrabajo';
 import ScreenPresupuestoFoto from './ScreenPresupuestoFoto';
+import ScreenPresupuestoIncremental from './ScreenPresupuestoIncremental';
 import ScreenEquipo from './ScreenEquipo';
 import ScreenIngresos from './ScreenIngresos';
 import ScreenMantenimiento from './ScreenMantenimiento';
@@ -564,6 +565,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [showVisitaModal, setShowVisitaModal] = useState(false);
   const [visitaDraft, setVisitaDraft] = useState<{ titulo: string; client_id: string | null; fecha: string }>({ titulo: '', client_id: null, fecha: new Date().toISOString().split('T')[0] });
   const [showPresupuestoFoto, setShowPresupuestoFoto] = useState(false);
+  const [showPresupuestoIncremental, setShowPresupuestoIncremental] = useState(false);
   const [pendingPresupuestoJobId, setPendingPresupuestoJobId] = useState<string | null>(null);
 
   // Pasos del Asistente Móvil (Wizard)
@@ -3027,6 +3029,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <span>📷 Presupuesto con Foto</span>
                   </button>
                   <button
+                    onClick={() => { setShowFloatingMenu(false); setShowPresupuestoIncremental(true); }}
+                    className="w-full bg-slate-900 dark:bg-slate-800 text-white font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider cursor-pointer"
+                  >
+                    <span>📋 Presupuesto por Pasos</span>
+                  </button>
+                  <button
                     onClick={() => startWizard(1)} // Flujo desde paso 1
                     className="w-full bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider border border-slate-200 dark:border-slate-800 cursor-pointer"
                   >
@@ -3092,6 +3100,41 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 total: 0,
               });
               setWizardOrigin('foto');
+              setWizardStep(4);
+              setWizardActive(true);
+            }}
+          />
+        )}
+
+        {/* Presupuesto por Pasos overlay */}
+        {showPresupuestoIncremental && (
+          <ScreenPresupuestoIncremental
+            showToast={showToast}
+            onClose={() => setShowPresupuestoIncremental(false)}
+            onConfirm={(q) => {
+              setShowPresupuestoIncremental(false);
+              setWizardQuote({
+                id: '',
+                nombreCliente: '',
+                telefonoCliente: '',
+                emailCliente: '',
+                descripcion: q.descripcion,
+                fecha: new Date().toISOString().split('T')[0],
+                estado: 'Borrador',
+                partidas: q.partidas.map(p => {
+                  const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
+                  const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : 0;
+                  return {
+                    descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion,
+                    tipo: p.tipo,
+                    cantidad: p.cantidad,
+                    precioUnitario: pu,
+                    total: pu * p.cantidad,
+                  };
+                }),
+                total: 0,
+              });
+              setWizardOrigin('voz');
               setWizardStep(4);
               setWizardActive(true);
             }}
