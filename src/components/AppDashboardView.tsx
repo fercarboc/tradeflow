@@ -5197,7 +5197,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         </div>
 
         {/* Acciones */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
           <button
             onClick={() => {
               setEditingQuote({
@@ -5254,6 +5254,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
             <span className="font-black uppercase tracking-wider text-xs block">Registrar Cliente CRM</span>
             <p className="text-[10px] text-slate-455 leading-normal max-w-xs">Da de alta un cliente y guarda sus datos fiscales para futuros cobros.</p>
+          </button>
+
+          <button
+            onClick={() => setShowPresupuestoIncremental(true)}
+            className="bg-amber-500 hover:bg-amber-600 text-white rounded-2xl p-5 text-center space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101 border border-amber-400"
+          >
+            <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+              <span className="text-2xl">📋</span>
+            </div>
+            <span className="font-black uppercase tracking-wider text-xs block">Presupuesto por Pasos</span>
+            <p className="text-[10px] text-amber-100 leading-normal max-w-xs">Añade partidas poco a poco: mudanzas, reformas, trabajos complejos.</p>
           </button>
         </div>
 
