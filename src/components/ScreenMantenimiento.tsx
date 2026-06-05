@@ -5,7 +5,7 @@ import {
   TrendingUp, Euro, TriangleAlert, RefreshCw, X, Check,
   Droplets, Wind, Sparkles, Leaf, Wifi, ArrowUpDown,
   Eye, Edit2, ArrowRight, BookOpen, Shield, ChevronDown, ChevronUp,
-  BookmarkPlus, Send, Receipt, BadgeEuro, Search, Filter,
+  BookmarkPlus, Send, Receipt, BadgeEuro, Search, Filter, MessageSquare, Download,
 } from 'lucide-react';
 import {
   loadMaintenanceCatalogs, loadMaintenancePresupuestos, loadMaintenanceContratos,
@@ -456,15 +456,193 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, onClose
   );
 }
 
-// ── Modal: Vista previa documento ─────────────────────────────────────────────
+// ── Modal: Detalle del presupuesto (sin IA) ───────────────────────────────────
 
-interface DocumentoPreviewModalProps {
+interface PresupuestoDetalleModalProps {
   presupuesto: MaintenancePresupuesto;
+  onClose: () => void;
+  onEdit: () => void;
+  onConvert: () => void;
+}
+
+interface ClausulaItem {
+  descripcion: string;
+  tipo: string;
+  cantidad: number;
+  unidad: string;
+  precioUnitario: number;
+  total: number;
+}
+
+function PresupuestoDetalleModal({ presupuesto, onClose, onEdit, onConvert }: PresupuestoDetalleModalProps) {
+  const iaJson = presupuesto.ia_json as Record<string, unknown> | null;
+  const clausulas: ClausulaItem[] = (iaJson?.clausulas as ClausulaItem[] | undefined) ?? [];
+  const total = clausulas.reduce((s, c) => s + c.precioUnitario * c.cantidad, 0);
+  const est = ESTADO_PRESUP[presupuesto.estado] ?? ESTADO_PRESUP.borrador;
+
+  function buildTextoEnvio() {
+    const lines: string[] = [
+      `PRESUPUESTO DE MANTENIMIENTO`,
+      presupuesto.nombre_cliente ? `Cliente: ${presupuesto.nombre_cliente}` : '',
+      `Sector: ${presupuesto.sector ?? presupuesto.oficio}`,
+      presupuesto.sla_nivel ? `SLA: ${presupuesto.sla_nivel}` : '',
+      presupuesto.num_visitas_preventivo ? `Visitas preventivas/año: ${presupuesto.num_visitas_preventivo}` : '',
+      ``,
+      `SERVICIOS INCLUIDOS:`,
+    ].filter(v => v !== null && v !== undefined);
+    clausulas.forEach(c => {
+      if (c.precioUnitario > 0) lines.push(`- ${c.descripcion}: ${c.cantidad} ${c.unidad} × ${c.precioUnitario.toFixed(2)}€ = ${(c.precioUnitario * c.cantidad).toFixed(2)}€`);
+      else lines.push(`- ${c.descripcion}`);
+    });
+    if (presupuesto.descripcion_servicios && clausulas.length === 0) lines.push(presupuesto.descripcion_servicios);
+    if (total > 0) {
+      lines.push('', `TOTAL BASE: ${total.toFixed(2)} €`);
+      lines.push(`TOTAL CON IVA (21%): ${(total * 1.21).toFixed(2)} €`);
+    }
+    if (presupuesto.cuota_mensual) lines.push(`Cuota mensual: ${presupuesto.cuota_mensual.toFixed(2)} €/mes`);
+    lines.push('', '---', 'Generado con TrabFlow · www.trabflow.com');
+    return lines.join('\n');
+  }
+
+  const handleWhatsApp = () => {
+    window.open(`https://wa.me/?text=${encodeURIComponent(buildTextoEnvio())}`, '_blank');
+  };
+
+  const handleEmail = () => {
+    const subject = encodeURIComponent(`Presupuesto Mantenimiento — ${presupuesto.nombre_cliente ?? presupuesto.sector ?? ''}`);
+    window.open(`mailto:?subject=${subject}&body=${encodeURIComponent(buildTextoEnvio())}`, '_blank');
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+        <div className="flex items-center justify-between p-5 border-b border-slate-100">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center">
+              {OFICIO_ICON[presupuesto.oficio] ?? <Wrench className="w-4 h-4 text-blue-600" />}
+            </div>
+            <div>
+              <h2 className="font-black text-slate-900 text-sm">{presupuesto.nombre_cliente ?? 'Sin cliente'}</h2>
+              <p className="text-[11px] text-slate-400">{presupuesto.sector ?? presupuesto.oficio}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold ${est.cls}`}>{est.label}</span>
+            <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-slate-100 cursor-pointer"><X className="w-4 h-4 text-slate-500" /></button>
+          </div>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-5 space-y-4">
+          {/* Condiciones */}
+          <div className="grid grid-cols-3 gap-2">
+            {presupuesto.sla_nivel && (
+              <div className="bg-slate-50 rounded-xl p-2.5 text-center">
+                <p className="text-[9px] text-slate-400 uppercase tracking-widest font-bold">SLA</p>
+                <p className="text-xs font-black text-slate-900 mt-0.5">{presupuesto.sla_nivel}</p>
+              </div>
+            )}
+            {(presupuesto.num_visitas_preventivo ?? 0) > 0 && (
+              <div className="bg-slate-50 rounded-xl p-2.5 text-center">
+                <p className="text-[9px] text-slate-400 uppercase tracking-widest font-bold">Visitas/año</p>
+                <p className="text-xs font-black text-slate-900 mt-0.5">{presupuesto.num_visitas_preventivo}</p>
+              </div>
+            )}
+            <div className="bg-slate-50 rounded-xl p-2.5 text-center">
+              <p className="text-[9px] text-slate-400 uppercase tracking-widest font-bold">Materiales</p>
+              <p className="text-xs font-black text-slate-900 mt-0.5">{presupuesto.materiales_incluidos ? 'Incluidos' : 'Excluidos'}</p>
+            </div>
+          </div>
+
+          {/* Partidas */}
+          {clausulas.length > 0 ? (
+            <div className="space-y-1.5">
+              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Partidas del presupuesto</p>
+              <div className="divide-y divide-slate-100 border border-slate-100 rounded-xl overflow-hidden">
+                {clausulas.map((c, i) => (
+                  <div key={i} className="px-3 py-2.5 flex items-center gap-2">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-semibold text-slate-900 truncate">{c.descripcion}</p>
+                      <p className="text-[10px] text-slate-400">{c.cantidad} {c.unidad}</p>
+                    </div>
+                    <div className="text-right shrink-0">
+                      {c.precioUnitario > 0
+                        ? <p className="text-xs font-black text-slate-900 font-mono">{(c.precioUnitario * c.cantidad).toFixed(2)} €</p>
+                        : <p className="text-[10px] text-slate-400 italic">P. a definir</p>
+                      }
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : presupuesto.descripcion_servicios ? (
+            <div className="space-y-1.5">
+              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Servicios incluidos</p>
+              <p className="text-xs text-slate-600 leading-relaxed bg-slate-50 rounded-xl p-3">{presupuesto.descripcion_servicios}</p>
+            </div>
+          ) : null}
+
+          {/* Totales */}
+          {(total > 0 || presupuesto.cuota_mensual) && (
+            <div className="bg-blue-50 border border-blue-100 rounded-2xl p-4 space-y-1.5">
+              {total > 0 && (
+                <>
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-slate-500">Base imponible</span>
+                    <span className="text-sm font-black text-slate-900 font-mono">{total.toFixed(2)} €</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs text-slate-500">Total con IVA (21%)</span>
+                    <span className="text-base font-black text-blue-700 font-mono">{(total * 1.21).toFixed(2)} €</span>
+                  </div>
+                </>
+              )}
+              {presupuesto.cuota_mensual && (
+                <div className="flex justify-between items-center pt-1.5 border-t border-blue-100">
+                  <span className="text-xs text-slate-500 font-semibold">Cuota mensual</span>
+                  <span className="text-sm font-black text-slate-900 font-mono">{presupuesto.cuota_mensual.toFixed(2)} €/mes</span>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="p-4 border-t border-slate-100 space-y-2">
+          <div className="grid grid-cols-2 gap-2">
+            <button onClick={handleWhatsApp}
+              className="py-2.5 rounded-xl text-white text-xs font-bold flex items-center justify-center gap-2 cursor-pointer"
+              style={{ backgroundColor: '#25D366' }}>
+              <MessageSquare className="w-3.5 h-3.5" /> WhatsApp
+            </button>
+            <button onClick={handleEmail}
+              className="py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold flex items-center justify-center gap-2 cursor-pointer hover:bg-slate-200">
+              <Send className="w-3.5 h-3.5" /> Email
+            </button>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            <button onClick={() => { onClose(); onEdit(); }}
+              className="py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold flex items-center justify-center gap-2 cursor-pointer hover:bg-slate-700">
+              <Edit2 className="w-3.5 h-3.5" /> Editar partidas
+            </button>
+            <button onClick={() => { onClose(); onConvert(); }}
+              className="py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold flex items-center justify-center gap-2 cursor-pointer hover:bg-blue-700">
+              <ArrowRight className="w-3.5 h-3.5" /> Crear contrato
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Modal: Documento legal del contrato (con IA, cacheado) ────────────────────
+
+interface ContratoDocModalProps {
+  presupuestoId: string;
   onClose: () => void;
   showToast: Props['showToast'];
 }
 
-function DocumentoPreviewModal({ presupuesto, onClose, showToast }: DocumentoPreviewModalProps) {
+function ContratoDocModal({ presupuestoId, onClose, showToast }: ContratoDocModalProps) {
   const [loading, setLoading] = useState(true);
   const [doc, setDoc] = useState<MaintenanceDocumento | null>(null);
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({ servicios: true, sla: true });
@@ -474,7 +652,7 @@ function DocumentoPreviewModal({ presupuesto, onClose, showToast }: DocumentoPre
   useEffect(() => {
     void (async () => {
       try {
-        const d = await generateMaintenanceDocument(presupuesto.id);
+        const d = await generateMaintenanceDocument(presupuestoId);
         setDoc(d);
       } catch (e) {
         showToast(errMsg(e), 'error');
@@ -483,7 +661,7 @@ function DocumentoPreviewModal({ presupuesto, onClose, showToast }: DocumentoPre
         setLoading(false);
       }
     })();
-  }, [presupuesto.id, showToast, onClose]);
+  }, [presupuestoId, showToast, onClose]);
 
   const secCls = 'border border-slate-100 rounded-xl overflow-hidden';
   const secHeaderCls = 'flex items-center justify-between px-4 py-3 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors';
@@ -1282,8 +1460,9 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
 
   const [showNuevoModal, setShowNuevoModal] = useState(false);
   const [editPresup, setEditPresup] = useState<MaintenancePresupuesto | null>(null);
-  const [previewPresup, setPreviewPresup] = useState<MaintenancePresupuesto | null>(null);
+  const [detallePresup, setDetallePresup] = useState<MaintenancePresupuesto | null>(null);
   const [convertPresup, setConvertPresup] = useState<MaintenancePresupuesto | null>(null);
+  const [contratoDocPresupId, setContratoDocPresupId] = useState<string | null>(null);
   const [guardarModelo, setGuardarModelo] = useState<MaintenancePresupuesto | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [usandoModelo, setUsandoModelo] = useState<string | null>(null);
@@ -1561,7 +1740,7 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
                       <button onClick={() => setGuardarModelo(p)} title="Guardar como modelo" className="p-1.5 rounded-lg text-slate-300 hover:text-amber-500 hover:bg-amber-50 cursor-pointer">
                         <BookmarkPlus className="w-3.5 h-3.5" />
                       </button>
-                      <button onClick={() => setPreviewPresup(p)} title="Ver documento" className="p-1.5 rounded-lg text-slate-300 hover:text-blue-500 hover:bg-blue-50 cursor-pointer">
+                      <button onClick={() => setDetallePresup(p)} title="Ver detalle" className="p-1.5 rounded-lg text-slate-300 hover:text-blue-500 hover:bg-blue-50 cursor-pointer">
                         <Eye className="w-3.5 h-3.5" />
                       </button>
                       <button onClick={() => setEditPresup(p)} title="Editar" className="p-1.5 rounded-lg text-slate-300 hover:text-slate-600 hover:bg-slate-50 cursor-pointer">
@@ -1621,6 +1800,15 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
                         <span className="text-base font-black text-slate-900">{fmtEur(c.cuota_mensual)}</span>
                         <span className="text-[10px] text-slate-400 block">/mes + IVA</span>
                       </div>
+                      {c.presupuesto_id && (
+                        <button
+                          onClick={() => setContratoDocPresupId(c.presupuesto_id!)}
+                          title="Ver documento del contrato"
+                          className="p-1.5 rounded-lg text-slate-300 hover:text-blue-500 hover:bg-blue-50 cursor-pointer transition-colors"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                        </button>
+                      )}
                       <button
                         onClick={() => void handleSendEmail('contrato_activado', c.id)}
                         disabled={sendingEmail === c.id}
@@ -1880,10 +2068,20 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
         />
       )}
 
-      {previewPresup && (
-        <DocumentoPreviewModal
-          presupuesto={previewPresup} showToast={showToast}
-          onClose={() => setPreviewPresup(null)}
+      {detallePresup && (
+        <PresupuestoDetalleModal
+          presupuesto={detallePresup}
+          onClose={() => setDetallePresup(null)}
+          onEdit={() => setEditPresup(detallePresup)}
+          onConvert={() => setConvertPresup(detallePresup)}
+        />
+      )}
+
+      {contratoDocPresupId && (
+        <ContratoDocModal
+          presupuestoId={contratoDocPresupId}
+          showToast={showToast}
+          onClose={() => setContratoDocPresupId(null)}
         />
       )}
 

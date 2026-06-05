@@ -2962,123 +2962,23 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           )}
         </div>
 
-        {/* BOTTOM TAB BAR — 4 tabs + FAB central */}
+        {/* BOTTOM TAB BAR — 5 tabs */}
         <div className="absolute bottom-0 left-0 right-0 z-30">
           <div
             className="bg-[#0B0F14] border-t border-white/8 flex items-stretch select-none"
             style={{
               paddingBottom: isNativeDevice ? 'env(safe-area-inset-bottom, 0px)' : '0px',
-              minHeight: isNativeDevice ? 'calc(68px + env(safe-area-inset-bottom, 0px))' : '68px',
+              minHeight: isNativeDevice ? 'calc(60px + env(safe-area-inset-bottom, 0px))' : '60px',
             }}
           >
             {MobileTabButton({ tab: 'inicio', icon: <TrendingUp className="w-5 h-5" />, label: 'Inicio' })}
             {MobileTabButton({ tab: 'trabajos', icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
-            {/* FAB central */}
-            <button
-              onClick={() => setShowFloatingMenu(prev => !prev)}
-              className="flex-1 flex flex-col items-center justify-center cursor-pointer transition-all active:scale-90"
-            >
-              <div
-                className="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center -mt-5"
-                style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.55), 0 0 0 4px #0B0F14' }}
-              >
-                <Plus className={`w-7 h-7 text-white transition-transform duration-200 ${showFloatingMenu ? 'rotate-45' : ''}`} />
-              </div>
-            </button>
+            {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presup.' })}
             {MobileTabButton({ tab: 'catalogo', icon: <Package className="w-5 h-5" />, label: 'Catálogo' })}
             {MobileTabButton({ tab: 'clientes', icon: <Users className="w-5 h-5" />, label: 'Clientes' })}
           </div>
         </div>
 
-        {/* Menú Flotante inferior (Bottom Sheet) */}
-        <AnimatePresence>
-          {showFloatingMenu && (
-            <React.Fragment>
-              <div 
-                className="absolute inset-0 bg-black/60 z-40 backdrop-blur-xs" 
-                onClick={() => setShowFloatingMenu(false)}
-              />
-              <motion.div 
-                initial={{ y: 200, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 200, opacity: 0 }}
-                className="absolute bottom-[68px] left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 rounded-t-[28px] p-5 space-y-3.5 z-50 text-xs shadow-2xl"
-              >
-                <div className="w-10 h-1 bg-slate-350 dark:bg-slate-700 rounded-full mx-auto mb-1" />
-
-                {/* Visita rápida — anotar llamada recibida */}
-                <button
-                  onClick={() => { setVisitaDraft({ titulo: '', client_id: null, fecha: new Date().toISOString().split('T')[0] }); setShowFloatingMenu(false); setShowVisitaModal(true); }}
-                  className="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider cursor-pointer"
-                >
-                  <Briefcase className="w-4 h-4" />
-                  <span>📋 Anotar visita / llamada</span>
-                </button>
-
-                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest font-mono block text-center">Nuevo Presupuesto Rápido</span>
-
-                <div className="space-y-2">
-                  <button
-                    onClick={() => startWizard(2)} // Salta a Dictado
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider cursor-pointer"
-                  >
-                    <Mic className="w-4.5 h-4.5" />
-                    <span>🎙️ Dictado por voz IA</span>
-                  </button>
-                  <button
-                    onClick={() => { setShowFloatingMenu(false); setShowPresupuestoFoto(true); }}
-                    className="w-full bg-slate-900 dark:bg-slate-800 text-white font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider cursor-pointer"
-                  >
-                    <ImageIcon className="w-4.5 h-4.5" />
-                    <span>📷 Presupuesto con Foto</span>
-                  </button>
-                  <button
-                    onClick={() => { setShowFloatingMenu(false); setShowPresupuestoIncremental(true); }}
-                    className="w-full bg-slate-900 dark:bg-slate-800 text-white font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider cursor-pointer"
-                  >
-                    <span>📋 Presupuesto por Pasos</span>
-                  </button>
-                  <button
-                    onClick={() => { setShowFloatingMenu(false); setShowMantenimientoWizard(true); }}
-                    className="w-full bg-slate-900 dark:bg-slate-800 text-white font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider cursor-pointer"
-                  >
-                    <span>🔧 Contrato Mantenimiento</span>
-                  </button>
-                  <button
-                    onClick={() => startWizard(1)} // Flujo desde paso 1
-                    className="w-full bg-slate-100 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-bold p-3.5 rounded-2xl flex items-center justify-center gap-2 text-xs uppercase tracking-wider border border-slate-200 dark:border-slate-800 cursor-pointer"
-                  >
-                    <Plus className="w-4.5 h-4.5" />
-                    <span>✍️ Crear manualmente</span>
-                  </button>
-                </div>
-
-                {/* Mantenimientos y Contratos — plan empresa o empresa_plus */}
-                {(['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && (
-                  <>
-                    <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest font-mono block text-center pt-1">Mantenimientos</span>
-                    <div className="grid grid-cols-2 gap-2">
-                      <button
-                        onClick={() => { setMobileTab('mantenimiento'); setShowFloatingMenu(false); }}
-                        className="bg-amber-500/10 border border-amber-500/20 text-amber-400 font-bold p-3 rounded-2xl flex items-center justify-center gap-2 text-xs cursor-pointer active:opacity-70"
-                      >
-                        <Wrench className="w-4 h-4" />
-                        <span>Mantenimientos</span>
-                      </button>
-                      <button
-                        onClick={() => { setMobileTab('contratos'); setShowFloatingMenu(false); }}
-                        className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold p-3 rounded-2xl flex items-center justify-center gap-2 text-xs cursor-pointer active:opacity-70"
-                      >
-                        <FileText className="w-4 h-4" />
-                        <span>Contratos</span>
-                      </button>
-                    </div>
-                  </>
-                )}
-              </motion.div>
-            </React.Fragment>
-          )}
-        </AnimatePresence>
 
         {/* Presupuesto con Foto overlay */}
         {showPresupuestoFoto && (
@@ -3296,7 +3196,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     );
 
     // Helpers botones navegación móvil
-    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'trabajos' | 'catalogo' | 'clientes'; icon: React.ReactNode; label: string }) {
+    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'trabajos' | 'presupuestos' | 'catalogo' | 'clientes'; icon: React.ReactNode; label: string }) {
       const isActive = mobileTab === tab;
       return (
         <button
@@ -3529,86 +3429,115 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         )}
 
-        {/* ── QUICK ACTIONS ── */}
-        <div className="space-y-2.5">
-          <button
-            onClick={() => startWizard(2)}
-            className="w-full flex items-center gap-4 rounded-2xl px-5 py-4 cursor-pointer active:scale-98 transition-transform text-left"
-            style={{ background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', boxShadow: '0 4px 20px rgba(37,99,235,0.35)' }}
-          >
-            <div className="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center shrink-0">
-              <Mic className="w-6 h-6 text-white" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-sm font-black text-white">Presupuesto directo</p>
-              <p className="text-[11px] text-blue-200/70 mt-0.5">Dicta el trabajo y la IA genera el presupuesto</p>
-            </div>
-            <span className="text-white/40 ml-auto text-lg shrink-0">›</span>
-          </button>
-
-          <button
-            onClick={() => setShowPresupuestoIncremental(true)}
-            className="w-full flex items-center gap-4 rounded-2xl px-5 py-4 cursor-pointer active:scale-98 transition-transform text-left"
-            style={{ background: 'linear-gradient(135deg,#16a34a,#15803d)', boxShadow: '0 4px 20px rgba(22,163,74,0.35)' }}
-          >
-            <div className="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center shrink-0">
-              <span className="text-xl">📋</span>
-            </div>
-            <div className="min-w-0">
-              <p className="text-sm font-black text-white">Presupuesto por pasos</p>
-              <p className="text-[11px] text-green-200/70 mt-0.5">Mudanzas, reformas, redes — guiado y estructurado</p>
-            </div>
-            <span className="text-white/40 ml-auto text-lg shrink-0">›</span>
-          </button>
-
-          {((['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial')) && (
+        {/* ── ACCIONES RÁPIDAS ── */}
+        <div className="space-y-2">
+          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Acciones rápidas</p>
+          <div className="grid grid-cols-2 gap-2.5">
+            {/* 0 Añadir visita/trabajo */}
             <button
-              onClick={() => setMobileTab('mantenimiento')}
-              className="w-full flex items-center gap-4 rounded-2xl px-5 py-4 cursor-pointer active:scale-98 transition-transform text-left"
-              style={{ background: 'linear-gradient(135deg,#7c3aed,#6d28d9)', boxShadow: '0 4px 20px rgba(124,58,237,0.35)' }}
+              onClick={() => { setVisitaDraft({ titulo: '', client_id: null, fecha: new Date().toISOString().split('T')[0] }); setShowVisitaModal(true); }}
+              className="bg-violet-600 rounded-2xl p-4 flex flex-col items-start gap-2.5 cursor-pointer active:scale-95 transition-transform text-left"
+              style={{ boxShadow: '0 4px 16px rgba(124,58,237,0.35)' }}
             >
-              <div className="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center shrink-0">
-                <Wrench className="w-6 h-6 text-white" />
+              <div className="w-9 h-9 bg-white/15 rounded-xl flex items-center justify-center">
+                <Briefcase className="w-5 h-5 text-white" />
               </div>
-              <div className="min-w-0">
-                <p className="text-sm font-black text-white">Mantenimientos</p>
-                <p className="text-[11px] text-violet-200/70 mt-0.5">Gestiona contratos de mantenimiento activos</p>
+              <div>
+                <p className="text-xs font-black text-white leading-tight">Añadir visita</p>
+                <p className="text-[10px] text-violet-200/70 mt-0.5">Anotar llamada/trabajo</p>
               </div>
-              <span className="text-white/40 ml-auto text-lg shrink-0">›</span>
             </button>
-          )}
 
-          {((['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial')) && (
+            {/* 1 Presupuesto directo IA */}
+            <button
+              onClick={() => startWizard(2)}
+              className="bg-blue-600 rounded-2xl p-4 flex flex-col items-start gap-2.5 cursor-pointer active:scale-95 transition-transform text-left"
+              style={{ boxShadow: '0 4px 16px rgba(37,99,235,0.35)' }}
+            >
+              <div className="w-9 h-9 bg-white/15 rounded-xl flex items-center justify-center">
+                <Mic className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <p className="text-xs font-black text-white leading-tight">Presup. por IA</p>
+                <p className="text-[10px] text-blue-200/70 mt-0.5">Dictado por voz</p>
+              </div>
+            </button>
+
+            {/* 2 Presupuesto por pasos */}
+            <button
+              onClick={() => setShowPresupuestoIncremental(true)}
+              className="bg-emerald-700 rounded-2xl p-4 flex flex-col items-start gap-2.5 cursor-pointer active:scale-95 transition-transform text-left"
+              style={{ boxShadow: '0 4px 16px rgba(22,163,74,0.3)' }}
+            >
+              <div className="w-9 h-9 bg-white/15 rounded-xl flex items-center justify-center">
+                <span className="text-lg">📋</span>
+              </div>
+              <div>
+                <p className="text-xs font-black text-white leading-tight">Por pasos</p>
+                <p className="text-[10px] text-emerald-200/70 mt-0.5">Guiado y estructurado</p>
+              </div>
+            </button>
+
+            {/* 3 Presupuesto mantenimiento */}
+            <button
+              onClick={() => setShowMantenimientoWizard(true)}
+              className="bg-amber-600 rounded-2xl p-4 flex flex-col items-start gap-2.5 cursor-pointer active:scale-95 transition-transform text-left"
+              style={{ boxShadow: '0 4px 16px rgba(217,119,6,0.35)' }}
+            >
+              <div className="w-9 h-9 bg-white/15 rounded-xl flex items-center justify-center">
+                <Wrench className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <p className="text-xs font-black text-white leading-tight">Mantenimiento</p>
+                <p className="text-[10px] text-amber-200/70 mt-0.5">Elige sector y equipos</p>
+              </div>
+            </button>
+
+            {/* 4 Presupuesto por foto */}
+            <button
+              onClick={() => setShowPresupuestoFoto(true)}
+              className="bg-cyan-700 rounded-2xl p-4 flex flex-col items-start gap-2.5 cursor-pointer active:scale-95 transition-transform text-left"
+              style={{ boxShadow: '0 4px 16px rgba(8,145,178,0.3)' }}
+            >
+              <div className="w-9 h-9 bg-white/15 rounded-xl flex items-center justify-center">
+                <Camera className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <p className="text-xs font-black text-white leading-tight">Por foto</p>
+                <p className="text-[10px] text-cyan-200/70 mt-0.5">IA desde imagen</p>
+              </div>
+            </button>
+
+            {/* 5 Ver contratos */}
             <button
               onClick={() => setMobileTab('contratos')}
-              className="w-full flex items-center gap-4 rounded-2xl px-5 py-4 cursor-pointer active:scale-98 transition-transform text-left"
-              style={{ background: 'linear-gradient(135deg,#d97706,#b45309)', boxShadow: '0 4px 20px rgba(217,119,6,0.35)' }}
+              className="bg-slate-700 rounded-2xl p-4 flex flex-col items-start gap-2.5 cursor-pointer active:scale-95 transition-transform text-left"
+              style={{ boxShadow: '0 4px 16px rgba(51,65,85,0.3)' }}
             >
-              <div className="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center shrink-0">
-                <FileText className="w-6 h-6 text-white" />
+              <div className="w-9 h-9 bg-white/15 rounded-xl flex items-center justify-center">
+                <FileText className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <p className="text-xs font-black text-white leading-tight">Ver contratos</p>
+                <p className="text-[10px] text-slate-300/70 mt-0.5">Gestiona activos</p>
+              </div>
+            </button>
+
+            {/* 6 Crear manualmente */}
+            <button
+              onClick={() => startWizard(1)}
+              className="col-span-2 bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 flex items-center gap-3 cursor-pointer active:scale-95 transition-transform"
+            >
+              <div className="w-8 h-8 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
+                <Plus className="w-4.5 h-4.5 text-white" />
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-black text-white">Contratos</p>
-                <p className="text-[11px] text-amber-200/70 mt-0.5">Consulta y administra tus contratos</p>
+                <p className="text-xs font-black text-white">Crear manualmente</p>
+                <p className="text-[10px] text-slate-400">Introduce partidas a mano</p>
               </div>
-              <span className="text-white/40 ml-auto text-lg shrink-0">›</span>
+              <span className="text-slate-500 ml-auto text-lg shrink-0">›</span>
             </button>
-          )}
-
-          <button
-            onClick={() => setShowPresupuestoFoto(true)}
-            className="w-full flex items-center gap-4 rounded-2xl px-5 py-4 cursor-pointer active:scale-98 transition-transform text-left"
-            style={{ background: 'linear-gradient(135deg,#0891b2,#0e7490)', boxShadow: '0 4px 20px rgba(8,145,178,0.35)' }}
-          >
-            <div className="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center shrink-0">
-              <Camera className="w-6 h-6 text-white" />
-            </div>
-            <div className="min-w-0">
-              <p className="text-sm font-black text-white">Presupuesto con foto</p>
-              <p className="text-[11px] text-cyan-200/70 mt-0.5">Genera presupuestos con inteligencia artificial</p>
-            </div>
-            <span className="text-white/40 ml-auto text-lg shrink-0">›</span>
-          </button>
+          </div>
         </div>
 
         {/* ── BORRADOR ACTUAL ── */}
