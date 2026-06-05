@@ -5,7 +5,7 @@ import {
   TrendingUp, Euro, TriangleAlert, RefreshCw, X, Check,
   Droplets, Wind, Sparkles, Leaf, Wifi, ArrowUpDown,
   Eye, Edit2, ArrowRight, BookOpen, Shield, ChevronDown, ChevronUp,
-  BookmarkPlus, Send, Receipt, BadgeEuro,
+  BookmarkPlus, Send, Receipt, BadgeEuro, Search, Filter,
 } from 'lucide-react';
 import {
   loadMaintenanceCatalogs, loadMaintenancePresupuestos, loadMaintenanceContratos,
@@ -1277,6 +1277,9 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
   const [markingPagada, setMarkingPagada] = useState<string | null>(null);
   const [sendingEmail, setSendingEmail] = useState<string | null>(null);
 
+  const [filterText, setFilterText]     = useState('');
+  const [filterOficio, setFilterOficio] = useState('');
+
   const [showNuevoModal, setShowNuevoModal] = useState(false);
   const [editPresup, setEditPresup] = useState<MaintenancePresupuesto | null>(null);
   const [previewPresup, setPreviewPresup] = useState<MaintenancePresupuesto | null>(null);
@@ -1397,6 +1400,25 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
     } catch { showToast('Error al eliminar modelo', 'error'); }
   };
 
+  const oficiosUnicos = Array.from(new Set([
+    ...presupuestos.map(p => p.oficio).filter(Boolean),
+    ...contratos.map(c => c.oficio).filter(Boolean),
+  ])).sort();
+
+  const presupuestosFiltrados = presupuestos.filter(p => {
+    const txt = filterText.toLowerCase();
+    const matchText = !txt || (p.nombre_cliente ?? '').toLowerCase().includes(txt) || (p.sector ?? '').toLowerCase().includes(txt);
+    const matchOficio = !filterOficio || p.oficio === filterOficio;
+    return matchText && matchOficio;
+  });
+
+  const contratosFiltrados = contratos.filter(c => {
+    const txt = filterText.toLowerCase();
+    const matchText = !txt || (c.nombre_cliente ?? '').toLowerCase().includes(txt) || (c.sector ?? '').toLowerCase().includes(txt);
+    const matchOficio = !filterOficio || c.oficio === filterOficio;
+    return matchText && matchOficio;
+  });
+
   const sec = 'bg-white rounded-2xl border border-slate-100 shadow-sm p-5';
   const tabCls = (t: typeof tab) =>
     `px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer transition-all ${
@@ -1443,6 +1465,43 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
         </div>
       </div>
 
+      {/* ── Filtros (presupuestos + contratos) ── */}
+      {(tab === 'presupuestos' || tab === 'contratos') && (
+        <div className="flex flex-col sm:flex-row gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" />
+            <input
+              type="text"
+              value={filterText}
+              onChange={e => setFilterText(e.target.value)}
+              placeholder="Buscar por cliente o sector…"
+              className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 bg-white text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-blue-400 transition-colors"
+            />
+          </div>
+          <div className="relative">
+            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" />
+            <select
+              value={filterOficio}
+              onChange={e => setFilterOficio(e.target.value)}
+              className="pl-9 pr-8 py-2 rounded-xl border border-slate-200 bg-white text-xs text-slate-700 focus:outline-none focus:border-blue-400 cursor-pointer appearance-none transition-colors min-w-[160px]"
+            >
+              <option value="">Todos los tipos</option>
+              {oficiosUnicos.map(o => (
+                <option key={o} value={o}>{OFICIO_ICON[o] ? '' : ''}{o.charAt(0).toUpperCase() + o.slice(1)}</option>
+              ))}
+            </select>
+          </div>
+          {(filterText || filterOficio) && (
+            <button
+              onClick={() => { setFilterText(''); setFilterOficio(''); }}
+              className="px-3 py-2 rounded-xl border border-slate-200 text-xs text-slate-500 hover:bg-slate-50 cursor-pointer flex items-center gap-1.5 transition-colors"
+            >
+              <X className="w-3 h-3" /> Limpiar
+            </button>
+          )}
+        </div>
+      )}
+
       {/* ── Tab: Presupuestos ── */}
       {tab === 'presupuestos' && (
         <div className={sec}>
@@ -1455,9 +1514,15 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
                 <Mic className="w-4 h-4" /> Crear con IA
               </button>
             </div>
+          ) : presupuestosFiltrados.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-10 text-center">
+              <Search className="w-8 h-8 text-slate-200 mb-2" />
+              <p className="text-slate-400 text-sm font-semibold">Sin resultados para este filtro</p>
+              <button onClick={() => { setFilterText(''); setFilterOficio(''); }} className="mt-3 text-xs text-blue-500 hover:underline cursor-pointer">Limpiar filtros</button>
+            </div>
           ) : (
             <div className="divide-y divide-slate-100">
-              {presupuestos.map(p => {
+              {presupuestosFiltrados.map(p => {
                 const est = ESTADO_PRESUP[p.estado] ?? ESTADO_PRESUP.borrador;
                 return (
                   <div key={p.id} className="py-3.5 flex items-start gap-3">
@@ -1523,9 +1588,15 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
               <p className="text-slate-400 text-sm font-semibold">Sin contratos activos</p>
               <p className="text-slate-300 text-xs mt-1">Los contratos se crean al convertir un presupuesto aceptado</p>
             </div>
+          ) : contratosFiltrados.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-10 text-center">
+              <Search className="w-8 h-8 text-slate-200 mb-2" />
+              <p className="text-slate-400 text-sm font-semibold">Sin contratos para este filtro</p>
+              <button onClick={() => { setFilterText(''); setFilterOficio(''); }} className="mt-3 text-xs text-blue-500 hover:underline cursor-pointer">Limpiar filtros</button>
+            </div>
           ) : (
             <div className="divide-y divide-slate-100">
-              {contratos.map(c => {
+              {contratosFiltrados.map(c => {
                 const est = ESTADO_CONTRATO[c.estado] ?? ESTADO_CONTRATO.activo;
                 return (
                   <div key={c.id} className="py-3.5 flex items-start gap-3">

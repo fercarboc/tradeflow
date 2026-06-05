@@ -2867,7 +2867,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               onCreateJob={async (job) => {
                 if (!orgId) throw new Error('Sin organizacion');
                 const saved = await createJob(orgId, job);
-                setJobs(prev => [...prev, saved]);
+                setJobs(prev => prev.some(j => j.id === saved.id) ? prev : [...prev, saved]);
                 return saved;
               }}
               onUpdateJob={async (id, updates) => {
@@ -5108,7 +5108,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     onCreateJob={async (job) => {
                       if (!orgId) throw new Error('Sin organización');
                       const saved = await createJob(orgId, job);
-                      setJobs(prev => [...prev, saved]);
+                      setJobs(prev => prev.some(j => j.id === saved.id) ? prev : [...prev, saved]);
                       return saved;
                     }}
                     onUpdateJob={async (id, updates) => {
