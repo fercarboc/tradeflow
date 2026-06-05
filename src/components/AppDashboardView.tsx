@@ -568,6 +568,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [showPresupuestoFoto, setShowPresupuestoFoto] = useState(false);
   const [showPresupuestoIncremental, setShowPresupuestoIncremental] = useState(false);
   const [showMantenimientoWizard, setShowMantenimientoWizard] = useState(false);
+  const [mantenimientoReloadKey, setMantenimientoReloadKey] = useState(0);
   const [pendingPresupuestoJobId, setPendingPresupuestoJobId] = useState<string | null>(null);
 
   // Pasos del Asistente Móvil (Wizard)
@@ -2943,6 +2944,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           )}
           {mobileTab === 'mantenimiento' && orgId && (
             <ScreenMantenimiento
+              key={mantenimientoReloadKey}
               orgId={orgId}
               showToast={showToast}
               initialText={mantenimientoInitialText}
@@ -3158,6 +3160,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             onConfirm={() => {
               setShowMantenimientoWizard(false);
               setMobileTab('mantenimiento');
+              setMantenimientoReloadKey(k => k + 1);
             }}
           />
         )}
@@ -5138,6 +5141,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
                 {activeTab === 'mantenimiento' && orgId && (
                   <ScreenMantenimiento
+                    key={mantenimientoReloadKey}
                     orgId={orgId}
                     showToast={showToast}
                     initialText={mantenimientoInitialText}
@@ -5248,6 +5252,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             onConfirm={() => {
               setShowMantenimientoWizard(false);
               setActiveTab('mantenimiento');
+              setMantenimientoReloadKey(k => k + 1);
             }}
           />
         )}
