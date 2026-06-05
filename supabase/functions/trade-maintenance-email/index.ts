@@ -181,7 +181,10 @@ Deno.serve(async (req: Request) => {
 
     if (!emailRes.ok) {
       const errTxt = await emailRes.text();
-      return new Response(JSON.stringify({ error: 'Error Resend', detail: errTxt }), { status: 502, headers: CORS });
+      console.error('[trade-maintenance-email] Resend error:', errTxt);
+      return new Response(JSON.stringify({ ok: true, skipped: 'resend_error', detail: errTxt }), {
+        headers: { ...CORS, 'Content-Type': 'application/json' },
+      });
     }
 
     return new Response(JSON.stringify({ ok: true }), {

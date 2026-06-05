@@ -532,6 +532,182 @@ export async function downloadContractAsDocx(vars: ContractVars, oficio: string,
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// MAINTENANCE CONTRACT DOCX — from MaintenanceDocumento structure
+// ═══════════════════════════════════════════════════════════════════════════════
+
+export interface MaintenanceDocForExport {
+  titulo: string;
+  partes: { prestador: string; cliente: string; direccion_servicio: string };
+  objeto: string;
+  servicios_incluidos: string[];
+  servicios_excluidos: string[];
+  sla: { nivel: string; tiempo_respuesta: string; tiempo_resolucion: string; horario_cobertura: string; penalizacion: string };
+  preventivos: { incluidos: boolean; num_visitas_anio: number; descripcion: string };
+  precio: { cuota_mensual_neto: number; iva_pct: number; cuota_mensual_total: number; cuota_anual_total: number; tipo_facturacion: string; forma_pago: string };
+  duracion: { vigencia_meses: number; renovacion_automatica: boolean; preaviso_cancelacion_dias: number; clausula_duracion: string };
+  materiales: { incluidos: boolean; clausula: string };
+  clausulas_adicionales: string[];
+  confidencialidad: string;
+  jurisdiccion: string;
+}
+
+export async function downloadMaintenanceDocAsDocx(doc: MaintenanceDocForExport, filename = 'contrato-mantenimiento'): Promise<void> {
+  const fmtEur = (n: number) => n.toLocaleString('es-ES', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2 });
+
+  const mHead = (text: string) => new Paragraph({
+    children: [new TextRun({ text, bold: true, size: 22, color: C_NAVY, allCaps: true })],
+    spacing: { before: 280, after: 80 },
+    border: { bottom: { style: BorderStyle.SINGLE, color: 'E2E8F0', size: 4 } },
+  });
+
+  const mSub = (label: string, value: string) => new Paragraph({
+    children: [
+      new TextRun({ text: `${label}: `, bold: true, size: 18, color: C_SLATE }),
+      new TextRun({ text: value, size: 18, color: C_BLACK }),
+    ],
+    spacing: { after: 60 },
+  });
+
+  const mBullet = (text: string, color = C_BLACK) => new Paragraph({
+    children: [new TextRun({ text: `• ${text}`, size: 18, color })],
+    spacing: { after: 40 },
+  });
+
+  const mPara = (text: string) => new Paragraph({
+    children: [new TextRun({ text, size: 18, color: C_SLATE })],
+    spacing: { after: 80 },
+  });
+
+  const mNum = (i: number, text: string) => new Paragraph({
+    children: [
+      new TextRun({ text: `${i}. `, bold: true, size: 18, color: C_NAVY }),
+      new TextRun({ text, size: 18, color: C_BLACK }),
+    ],
+    spacing: { after: 60 },
+  });
+
+  const children = [
+    // Título
+    new Paragraph({
+      children: [new TextRun({ text: doc.titulo, bold: true, size: 28, color: C_NAVY, allCaps: true })],
+      alignment: AlignmentType.CENTER,
+      spacing: { after: 200 },
+    }),
+
+    // Partes
+    mHead('1. Partes del contrato'),
+    mSub('Prestador', doc.partes.prestador),
+    mSub('Cliente', doc.partes.cliente),
+    mSub('Dirección del servicio', doc.partes.direccion_servicio),
+
+    // Objeto
+    mHead('2. Objeto del contrato'),
+    mPara(doc.objeto),
+
+    // Servicios incluidos
+    mHead('3. Servicios incluidos'),
+    ...doc.servicios_incluidos.map(s => mBullet(s, C_BLACK)),
+
+    // Servicios excluidos
+    mHead('4. Exclusiones'),
+    ...doc.servicios_excluidos.map(s => mBullet(s, C_SLATE)),
+
+    // SLA
+    mHead('5. Niveles de servicio (SLA)'),
+    mSub('Nivel SLA', doc.sla.nivel.toUpperCase()),
+    mSub('Tiempo de respuesta', doc.sla.tiempo_respuesta),
+    mSub('Tiempo de resolución', doc.sla.tiempo_resolucion),
+    mSub('Horario de cobertura', doc.sla.horario_cobertura),
+    ...(doc.sla.penalizacion ? [mSub('Penalización por incumplimiento', doc.sla.penalizacion)] : []),
+
+    // Preventivos
+    mHead('6. Mantenimiento preventivo'),
+    mSub('Preventivos incluidos', doc.preventivos.incluidos ? 'Sí' : 'No'),
+    mSub('Número de visitas anuales', String(doc.preventivos.num_visitas_anio)),
+    mPara(doc.preventivos.descripcion),
+
+    // Precio
+    mHead('7. Precio y facturación'),
+    mSub('Cuota mensual (neto)', fmtEur(doc.precio.cuota_mensual_neto)),
+    mSub(`IVA (${doc.precio.iva_pct}%)`, fmtEur(doc.precio.cuota_mensual_total - doc.precio.cuota_mensual_neto)),
+    mSub('Cuota mensual + IVA', fmtEur(doc.precio.cuota_mensual_total)),
+    mSub('Cuota anual + IVA', fmtEur(doc.precio.cuota_anual_total)),
+    mSub('Tipo de facturación', doc.precio.tipo_facturacion),
+    mSub('Forma de pago', doc.precio.forma_pago),
+
+    // Duración
+    mHead('8. Duración y renovación'),
+    mPara(doc.duracion.clausula_duracion),
+    mSub('Vigencia inicial', `${doc.duracion.vigencia_meses} meses`),
+    mSub('Renovación automática', doc.duracion.renovacion_automatica ? 'Sí' : 'No'),
+    mSub('Preaviso de cancelación', `${doc.duracion.preaviso_cancelacion_dias} días`),
+
+    // Materiales
+    mHead('9. Materiales y repuestos'),
+    mPara(doc.materiales.clausula),
+
+    // Cláusulas adicionales
+    ...(doc.clausulas_adicionales.length > 0 ? [
+      mHead('10. Cláusulas adicionales'),
+      ...doc.clausulas_adicionales.map((c, i) => mNum(i + 1, c)),
+    ] : []),
+
+    // Confidencialidad
+    mHead('11. Confidencialidad'),
+    mPara(doc.confidencialidad),
+
+    // Jurisdicción
+    mHead('12. Jurisdicción'),
+    mPara(doc.jurisdiccion),
+
+    // Firmas
+    mHead('13. Firmas'),
+    new Paragraph({
+      children: [new TextRun({ text: 'En ________________ a _______ de _____________ de _______', size: 18, color: C_SLATE })],
+      spacing: { before: 80, after: 200 },
+    }),
+    new Table({
+      width: { size: 100, type: WidthType.PERCENTAGE },
+      rows: [new TableRow({
+        children: [
+          new TableCell({
+            width: { size: 48, type: WidthType.PERCENTAGE },
+            children: [
+              new Paragraph({ children: [new TextRun({ text: 'EL PRESTADOR', bold: true, size: 18, color: C_NAVY })], alignment: AlignmentType.CENTER }),
+              new Paragraph({ children: [new TextRun({ text: doc.partes.prestador, size: 16, color: C_SLATE })], alignment: AlignmentType.CENTER, spacing: { after: 120 } }),
+              new Paragraph({ children: [new TextRun({ text: 'Firma: ___________________', size: 17, color: C_MUTED })], alignment: AlignmentType.CENTER }),
+            ],
+            margins: { top: 120, bottom: 120, left: 120, right: 120 },
+          }),
+          new TableCell({ width: { size: 4, type: WidthType.PERCENTAGE }, children: [new Paragraph({ children: [] })], margins: { top: 0, bottom: 0, left: 0, right: 0 } }),
+          new TableCell({
+            width: { size: 48, type: WidthType.PERCENTAGE },
+            children: [
+              new Paragraph({ children: [new TextRun({ text: 'EL CLIENTE', bold: true, size: 18, color: C_NAVY })], alignment: AlignmentType.CENTER }),
+              new Paragraph({ children: [new TextRun({ text: doc.partes.cliente, size: 16, color: C_SLATE })], alignment: AlignmentType.CENTER, spacing: { after: 120 } }),
+              new Paragraph({ children: [new TextRun({ text: 'Firma: ___________________', size: 17, color: C_MUTED })], alignment: AlignmentType.CENTER }),
+            ],
+            margins: { top: 120, bottom: 120, left: 120, right: 120 },
+          }),
+        ],
+      })],
+    }),
+
+    // Footer
+    new Paragraph({
+      children: [new TextRun({ text: 'Generado con TrabFlow · trabflow.com', size: 16, color: C_MUTED })],
+      alignment: AlignmentType.CENTER,
+      border: { top: { style: BorderStyle.SINGLE, color: 'E2E8F0', size: 4 } },
+      spacing: { before: 200 },
+    }),
+  ];
+
+  const word = new Document({ sections: [{ properties: { page: { margin: { top: 900, bottom: 900, left: 1080, right: 1080 } } }, children }] });
+  const blob = await Packer.toBlob(word);
+  saveBlob(blob, `${filename}.docx`);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // QUOTE/INVOICE helpers
 // ═══════════════════════════════════════════════════════════════════════════════
 

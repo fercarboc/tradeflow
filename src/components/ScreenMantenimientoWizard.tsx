@@ -456,6 +456,8 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
   const [processing, setProcessing]   = useState(false);
   const [clausulas, setClausulas]     = useState<ClausulaItem[]>([]);
   const [selectedItems, setSelectedItems] = useState<Record<string, boolean>>({});
+  const [nombreCliente, setNombreCliente] = useState('');
+  const [direccionCliente, setDireccionCliente] = useState('');
   const [saving, setSaving]           = useState(false);
   const recognitionRef                = useRef<unknown>(null);
 
@@ -562,6 +564,8 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
       await saveMaintenancePresupuesto(orgId, {
         oficio,
         sector: sectorCode,
+        nombre_cliente: nombreCliente.trim() || null,
+        direccion_instalacion: direccionCliente.trim() || null,
         sla_nivel: slaLevel,
         cuota_mensual: cuotaAnual / 12,
         cuota_anual: cuotaAnual,
@@ -938,6 +942,25 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
               >
                 <Plus className="w-3.5 h-3.5" /> Añadir partida
               </button>
+            </div>
+
+            {/* Datos del cliente */}
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-2.5">
+              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Datos del cliente (opcional)</p>
+              <input
+                type="text"
+                value={nombreCliente}
+                onChange={e => setNombreCliente(e.target.value)}
+                placeholder="Nombre o empresa del cliente"
+                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+              />
+              <input
+                type="text"
+                value={direccionCliente}
+                onChange={e => setDireccionCliente(e.target.value)}
+                placeholder="Dirección de la instalación"
+                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+              />
             </div>
 
             {/* Total */}

@@ -2544,18 +2544,116 @@ export interface MaintenanceDocumento {
   num_clausulas: number;
 }
 
+function buildDocumentoFromPresupuesto(
+  presupuesto: Record<string, unknown>,
+  clausulas: Array<Record<string, unknown>>,
+): MaintenanceDocumento {
+  const sla = (presupuesto.sla_nivel as string) ?? 'normal';
+  const slaMap: Record<string, { respuesta: string; resolucion: string; horario: string }> = {
+    critico:    { respuesta: '15 minutos', resolucion: '4 horas',  horario: '24/7/365' },
+    urgente:    { respuesta: '2 horas',    resolucion: '8 horas',  horario: '24/7' },
+    normal:     { respuesta: '4 horas',    resolucion: '24 horas', horario: '8/5' },
+    preventivo: { respuesta: '48 horas',   resolucion: '72 horas', horario: '8/5' },
+  };
+  const slaInfo = slaMap[sla] ?? slaMap.normal;
+  const cuotaMensual = Number(presupuesto.cuota_mensual ?? 0);
+  const ivaPct = Number(presupuesto.iva_pct ?? 21);
+  const numVisitas = Number(presupuesto.num_visitas_preventivo ?? 2);
+  const iaJson = presupuesto.ia_json as Record<string, unknown> | null;
+  const sectorLabel = (iaJson?.sector as string) ?? (presupuesto.sector as string) ?? (presupuesto.oficio as string) ?? 'mantenimiento';
+
+  const serviciosIncluidos = clausulas.length > 0
+    ? clausulas.map(c => c.descripcion as string).filter(Boolean)
+    : [(presupuesto.descripcion_servicios as string) ?? 'Mantenimiento según condiciones pactadas'];
+
+  return {
+    titulo: `CONTRATO DE MANTENIMIENTO — ${sectorLabel.toUpperCase()} — ${((presupuesto.nombre_cliente as string) ?? 'CLIENTE').toUpperCase()}`,
+    partes: {
+      prestador: 'A completar por la empresa instaladora',
+      cliente: (presupuesto.nombre_cliente as string) ?? 'El CLIENTE',
+      direccion_servicio: (presupuesto.direccion_instalacion as string) ?? 'A determinar',
+    },
+    objeto: `Prestación de servicios de mantenimiento preventivo y correctivo de las instalaciones de ${sectorLabel}, conforme a las condiciones técnicas y económicas del presente contrato.`,
+    servicios_incluidos: serviciosIncluidos,
+    servicios_excluidos: [
+      'Materiales, repuestos y piezas de sustitución (se presupuestan separadamente)',
+      'Reformas, modificaciones o ampliaciones de las instalaciones',
+      'Daños derivados de uso incorrecto, actos vandálicos o causas de fuerza mayor',
+    ],
+    sla: {
+      nivel: sla,
+      tiempo_respuesta: slaInfo.respuesta,
+      tiempo_resolucion: slaInfo.resolucion,
+      horario_cobertura: slaInfo.horario,
+      penalizacion: sla === 'critico' || sla === 'urgente'
+        ? 'Penalización del 5% de la cuota mensual por cada hora de incumplimiento del SLA'
+        : '',
+    },
+    preventivos: {
+      incluidos: Boolean(presupuesto.incluye_preventivos ?? true),
+      frecuencia: (presupuesto.frecuencia_preventivo as string) ?? 'semestral',
+      num_visitas_anio: numVisitas,
+      descripcion: `${numVisitas} visita${numVisitas !== 1 ? 's' : ''} de mantenimiento preventivo al año`,
+    },
+    precio: {
+      cuota_mensual_neto: cuotaMensual,
+      iva_pct: ivaPct,
+      cuota_mensual_total: cuotaMensual * (1 + ivaPct / 100),
+      cuota_anual_total: cuotaMensual * 12 * (1 + ivaPct / 100),
+      tipo_facturacion: (presupuesto.tipo_facturacion as string) ?? 'mensual',
+      forma_pago: 'Domiciliación bancaria el día 1 de cada mes',
+    },
+    duracion: {
+      vigencia_meses: 12,
+      renovacion_automatica: true,
+      preaviso_cancelacion_dias: 30,
+      clausula_duracion: 'El presente contrato tendrá una vigencia inicial de doce (12) meses, renovándose automáticamente por períodos anuales salvo comunicación en contrario con 30 días de antelación.',
+    },
+    materiales: {
+      incluidos: Boolean(presupuesto.materiales_incluidos ?? false),
+      clausula: 'Los materiales, repuestos y piezas de sustitución no están incluidos en la cuota de mantenimiento y se presupuestarán por separado previo acuerdo con el cliente.',
+    },
+    clausulas_adicionales: [
+      'Las partes designarán un responsable de cuenta que actuará como interlocutor principal.',
+      'Las intervenciones de urgencia fuera del horario de cobertura acordado conllevan un recargo sobre las tarifas ordinarias.',
+      'Cualquier modificación de las condiciones del presente contrato requerirá acuerdo escrito de ambas partes.',
+    ],
+    confidencialidad: 'Las partes se comprometen a mantener la confidencialidad de toda información intercambiada en el marco del presente contrato.',
+    jurisdiccion: 'Para la resolución de cualquier controversia, las partes se someten a los Juzgados y Tribunales del domicilio del PRESTADOR, con renuncia expresa a cualquier otro fuero.',
+    num_clausulas: 14,
+  };
+}
+
 export async function generateMaintenanceDocument(presupuestoId: string, forceRegenerate = false): Promise<MaintenanceDocumento> {
-  // Use cached document from ia_json unless forceRegenerate
-  if (!forceRegenerate) {
-    const { data: cached } = await supabase
-      .from('trade_maintenance_presupuestos')
-      .select('ia_json')
-      .eq('id', presupuestoId)
-      .single();
-    const cachedDoc = (cached?.ia_json as Record<string, unknown> | null)?.documento;
-    if (cachedDoc) return cachedDoc as MaintenanceDocumento;
+  // Fetch full presupuesto row (needed for both cache check and local build)
+  const { data: presup } = await supabase
+    .from('trade_maintenance_presupuestos')
+    .select('*')
+    .eq('id', presupuestoId)
+    .single();
+
+  const iaJson = presup?.ia_json as Record<string, unknown> | null;
+
+  // 1. Return cached AI document if available
+  if (!forceRegenerate && iaJson?.documento) {
+    return iaJson.documento as MaintenanceDocumento;
   }
 
+  // 2. Build locally from wizard clausulas (no AI call needed)
+  const clausulas = iaJson?.clausulas;
+  if (clausulas && Array.isArray(clausulas) && clausulas.length > 0) {
+    return buildDocumentoFromPresupuesto(
+      presup as Record<string, unknown>,
+      clausulas as Array<Record<string, unknown>>,
+    );
+  }
+
+  // 3. Build locally from descripcion_servicios (no AI call)
+  if (presup?.descripcion_servicios) {
+    return buildDocumentoFromPresupuesto(presup as Record<string, unknown>, []);
+  }
+
+  // 4. Fall back to AI edge function (only if no local data available)
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) throw new Error('No autenticado');
 
@@ -2568,15 +2666,10 @@ export async function generateMaintenanceDocument(presupuestoId: string, forceRe
 
   const documento = res.data.documento as MaintenanceDocumento;
 
-  // Persist cache so next open is instant
-  const { data: row } = await supabase
-    .from('trade_maintenance_presupuestos')
-    .select('ia_json')
-    .eq('id', presupuestoId)
-    .single();
+  // Cache for next time
   await supabase
     .from('trade_maintenance_presupuestos')
-    .update({ ia_json: { ...(row?.ia_json ?? {}), documento } })
+    .update({ ia_json: { ...(iaJson ?? {}), documento }, updated_at: new Date().toISOString() })
     .eq('id', presupuestoId);
 
   return documento;

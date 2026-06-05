@@ -5,8 +5,9 @@ import {
   TrendingUp, Euro, TriangleAlert, RefreshCw, X, Check,
   Droplets, Wind, Sparkles, Leaf, Wifi, ArrowUpDown,
   Eye, Edit2, ArrowRight, BookOpen, Shield, ChevronDown, ChevronUp,
-  BookmarkPlus, Send, Receipt, BadgeEuro, Search, Filter, MessageSquare, Download,
+  BookmarkPlus, Send, Receipt, BadgeEuro, Search, Filter, MessageSquare, Download, FileDown,
 } from 'lucide-react';
+import { downloadMaintenanceDocAsDocx } from '../lib/exportWord';
 import {
   loadMaintenanceCatalogs, loadMaintenancePresupuestos, loadMaintenanceContratos,
   loadMaintenanceIncidencias, detectMaintenanceContract, saveMaintenancePresupuesto,
@@ -818,7 +819,15 @@ function ContratoDocModal({ presupuestoId, onClose, showToast }: ContratoDocModa
           ) : null}
         </div>
 
-        <div className="p-4 border-t border-slate-100">
+        <div className="p-4 border-t border-slate-100 space-y-2">
+          {doc && (
+            <button
+              onClick={() => void downloadMaintenanceDocAsDocx(doc, `contrato-mantenimiento-${(doc.partes.cliente ?? 'cliente').toLowerCase().replace(/\s+/g, '-')}`)}
+              className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold flex items-center justify-center gap-2 cursor-pointer transition-colors"
+            >
+              <FileDown className="w-4 h-4" /> Descargar contrato Word (.docx)
+            </button>
+          )}
           <button onClick={onClose} className="w-full py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50 cursor-pointer transition-colors">
             Cerrar
           </button>
