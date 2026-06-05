@@ -7,7 +7,7 @@ import {
   Eye, Edit2, ArrowRight, BookOpen, Shield, ChevronDown, ChevronUp,
   BookmarkPlus, Send, Receipt, BadgeEuro, Search, Filter, MessageSquare, Download, FileDown,
 } from 'lucide-react';
-import { downloadMaintenanceDocAsDocx } from '../lib/exportWord';
+import { downloadMaintenanceDocAsDocx, downloadContractAsDocx } from '../lib/exportWord';
 import {
   loadMaintenanceCatalogs, loadMaintenancePresupuestos, loadMaintenanceContratos,
   loadMaintenanceIncidencias, detectMaintenanceContract, saveMaintenancePresupuesto,
@@ -16,13 +16,13 @@ import {
   loadMaintenanceModelos, saveMaintenanceModelo, deleteMaintenanceModelo, useMaintenanceModelo,
   loadMaintenanceInvoicesByOrg, markInvoicePaid, sendMaintenanceNotification,
   saveMaintenanceIncidencia, updateMaintenanceIncidencia, sendParteTrabajo,
-  loadOrgMembers,
+  loadOrgMembers, loadTradeContractById,
 } from '../lib/supabase';
 import type {
   MaintenancePlantilla, MaintenancePresupuesto, MaintenanceContrato,
   MaintenanceIncidencia, MaintenanceDetectResult, MaintenanceDocumento,
   MaintenanceSLA, MaintenanceSector, MaintenanceOficio, MaintenanceModelo,
-  TradeInvoice, OrgMember,
+  TradeInvoice, OrgMember, TradeContract,
 } from '../lib/supabase';
 
 interface Props {
@@ -638,14 +638,16 @@ function PresupuestoDetalleModal({ presupuesto, onClose, onEdit, onConvert }: Pr
 // ── Modal: Documento legal del contrato (con IA, cacheado) ────────────────────
 
 interface ContratoDocModalProps {
-  presupuestoId: string;
+  contrato: MaintenanceContrato;
   onClose: () => void;
   showToast: Props['showToast'];
 }
 
-function ContratoDocModal({ presupuestoId, onClose, showToast }: ContratoDocModalProps) {
+function ContratoDocModal({ contrato, onClose, showToast }: ContratoDocModalProps) {
   const [loading, setLoading] = useState(true);
   const [doc, setDoc] = useState<MaintenanceDocumento | null>(null);
+  const [tradeContract, setTradeContract] = useState<TradeContract | null>(null);
+  const [downloading, setDownloading] = useState(false);
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({ servicios: true, sla: true });
 
   const toggle = (k: string) => setExpandedSections(prev => ({ ...prev, [k]: !prev[k] }));
@@ -653,8 +655,12 @@ function ContratoDocModal({ presupuestoId, onClose, showToast }: ContratoDocModa
   useEffect(() => {
     void (async () => {
       try {
-        const d = await generateMaintenanceDocument(presupuestoId);
+        const [d, tc] = await Promise.all([
+          contrato.presupuesto_id ? generateMaintenanceDocument(contrato.presupuesto_id) : Promise.resolve(null),
+          contrato.contract_id ? loadTradeContractById(contrato.contract_id) : Promise.resolve(null),
+        ]);
         setDoc(d);
+        setTradeContract(tc);
       } catch (e) {
         showToast(errMsg(e), 'error');
         onClose();
@@ -662,7 +668,24 @@ function ContratoDocModal({ presupuestoId, onClose, showToast }: ContratoDocModa
         setLoading(false);
       }
     })();
-  }, [presupuestoId, showToast, onClose]);
+  }, [contrato.presupuesto_id, contrato.contract_id, showToast, onClose]);
+
+  const handleDownload = async () => {
+    setDownloading(true);
+    try {
+      const nombreCliente = (contrato.nombre_cliente ?? 'cliente').toLowerCase().replace(/\s+/g, '-');
+      const filename = `contrato-mantenimiento-${nombreCliente}`;
+      if (tradeContract?.variables) {
+        await downloadContractAsDocx(tradeContract.variables as Parameters<typeof downloadContractAsDocx>[0], tradeContract.oficio, filename);
+      } else if (doc) {
+        await downloadMaintenanceDocAsDocx(doc, filename);
+      }
+    } catch (e) {
+      showToast(errMsg(e), 'error');
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   const secCls = 'border border-slate-100 rounded-xl overflow-hidden';
   const secHeaderCls = 'flex items-center justify-between px-4 py-3 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors';
@@ -682,8 +705,8 @@ function ContratoDocModal({ presupuestoId, onClose, showToast }: ContratoDocModa
           {loading ? (
             <div className="flex flex-col items-center justify-center py-16 gap-3">
               <Loader2 className="w-8 h-8 animate-spin text-blue-500" />
-              <p className="text-slate-500 text-sm font-semibold">Generando documento con IA...</p>
-              <p className="text-slate-400 text-xs">Redactando cláusulas adaptadas al sector y SLA</p>
+              <p className="text-slate-500 text-sm font-semibold">Cargando documento del contrato...</p>
+              <p className="text-slate-400 text-xs">Preparando cláusulas y condiciones</p>
             </div>
           ) : doc ? (
             <div className="space-y-3">
@@ -820,12 +843,14 @@ function ContratoDocModal({ presupuestoId, onClose, showToast }: ContratoDocModa
         </div>
 
         <div className="p-4 border-t border-slate-100 space-y-2">
-          {doc && (
+          {(doc || tradeContract) && (
             <button
-              onClick={() => void downloadMaintenanceDocAsDocx(doc, `contrato-mantenimiento-${(doc.partes.cliente ?? 'cliente').toLowerCase().replace(/\s+/g, '-')}`)}
-              className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold flex items-center justify-center gap-2 cursor-pointer transition-colors"
+              onClick={() => void handleDownload()}
+              disabled={downloading}
+              className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white text-sm font-bold flex items-center justify-center gap-2 cursor-pointer transition-colors"
             >
-              <FileDown className="w-4 h-4" /> Descargar contrato Word (.docx)
+              {downloading ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileDown className="w-4 h-4" />}
+              {tradeContract ? 'Descargar contrato completo Word (.docx)' : 'Descargar contrato Word (.docx)'}
             </button>
           )}
           <button onClick={onClose} className="w-full py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold hover:bg-slate-50 cursor-pointer transition-colors">
@@ -1471,7 +1496,7 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
   const [editPresup, setEditPresup] = useState<MaintenancePresupuesto | null>(null);
   const [detallePresup, setDetallePresup] = useState<MaintenancePresupuesto | null>(null);
   const [convertPresup, setConvertPresup] = useState<MaintenancePresupuesto | null>(null);
-  const [contratoDocPresupId, setContratoDocPresupId] = useState<string | null>(null);
+  const [contratoDocItem, setContratoDocItem] = useState<MaintenanceContrato | null>(null);
   const [guardarModelo, setGuardarModelo] = useState<MaintenancePresupuesto | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [usandoModelo, setUsandoModelo] = useState<string | null>(null);
@@ -1809,9 +1834,9 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
                         <span className="text-base font-black text-slate-900">{fmtEur(c.cuota_mensual)}</span>
                         <span className="text-[10px] text-slate-400 block">/mes + IVA</span>
                       </div>
-                      {c.presupuesto_id && (
+                      {(c.presupuesto_id || c.contract_id) && (
                         <button
-                          onClick={() => setContratoDocPresupId(c.presupuesto_id!)}
+                          onClick={() => setContratoDocItem(c)}
                           title="Ver documento del contrato"
                           className="p-1.5 rounded-lg text-slate-300 hover:text-blue-500 hover:bg-blue-50 cursor-pointer transition-colors"
                         >
@@ -2086,11 +2111,11 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
         />
       )}
 
-      {contratoDocPresupId && (
+      {contratoDocItem && (
         <ContratoDocModal
-          presupuestoId={contratoDocPresupId}
+          contrato={contratoDocItem}
           showToast={showToast}
-          onClose={() => setContratoDocPresupId(null)}
+          onClose={() => setContratoDocItem(null)}
         />
       )}
 

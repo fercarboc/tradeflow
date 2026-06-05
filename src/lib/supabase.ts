@@ -2681,11 +2681,99 @@ export async function convertPresupuestoToContrato(
   const fechaInicio = new Date();
   const fechaFin = new Date(fechaInicio);
   fechaFin.setMonth(fechaFin.getMonth() + 12);
-
   const proxima = new Date(fechaInicio);
   proxima.setMonth(proxima.getMonth() + 1);
   proxima.setDate(1);
+  const cuotaMensual = presupuesto.cuota_mensual ?? 0;
+  const ivaPct = presupuesto.iva_pct ?? 21;
 
+  // Load org data for professional contract variables
+  const { data: orgRow } = await supabase
+    .from('trade_organizations')
+    .select('nombre, nif, direccion, ciudad, email, telefono, logo_url, iban')
+    .eq('id', presupuesto.org_id)
+    .single();
+
+  // Generate next TF-MANT reference
+  const { data: existingContracts } = await supabase
+    .from('trade_contracts')
+    .select('referencia')
+    .eq('org_id', presupuesto.org_id);
+  const year = new Date().getFullYear();
+  const nums = (existingContracts ?? [])
+    .map((c: { referencia: string }) => parseInt(c.referencia.split('-').at(-1) ?? '0', 10))
+    .filter((n: number) => !isNaN(n));
+  const nextNum = nums.length > 0 ? Math.max(...nums) + 1 : 1;
+  const referencia = `TF-MANT-${year}-${String(nextNum).padStart(4, '0')}`;
+
+  // Build ContractVars from presupuesto + org data
+  const iaJson = presupuesto.ia_json as Record<string, unknown> | null;
+  const clausulas = iaJson?.clausulas as Array<Record<string, unknown>> | null;
+  const descripcionInstalaciones = (clausulas && clausulas.length > 0)
+    ? clausulas.map(c => String(c.descripcion ?? c.nombre ?? '')).filter(Boolean).join('\n')
+    : (presupuesto.descripcion_servicios ?? '');
+  const slaTimeMap: Record<string, string> = { critico: '15 minutos', urgente: '1 hora', normal: '4 horas', preventivo: '24 horas' };
+  const tiempoRespuesta = presupuesto.sla_nivel && slaTimeMap[presupuesto.sla_nivel]
+    ? `Máximo ${slaTimeMap[presupuesto.sla_nivel]}`
+    : presupuesto.tiempo_respuesta_h ? `Máximo ${presupuesto.tiempo_respuesta_h} horas`
+    : 'Máximo 4 horas en días laborables, 8 horas en festivos';
+
+  const vars: Record<string, string> = {
+    empresa: orgRow?.nombre ?? '',
+    cif_empresa: (orgRow as Record<string, unknown> | null)?.nif as string ?? '',
+    direccion_empresa: orgRow?.direccion ?? '',
+    telefono_empresa: orgRow?.telefono ?? '',
+    email_empresa: orgRow?.email ?? '',
+    logo_url: (orgRow as Record<string, unknown> | null)?.logo_url as string ?? '',
+    nombre_cliente: presupuesto.nombre_cliente ?? '',
+    cif_cliente: '',
+    direccion_cliente: presupuesto.direccion_instalacion ?? '',
+    telefono_cliente: '',
+    email_cliente: '',
+    representante_cliente: '[ Representante ]',
+    cargo_representante: '[ Cargo ]',
+    referencia,
+    ciudad_firma: orgRow?.ciudad ?? '',
+    fecha_inicio: fechaInicio.toLocaleDateString('es-ES'),
+    fecha_fin: fechaFin.toLocaleDateString('es-ES'),
+    duracion_meses: '12',
+    cuota_mensual: cuotaMensual > 0 ? cuotaMensual.toFixed(2).replace('.', ',') : '',
+    iva_pct: String(ivaPct),
+    cuota_mensual_con_iva: cuotaMensual > 0 ? (cuotaMensual * (1 + ivaPct / 100)).toFixed(2).replace('.', ',') : '',
+    cuota_anual: cuotaMensual > 0 ? (cuotaMensual * 12).toFixed(2).replace('.', ',') : '',
+    periodo_facturacion: presupuesto.tipo_facturacion ?? 'mensual',
+    forma_pago: 'Domiciliación bancaria (SEPA)',
+    iban: (orgRow as Record<string, unknown> | null)?.iban as string ?? '',
+    dia_vencimiento: '5',
+    horario_guardia: presupuesto.incluye_guardia ? '24 horas / 7 días' : 'Lunes a viernes de 08:00 a 18:00 h',
+    servicio_urgencias: presupuesto.incluye_guardia ? '24 horas / 7 días' : 'No incluido',
+    tiempo_respuesta: tiempoRespuesta,
+    tiempo_resolucion: '24 horas para averías críticas, 72 horas para incidencias menores',
+    disponibilidad: '99% mensual en horario de guardia',
+    penalizacion_sla: '5% del importe mensual por cada día de retraso sobre el SLA',
+    descripcion_instalaciones: descripcionInstalaciones,
+    ciudad_jurisdiccion: orgRow?.ciudad ?? '',
+    cobertura_rc: '600.000',
+    limite_correctivo: '500',
+  };
+
+  // Create trade_contracts record (professional format, appears in CONTRATOS sidebar)
+  const { data: tradeContract, error: contractError } = await supabase
+    .from('trade_contracts')
+    .insert({
+      org_id: presupuesto.org_id,
+      referencia,
+      oficio: presupuesto.oficio,
+      estado: 'firmado',
+      firmado_at: new Date().toISOString(),
+      variables: vars,
+      updated_at: new Date().toISOString(),
+    })
+    .select()
+    .single();
+  if (contractError) throw contractError;
+
+  // Create trade_maintenance_contratos record
   const { data, error } = await supabase
     .from('trade_maintenance_contratos')
     .insert({
@@ -2693,14 +2781,15 @@ export async function convertPresupuestoToContrato(
       client_id:              presupuesto.client_id,
       presupuesto_id:         presupuesto.id,
       plantilla_id:           presupuesto.plantilla_id,
+      numero:                 referencia,
       oficio:                 presupuesto.oficio,
       sector:                 presupuesto.sector,
       nombre_cliente:         presupuesto.nombre_cliente,
       direccion_instalacion:  presupuesto.direccion_instalacion,
       descripcion_servicios:  presupuesto.descripcion_servicios,
-      cuota_mensual:          presupuesto.cuota_mensual ?? 0,
+      cuota_mensual:          cuotaMensual,
       tipo_facturacion:       presupuesto.tipo_facturacion,
-      iva_pct:                presupuesto.iva_pct,
+      iva_pct:                ivaPct,
       sla_nivel:              presupuesto.sla_nivel,
       tiempo_respuesta_h:     presupuesto.tiempo_respuesta_h,
       incluye_preventivos:    presupuesto.incluye_preventivos,
@@ -2716,12 +2805,32 @@ export async function convertPresupuestoToContrato(
       dia_facturacion:        1,
       proxima_factura:        proxima.toISOString().split('T')[0],
       estado:                 'activo',
+      contract_id:            tradeContract.id,
       updated_at:             new Date().toISOString(),
     })
     .select()
     .single();
-
   if (error) throw error;
+
+  // Update trade_contracts with mantenimiento_id back-reference
+  await supabase
+    .from('trade_contracts')
+    .update({ mantenimiento_id: data.id })
+    .eq('id', tradeContract.id);
+
+  // Create invoices (12 months)
+  if (cuotaMensual > 0) {
+    await createMaintenanceInvoices(presupuesto.org_id, tradeContract.id, {
+      clientId: presupuesto.client_id,
+      cuotaMensual,
+      ivaPct,
+      periodoFacturacion: presupuesto.tipo_facturacion,
+      duracionMeses: 12,
+      diaVencimiento: 5,
+      nombreCliente: presupuesto.nombre_cliente ?? 'Cliente',
+      referencia,
+    });
+  }
 
   // Mark presupuesto as converted
   await supabase
@@ -2864,6 +2973,11 @@ export interface TradeContract {
   firmado_at?: string;
   created_at: string;
   updated_at: string;
+}
+
+export async function loadTradeContractById(id: string): Promise<TradeContract | null> {
+  const { data } = await supabase.from('trade_contracts').select('*').eq('id', id).maybeSingle();
+  return data as TradeContract | null;
 }
 
 export async function loadContracts(orgId: string): Promise<TradeContract[]> {
