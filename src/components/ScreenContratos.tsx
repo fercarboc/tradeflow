@@ -140,7 +140,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
     const cliente = clientes.find(c => c.nombre === nombreCliente);
     const cuota = m.cuota_mensual ?? 0;
     const iva = parseFloat(base.iva_pct || '21');
-    const duracion = m.duracion_meses ?? 12;
+    const duracion = 12;
     const fechaInicio = new Date();
     const fechaFin = new Date(fechaInicio);
     fechaFin.setMonth(fechaFin.getMonth() + duracion);

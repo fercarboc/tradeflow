@@ -566,18 +566,15 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
         cuota_mensual: cuotaAnual / 12,
         cuota_anual: cuotaAnual,
         tipo_facturacion: 'mensual',
-        iva_pct: 21,
         incluye_preventivos: true,
         num_visitas_preventivo: numVisitas,
         incluye_guardia: detalles.cobertura !== '8/5',
         materiales_incluidos: detalles.incluye_piezas,
-        duracion_meses: 12,
         descripcion_servicios: descripcionServicios,
         notas: detalles.notas_extra || null,
         ia_json: { clausulas, detalles, sector: sector.label },
         generado_por_ia: false,
         estado: 'borrador',
-        fecha: new Date().toISOString().slice(0, 10),
       });
       showToast('Presupuesto de mantenimiento guardado', 'success');
       onConfirm();

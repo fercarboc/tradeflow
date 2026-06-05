@@ -2075,7 +2075,6 @@ export interface MaintenancePresupuesto {
   num_visitas_preventivo: number;
   incluye_guardia: boolean;
   materiales_incluidos: boolean;
-  duracion_meses: number | null;
   texto_libre: string | null;
   ia_json: Record<string, unknown> | null;
   notas: string | null;
@@ -2588,7 +2587,7 @@ export async function convertPresupuestoToContrato(
 ): Promise<MaintenanceContrato> {
   const fechaInicio = new Date();
   const fechaFin = new Date(fechaInicio);
-  fechaFin.setMonth(fechaFin.getMonth() + (presupuesto.duracion_meses ?? 12));
+  fechaFin.setMonth(fechaFin.getMonth() + 12);
 
   const proxima = new Date(fechaInicio);
   proxima.setMonth(proxima.getMonth() + 1);
@@ -2618,7 +2617,7 @@ export async function convertPresupuestoToContrato(
       materiales_incluidos:   false,
       fecha_inicio:           fechaInicio.toISOString().split('T')[0],
       fecha_fin:              fechaFin.toISOString().split('T')[0],
-      duracion_meses:         presupuesto.duracion_meses ?? 12,
+      duracion_meses:         12,
       renovacion_automatica:  true,
       preaviso_cancelacion_dias: 30,
       dia_facturacion:        1,
