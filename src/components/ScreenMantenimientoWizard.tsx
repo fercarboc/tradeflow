@@ -111,6 +111,224 @@ const EQUIPOS_TIPICOS: Record<string, string> = {
     'Equipos instalados típicos: torres de telecomunicación autoportantes y arriostradas (Rohn, Comesa), mástiles en cubierta con pararrayos, equipos de radio BTS/NodeB/eNodeB/gNodeB (Ericsson, Nokia, Huawei, ZTE), sistemas de energía de telecomunicación (rectificadores 48V, baterías AGM/Gel/LFP), sistemas de vigilancia remota NOC (SNMP, NetAct), shelter y abrigos climatizados, líneas de transmisión y sistemas de antenas (RRU, AAU), equipos de microondas PDH/SDH, sistemas fibra óptica y DWDM.',
 };
 
+// ── Opciones típicas por sector (chips seleccionables en fase voz) ─────────────
+const ITEMS_POR_SECTOR: Record<string, Array<{ label: string; checked: boolean }>> = {
+  'Industrial / Fábrica': [
+    { label: 'Compresores de aire', checked: true },
+    { label: 'Chillers / enfriadoras', checked: true },
+    { label: 'Cuadros eléctricos', checked: true },
+    { label: 'Sistemas VRV/VRF', checked: false },
+    { label: 'Grupos electrógenos', checked: false },
+    { label: 'Bombas hidráulicas', checked: false },
+    { label: 'Torres de refrigeración', checked: false },
+    { label: 'Aspiración industrial', checked: false },
+  ],
+  'Alimentación / Frío': [
+    { label: 'Cámaras frigoríficas (+)', checked: true },
+    { label: 'Cámaras de congelación (−)', checked: true },
+    { label: 'Central de compresores', checked: true },
+    { label: 'Vitrinas refrigeradas', checked: true },
+    { label: 'Murales expositores', checked: false },
+    { label: 'Condensadores remotos', checked: false },
+    { label: 'Monitorización temp.', checked: false },
+  ],
+  'Hostelería': [
+    { label: 'Climatización splits', checked: true },
+    { label: 'Campanas extractoras', checked: true },
+    { label: 'Cámaras cocina (+/−)', checked: true },
+    { label: 'Lavavajillas industrial', checked: false },
+    { label: 'Termoacumuladores ACS', checked: false },
+    { label: 'Renovación de aire', checked: false },
+  ],
+  'Hospital / Clínica': [
+    { label: 'UTAs hospitalarias HEPA', checked: true },
+    { label: 'Climatización quirófanos', checked: true },
+    { label: 'Grupos de presión agua', checked: true },
+    { label: 'Grupos electrógenos', checked: true },
+    { label: 'SAI hospitalario', checked: true },
+    { label: 'Gases medicinales', checked: false },
+    { label: 'Calderas y ACS', checked: false },
+  ],
+  'PCI — Contra Incendios': [
+    { label: 'Extintores portátiles', checked: true },
+    { label: 'BIEs (bocas de incendio)', checked: true },
+    { label: 'Central de detección', checked: true },
+    { label: 'Detectores y pulsadores', checked: true },
+    { label: 'Sirenas y señalización', checked: true },
+    { label: 'Alumbrado emergencia', checked: true },
+    { label: 'Rociadores / sprinklers', checked: false },
+    { label: 'Grupo de presión CI', checked: false },
+    { label: 'Hidrantes exteriores', checked: false },
+    { label: 'Columnas secas', checked: false },
+    { label: 'Extinción cocina (Ansul)', checked: false },
+  ],
+  'Oficinas': [
+    { label: 'Splits inverter / cassette', checked: true },
+    { label: 'Cuadros eléctricos', checked: true },
+    { label: 'Fancoils agua fría/caliente', checked: false },
+    { label: 'Recuperadores de calor', checked: false },
+    { label: 'Ventilación mecánica VMC', checked: false },
+    { label: 'SAI / UPS servidores', checked: false },
+    { label: 'BMS / Gestión edificio', checked: false },
+  ],
+  'Redes IT': [
+    { label: 'Servidores rack', checked: true },
+    { label: 'Climatización precisión', checked: true },
+    { label: 'SAI/UPS modulares', checked: true },
+    { label: 'Switches y routers', checked: true },
+    { label: 'Firewalls perimetrales', checked: false },
+    { label: 'Cámaras CCTV IP', checked: false },
+    { label: 'PDUs inteligentes', checked: false },
+    { label: 'Detección VESDA', checked: false },
+  ],
+  'Retail / Supermercado': [
+    { label: 'Murales frigoríficos', checked: true },
+    { label: 'Islas y arcones congelados', checked: true },
+    { label: 'Central de compresores', checked: true },
+    { label: 'Climatización sala ventas', checked: true },
+    { label: 'Cámaras de producto', checked: false },
+    { label: 'Condensadores cubierta', checked: false },
+    { label: 'Monitorización centralizada', checked: false },
+  ],
+  'Comunidades': [
+    { label: 'Ascensores', checked: true },
+    { label: 'Grupos de presión agua', checked: true },
+    { label: 'Calderas calefacción', checked: false },
+    { label: 'Bombas recirculación ACS', checked: false },
+    { label: 'Depuradora piscina', checked: false },
+    { label: 'Ventilación garaje (CO)', checked: false },
+    { label: 'Control de accesos', checked: false },
+  ],
+  'Banca y Seguros': [
+    { label: 'Control acceso biométrico', checked: true },
+    { label: 'Cámaras CCTV IP HD', checked: true },
+    { label: 'Alarma anti-intrusión', checked: true },
+    { label: 'SAI/UPS sistemas críticos', checked: true },
+    { label: 'Cajeros automáticos ATM', checked: false },
+    { label: 'Climatización CPD interno', checked: false },
+    { label: 'Puertas blindadas', checked: false },
+  ],
+  'Farmacéutico / Lab.': [
+    { label: 'UTAs salas blancas HEPA', checked: true },
+    { label: 'Control presión diferencial', checked: true },
+    { label: 'Registradores trazabilidad', checked: true },
+    { label: 'Cámaras temperatura ctrl.', checked: true },
+    { label: 'Autoclaves / esterilizadores', checked: false },
+    { label: 'Campanas flujo laminar', checked: false },
+    { label: 'Agua purificada OI', checked: false },
+  ],
+  'Admin. Pública': [
+    { label: 'Climatización edificio', checked: true },
+    { label: 'Cuadros eléctricos', checked: true },
+    { label: 'Iluminación LED', checked: false },
+    { label: 'Fuentes ornamentales', checked: false },
+    { label: 'CCTV espacios públicos', checked: false },
+    { label: 'Megafonía', checked: false },
+    { label: 'Sistema de riego', checked: false },
+  ],
+  'Colegios y Educación': [
+    { label: 'Calefacción y climatización', checked: true },
+    { label: 'Alumbrado emergencia', checked: true },
+    { label: 'Fontanería y aseos', checked: true },
+    { label: 'Ventilación control CO₂', checked: false },
+    { label: 'Control de acceso', checked: false },
+    { label: 'Megafonía escolar', checked: false },
+    { label: 'Iluminación exterior', checked: false },
+  ],
+  'Residencias de Mayores': [
+    { label: 'Climatización 24h', checked: true },
+    { label: 'ACS anti-Legionella', checked: true },
+    { label: 'Sistema llamada enfermería', checked: true },
+    { label: 'Ascensores (camillas)', checked: true },
+    { label: 'Instalación PCI completa', checked: true },
+    { label: 'Grupo electrógeno', checked: true },
+    { label: 'Control de accesos', checked: false },
+    { label: 'Oxígeno medicinal', checked: false },
+  ],
+  'Agricultura y Ganadería': [
+    { label: 'Bombas de riego', checked: true },
+    { label: 'Instalaciones eléctricas', checked: true },
+    { label: 'Sistema fertirrigación', checked: false },
+    { label: 'Cámaras frigoríficas cosecha', checked: false },
+    { label: 'Ventilación naves ganaderas', checked: false },
+    { label: 'Equipos ordeño automático', checked: false },
+    { label: 'Grupos electrógenos', checked: false },
+  ],
+  'Naves Logísticas': [
+    { label: 'Puertas de muelle', checked: true },
+    { label: 'Muelles de carga', checked: true },
+    { label: 'Puertas rápidas enrollables', checked: true },
+    { label: 'Sprinklers / detección', checked: true },
+    { label: 'Carga baterías carretillas', checked: false },
+    { label: 'Climatización oficinas', checked: false },
+    { label: 'Iluminación LED industrial', checked: false },
+  ],
+  'Centros Deportivos': [
+    { label: 'Depuración piscinas', checked: true },
+    { label: 'Climatización vasos', checked: true },
+    { label: 'ACS + sistema Legionella', checked: true },
+    { label: 'Climatización pabellón', checked: false },
+    { label: 'Iluminación LED DALI', checked: false },
+    { label: 'Control de acceso', checked: false },
+    { label: 'Suelos técnicos parqué', checked: false },
+  ],
+  'Energía Solar / FV': [
+    { label: 'Módulos fotovoltaicos', checked: true },
+    { label: 'Inversores cadena/central', checked: true },
+    { label: 'Contadores bidireccionales', checked: true },
+    { label: 'Plataforma monitorización', checked: true },
+    { label: 'Baterías almacenamiento', checked: false },
+    { label: 'Optimizadores y string box', checked: false },
+    { label: 'Estructura soporte', checked: false },
+  ],
+  'Automoción / Taller': [
+    { label: 'Elevadores 2/4 columnas', checked: true },
+    { label: 'Compresores de aire', checked: true },
+    { label: 'Desmontadora + equilibradora', checked: true },
+    { label: 'Alineador de dirección 3D', checked: false },
+    { label: 'Equipos de diagnosis', checked: false },
+    { label: 'Puente de lavado', checked: false },
+    { label: 'Cargadores EV', checked: false },
+  ],
+  'Data Center / CPD': [
+    { label: 'Servidores blade y rack', checked: true },
+    { label: 'UPS modulares redundantes', checked: true },
+    { label: 'Climatización precisión', checked: true },
+    { label: 'Grupos electrógenos ATS', checked: true },
+    { label: 'Extinción gaseosa FM200', checked: true },
+    { label: 'Sistema DCIM', checked: false },
+    { label: 'PDUs inteligentes', checked: false },
+    { label: 'Switches core alta densidad', checked: false },
+  ],
+  'Parking y Garajes': [
+    { label: 'Barreras automáticas', checked: true },
+    { label: 'Detectores CO/NOx', checked: true },
+    { label: 'Ventilación / jet fans', checked: true },
+    { label: 'Alumbrado emergencia', checked: true },
+    { label: 'Puertas enrollables acceso', checked: true },
+    { label: 'Terminales de pago', checked: false },
+    { label: 'Cámaras CCTV + ANPR', checked: false },
+    { label: 'Iluminación LED', checked: false },
+  ],
+  'Obras y Construcción': [
+    { label: 'Instalaciones eléctricas prov.', checked: true },
+    { label: 'Grupos electrógenos obra', checked: false },
+    { label: 'Grúas torre', checked: false },
+    { label: 'Montacargas de obra', checked: false },
+    { label: 'Bombas de achique', checked: false },
+    { label: 'Compresores neumáticos', checked: false },
+  ],
+  'Telecomunicaciones': [
+    { label: 'Torres y mástiles', checked: true },
+    { label: 'Equipos radio BTS/NodeB', checked: true },
+    { label: 'Sistemas energía DC 48V', checked: true },
+    { label: 'Baterías AGM/Gel/LFP', checked: true },
+    { label: 'Shelter climatizado', checked: false },
+    { label: 'Líneas transmisión / antenas', checked: false },
+    { label: 'Monitorización NOC', checked: false },
+  ],
+};
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const DEFAULT_DETALLES: SectorDetalles = {
   num_equipos: '1',
@@ -168,6 +386,7 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, showToas
   const [recording, setRecording]     = useState(false);
   const [processing, setProcessing]   = useState(false);
   const [clausulas, setClausulas]     = useState<ClausulaItem[]>([]);
+  const [selectedItems, setSelectedItems] = useState<Record<string, boolean>>({});
   const recognitionRef                = useRef<unknown>(null);
 
   const SpeechAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -222,7 +441,11 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, showToas
     if (!sector) return;
     setProcessing(true);
     try {
-      const contexto = buildMantenimientoTexto(sector, detalles, textInput);
+      const chips = Object.entries(selectedItems).filter(([, v]) => v).map(([k]) => k);
+      const equiposStr = chips.length > 0
+        ? `Equipos seleccionados para el contrato: ${chips.join(', ')}.${textInput.trim() ? ` ${textInput.trim()}` : ''}`
+        : textInput;
+      const contexto = buildMantenimientoTexto(sector, detalles, equiposStr);
       const { data, error } = await supabase.functions.invoke('trade-voice-to-quote', {
         body: { text: `[MANTENIMIENTO — ${sector.label}]\n${contexto}` },
       });
@@ -437,15 +660,39 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, showToas
               <p className="text-[10px] text-slate-400">SLA {sector.sla} · {detalles.cobertura} · {detalles.visitas_anuales} visitas/año</p>
             </div>
 
-            <div className="flex flex-col items-center px-6 py-6 space-y-4">
+            <div className="px-4 py-5 space-y-5 pb-32">
               <div className="text-center space-y-1">
-                <h3 className="text-base font-bold text-white">Describe el equipamiento</h3>
-                <p className="text-slate-400 text-xs">
-                  Habla o escribe sobre los equipos, instalación, condiciones especiales
-                </p>
+                <h3 className="text-base font-bold text-white">Selecciona los equipos del contrato</h3>
+                <p className="text-slate-400 text-xs">Marca los que incluye el mantenimiento. Añade detalles por voz o texto si necesitas.</p>
               </div>
 
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 w-full space-y-1">
+              {/* Chips de equipos */}
+              {(ITEMS_POR_SECTOR[sector.label] ?? []).length > 0 && (
+                <div className="space-y-2">
+                  <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Equipos / Sistemas</p>
+                  <div className="flex flex-wrap gap-2">
+                    {(ITEMS_POR_SECTOR[sector.label] ?? []).map(item => (
+                      <button
+                        key={item.label}
+                        onClick={() => setSelectedItems(prev => ({ ...prev, [item.label]: !prev[item.label] }))}
+                        className={`px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition-all ${
+                          selectedItems[item.label]
+                            ? 'bg-blue-500 text-white shadow-sm shadow-blue-500/30'
+                            : 'bg-slate-800 text-slate-400 border border-slate-700 hover:border-blue-500/40 hover:text-slate-200'
+                        }`}
+                      >
+                        {item.label}
+                      </button>
+                    ))}
+                  </div>
+                  <p className="text-[9px] text-slate-600">
+                    {Object.values(selectedItems).filter(Boolean).length} elemento{Object.values(selectedItems).filter(Boolean).length !== 1 ? 's' : ''} seleccionado{Object.values(selectedItems).filter(Boolean).length !== 1 ? 's' : ''}
+                  </p>
+                </div>
+              )}
+
+              {/* SLA del sector */}
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-1">
                 <div className="flex items-center gap-1.5">
                   <AlertTriangle className="w-3 h-3 text-amber-400 shrink-0" />
                   <p className="text-[9px] text-amber-400 font-bold uppercase tracking-widest">SLA del sector</p>
@@ -453,33 +700,34 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, showToas
                 <p className="text-xs text-slate-300">Respuesta en {sector.sla} · Penalización -5%/h por incumplimiento</p>
               </div>
 
-              <button
-                onClick={recording ? stopRecording : startRecording}
-                className={`w-20 h-20 rounded-full flex items-center justify-center cursor-pointer transition-all select-none ${
-                  recording
-                    ? 'bg-red-500 shadow-[0_0_0_12px_rgba(239,68,68,0.2)] scale-110'
-                    : 'bg-blue-600 shadow-[0_4px_32px_rgba(37,99,235,0.4)]'
-                }`}
-              >
-                {recording ? <MicOff className="w-9 h-9 text-white" /> : <Mic className="w-9 h-9 text-white" />}
-              </button>
-
-              {recording
-                ? <p className="text-red-400 text-xs font-bold animate-pulse flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-400 inline-block" />
+              {/* Descripción adicional + micrófono inline */}
+              <div className="space-y-2">
+                <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Descripción adicional (opcional)</p>
+                <div className="flex items-start gap-2">
+                  <button
+                    onClick={recording ? stopRecording : startRecording}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center cursor-pointer shrink-0 mt-0.5 transition-all ${
+                      recording
+                        ? 'bg-red-500 shadow-[0_0_0_6px_rgba(239,68,68,0.2)]'
+                        : 'bg-blue-600 hover:bg-blue-700'
+                    }`}
+                  >
+                    {recording ? <MicOff className="w-4 h-4 text-white" /> : <Mic className="w-4 h-4 text-white" />}
+                  </button>
+                  <textarea
+                    value={textInput}
+                    onChange={e => setTextInput(e.target.value)}
+                    placeholder="Añade detalles: antigüedad de equipos, marcas, condiciones especiales…"
+                    rows={3}
+                    className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 resize-none"
+                  />
+                </div>
+                {recording && (
+                  <p className="text-red-400 text-xs font-bold flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-400 inline-block animate-pulse" />
                     Escuchando…
                   </p>
-                : <p className="text-[11px] text-slate-500">Toca para hablar o escribe abajo</p>
-              }
-
-              <div className="w-full space-y-2">
-                <textarea
-                  value={textInput}
-                  onChange={e => setTextInput(e.target.value)}
-                  placeholder={`Ej: Tenemos ${detalles.num_equipos} equipos de climatización en una ${sector.label.toLowerCase()}. Los equipos llevan 5 años instalados. Necesitamos revisión de filtros, comprobación de gas, limpieza de condensadores...`}
-                  rows={4}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 resize-none"
-                />
+                )}
               </div>
             </div>
           </div>
@@ -601,11 +849,17 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, showToas
       {phase === 'detalles' && (
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
           <button
-            onClick={() => setPhase('voz')}
+            onClick={() => {
+              const items = ITEMS_POR_SECTOR[sector!.label] ?? [];
+              const defaults: Record<string, boolean> = {};
+              items.forEach(item => { defaults[item.label] = item.checked; });
+              setSelectedItems(defaults);
+              setPhase('voz');
+            }}
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer"
             style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}
           >
-            Continuar — describir equipamiento →
+            Continuar — seleccionar equipamiento →
           </button>
         </div>
       )}

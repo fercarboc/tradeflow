@@ -154,7 +154,7 @@ function NuevoContratoModal({ plantillas, onClose, onSaved, orgId, showToast, in
     try {
       const plantilla = plantillas.find(p => p.codigo === result.plantilla_codigo) ?? null;
       const saved = await saveMaintenancePresupuesto(orgId, {
-        oficio: result.oficio,
+        oficio: result.oficio ?? 'mantenimiento',
         sector: result.sector,
         plantilla_id: plantilla?.id ?? null,
         nombre_cliente: result.nombre_cliente,
@@ -241,7 +241,7 @@ function NuevoContratoModal({ plantillas, onClose, onSaved, orgId, showToast, in
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 text-emerald-500 shrink-0" />
                 <p className="text-xs font-semibold text-slate-700">{result.resumen}</p>
-                <span className="ml-auto text-[10px] text-slate-400">{Math.round(result.confianza * 100)}% confianza</span>
+                <span className="ml-auto text-[10px] text-slate-400">{result.confianza != null ? Math.round(result.confianza * 100) : '–'}% confianza</span>
               </div>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="bg-white rounded-lg p-2.5 border border-slate-100">

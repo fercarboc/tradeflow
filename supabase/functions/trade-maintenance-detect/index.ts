@@ -24,10 +24,11 @@ REGLAS OBLIGATORIAS:
 8. Detecta el sector automáticamente del contexto (hospital→hospitalario, restaurante→restauracion, etc.)
 9. Clasifica la criticidad: CRÍTICO = parada de producción/salud, URGENTE = actividad comprometida, NORMAL = sin parada, PREVENTIVO = programado.
 10. El SLA_nivel debe coincidir con la criticidad detectada.
+11. PCI / contra incendios / extinción / sprinklers / detectores / extintores → oficio: pci. Data center / CPD / sala de servidores → sector: data_center. Telecomunicaciones / antenas / BTS → oficio: telecomunicaciones. Energía solar / fotovoltaica / paneles solares → oficio: energia_solar. Seguridad / CCTV / control accesos → oficio: seguridad. Si no hay oficio claro, usa oficio: mantenimiento.
 
 CATÁLOGOS DISPONIBLES (usa los códigos exactos):
-OFICIOS: fontaneria, electricidad, climatizacion, limpieza, jardineria, informatica, ascensores
-SECTORES: oficinas, comunidad, industrial_general, alimentario, hospitalario, hotelero, retail, logistica, restauracion, gasolineras, educacion, farmaceutico, taller_automocion, supermercado
+OFICIOS: fontaneria, electricidad, climatizacion, limpieza, jardineria, informatica, ascensores, pci, telecomunicaciones, energia_solar, seguridad, obra_civil
+SECTORES: oficinas, comunidad, industrial_general, alimentario, hospitalario, hotelero, retail, logistica, restauracion, gasolineras, educacion, farmaceutico, taller_automocion, supermercado, bancario, deportivo, residencia_mayores, agricultura, energia_solar, data_center, parking, obras, telecomunicaciones, redes_it
 SLA_NIVELES: critico, urgente, normal, preventivo
 FRECUENCIAS: diaria, semanal, quincenal, mensual, bimensual, trimestral, semestral, anual
 

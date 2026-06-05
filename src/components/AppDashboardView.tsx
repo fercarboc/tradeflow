@@ -5425,7 +5425,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <span className="text-2xl">🔧</span>
             </div>
             <span className="font-black uppercase tracking-wider text-xs block">Contrato Mantenimiento</span>
-            <p className="text-[10px] text-blue-200 leading-normal max-w-xs">8 sectores, SLA, cláusulas y voz IA. Catálogo se actualiza automáticamente.</p>
+            <p className="text-[10px] text-blue-200 leading-normal max-w-xs">23 sectores, SLA, cláusulas y voz IA. Catálogo se actualiza automáticamente.</p>
           </button>
         </div>
 
