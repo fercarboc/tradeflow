@@ -3153,11 +3153,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {showMantenimientoWizard && (
           <ScreenMantenimientoWizard
             showToast={showToast}
+            orgId={orgId ?? ''}
             onClose={() => setShowMantenimientoWizard(false)}
-            onConfirm={(texto) => {
+            onConfirm={() => {
               setShowMantenimientoWizard(false);
-              setMantenimientoInitialText(texto);
-              setActiveTab('mantenimiento');
+              setMobileTab('mantenimiento');
             }}
           />
         )}
@@ -5243,10 +5243,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {showMantenimientoWizard && (
           <ScreenMantenimientoWizard
             showToast={showToast}
+            orgId={orgId ?? ''}
             onClose={() => setShowMantenimientoWizard(false)}
-            onConfirm={(texto) => {
+            onConfirm={() => {
               setShowMantenimientoWizard(false);
-              setMantenimientoInitialText(texto);
               setActiveTab('mantenimiento');
             }}
           />

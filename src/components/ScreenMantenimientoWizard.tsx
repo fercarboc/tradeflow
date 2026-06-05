@@ -3,7 +3,7 @@ import {
   Mic, MicOff, X, Loader2, CheckCircle, Sparkles, ChevronLeft,
   ShieldCheck, Clock, Wrench, AlertTriangle, Plus, Trash2,
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { saveMaintenancePresupuesto } from '../lib/supabase';
 
 // ── Sectores ──────────────────────────────────────────────────────────────────
 const SECTORES = [
@@ -56,8 +56,9 @@ interface ClausulaItem {
 type Phase = 'sector' | 'detalles' | 'voz' | 'resultado';
 
 export interface ScreenMantenimientoWizardProps {
-  onConfirm: (texto: string, clausulas: ClausulaItem[]) => void;
+  onConfirm: () => void;
   onClose: () => void;
+  orgId: string;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
 }
 
@@ -329,6 +330,74 @@ const ITEMS_POR_SECTOR: Record<string, Array<{ label: string; checked: boolean }
   ],
 };
 
+// ── Mapas sector → códigos de BD ─────────────────────────────────────────────
+const SECTOR_OFICIO_MAP: Record<string, string> = {
+  'Industrial / Fábrica': 'electricidad',
+  'Alimentación / Frío': 'climatizacion',
+  'Hostelería': 'climatizacion',
+  'Hospital / Clínica': 'climatizacion',
+  'PCI — Contra Incendios': 'pci',
+  'Oficinas': 'climatizacion',
+  'Redes IT': 'informatica',
+  'Retail / Supermercado': 'climatizacion',
+  'Comunidades': 'fontaneria',
+  'Banca y Seguros': 'seguridad',
+  'Farmacéutico / Lab.': 'climatizacion',
+  'Admin. Pública': 'electricidad',
+  'Colegios y Educación': 'climatizacion',
+  'Residencias de Mayores': 'climatizacion',
+  'Agricultura y Ganadería': 'electricidad',
+  'Naves Logísticas': 'electricidad',
+  'Centros Deportivos': 'fontaneria',
+  'Energía Solar / FV': 'energia_solar',
+  'Automoción / Taller': 'electricidad',
+  'Data Center / CPD': 'informatica',
+  'Parking y Garajes': 'electricidad',
+  'Obras y Construcción': 'obra_civil',
+  'Telecomunicaciones': 'telecomunicaciones',
+};
+
+const SECTOR_CODE_MAP: Record<string, string> = {
+  'Industrial / Fábrica': 'industrial_general',
+  'Alimentación / Frío': 'alimentario',
+  'Hostelería': 'hotelero',
+  'Hospital / Clínica': 'hospitalario',
+  'PCI — Contra Incendios': 'industrial_general',
+  'Oficinas': 'oficinas',
+  'Redes IT': 'redes_it',
+  'Retail / Supermercado': 'supermercado',
+  'Comunidades': 'comunidad',
+  'Banca y Seguros': 'bancario',
+  'Farmacéutico / Lab.': 'farmaceutico',
+  'Admin. Pública': 'oficinas',
+  'Colegios y Educación': 'educacion',
+  'Residencias de Mayores': 'residencia_mayores',
+  'Agricultura y Ganadería': 'agricultura',
+  'Naves Logísticas': 'logistica',
+  'Centros Deportivos': 'deportivo',
+  'Energía Solar / FV': 'energia_solar',
+  'Automoción / Taller': 'taller_automocion',
+  'Data Center / CPD': 'data_center',
+  'Parking y Garajes': 'parking',
+  'Obras y Construcción': 'obras',
+  'Telecomunicaciones': 'telecomunicaciones',
+};
+
+const CRITICIDAD_SLA_MAP: Record<string, string> = {
+  'Extrema': 'critico',
+  'Muy alta': 'urgente',
+  'Alta': 'urgente',
+  'Normal': 'normal',
+};
+
+const FRECUENCIA_MAP: Record<string, string> = {
+  '1': 'anual',
+  '2': 'semestral',
+  '4': 'trimestral',
+  '12': 'mensual',
+  '24': 'quincenal',
+};
+
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const DEFAULT_DETALLES: SectorDetalles = {
   num_equipos: '1',
@@ -378,7 +447,7 @@ function buildMantenimientoTexto(
 }
 
 // ── Componente ────────────────────────────────────────────────────────────────
-export default function ScreenMantenimientoWizard({ onConfirm, onClose, showToast }: ScreenMantenimientoWizardProps) {
+export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, showToast }: ScreenMantenimientoWizardProps) {
   const [phase, setPhase]             = useState<Phase>('sector');
   const [sector, setSector]           = useState<typeof SECTORES[0] | null>(null);
   const [detalles, setDetalles]       = useState<SectorDetalles>(DEFAULT_DETALLES);
@@ -387,6 +456,7 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, showToas
   const [processing, setProcessing]   = useState(false);
   const [clausulas, setClausulas]     = useState<ClausulaItem[]>([]);
   const [selectedItems, setSelectedItems] = useState<Record<string, boolean>>({});
+  const [saving, setSaving]           = useState(false);
   const recognitionRef                = useRef<unknown>(null);
 
   const SpeechAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -442,33 +512,79 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, showToas
     setProcessing(true);
     try {
       const chips = Object.entries(selectedItems).filter(([, v]) => v).map(([k]) => k);
-      const equiposStr = chips.length > 0
-        ? `Equipos seleccionados para el contrato: ${chips.join(', ')}.${textInput.trim() ? ` ${textInput.trim()}` : ''}`
-        : textInput;
-      const contexto = buildMantenimientoTexto(sector, detalles, equiposStr);
-      const { data, error } = await supabase.functions.invoke('trade-voice-to-quote', {
-        body: { text: `[MANTENIMIENTO — ${sector.label}]\n${contexto}` },
+      const numVisitas = parseInt(detalles.visitas_anuales) || 2;
+      const items: ClausulaItem[] = [];
+      items.push({
+        descripcion: `Revisión preventiva — ${sector.label}`,
+        tipo: 'servicio',
+        cantidad: numVisitas,
+        unidad: 'visita',
+        precioUnitario: 150,
+        total: numVisitas * 150,
       });
-      if (error) throw new Error(String((error as any).message ?? error));
-      const raw = (data?.quote?.partidas ?? []) as Array<{
-        concepto: string; cantidad: number; unidad: string;
-        tipo_partida?: string; precio_unitario?: number; total?: number;
-      }>;
-      const items: ClausulaItem[] = raw.map(p => ({
-        descripcion: p.concepto ?? '',
-        tipo: (p.tipo_partida === 'mano_obra' ? 'mano_de_obra' : p.tipo_partida === 'material' ? 'material' : 'servicio') as ClausulaItem['tipo'],
-        cantidad: p.cantidad ?? 1,
-        unidad: p.unidad ?? 'ud',
-        precioUnitario: p.precio_unitario ?? 0,
-        total: p.total ?? 0,
+      chips.forEach(chip => items.push({
+        descripcion: chip,
+        tipo: 'servicio',
+        cantidad: numVisitas,
+        unidad: 'visita',
+        precioUnitario: 0,
+        total: 0,
       }));
+      items.push({ descripcion: 'Mano de obra correctiva', tipo: 'mano_de_obra', cantidad: 1, unidad: 'h', precioUnitario: 65, total: 65 });
+      items.push({ descripcion: 'Desplazamiento', tipo: 'servicio', cantidad: 1, unidad: 'visita', precioUnitario: 40, total: 40 });
+      if (detalles.cobertura === '24/7' || detalles.cobertura === '24/7/365') {
+        items.push({ descripcion: 'Guardia disponibilidad 24h', tipo: 'servicio', cantidad: 12, unidad: 'mes', precioUnitario: 150, total: 1800 });
+      }
+      if (detalles.incluye_piezas) {
+        items.push({ descripcion: 'Repuestos y materiales (estimación anual)', tipo: 'material', cantidad: 1, unidad: 'año', precioUnitario: 0, total: 0 });
+      }
       setClausulas(items);
       setPhase('resultado');
-      showToast(`${items.length} partidas de contrato generadas`, 'success');
-    } catch {
-      showToast('Error al generar el contrato. Inténtalo de nuevo.', 'error');
+      showToast(`${items.length} partidas generadas — ajusta los precios`, 'success');
     } finally {
       setProcessing(false);
+    }
+  }
+
+  async function handleSaveDirectly() {
+    if (!sector || !orgId) return;
+    setSaving(true);
+    try {
+      const chips = Object.entries(selectedItems).filter(([, v]) => v).map(([k]) => k);
+      const oficio = SECTOR_OFICIO_MAP[sector.label] ?? 'mantenimiento';
+      const sectorCode = SECTOR_CODE_MAP[sector.label] ?? 'industrial_general';
+      const slaLevel = CRITICIDAD_SLA_MAP[sector.criticidad] ?? 'normal';
+      const numVisitas = parseInt(detalles.visitas_anuales) || 2;
+      const cuotaAnual = clausulas.reduce((s, c) => s + c.precioUnitario * c.cantidad, 0);
+      const descripcionServicios = chips.length > 0
+        ? `Mantenimiento ${sector.label}. Equipos: ${chips.join(', ')}.${textInput.trim() ? ` ${textInput.trim()}` : ''}`
+        : `Mantenimiento ${sector.label}`;
+      await saveMaintenancePresupuesto(orgId, {
+        oficio,
+        sector: sectorCode,
+        sla_nivel: slaLevel,
+        cuota_mensual: cuotaAnual / 12,
+        cuota_anual: cuotaAnual,
+        tipo_facturacion: 'mensual',
+        iva_pct: 21,
+        incluye_preventivos: true,
+        num_visitas_preventivo: numVisitas,
+        incluye_guardia: detalles.cobertura !== '8/5',
+        materiales_incluidos: detalles.incluye_piezas,
+        duracion_meses: 12,
+        descripcion_servicios: descripcionServicios,
+        notas: detalles.notas_extra || null,
+        ia_json: { clausulas, detalles, sector: sector.label },
+        generado_por_ia: false,
+        estado: 'borrador',
+        fecha: new Date().toISOString().slice(0, 10),
+      });
+      showToast('Presupuesto de mantenimiento guardado', 'success');
+      onConfirm();
+    } catch (err) {
+      showToast(`Error al guardar: ${String(err)}`, 'error');
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -885,16 +1001,15 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, showToas
       {phase === 'resultado' && (
         <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
           <button
-            onClick={() => {
-              if (!sector) return;
-              const texto = buildMantenimientoTexto(sector, detalles, textInput);
-              onConfirm(texto, clausulas);
-            }}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer"
+            onClick={handleSaveDirectly}
+            disabled={saving}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer disabled:opacity-40"
             style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}
           >
-            <CheckCircle className="w-4 h-4" />
-            Crear contrato de mantenimiento
+            {saving
+              ? <><Loader2 className="w-4 h-4 animate-spin" /> Guardando…</>
+              : <><CheckCircle className="w-4 h-4" /> Guardar presupuesto de mantenimiento</>
+            }
           </button>
         </div>
       )}
