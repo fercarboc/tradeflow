@@ -768,7 +768,7 @@ export async function submitCatalogSuggestion(orgId: string, params: {
 
 export async function addClient(
   orgId: string,
-  client: Pick<TradeClient, 'nombre' | 'telefono' | 'email' | 'direccion'>,
+  client: Pick<TradeClient, 'nombre'> & Partial<Pick<TradeClient, 'telefono' | 'email' | 'direccion' | 'nif' | 'ciudad'>>,
 ): Promise<TradeClient> {
   const { data, error } = await supabase
     .from('trade_clients')
@@ -777,6 +777,16 @@ export async function addClient(
     .single();
   if (error) throw error;
   return data as TradeClient;
+}
+
+export async function loadClients(orgId: string): Promise<TradeClient[]> {
+  const { data, error } = await supabase
+    .from('trade_clients')
+    .select('*')
+    .eq('org_id', orgId)
+    .order('nombre');
+  if (error) throw error;
+  return (data ?? []) as TradeClient[];
 }
 
 export async function updateClient(
@@ -2687,12 +2697,15 @@ export async function convertPresupuestoToContrato(
   const cuotaMensual = presupuesto.cuota_mensual ?? 0;
   const ivaPct = presupuesto.iva_pct ?? 21;
 
-  // Load org data for professional contract variables
-  const { data: orgRow } = await supabase
-    .from('trade_organizations')
-    .select('nombre, nif, direccion, ciudad, email, telefono, logo_url, iban')
-    .eq('id', presupuesto.org_id)
-    .single();
+  // Load org data + client data in parallel
+  const [{ data: orgRow }, { data: clientRow }] = await Promise.all([
+    supabase.from('trade_organizations')
+      .select('nombre, nif, direccion, ciudad, email, telefono, logo_url, iban')
+      .eq('id', presupuesto.org_id).single(),
+    presupuesto.client_id
+      ? supabase.from('trade_clients').select('nif, email, telefono, nombre').eq('id', presupuesto.client_id).single()
+      : Promise.resolve({ data: null }),
+  ]);
 
   // Generate next TF-MANT reference
   const { data: existingContracts } = await supabase
@@ -2725,11 +2738,11 @@ export async function convertPresupuestoToContrato(
     telefono_empresa: orgRow?.telefono ?? '',
     email_empresa: orgRow?.email ?? '',
     logo_url: (orgRow as Record<string, unknown> | null)?.logo_url as string ?? '',
-    nombre_cliente: presupuesto.nombre_cliente ?? '',
-    cif_cliente: '',
+    nombre_cliente: presupuesto.nombre_cliente ?? (clientRow as Record<string, unknown> | null)?.nombre as string ?? '',
+    cif_cliente: (clientRow as Record<string, unknown> | null)?.nif as string ?? '',
     direccion_cliente: presupuesto.direccion_instalacion ?? '',
-    telefono_cliente: '',
-    email_cliente: '',
+    telefono_cliente: (clientRow as Record<string, unknown> | null)?.telefono as string ?? '',
+    email_cliente: (clientRow as Record<string, unknown> | null)?.email as string ?? '',
     representante_cliente: '[ Representante ]',
     cargo_representante: '[ Cargo ]',
     referencia,

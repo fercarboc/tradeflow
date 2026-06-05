@@ -1,9 +1,11 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   Mic, MicOff, X, Loader2, CheckCircle, Sparkles, ChevronLeft,
   ShieldCheck, Clock, Wrench, AlertTriangle, Plus, Trash2,
+  Search, UserPlus, Building2, User,
 } from 'lucide-react';
-import { saveMaintenancePresupuesto } from '../lib/supabase';
+import { saveMaintenancePresupuesto, loadClients, addClient } from '../lib/supabase';
+import type { TradeClient } from '../lib/supabase';
 
 // ── Sectores ──────────────────────────────────────────────────────────────────
 const SECTORES = [
@@ -53,7 +55,7 @@ interface ClausulaItem {
   total: number;
 }
 
-type Phase = 'sector' | 'detalles' | 'voz' | 'resultado';
+type Phase = 'cliente' | 'sector' | 'detalles' | 'voz' | 'resultado';
 
 export interface ScreenMantenimientoWizardProps {
   onConfirm: () => void;
@@ -448,7 +450,7 @@ function buildMantenimientoTexto(
 
 // ── Componente ────────────────────────────────────────────────────────────────
 export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, showToast }: ScreenMantenimientoWizardProps) {
-  const [phase, setPhase]             = useState<Phase>('sector');
+  const [phase, setPhase]             = useState<Phase>('cliente');
   const [sector, setSector]           = useState<typeof SECTORES[0] | null>(null);
   const [detalles, setDetalles]       = useState<SectorDetalles>(DEFAULT_DETALLES);
   const [textInput, setTextInput]     = useState('');
@@ -456,10 +458,56 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
   const [processing, setProcessing]   = useState(false);
   const [clausulas, setClausulas]     = useState<ClausulaItem[]>([]);
   const [selectedItems, setSelectedItems] = useState<Record<string, boolean>>({});
-  const [nombreCliente, setNombreCliente] = useState('');
-  const [direccionCliente, setDireccionCliente] = useState('');
   const [saving, setSaving]           = useState(false);
   const recognitionRef                = useRef<unknown>(null);
+
+  // ── Estado de cliente ─────────────────────────────────────────────────────
+  const [clientes, setClientes]               = useState<TradeClient[]>([]);
+  const [loadingClientes, setLoadingClientes] = useState(true);
+  const [searchCliente, setSearchCliente]     = useState('');
+  const [clienteId, setClienteId]             = useState<string | null>(null);
+  const [clienteNombre, setClienteNombre]     = useState('');
+  const [clienteCif, setClienteCif]           = useState('');
+  const [clienteTelefono, setClienteTelefono] = useState('');
+  const [clienteEmail, setClienteEmail]       = useState('');
+  const [clienteDireccion, setClienteDireccion] = useState('');
+  const [modoNuevo, setModoNuevo]             = useState(false);
+
+  useEffect(() => {
+    loadClients(orgId)
+      .then(cs => setClientes(cs))
+      .catch(() => {})
+      .finally(() => setLoadingClientes(false));
+  }, [orgId]);
+
+  function selectCliente(c: TradeClient) {
+    setClienteId(c.id);
+    setClienteNombre(c.nombre);
+    setClienteCif(c.nif ?? '');
+    setClienteTelefono(c.telefono ?? '');
+    setClienteEmail(c.email ?? '');
+    setClienteDireccion(c.direccion ?? '');
+    setModoNuevo(false);
+    setSearchCliente('');
+  }
+
+  function clearCliente() {
+    setClienteId(null);
+    setClienteNombre('');
+    setClienteCif('');
+    setClienteTelefono('');
+    setClienteEmail('');
+    setClienteDireccion('');
+    setModoNuevo(false);
+  }
+
+  const clientesFiltrados = searchCliente.trim()
+    ? clientes.filter(c =>
+        c.nombre.toLowerCase().includes(searchCliente.toLowerCase()) ||
+        (c.nif ?? '').toLowerCase().includes(searchCliente.toLowerCase()) ||
+        (c.email ?? '').toLowerCase().includes(searchCliente.toLowerCase()),
+      )
+    : clientes.slice(0, 8);
 
   const SpeechAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
 
@@ -552,6 +600,19 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
     if (!sector || !orgId) return;
     setSaving(true);
     try {
+      // Create new client in CRM if not existing
+      let finalClientId = clienteId;
+      if (!finalClientId && clienteNombre.trim()) {
+        const newClient = await addClient(orgId, {
+          nombre: clienteNombre.trim(),
+          nif: clienteCif.trim() || undefined,
+          telefono: clienteTelefono.trim() || undefined,
+          email: clienteEmail.trim() || undefined,
+          direccion: clienteDireccion.trim() || undefined,
+        });
+        finalClientId = newClient.id;
+      }
+
       const chips = Object.entries(selectedItems).filter(([, v]) => v).map(([k]) => k);
       const oficio = SECTOR_OFICIO_MAP[sector.label] ?? 'mantenimiento';
       const sectorCode = SECTOR_CODE_MAP[sector.label] ?? 'industrial_general';
@@ -562,10 +623,11 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
         ? `Mantenimiento ${sector.label}. Equipos: ${chips.join(', ')}.${textInput.trim() ? ` ${textInput.trim()}` : ''}`
         : `Mantenimiento ${sector.label}`;
       await saveMaintenancePresupuesto(orgId, {
+        client_id: finalClientId,
         oficio,
         sector: sectorCode,
-        nombre_cliente: nombreCliente.trim() || null,
-        direccion_instalacion: direccionCliente.trim() || null,
+        nombre_cliente: clienteNombre.trim() || null,
+        direccion_instalacion: clienteDireccion.trim() || null,
         sla_nivel: slaLevel,
         cuota_mensual: cuotaAnual / 12,
         cuota_anual: cuotaAnual,
@@ -590,13 +652,14 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
   }
 
   function handleBack() {
-    if (phase === 'detalles') { setPhase('sector'); return; }
-    if (phase === 'voz') { setPhase('detalles'); return; }
+    if (phase === 'sector')    { setPhase('cliente'); return; }
+    if (phase === 'detalles')  { setPhase('sector'); return; }
+    if (phase === 'voz')       { setPhase('detalles'); return; }
     if (phase === 'resultado') { setPhase('voz'); return; }
     onClose();
   }
 
-  const STEPS: Phase[] = ['sector', 'detalles', 'voz', 'resultado'];
+  const STEPS: Phase[] = ['cliente', 'sector', 'detalles', 'voz', 'resultado'];
   const stepIdx = STEPS.indexOf(phase);
 
   return (
@@ -627,6 +690,125 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
       </div>
 
       <div className="flex-1 overflow-y-auto overscroll-contain">
+
+        {/* ── FASE: CLIENTE ── */}
+        {phase === 'cliente' && (
+          <div className="px-4 py-5 space-y-4 pb-32">
+            <div className="text-center space-y-1.5">
+              <h2 className="text-lg font-bold text-white">¿Para qué cliente?</h2>
+              <p className="text-slate-400 text-sm">Selecciona un cliente existente o crea uno nuevo</p>
+            </div>
+
+            {/* Cliente seleccionado */}
+            {clienteId && (
+              <div className="bg-blue-600/15 border border-blue-500/30 rounded-2xl p-3.5 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-8 h-8 rounded-xl bg-blue-500/20 flex items-center justify-center shrink-0">
+                    <Building2 className="w-4 h-4 text-blue-400" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold text-white truncate">{clienteNombre}</p>
+                    {clienteCif && <p className="text-[10px] text-blue-400">{clienteCif}</p>}
+                    {clienteDireccion && <p className="text-[10px] text-slate-400 truncate">{clienteDireccion}</p>}
+                  </div>
+                </div>
+                <button onClick={clearCliente} className="p-1 rounded-lg text-slate-500 hover:text-red-400 cursor-pointer shrink-0">
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+
+            {/* Modo nuevo cliente expandido */}
+            {modoNuevo && !clienteId && (
+              <div className="bg-slate-900 border border-slate-700 rounded-2xl p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Nuevo cliente</p>
+                  <button onClick={() => setModoNuevo(false)} className="p-1 text-slate-600 hover:text-slate-300 cursor-pointer"><X className="w-3.5 h-3.5" /></button>
+                </div>
+                <div className="space-y-2">
+                  <div>
+                    <p className="text-[9px] text-slate-500 mb-1">Nombre / empresa <span className="text-red-400">*</span></p>
+                    <input type="text" value={clienteNombre} onChange={e => setClienteNombre(e.target.value)}
+                      placeholder="Empresa Ejemplo S.L." autoFocus
+                      className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <p className="text-[9px] text-slate-500 mb-1">CIF / NIF</p>
+                      <input type="text" value={clienteCif} onChange={e => setClienteCif(e.target.value)}
+                        placeholder="B-12345678"
+                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                    </div>
+                    <div>
+                      <p className="text-[9px] text-slate-500 mb-1">Teléfono</p>
+                      <input type="tel" value={clienteTelefono} onChange={e => setClienteTelefono(e.target.value)}
+                        placeholder="600 000 000"
+                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-[9px] text-slate-500 mb-1">Email</p>
+                    <input type="email" value={clienteEmail} onChange={e => setClienteEmail(e.target.value)}
+                      placeholder="contacto@empresa.com"
+                      className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                  </div>
+                  <div>
+                    <p className="text-[9px] text-slate-500 mb-1">Dirección de la instalación</p>
+                    <input type="text" value={clienteDireccion} onChange={e => setClienteDireccion(e.target.value)}
+                      placeholder="Calle Ejemplo 1, Madrid"
+                      className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Búsqueda y lista si no hay cliente ni modo nuevo */}
+            {!clienteId && !modoNuevo && (
+              <div className="space-y-3">
+                {/* Buscador */}
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <input
+                    type="text" value={searchCliente}
+                    onChange={e => setSearchCliente(e.target.value)}
+                    placeholder="Buscar cliente por nombre, CIF o email…"
+                    className="w-full bg-slate-900 border border-slate-700 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                  />
+                </div>
+
+                {loadingClientes ? (
+                  <div className="flex justify-center py-4"><Loader2 className="w-5 h-5 animate-spin text-slate-500" /></div>
+                ) : clientesFiltrados.length > 0 ? (
+                  <div className="space-y-1.5">
+                    {!searchCliente && <p className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">Clientes recientes</p>}
+                    {clientesFiltrados.map(c => (
+                      <button key={c.id} onClick={() => selectCliente(c)}
+                        className="w-full bg-slate-900 border border-slate-800 hover:border-blue-500/40 rounded-xl p-3 flex items-center gap-3 text-left cursor-pointer transition-colors">
+                        <div className="w-7 h-7 rounded-lg bg-slate-800 flex items-center justify-center shrink-0">
+                          <User className="w-3.5 h-3.5 text-slate-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-bold text-slate-200 truncate">{c.nombre}</p>
+                          <p className="text-[10px] text-slate-500 truncate">{[c.nif, c.email, c.direccion].filter(Boolean).join(' · ')}</p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-center text-slate-600 text-xs py-3">
+                    {searchCliente ? 'Sin resultados' : 'Sin clientes todavía'}
+                  </p>
+                )}
+
+                {/* Crear nuevo */}
+                <button onClick={() => setModoNuevo(true)}
+                  className="w-full py-3 rounded-2xl border border-dashed border-slate-700 hover:border-blue-500/50 text-slate-400 hover:text-blue-400 text-xs font-bold flex items-center justify-center gap-2 cursor-pointer transition-colors">
+                  <UserPlus className="w-4 h-4" /> Crear nuevo cliente
+                </button>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* ── FASE: SECTOR ── */}
         {phase === 'sector' && (
@@ -944,24 +1126,16 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
               </button>
             </div>
 
-            {/* Datos del cliente */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-2.5">
-              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Datos del cliente (opcional)</p>
-              <input
-                type="text"
-                value={nombreCliente}
-                onChange={e => setNombreCliente(e.target.value)}
-                placeholder="Nombre o empresa del cliente"
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
-              />
-              <input
-                type="text"
-                value={direccionCliente}
-                onChange={e => setDireccionCliente(e.target.value)}
-                placeholder="Dirección de la instalación"
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
-              />
-            </div>
+            {/* Resumen del cliente si está asignado */}
+            {clienteNombre && (
+              <div className="bg-blue-600/10 border border-blue-500/20 rounded-2xl p-3 flex items-center gap-2.5">
+                <Building2 className="w-4 h-4 text-blue-400 shrink-0" />
+                <div className="min-w-0">
+                  <p className="text-xs font-bold text-white truncate">{clienteNombre}</p>
+                  {clienteDireccion && <p className="text-[10px] text-slate-400 truncate">{clienteDireccion}</p>}
+                </div>
+              </div>
+            )}
 
             {/* Total */}
             <div className="bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 flex items-center justify-between">
@@ -980,6 +1154,27 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
           </div>
         )}
       </div>
+
+      {/* Footer: fase cliente */}
+      {phase === 'cliente' && (
+        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent space-y-2">
+          {(clienteId || (modoNuevo && clienteNombre.trim())) && (
+            <button
+              onClick={() => setPhase('sector')}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer"
+              style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}
+            >
+              Continuar →
+            </button>
+          )}
+          <button
+            onClick={() => setPhase('sector')}
+            className="w-full py-2.5 rounded-2xl text-slate-500 text-xs font-semibold cursor-pointer hover:text-slate-300 transition-colors"
+          >
+            Continuar sin asignar cliente
+          </button>
+        </div>
+      )}
 
       {/* Footer: continuar de detalles a voz */}
       {phase === 'detalles' && (
