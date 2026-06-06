@@ -6489,7 +6489,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     ) : panelInvoices.length === 0 ? (
                       <div className="py-10 text-center text-sm text-slate-400">Sin facturas todavía</div>
                     ) : (
-                      panelInvoices.map((inv, idx) => (
+                      panelInvoices.map((inv, idx) => {
+                        const fullFactura = facturas.find(f => f.numeroFactura === inv.numero);
+                        return (
                         <div key={idx} className="flex items-center gap-3 px-5 py-3.5 hover:bg-slate-50">
                           <div className={`w-2 h-2 rounded-full shrink-0 ${inv.estado === 'Pagada' ? 'bg-emerald-500' : inv.estado === 'Vencida' ? 'bg-red-500' : 'bg-amber-400'}`} />
                           <div className="flex-1 min-w-0">
@@ -6499,12 +6501,24 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                             </div>
                             {inv.concepto && <p className="text-xs text-slate-500 truncate mt-0.5">{inv.concepto}</p>}
                           </div>
-                          <div className="text-right shrink-0">
-                            <p className="text-sm font-bold text-slate-900 font-mono">{inv.total.toFixed(0)}€</p>
-                            <span className={`text-[9px] font-bold uppercase ${inv.estado === 'Pagada' ? 'text-emerald-600' : inv.estado === 'Vencida' ? 'text-red-600' : 'text-amber-600'}`}>{inv.estado}</span>
+                          <div className="flex items-center gap-3 shrink-0">
+                            <div className="text-right">
+                              <p className="text-sm font-bold text-slate-900 font-mono">{inv.total.toFixed(0)}€</p>
+                              <span className={`text-[9px] font-bold uppercase ${inv.estado === 'Pagada' ? 'text-emerald-600' : inv.estado === 'Vencida' ? 'text-red-600' : 'text-amber-600'}`}>{inv.estado}</span>
+                            </div>
+                            {fullFactura && (
+                              <button
+                                onClick={() => printInvoice(fullFactura)}
+                                className="flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-600 text-[10px] font-bold px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+                                title="Ver / Imprimir PDF"
+                              >
+                                <FileText className="w-3 h-3" /> PDF
+                              </button>
+                            )}
                           </div>
                         </div>
-                      ))
+                        );
+                      })
                     )}
                   </div>
                 )}
@@ -6518,8 +6532,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       panelQuotes.map(p => (
                         <div
                           key={p.id}
-                          onClick={p.estado !== 'Facturado' ? () => { setWizardQuote(p); setWizardStep(5); setWizardActive(true); setCrmPanelClientId(null); } : undefined}
-                          className={`flex items-center gap-3 px-5 py-3.5 hover:bg-slate-50 ${p.estado !== 'Facturado' ? 'cursor-pointer' : ''}`}
+                          onClick={() => { setSelectedQuoteForPreview(p as Presupuesto); setActiveTab('preview'); setCrmPanelClientId(null); }}
+                          className="flex items-center gap-3 px-5 py-3.5 hover:bg-slate-50 cursor-pointer"
                         >
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2 mb-0.5">
@@ -6535,7 +6549,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                           </div>
                           <div className="text-right shrink-0">
                             <p className="text-sm font-bold text-slate-900 font-mono">{(p.total * 1.21).toFixed(0)}€</p>
-                            {p.estado !== 'Facturado' && <span className="text-[9px] text-blue-500 font-bold">Ver →</span>}
+                            <span className="text-[9px] text-blue-500 font-bold">Ver →</span>
                           </div>
                         </div>
                       ))
