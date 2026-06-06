@@ -559,25 +559,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setIsMobileMode(initialMobile);
   }, [initialMobile]);
 
-  // Geocodificar la dirección base de la organización una sola vez
-  useEffect(() => {
-    if (!orgId || !orgData) return;
-    // Si ya tiene coordenadas en BD, usarlas directamente
-    if (orgData.base_latitud != null && orgData.base_longitud != null) {
-      setOrgBaseGeo({ lat: orgData.base_latitud, lng: orgData.base_longitud });
-      return;
-    }
-    const dir = orgData.direccion;
-    const ciu = (orgData as Record<string, unknown>).ciudad as string | undefined;
-    if (!dir && !ciu) return;
-    void geocodeAddress({ direccion: dir, localidad: ciu }).then(geo => {
-      if (!geo) return;
-      setOrgBaseGeo({ lat: geo.latitud, lng: geo.longitud });
-      void updateOrgGeocoords(orgId, geo.latitud, geo.longitud).catch(() => {});
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orgId]);
-
   // Tabs de navegación móvil
   const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'contratos'>('inicio');
   const [parteJob, setParteJob] = useState<import('../lib/supabase').TradeJob | null>(null);
@@ -869,6 +850,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [catalogProducts, setCatalogProducts] = useState<TradeCatalogProduct[]>([]);
   const [jobs, setJobs] = useState<TradeJob[]>([]);
   const [orgBaseGeo, setOrgBaseGeo] = useState<GeoLocation | null>(null);
+
+  // Geocodificar la dirección base de la organización una sola vez
+  useEffect(() => {
+    if (!orgId || !orgData) return;
+    if (orgData.base_latitud != null && orgData.base_longitud != null) {
+      setOrgBaseGeo({ lat: orgData.base_latitud, lng: orgData.base_longitud });
+      return;
+    }
+    const dir = orgData.direccion;
+    const ciu = (orgData as Record<string, unknown>).ciudad as string | undefined;
+    if (!dir && !ciu) return;
+    void geocodeAddress({ direccion: dir, localidad: ciu }).then(geo => {
+      if (!geo) return;
+      setOrgBaseGeo({ lat: geo.latitud, lng: geo.longitud });
+      void updateOrgGeocoords(orgId, geo.latitud, geo.longitud).catch(() => {});
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orgId]);
+
   const [showCatalogImport, setShowCatalogImport] = useState(false);
   const [showGlobalCatalog, setShowGlobalCatalog] = useState(false);
   const [catalogFilter, setCatalogFilter] = useState('');
