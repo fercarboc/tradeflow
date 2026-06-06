@@ -879,7 +879,7 @@ ${sector ? (getSectorClauseHTML(sector) ?? '') : ''}
     </tr>
     ${Array.from({length: 15}, (_, i) => `<tr style="height:28px"><td style="text-align:center;color:#999">${i+1}</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td style="text-align:center">☐</td></tr>`).join('')}
   </table>
-  <p style="margin-top:12px">Límite de coste para reparaciones correctivas incluidas sin presupuesto adicional: <strong>${esc(v.limite_correctivo)} EUR</strong> por actuación.</p>
+  <p style="margin-top:12px">El servicio de mantenimiento incluye los desplazamientos y la mano de obra necesarios para la realización de las actuaciones correctivas cubiertas por el presente contrato. Quedan expresamente excluidos los materiales, piezas, componentes y repuestos que resulten necesarios para la reparación o sustitución de elementos averiados, los cuales serán presupuestados y facturados por separado previa aprobación del cliente.</p>
   <p style="margin-top:8px;font-size:10px;color:#666">Firma de conformidad del inventario — Prestador: ___________________________ &nbsp;&nbsp; Cliente: ___________________________</p>
 </div>
 
