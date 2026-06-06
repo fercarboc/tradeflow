@@ -665,7 +665,9 @@ export default function ScreenPlanificacion({
 
   const openEdit = (job: TradeJob) => {
     setEditingJob(job);
-    setDraft({ ...job });
+    // Excluir campos de relación JOIN — no son columnas reales de trade_jobs
+    const { trade_clients: _tc, trade_job_workers: _tjw, ...draftFields } = job;
+    setDraft(draftFields);
     setSelectedWorkerIds(new Set(job.trade_job_workers?.map(jw => jw.worker_id) ?? []));
     setShowModal(true);
   };

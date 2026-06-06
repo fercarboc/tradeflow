@@ -1266,7 +1266,9 @@ export async function createJob(
 }
 
 export async function updateJob(id: string, updates: Partial<Omit<TradeJob, 'trade_clients' | 'trade_job_workers'>>): Promise<void> {
-  const { error } = await supabase.from('trade_jobs').update(updates).eq('id', id);
+  // Eliminar campos de relación JOIN antes de enviar a Supabase — no son columnas reales
+  const { trade_clients: _tc, trade_job_workers: _tjw, ...clean } = updates as Record<string, unknown>;
+  const { error } = await supabase.from('trade_jobs').update(clean).eq('id', id);
   if (error) throw error;
 }
 
