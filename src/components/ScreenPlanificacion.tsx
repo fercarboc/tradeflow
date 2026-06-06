@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Plus, ChevronLeft, ChevronRight, MapPin, User, Users,
   CheckCircle, Play, Trash2, Edit3, Navigation, CalendarDays,
   AlertTriangle, X, Check, Zap, FileText, Phone, Receipt,
+  Loader2,
 } from 'lucide-react';
 import type { TradeJob } from '../lib/supabase';
+import { geocodeAddress, addressChanged, type GeoStatus } from '../lib/geocoder';
 
 interface Worker { id: string; nombre: string; rol: string; activo: boolean; }
 interface Cliente { id: string; nombre: string; telefono: string; }
@@ -92,11 +94,13 @@ interface JobModalPanelProps {
   selectedWorkerIds: Set<string>;
   setSelectedWorkerIds: (updater: (prev: Set<string>) => Set<string>) => void;
   saving: boolean;
+  geoStatus: GeoStatus;
+  onGeolocate: () => void;
   onClose: () => void;
   onSave: () => void;
 }
 
-function JobModalPanel({ draft, setDraft, editingJob, clientes, workers, selectedWorkerIds, setSelectedWorkerIds, saving, onClose, onSave }: JobModalPanelProps) {
+function JobModalPanel({ draft, setDraft, editingJob, clientes, workers, selectedWorkerIds, setSelectedWorkerIds, saving, geoStatus, onGeolocate, onClose, onSave }: JobModalPanelProps) {
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="bg-white dark:bg-slate-900 rounded-2xl p-5 w-full max-w-lg shadow-2xl max-h-[90vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
@@ -185,6 +189,36 @@ function JobModalPanel({ draft, setDraft, editingJob, clientes, workers, selecte
                 className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500" />
             </div>
           </div>
+
+          {/* Badge de geolocalización */}
+          {(draft.direccion || draft.localidad || draft.cp) && (
+            <div className="flex items-center justify-between -mt-1">
+              <span className={`flex items-center gap-1.5 text-[10px] font-semibold ${
+                geoStatus === 'loading'   ? 'text-blue-500' :
+                geoStatus === 'ok'        ? 'text-emerald-600' :
+                geoStatus === 'not_found' ? 'text-amber-600' :
+                geoStatus === 'error'     ? 'text-red-600' :
+                'text-slate-400'
+              }`}>
+                {geoStatus === 'loading'   && <><Loader2 className="w-3 h-3 animate-spin" /> Geolocalizando…</>}
+                {geoStatus === 'ok'        && <><CheckCircle className="w-3 h-3" /> Geolocalizado</>}
+                {geoStatus === 'not_found' && <><AlertTriangle className="w-3 h-3" /> Dirección no encontrada</>}
+                {geoStatus === 'error'     && <><AlertTriangle className="w-3 h-3" /> Error al geolocalizar</>}
+                {geoStatus === 'idle'      && <><MapPin className="w-3 h-3" /> Sin geolocalizar</>}
+              </span>
+              {geoStatus !== 'loading' && geoStatus !== 'ok' && (
+                <button
+                  type="button"
+                  onClick={onGeolocate}
+                  className="text-[10px] font-bold text-blue-600 hover:text-blue-800 cursor-pointer flex items-center gap-1"
+                >
+                  <MapPin className="w-3 h-3" />
+                  {geoStatus === 'idle' ? 'Geolocalizar' : 'Reintentar'}
+                </button>
+              )}
+            </div>
+          )}
+
           {editingJob && (
             <div>
               <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1">Estado</label>
@@ -645,6 +679,13 @@ export default function ScreenPlanificacion({
   const [draft, setDraft]                         = useState<Partial<TradeJob>>(EMPTY_DRAFT());
   const [saving, setSaving]                       = useState(false);
   const [selectedWorkerIds, setSelectedWorkerIds] = useState<Set<string>>(new Set());
+  const [geoStatus, setGeoStatus]                 = useState<GeoStatus>('idle');
+
+  // Sincroniza el estado geo con el job que se está editando
+  useEffect(() => {
+    if (!showModal) return;
+    setGeoStatus(editingJob?.latitud != null ? 'ok' : 'idle');
+  }, [showModal, editingJob]);
 
   const dayJobs = jobs.filter(j => j.fecha_inicio === selectedDate);
 
@@ -672,12 +713,49 @@ export default function ScreenPlanificacion({
     setShowModal(true);
   };
 
+  const handleGeolocate = async () => {
+    if (!draft.direccion && !draft.localidad && !draft.cp) return;
+    setGeoStatus('loading');
+    try {
+      const geo = await geocodeAddress({ direccion: draft.direccion, localidad: draft.localidad, cp: draft.cp });
+      if (geo) {
+        setDraft(d => ({ ...d, latitud: geo.latitud, longitud: geo.longitud, direccion_normalizada: geo.formatted_address }));
+        setGeoStatus('ok');
+      } else {
+        setGeoStatus('not_found');
+      }
+    } catch {
+      setGeoStatus('error');
+    }
+  };
+
   const handleSave = async () => {
     if (!draft.titulo?.trim()) { showToast('El título es obligatorio', 'error'); return; }
     setSaving(true);
     try {
+      // Geocodificar si la dirección cambió o el trabajo aún no tiene coordenadas
+      const needsGeocode =
+        (draft.direccion || draft.localidad || draft.cp) &&
+        (draft.latitud == null || addressChanged(draft, editingJob));
+
+      let geoExtras: Partial<TradeJob> = {};
+      if (needsGeocode && isLiveMode) {
+        setGeoStatus('loading');
+        const geo = await geocodeAddress({ direccion: draft.direccion, localidad: draft.localidad, cp: draft.cp });
+        if (geo) {
+          geoExtras = { latitud: geo.latitud, longitud: geo.longitud, direccion_normalizada: geo.formatted_address };
+          setGeoStatus('ok');
+        } else {
+          setGeoStatus('not_found');
+          // Si la dirección cambió, borrar coords obsoletas
+          if (addressChanged(draft, editingJob)) geoExtras = { latitud: null, longitud: null, direccion_normalizada: null };
+        }
+      }
+
+      const finalDraft = { ...draft, ...geoExtras };
+
       if (editingJob) {
-        await onUpdateJob(editingJob.id, draft);
+        await onUpdateJob(editingJob.id, finalDraft);
         const prevIds  = new Set(editingJob.trade_job_workers?.map(jw => jw.worker_id) ?? []);
         const toAdd    = [...selectedWorkerIds].filter(id => !prevIds.has(id));
         const toRemove = [...prevIds].filter(id => !selectedWorkerIds.has(id));
@@ -687,7 +765,7 @@ export default function ScreenPlanificacion({
         ]);
         showToast('Trabajo actualizado ✓', 'success');
       } else {
-        const saved = await onCreateJob(draft as Omit<TradeJob, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_clients' | 'trade_job_workers'>);
+        const saved = await onCreateJob(finalDraft as Omit<TradeJob, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_clients' | 'trade_job_workers'>);
         await Promise.all([...selectedWorkerIds].map(id => onAssignWorker(saved.id, id, 'asignado')));
         showToast('Trabajo creado ✓', 'success');
       }
@@ -912,6 +990,8 @@ export default function ScreenPlanificacion({
           selectedWorkerIds={selectedWorkerIds}
           setSelectedWorkerIds={setSelectedWorkerIds}
           saving={saving}
+          geoStatus={geoStatus}
+          onGeolocate={() => { void handleGeolocate(); }}
           onClose={() => setShowModal(false)}
           onSave={handleSave}
         />

@@ -35,6 +35,8 @@ export interface TradeOrganization {
   iban?: string;
   banco?: string;
   titular_cuenta?: string;
+  base_latitud?: number | null;
+  base_longitud?: number | null;
   created_at: string;
   updated_at: string;
 }
@@ -908,6 +910,18 @@ export async function saveFiscalData(
   if (error) throw error;
 }
 
+export async function updateOrgGeocoords(
+  orgId: string,
+  lat: number,
+  lng: number,
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_organizations')
+    .update({ base_latitud: lat, base_longitud: lng })
+    .eq('id', orgId);
+  if (error) throw error;
+}
+
 // ── Catálogo de productos con variantes ───────────────────────────────────────
 
 export interface TradeCatalogProduct {
@@ -1222,6 +1236,7 @@ export interface TradeJob {
   completado_at?: string | null;
   notas_cierre?: string | null;
   orden_ruta?: number | null;
+  direccion_normalizada?: string | null;
   created_at: string;
   updated_at: string;
   trade_clients?: { nombre: string; telefono?: string | null } | null;

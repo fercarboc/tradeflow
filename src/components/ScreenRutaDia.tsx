@@ -234,15 +234,23 @@ export default function ScreenRutaDia({
           </div>
         </div>
 
-        {/* Aviso: trabajos sin coordenadas */}
+        {/* Aviso: trabajos sin coordenadas — solo si hay alguno */}
         {jobsWithoutCoords.length > 0 && (
           <div className="mt-2 flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2">
             <AlertTriangle className="w-3.5 h-3.5 text-amber-500 mt-0.5 shrink-0" />
             <p className="text-[11px] text-amber-700">
               <strong>{jobsWithoutCoords.length} trabajo{jobsWithoutCoords.length > 1 ? 's' : ''}</strong> sin
-              geolocalización:{' '}
-              {jobsWithoutCoords.map(j => j.titulo).join(', ')}.
-              La optimización los coloca al final. Añade lat/lng para mayor precisión.
+              geolocalizar: {jobsWithoutCoords.map(j => j.titulo).join(', ')}.{' '}
+              Edítalos en Planificación para que se geocodifiquen automáticamente.
+            </p>
+          </div>
+        )}
+        {/* Confirmación cuando todos están geolocalizados */}
+        {jobsWithoutCoords.length === 0 && routeJobs.length > 0 && (
+          <div className="mt-2 flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+            <p className="text-[11px] text-emerald-700 font-semibold">
+              Todos los trabajos están geolocalizados — la optimización usa distancias reales.
             </p>
           </div>
         )}
@@ -378,13 +386,22 @@ export default function ScreenRutaDia({
 
                       {/* Dirección */}
                       <div className="flex items-start gap-1.5">
-                        <MapPin className={`w-3 h-3 mt-0.5 shrink-0 ${hasCoords ? 'text-blue-400' : 'text-amber-400'}`} />
+                        <MapPin className={`w-3 h-3 mt-0.5 shrink-0 ${hasCoords ? 'text-emerald-500' : 'text-amber-400'}`} />
                         <p className="text-[11px] text-slate-500 leading-tight">
                           {addressLine(job)}
-                          {!hasCoords && (
-                            <span className="ml-1 text-amber-500 font-semibold">· Sin geolocalizar</span>
-                          )}
                         </p>
+                      </div>
+                      {/* Badge de geolocalización */}
+                      <div className="mt-1">
+                        {hasCoords ? (
+                          <span className="inline-flex items-center gap-1 text-[9px] font-bold text-emerald-600 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded-full">
+                            <CheckCircle2 className="w-2.5 h-2.5" /> Geolocalizado
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-[9px] font-bold text-amber-600 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded-full">
+                            <AlertTriangle className="w-2.5 h-2.5" /> Sin geolocalizar
+                          </span>
+                        )}
                       </div>
 
                       {/* Descripción breve */}

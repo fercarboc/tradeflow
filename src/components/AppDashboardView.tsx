@@ -62,7 +62,9 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords } from '../lib/supabase';
+import { geocodeAddress } from '../lib/geocoder';
+import type { GeoLocation } from '../lib/routeOptimizer';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription, TemplateType } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { usePermissions } from '../hooks/usePermissions';
@@ -557,6 +559,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     setIsMobileMode(initialMobile);
   }, [initialMobile]);
 
+  // Geocodificar la dirección base de la organización una sola vez
+  useEffect(() => {
+    if (!orgId || !orgData) return;
+    // Si ya tiene coordenadas en BD, usarlas directamente
+    if (orgData.base_latitud != null && orgData.base_longitud != null) {
+      setOrgBaseGeo({ lat: orgData.base_latitud, lng: orgData.base_longitud });
+      return;
+    }
+    const dir = orgData.direccion;
+    const ciu = (orgData as Record<string, unknown>).ciudad as string | undefined;
+    if (!dir && !ciu) return;
+    void geocodeAddress({ direccion: dir, localidad: ciu }).then(geo => {
+      if (!geo) return;
+      setOrgBaseGeo({ lat: geo.latitud, lng: geo.longitud });
+      void updateOrgGeocoords(orgId, geo.latitud, geo.longitud).catch(() => {});
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orgId]);
+
   // Tabs de navegación móvil
   const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'contratos'>('inicio');
   const [parteJob, setParteJob] = useState<import('../lib/supabase').TradeJob | null>(null);
@@ -847,6 +868,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   ]);
   const [catalogProducts, setCatalogProducts] = useState<TradeCatalogProduct[]>([]);
   const [jobs, setJobs] = useState<TradeJob[]>([]);
+  const [orgBaseGeo, setOrgBaseGeo] = useState<GeoLocation | null>(null);
   const [showCatalogImport, setShowCatalogImport] = useState(false);
   const [showGlobalCatalog, setShowGlobalCatalog] = useState(false);
   const [catalogFilter, setCatalogFilter] = useState('');
@@ -5075,7 +5097,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       return j.fecha_inicio === hoy || !j.fecha_inicio;
                     })}
                     orgId={orgId}
-                    startLocation={orgData?.direccion ? `${orgData.direccion}, ${(orgData as Record<string, unknown>).ciudad ?? ''}`.trim().replace(/,\s*$/, '') : 'Oficina'}
+                    startLocation={
+                      orgBaseGeo ??
+                      (orgData?.direccion
+                        ? `${orgData.direccion}${(orgData as Record<string, unknown>).ciudad ? `, ${(orgData as Record<string, unknown>).ciudad}` : ''}`.trim()
+                        : 'Oficina')
+                    }
                     horaInicio="08:00"
                     onUpdateJob={async (id, updates) => {
                       await updateJob(id, updates);
