@@ -603,6 +603,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // CRM Mobile detail active
   const [expandedClientMobileId, setExpandedClientMobileId] = useState<string | null>(null);
+  const [crmClientInvoices, setCrmClientInvoices] = useState<Record<string, { numero: string; fecha: string; total: number; estado: string; concepto?: string | null }[]>>({});
 
   // Mobile filters
   const [presupuestoFilter, setPresupuestoFilter] = useState<'all' | 'month'>('month');
@@ -3860,6 +3861,42 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
           </div>
 
+          {/* Facturas */}
+          {(() => {
+            const invoices = crmClientInvoices[selectedCliente.id];
+            if (invoices === undefined) return null;
+            return (
+              <>
+                <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">
+                  Facturas ({invoices.length}):
+                </span>
+                {invoices.length === 0 ? (
+                  <div className="text-center py-4 text-slate-400 text-xs">Sin facturas</div>
+                ) : (
+                  <div className="space-y-2">
+                    {invoices.map((inv, idx) => (
+                      <div key={idx} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-3 flex items-center justify-between gap-2">
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded-full border ${
+                              inv.estado === 'Pagada'  ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30' :
+                              inv.estado === 'Vencida' ? 'bg-red-500/10 text-red-500 border-red-500/30' :
+                                                         'bg-amber-500/10 text-amber-500 border-amber-500/30'
+                            }`}>{inv.estado}</span>
+                            <span className="text-[9px] text-slate-400 font-mono">{inv.fecha}</span>
+                          </div>
+                          <span className="text-[11px] text-slate-800 dark:text-slate-200 font-bold block">{inv.numero}</span>
+                          {inv.concepto && <span className="text-[10px] text-slate-500 block truncate">{inv.concepto}</span>}
+                        </div>
+                        <span className="text-sm font-mono font-bold text-slate-900 dark:text-white shrink-0">{inv.total.toFixed(0)}€</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            );
+          })()}
+
           {/* Presupuestos */}
           <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">
             Presupuestos ({clientQuotes.length}):
@@ -3936,7 +3973,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             return (
               <div
                 key={c.id}
-                onClick={() => setMobileClienteId(c.id)}
+                onClick={() => {
+                  setMobileClienteId(c.id);
+                  if (!crmClientInvoices[c.id] && isLiveMode && orgId) {
+                    supabase
+                      .from('trade_invoices')
+                      .select('numero, fecha, total, estado, concepto')
+                      .eq('org_id', orgId)
+                      .eq('client_id', c.id)
+                      .order('fecha', { ascending: false })
+                      .limit(20)
+                      .then(({ data }) => setCrmClientInvoices(prev => ({ ...prev, [c.id]: data ?? [] })));
+                  }
+                }}
                 className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-4 flex items-center justify-between cursor-pointer active:scale-[0.98] transition-transform"
               >
                 <div className="min-w-0 flex-1">
@@ -6248,11 +6297,32 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {filteredClientes.map(c => {
             const isExpanded = expandedClientMobileId === c.id;
             const clientQuotes = presupuestos.filter(p => p.nombreCliente === c.nombre);
+            const clientJobs = jobs.filter(j => j.client_id === c.id);
+            const clientInvoices = crmClientInvoices[c.id] ?? null;
+
+            const handleExpandClient = (e: React.MouseEvent) => {
+              e.stopPropagation();
+              const newExpanded = isExpanded ? null : c.id;
+              setExpandedClientMobileId(newExpanded);
+              if (newExpanded && !crmClientInvoices[c.id] && isLiveMode && orgId) {
+                supabase
+                  .from('trade_invoices')
+                  .select('numero, fecha, total, estado, concepto')
+                  .eq('org_id', orgId)
+                  .eq('client_id', c.id)
+                  .order('fecha', { ascending: false })
+                  .limit(20)
+                  .then(({ data }) => {
+                    setCrmClientInvoices(prev => ({ ...prev, [c.id]: data ?? [] }));
+                  });
+              }
+            };
+
             return (
             <div
               key={c.id}
               className="bg-white border border-slate-200 p-4 rounded-xl space-y-2 cursor-pointer hover:border-blue-300 transition-colors"
-              onClick={() => setExpandedClientMobileId(isExpanded ? null : c.id)}
+              onClick={handleExpandClient}
             >
               <div className="flex justify-between items-start gap-2">
                 <h4 className="font-bold text-xs text-slate-900 uppercase tracking-wide truncate">{c.nombre}</h4>
@@ -6279,8 +6349,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </div>
               <div className="flex gap-4 pt-2 border-t border-slate-100">
                 <div>
-                  <span className="text-[9px] text-slate-400 uppercase font-mono block">Obras activas</span>
-                  <span className="text-xs font-bold text-slate-800">{c.obrasActivas}</span>
+                  <span className="text-[9px] text-slate-400 uppercase font-mono block">Trabajos</span>
+                  <span className="text-xs font-bold text-slate-800">{clientJobs.length}</span>
                 </div>
                 <div>
                   <span className="text-[9px] text-slate-400 uppercase font-mono block">Total facturado</span>
@@ -6290,32 +6360,85 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <span className="text-[9px] text-slate-400 uppercase font-mono block">Presupuestos</span>
                   <span className="text-xs font-bold text-slate-800">{clientQuotes.length}</span>
                 </div>
+                <div>
+                  <span className="text-[9px] text-slate-400 uppercase font-mono block">Facturas</span>
+                  <span className="text-xs font-bold text-slate-800">{clientInvoices?.length ?? '…'}</span>
+                </div>
               </div>
 
-              {/* Detalle expandido: presupuestos del cliente */}
+              {/* Detalle expandido */}
               {isExpanded && (
-                <div className="mt-1 pt-3 border-t border-slate-100 space-y-1.5" onClick={e => e.stopPropagation()}>
-                  <p className="text-[9px] font-bold uppercase font-mono text-slate-400 mb-2">Presupuestos enviados</p>
-                  {clientQuotes.length === 0 ? (
-                    <p className="text-[10px] text-slate-400 italic">Sin presupuestos todavía.</p>
-                  ) : (
-                    clientQuotes.map(p => (
-                      <div key={p.id} className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2 gap-2">
-                        <div className="min-w-0">
-                          <span className="text-[10px] font-bold text-slate-700 font-mono">{p.id}</span>
-                          {p.descripcion && <span className="ml-1.5 text-[9px] text-slate-400 truncate">{p.descripcion.slice(0, 40)}{p.descripcion.length > 40 ? '…' : ''}</span>}
+                <div className="mt-1 pt-3 border-t border-slate-100 space-y-4" onClick={e => e.stopPropagation()}>
+
+                  {/* Facturas */}
+                  <div className="space-y-1.5">
+                    <p className="text-[9px] font-bold uppercase font-mono text-slate-400">Facturas</p>
+                    {clientInvoices === null ? (
+                      <p className="text-[10px] text-slate-400">Cargando…</p>
+                    ) : clientInvoices.length === 0 ? (
+                      <p className="text-[10px] text-slate-400 italic">Sin facturas todavía.</p>
+                    ) : (
+                      clientInvoices.map((inv, idx) => (
+                        <div key={idx} className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2 gap-2">
+                          <div className="min-w-0 flex-1">
+                            <span className="text-[10px] font-bold text-slate-700 font-mono">{inv.numero}</span>
+                            {inv.concepto && <span className="ml-1.5 text-[9px] text-slate-400 truncate block">{inv.concepto.slice(0, 50)}{inv.concepto.length > 50 ? '…' : ''}</span>}
+                            <span className="text-[9px] text-slate-400">{inv.fecha}</span>
+                          </div>
+                          <div className="flex items-center gap-2 shrink-0">
+                            <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${
+                              inv.estado === 'Pagada'   ? 'bg-emerald-100 text-emerald-700' :
+                              inv.estado === 'Vencida'  ? 'bg-red-100 text-red-700' :
+                                                          'bg-amber-100 text-amber-700'
+                            }`}>{inv.estado}</span>
+                            <span className="text-[10px] font-mono font-bold text-slate-800">{inv.total.toFixed(0)}€</span>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-2 shrink-0">
-                          <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${
-                            p.estado === 'Aceptado'  ? 'bg-emerald-100 text-emerald-700' :
-                            p.estado === 'Facturado' ? 'bg-blue-100 text-blue-700' :
-                            p.estado === 'Enviado'   ? 'bg-amber-100 text-amber-700' :
-                                                       'bg-slate-100 text-slate-500'
-                          }`}>{p.estado}</span>
-                          <span className="text-[10px] font-mono font-bold text-slate-800">{p.total.toFixed(0)}€</span>
+                      ))
+                    )}
+                  </div>
+
+                  {/* Presupuestos */}
+                  <div className="space-y-1.5">
+                    <p className="text-[9px] font-bold uppercase font-mono text-slate-400">Presupuestos</p>
+                    {clientQuotes.length === 0 ? (
+                      <p className="text-[10px] text-slate-400 italic">Sin presupuestos todavía.</p>
+                    ) : (
+                      clientQuotes.map(p => (
+                        <div key={p.id} className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2 gap-2">
+                          <div className="min-w-0">
+                            <span className="text-[10px] font-bold text-slate-700 font-mono">{p.id}</span>
+                            {p.descripcion && <span className="ml-1.5 text-[9px] text-slate-400 truncate">{p.descripcion.slice(0, 40)}{p.descripcion.length > 40 ? '…' : ''}</span>}
+                          </div>
+                          <div className="flex items-center gap-2 shrink-0">
+                            <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${
+                              p.estado === 'Aceptado'  ? 'bg-emerald-100 text-emerald-700' :
+                              p.estado === 'Facturado' ? 'bg-blue-100 text-blue-700' :
+                              p.estado === 'Enviado'   ? 'bg-amber-100 text-amber-700' :
+                                                         'bg-slate-100 text-slate-500'
+                            }`}>{p.estado}</span>
+                            <span className="text-[10px] font-mono font-bold text-slate-800">{p.total.toFixed(0)}€</span>
+                          </div>
                         </div>
-                      </div>
-                    ))
+                      ))
+                    )}
+                  </div>
+
+                  {/* Trabajos recientes */}
+                  {clientJobs.length > 0 && (
+                    <div className="space-y-1.5">
+                      <p className="text-[9px] font-bold uppercase font-mono text-slate-400">Trabajos ({clientJobs.length})</p>
+                      {clientJobs.slice(0, 5).map(j => (
+                        <div key={j.id} className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2 gap-2">
+                          <p className="text-[10px] text-slate-700 truncate flex-1">{j.titulo}</p>
+                          <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded shrink-0 ${
+                            j.estado === 'completado' ? 'bg-emerald-100 text-emerald-700' :
+                            j.estado === 'en_curso'   ? 'bg-blue-100 text-blue-700' :
+                                                        'bg-slate-100 text-slate-500'
+                          }`}>{j.estado}</span>
+                        </div>
+                      ))}
+                    </div>
                   )}
                 </div>
               )}

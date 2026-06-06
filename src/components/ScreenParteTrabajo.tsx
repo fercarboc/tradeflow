@@ -94,6 +94,12 @@ export default function ScreenParteTrabajo({
   const [invoicePaid, setInvoicePaid] = useState<boolean | null>(null);
   const [horaFin, setHoraFin] = useState('');
   const [supplementReason, setSupplementReason] = useState('');
+  const [editingPriceId, setEditingPriceId] = useState<string | null>(null);
+  const [editingPriceVal, setEditingPriceVal] = useState('');
+  const [showCustomLine, setShowCustomLine] = useState(false);
+  const [customLineDesc, setCustomLineDesc] = useState('');
+  const [customLinePrice, setCustomLinePrice] = useState('');
+  const [customLineCant, setCustomLineCant] = useState('1');
 
   // IA voice
   const [recording, setRecording] = useState<RecordingState>('idle');
@@ -227,6 +233,36 @@ export default function ScreenParteTrabajo({
     );
   }
 
+  function startEditPrice(m: MaterialItem) {
+    setEditingPriceId(m.id);
+    setEditingPriceVal(m.precioBase.toFixed(2));
+  }
+
+  function commitEditPrice(id: string) {
+    const newPrice = parseFloat(editingPriceVal.replace(',', '.'));
+    if (!isNaN(newPrice) && newPrice >= 0) {
+      setMateriales(prev => prev.map(m => m.id === id ? { ...m, precioBase: newPrice } : m));
+    }
+    setEditingPriceId(null);
+  }
+
+  function addCustomLine() {
+    const price = parseFloat(customLinePrice.replace(',', '.'));
+    const cant = parseInt(customLineCant) || 1;
+    if (!customLineDesc.trim() || isNaN(price) || price < 0) return;
+    setMateriales(prev => [...prev, {
+      id: `custom-${Date.now()}`,
+      codigo: '',
+      descripcion: customLineDesc.trim(),
+      precioBase: price,
+      cantidad: cant,
+    }]);
+    setCustomLineDesc('');
+    setCustomLinePrice('');
+    setCustomLineCant('1');
+    setShowCustomLine(false);
+  }
+
   // ── Photos ─────────────────────────────────────────────────────────────────
   async function handlePhotoUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -265,9 +301,12 @@ export default function ScreenParteTrabajo({
   async function handleGenerarFactura(materialesList: MaterialItem[], isSupp = false) {
     setPhase('generating');
     try {
+      const matDesc = materialesList.length > 0
+        ? ' — ' + materialesList.map(m => `${m.descripcion}${m.cantidad > 1 ? ` ×${m.cantidad}` : ''}`).join(', ')
+        : '';
       const concepto = isSupp
-        ? `Material olvidado — ${job.titulo}${supplementReason ? ` (${supplementReason})` : ''}`
-        : `Trabajo: ${job.titulo}`;
+        ? `Material olvidado — ${job.titulo}${supplementReason ? ` (${supplementReason})` : ''}${matDesc}`
+        : `${job.titulo}${matDesc}`;
       const inv = await createInvoiceFromJob(orgId, job.id, job.client_id, materialesList, {
         concepto,
         esSuplementaria: isSupp,
@@ -681,7 +720,29 @@ export default function ScreenParteTrabajo({
                   <div key={i} className={`flex items-center gap-3 px-4 py-3 ${i < materialesNormales.length - 1 ? 'border-b border-slate-800' : ''}`}>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold text-white truncate">{m.descripcion}</p>
-                      <p className="text-[10px] text-slate-500">{m.precioBase.toFixed(0)} € × {m.cantidad} = <span className="text-blue-400 font-bold">{fmtEur(m.precioBase * m.cantidad)}</span></p>
+                      <div className="flex items-center gap-1 flex-wrap">
+                        {mode === 'edit' && editingPriceId === m.id ? (
+                          <input
+                            type="number"
+                            step="0.01"
+                            value={editingPriceVal}
+                            onChange={e => setEditingPriceVal(e.target.value)}
+                            onBlur={() => commitEditPrice(m.id)}
+                            onKeyDown={e => e.key === 'Enter' && commitEditPrice(m.id)}
+                            autoFocus
+                            className="w-20 bg-slate-800 border border-blue-500 rounded px-2 py-0.5 text-xs text-white"
+                          />
+                        ) : (
+                          <button
+                            onClick={mode === 'edit' ? () => startEditPrice(m) : undefined}
+                            className={`text-[10px] ${mode === 'edit' ? 'text-blue-400 underline decoration-dotted cursor-pointer' : 'text-slate-500'}`}
+                          >
+                            {m.precioBase.toFixed(2)} €
+                          </button>
+                        )}
+                        <span className="text-[10px] text-slate-500">× {m.cantidad} = </span>
+                        <span className="text-[10px] text-blue-400 font-bold">{fmtEur(m.precioBase * m.cantidad)}</span>
+                      </div>
                     </div>
                     {mode === 'edit' && (
                       <div className="flex items-center gap-2 shrink-0">
@@ -694,6 +755,63 @@ export default function ScreenParteTrabajo({
                   </div>
                 ))}
               </div>
+            )}
+
+            {/* Añadir línea personalizada (mano de obra, desplazamiento…) */}
+            {mode === 'edit' && (
+              showCustomLine ? (
+                <div className="bg-slate-900 border border-blue-500/30 rounded-xl px-4 py-3 space-y-2.5">
+                  <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Línea personalizada</p>
+                  <input
+                    placeholder="Descripción (mano de obra, desplazamiento…)"
+                    value={customLineDesc}
+                    onChange={e => setCustomLineDesc(e.target.value)}
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+                  />
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      placeholder="Precio unit. (€)"
+                      value={customLinePrice}
+                      onChange={e => setCustomLinePrice(e.target.value)}
+                      className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+                    />
+                    <input
+                      type="number"
+                      min="1"
+                      placeholder="Cant."
+                      value={customLineCant}
+                      onChange={e => setCustomLineCant(e.target.value)}
+                      className="w-20 bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={addCustomLine}
+                      disabled={!customLineDesc.trim() || !customLinePrice}
+                      className="flex-1 bg-blue-600 active:bg-blue-700 disabled:opacity-40 text-white font-bold text-sm py-2.5 rounded-xl cursor-pointer"
+                    >
+                      Añadir
+                    </button>
+                    <button
+                      onClick={() => setShowCustomLine(false)}
+                      className="px-5 bg-slate-800 active:bg-slate-700 text-slate-300 font-bold text-sm py-2.5 rounded-xl cursor-pointer"
+                    >
+                      Cancelar
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setShowCustomLine(true)}
+                  className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-slate-700 active:border-blue-500 text-slate-500 active:text-blue-400 text-sm font-semibold py-3 rounded-xl cursor-pointer transition-colors"
+                >
+                  <Plus className="w-4 h-4" />
+                  Mano de obra / línea personalizada
+                </button>
+              )
             )}
 
             {/* Materiales post-cierre (mantenimiento) */}

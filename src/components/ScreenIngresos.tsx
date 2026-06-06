@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { TrendingUp } from 'lucide-react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { TrendingUp, RefreshCw } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import type { TradeClient, TradeQuote } from '../lib/supabase';
 import { useSession } from '../context/SessionContext';
@@ -45,8 +45,9 @@ export default function ScreenIngresos({ showToast }: Props) {
   const [clientes, setClientes] = useState<Pick<TradeClient, 'id' | 'nombre' | 'total_facturado'>[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchData = useCallback(() => {
     if (!org) return;
+    setLoading(true);
     Promise.all([
       supabase
         .from('trade_invoices')
@@ -73,6 +74,8 @@ export default function ScreenIngresos({ showToast }: Props) {
       .catch(() => showToast('Error cargando datos de ingresos', 'error'))
       .finally(() => setLoading(false));
   }, [org]);
+
+  useEffect(() => { fetchData(); }, [fetchData]);
 
   const start = periodStart(period);
   const filtered = invoices.filter(i => !start || new Date(i.fecha) >= start);
@@ -114,8 +117,11 @@ export default function ScreenIngresos({ showToast }: Props) {
 
       {/* Cabecera + filtro de período */}
       <div className="flex items-center justify-between flex-wrap gap-3">
-        <div>
+        <div className="flex items-center gap-3">
           <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Rentabilidad y facturación de tu negocio</p>
+          <button onClick={fetchData} disabled={loading} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer disabled:opacity-50" title="Actualizar datos">
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+          </button>
         </div>
         <div className="flex bg-slate-100 rounded-lg p-1 gap-1">
           {PERIODS.map(p => (
