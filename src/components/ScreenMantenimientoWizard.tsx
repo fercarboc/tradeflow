@@ -471,6 +471,9 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
   const [clienteTelefono, setClienteTelefono] = useState('');
   const [clienteEmail, setClienteEmail]       = useState('');
   const [clienteDireccion, setClienteDireccion] = useState('');
+  const [clienteCiudad, setClienteCiudad]       = useState('');
+  const [clienteRepresentante, setClienteRepresentante] = useState('');
+  const [clienteCargo, setClienteCargo]         = useState('');
   const [modoNuevo, setModoNuevo]             = useState(false);
 
   useEffect(() => {
@@ -487,6 +490,7 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
     setClienteTelefono(c.telefono ?? '');
     setClienteEmail(c.email ?? '');
     setClienteDireccion(c.direccion ?? '');
+    setClienteCiudad(c.ciudad ?? '');
     setModoNuevo(false);
     setSearchCliente('');
   }
@@ -498,6 +502,9 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
     setClienteTelefono('');
     setClienteEmail('');
     setClienteDireccion('');
+    setClienteCiudad('');
+    setClienteRepresentante('');
+    setClienteCargo('');
     setModoNuevo(false);
   }
 
@@ -609,6 +616,7 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
           telefono: clienteTelefono.trim() || undefined,
           email: clienteEmail.trim() || undefined,
           direccion: clienteDireccion.trim() || undefined,
+          ciudad: clienteCiudad.trim() || undefined,
         });
         finalClientId = newClient.id;
       }
@@ -638,7 +646,7 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
         materiales_incluidos: detalles.incluye_piezas,
         descripcion_servicios: descripcionServicios,
         notas: detalles.notas_extra || null,
-        ia_json: { clausulas, detalles, sector: sector.label },
+        ia_json: { clausulas, detalles, sector: sector.label, representante_cliente: clienteRepresentante.trim() || null, cargo_representante: clienteCargo.trim() || null, ciudad_cliente: clienteCiudad.trim() || null },
         generado_por_ia: false,
         estado: 'borrador',
       });
@@ -752,11 +760,33 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
                       placeholder="contacto@empresa.com"
                       className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
                   </div>
-                  <div>
-                    <p className="text-[9px] text-slate-500 mb-1">Dirección de la instalación</p>
-                    <input type="text" value={clienteDireccion} onChange={e => setClienteDireccion(e.target.value)}
-                      placeholder="Calle Ejemplo 1, Madrid"
-                      className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <p className="text-[9px] text-slate-500 mb-1">Dirección de la instalación</p>
+                      <input type="text" value={clienteDireccion} onChange={e => setClienteDireccion(e.target.value)}
+                        placeholder="Calle Ejemplo 1"
+                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                    </div>
+                    <div>
+                      <p className="text-[9px] text-slate-500 mb-1">Ciudad</p>
+                      <input type="text" value={clienteCiudad} onChange={e => setClienteCiudad(e.target.value)}
+                        placeholder="Madrid"
+                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <p className="text-[9px] text-slate-500 mb-1">Representante</p>
+                      <input type="text" value={clienteRepresentante} onChange={e => setClienteRepresentante(e.target.value)}
+                        placeholder="Juan García"
+                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                    </div>
+                    <div>
+                      <p className="text-[9px] text-slate-500 mb-1">Cargo</p>
+                      <input type="text" value={clienteCargo} onChange={e => setClienteCargo(e.target.value)}
+                        placeholder="Gerente"
+                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                    </div>
                   </div>
                 </div>
               </div>

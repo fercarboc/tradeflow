@@ -475,7 +475,7 @@ export async function downloadContractAsDocx(vars: ContractVars, oficio: string,
           },
         }),
         cGap(80),
-        cPara(`Límite de coste para reparaciones correctivas incluidas sin presupuesto adicional: ${vars.limite_correctivo} EUR por actuación.`),
+        cPara(`El servicio de mantenimiento incluye los desplazamientos y la mano de obra necesarios para la realización de las actuaciones correctivas cubiertas por el presente contrato. Quedan expresamente excluidos los materiales, piezas, componentes y repuestos que resulten necesarios para la reparación o sustitución de elementos averiados, los cuales serán presupuestados y facturados por separado previa aprobación del cliente.`),
 
         // ══ ANEXO II ═════════════════════════════════════════════════════════
         cGap(300),
