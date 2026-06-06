@@ -40,6 +40,8 @@ export interface ScreenPlanificacionProps {
   onRemoveWorker: (jobId: string, workerId: string) => Promise<void>;
   onOpenParte?: (job: TradeJob) => void;
   onCreatePresupuesto?: (job: TradeJob) => void;
+  /** Abre la pantalla de Ruta del Día para la fecha seleccionada. */
+  onViewRoute?: (fecha: string) => void;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
 }
 
@@ -630,7 +632,7 @@ export default function ScreenPlanificacion({
   presupuestosAceptados = [],
   presupuestosPorId = {},
   onCreateJob, onUpdateJob, onDeleteJob, onAssignWorker, onRemoveWorker,
-  onOpenParte, onCreatePresupuesto, showToast,
+  onOpenParte, onCreatePresupuesto, onViewRoute, showToast,
 }: ScreenPlanificacionProps) {
   const jobs  = isLiveMode ? propJobs : DEMO_JOBS;
   const today = new Date().toISOString().split('T')[0];
@@ -759,6 +761,14 @@ export default function ScreenPlanificacion({
               </button>
             );
           })}
+          {onViewRoute && dayJobs.length > 0 && (
+            <button
+              onClick={() => onViewRoute(selectedDate)}
+              className="ml-auto shrink-0 flex items-center gap-1 bg-emerald-600 hover:bg-emerald-700 text-white text-[9px] font-bold uppercase px-2.5 py-1 rounded-full cursor-pointer transition-colors"
+            >
+              <Navigation className="w-3 h-3" /> Ver ruta
+            </button>
+          )}
           <button
             onClick={() => {
               setEditingJob(null);
@@ -766,7 +776,7 @@ export default function ScreenPlanificacion({
               setSelectedWorkerIds(new Set());
               setShowModal(true);
             }}
-            className="ml-auto shrink-0 flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white text-[9px] font-bold uppercase px-2.5 py-1 rounded-full cursor-pointer transition-colors"
+            className={`${!onViewRoute || dayJobs.length === 0 ? 'ml-auto' : ''} shrink-0 flex items-center gap-1 bg-red-600 hover:bg-red-700 text-white text-[9px] font-bold uppercase px-2.5 py-1 rounded-full cursor-pointer transition-colors`}
           >
             <Zap className="w-3 h-3" /> Urgente
           </button>

@@ -1221,6 +1221,7 @@ export interface TradeJob {
   completado_por?: string | null;
   completado_at?: string | null;
   notas_cierre?: string | null;
+  orden_ruta?: number | null;
   created_at: string;
   updated_at: string;
   trade_clients?: { nombre: string; telefono?: string | null } | null;

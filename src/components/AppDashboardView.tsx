@@ -56,6 +56,8 @@ import {
   BarChart2,
   Wrench,
   Filter,
+  Navigation,
+  Route,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -69,6 +71,7 @@ import CatalogImportModal from './CatalogImportModal';
 import GlobalCatalogModal from './GlobalCatalogModal';
 import { generateExportWorkbook, generateTemplateWorkbook, downloadWorkbook } from '../lib/catalogExcel';
 import ScreenPlanificacion from './ScreenPlanificacion';
+import ScreenRutaDia from './ScreenRutaDia';
 import ScreenParteTrabajo from './ScreenParteTrabajo';
 import ScreenPresupuestoFoto from './ScreenPresupuestoFoto';
 import ScreenPresupuestoIncremental from './ScreenPresupuestoIncremental';
@@ -4852,6 +4855,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <FileText className="w-4 h-4" />, label: 'Facturación' })}
             {can('catalog.manage') && SidebarBtn({ id: 'catalog', icon: <Package className="w-4 h-4" />, label: 'Catálogo' })}
             {can('jobs.view') && SidebarBtn({ id: 'planificacion', icon: <Calendar className="w-4 h-4" />, label: 'Planificación' })}
+            {can('jobs.view') && SidebarBtn({ id: 'ruta_dia', icon: <Navigation className="w-4 h-4" />, label: 'Ruta del Día' })}
             {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos' })}
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
@@ -4927,6 +4931,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'invoices' && 'Facturación'}
                 {activeTab === 'catalog' && 'Catálogo de Productos'}
                 {activeTab === 'planificacion' && 'Planificación de Trabajos'}
+                {activeTab === 'ruta_dia' && 'Ruta del Día'}
                 {activeTab === 'ingresos' && 'Ingresos y Rentabilidad'}
                 {activeTab === 'equipo' && 'Equipo y Permisos'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
@@ -5059,7 +5064,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       await removeWorkerFromJob(jobId, workerId);
                       await loadJobs(orgId!).then(setJobs);
                     }}
+                    onViewRoute={() => setActiveTab('ruta_dia')}
                     showToast={showToast}
+                  />
+                )}
+                {activeTab === 'ruta_dia' && orgId && (
+                  <ScreenRutaDia
+                    jobs={jobs.filter(j => {
+                      const hoy = new Date().toISOString().slice(0, 10);
+                      return j.fecha_inicio === hoy || !j.fecha_inicio;
+                    })}
+                    orgId={orgId}
+                    startLocation={orgData?.direccion ? `${orgData.direccion}, ${(orgData as Record<string, unknown>).ciudad ?? ''}`.trim().replace(/,\s*$/, '') : 'Oficina'}
+                    horaInicio="08:00"
+                    onUpdateJob={async (id, updates) => {
+                      await updateJob(id, updates);
+                      setJobs(prev => prev.map(j => j.id === id ? { ...j, ...updates } : j));
+                    }}
+                    showToast={showToast}
+                    onClose={() => setActiveTab('planificacion')}
                   />
                 )}
                 {activeTab === 'ingresos' && (
