@@ -617,7 +617,7 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePr
                 </button>
               )}
               {job.estado === 'en_curso' && (
-                <button onClick={() => onQuickStatus(job, 'completado')}
+                <button onClick={() => onOpenParte ? onOpenParte(job) : onQuickStatus(job, 'completado')}
                   className="flex items-center gap-1.5 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
                   <CheckCircle className="w-3.5 h-3.5" /> Completar
                 </button>

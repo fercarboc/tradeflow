@@ -5,7 +5,7 @@ import {
   MessageSquare, Mail, FileText, ChevronRight, AlertCircle,
   Lock, PlusCircle, ReceiptText,
 } from 'lucide-react';
-import { supabase, uploadJobPhoto, loadJobPhotos, createInvoiceFromJob } from '../lib/supabase';
+import { supabase, uploadJobPhoto, loadJobPhotos, createInvoiceFromJob, markInvoicePaid } from '../lib/supabase';
 import type { TradeJob, TradeJobPhoto, TradeInvoice } from '../lib/supabase';
 
 export interface MaterialItem {
@@ -91,6 +91,7 @@ export default function ScreenParteTrabajo({
   const [materiales, setMateriales] = useState<MaterialItem[]>([]);
   const [showMaterialPicker, setShowMaterialPicker] = useState(false);
   const [newInvoice, setNewInvoice] = useState<TradeInvoice | null>(null);
+  const [invoicePaid, setInvoicePaid] = useState<boolean | null>(null);
   const [horaFin, setHoraFin] = useState('');
   const [supplementReason, setSupplementReason] = useState('');
 
@@ -281,6 +282,22 @@ export default function ScreenParteTrabajo({
     }
   }
 
+  // ── Payment after invoice ──────────────────────────────────────────────────
+  async function handleCobrado() {
+    setInvoicePaid(true);
+    if (!newInvoice || !isLiveMode) return;
+    try {
+      await markInvoicePaid(newInvoice.id);
+      showToast('Factura marcada como cobrada ✓', 'success');
+    } catch {
+      showToast('Error al actualizar el estado de la factura', 'error');
+    }
+  }
+
+  function handlePendiente() {
+    setInvoicePaid(false);
+  }
+
   // ── Derived ────────────────────────────────────────────────────────────────
   const materialesNormales = materiales.filter(m => !m.postCierre);
   const materialesPostCierre = materiales.filter(m => m.postCierre);
@@ -354,7 +371,11 @@ export default function ScreenParteTrabajo({
                   <p className="text-sm font-bold text-emerald-300">{newInvoice.numero}</p>
                   {newInvoice.es_suplementaria && <span className="text-[9px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded-full font-bold">SUPL</span>}
                 </div>
-                <span className="text-xs text-slate-400">{newInvoice.fecha}</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-slate-400">{newInvoice.fecha}</span>
+                  {invoicePaid === true && <span className="text-[9px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-bold">COBRADA</span>}
+                  {invoicePaid === false && <span className="text-[9px] bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full font-bold">PENDIENTE</span>}
+                </div>
               </div>
               {newInvoice.concepto && <p className="text-[11px] text-slate-500">{newInvoice.concepto}</p>}
               <div className="flex justify-between items-baseline pt-0.5">
@@ -431,7 +452,29 @@ export default function ScreenParteTrabajo({
               <Loader2 className="w-5 h-5 animate-spin text-blue-400" /><span className="text-sm font-semibold">Generando factura…</span>
             </div>
           )}
-          {phase === 'done' && (
+          {phase === 'done' && newInvoice && invoicePaid === null && (
+            <div className="space-y-2.5">
+              {mantenimiento?.activo && (
+                <p className="text-[10px] text-center text-slate-500 leading-relaxed">
+                  Con contratos de mantenimiento se suele cobrar por transferencia bancaria
+                </p>
+              )}
+              <div className="grid grid-cols-2 gap-2.5">
+                <button onClick={handleCobrado}
+                  className="flex flex-col items-center justify-center gap-0.5 bg-emerald-600 active:bg-emerald-700 text-white font-bold text-sm py-3.5 rounded-2xl cursor-pointer"
+                  style={{ boxShadow: '0 4px 20px rgba(5,150,105,0.3)' }}>
+                  <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4" />Cobrado</span>
+                  <span className="text-[10px] opacity-70 font-normal">efectivo / Bizum</span>
+                </button>
+                <button onClick={handlePendiente}
+                  className="flex flex-col items-center justify-center gap-0.5 bg-slate-700 active:bg-slate-600 text-slate-200 font-bold text-sm py-3.5 rounded-2xl cursor-pointer">
+                  <span>Pendiente</span>
+                  <span className="text-[10px] opacity-60 font-normal">transferencia / banco</span>
+                </button>
+              </div>
+            </div>
+          )}
+          {phase === 'done' && (!newInvoice || invoicePaid !== null) && (
             <button onClick={onClose} className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl text-sm font-bold text-slate-300 bg-slate-800 active:bg-slate-700 cursor-pointer">
               <ChevronRight className="w-4 h-4" />Cerrar
             </button>
