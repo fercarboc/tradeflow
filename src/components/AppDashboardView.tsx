@@ -4872,15 +4872,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           <nav className="flex-grow p-4 space-y-1">
             {SidebarBtn({ id: 'dashboard', icon: <TrendingUp className="w-4 h-4" />, label: 'Panel Control' })}
             {can('quotes.create') && SidebarBtn({ id: 'quotes', icon: <FileText className="w-4 h-4" />, label: 'Presupuestos' })}
-            {can('quotes.create') && (
-              <button
-                onClick={() => setShowPresupuestoFoto(true)}
-                className="w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer relative text-slate-455 hover:text-white hover:bg-slate-800/40"
-              >
-                <ImageIcon className="w-4 h-4 shrink-0" />
-                <span>Escaneo Foto IA</span>
-              </button>
-            )}
             {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
             {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <FileText className="w-4 h-4" />, label: 'Facturación' })}
             {can('catalog.manage') && SidebarBtn({ id: 'catalog', icon: <Package className="w-4 h-4" />, label: 'Catálogo' })}
@@ -5151,46 +5142,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         </div>
 
-        {/* Presupuesto con Foto overlay */}
-        {showPresupuestoFoto && (
-          <ScreenPresupuestoFoto
-            isLiveMode={isLiveMode}
-            showToast={showToast}
-            onClose={() => setShowPresupuestoFoto(false)}
-            onConfirm={(q) => {
-              setShowPresupuestoFoto(false);
-              const partidasDesktop = q.partidas.map(p => {
-                const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
-                const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : 0;
-                return {
-                  descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion,
-                  tipo: p.tipo,
-                  cantidad: p.cantidad,
-                  precioUnitario: pu,
-                  total: pu * p.cantidad,
-                };
-              });
-              const quoteBase = {
-                id: '',
-                nombreCliente: '',
-                telefonoCliente: '',
-                emailCliente: '',
-                descripcion: q.descripcion,
-                fecha: new Date().toISOString().split('T')[0],
-                estado: 'Borrador' as const,
-                partidas: partidasDesktop,
-                total: partidasDesktop.reduce((s, p) => s + p.total, 0),
-              };
-              setWizardQuote(quoteBase);
-              setEditingQuote(quoteBase);
-              setWizardOrigin('foto');
-              setWizardStep(4);
-              setWizardActive(true);
-              setActiveTab('create_quote');
-            }}
-          />
-        )}
-
         {/* Presupuesto por Pasos overlay */}
         {showPresupuestoIncremental && (
           <ScreenPresupuestoIncremental
@@ -5373,16 +5324,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <p className="text-[10px] text-violet-200 leading-normal max-w-xs">Anota una visita o llamada pendiente para ir a ver la obra.</p>
           </button>
 
-          <button
-            onClick={() => setShowPresupuestoFoto(true)}
-            className="bg-slate-900 hover:bg-slate-850 border border-slate-250 text-white rounded-2xl p-5 text-center space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101"
-          >
-            <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center border border-emerald-500/25">
-              <ImageIcon className="w-6 h-6 text-emerald-450" />
-            </div>
-            <span className="font-black uppercase tracking-wider text-xs block">Escaneo Foto de Obra</span>
-            <p className="text-[10px] text-slate-400 leading-normal max-w-xs">Identifica materiales y precios detectando calderas, tubos y componentes.</p>
-          </button>
 
           <button
             onClick={() => {
