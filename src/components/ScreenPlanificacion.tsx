@@ -788,9 +788,15 @@ export default function ScreenPlanificacion({
           </button>
         </div>
 
-        {/* Visitas pendientes (todas las fechas) */}
+        {/* Visitas pendientes (todas las fechas excepto el día seleccionado, que ya aparece abajo) */}
         {(() => {
-          const visitasPendientes = jobs.filter(j => j.tipo === 'visita' && j.estado !== 'completado' && j.estado !== 'cancelado');
+          const dayJobIds = new Set(dayJobs.map(j => j.id));
+          const visitasPendientes = jobs.filter(j =>
+            j.tipo === 'visita' &&
+            j.estado !== 'completado' &&
+            j.estado !== 'cancelado' &&
+            !dayJobIds.has(j.id),
+          );
           if (visitasPendientes.length === 0) return null;
           return (
             <div className="bg-violet-50 dark:bg-violet-950/20 border border-violet-200 dark:border-violet-800/40 rounded-xl p-3 space-y-2">
