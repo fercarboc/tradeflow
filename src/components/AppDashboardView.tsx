@@ -42,6 +42,7 @@ import {
   MessageSquare,
   ChevronDown,
   ChevronUp,
+  ChevronRight,
   Shield,
   Package,
   Tag,
@@ -604,6 +605,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // CRM Mobile detail active
   const [expandedClientMobileId, setExpandedClientMobileId] = useState<string | null>(null);
   const [crmClientInvoices, setCrmClientInvoices] = useState<Record<string, { numero: string; fecha: string; total: number; estado: string; concepto?: string | null }[]>>({});
+  // CRM desktop side panel
+  const [crmPanelClientId, setCrmPanelClientId] = useState<string | null>(null);
+  const [crmPanelTab, setCrmPanelTab] = useState<'facturas' | 'presupuestos' | 'trabajos'>('facturas');
 
   // Mobile filters
   const [presupuestoFilter, setPresupuestoFilter] = useState<'all' | 'month'>('month');
@@ -6269,6 +6273,30 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= DESKTOP: CRM SCREEN =================
   function ScreenCRM() {
+    const avatarColors = ['bg-blue-500', 'bg-emerald-500', 'bg-violet-500', 'bg-amber-500', 'bg-rose-500', 'bg-indigo-500', 'bg-teal-500', 'bg-orange-500'];
+    const getAvatarColor = (name: string) => avatarColors[name.charCodeAt(0) % avatarColors.length];
+    const getInitials = (name: string) => name.split(/\s+/).slice(0, 2).map(w => w[0] ?? '').join('').toUpperCase();
+
+    const panelClient = crmPanelClientId ? clientes.find(c => c.id === crmPanelClientId) ?? null : null;
+    const panelInvoices = crmPanelClientId ? (crmClientInvoices[crmPanelClientId] ?? null) : null;
+    const panelQuotes = panelClient ? presupuestos.filter(p => p.nombreCliente === panelClient.nombre) : [];
+    const panelJobs = panelClient ? jobs.filter(j => j.client_id === panelClient.id) : [];
+
+    const openPanel = (clientId: string) => {
+      setCrmPanelClientId(clientId);
+      setCrmPanelTab('facturas');
+      if (!crmClientInvoices[clientId] && isLiveMode && orgId) {
+        supabase
+          .from('trade_invoices')
+          .select('numero, fecha, total, estado, concepto')
+          .eq('org_id', orgId)
+          .eq('client_id', clientId)
+          .order('fecha', { ascending: false })
+          .limit(30)
+          .then(({ data }) => setCrmClientInvoices(prev => ({ ...prev, [clientId]: data ?? [] })));
+      }
+    };
+
     return (
       <div className="space-y-4">
         {/* Cabecera: buscador + botón nuevo cliente */}
@@ -6277,180 +6305,275 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Buscar por nombre o teléfono..."
+              placeholder="Buscar por nombre, teléfono o email..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-800 focus:outline-none focus:border-blue-500"
+              className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-sm text-slate-800 focus:outline-none focus:border-blue-500"
             />
           </div>
           <button
             onClick={() => { setNewClient({ nombre: '', telefono: '', email: '', direccion: '' }); setIsClientModalOpen(true); }}
-            className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2 font-bold uppercase tracking-wider text-[10px] cursor-pointer shrink-0"
+            className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-4 py-2.5 font-bold uppercase tracking-wider text-[10px] cursor-pointer shrink-0"
           >
             <Plus className="w-3.5 h-3.5" />
             Nuevo Cliente
           </button>
         </div>
 
-        {/* Lista de clientes */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {filteredClientes.map(c => {
-            const isExpanded = expandedClientMobileId === c.id;
-            const clientQuotes = presupuestos.filter(p => p.nombreCliente === c.nombre);
-            const clientJobs = jobs.filter(j => j.client_id === c.id);
-            const clientInvoices = crmClientInvoices[c.id] ?? null;
+        {/* Contador */}
+        <p className="text-xs text-slate-400">{filteredClientes.length} cliente{filteredClientes.length !== 1 ? 's' : ''}</p>
 
-            const handleExpandClient = (e: React.MouseEvent) => {
-              e.stopPropagation();
-              const newExpanded = isExpanded ? null : c.id;
-              setExpandedClientMobileId(newExpanded);
-              if (newExpanded && !crmClientInvoices[c.id] && isLiveMode && orgId) {
-                supabase
-                  .from('trade_invoices')
-                  .select('numero, fecha, total, estado, concepto')
-                  .eq('org_id', orgId)
-                  .eq('client_id', c.id)
-                  .order('fecha', { ascending: false })
-                  .limit(20)
-                  .then(({ data }) => {
-                    setCrmClientInvoices(prev => ({ ...prev, [c.id]: data ?? [] }));
-                  });
-              }
-            };
-
-            return (
-            <div
-              key={c.id}
-              className="bg-white border border-slate-200 p-4 rounded-xl space-y-2 cursor-pointer hover:border-blue-300 transition-colors"
-              onClick={handleExpandClient}
-            >
-              <div className="flex justify-between items-start gap-2">
-                <h4 className="font-bold text-xs text-slate-900 uppercase tracking-wide truncate">{c.nombre}</h4>
-                <div className="flex items-center gap-2 shrink-0">
-                  <button
-                    onClick={(e) => { e.stopPropagation(); setEditingQuote(prev => ({ ...prev, nombreCliente: c.nombre, telefonoCliente: c.telefono, emailCliente: c.email })); setActiveTab('create_quote'); }}
-                    className="text-[9px] text-blue-600 hover:underline font-bold uppercase tracking-wider cursor-pointer whitespace-nowrap"
-                  >
-                    + Presupuesto
-                  </button>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); setEmailModalCliente(c); }}
-                    className="text-[9px] text-blue-600 hover:underline font-bold uppercase tracking-wider cursor-pointer whitespace-nowrap flex items-center gap-0.5"
-                  >
-                    <Mail className="w-3 h-3" /> Email
-                  </button>
-                  <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
-                </div>
-              </div>
-              <div className="text-[10px] text-slate-500 space-y-0.5">
-                {c.telefono && <p>📞 {c.telefono}</p>}
-                {c.email && <p>✉ {c.email}</p>}
-                {c.direccion && <p>📍 {c.direccion}</p>}
-              </div>
-              <div className="flex gap-4 pt-2 border-t border-slate-100">
-                <div>
-                  <span className="text-[9px] text-slate-400 uppercase font-mono block">Trabajos</span>
-                  <span className="text-xs font-bold text-slate-800">{clientJobs.length}</span>
-                </div>
-                <div>
-                  <span className="text-[9px] text-slate-400 uppercase font-mono block">Total facturado</span>
-                  <span className="text-xs font-bold font-mono text-emerald-600">{c.totalFacturado.toFixed(0)}€</span>
-                </div>
-                <div>
-                  <span className="text-[9px] text-slate-400 uppercase font-mono block">Presupuestos</span>
-                  <span className="text-xs font-bold text-slate-800">{clientQuotes.length}</span>
-                </div>
-                <div>
-                  <span className="text-[9px] text-slate-400 uppercase font-mono block">Facturas</span>
-                  <span className="text-xs font-bold text-slate-800">{clientInvoices?.length ?? '…'}</span>
-                </div>
-              </div>
-
-              {/* Detalle expandido */}
-              {isExpanded && (
-                <div className="mt-1 pt-3 border-t border-slate-100 space-y-4" onClick={e => e.stopPropagation()}>
-
-                  {/* Facturas */}
-                  <div className="space-y-1.5">
-                    <p className="text-[9px] font-bold uppercase font-mono text-slate-400">Facturas</p>
-                    {clientInvoices === null ? (
-                      <p className="text-[10px] text-slate-400">Cargando…</p>
-                    ) : clientInvoices.length === 0 ? (
-                      <p className="text-[10px] text-slate-400 italic">Sin facturas todavía.</p>
-                    ) : (
-                      clientInvoices.map((inv, idx) => (
-                        <div key={idx} className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2 gap-2">
-                          <div className="min-w-0 flex-1">
-                            <span className="text-[10px] font-bold text-slate-700 font-mono">{inv.numero}</span>
-                            {inv.concepto && <span className="ml-1.5 text-[9px] text-slate-400 truncate block">{inv.concepto.slice(0, 50)}{inv.concepto.length > 50 ? '…' : ''}</span>}
-                            <span className="text-[9px] text-slate-400">{inv.fecha}</span>
-                          </div>
-                          <div className="flex items-center gap-2 shrink-0">
-                            <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${
-                              inv.estado === 'Pagada'   ? 'bg-emerald-100 text-emerald-700' :
-                              inv.estado === 'Vencida'  ? 'bg-red-100 text-red-700' :
-                                                          'bg-amber-100 text-amber-700'
-                            }`}>{inv.estado}</span>
-                            <span className="text-[10px] font-mono font-bold text-slate-800">{inv.total.toFixed(0)}€</span>
-                          </div>
-                        </div>
-                      ))
-                    )}
+        {/* Lista compacta */}
+        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
+          {filteredClientes.length === 0 ? (
+            <div className="text-center py-14 text-slate-400 text-sm">
+              {searchQuery ? 'Sin resultados para esa búsqueda.' : 'No hay clientes todavía. Crea el primero arriba.'}
+            </div>
+          ) : (
+            filteredClientes.map((c, idx) => {
+              const clientJobs = jobs.filter(j => j.client_id === c.id);
+              const clientInvoiceCount = crmClientInvoices[c.id]?.length ?? null;
+              const totalCobrado = (crmClientInvoices[c.id] ?? []).filter(i => i.estado === 'Pagada').reduce((s, i) => s + i.total, 0);
+              return (
+                <div
+                  key={c.id}
+                  onClick={() => openPanel(c.id)}
+                  className={`flex items-center gap-4 px-5 py-4 cursor-pointer hover:bg-slate-50 transition-colors ${idx > 0 ? 'border-t border-slate-100' : ''}`}
+                >
+                  {/* Avatar */}
+                  <div className={`w-10 h-10 rounded-full ${getAvatarColor(c.nombre)} flex items-center justify-center shrink-0`}>
+                    <span className="text-white text-xs font-black">{getInitials(c.nombre)}</span>
                   </div>
-
-                  {/* Presupuestos */}
-                  <div className="space-y-1.5">
-                    <p className="text-[9px] font-bold uppercase font-mono text-slate-400">Presupuestos</p>
-                    {clientQuotes.length === 0 ? (
-                      <p className="text-[10px] text-slate-400 italic">Sin presupuestos todavía.</p>
-                    ) : (
-                      clientQuotes.map(p => (
-                        <div key={p.id} className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2 gap-2">
-                          <div className="min-w-0">
-                            <span className="text-[10px] font-bold text-slate-700 font-mono">{p.id}</span>
-                            {p.descripcion && <span className="ml-1.5 text-[9px] text-slate-400 truncate">{p.descripcion.slice(0, 40)}{p.descripcion.length > 40 ? '…' : ''}</span>}
-                          </div>
-                          <div className="flex items-center gap-2 shrink-0">
-                            <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${
-                              p.estado === 'Aceptado'  ? 'bg-emerald-100 text-emerald-700' :
-                              p.estado === 'Facturado' ? 'bg-blue-100 text-blue-700' :
-                              p.estado === 'Enviado'   ? 'bg-amber-100 text-amber-700' :
-                                                         'bg-slate-100 text-slate-500'
-                            }`}>{p.estado}</span>
-                            <span className="text-[10px] font-mono font-bold text-slate-800">{p.total.toFixed(0)}€</span>
-                          </div>
-                        </div>
-                      ))
-                    )}
-                  </div>
-
-                  {/* Trabajos recientes */}
-                  {clientJobs.length > 0 && (
-                    <div className="space-y-1.5">
-                      <p className="text-[9px] font-bold uppercase font-mono text-slate-400">Trabajos ({clientJobs.length})</p>
-                      {clientJobs.slice(0, 5).map(j => (
-                        <div key={j.id} className="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2 gap-2">
-                          <p className="text-[10px] text-slate-700 truncate flex-1">{j.titulo}</p>
-                          <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded shrink-0 ${
-                            j.estado === 'completado' ? 'bg-emerald-100 text-emerald-700' :
-                            j.estado === 'en_curso'   ? 'bg-blue-100 text-blue-700' :
-                                                        'bg-slate-100 text-slate-500'
-                          }`}>{j.estado}</span>
-                        </div>
-                      ))}
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <p className="font-bold text-sm text-slate-900 truncate">{c.nombre}</p>
+                    <div className="flex items-center gap-3 mt-0.5">
+                      {c.telefono && <span className="text-xs text-slate-500">{c.telefono}</span>}
+                      {c.email && <span className="text-xs text-slate-400 truncate">{c.email}</span>}
                     </div>
-                  )}
+                  </div>
+                  {/* Stats */}
+                  <div className="flex items-center gap-5 shrink-0">
+                    <div className="text-right">
+                      <p className="text-xs font-bold font-mono text-emerald-600">{c.totalFacturado > 0 ? `${c.totalFacturado.toFixed(0)}€` : '—'}</p>
+                      <p className="text-[9px] text-slate-400 uppercase tracking-wider">facturado</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs font-bold text-slate-700">{clientJobs.length}</p>
+                      <p className="text-[9px] text-slate-400 uppercase tracking-wider">trabajos</p>
+                    </div>
+                    {clientInvoiceCount !== null && (
+                      <div className="text-right">
+                        <p className="text-xs font-bold text-slate-700">{clientInvoiceCount}</p>
+                        <p className="text-[9px] text-slate-400 uppercase tracking-wider">facturas</p>
+                      </div>
+                    )}
+                    <ChevronRight className="w-4 h-4 text-slate-300" />
+                  </div>
                 </div>
-              )}
-            </div>
-            );
-          })}
-          {filteredClientes.length === 0 && (
-            <div className="col-span-2 text-center py-10 text-slate-400 text-xs">
-              {searchQuery ? 'No se encontraron clientes con ese criterio.' : 'No hay clientes aún. Crea el primero con el botón de arriba.'}
-            </div>
+              );
+            })
           )}
         </div>
+
+        {/* ── PANEL LATERAL ───────────────────────────────────────────────────── */}
+        {crmPanelClientId && panelClient && (
+          <>
+            {/* Backdrop */}
+            <div className="fixed inset-0 bg-black/25 z-40" onClick={() => setCrmPanelClientId(null)} />
+
+            {/* Panel */}
+            <div className="fixed right-0 top-0 h-full w-[440px] bg-white shadow-2xl z-50 flex flex-col border-l border-slate-200">
+
+              {/* Header */}
+              <div className="px-6 py-5 border-b border-slate-100 shrink-0">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className={`w-12 h-12 rounded-full ${getAvatarColor(panelClient.nombre)} flex items-center justify-center shrink-0`}>
+                      <span className="text-white text-sm font-black">{getInitials(panelClient.nombre)}</span>
+                    </div>
+                    <div>
+                      <h2 className="font-black text-base text-slate-900 leading-tight">{panelClient.nombre}</h2>
+                      {panelClient.direccion && <p className="text-xs text-slate-500 mt-0.5">{panelClient.direccion}</p>}
+                    </div>
+                  </div>
+                  <button onClick={() => setCrmPanelClientId(null)} className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-400 cursor-pointer">
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* Contacto */}
+                <div className="flex gap-2 mb-4">
+                  {panelClient.telefono && (
+                    <a href={`tel:${panelClient.telefono}`} className="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
+                      <Phone className="w-3.5 h-3.5" /> Llamar
+                    </a>
+                  )}
+                  {panelClient.telefono && (
+                    <a href={`https://wa.me/${panelClient.telefono.replace(/\D/g, '')}`} target="_blank" rel="noreferrer"
+                      className="flex items-center gap-1.5 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors"
+                      style={{ backgroundColor: '#25D366' }}>
+                      <MessageSquare className="w-3.5 h-3.5" /> WhatsApp
+                    </a>
+                  )}
+                  {panelClient.email && (
+                    <button onClick={() => setEmailModalCliente(panelClient)}
+                      className="flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
+                      <Mail className="w-3.5 h-3.5" /> Email
+                    </button>
+                  )}
+                </div>
+
+                {/* Acciones principales */}
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => { setEditingQuote(prev => ({ ...prev, nombreCliente: panelClient.nombre, telefonoCliente: panelClient.telefono, emailCliente: panelClient.email })); setActiveTab('create_quote'); setCrmPanelClientId(null); }}
+                    className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2.5 rounded-xl cursor-pointer transition-colors"
+                  >
+                    <FilePlus className="w-3.5 h-3.5" /> Nuevo presupuesto
+                  </button>
+                  <button
+                    onClick={() => { setActiveTab('planificacion'); setCrmPanelClientId(null); }}
+                    className="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2.5 rounded-xl cursor-pointer transition-colors"
+                  >
+                    <Briefcase className="w-3.5 h-3.5" /> Nuevo trabajo
+                  </button>
+                </div>
+              </div>
+
+              {/* Resumen stats */}
+              <div className="flex border-b border-slate-100 shrink-0">
+                <div className="flex-1 px-4 py-3 text-center">
+                  <p className="text-sm font-black text-emerald-600 font-mono">{panelClient.totalFacturado > 0 ? `${panelClient.totalFacturado.toFixed(0)}€` : '—'}</p>
+                  <p className="text-[9px] text-slate-400 uppercase tracking-wider mt-0.5">Total facturado</p>
+                </div>
+                <div className="flex-1 px-4 py-3 text-center border-l border-slate-100">
+                  <p className="text-sm font-black text-slate-700">{panelJobs.length}</p>
+                  <p className="text-[9px] text-slate-400 uppercase tracking-wider mt-0.5">Trabajos</p>
+                </div>
+                <div className="flex-1 px-4 py-3 text-center border-l border-slate-100">
+                  <p className="text-sm font-black text-slate-700">{panelQuotes.length}</p>
+                  <p className="text-[9px] text-slate-400 uppercase tracking-wider mt-0.5">Presupuestos</p>
+                </div>
+                <div className="flex-1 px-4 py-3 text-center border-l border-slate-100">
+                  <p className="text-sm font-black text-slate-700">{panelInvoices?.length ?? '…'}</p>
+                  <p className="text-[9px] text-slate-400 uppercase tracking-wider mt-0.5">Facturas</p>
+                </div>
+              </div>
+
+              {/* Tabs */}
+              <div className="flex border-b border-slate-100 shrink-0">
+                {(['facturas', 'presupuestos', 'trabajos'] as const).map(tab => (
+                  <button
+                    key={tab}
+                    onClick={() => setCrmPanelTab(tab)}
+                    className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider cursor-pointer transition-colors ${
+                      crmPanelTab === tab
+                        ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50/50'
+                        : 'text-slate-400 hover:text-slate-600'
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+
+              {/* Content */}
+              <div className="flex-1 overflow-y-auto">
+
+                {/* ── Facturas ── */}
+                {crmPanelTab === 'facturas' && (
+                  <div className="divide-y divide-slate-100">
+                    {panelInvoices === null ? (
+                      <div className="py-10 text-center text-sm text-slate-400">Cargando…</div>
+                    ) : panelInvoices.length === 0 ? (
+                      <div className="py-10 text-center text-sm text-slate-400">Sin facturas todavía</div>
+                    ) : (
+                      panelInvoices.map((inv, idx) => (
+                        <div key={idx} className="flex items-center gap-3 px-5 py-3.5 hover:bg-slate-50">
+                          <div className={`w-2 h-2 rounded-full shrink-0 ${inv.estado === 'Pagada' ? 'bg-emerald-500' : inv.estado === 'Vencida' ? 'bg-red-500' : 'bg-amber-400'}`} />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-baseline gap-2">
+                              <span className="text-sm font-bold text-slate-800 font-mono">{inv.numero}</span>
+                              <span className="text-xs text-slate-400">{inv.fecha}</span>
+                            </div>
+                            {inv.concepto && <p className="text-xs text-slate-500 truncate mt-0.5">{inv.concepto}</p>}
+                          </div>
+                          <div className="text-right shrink-0">
+                            <p className="text-sm font-bold text-slate-900 font-mono">{inv.total.toFixed(0)}€</p>
+                            <span className={`text-[9px] font-bold uppercase ${inv.estado === 'Pagada' ? 'text-emerald-600' : inv.estado === 'Vencida' ? 'text-red-600' : 'text-amber-600'}`}>{inv.estado}</span>
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                )}
+
+                {/* ── Presupuestos ── */}
+                {crmPanelTab === 'presupuestos' && (
+                  <div className="divide-y divide-slate-100">
+                    {panelQuotes.length === 0 ? (
+                      <div className="py-10 text-center text-sm text-slate-400">Sin presupuestos todavía</div>
+                    ) : (
+                      panelQuotes.map(p => (
+                        <div
+                          key={p.id}
+                          onClick={p.estado !== 'Facturado' ? () => { setWizardQuote(p); setWizardStep(5); setWizardActive(true); setCrmPanelClientId(null); } : undefined}
+                          className={`flex items-center gap-3 px-5 py-3.5 hover:bg-slate-50 ${p.estado !== 'Facturado' ? 'cursor-pointer' : ''}`}
+                        >
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-0.5">
+                              <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded ${
+                                p.estado === 'Aceptado'  ? 'bg-emerald-100 text-emerald-700' :
+                                p.estado === 'Facturado' ? 'bg-blue-100 text-blue-700' :
+                                p.estado === 'Enviado'   ? 'bg-amber-100 text-amber-700' :
+                                                           'bg-slate-100 text-slate-500'
+                              }`}>{p.estado}</span>
+                              <span className="text-xs text-slate-400">{p.fecha}</span>
+                            </div>
+                            <p className="text-sm text-slate-800 truncate">{p.descripcion || p.id}</p>
+                          </div>
+                          <div className="text-right shrink-0">
+                            <p className="text-sm font-bold text-slate-900 font-mono">{(p.total * 1.21).toFixed(0)}€</p>
+                            {p.estado !== 'Facturado' && <span className="text-[9px] text-blue-500 font-bold">Ver →</span>}
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                )}
+
+                {/* ── Trabajos ── */}
+                {crmPanelTab === 'trabajos' && (
+                  <div className="divide-y divide-slate-100">
+                    {panelJobs.length === 0 ? (
+                      <div className="py-10 text-center text-sm text-slate-400">Sin trabajos registrados</div>
+                    ) : (
+                      panelJobs.map(j => (
+                        <div key={j.id} className="flex items-center gap-3 px-5 py-3.5 hover:bg-slate-50">
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-semibold text-slate-800 truncate">{j.titulo}</p>
+                            <div className="flex items-center gap-2 mt-0.5">
+                              {j.fecha_inicio && <span className="text-xs text-slate-400">{j.fecha_inicio}</span>}
+                              {j.localidad && <span className="text-xs text-slate-400">· {j.localidad}</span>}
+                            </div>
+                          </div>
+                          <span className={`text-[9px] font-bold uppercase px-2 py-1 rounded-lg shrink-0 ${
+                            j.estado === 'completado'        ? 'bg-emerald-100 text-emerald-700' :
+                            j.estado === 'en_curso'          ? 'bg-blue-100 text-blue-700' :
+                            j.estado === 'pendiente_material'? 'bg-orange-100 text-orange-700' :
+                            j.estado === 'cancelado'         ? 'bg-red-100 text-red-700' :
+                                                               'bg-slate-100 text-slate-500'
+                          }`}>{j.estado.replace('_', ' ')}</span>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </>
+        )}
 
       </div>
     );
