@@ -97,7 +97,7 @@ export interface TradeInvoice {
   numero: string;
   fecha: string;
   fecha_vencimiento?: string;
-  estado: 'Pendiente' | 'Pagada' | 'Vencida' | 'Devuelta';
+  estado: 'Borrador' | 'Emitida' | 'Enviada' | 'Pendiente' | 'Pagada' | 'Vencida' | 'Devuelta' | 'Cancelada';
   subtotal: number;
   iva_pct: number;
   iva_importe: number;
@@ -107,8 +107,33 @@ export interface TradeInvoice {
   paid_at?: string;
   devuelta_at?: string | null;
   devuelta_motivo?: string | null;
+  // Nuevos campos (análisis facturación)
+  tipo_factura?: 'contrato_cuota' | 'contrato_extra' | 'trabajo_puntual' | 'rectificativa';
+  serie?: 'F' | 'M' | 'R' | null;
+  mes_facturacion?: string | null;
+  metodo_pago?: 'transferencia' | 'efectivo' | 'bizum' | 'tarjeta' | 'domiciliacion' | null;
+  fecha_emision?: string | null;
+  razon_social_cliente?: string | null;
+  nif_cliente?: string | null;
+  direccion_cliente?: string | null;
+  notas_internas?: string | null;
+  rectifica_factura_id?: string | null;
+  motivo_rectificacion?: string | null;
   created_at: string;
   updated_at: string;
+}
+
+export interface TradeInvoiceLine {
+  id: string;
+  factura_id: string;
+  descripcion: string;
+  cantidad: number;
+  precio_unitario: number;
+  descuento_pct: number;
+  subtotal: number;
+  orden: number;
+  tipo: 'material' | 'mano_de_obra' | 'desplazamiento' | 'otro';
+  created_at: string;
 }
 
 export interface TradeWaitlistEntry {
@@ -539,20 +564,29 @@ export async function createInvoiceFromJob(
   orgId: string,
   jobId: string,
   clientId: string | null | undefined,
-  materiales: { descripcion: string; cantidad: number; precioBase: number }[],
-  opts: { ivaPct?: number; concepto?: string; esSuplementaria?: boolean } = {},
+  materiales: { descripcion: string; cantidad: number; precioBase: number; tipo?: string }[],
+  opts: {
+    ivaPct?: number;
+    concepto?: string;
+    esSuplementaria?: boolean;
+    contractId?: string | null;
+    metodoPago?: TradeInvoice['metodo_pago'];
+    razonSocial?: string;
+    nifCliente?: string;
+    direccionCliente?: string;
+  } = {},
 ): Promise<TradeInvoice> {
-  const { ivaPct = 21, concepto, esSuplementaria = false } = opts;
-  const { count } = await supabase
-    .from('trade_invoices')
-    .select('*', { count: 'exact', head: true })
-    .eq('org_id', orgId);
+  const { ivaPct = 21, concepto, esSuplementaria = false, contractId, metodoPago, razonSocial, nifCliente, direccionCliente } = opts;
 
-  const baseNumero = `FAC-${new Date().getFullYear()}-${String((count ?? 0) + 1).padStart(3, '0')}`;
-  const numero = esSuplementaria ? `${baseNumero}-S` : baseNumero;
+  const serie: 'F' | 'M' = contractId ? 'M' : 'F';
+  const tipo_factura = contractId ? (esSuplementaria ? 'contrato_extra' : 'contrato_cuota') : 'trabajo_puntual';
   const today = new Date().toISOString().split('T')[0];
-  const due = new Date(); due.setDate(due.getDate() + 30);
   const subtotal = materiales.reduce((s, m) => s + m.precioBase * m.cantidad, 0);
+  const ivaImporte = Math.round(subtotal * ivaPct) / 100;
+  const total = subtotal + ivaImporte;
+
+  // Borrador: sin número definitivo todavía (se asigna al emitir)
+  const tempNumero = `BORRADOR-${Date.now()}`;
 
   const { data: inv, error } = await supabase
     .from('trade_invoices')
@@ -560,18 +594,38 @@ export async function createInvoiceFromJob(
       org_id: orgId,
       client_id: clientId ?? null,
       job_id: jobId || null,
-      numero,
+      contract_id: contractId ?? null,
+      numero: tempNumero,
       fecha: today,
-      fecha_vencimiento: due.toISOString().split('T')[0],
-      estado: 'Pendiente',
+      estado: 'Borrador',
       subtotal,
       iva_pct: ivaPct,
+      iva_importe: ivaImporte,
+      total,
       concepto: concepto ?? null,
       es_suplementaria: esSuplementaria,
+      serie,
+      tipo_factura,
+      metodo_pago: metodoPago ?? null,
+      razon_social_cliente: razonSocial ?? null,
+      nif_cliente: nifCliente ?? null,
+      direccion_cliente: direccionCliente ?? null,
     })
     .select()
     .single();
   if (error) throw error;
+
+  // Crear líneas de detalle
+  if (materiales.length) {
+    await createInvoiceLines(inv.id, materiales.map((m, i) => ({
+      descripcion: m.descripcion,
+      cantidad: m.cantidad,
+      precio_unitario: m.precioBase,
+      tipo: m.tipo ?? 'material',
+      orden: i,
+    })));
+  }
+
   return inv as TradeInvoice;
 }
 
@@ -639,8 +693,68 @@ export interface TradeWorker {
   rol: string;
   activo: boolean;
   notas?: string;
+  // Campos módulo rutas
+  especialidades?: string[];
+  home_lat?: number | null;
+  home_lng?: number | null;
+  max_trabajos_dia?: number;
+  buffer_desplazamiento_min?: number;
+  tiene_vehiculo?: boolean;
+  zona_operacion?: string[];
+  avatar_url?: string | null;
+  estado_actual?: 'disponible' | 'ocupado' | 'libre' | 'inactivo';
+  horario_inicio?: string;
+  horario_fin?: string;
   created_at: string;
   updated_at: string;
+}
+
+export interface TradeWorkerSchedule {
+  id: string;
+  worker_id: string;
+  org_id: string;
+  dia_semana: number;
+  activo: boolean;
+  hora_inicio: string;
+  hora_fin: string;
+  descanso_inicio?: string | null;
+  descanso_fin?: string | null;
+}
+
+export interface TradeRoute {
+  id: string;
+  org_id: string;
+  worker_id: string;
+  fecha: string;
+  estado: 'borrador' | 'confirmada' | 'en_curso' | 'completada' | 'cancelada';
+  punto_inicio_lat?: number | null;
+  punto_inicio_lng?: number | null;
+  distancia_total_km?: number | null;
+  duracion_total_min?: number | null;
+  hora_inicio_estimada?: string | null;
+  hora_fin_estimada?: string | null;
+  optimization_score?: number | null;
+  notas?: string | null;
+  created_by?: string | null;
+  created_at: string;
+  updated_at: string;
+  trade_workers?: { nombre: string } | null;
+}
+
+export interface TradeRouteStop {
+  id: string;
+  route_id: string;
+  job_id: string;
+  orden: number;
+  hora_llegada_estimada?: string | null;
+  hora_salida_estimada?: string | null;
+  hora_llegada_real?: string | null;
+  hora_salida_real?: string | null;
+  tiempo_viaje_siguiente_min?: number | null;
+  distancia_siguiente_km?: number | null;
+  estado: 'pendiente' | 'en_camino' | 'llegado' | 'en_curso' | 'completado' | 'saltado';
+  created_at: string;
+  trade_jobs?: Pick<TradeJob, 'id' | 'titulo' | 'direccion' | 'localidad' | 'estado'> | null;
 }
 
 export async function loadWorkers(orgId: string): Promise<TradeWorker[]> {
@@ -817,6 +931,171 @@ export async function markInvoiceDevuelta(id: string, motivo?: string): Promise<
   if (error) throw error;
 }
 
+// ── Líneas de factura ─────────────────────────────────────────────────────
+
+export async function loadInvoiceLines(facturaId: string): Promise<TradeInvoiceLine[]> {
+  const { data, error } = await supabase
+    .from('trade_invoice_lines')
+    .select('*')
+    .eq('factura_id', facturaId)
+    .order('orden');
+  if (error) throw error;
+  return (data ?? []) as TradeInvoiceLine[];
+}
+
+export async function createInvoiceLines(
+  facturaId: string,
+  lines: Array<{ descripcion: string; cantidad: number; precio_unitario: number; tipo?: string; orden?: number }>,
+): Promise<void> {
+  if (!lines.length) return;
+  const rows = lines.map((l, i) => ({
+    factura_id: facturaId,
+    descripcion: l.descripcion,
+    cantidad: l.cantidad,
+    precio_unitario: l.precio_unitario,
+    subtotal: Math.round(l.precio_unitario * l.cantidad * 100) / 100,
+    tipo: l.tipo ?? 'material',
+    orden: l.orden ?? i,
+  }));
+  const { error } = await supabase.from('trade_invoice_lines').insert(rows);
+  if (error) throw error;
+}
+
+export async function emitirFactura(id: string, orgId: string): Promise<TradeInvoice> {
+  const year = new Date().getFullYear();
+  const { data: inv } = await supabase.from('trade_invoices').select('serie, tipo_factura').eq('id', id).single();
+  const serie = inv?.serie ?? 'F';
+
+  const { count } = await supabase
+    .from('trade_invoices')
+    .select('*', { count: 'exact', head: true })
+    .eq('org_id', orgId)
+    .eq('serie', serie)
+    .neq('estado', 'Borrador');
+
+  const numero = `${serie}-${year}-${String((count ?? 0) + 1).padStart(4, '0')}`;
+  const now = new Date().toISOString();
+  const due = new Date(); due.setDate(due.getDate() + 30);
+
+  const { data, error } = await supabase
+    .from('trade_invoices')
+    .update({
+      estado: 'Emitida',
+      numero,
+      fecha: now.split('T')[0],
+      fecha_emision: now,
+      fecha_vencimiento: due.toISOString().split('T')[0],
+    })
+    .eq('id', id)
+    .select()
+    .single();
+  if (error) throw error;
+  return data as TradeInvoice;
+}
+
+export async function loadAllInvoices(orgId: string): Promise<TradeInvoice[]> {
+  const { data, error } = await supabase
+    .from('trade_invoices')
+    .select('*, trade_clients(nombre)')
+    .eq('org_id', orgId)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as TradeInvoice[];
+}
+
+// ── Rutas y paradas ───────────────────────────────────────────────────────
+
+export async function loadRoutes(orgId: string, fecha?: string): Promise<TradeRoute[]> {
+  let q = supabase
+    .from('trade_routes')
+    .select('*, trade_workers(nombre)')
+    .eq('org_id', orgId)
+    .order('fecha', { ascending: false });
+  if (fecha) q = q.eq('fecha', fecha);
+  const { data, error } = await q;
+  if (error) throw error;
+  return (data ?? []) as TradeRoute[];
+}
+
+export async function loadRouteStops(routeId: string): Promise<TradeRouteStop[]> {
+  const { data, error } = await supabase
+    .from('trade_route_stops')
+    .select('*, trade_jobs(id, titulo, direccion, localidad, estado)')
+    .eq('route_id', routeId)
+    .order('orden');
+  if (error) throw error;
+  return (data ?? []) as TradeRouteStop[];
+}
+
+export async function createRoute(
+  orgId: string,
+  workerId: string,
+  fecha: string,
+  jobIds: string[],
+): Promise<TradeRoute> {
+  const { data: existing } = await supabase
+    .from('trade_routes')
+    .select('id')
+    .eq('worker_id', workerId)
+    .eq('fecha', fecha)
+    .maybeSingle();
+
+  let routeId: string;
+  if (existing) {
+    routeId = existing.id;
+    await supabase.from('trade_route_stops').delete().eq('route_id', routeId);
+  } else {
+    const { data: route, error } = await supabase
+      .from('trade_routes')
+      .insert({ org_id: orgId, worker_id: workerId, fecha, estado: 'borrador' })
+      .select()
+      .single();
+    if (error) throw error;
+    routeId = route.id;
+  }
+
+  if (jobIds.length) {
+    const stops = jobIds.map((jobId, i) => ({ route_id: routeId, job_id: jobId, orden: i + 1 }));
+    await supabase.from('trade_route_stops').insert(stops);
+  }
+
+  const { data } = await supabase.from('trade_routes').select('*, trade_workers(nombre)').eq('id', routeId).single();
+  return data as TradeRoute;
+}
+
+export async function updateRouteStop(stopId: string, updates: Partial<TradeRouteStop>): Promise<void> {
+  const { error } = await supabase.from('trade_route_stops').update(updates).eq('id', stopId);
+  if (error) throw error;
+}
+
+// ── Horarios de trabajadores ──────────────────────────────────────────────
+
+export async function loadWorkerSchedules(workerId: string): Promise<TradeWorkerSchedule[]> {
+  const { data } = await supabase
+    .from('trade_worker_schedules')
+    .select('*')
+    .eq('worker_id', workerId)
+    .order('dia_semana');
+  return (data ?? []) as TradeWorkerSchedule[];
+}
+
+export async function saveWorkerSchedules(
+  workerId: string,
+  orgId: string,
+  schedules: Omit<TradeWorkerSchedule, 'id' | 'worker_id' | 'org_id'>[],
+): Promise<void> {
+  await supabase.from('trade_worker_schedules').delete().eq('worker_id', workerId);
+  if (!schedules.length) return;
+  const rows = schedules.map(s => ({ ...s, worker_id: workerId, org_id: orgId }));
+  const { error } = await supabase.from('trade_worker_schedules').insert(rows);
+  if (error) throw error;
+}
+
+export async function updateWorker(id: string, updates: Partial<Omit<TradeWorker, 'id' | 'org_id' | 'created_at' | 'updated_at'>>): Promise<void> {
+  const { error } = await supabase.from('trade_workers').update(updates).eq('id', id);
+  if (error) throw error;
+}
+
 export async function createMaintenanceInvoices(
   orgId: string,
   contractId: string,
@@ -848,29 +1127,34 @@ export async function createMaintenanceInvoices(
   const invoices: TradeInvoice[] = [];
 
   for (let i = 0; i < numFacturas; i++) {
-    const fechaVenc = new Date(hoy);
-    fechaVenc.setMonth(fechaVenc.getMonth() + i * mesesPorFactura);
-    fechaVenc.setDate(diaVencimiento);
-    if (fechaVenc < hoy) fechaVenc.setMonth(fechaVenc.getMonth() + 1);
+    const mesFacturacion = new Date(hoy);
+    mesFacturacion.setMonth(mesFacturacion.getMonth() + i * mesesPorFactura);
+    mesFacturacion.setDate(1);
 
-    const numero = `FAC-${new Date().getFullYear()}-${String(contador++).padStart(3, '0')}`;
     const periodo = periodoFacturacion === 'mensual'
-      ? fechaVenc.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })
+      ? mesFacturacion.toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })
       : periodoFacturacion === 'trimestral'
-        ? `T${Math.ceil((fechaVenc.getMonth() + 1) / 3)} ${fechaVenc.getFullYear()}`
-        : `Año ${fechaVenc.getFullYear()}`;
+        ? `T${Math.ceil((mesFacturacion.getMonth() + 1) / 3)} ${mesFacturacion.getFullYear()}`
+        : `Año ${mesFacturacion.getFullYear()}`;
+
+    // Facturas de contrato se crean como BORRADOR — solo se emiten cuando llega su mes
+    const tempNumero = `BORRADOR-M-${Date.now()}-${i}`;
 
     const { data, error } = await supabase.from('trade_invoices').insert({
       org_id: orgId,
       client_id: opts.clientId ?? null,
       contract_id: contractId,
-      numero,
-      fecha: i === 0 ? hoy.toISOString().split('T')[0] : fechaVenc.toISOString().split('T')[0],
-      fecha_vencimiento: fechaVenc.toISOString().split('T')[0],
-      estado: 'Pendiente',
+      numero: tempNumero,
+      fecha: mesFacturacion.toISOString().split('T')[0],
+      estado: 'Borrador',
       subtotal: subtotalFactura,
       iva_pct: ivaPct,
+      iva_importe: ivaImporte,
+      total: totalFactura,
       concepto: `Mantenimiento ${referencia} — ${nombreCliente} — ${periodo}`,
+      serie: 'M',
+      tipo_factura: 'contrato_cuota',
+      mes_facturacion: mesFacturacion.toISOString().split('T')[0],
     }).select().single();
     if (error) throw error;
     invoices.push(data as TradeInvoice);
@@ -1237,6 +1521,11 @@ export interface TradeJob {
   notas_cierre?: string | null;
   orden_ruta?: number | null;
   direccion_normalizada?: string | null;
+  ventana_inicio?: string | null;
+  ventana_fin?: string | null;
+  duracion_estimada_min?: number | null;
+  notas_trabajador?: string | null;
+  started_at?: string | null;
   created_at: string;
   updated_at: string;
   trade_clients?: { nombre: string; telefono?: string | null } | null;

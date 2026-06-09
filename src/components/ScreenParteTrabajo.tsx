@@ -5,7 +5,7 @@ import {
   MessageSquare, Mail, FileText, ChevronRight, AlertCircle,
   Lock, PlusCircle, ReceiptText,
 } from 'lucide-react';
-import { supabase, uploadJobPhoto, loadJobPhotos, createInvoiceFromJob, markInvoicePaid } from '../lib/supabase';
+import { supabase, uploadJobPhoto, loadJobPhotos, createInvoiceFromJob, markInvoicePaid, emitirFactura } from '../lib/supabase';
 import type { TradeJob, TradeJobPhoto, TradeInvoice } from '../lib/supabase';
 
 export interface MaterialItem {
@@ -92,6 +92,7 @@ export default function ScreenParteTrabajo({
   const [showMaterialPicker, setShowMaterialPicker] = useState(false);
   const [newInvoice, setNewInvoice] = useState<TradeInvoice | null>(null);
   const [invoicePaid, setInvoicePaid] = useState<boolean | null>(null);
+  const [metodoPago, setMetodoPago] = useState<'efectivo' | 'bizum' | 'transferencia' | 'tarjeta'>('efectivo');
   const [horaFin, setHoraFin] = useState('');
   const [supplementReason, setSupplementReason] = useState('');
   const [editingPriceId, setEditingPriceId] = useState<string | null>(null);
@@ -307,14 +308,21 @@ export default function ScreenParteTrabajo({
       const concepto = isSupp
         ? `Material olvidado — ${job.titulo}${supplementReason ? ` (${supplementReason})` : ''}${matDesc}`
         : `${job.titulo}${matDesc}`;
-      const inv = await createInvoiceFromJob(orgId, job.id, job.client_id, materialesList, {
+      const matsWithType = materialesList.map(m => ({
+        ...m,
+        precioBase: m.precioBase,
+        tipo: m.descripcion.toLowerCase().includes('mano') || m.descripcion.toLowerCase().includes('desplaz')
+          ? (m.descripcion.toLowerCase().includes('desplaz') ? 'desplazamiento' : 'mano_de_obra')
+          : 'material',
+      }));
+      const inv = await createInvoiceFromJob(orgId, job.id, job.client_id, matsWithType, {
         concepto,
         esSuplementaria: isSupp,
       });
       setNewInvoice(inv);
       onInvoiceCreated?.(inv);
       setPhase('done');
-      showToast(`Factura ${inv.numero} creada`, 'success');
+      showToast('Borrador de factura creado — elige cómo se cobra', 'info');
     } catch {
       showToast('Error al generar la factura', 'error');
       setPhase(isSupp ? 'main' : 'facturar');
@@ -322,19 +330,33 @@ export default function ScreenParteTrabajo({
   }
 
   // ── Payment after invoice ──────────────────────────────────────────────────
-  async function handleCobrado() {
+  async function handleCobrado(method: typeof metodoPago) {
+    if (!newInvoice) return;
     setInvoicePaid(true);
-    if (!newInvoice || !isLiveMode) return;
+    if (!isLiveMode) return;
     try {
-      await markInvoicePaid(newInvoice.id);
-      showToast('Factura marcada como cobrada ✓', 'success');
+      const emitted = await emitirFactura(newInvoice.id, orgId);
+      await markInvoicePaid(emitted.id);
+      await supabase.from('trade_invoices').update({ metodo_pago: method }).eq('id', emitted.id);
+      setNewInvoice(emitted);
+      showToast(`Factura ${emitted.numero} emitida y cobrada ✓`, 'success');
     } catch {
-      showToast('Error al actualizar el estado de la factura', 'error');
+      showToast('Error al registrar el cobro', 'error');
     }
   }
 
-  function handlePendiente() {
+  async function handlePendiente() {
+    if (!newInvoice) { setInvoicePaid(false); return; }
     setInvoicePaid(false);
+    if (!isLiveMode) return;
+    try {
+      const emitted = await emitirFactura(newInvoice.id, orgId);
+      await supabase.from('trade_invoices').update({ metodo_pago: 'transferencia' }).eq('id', emitted.id);
+      setNewInvoice(emitted);
+      showToast(`Factura ${emitted.numero} emitida — pendiente de transferencia`, 'info');
+    } catch {
+      showToast('Error al emitir la factura', 'error');
+    }
   }
 
   // ── Derived ────────────────────────────────────────────────────────────────
@@ -493,19 +515,27 @@ export default function ScreenParteTrabajo({
           )}
           {phase === 'done' && newInvoice && invoicePaid === null && (
             <div className="space-y-2.5">
-              {mantenimiento?.activo && (
-                <p className="text-[10px] text-center text-slate-500 leading-relaxed">
-                  Con contratos de mantenimiento se suele cobrar por transferencia bancaria
-                </p>
-              )}
+              <p className="text-[10px] text-center text-slate-500 leading-relaxed">
+                ¿Cómo se cobra?
+              </p>
+              {/* Método selector when paying now */}
+              <div className="flex bg-slate-800 rounded-xl p-0.5 gap-0.5 mb-1">
+                {(['efectivo','bizum','tarjeta'] as const).map(m => (
+                  <button
+                    key={m}
+                    onClick={() => setMetodoPago(m)}
+                    className={`flex-1 text-[10px] font-bold py-1.5 rounded-lg transition-colors cursor-pointer capitalize ${metodoPago === m ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-slate-200'}`}
+                  >{m}</button>
+                ))}
+              </div>
               <div className="grid grid-cols-2 gap-2.5">
-                <button onClick={handleCobrado}
+                <button onClick={() => handleCobrado(metodoPago)}
                   className="flex flex-col items-center justify-center gap-0.5 bg-emerald-600 active:bg-emerald-700 text-white font-bold text-sm py-3.5 rounded-2xl cursor-pointer"
                   style={{ boxShadow: '0 4px 20px rgba(5,150,105,0.3)' }}>
                   <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4" />Cobrado</span>
-                  <span className="text-[10px] opacity-70 font-normal">efectivo / Bizum</span>
+                  <span className="text-[10px] opacity-70 font-normal capitalize">{metodoPago}</span>
                 </button>
-                <button onClick={handlePendiente}
+                <button onClick={() => handlePendiente()}
                   className="flex flex-col items-center justify-center gap-0.5 bg-slate-700 active:bg-slate-600 text-slate-200 font-bold text-sm py-3.5 rounded-2xl cursor-pointer">
                   <span>Pendiente</span>
                   <span className="text-[10px] opacity-60 font-normal">transferencia / banco</span>

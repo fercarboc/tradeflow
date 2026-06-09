@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrabFlow AI — Sistema de Facturación: Análisis Completo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #0d1117;
+    --surface:   #161b22;
+    --surface2:  #1c2330;
+    --border:    #30363d;
+    --accent:    #58a6ff;
+    --accent2:   #3fb950;
+    --accent3:   #f0883e;
+    --accent4:   #da3633;
+    --text:      #e6edf3;
+    --text-muted:#8b949e;
+    --mono:      'Space Mono', monospace;
+    --serif:     'Crimson Pro', Georgia, serif;
+    --grid-line: rgba(88,166,255,0.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.65;
+    min-height: 100vh;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .page {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* ── Header ── */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+    display: inline-block;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(26px, 4vw, 42px);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--text);
+  }
+  .subtitle {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    border-left: 3px solid var(--accent);
+    padding-left: 12px;
+    margin-top: 4px;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 56px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(88,166,255,0.1);
+    border: 1px solid rgba(88,166,255,0.3);
+    padding: 2px 8px;
+    letter-spacing: 1px;
+  }
+  h2 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* ── Flow diagrams ── */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .flow-step {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    align-items: start;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    min-height: 0;
+  }
+  .flow-step:last-child { border-bottom: none; }
+  .step-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    padding: 14px 0 14px 16px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .step-body {
+    padding: 14px 16px;
+    min-width: 0;
+  }
+  .step-title {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .step-desc {
+    font-family: var(--serif);
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .step-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    margin: 14px 16px 14px 0;
+    align-self: start;
+    white-space: nowrap;
+    border-radius: 2px;
+  }
+  .tag-auto { background: rgba(63,185,80,0.15); color: var(--accent2); border: 1px solid rgba(63,185,80,0.3); }
+  .tag-manual { background: rgba(240,136,62,0.15); color: var(--accent3); border: 1px solid rgba(240,136,62,0.3); }
+  .tag-trigger { background: rgba(88,166,255,0.1); color: var(--accent); border: 1px solid rgba(88,166,255,0.25); }
+  .tag-critical { background: rgba(218,54,51,0.15); color: var(--accent4); border: 1px solid rgba(218,54,51,0.3); }
+
+  /* ── Tables ── */
+  .tbl-wrap {
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--surface);
+    margin-bottom: 24px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  thead {
+    background: var(--surface2);
+    border-bottom: 2px solid var(--border);
+  }
+  th {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--accent);
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--serif);
+    font-size: 15px;
+    line-height: 1.4;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  td code {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: rgba(88,166,255,0.1);
+    color: var(--accent);
+    padding: 1px 5px;
+    border-radius: 2px;
+  }
+  .pill {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .pill-green { background: rgba(63,185,80,0.15); color: var(--accent2); border: 1px solid rgba(63,185,80,0.25); }
+  .pill-orange { background: rgba(240,136,62,0.15); color: var(--accent3); border: 1px solid rgba(240,136,62,0.25); }
+  .pill-blue { background: rgba(88,166,255,0.1); color: var(--accent); border: 1px solid rgba(88,166,255,0.2); }
+  .pill-red { background: rgba(218,54,51,0.15); color: var(--accent4); border: 1px solid rgba(218,54,51,0.25); }
+  .pill-grey { background: rgba(139,148,158,0.15); color: var(--text-muted); border: 1px solid rgba(139,148,158,0.2); }
+
+  /* ── Callout boxes ── */
+  .callout {
+    border-left: 3px solid;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    background: var(--surface);
+    border-radius: 0 2px 2px 0;
+  }
+  .callout-blue { border-color: var(--accent); }
+  .callout-green { border-color: var(--accent2); }
+  .callout-orange { border-color: var(--accent3); }
+  .callout-red { border-color: var(--accent4); }
+  .callout-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .callout-blue .callout-title { color: var(--accent); }
+  .callout-green .callout-title { color: var(--accent2); }
+  .callout-orange .callout-title { color: var(--accent3); }
+  .callout-red .callout-title { color: var(--accent4); }
+  .callout p { font-size: 15px; color: var(--text-muted); line-height: 1.5; }
+
+  /* ── Two-column grid ── */
+  .cols2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 680px) { .cols2 { grid-template-columns: 1fr; } }
+
+  /* ── Card ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 20px;
+  }
+  .card-title {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+  }
+  .card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .card li {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(48,54,61,0.5);
+    line-height: 1.4;
+  }
+  .card li:last-child { border-bottom: none; }
+  .card li strong { color: var(--text); font-weight: 600; }
+
+  /* ── State machine ── */
+  .states {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .state-node {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 2px;
+    padding: 10px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 140px;
+    position: relative;
+  }
+  .state-node::after {
+    content: '→';
+    position: absolute;
+    right: -18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .state-node:last-child::after { display: none; }
+  .state-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .state-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  /* ── Schema block ── */
+  .schema {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 20px;
+    line-height: 1.8;
+    overflow-x: auto;
+  }
+  .schema .field { color: #79c0ff; }
+  .schema .type { color: #ff7b72; }
+  .schema .comment { color: #8b949e; font-style: italic; }
+  .schema .key { color: #d2a8ff; }
+
+  /* ── Divider ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Arrow flow horizontal ── */
+  .hflow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    overflow-x: auto;
+    margin-bottom: 24px;
+  }
+  .hnode {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 12px 14px;
+    min-width: 130px;
+    flex-shrink: 0;
+    border-radius: 2px;
+  }
+  .hnode-title { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 1px; margin-bottom: 4px; }
+  .hnode-body { font-size: 13px; color: var(--text-muted); }
+  .harrow {
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+    color: var(--text-muted);
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  /* ── Big number ── */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 18px;
+  }
+  .kpi-label { font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; }
+  .kpi-value { font-family: var(--mono); font-size: 22px; font-weight: 700; line-height: 1; }
+  .kpi-blue .kpi-value { color: var(--accent); }
+  .kpi-green .kpi-value { color: var(--accent2); }
+  .kpi-orange .kpi-value { color: var(--accent3); }
+
+  /* ── Timeline ── */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 24px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: var(--border);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .tl-date { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 1px; margin-bottom: 4px; }
+  .tl-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+  .tl-desc { font-size: 14px; color: var(--text-muted); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <span class="badge">TrabFlow Technologies · Análisis Interno</span>
+    <h1>Sistema de Facturación Completo</h1>
+    <p class="subtitle">Contratos de mantenimiento · Trabajos puntuales · Control contable · Flujo gestoría y banco — Junio 2026</p>
+  </header>
+
+  <!-- ── 0. CONTEXTO ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">00</span>
+      <h2>Problema actual y objetivo</h2>
+    </div>
+
+    <div class="callout callout-orange">
+      <div class="callout-title">Situación actual</div>
+      <p>Al crear un contrato de mantenimiento se generan las 12 facturas del año. Pero no existe un flujo claro de: qué hacer cada mes con esas facturas, cómo separarlas de las facturas de trabajos puntuales, cómo presentarlas al banco y a la gestoría, ni cómo controlar el cobro. El resultado es un sistema que genera documentos pero no controla nada.</p>
+    </div>
+
+    <div class="callout callout-blue">
+      <div class="callout-title">Objetivo del análisis</div>
+      <p>Definir el proceso completo de facturación de TrabFlow: dos tipos de factura (contratos y trabajos), el ciclo mensual de control, el flujo de estados, la exportación contable y las reglas que eviten errores fiscales. Todo listo para implementar.</p>
+    </div>
+  </section>
+
+  <!-- ── 1. DOS TIPOS DE FACTURA ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2>Dos tipos de factura — lógica separada</h2>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Dimensión</th>
+            <th>Factura de Contrato de Mantenimiento</th>
+            <th>Factura de Trabajo Puntual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Origen</strong></td>
+            <td>Se genera automáticamente al crear el contrato (12 facturas para el año)</td>
+            <td>Se genera manualmente al completar un presupuesto de obra aceptado</td>
+          </tr>
+          <tr>
+            <td><strong>Periodicidad</strong></td>
+            <td>Mensual, fecha fija (ej. día 1 de cada mes)</td>
+            <td>Puntual, tras finalizar el trabajo o por hitos</td>
+          </tr>
+          <tr>
+            <td><strong>Importe</strong></td>
+            <td>Fijo: cuota mensual del contrato</td>
+            <td>Variable: partidas del presupuesto</td>
+          </tr>
+          <tr>
+            <td><strong>Serie</strong></td>
+            <td><code>M-YYYY-NNN</code> (mantenimiento)</td>
+            <td><code>F-YYYY-NNN</code> (factura normal)</td>
+          </tr>
+          <tr>
+            <td><strong>Concepto en PDF</strong></td>
+            <td>"Cuota mensual contrato mantenimiento — [mes] [año]"</td>
+            <td>Partidas detalladas del presupuesto aceptado</td>
+          </tr>
+          <tr>
+            <td><strong>IVA</strong></td>
+            <td>21% (general, servicios)</td>
+            <td>21% general. Posible 10% si obra en vivienda habitual</td>
+          </tr>
+          <tr>
+            <td><strong>Materiales</strong></td>
+            <td>EXCLUIDOS por defecto del contrato</td>
+            <td>INCLUIDOS: están en el presupuesto</td>
+          </tr>
+          <tr>
+            <td><strong>Extras facturables</strong></td>
+            <td>Sí: urgencias, festivos, materiales extra → factura adicional serie <code>M-</code></td>
+            <td>No aplica: el trabajo se cierra con la factura</td>
+          </tr>
+          <tr>
+            <td><strong>Estado inicial</strong></td>
+            <td><code>borrador</code> (no emitida hasta que toca emitirla)</td>
+            <td><code>borrador</code> hasta que el usuario la revisa y emite</td>
+          </tr>
+          <tr>
+            <td><strong>Vinculación</strong></td>
+            <td>Referencia al <code>contrato_id</code> + mes correspondiente</td>
+            <td>Referencia al <code>presupuesto_id</code> de origen</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-orange">
+      <div class="callout-title">Regla de oro sobre numeración</div>
+      <p>La numeración es <strong>secuencial, sin huecos, por serie y por año</strong>. Una factura emitida nunca se elimina. Si hay error, se emite una factura rectificativa. Esto es obligatorio para Verifactu (RD 1007/2023), que entrará en vigor y exigirá registro criptográfico de cada evento de factura.</p>
+    </div>
+  </section>
+
+  <!-- ── 2. ESTADOS DE FACTURA ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2>Estados de factura — máquina de estados</h2>
+    </div>
+
+    <p style="font-size:15px; color:var(--text-muted); margin-bottom:20px;">Todos los estados son válidos para ambos tipos de factura. El flujo normal es lineal; las excepciones van a <code>vencida</code> o <code>cancelada</code>.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <span class="step-num">01</span>
+        <div class="step-body">
+          <div class="step-title">BORRADOR</div>
+          <div class="step-desc">La factura existe en base de datos pero no ha sido emitida oficialmente. Se puede editar. Para contratos: es el estado de las 11 facturas futuras mientras no llega su mes. Para trabajos: el instalador revisa antes de emitir.</div>
+        </div>
+        <span class="step-tag tag-manual">EDITABLE</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">02</span>
+        <div class="step-body">
+          <div class="step-title">EMITIDA</div>
+          <div class="step-desc">La factura tiene número de serie asignado y fecha de emisión. Ya NO se puede editar. Se genera el PDF. Se registra el evento en Verifactu (cuando esté activo). A partir de aquí, cualquier corrección requiere factura rectificativa.</div>
+        </div>
+        <span class="step-tag tag-trigger">NÚMERO ASIGNADO</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">03</span>
+        <div class="step-body">
+          <div class="step-title">ENVIADA</div>
+          <div class="step-desc">Se ha enviado al cliente por email (o WhatsApp). El sistema registra fecha y método de envío. El cliente puede ver la factura en el portal si existe. Sigue pendiente de cobro.</div>
+        </div>
+        <span class="step-tag tag-auto">EMAIL/WA</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">04A</span>
+        <div class="step-body">
+          <div class="step-title">PAGADA</div>
+          <div class="step-desc">El instalador marca la factura como pagada indicando: fecha de cobro, método (transferencia / efectivo / domiciliación / tarjeta) e importe recibido. Este es el estado final normal. Queda inalterable para auditoría.</div>
+        </div>
+        <span class="step-tag tag-auto">FIN NORMAL</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">04B</span>
+        <div class="step-body">
+          <div class="step-title">VENCIDA</div>
+          <div class="step-desc">Ha pasado la fecha de vencimiento (por defecto 30 días desde emisión para contratos, configurable) sin recibir pago. El sistema alerta automáticamente. El instalador decide: reclamar, negociar o cancelar el contrato.</div>
+        </div>
+        <span class="step-tag tag-critical">ALERTA</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">04C</span>
+        <div class="step-body">
+          <div class="step-title">CANCELADA</div>
+          <div class="step-desc">Por error o acuerdo con el cliente. Siempre mediante factura rectificativa (abono) que anula el efecto fiscal de la original. Nunca se borra un registro.</div>
+        </div>
+        <span class="step-tag tag-critical">RECTIFICATIVA</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. CICLO MENSUAL CONTRATOS ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2>Ciclo mensual — contratos de mantenimiento</h2>
+    </div>
+
+    <div class="callout callout-blue">
+      <div class="callout-title">El error que hay que corregir</div>
+      <p>Crear las 12 facturas en <code>estado: emitida</code> al firmar el contrato está mal. El número de factura y la fecha de emisión solo se asignan cuando la factura toca ser cobrada. Las 12 facturas deben crearse en <code>borrador</code> y solo pasar a <code>emitida</code> cuando llega su mes.</p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <span class="step-num">DÍA 0</span>
+        <div class="step-body">
+          <div class="step-title">CONTRATO FIRMADO → 12 BORRADORES</div>
+          <div class="step-desc">Al activar un contrato, el sistema crea 12 registros de factura en estado <code>borrador</code>. Cada uno tiene: contrato_id, cliente, importe, mes_facturacion. Sin número de serie, sin fecha de emisión todavía.</div>
+        </div>
+        <span class="step-tag tag-auto">AUTOMÁTICO</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">DÍA -3</span>
+        <div class="step-body">
+          <div class="step-title">ALERTA PRE-FACTURACIÓN</div>
+          <div class="step-desc">3 días antes del día de facturación configurado en el contrato, el sistema notifica al instalador/administración: "Tienes X facturas de mantenimiento listas para emitir este mes." El usuario puede revisar antes de emitir.</div>
+        </div>
+        <span class="step-tag tag-auto">PUSH / EMAIL</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">DÍA 1</span>
+        <div class="step-body">
+          <div class="step-title">EMISIÓN DE LA FACTURA DEL MES</div>
+          <div class="step-desc">El sistema pasa el borrador del mes actual a <code>emitida</code>: asigna número de serie correlativo, fecha de emisión = hoy, fecha de vencimiento = +30 días. Genera el PDF. Esto puede hacerlo el usuario manualmente o el sistema automáticamente (configurable por empresa).</div>
+        </div>
+        <span class="step-tag tag-trigger">NÚMERO ASIGNADO</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">DÍA 1-2</span>
+        <div class="step-body">
+          <div class="step-title">ENVÍO AL CLIENTE</div>
+          <div class="step-desc">La factura se envía por email (Resend) y/o WhatsApp. El estado pasa a <code>enviada</code>. La factura queda registrada en el historial del cliente. El instalador puede enviarla también manualmente desde el módulo de facturas.</div>
+        </div>
+        <span class="step-tag tag-auto">RESEND API</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">DÍA 1-30</span>
+        <div class="step-body">
+          <div class="step-title">PERIODO DE COBRO</div>
+          <div class="step-desc">El cliente paga (normalmente por domiciliación bancaria o transferencia). El instalador marca la factura como pagada indicando fecha y método. Para domiciliaciones, el sistema puede marcarlas automáticamente al recibir confirmación bancaria (integración futura).</div>
+        </div>
+        <span class="step-tag tag-manual">COBRO</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">DÍA 30+</span>
+        <div class="step-body">
+          <div class="step-title">GESTIÓN DE IMPAGOS</div>
+          <div class="step-desc">Si no se ha cobrado: el sistema marca la factura como <code>vencida</code> y notifica. El instalador tiene tres opciones: (A) enviar recordatorio de pago, (B) ampliar el plazo, (C) marcar como incobrable y cancelar el contrato si procede. Cada acción queda auditada.</div>
+        </div>
+        <span class="step-tag tag-critical">ALERTA</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. CICLO TRABAJOS PUNTUALES ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2>Ciclo de factura de trabajo puntual</h2>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <span class="step-num">01</span>
+        <div class="step-body">
+          <div class="step-title">PRESUPUESTO ACEPTADO</div>
+          <div class="step-desc">El cliente acepta el presupuesto (por enlace, email o WhatsApp). El estado del presupuesto cambia a <code>aceptado</code>. El sistema habilita el botón "Crear factura" o genera automáticamente un borrador de factura.</div>
+        </div>
+        <span class="step-tag tag-trigger">TRIGGER</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">02</span>
+        <div class="step-body">
+          <div class="step-title">TRABAJO EJECUTADO</div>
+          <div class="step-desc">El técnico ejecuta el trabajo. Si hay materiales adicionales no presupuestados, los registra en el parte de trabajo. El sistema puede generar una factura con los conceptos del presupuesto más los extras del parte.</div>
+        </div>
+        <span class="step-tag tag-manual">CAMPO</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">03</span>
+        <div class="step-body">
+          <div class="step-title">REVISAR Y EMITIR</div>
+          <div class="step-desc">El instalador revisa el borrador (puede añadir o quitar partidas, ajustar descuentos). Cuando está conforme, pulsa "Emitir". El sistema asigna número de serie <code>F-YYYY-NNN</code>, fecha de emisión, genera PDF. Estado: <code>emitida</code>.</div>
+        </div>
+        <span class="step-tag tag-manual">REVISIÓN</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">04</span>
+        <div class="step-body">
+          <div class="step-title">ENVIAR Y COBRAR</div>
+          <div class="step-desc">Se envía al cliente. Se marca pagada cuando se cobra. El presupuesto de origen queda con estado <code>facturado</code>. El trabajo asociado queda con estado <code>completado</code>. Todo vinculado para trazabilidad completa.</div>
+        </div>
+        <span class="step-tag tag-auto">CIERRE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. EXTRAS DE CONTRATO ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2>Facturas extra dentro de un contrato</h2>
+    </div>
+
+    <p style="font-size:15px; color:var(--text-muted); margin-bottom:20px;">Un contrato de mantenimiento nunca incluye materiales ni trabajos fuera del alcance. Cuando ocurren, se genera una factura adicional dentro de la misma serie <code>M-</code>.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tipo de extra</th>
+            <th>Cuándo se genera</th>
+            <th>Concepto en factura</th>
+            <th>Serie</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Urgencia fuera de horario</strong></td>
+            <td>Intervención en horario no contratado</td>
+            <td>"Intervención urgente — [fecha] — recargo [%]"</td>
+            <td><code>M-YYYY-NNN</code></td>
+          </tr>
+          <tr>
+            <td><strong>Festivo / fin de semana</strong></td>
+            <td>Trabajo en día festivo o sábado/domingo no contratado</td>
+            <td>"Intervención festivo — [fecha] — recargo [%]"</td>
+            <td><code>M-YYYY-NNN</code></td>
+          </tr>
+          <tr>
+            <td><strong>Materiales / recambios</strong></td>
+            <td>Piezas instaladas en intervención correctiva</td>
+            <td>"Materiales intervención — [descripción piezas]"</td>
+            <td><code>M-YYYY-NNN</code></td>
+          </tr>
+          <tr>
+            <td><strong>Trabajo fuera de alcance</strong></td>
+            <td>Trabajo solicitado fuera del objeto del contrato</td>
+            <td>"Trabajo extraordinario — [descripción]"</td>
+            <td><code>M-YYYY-NNN</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-green">
+      <div class="callout-title">Flujo de aprobación de extras</div>
+      <p>Antes de ejecutar cualquier extra facturable, la IA debe generar un mini-presupuesto para que el cliente lo apruebe (por WhatsApp o email). El instalador no debería facturar extras sin aprobación previa — protege de reclamaciones y da evidencia ante impagos.</p>
+    </div>
+  </section>
+
+  <!-- ── 6. CONTROL CONTABLE ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2>Control contable — panel de gestoría y banco</h2>
+    </div>
+
+    <p style="font-size:15px; color:var(--text-muted); margin-bottom:20px;">Lo que necesita la gestoría cada trimestre (y el banco en cualquier momento) son datos agregados y ordenados. TrabFlow debe generar esto con un botón.</p>
+
+    <div class="cols2">
+      <div class="card">
+        <div class="card-title">Lo que necesita la gestoría (trimestral)</div>
+        <ul>
+          <li><strong>Libro de facturas emitidas</strong> — todas las facturas emitidas del trimestre con: número, fecha, cliente, NIF cliente, base imponible, IVA, total, estado (pagada/pendiente)</li>
+          <li><strong>Total IVA repercutido</strong> — para declarar en el modelo 303</li>
+          <li><strong>Total base imponible</strong> — para IRPF si el instalador es autónomo (retenciones a cuenta)</li>
+          <li><strong>Facturas rectificativas</strong> — listado separado con referencia a la factura original</li>
+          <li><strong>Exportación en CSV / Excel</strong> — para importar en el software contable de la gestoría</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Lo que necesita el banco (mensual o puntual)</div>
+        <ul>
+          <li><strong>Facturación mensual total</strong> — importe emitido vs. importe cobrado (liquidez real)</li>
+          <li><strong>Contratos activos</strong> — ingresos recurrentes previstos (para crédito / financiación)</li>
+          <li><strong>Antigüedad de saldos</strong> — facturas pendientes por días (0-30, 30-60, +60)</li>
+          <li><strong>Ratio de cobro</strong> — % de facturas cobradas sobre emitidas en el periodo</li>
+          <li><strong>PDF de cartera de contratos</strong> — para avalar ingresos futuros previsibles</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top:32px; margin-bottom:16px;">
+      <span class="section-num" style="font-size:10px;">MÓDULO</span>
+      <h2 style="font-size:18px;">Sección "Gestoría" en TrabFlow (Plan Empresa)</h2>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">
+        <span class="step-num">A</span>
+        <div class="step-body">
+          <div class="step-title">RESUMEN TRIMESTRAL AUTOMÁTICO</div>
+          <div class="step-desc">El sistema genera un resumen del trimestre seleccionado: facturas emitidas, bases imponibles totales por tipo de IVA, IVA total repercutido, facturas cobradas, facturas pendientes, facturas vencidas. En formato visual en pantalla.</div>
+        </div>
+        <span class="step-tag tag-auto">AUTOMÁTICO</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">B</span>
+        <div class="step-body">
+          <div class="step-title">EXPORTACIÓN CSV / EXCEL</div>
+          <div class="step-desc">Botón "Exportar para gestoría" que genera un Excel con: hoja de facturas emitidas, hoja de facturas rectificativas, hoja de resumen IVA. Formato compatible con Contasol, Holded, A3, Sage. La gestoría lo importa sin teclear nada.</div>
+        </div>
+        <span class="step-tag tag-manual">EXPORTAR</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">C</span>
+        <div class="step-body">
+          <div class="step-title">INFORME PDF BANCO</div>
+          <div class="step-desc">Botón "Informe de ingresos" que genera un PDF profesional con: facturación del periodo, contratos activos con cuota mensual, saldo pendiente de cobro, proyección de ingresos próximos 3 meses. Firmado con el nombre del instalador/empresa.</div>
+        </div>
+        <span class="step-tag tag-manual">PDF</span>
+      </div>
+      <div class="flow-step">
+        <span class="step-num">D</span>
+        <div class="step-body">
+          <div class="step-title">ENVÍO AUTOMÁTICO A GESTORÍA</div>
+          <div class="step-desc">(Fase futura) El primer día del mes siguiente al cierre del trimestre, el sistema envía automáticamente el resumen y el CSV al email de la gestoría configurada en ajustes. El instalador recibe confirmación de que se ha enviado.</div>
+        </div>
+        <span class="step-tag tag-auto">FUTURO</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 7. SCHEMA BD ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2>Esquema de base de datos — tablas de facturación</h2>
+    </div>
+
+    <p style="font-size:15px; color:var(--text-muted); margin-bottom:20px;">Sobre el esquema actual de TrabFlow (Supabase). Campos nuevos a añadir o verificar que existen:</p>
+
+    <div class="schema">
+<span class="comment">-- TABLA PRINCIPAL DE FACTURAS (ampliar la existente trade_invoices)</span>
+<span class="field">trade_invoices</span> {
+  <span class="field">id</span>                    <span class="type">UUID PK</span>
+  <span class="field">org_id</span>               <span class="type">UUID FK → trade_organizations</span>
+  <span class="field">tipo_factura</span>         <span class="type">ENUM</span>  <span class="comment">-- 'contrato_cuota' | 'contrato_extra' | 'trabajo_puntual' | 'rectificativa'</span>
+  <span class="field">serie</span>                <span class="type">TEXT</span>  <span class="comment">-- 'M' (mantenimiento) | 'F' (factura normal) | 'R' (rectificativa)</span>
+  <span class="field">numero</span>               <span class="type">TEXT UNIQUE</span>  <span class="comment">-- M-2026-0001 / F-2026-0001 / R-2026-0001</span>
+  <span class="field">estado</span>               <span class="type">ENUM</span>  <span class="comment">-- borrador | emitida | enviada | pagada | vencida | cancelada</span>
+  <span class="field">contrato_id</span>          <span class="type">UUID FK → trade_contratos</span>  <span class="comment">-- null si es trabajo puntual</span>
+  <span class="field">presupuesto_id</span>       <span class="type">UUID FK → trade_quotes</span>  <span class="comment">-- null si es cuota de contrato</span>
+  <span class="field">mes_facturacion</span>      <span class="type">DATE</span>  <span class="comment">-- primer día del mes al que corresponde (contratos)</span>
+  <span class="field">cliente_id</span>           <span class="type">UUID FK → trade_clients</span>
+  <span class="field">razon_social_cliente</span> <span class="type">TEXT NOT NULL</span>  <span class="comment">-- snapshot fiscal en el momento de emisión</span>
+  <span class="field">nif_cliente</span>          <span class="type">TEXT NOT NULL</span>
+  <span class="field">direccion_cliente</span>    <span class="type">TEXT NOT NULL</span>
+  <span class="field">base_imponible</span>       <span class="type">NUMERIC(10,2)</span>
+  <span class="field">tipo_iva</span>             <span class="type">NUMERIC(5,2)</span>  <span class="comment">-- 21.00 | 10.00 | 0.00</span>
+  <span class="field">cuota_iva</span>            <span class="type">NUMERIC(10,2)</span>
+  <span class="field">retencion_irpf</span>       <span class="type">NUMERIC(5,2)</span>  <span class="comment">-- 15.00 si aplica, 0.00 si no</span>
+  <span class="field">importe_retencion</span>    <span class="type">NUMERIC(10,2)</span>
+  <span class="field">total</span>                <span class="type">NUMERIC(10,2)</span>
+  <span class="field">metodo_pago</span>          <span class="type">TEXT</span>  <span class="comment">-- transferencia | domiciliacion | efectivo | tarjeta</span>
+  <span class="field">fecha_emision</span>        <span class="type">TIMESTAMPTZ</span>  <span class="comment">-- null mientras borrador</span>
+  <span class="field">fecha_vencimiento</span>    <span class="type">TIMESTAMPTZ</span>
+  <span class="field">fecha_cobro</span>          <span class="type">TIMESTAMPTZ</span>  <span class="comment">-- null hasta que se marca pagada</span>
+  <span class="field">rectifica_factura_id</span> <span class="type">UUID FK → trade_invoices</span>  <span class="comment">-- solo rectificativas</span>
+  <span class="field">motivo_rectificacion</span> <span class="type">TEXT</span>
+  <span class="field">notas_internas</span>       <span class="type">TEXT</span>  <span class="comment">-- visible solo para el instalador</span>
+  <span class="field">pdf_url</span>              <span class="type">TEXT</span>  <span class="comment">-- URL Supabase Storage</span>
+  <span class="field">created_at</span>           <span class="type">TIMESTAMPTZ DEFAULT now()</span>
+  <span class="field">updated_at</span>           <span class="type">TIMESTAMPTZ</span>
+}
+
+<span class="comment">-- TABLA DE LÍNEAS DE FACTURA</span>
+<span class="field">trade_invoice_lines</span> {
+  <span class="field">id</span>              <span class="type">UUID PK</span>
+  <span class="field">factura_id</span>      <span class="type">UUID FK → trade_invoices</span>
+  <span class="field">descripcion</span>     <span class="type">TEXT NOT NULL</span>
+  <span class="field">cantidad</span>        <span class="type">NUMERIC(10,3)</span>
+  <span class="field">precio_unitario</span> <span class="type">NUMERIC(10,2)</span>
+  <span class="field">descuento_pct</span>   <span class="type">NUMERIC(5,2) DEFAULT 0</span>
+  <span class="field">subtotal</span>        <span class="type">NUMERIC(10,2)</span>  <span class="comment">-- cantidad * precio * (1 - descuento)</span>
+  <span class="field">orden</span>           <span class="type">INTEGER</span>
+}
+
+<span class="comment">-- VISTA ÚTIL: facturas con info del contrato</span>
+<span class="field">v_facturas_contratos</span> → <span class="comment">JOIN trade_invoices + trade_contratos + trade_clients</span>
+    </div>
+
+    <div class="callout callout-blue">
+      <div class="callout-title">Dato importante — snapshot fiscal</div>
+      <p>Los campos <code>razon_social_cliente</code>, <code>nif_cliente</code> y <code>direccion_cliente</code> deben copiarse en la factura en el momento de emisión, NO leerse dinámicamente del cliente. Si el cliente cambia su CIF o dirección, las facturas antiguas deben conservar los datos que tenían cuando se emitieron. Esto es obligatorio fiscalmente.</p>
+    </div>
+  </section>
+
+  <!-- ── 8. FLUJO VISUAL COMPLETO ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2>Mapa completo del dinero en TrabFlow</h2>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Momento</th>
+            <th>Acción</th>
+            <th>Quién</th>
+            <th>Estado resultante</th>
+            <th>Va a gestoría</th>
+            <th>Va al banco</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Contrato firmado</td>
+            <td>Crear 12 borradores de factura</td>
+            <td><span class="pill pill-blue">SISTEMA</span></td>
+            <td><code>borrador</code></td>
+            <td>No</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>Día 1 del mes</td>
+            <td>Emitir factura del mes (número asignado)</td>
+            <td><span class="pill pill-orange">USUARIO / AUTO</span></td>
+            <td><code>emitida</code></td>
+            <td>Sí (trimestral)</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>Día 1-2</td>
+            <td>Enviar factura al cliente</td>
+            <td><span class="pill pill-blue">SISTEMA</span></td>
+            <td><code>enviada</code></td>
+            <td>No</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>Cobro recibido</td>
+            <td>Marcar como pagada + método + fecha</td>
+            <td><span class="pill pill-orange">USUARIO</span></td>
+            <td><code>pagada</code></td>
+            <td>Sí (trimestral)</td>
+            <td>Sí (mensual)</td>
+          </tr>
+          <tr>
+            <td>Trabajo extra ejecutado</td>
+            <td>Crear factura extra en serie M-</td>
+            <td><span class="pill pill-orange">USUARIO</span></td>
+            <td><code>borrador → emitida</code></td>
+            <td>Sí (trimestral)</td>
+            <td>Sí</td>
+          </tr>
+          <tr>
+            <td>Presupuesto aceptado</td>
+            <td>Crear borrador factura trabajo</td>
+            <td><span class="pill pill-blue">SISTEMA / USUARIO</span></td>
+            <td><code>borrador</code></td>
+            <td>No</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>Trabajo terminado</td>
+            <td>Emitir factura trabajo en serie F-</td>
+            <td><span class="pill pill-orange">USUARIO</span></td>
+            <td><code>emitida</code></td>
+            <td>Sí (trimestral)</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>Fin de trimestre</td>
+            <td>Exportar libro de facturas para gestoría</td>
+            <td><span class="pill pill-orange">USUARIO / AUTO</span></td>
+            <td>—</td>
+            <td>CSV + PDF</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td>Solicitud banco</td>
+            <td>Generar informe de ingresos</td>
+            <td><span class="pill pill-orange">USUARIO</span></td>
+            <td>—</td>
+            <td>No</td>
+            <td>PDF informe</td>
+          </tr>
+          <tr>
+            <td>Error en factura emitida</td>
+            <td>Emitir factura rectificativa</td>
+            <td><span class="pill pill-orange">USUARIO</span></td>
+            <td><code>cancelada</code> (orig.) + nueva <code>R-</code></td>
+            <td>Sí (con referencia)</td>
+            <td>No</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── 9. ALERTAS Y AUTOMATISMOS ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2>Alertas automáticas del sistema</h2>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Cuándo</th>
+            <th>Alerta</th>
+            <th>Canal</th>
+            <th>Destinatario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>3 días antes del día de facturación</td>
+            <td>"Tienes X facturas de mantenimiento listas para emitir"</td>
+            <td>Push + email</td>
+            <td>Administrador</td>
+          </tr>
+          <tr>
+            <td>Factura emitida</td>
+            <td>"Factura M-2026-XXX emitida y enviada a [cliente]"</td>
+            <td>Push</td>
+            <td>Instalador</td>
+          </tr>
+          <tr>
+            <td>Vencimiento en 7 días</td>
+            <td>"Factura F-2026-XXX vence en 7 días — [cliente]"</td>
+            <td>Push + email</td>
+            <td>Administrador</td>
+          </tr>
+          <tr>
+            <td>Factura vencida</td>
+            <td>"Factura vencida sin cobrar — [cliente] — [importe]"</td>
+            <td>Push + email</td>
+            <td>Administrador</td>
+          </tr>
+          <tr>
+            <td>Contrato próximo a vencer (30 días)</td>
+            <td>"El contrato de [cliente] vence el [fecha] — ¿Renovar?"</td>
+            <td>Push + email</td>
+            <td>Administrador / Comercial</td>
+          </tr>
+          <tr>
+            <td>Fin de trimestre</td>
+            <td>"El trimestre X ha cerrado. Exporta las facturas para la gestoría."</td>
+            <td>Email</td>
+            <td>Administrador</td>
+          </tr>
+          <tr>
+            <td>Contrato cancelado con facturas pendientes</td>
+            <td>"Atención: contrato cancelado con [X] facturas sin cobrar"</td>
+            <td>Push + email</td>
+            <td>Administrador</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── 10. ROADMAP IMPLEMENTACIÓN ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <h2>Roadmap de implementación — fases</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">FASE 1 — INMEDIATA</div>
+        <div class="tl-title">Corregir la generación de facturas de contrato</div>
+        <div class="tl-desc">Cambiar el comportamiento: al crear el contrato, las 12 facturas se crean en estado <code>borrador</code> sin número de serie. Solo se asigna número al emitirlas en el mes correspondiente. Añadir campo <code>mes_facturacion</code> y <code>tipo_factura</code> a la tabla.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">FASE 2 — CORTO PLAZO</div>
+        <div class="tl-title">Módulo de facturación manual y emisión</div>
+        <div class="tl-desc">Pantalla de "Facturas pendientes de emitir este mes". Botón "Emitir" que asigna número, fecha y genera PDF. Separación visual entre facturas de contratos (serie M-) y trabajos puntuales (serie F-). Función de exportación CSV básica.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">FASE 3 — MEDIO PLAZO</div>
+        <div class="tl-title">Control de cobros y alertas</div>
+        <div class="tl-desc">Marcar facturas como pagadas con fecha, método e importe. Alertas de vencimiento automáticas. Dashboard de tesorería: facturado vs. cobrado vs. pendiente por cobrar. Antigüedad de saldos.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">FASE 4 — MEDIO PLAZO</div>
+        <div class="tl-title">Módulo Gestoría</div>
+        <div class="tl-desc">Exportación trimestral de libro de facturas (CSV/Excel compatible con Holded, A3, Contasol). Resumen de IVA por periodo. Informe PDF para banco. Configuración del email de la gestoría para envío automático.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">FASE 5 — FUTURO</div>
+        <div class="tl-title">Verifactu y domiciliación</div>
+        <div class="tl-desc">Implementar Verifactu (RD 1007/2023): hash SHA-256 encadenado de cada evento de factura, tabla inmutable <code>verifactu_events</code>, QR en PDF. Integración con remesas bancarias para domiciliación automática de cuotas de contratos.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── REGLAS CLAVE ── -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">11</span>
+      <h2>Reglas que nunca se rompen</h2>
+    </div>
+
+    <div class="cols2">
+      <div class="card">
+        <div class="card-title">Reglas fiscales obligatorias</div>
+        <ul>
+          <li><strong>Nunca borrar una factura emitida.</strong> Solo rectificativas.</li>
+          <li><strong>Numeración sin huecos</strong> por serie y año. Si se cancela, el número queda con estado cancelado pero existe.</li>
+          <li><strong>Snapshot fiscal en emisión.</strong> NIF, razón social y dirección del cliente se copian al emitir.</li>
+          <li><strong>IVA repercutido</strong> siempre visible y separado de la base imponible.</li>
+          <li><strong>Fecha de operación</strong> distinta de fecha de emisión si el trabajo fue anterior.</li>
+          <li><strong>Rectificativa referencia siempre</strong> a la factura que corrige.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Reglas de negocio TrabFlow</div>
+        <ul>
+          <li><strong>Las 12 facturas del contrato empiezan en borrador.</strong> Solo se emiten mes a mes.</li>
+          <li><strong>Materiales excluidos de contratos</strong> por defecto. Si los hay, factura extra con aprobación previa.</li>
+          <li><strong>Nunca facturar extras</strong> sin aprobación del cliente registrada.</li>
+          <li><strong>Dos series separadas:</strong> M- para mantenimiento, F- para trabajos puntuales.</li>
+          <li><strong>Presupuesto = origen trazable.</strong> Toda factura de trabajo vinculada a su presupuesto.</li>
+          <li><strong>Contrato cancelado</strong> → las facturas en borrador se cancelan; las emitidas pendientes siguen activas.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <footer>
+    <span>TrabFlow Technologies S.L. — Análisis interno de producto · Junio 2026 · Uso confidencial</span>
+  </footer>
+
+</div>
+</body>
+</html>
