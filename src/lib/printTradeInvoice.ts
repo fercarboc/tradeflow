@@ -43,7 +43,7 @@ export function printTradeInvoice(
         <td style="padding:9px 8px;font-size:11px;text-align:right;color:#475569;border-bottom:1px solid #f1f5f9">${(l.precio_unitario ?? 0).toFixed(2)}€</td>
         <td style="padding:9px 8px;font-size:11.5px;text-align:right;font-weight:700;color:#0f172a;border-bottom:1px solid #f1f5f9">${(l.subtotal ?? 0).toFixed(2)}€</td>
       </tr>`).join('')
-    : `<tr><td colspan="4" style="padding:14px 8px;text-align:center;color:#94a3b8;font-size:11px">${inv.concepto ?? '—'}</td></tr>`;
+    : `<tr><td colspan="4" style="padding:14px 8px;text-align:left;color:#334155;font-size:11.5px">${inv.concepto ?? '—'}</td></tr>`;
 
   const logoHtml = org.logo_url
     ? `<img src="${org.logo_url}" alt="Logo" style="max-height:64px;max-width:200px;object-fit:contain;display:block;margin-bottom:8px" />`
