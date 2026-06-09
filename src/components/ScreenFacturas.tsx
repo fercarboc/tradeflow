@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   FileText, RefreshCw, CheckCircle2, Clock, AlertTriangle, X,
-  Download, Send, Eye, Filter, ChevronDown, Plus, Search,
+  Download, Eye, Search, RotateCcw, FileDown,
   Banknote, CreditCard, Building2, Smartphone,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import {
   loadAllInvoices, emitirFactura, markInvoicePaid,
-  loadInvoiceLines, TradeInvoice, TradeInvoiceLine,
+  loadInvoiceLines, anularPago, crearFacturaRectificadora, markInvoicePendiente,
+  TradeInvoice, TradeInvoiceLine,
 } from '../lib/supabase';
+import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { useSession } from '../context/SessionContext';
 
 // ── Helpers ───────────────────────────────────────────────────────────────
@@ -75,7 +77,10 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
   const [payMethod, setPayMethod] = useState<TradeInvoice['metodo_pago']>('transferencia');
   const [showPayModal, setShowPayModal] = useState(false);
   const [payingInv, setPayingInv] = useState<InvoiceWithClient | null>(null);
-  const [showGestoria, setShowGestoria] = useState(false);
+  const [showGestoria, setShowGestoria]     = useState(false);
+  const [anulando, setAnulando]             = useState<string | null>(null);
+  const [rectificando, setRectificando]     = useState<string | null>(null);
+  const [pendienting, setPendienting]       = useState<string | null>(null);
   const [gestoriaPeriod, setGestoriaPeriod] = useState(() => {
     const now = new Date();
     const q = Math.ceil((now.getMonth() + 1) / 3);
@@ -162,6 +167,68 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
       setShowPayModal(false);
       setPayingInv(null);
     }
+  }
+
+  async function handleAnularPago(inv: InvoiceWithClient) {
+    if (!isLiveMode) return;
+    if (!window.confirm(`¿Anular el pago de ${inv.numero}? La factura volverá a estado Emitida.`)) return;
+    setAnulando(inv.id);
+    try {
+      await anularPago(inv.id);
+      const updates = { estado: 'Emitida' as const, paid_at: undefined, metodo_pago: undefined };
+      setInvoices(prev => prev.map(i => i.id === inv.id ? { ...i, ...updates } : i));
+      if (selectedInv?.id === inv.id) setSelectedInv(prev => prev ? { ...prev, ...updates } : prev);
+      showToast('Pago anulado — factura vuelve a Emitida', 'info');
+    } catch {
+      showToast('Error al anular el pago', 'error');
+    } finally {
+      setAnulando(null);
+    }
+  }
+
+  async function handleCrearRectificadora(inv: InvoiceWithClient) {
+    if (!isLiveMode || !org) return;
+    if (!window.confirm(`¿Crear factura rectificativa de ${inv.numero}? Se creará como borrador con importes negativos.`)) return;
+    setRectificando(inv.id);
+    try {
+      const rect = await crearFacturaRectificadora(inv.id, org.id);
+      setInvoices(prev => [{ ...rect, trade_clients: inv.trade_clients } as InvoiceWithClient, ...prev]);
+      showToast(`Rectificativa creada como borrador — emítela cuando esté lista`, 'success');
+      setSelectedInv(null);
+    } catch {
+      showToast('Error al crear la rectificativa', 'error');
+    } finally {
+      setRectificando(null);
+    }
+  }
+
+  async function handleMarcarPendiente(inv: InvoiceWithClient) {
+    if (!isLiveMode) return;
+    setPendienting(inv.id);
+    try {
+      await markInvoicePendiente(inv.id);
+      const updates = { estado: 'Pendiente' as const };
+      setInvoices(prev => prev.map(i => i.id === inv.id ? { ...i, ...updates } : i));
+      if (selectedInv?.id === inv.id) setSelectedInv(prev => prev ? { ...prev, ...updates } : prev);
+      showToast('Factura marcada como Pendiente de cobro', 'info');
+    } catch {
+      showToast('Error al actualizar estado', 'error');
+    } finally {
+      setPendienting(null);
+    }
+  }
+
+  function handlePrintInvoice(inv: InvoiceWithClient, lines: TradeInvoiceLine[]) {
+    if (!org) return;
+    printTradeInvoice(inv, lines, {
+      nombre: org.nombre,
+      cif: org.nif,
+      direccion: org.direccion,
+      ciudad: org.ciudad,
+      telefono: org.telefono,
+      email: org.email,
+      logo_url: org.logo_url,
+    });
   }
 
   // ── Gestoría CSV export ───────────────────────────────────────────────────
@@ -355,6 +422,15 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
                             Cobrar
                           </button>
                         )}
+                        {!isBorrador && (
+                          <button
+                            onClick={() => handlePrintInvoice(inv, [])}
+                            className="p-1 rounded text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 cursor-pointer"
+                            title="Ver PDF"
+                          >
+                            <FileDown className="w-3.5 h-3.5" />
+                          </button>
+                        )}
                         <button
                           onClick={() => openDetail(inv)}
                           className="p-1 rounded text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer"
@@ -488,31 +564,74 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
             </div>
 
             {/* Acciones del detalle */}
-            <div className="px-5 py-4 border-t border-slate-100 flex gap-2">
-              {selectedInv.estado === 'Borrador' && (
+            <div className="px-5 py-4 border-t border-slate-100 space-y-2">
+              <div className="flex gap-2">
+                {selectedInv.estado === 'Borrador' && (
+                  <button
+                    onClick={() => handleEmitir(selectedInv)}
+                    disabled={!isLiveMode || emitting === selectedInv.id}
+                    className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold disabled:opacity-50 cursor-pointer transition-colors"
+                  >
+                    {emitting === selectedInv.id ? 'Emitiendo...' : '✓ Emitir factura'}
+                  </button>
+                )}
+                {selectedInv.estado === 'Emitida' && (
+                  <button
+                    onClick={() => handleMarcarPendiente(selectedInv)}
+                    disabled={!isLiveMode || pendienting === selectedInv.id}
+                    className="flex-1 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold disabled:opacity-50 cursor-pointer transition-colors"
+                  >
+                    {pendienting === selectedInv.id ? '...' : '⏳ Pendiente'}
+                  </button>
+                )}
+                {(selectedInv.estado === 'Emitida' || selectedInv.estado === 'Pendiente') && (
+                  <button
+                    onClick={() => { setPayingInv(selectedInv); setShowPayModal(true); }}
+                    disabled={!isLiveMode}
+                    className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold disabled:opacity-50 cursor-pointer transition-colors"
+                  >
+                    ✓ Cobrada
+                  </button>
+                )}
+                {selectedInv.estado === 'Pagada' && (
+                  <button
+                    onClick={() => handleAnularPago(selectedInv)}
+                    disabled={!isLiveMode || anulando === selectedInv.id}
+                    className="flex-1 py-2.5 rounded-xl bg-red-50 hover:bg-red-100 border border-red-200 text-red-600 text-sm font-semibold disabled:opacity-50 cursor-pointer transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    {anulando === selectedInv.id ? '...' : 'Anular pago'}
+                  </button>
+                )}
                 <button
-                  onClick={() => handleEmitir(selectedInv)}
-                  disabled={!isLiveMode || emitting === selectedInv.id}
-                  className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold disabled:opacity-50 cursor-pointer transition-colors"
+                  onClick={() => setSelectedInv(null)}
+                  className="py-2.5 px-4 rounded-xl border border-slate-200 text-slate-600 text-sm hover:bg-slate-50 cursor-pointer transition-colors"
                 >
-                  {emitting === selectedInv.id ? 'Emitiendo...' : '✓ Emitir factura'}
+                  Cerrar
                 </button>
-              )}
-              {(selectedInv.estado === 'Emitida' || selectedInv.estado === 'Pendiente') && (
-                <button
-                  onClick={() => { setPayingInv(selectedInv); setShowPayModal(true); }}
-                  disabled={!isLiveMode}
-                  className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold disabled:opacity-50 cursor-pointer transition-colors"
-                >
-                  Marcar como cobrada
-                </button>
-              )}
-              <button
-                onClick={() => setSelectedInv(null)}
-                className="py-2.5 px-4 rounded-xl border border-slate-200 text-slate-600 text-sm hover:bg-slate-50 cursor-pointer transition-colors"
-              >
-                Cerrar
-              </button>
+              </div>
+              {/* Fila secundaria: PDF + Rectificadora */}
+              <div className="flex gap-2">
+                {selectedInv.estado !== 'Borrador' && (
+                  <button
+                    onClick={() => handlePrintInvoice(selectedInv, invLines)}
+                    className="flex-1 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50 cursor-pointer transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <FileDown className="w-3.5 h-3.5" />
+                    Ver PDF
+                  </button>
+                )}
+                {(selectedInv.estado === 'Emitida' || selectedInv.estado === 'Pagada' || selectedInv.estado === 'Pendiente') && selectedInv.tipo_factura !== 'rectificativa' && (
+                  <button
+                    onClick={() => handleCrearRectificadora(selectedInv)}
+                    disabled={!isLiveMode || rectificando === selectedInv.id}
+                    className="flex-1 py-2 rounded-xl border border-orange-200 text-orange-600 bg-orange-50 hover:bg-orange-100 text-xs font-semibold disabled:opacity-50 cursor-pointer transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <AlertTriangle className="w-3 h-3" />
+                    {rectificando === selectedInv.id ? '...' : 'Crear rectificativa'}
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

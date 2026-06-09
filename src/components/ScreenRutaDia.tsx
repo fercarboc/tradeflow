@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   MapPin, Navigation, Clock, Zap, ChevronUp, ChevronDown,
   AlertTriangle, ExternalLink, Route, RefreshCw, Play,
@@ -88,11 +88,48 @@ export default function ScreenRutaDia({
   const [saving, setSaving]           = useState(false);
   const [dragIdx, setDragIdx]         = useState<number | null>(null);
 
+  // ── Agrupar trabajos por trabajador ───────────────────────────────────────
+  const workerGroups = useMemo(() => {
+    const map = new Map<string, { id: string; nombre: string; jobs: TradeJob[] }>();
+    const activeJobs = jobs.filter(j => !ESTADO_DONE.has(j.estado));
+    const unassignedJobs = activeJobs.filter(j => !j.trade_job_workers?.length);
+
+    activeJobs.forEach(job => {
+      (job.trade_job_workers ?? []).forEach(jw => {
+        if (!map.has(jw.worker_id)) {
+          map.set(jw.worker_id, {
+            id: jw.worker_id,
+            nombre: jw.trade_workers?.nombre ?? 'Trabajador',
+            jobs: [],
+          });
+        }
+        map.get(jw.worker_id)!.jobs.push(job);
+      });
+    });
+
+    const groups = [...map.values()];
+    if (unassignedJobs.length > 0) {
+      groups.push({ id: '__unassigned__', nombre: 'Sin asignar', jobs: unassignedJobs });
+    }
+    return groups;
+  }, [jobs]);
+
+  const [selectedWorkerId, setSelectedWorkerId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (workerGroups.length > 0 && (selectedWorkerId === null || !workerGroups.some(g => g.id === selectedWorkerId))) {
+      setSelectedWorkerId(workerGroups[0].id);
+    }
+  }, [workerGroups, selectedWorkerId]);
+
+  const currentWorkerJobs = useMemo(() => {
+    if (!selectedWorkerId) return jobs.filter(j => !ESTADO_DONE.has(j.estado));
+    return workerGroups.find(g => g.id === selectedWorkerId)?.jobs ?? [];
+  }, [selectedWorkerId, workerGroups, jobs]);
+
   // ── Carga inicial: usa orden_ruta ya guardado si existe, si no ordena por hora ──
   useEffect(() => {
-    const todayJobs = jobs.filter(
-      j => !ESTADO_DONE.has(j.estado),
-    );
+    const todayJobs = currentWorkerJobs;
 
     const alreadyOrdered = todayJobs.every(j => j.orden_ruta != null);
     if (alreadyOrdered && todayJobs.length > 0) {
@@ -108,7 +145,7 @@ export default function ScreenRutaDia({
       });
       setRouteJobs(sorted.map((j, i) => ({ ...j, orden_ruta: i + 1 }) as RouteJob));
     }
-  }, [jobs]);
+  }, [currentWorkerJobs]);
 
   // ── Calcular horas previstas para cada parada ─────────────────────────────
   const calcTimeline = useCallback(() => {
@@ -193,7 +230,10 @@ export default function ScreenRutaDia({
               </h2>
             </div>
             <p className="text-[11px] text-slate-500">
-              {routeJobs.length} paradas · ~{totalHours}h total · inicio {horaInicio}
+              {selectedWorkerId && workerGroups.find(g => g.id === selectedWorkerId)?.nombre
+                ? `${workerGroups.find(g => g.id === selectedWorkerId)!.nombre} · `
+                : ''}
+              {routeJobs.length} parada{routeJobs.length !== 1 ? 's' : ''} · ~{totalHours}h · inicio {horaInicio}
             </p>
           </div>
 
@@ -233,6 +273,39 @@ export default function ScreenRutaDia({
             </button>
           </div>
         </div>
+
+        {/* ── Pestañas de trabajadores ─────────────────────────────────── */}
+        {workerGroups.length > 0 && (
+          <div className="flex gap-1.5 mt-3 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
+            {workerGroups.map(g => {
+              const isSelected = selectedWorkerId === g.id;
+              const isUnassigned = g.id === '__unassigned__';
+              return (
+                <button
+                  key={g.id}
+                  onClick={() => setSelectedWorkerId(g.id)}
+                  className={`shrink-0 flex items-center gap-1.5 text-[10px] font-bold px-3 py-1.5 rounded-full border cursor-pointer transition-all ${
+                    isSelected
+                      ? isUnassigned
+                        ? 'bg-amber-600 text-white border-amber-600'
+                        : 'bg-blue-600 text-white border-blue-600'
+                      : 'border-slate-200 text-slate-500 hover:border-slate-400 bg-white'
+                  }`}
+                >
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black shrink-0 ${
+                    isSelected ? 'bg-white/20' : isUnassigned ? 'bg-amber-100 text-amber-600' : 'bg-slate-200 text-slate-600'
+                  }`}>
+                    {isUnassigned ? '!' : g.nombre.slice(0, 2).toUpperCase()}
+                  </span>
+                  {g.nombre}
+                  <span className={`text-[9px] px-1 rounded-full ${isSelected ? 'bg-white/25' : 'bg-slate-100 text-slate-500'}`}>
+                    {g.jobs.length}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {/* Aviso: trabajos sin coordenadas — solo si hay alguno */}
         {jobsWithoutCoords.length > 0 && (

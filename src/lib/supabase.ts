@@ -119,6 +119,7 @@ export interface TradeInvoice {
   notas_internas?: string | null;
   rectifica_factura_id?: string | null;
   motivo_rectificacion?: string | null;
+  factura_original_id?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -1001,6 +1002,93 @@ export async function loadAllInvoices(orgId: string): Promise<TradeInvoice[]> {
     .order('created_at', { ascending: false });
   if (error) throw error;
   return (data ?? []) as TradeInvoice[];
+}
+
+export async function loadInvoicesByClientId(clientId: string, orgId: string): Promise<TradeInvoice[]> {
+  const { data, error } = await supabase
+    .from('trade_invoices')
+    .select('*, trade_clients(nombre)')
+    .eq('org_id', orgId)
+    .eq('client_id', clientId)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as TradeInvoice[];
+}
+
+export async function anularPago(id: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_invoices')
+    .update({ estado: 'Emitida', paid_at: null, metodo_pago: null })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+export async function markInvoicePendiente(id: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_invoices')
+    .update({ estado: 'Pendiente' })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+export async function crearFacturaRectificadora(
+  originalId: string,
+  orgId: string,
+): Promise<TradeInvoice> {
+  const { data: orig, error: origErr } = await supabase
+    .from('trade_invoices')
+    .select('*')
+    .eq('id', originalId)
+    .single();
+  if (origErr || !orig) throw origErr ?? new Error('Factura original no encontrada');
+
+  const { data: lines } = await supabase
+    .from('trade_invoice_lines')
+    .select('*')
+    .eq('factura_id', originalId)
+    .order('orden');
+
+  const now = new Date().toISOString();
+  const { data: newInv, error: invErr } = await supabase
+    .from('trade_invoices')
+    .insert({
+      org_id: orgId,
+      client_id: orig.client_id,
+      tipo_factura: 'rectificativa',
+      serie: orig.serie,
+      estado: 'Borrador',
+      numero: `BORRADOR-rect-${Date.now()}`,
+      concepto: `Rectificativa de ${orig.numero ?? orig.id}`,
+      subtotal: -(orig.subtotal ?? 0),
+      iva_pct: orig.iva_pct ?? 21,
+      iva_importe: -(orig.iva_importe ?? 0),
+      total: -(orig.total ?? 0),
+      razon_social_cliente: orig.razon_social_cliente,
+      nif_cliente: orig.nif_cliente,
+      direccion_cliente: orig.direccion_cliente,
+      factura_original_id: originalId,
+      created_at: now,
+      updated_at: now,
+    })
+    .select()
+    .single();
+  if (invErr) throw invErr;
+
+  if (lines?.length) {
+    await supabase.from('trade_invoice_lines').insert(
+      lines.map((l: TradeInvoiceLine) => ({
+        factura_id: newInv.id,
+        descripcion: l.descripcion,
+        cantidad: l.cantidad,
+        precio_unitario: -(l.precio_unitario ?? 0),
+        subtotal: -(l.subtotal ?? 0),
+        tipo: l.tipo,
+        orden: l.orden,
+      })),
+    );
+  }
+
+  return newInv as TradeInvoice;
 }
 
 // ── Rutas y paradas ───────────────────────────────────────────────────────

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Plus, ChevronLeft, ChevronRight, MapPin, User, Users,
   CheckCircle, Play, Trash2, Edit3, Navigation, CalendarDays,
@@ -680,12 +680,30 @@ export default function ScreenPlanificacion({
   const [saving, setSaving]                       = useState(false);
   const [selectedWorkerIds, setSelectedWorkerIds] = useState<Set<string>>(new Set());
   const [geoStatus, setGeoStatus]                 = useState<GeoStatus>('idle');
+  const autoRescheduledRef                        = useRef(false);
 
   // Sincroniza el estado geo con el job que se está editando
   useEffect(() => {
     if (!showModal) return;
     setGeoStatus(editingJob?.latitud != null ? 'ok' : 'idle');
   }, [showModal, editingJob]);
+
+  // Auto-reprogramar trabajos atrasados al cargar
+  useEffect(() => {
+    if (!isLiveMode || autoRescheduledRef.current || propJobs.length === 0) return;
+    const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+    const overdue = propJobs.filter(j =>
+      j.fecha_inicio != null && j.fecha_inicio < today &&
+      j.estado !== 'completado' &&
+      j.estado !== 'cancelado',
+    );
+    if (overdue.length === 0) return;
+    autoRescheduledRef.current = true;
+    void Promise.all(overdue.map(j => onUpdateJob(j.id, { fecha_inicio: tomorrow })))
+      .then(() => showToast(`${overdue.length} trabajo${overdue.length !== 1 ? 's' : ''} atrasado${overdue.length !== 1 ? 's' : ''} reprogramado${overdue.length !== 1 ? 's' : ''} para mañana`, 'info'))
+      .catch(() => {});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLiveMode, propJobs]);
 
   const dayJobs = jobs.filter(j => j.fecha_inicio === selectedDate);
 
@@ -909,11 +927,24 @@ export default function ScreenPlanificacion({
                 );
                 if (!unassigned.length) return null;
                 return (
-                  <div className="flex items-center gap-2 pt-1 border-t border-slate-100">
-                    <div className="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
-                      <AlertTriangle className="w-3 h-3 text-amber-500" />
+                  <div className="pt-1 border-t border-slate-100 space-y-1">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center shrink-0">
+                        <AlertTriangle className="w-3 h-3 text-amber-500" />
+                      </div>
+                      <span className="text-[10px] text-amber-600 font-semibold">{unassigned.length} trabajo{unassigned.length !== 1 ? 's' : ''} sin asignar</span>
                     </div>
-                    <span className="text-[10px] text-amber-600 font-semibold">{unassigned.length} trabajo{unassigned.length !== 1 ? 's' : ''} sin asignar</span>
+                    {unassigned.map(j => (
+                      <div key={j.id} className="ml-8 flex items-center justify-between gap-2">
+                        <span className="text-[9px] text-slate-500 truncate">{j.titulo}</span>
+                        <button
+                          onClick={() => openEdit(j)}
+                          className="shrink-0 text-[8px] font-bold uppercase text-blue-600 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded-full hover:bg-blue-100 cursor-pointer whitespace-nowrap"
+                        >
+                          Asignar →
+                        </button>
+                      </div>
+                    ))}
                   </div>
                 );
               })()}

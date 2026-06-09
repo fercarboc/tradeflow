@@ -66,6 +66,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
 import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords } from '../lib/supabase';
+import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { geocodeAddress } from '../lib/geocoder';
 import type { GeoLocation } from '../lib/routeOptimizer';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription, TemplateType } from '../lib/supabase';
@@ -6504,33 +6505,46 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       <div className="py-10 text-center text-sm text-slate-400">Sin facturas todavía</div>
                     ) : (
                       panelInvoices.map((inv, idx) => {
-                        const fullFactura = facturas.find(f => f.numeroFactura === inv.numero);
+                        const estadoDot: Record<string, string> = {
+                          Pagada: 'bg-emerald-500', Vencida: 'bg-red-500',
+                          Emitida: 'bg-blue-500', Pendiente: 'bg-amber-400',
+                          Borrador: 'bg-slate-300', Cancelada: 'bg-slate-300',
+                        };
+                        const estadoText: Record<string, string> = {
+                          Pagada: 'text-emerald-600', Vencida: 'text-red-600',
+                          Emitida: 'text-blue-600', Pendiente: 'text-amber-600',
+                          Borrador: 'text-slate-400', Cancelada: 'text-slate-400',
+                        };
                         return (
-                        <div key={idx} className="flex items-center gap-3 px-5 py-3.5 hover:bg-slate-50">
-                          <div className={`w-2 h-2 rounded-full shrink-0 ${inv.estado === 'Pagada' ? 'bg-emerald-500' : inv.estado === 'Vencida' ? 'bg-red-500' : 'bg-amber-400'}`} />
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-baseline gap-2">
-                              <span className="text-sm font-bold text-slate-800 font-mono">{inv.numero}</span>
-                              <span className="text-xs text-slate-400">{inv.fecha}</span>
+                          <div key={idx} className="flex items-center gap-3 px-5 py-3.5 hover:bg-slate-50">
+                            <div className={`w-2 h-2 rounded-full shrink-0 ${estadoDot[inv.estado] ?? 'bg-amber-400'}`} />
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-baseline gap-2">
+                                <span className="text-sm font-bold text-slate-800 font-mono">{inv.estado === 'Borrador' ? '—' : inv.numero}</span>
+                                <span className="text-xs text-slate-400">{inv.fecha}</span>
+                              </div>
+                              {inv.concepto && <p className="text-xs text-slate-500 truncate mt-0.5">{inv.concepto}</p>}
                             </div>
-                            {inv.concepto && <p className="text-xs text-slate-500 truncate mt-0.5">{inv.concepto}</p>}
-                          </div>
-                          <div className="flex items-center gap-3 shrink-0">
-                            <div className="text-right">
-                              <p className="text-sm font-bold text-slate-900 font-mono">{inv.total.toFixed(0)}€</p>
-                              <span className={`text-[9px] font-bold uppercase ${inv.estado === 'Pagada' ? 'text-emerald-600' : inv.estado === 'Vencida' ? 'text-red-600' : 'text-amber-600'}`}>{inv.estado}</span>
+                            <div className="flex items-center gap-3 shrink-0">
+                              <div className="text-right">
+                                <p className="text-sm font-bold text-slate-900 font-mono">{inv.total.toFixed(0)}€</p>
+                                <span className={`text-[9px] font-bold uppercase ${estadoText[inv.estado] ?? 'text-amber-600'}`}>{inv.estado}</span>
+                              </div>
+                              {inv.estado !== 'Borrador' && (
+                                <button
+                                  onClick={() => printTradeInvoice(
+                                    { ...inv, numero: inv.numero ?? '', subtotal: inv.total / 1.21, iva_pct: 21, iva_importe: inv.total - inv.total / 1.21 } as Parameters<typeof printTradeInvoice>[0],
+                                    [],
+                                    { nombre: orgData?.nombre, nif: orgData?.nif, direccion: orgData?.direccion, ciudad: (orgData as unknown as Record<string, unknown>)?.ciudad as string, telefono: orgData?.telefono, email: orgData?.email, logo_url: orgData?.logo_url },
+                                  )}
+                                  className="flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-600 text-[10px] font-bold px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
+                                  title="Ver / Imprimir PDF"
+                                >
+                                  <FileText className="w-3 h-3" /> PDF
+                                </button>
+                              )}
                             </div>
-                            {fullFactura && (
-                              <button
-                                onClick={() => printInvoice(fullFactura)}
-                                className="flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-600 text-[10px] font-bold px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors"
-                                title="Ver / Imprimir PDF"
-                              >
-                                <FileText className="w-3 h-3" /> PDF
-                              </button>
-                            )}
                           </div>
-                        </div>
                         );
                       })
                     )}
