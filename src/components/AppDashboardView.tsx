@@ -868,7 +868,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       return;
     }
     const dir = orgData.direccion;
-    const ciu = (orgData as Record<string, unknown>).ciudad as string | undefined;
+    const ciu = (orgData as unknown as Record<string, unknown>).ciudad as string | undefined;
     if (!dir && !ciu) return;
     void geocodeAddress({ direccion: dir, localidad: ciu }).then(geo => {
       if (!geo) return;
@@ -5163,7 +5163,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     startLocation={
                       orgBaseGeo ??
                       (orgData?.direccion
-                        ? `${orgData.direccion}${(orgData as Record<string, unknown>).ciudad ? `, ${(orgData as Record<string, unknown>).ciudad}` : ''}`.trim()
+                        ? `${orgData.direccion}${(orgData as unknown as Record<string, unknown>).ciudad ? `, ${(orgData as unknown as Record<string, unknown>).ciudad}` : ''}`.trim()
                         : 'Oficina')
                     }
                     horaInicio="08:00"

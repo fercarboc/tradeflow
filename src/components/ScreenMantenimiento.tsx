@@ -676,7 +676,7 @@ function ContratoDocModal({ contrato, onClose, showToast }: ContratoDocModalProp
       const nombreCliente = (contrato.nombre_cliente ?? 'cliente').toLowerCase().replace(/\s+/g, '-');
       const filename = `contrato-mantenimiento-${nombreCliente}`;
       if (tradeContract?.variables) {
-        await downloadContractAsDocx(tradeContract.variables as Parameters<typeof downloadContractAsDocx>[0], tradeContract.oficio, filename);
+        await downloadContractAsDocx(tradeContract.variables as unknown as Parameters<typeof downloadContractAsDocx>[0], tradeContract.oficio, filename);
       } else if (doc) {
         await downloadMaintenanceDocAsDocx(doc, filename);
       }
