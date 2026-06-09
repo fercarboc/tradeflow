@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   X, Camera, CheckCircle, Plus, Minus, Search, MapPin, User,
-  Clock, Trash2, Loader2, Mic, Square, Sparkles, Wrench,
+  Clock, Trash2, Loader2, Mic, Square, Wrench,
   MessageSquare, Mail, FileText, ChevronRight, AlertCircle,
-  Lock, PlusCircle, ReceiptText,
+  Lock, PlusCircle, ReceiptText, StickyNote, Send,
 } from 'lucide-react';
-import { supabase, uploadJobPhoto, loadJobPhotos, createInvoiceFromJob, markInvoicePaid, emitirFactura } from '../lib/supabase';
-import type { TradeJob, TradeJobPhoto, TradeInvoice } from '../lib/supabase';
+import { supabase, uploadJobPhoto, loadJobPhotos, createInvoiceFromJob, markInvoicePaid, emitirFactura, createFieldAction } from '../lib/supabase';
+import type { TradeJob, TradeJobPhoto, TradeInvoice, TradeFieldAction } from '../lib/supabase';
+import { useSession } from '../context/SessionContext';
 
 export interface MaterialItem {
   id: string;
@@ -79,6 +80,9 @@ export default function ScreenParteTrabajo({
   job, orgId, tarifas, mode, clienteInfo, mantenimiento,
   existingInvoices = [], onComplete, onInvoiceCreated, onClose, showToast, isLiveMode,
 }: ScreenParteTrabajoProps) {
+  const { rol, workerProfile } = useSession();
+  const isTecnico = rol === 'tecnico';
+
   const isReadonly = mode === 'supplement';  // supplement only adds new materials, existing is locked
   const canComplete = mode === 'edit';
   const isCompleted = job.estado === 'completado';
@@ -101,6 +105,11 @@ export default function ScreenParteTrabajo({
   const [customLineDesc, setCustomLineDesc] = useState('');
   const [customLinePrice, setCustomLinePrice] = useState('');
   const [customLineCant, setCustomLineCant] = useState('1');
+
+  // Field notes (tecnico)
+  const [fieldNoteText, setFieldNoteText] = useState('');
+  const [fieldNoteTipo, setFieldNoteTipo] = useState<TradeFieldAction['tipo']>('otro');
+  const [savingFieldNote, setSavingFieldNote] = useState(false);
 
   // IA voice
   const [recording, setRecording] = useState<RecordingState>('idle');
@@ -153,6 +162,7 @@ export default function ScreenParteTrabajo({
       const demoText = 'cambiado junta de bomba del agua, latiguillo y grifo de presión, todo queda funcionando y correcto';
       setTranscripcion(demoText);
       applyAIResult({
+        transcripcion: demoText,
         materiales: [
           { id: 'demo-1', codigo: 'JNT-001', descripcion: 'Junta de bomba de agua', cantidad: 1, precioBase: 4.50 },
           { id: 'demo-2', codigo: 'LAT-002', descripcion: 'Latiguillo flexible 1/2"', cantidad: 1, precioBase: 8.00 },
@@ -194,7 +204,13 @@ export default function ScreenParteTrabajo({
     } catch { showToast('Error al procesar con IA', 'error'); setRecording('idle'); }
   }
 
-  function applyAIResult(result: { materiales: MaterialItem[]; notas: string; isPostCierre?: boolean }) {
+  function applyAIResult(result: { materiales: MaterialItem[]; notas: string; transcripcion?: string; isPostCierre?: boolean }) {
+    if (isTecnico) {
+      const text = result.transcripcion ?? result.notas ?? '';
+      if (text) setFieldNoteText(text);
+      showToast('Nota de campo transcrita ✓', 'success');
+      return;
+    }
     if (result.materiales?.length) {
       setMateriales(prev => {
         const next = [...prev];
@@ -290,11 +306,40 @@ export default function ScreenParteTrabajo({
     setPhase('completing');
     try {
       await onComplete(job.id, notas, materiales, fin);
+      if (isTecnico) { setPhase('done'); return; }
       const needsInvoice = !mantenimiento?.activo || !mantenimiento?.materialesIncluidos;
       setPhase(needsInvoice && materiales.length > 0 ? 'facturar' : 'done');
     } catch {
       showToast('Error al completar el trabajo', 'error');
       setPhase('main');
+    }
+  }
+
+  // ── Field note (tecnico) ───────────────────────────────────────────────────
+  async function handleSaveFieldNote() {
+    if (!fieldNoteText.trim()) return;
+    setSavingFieldNote(true);
+    try {
+      if (isLiveMode) {
+        await supabase.from('trade_jobs').update({
+          notas_trabajador: fieldNoteText,
+          notas_trabajador_at: new Date().toISOString(),
+          notas_trabajador_leida: false,
+        }).eq('id', job.id);
+        await createFieldAction(orgId, {
+          tipo: fieldNoteTipo,
+          descripcion: fieldNoteText,
+          job_id: job.id,
+          worker_id: workerProfile?.id,
+        });
+      }
+      showToast('Nota guardada ✓', 'success');
+      setFieldNoteText('');
+      setFieldNoteTipo('otro');
+    } catch {
+      showToast('Error al guardar la nota', 'error');
+    } finally {
+      setSavingFieldNote(false);
     }
   }
 
@@ -387,6 +432,50 @@ export default function ScreenParteTrabajo({
   const mailUrl = clienteEmail && invoiceToSend
     ? `mailto:${clienteEmail}?subject=${encodeURIComponent(`Factura ${invoiceToSend.numero}`)}&body=${encodeURIComponent(`Hola ${clienteNombre},\n\nAdjunto factura ${invoiceToSend.numero} por importe de ${fmtEur(invoiceToSend.total)}.\n\nGracias.`)}`
     : null;
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // POST-COMPLETION PANEL — TÉCNICO (no billing)
+  // ══════════════════════════════════════════════════════════════════════════
+  if (isTecnico && (phase === 'facturar' || phase === 'generating' || phase === 'done')) {
+    return (
+      <div className="fixed inset-0 z-50 bg-[#0B0F14] flex flex-col overflow-hidden">
+        <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-white/8 shrink-0">
+          <div className="flex-1 min-w-0 pr-3">
+            <div className="flex items-center gap-2 mb-0.5">
+              <CheckCircle className="w-4 h-4 text-emerald-400" />
+              <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Completado · {horaFin}</p>
+            </div>
+            <h2 className="text-base font-black text-white truncate">{job.titulo}</h2>
+          </div>
+          <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-white/8 active:bg-white/15 text-slate-400 shrink-0 cursor-pointer">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+        <div className="flex-1 flex flex-col items-center justify-center px-5 gap-6">
+          <div className="w-20 h-20 rounded-full bg-emerald-500/15 flex items-center justify-center">
+            <CheckCircle className="w-10 h-10 text-emerald-400" />
+          </div>
+          <div className="text-center">
+            <p className="text-xl font-black text-white">Trabajo completado</p>
+            <p className="text-sm text-slate-400 mt-1.5">Queda pendiente de facturar por oficina</p>
+          </div>
+          {notas ? (
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl px-4 py-3 w-full">
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Tus notas</p>
+              <p className="text-sm text-slate-300 leading-relaxed">{notas}</p>
+            </div>
+          ) : null}
+        </div>
+        <div className="px-5 py-4 border-t border-white/8 shrink-0 bg-[#0B0F14]">
+          <button onClick={onClose}
+            className="w-full flex items-center justify-center gap-2 bg-emerald-600 active:bg-emerald-700 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
+            style={{ boxShadow: '0 4px 24px rgba(16,185,129,0.35)' }}>
+            <ChevronRight className="w-4 h-4" />Cerrar parte
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   // ══════════════════════════════════════════════════════════════════════════
   // POST-COMPLETION / DONE PANEL
@@ -642,7 +731,7 @@ export default function ScreenParteTrabajo({
         {(mode === 'edit' || mode === 'supplement') && (
           <div className="space-y-3">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-              {mode === 'supplement' ? 'Dictar material olvidado' : 'Dictar parte con IA'}
+              {isTecnico ? 'Nota de campo por voz' : mode === 'supplement' ? 'Dictar material olvidado' : 'Dictar parte con IA'}
             </p>
 
             {recording === 'idle' && (
@@ -650,7 +739,7 @@ export default function ScreenParteTrabajo({
                 className="w-full flex items-center justify-center gap-3 bg-blue-600 active:bg-blue-700 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
                 style={{ boxShadow: '0 4px 24px rgba(37,99,235,0.4)' }}>
                 <Mic className="w-5 h-5" />
-                {mode === 'supplement' ? 'Dictar material olvidado' : 'Dictar materiales y notas'}
+                {isTecnico ? 'Dictar nota de campo' : mode === 'supplement' ? 'Dictar material olvidado' : 'Dictar materiales y notas'}
               </button>
             )}
             {recording === 'recording' && (
@@ -669,12 +758,53 @@ export default function ScreenParteTrabajo({
                 <span>Procesando con IA…</span>
               </div>
             )}
-            {transcripcion && recording === 'idle' && (
+            {!isTecnico && transcripcion && recording === 'idle' && (
               <div className="bg-slate-900 border border-blue-500/20 rounded-xl px-4 py-3">
                 <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-1">Transcripción</p>
                 <p className="text-sm text-slate-300 leading-relaxed">{transcripcion}</p>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Campo de nota de campo — solo técnico en edit */}
+        {isTecnico && mode === 'edit' && (
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <StickyNote className="w-3.5 h-3.5 text-amber-400" />
+              <p className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Nota para oficina</p>
+            </div>
+            {/* Tipo selector */}
+            <div className="flex gap-1.5 flex-wrap">
+              {([
+                { key: 'presupuesto_requerido', label: 'Presupuesto' },
+                { key: 'material_necesario', label: 'Material' },
+                { key: 'incidencia', label: 'Incidencia' },
+                { key: 'consulta', label: 'Consulta' },
+                { key: 'otro', label: 'Otro' },
+              ] as const).map(({ key, label }) => (
+                <button
+                  key={key}
+                  onClick={() => setFieldNoteTipo(key)}
+                  className={`text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors cursor-pointer ${fieldNoteTipo === key ? 'bg-amber-600 text-white' : 'bg-slate-800 text-slate-400'}`}
+                >{label}</button>
+              ))}
+            </div>
+            <textarea
+              rows={3}
+              value={fieldNoteText}
+              onChange={e => setFieldNoteText(e.target.value)}
+              placeholder="Describe la incidencia, material necesario o presupuesto requerido…"
+              className="w-full bg-slate-900 border border-amber-700/40 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-amber-500 resize-none"
+            />
+            <button
+              onClick={handleSaveFieldNote}
+              disabled={!fieldNoteText.trim() || savingFieldNote}
+              className="w-full flex items-center justify-center gap-2 bg-amber-600 active:bg-amber-700 disabled:opacity-40 text-white font-bold text-sm py-3 rounded-xl cursor-pointer"
+            >
+              {savingFieldNote ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
+              {savingFieldNote ? 'Guardando…' : 'Enviar nota a oficina'}
+            </button>
           </div>
         )}
 
@@ -708,7 +838,7 @@ export default function ScreenParteTrabajo({
         )}
 
         {/* Materiales (normales o post-cierre) */}
-        {mode !== 'supplement' && (
+        {mode !== 'supplement' && !isTecnico && (
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Materiales</p>
@@ -945,7 +1075,7 @@ export default function ScreenParteTrabajo({
         )}
 
         {/* Aviso facturación en edit mode */}
-        {mode === 'edit' && !mantenimiento?.activo && materialesNormales.length > 0 && (
+        {mode === 'edit' && !isTecnico && !mantenimiento?.activo && materialesNormales.length > 0 && (
           <div className="flex items-start gap-2.5 bg-amber-500/8 border border-amber-500/20 rounded-xl px-4 py-3">
             <AlertCircle className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
             <p className="text-xs text-amber-300/80">Al completar se generará una factura por <span className="font-bold">{fmtEur((subtotalNormal) * 1.21)}</span></p>

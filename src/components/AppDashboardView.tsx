@@ -72,6 +72,7 @@ import type { GeoLocation } from '../lib/routeOptimizer';
 import type { TradeWorker, TradeTarifa, TradeCatalogProduct, TradeCatalogVariant, TradeJob, TradeSubscription, TemplateType } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { usePermissions } from '../hooks/usePermissions';
+import { useSession } from '../context/SessionContext';
 import { downloadAsWordDocx } from '../lib/exportWord';
 import CatalogImportModal from './CatalogImportModal';
 import GlobalCatalogModal from './GlobalCatalogModal';
@@ -410,7 +411,8 @@ function SendEmailModal({ cliente, empresa, orgTemplates, onClose, onSent }: Sen
 }
 
 export default function AppDashboardView({ setCurrentPage, initialMobile = true, session, loginOnMount = false, workerOrgId, checkoutSuccess = false }: AppDashboardViewProps) {
-  const { can } = usePermissions();
+  const { can, rol } = usePermissions();
+  const { workerProfile } = useSession();
 
   // Auth & data loading
   const [loginEmail, setLoginEmail] = useState('');
@@ -547,7 +549,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // Simulador Config
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   const [isMobileMode, setIsMobileMode] = useState<boolean>(initialMobile);
-  const [activeTab, setActiveTab] = useState<string>('dashboard');
+  const [activeTab, setActiveTab] = useState<string>(rol === 'tecnico' ? 'planificacion' : 'dashboard');
 
   // Detectar si estamos en un dispositivo móvil real (PWA instalada o teléfono)
   const isNativeDevice = (() => {
@@ -5118,7 +5120,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'catalog' && ScreenCatalog()}
                 {activeTab === 'planificacion' && (
                   <ScreenPlanificacion
-                    jobs={jobs}
+                    jobs={rol === 'tecnico' && workerProfile
+                      ? jobs.filter(j => j.trade_job_workers?.some(jw => jw.worker_id === workerProfile.id))
+                      : jobs}
                     workers={trabajadores}
                     clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono }))}
                     orgId={orgId}
@@ -5158,7 +5162,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <ScreenRutaDia
                     jobs={jobs.filter(j => {
                       const hoy = new Date().toISOString().slice(0, 10);
-                      return j.fecha_inicio === hoy || !j.fecha_inicio;
+                      const isToday = j.fecha_inicio === hoy || !j.fecha_inicio;
+                      if (rol === 'tecnico' && workerProfile) {
+                        return isToday && j.trade_job_workers?.some(jw => jw.worker_id === workerProfile.id);
+                      }
+                      return isToday;
                     })}
                     orgId={orgId}
                     startLocation={

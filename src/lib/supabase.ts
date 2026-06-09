@@ -1888,7 +1888,81 @@ export interface OrgMember {
   rol: 'owner' | 'admin' | 'oficina' | 'comercial' | 'tecnico' | 'visualizador';
   activo: boolean;
   invited_at: string | null;
+  worker_profile_id?: string | null;
   created_at: string;
+}
+
+export interface TradeFieldAction {
+  id: string;
+  org_id: string;
+  job_id?: string | null;
+  worker_id?: string | null;
+  tipo: 'presupuesto_requerido' | 'material_necesario' | 'incidencia' | 'consulta' | 'otro';
+  descripcion: string;
+  estado: 'pendiente' | 'en_proceso' | 'resuelto' | 'descartado';
+  resuelto_por?: string | null;
+  resuelto_at?: string | null;
+  created_at: string;
+  updated_at: string;
+  trade_jobs?: { titulo: string } | null;
+  trade_workers?: { nombre: string } | null;
+}
+
+export async function loadMyWorkerProfile(userId: string, orgId: string): Promise<TradeWorker | null> {
+  const { data: member } = await supabase
+    .from('trade_org_members')
+    .select('worker_profile_id')
+    .eq('user_id', userId)
+    .eq('org_id', orgId)
+    .maybeSingle();
+  if (!member?.worker_profile_id) return null;
+  const { data } = await supabase
+    .from('trade_workers')
+    .select('*')
+    .eq('id', member.worker_profile_id)
+    .maybeSingle();
+  return data as TradeWorker | null;
+}
+
+export async function createFieldAction(
+  orgId: string,
+  action: Pick<TradeFieldAction, 'tipo' | 'descripcion'> & { job_id?: string; worker_id?: string },
+): Promise<TradeFieldAction> {
+  const { data, error } = await supabase
+    .from('trade_field_actions')
+    .insert({ org_id: orgId, ...action })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as TradeFieldAction;
+}
+
+export async function loadFieldActions(orgId: string, estado?: string): Promise<TradeFieldAction[]> {
+  let q = supabase
+    .from('trade_field_actions')
+    .select('*, trade_jobs(titulo), trade_workers(nombre)')
+    .eq('org_id', orgId)
+    .order('created_at', { ascending: false });
+  if (estado) q = q.eq('estado', estado);
+  const { data, error } = await q;
+  if (error) throw error;
+  return (data ?? []) as TradeFieldAction[];
+}
+
+export async function resolveFieldAction(id: string, resuelto_por: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_field_actions')
+    .update({ estado: 'resuelto', resuelto_por, resuelto_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+export async function linkWorkerProfile(memberId: string, workerProfileId: string): Promise<void> {
+  const { error } = await supabase
+    .from('trade_org_members')
+    .update({ worker_profile_id: workerProfileId })
+    .eq('id', memberId);
+  if (error) throw error;
 }
 
 export async function loadOrgMembers(orgId: string): Promise<OrgMember[]> {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import {
   Users, UserPlus, X, Trash2, Edit2, Phone, Mail, MapPin,
   Clock, Star, CheckCircle2, Circle, Wrench, Car, Calendar,
-  Save, ChevronDown, ChevronUp, Route,
+  Save, ChevronDown, ChevronUp, Route, Send, Link2,
 } from 'lucide-react';
 import {
   supabase, loadWorkers, addWorker, deleteWorker, updateWorker,
@@ -91,6 +91,7 @@ export default function ScreenTrabajadores({ showToast, isLiveMode }: Props) {
   const [formSchedules, setFormSchedules] = useState<Omit<TradeWorkerSchedule,'id'>[]>([]);
   const [saving, setSaving] = useState(false);
   const [showSpecialityPicker, setShowSpecialityPicker] = useState(false);
+  const [inviting, setInviting] = useState<string | null>(null);
 
   const fetch = useCallback(async () => {
     if (!org) return;
@@ -202,6 +203,31 @@ export default function ScreenTrabajadores({ showToast, isLiveMode }: Props) {
     }
   }
 
+  async function handleInvite(w: TradeWorker) {
+    if (!org) return;
+    if (!w.email?.trim()) {
+      showToast('El trabajador no tiene email registrado. Edítalo primero.', 'error');
+      return;
+    }
+    if (!confirm(`¿Invitar a ${w.nombre} (${w.email}) a acceder a la app como técnico?`)) return;
+    setInviting(w.id);
+    try {
+      const { data, error } = await supabase.functions.invoke('send-invite', {
+        body: { email: w.email.trim().toLowerCase(), rol: 'tecnico', org_id: org.id, worker_profile_id: w.id },
+      });
+      if (error) throw new Error(error.message);
+      if (data?.plan_restriction) {
+        showToast(data.error ?? 'Tu plan no permite más miembros', 'error');
+        return;
+      }
+      showToast(`Invitación enviada a ${w.email} ✓`, 'success');
+    } catch (e: unknown) {
+      showToast((e as Error).message ?? 'Error al enviar invitación', 'error');
+    } finally {
+      setInviting(null);
+    }
+  }
+
   function toggleEspecialidad(esp: string) {
     setForm(prev => {
       const current = prev.especialidades ?? [];
@@ -280,6 +306,14 @@ export default function ScreenTrabajadores({ showToast, isLiveMode }: Props) {
                     </div>
                   </div>
                   <div className="flex gap-1 shrink-0">
+                    <button
+                      onClick={e => { e.stopPropagation(); handleInvite(w); }}
+                      disabled={inviting === w.id}
+                      title={w.email ? `Invitar a ${w.email}` : 'Añade email al trabajador para invitarlo'}
+                      className={`p-1.5 rounded-lg transition-colors cursor-pointer ${w.email ? 'text-slate-400 hover:text-emerald-600 hover:bg-emerald-50' : 'text-slate-200 cursor-not-allowed'}`}
+                    >
+                      {inviting === w.id ? <span className="text-[9px] animate-pulse">...</span> : <Send className="w-3.5 h-3.5" />}
+                    </button>
                     <button
                       onClick={e => { e.stopPropagation(); openEdit(w); }}
                       className="p-1.5 rounded-lg text-slate-400 hover:text-blue-600 hover:bg-blue-50 transition-colors cursor-pointer"

@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState, useRef, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import type { User } from '@supabase/supabase-js';
-import { supabase, getOwnOrg, loadOrgById, loadOrgSubscription } from '../lib/supabase';
-import type { TradeOrganization, TradeSubscription } from '../lib/supabase';
+import { supabase, getOwnOrg, loadOrgById, loadOrgSubscription, loadMyWorkerProfile } from '../lib/supabase';
+import type { TradeOrganization, TradeSubscription, TradeWorker } from '../lib/supabase';
 
 export type Rol = 'owner' | 'admin' | 'oficina' | 'comercial' | 'tecnico' | 'visualizador';
 export type Plan = 'basico' | 'pro' | 'empresa';
@@ -49,10 +49,10 @@ export const ROL_PERMISOS: Record<Rol, string[]> = {
     'quotes.create', 'quotes.edit',
     'clients.manage',
   ],
-  // Técnico: presupuestos + trabajos planificados, sin facturas ni contratos
+  // Técnico de campo: solo sus trabajos y notas. Sin facturas, presupuestos ni clientes.
   tecnico: [
-    'quotes.create', 'quotes.edit',
     'jobs.view', 'jobs.manage',
+    'field_notes.create',
   ],
   // Visualizador: solo lectura de trabajos
   visualizador: ['jobs.view'],
@@ -65,6 +65,7 @@ export interface SessionState {
   plan: Plan;
   rol: Rol;
   permisos: string[];
+  workerProfile: TradeWorker | null;
   isLoading: boolean;
   refreshSubscription: () => Promise<void>;
 }
@@ -76,6 +77,7 @@ const DEFAULT_STATE: SessionState = {
   plan: 'basico',
   rol: 'owner',
   permisos: [],
+  workerProfile: null,
   isLoading: true,
   refreshSubscription: async () => {},
 };
@@ -154,10 +156,16 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       const subscription = org ? await loadOrgSubscription(org.id) : null;
       const plan: Plan = (subscription?.plan as Plan) ?? 'basico';
 
+      // Cargar perfil de trabajador de campo si el usuario es técnico
+      let workerProfile: TradeWorker | null = null;
+      if (rol === 'tecnico' && org) {
+        workerProfile = await loadMyWorkerProfile(user.id, org.id).catch(() => null);
+      }
+
       orgIdRef.current = org?.id ?? null;
 
       if (!cancelledRef.current) {
-        setState({ user, org, subscription, plan, rol, permisos, isLoading: false, refreshSubscription });
+        setState({ user, org, subscription, plan, rol, permisos, workerProfile, isLoading: false, refreshSubscription });
       }
     }
 
