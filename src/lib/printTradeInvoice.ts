@@ -160,10 +160,56 @@ export function printTradeInvoice(
       ${empresaNombre}${empresaCif ? ` · CIF ${empresaCif}` : ''}${empresaDir ? ` · ${empresaDir}` : ''}<br>
       Documento generado el ${new Date().toLocaleDateString('es-ES')}
     </div>
+
+    ${inv.verifactu_hash ? `
+    <!-- SECCIÓN VERIFACTU -->
+    <div style="margin-top:20px;border-top:2px solid #e2e8f0;padding-top:16px">
+      <div style="display:flex;align-items:flex-start;gap:16px">
+        <!-- QR code (requiere conexión) -->
+        <div style="flex-shrink:0;text-align:center">
+          <img
+            src="https://chart.googleapis.com/chart?chs=96x96&cht=qr&chl=${encodeURIComponent(`VERIFACTU:${inv.numero};${inv.verifactu_hash};${empresaCif}`)}&choe=UTF-8"
+            alt="QR VeriFactu"
+            width="96" height="96"
+            style="display:block;border:1px solid #e2e8f0;border-radius:6px"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+          />
+          <!-- Fallback si no hay internet -->
+          <div style="display:none;width:96px;height:96px;border:1px solid #e2e8f0;border-radius:6px;align-items:center;justify-content:center;background:#f8fafc">
+            <span style="font-size:9px;color:#94a3b8;text-align:center;padding:8px">Sin<br>conexión</span>
+          </div>
+          <p style="font-size:8px;color:#94a3b8;margin-top:4px;text-align:center">Verificar</p>
+        </div>
+        <!-- Datos VeriFactu -->
+        <div style="flex:1;min-width:0">
+          <p style="font-size:9px;font-weight:800;color:#475569;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px">
+            Registro VeriFactu · RD 1007/2023
+          </p>
+          <p style="font-size:8.5px;color:#64748b;line-height:1.7;margin-bottom:4px">
+            <span style="font-weight:700;color:#334155">Nº Factura:</span> ${inv.numero}<br>
+            <span style="font-weight:700;color:#334155">Fecha emisión:</span> ${(inv.fecha_emision ?? inv.fecha ?? '').split('T')[0]}<br>
+            <span style="font-weight:700;color:#334155">Emisor CIF:</span> ${empresaCif ?? '—'}<br>
+            ${inv.verifactu_hash_anterior ? `<span style="font-weight:700;color:#334155">Encadenamiento:</span> Sí<br>` : ''}
+          </p>
+          <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:6px;padding:6px 10px;margin-top:4px">
+            <p style="font-size:8px;color:#94a3b8;margin-bottom:3px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px">Huella digital SHA-256</p>
+            <p style="font-family:'Courier New',monospace;font-size:8px;color:#334155;word-break:break-all;line-height:1.5">
+              ${inv.verifactu_hash}
+            </p>
+          </div>
+          <p style="font-size:7.5px;color:#cbd5e1;margin-top:6px">
+            Factura expedida conforme al Reglamento de Sistemas de Facturación Verificable (VeriFactu).
+            La huella garantiza la integridad e inalterabilidad del registro.
+          </p>
+        </div>
+      </div>
+    </div>
+    ` : `
     <div style="margin-top:16px;padding-top:12px;border-top:1px solid #f1f5f9;text-align:center;font-size:9px;color:#cbd5e1;line-height:1.6">
       Factura expedida en el marco del Reglamento de Sistemas de Facturación Verificable (VeriFactu) · RD 1007/2023<br>
-      Software de facturación verificable · Nº Registro: <span style="font-family:monospace">${inv.numero}</span>
+      Nº Registro: <span style="font-family:monospace">${inv.numero}</span>
     </div>
+    `}
   </body></html>`;
 
   const win = window.open('', '_blank', 'width=900,height=700');
