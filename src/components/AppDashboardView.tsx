@@ -413,6 +413,7 @@ function SendEmailModal({ cliente, empresa, orgTemplates, onClose, onSent }: Sen
 export default function AppDashboardView({ setCurrentPage, initialMobile = true, session, loginOnMount = false, workerOrgId, checkoutSuccess = false }: AppDashboardViewProps) {
   const { can, rol } = usePermissions();
   const { workerProfile } = useSession();
+  const isTecnico = rol === 'tecnico';
 
   // Auth & data loading
   const [loginEmail, setLoginEmail] = useState('');
@@ -568,7 +569,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }, [initialMobile]);
 
   // Tabs de navegación móvil
-  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'contratos'>('inicio');
+  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'contratos' | 'ruta'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
   const [parteJob, setParteJob] = useState<import('../lib/supabase').TradeJob | null>(null);
   const [parteMantenimiento, setParteMantenimiento] = useState<{ activo: boolean; materialesIncluidos: boolean; nombre: string | null } | null>(null);
   const [parteMode, setParteMode] = useState<'edit' | 'view' | 'supplement'>('edit');
@@ -2846,19 +2847,23 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
           {/* Derecha: nuevo presupuesto + ajustes + logout */}
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => { setVisitaDraft({ titulo: '', client_id: null, fecha: new Date().toISOString().split('T')[0] }); setShowVisitaModal(true); }}
-              className="flex items-center gap-1.5 bg-violet-600 active:bg-violet-700 text-white font-bold text-[11px] px-3 py-2 rounded-xl cursor-pointer transition-colors"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              Añadir Trabajo
-            </button>
-            <button
-              onClick={() => setMobileTab('ajustes')}
-              className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 active:bg-white/10 text-slate-400"
-            >
-              <SettingsIcon className="w-4 h-4" />
-            </button>
+            {!isTecnico && (
+              <button
+                onClick={() => { setVisitaDraft({ titulo: '', client_id: null, fecha: new Date().toISOString().split('T')[0] }); setShowVisitaModal(true); }}
+                className="flex items-center gap-1.5 bg-violet-600 active:bg-violet-700 text-white font-bold text-[11px] px-3 py-2 rounded-xl cursor-pointer transition-colors"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                Añadir Trabajo
+              </button>
+            )}
+            {!isTecnico && (
+              <button
+                onClick={() => setMobileTab('ajustes')}
+                className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 active:bg-white/10 text-slate-400"
+              >
+                <SettingsIcon className="w-4 h-4" />
+              </button>
+            )}
             {isLiveMode && (
               <button
                 onClick={handleLogout}
@@ -2873,10 +2878,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         {/* Contenido dinámico según Pestaña Móvil */}
         <div
-          className={`flex-grow overscroll-contain ${mobileTab === 'trabajos' ? 'overflow-hidden' : 'overflow-y-auto'}`}
+          className={`flex-grow overscroll-contain ${(mobileTab === 'trabajos' || mobileTab === 'ruta') ? 'overflow-hidden' : 'overflow-y-auto'}`}
           style={{
-            padding: mobileTab === 'trabajos' ? '0' : (isNativeDevice ? '20px 16px 0' : '20px 16px'),
-            paddingBottom: mobileTab === 'trabajos' ? '0' : (isNativeDevice
+            padding: (mobileTab === 'trabajos' || mobileTab === 'ruta') ? '0' : (isNativeDevice ? '20px 16px 0' : '20px 16px'),
+            paddingBottom: (mobileTab === 'trabajos' || mobileTab === 'ruta') ? '0' : (isNativeDevice
               ? 'calc(88px + env(safe-area-inset-bottom, 0px) + 8px)'
               : '88px'),
           }}
@@ -2897,9 +2902,35 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               showToast={showToast}
             />
           )}
+          {mobileTab === 'ruta' && orgId && (
+            <ScreenRutaDia
+              jobs={jobs.filter(j => {
+                const hoy = new Date().toISOString().slice(0, 10);
+                const isToday = j.fecha_inicio === hoy || !j.fecha_inicio;
+                if (workerProfile) return isToday && j.trade_job_workers?.some(jw => jw.worker_id === workerProfile.id);
+                return isToday;
+              })}
+              orgId={orgId}
+              startLocation={
+                orgBaseGeo ??
+                (orgData?.direccion
+                  ? `${orgData.direccion}${(orgData as unknown as Record<string, unknown>).ciudad ? `, ${(orgData as unknown as Record<string, unknown>).ciudad}` : ''}`.trim()
+                  : 'Oficina')
+              }
+              horaInicio="08:00"
+              onUpdateJob={async (id, updates) => {
+                await updateJob(id, updates);
+                setJobs(prev => prev.map(j => j.id === id ? { ...j, ...updates } : j));
+              }}
+              showToast={showToast}
+              onClose={() => setMobileTab('trabajos')}
+            />
+          )}
           {mobileTab === 'trabajos' && (
             <ScreenPlanificacion
-              jobs={jobs}
+              jobs={rol === 'tecnico' && workerProfile
+                ? jobs.filter(j => j.trade_job_workers?.some(jw => jw.worker_id === workerProfile.id))
+                : jobs}
               workers={trabajadores}
               clientes={clientes.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono }))}
               orgId={orgId}
@@ -3002,7 +3033,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           )}
         </div>
 
-        {/* BOTTOM TAB BAR — 5 tabs */}
+        {/* BOTTOM TAB BAR */}
         <div className="absolute bottom-0 left-0 right-0 z-30">
           <div
             className="bg-[#0B0F14] border-t border-white/8 flex items-stretch select-none"
@@ -3011,11 +3042,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               minHeight: isNativeDevice ? 'calc(60px + env(safe-area-inset-bottom, 0px))' : '60px',
             }}
           >
-            {MobileTabButton({ tab: 'inicio', icon: <TrendingUp className="w-5 h-5" />, label: 'Inicio' })}
-            {MobileTabButton({ tab: 'trabajos', icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
-            {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presup.' })}
-            {MobileTabButton({ tab: 'catalogo', icon: <Package className="w-5 h-5" />, label: 'Catálogo' })}
-            {MobileTabButton({ tab: 'clientes', icon: <Users className="w-5 h-5" />, label: 'Clientes' })}
+            {isTecnico ? (
+              <>
+                {MobileTabButton({ tab: 'trabajos', icon: <Briefcase className="w-5 h-5" />, label: 'Mis Trabajos' })}
+                {MobileTabButton({ tab: 'ruta', icon: <Navigation className="w-5 h-5" />, label: 'Mi Ruta' })}
+              </>
+            ) : (
+              <>
+                {MobileTabButton({ tab: 'inicio', icon: <TrendingUp className="w-5 h-5" />, label: 'Inicio' })}
+                {MobileTabButton({ tab: 'trabajos', icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
+                {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presup.' })}
+                {MobileTabButton({ tab: 'catalogo', icon: <Package className="w-5 h-5" />, label: 'Catálogo' })}
+                {MobileTabButton({ tab: 'clientes', icon: <Users className="w-5 h-5" />, label: 'Clientes' })}
+              </>
+            )}
           </div>
         </div>
 
@@ -3236,7 +3276,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     );
 
     // Helpers botones navegación móvil
-    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'trabajos' | 'presupuestos' | 'catalogo' | 'clientes'; icon: React.ReactNode; label: string }) {
+    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'trabajos' | 'presupuestos' | 'catalogo' | 'clientes' | 'ruta'; icon: React.ReactNode; label: string }) {
       const isActive = mobileTab === tab;
       return (
         <button
@@ -4933,7 +4973,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
           {/* Enlaces sidebar */}
           <nav className="flex-grow p-4 space-y-1">
-            {SidebarBtn({ id: 'dashboard', icon: <TrendingUp className="w-4 h-4" />, label: 'Panel Control' })}
+            {!isTecnico && SidebarBtn({ id: 'dashboard', icon: <TrendingUp className="w-4 h-4" />, label: 'Panel Control' })}
             {can('quotes.create') && SidebarBtn({ id: 'quotes', icon: <FileText className="w-4 h-4" />, label: 'Presupuestos' })}
             {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
             {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <FileText className="w-4 h-4" />, label: 'Facturación' })}
