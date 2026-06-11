@@ -35,7 +35,7 @@ import {
   Inbox, Filter, LogOut, Download, WifiOff, Globe, ThumbsUp, ThumbsDown,
   X, StickyNote, Activity, Repeat, BarChart2, PackageOpen,
   Zap, Bell, BellOff, PlayCircle, Send, HelpCircle, Eye, EyeOff as EyeOffIcon,
-  Brain, ChevronRight,
+  Brain, ChevronRight, BookOpen, ExternalLink,
 } from 'lucide-react';
 
 const PLAN_PRICES: Record<string, { monthly: number; yearly: number }> = {
@@ -764,7 +764,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [detailOrg, setDetailOrg]     = useState<AdminOrgRow | null>(null);
 
   // Sección activa
-  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback'>('dashboard');
+  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'docs'>('dashboard');
 
   // Necesidades instaladores (chatbot)
   const [needs, setNeeds]               = useState<InstallerNeed[]>([]);
@@ -1291,6 +1291,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     { id: 'suggestions'   as const, label: 'Sugerencias',     Icon: Globe,       badge: pendingSuggestions },
     { id: 'needs'         as const, label: 'Necesidades',     Icon: HelpCircle },
     { id: 'ai_feedback'   as const, label: 'IA Feedback',      Icon: Brain },
+    { id: 'docs'          as const, label: 'Documentación',    Icon: BookOpen },
   ];
 
   const handleMarkInvoicePaid = async (inv: TradePlatformInvoice) => {
@@ -3165,6 +3166,107 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                 </div>
               );
             })()}
+          </div>
+        )}
+
+        {/* ════════════════════════════════════════════════════════
+            SECCIÓN: DOCUMENTACIÓN
+        ════════════════════════════════════════════════════════ */}
+        {section === 'docs' && (
+          <div className="space-y-6">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h2 className="text-base font-bold text-white">Documentación de la Aplicación</h2>
+                <p className="text-xs text-slate-400 mt-0.5">Análisis completo: módulos, pantallas, tablas, flujos, permisos y arquitectura técnica</p>
+              </div>
+            </div>
+
+            {/* Card principal */}
+            <div className="bg-gradient-to-br from-blue-900/40 to-indigo-900/30 border border-blue-700/40 rounded-2xl p-6 space-y-4">
+              <div className="flex items-start gap-4">
+                <div className="w-14 h-14 bg-blue-600/20 border border-blue-500/30 rounded-xl flex items-center justify-center shrink-0">
+                  <BookOpen className="w-7 h-7 text-blue-400" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-white text-base">TrabFlow AI — Análisis Completo v3</h3>
+                  <p className="text-sm text-slate-400 mt-1">Junio 2026 · 30 secciones · Documento técnico-funcional completo</p>
+                  <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                    Cubre todos los módulos, pantallas, operaciones CRUD por tabla, flujos de negocio,
+                    roles y permisos, edge functions, arquitectura técnica, pipeline de IA y glosario.
+                    Actualizado con el estado actual de la aplicación.
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-3 pt-2">
+                <a
+                  href="/TrabFlow_AI_AnalisisCompleto_v3_Junio2026.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm px-5 py-2.5 rounded-xl cursor-pointer transition-colors"
+                >
+                  <BookOpen className="w-4 h-4" />
+                  Abrir documento
+                  <ExternalLink className="w-3.5 h-3.5 opacity-70" />
+                </a>
+                <a
+                  href="/TrabFlow_AI_AnalisisCompleto_v3_Junio2026.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => { e.preventDefault(); const w = window.open('/TrabFlow_AI_AnalisisCompleto_v3_Junio2026.html', '_blank'); if (w) setTimeout(() => w.print(), 1000); }}
+                  className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-slate-200 font-semibold text-sm px-5 py-2.5 rounded-xl cursor-pointer transition-colors"
+                >
+                  🖨 Imprimir / PDF
+                </a>
+              </div>
+            </div>
+
+            {/* Índice de secciones */}
+            <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-5">
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Contenido del documento</p>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
+                {[
+                  '01. Visión general y propuesta de valor',
+                  '02. Arquitectura técnica (stack, Supabase)',
+                  '03. Sistema de roles y permisos',
+                  '04. Onboarding — configuración inicial',
+                  '05. Panel de control (dashboard)',
+                  '06. Presupuestos (voz IA, foto, manual)',
+                  '07. Clientes CRM',
+                  '08. Gestión de facturas (completo)',
+                  '09. Catálogo de productos y servicios',
+                  '10. Planificación de trabajos',
+                  '11. Ruta del día (optimización)',
+                  '12. Ingresos y rentabilidad',
+                  '13. Equipo y permisos',
+                  '14. Trabajadores de campo',
+                  '15. Contratos de mantenimiento',
+                  '16. Mantenimientos periódicos',
+                  '17. Ajustes y tarifas',
+                  '18. Módulo técnico (app trabajador)',
+                  '19. Pipeline de inteligencia artificial',
+                  '20. Parte de trabajo (flujos completos)',
+                  '21. PWA y notificaciones push',
+                  '22. VeriFactu (RD 1007/2023)',
+                  '23. Chatbot de ayuda',
+                  '24. Base de datos — 20+ tablas',
+                  '25. Edge functions (17 funciones)',
+                  '26. Políticas RLS por tabla',
+                  '27. Flujos de negocio principales',
+                  '28. Exportaciones y documentos',
+                  '29. Panel de administración',
+                  '30. Glosario de términos',
+                ].map((item, i) => (
+                  <div key={i} className="text-xs text-slate-400 py-1 px-2 hover:text-slate-200 hover:bg-slate-700/50 rounded transition-colors">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Info adicional */}
+            <div className="bg-amber-900/20 border border-amber-700/30 rounded-xl p-4 text-xs text-amber-300/80 leading-relaxed">
+              <strong className="text-amber-300">💡 Para actualizar el documento:</strong> Subir el archivo <code>TrabFlow_AnalisisCompleto_v3_Junio2026.md</code> de la carpeta <code>docs/</code> a Claude y solicitar la versión actualizada en HTML. El nuevo HTML reemplaza el fichero en <code>public/</code> y <code>docs/</code>.
+            </div>
           </div>
         )}
 
