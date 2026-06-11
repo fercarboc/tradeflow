@@ -1,9 +1,12 @@
-# TradeFlow AI — Guía de Implementación Supabase
+# TrabFlow AI — Guía de Implementación Supabase
 
 **Proyecto Supabase:** GestionDebacuPro  
 **URL:** `https://dqqjaujnulutinskmqsu.supabase.co`  
 **Prefijo de tablas:** `trade_`  
-**Fecha:** Mayo 2026
+**Última actualización:** Junio 2026
+
+> **Nota:** Para el análisis funcional completo de la aplicación (módulos, pantallas, flujos, permisos) ver:  
+> `docs/TrabFlow_AnalisisCompleto_v3_Junio2026.md` o `public/TrabFlow_AI_AnalisisCompleto_v3_Junio2026.html`
 
 ---
 
@@ -11,7 +14,7 @@
 
 Todas las tablas llevan el prefijo `trade_` para convivir con las tablas de otras apps dentro del mismo proyecto Supabase sin conflictos.
 
-### Diagrama de entidades
+### Diagrama de entidades (actualizado Junio 2026)
 
 ```
 auth.users
@@ -21,18 +24,69 @@ auth.users
             ├── trade_clients              (CRM: clientes del instalador)
             ├── trade_quotes               (presupuestos)
             │       └── trade_quote_items  (partidas de cada presupuesto)
-            ├── trade_invoices             (facturas generadas al cliente final)
-            ├── trade_subscriptions        (plan SaaS: trial/active/cancelled/expired)
-            ├── trade_platform_invoices    (facturas que TradeFlow emite al instalador)
-            ├── trade_voice_recordings     (archivos de voz para IA)
-            └── trade_photo_scans          (fotos escaneadas por IA)
+            ├── trade_invoices             (facturas — series F- y M-)
+            │       └── trade_invoice_lines (líneas de detalle)
+            ├── trade_jobs                 (trabajos planificados)
+            │       ├── trade_job_workers  (asignación trabajadores)
+            │       └── trade_job_photos   (fotos del trabajo)
+            ├── trade_workers              (perfiles de campo — sin cuenta necesariamente)
+            │       └── trade_worker_schedules (horarios)
+            ├── trade_org_members          (usuarios con acceso a la app)
+            │       └── trade_org_permissions (overrides de permisos por miembro)
+            ├── trade_field_actions        (notas de campo del técnico)
+            ├── trade_contracts            (contratos de mantenimiento)
+            ├── trade_tarifas              (catálogo simple para IA y partes)
+            ├── trade_catalog_products     (catálogo avanzado con variantes)
+            │       └── trade_catalog_variants
+            ├── trade_subscriptions        (plan SaaS: trial/active/cancelled)
+            ├── trade_org_templates        (plantillas de comunicación — 8 tipos)
+            ├── trade_push_subscriptions   (notificaciones push VAPID)
+            ├── trade_platform_invoices    (facturas que TrabFlow emite al instalador)
+            ├── trade_installer_needs      (necesidades capturadas por chatbot)
+            └── trade_ai_feedback          (aprendizaje automático de precios IA)
 
 trade_waitlist  (tabla pública, sin auth requerido)
 
-Admin: fercarboc@gmail.com → AdminView (sección F4)
+Admin: fercarboc@gmail.com → AdminView
      ├── RPC admin_get_trade_users()           (SECURITY DEFINER, lee auth.users)
      ├── RPC admin_get_platform_invoices()     (SECURITY DEFINER)
      └── RPC admin_set_subscription_active()   (SECURITY DEFINER)
+```
+
+### Campos clave añadidos en Junio 2026
+
+```sql
+-- trade_organizations
+ALTER TABLE trade_organizations ADD COLUMN IF NOT EXISTS is_onboarded boolean DEFAULT false;
+ALTER TABLE trade_organizations ADD COLUMN IF NOT EXISTS iban text;
+ALTER TABLE trade_organizations ADD COLUMN IF NOT EXISTS banco text;
+ALTER TABLE trade_organizations ADD COLUMN IF NOT EXISTS titular_cuenta text;
+
+-- trade_org_members
+ALTER TABLE trade_org_members ADD COLUMN IF NOT EXISTS worker_profile_id uuid REFERENCES trade_workers(id);
+
+-- trade_jobs
+ALTER TABLE trade_jobs ADD COLUMN IF NOT EXISTS notas_trabajador text;
+ALTER TABLE trade_jobs ADD COLUMN IF NOT EXISTS notas_trabajador_at timestamptz;
+ALTER TABLE trade_jobs ADD COLUMN IF NOT EXISTS notas_trabajador_leida boolean DEFAULT false;
+
+-- trade_invoices
+ALTER TABLE trade_invoices ADD COLUMN IF NOT EXISTS factura_original_id uuid REFERENCES trade_invoices(id);
+
+-- trade_field_actions (nueva tabla)
+CREATE TABLE IF NOT EXISTS trade_field_actions (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  org_id uuid NOT NULL REFERENCES trade_organizations(id),
+  job_id uuid REFERENCES trade_jobs(id),
+  worker_id uuid REFERENCES trade_workers(id),
+  tipo text NOT NULL CHECK (tipo IN ('presupuesto_requerido','material_necesario','incidencia','consulta','otro')),
+  descripcion text NOT NULL,
+  estado text NOT NULL DEFAULT 'pendiente' CHECK (estado IN ('pendiente','en_proceso','resuelto','descartado')),
+  resuelto_por text,
+  resuelto_at timestamptz,
+  created_at timestamptz DEFAULT now(),
+  updated_at timestamptz DEFAULT now()
+);
 ```
 
 ---
@@ -2125,3 +2179,62 @@ https://www.trabflow.com/update-password
 ---
 
 *Actualizado por Claude Code — TradeFlow AI — Mayo 2026 (F5: Mobile + Push + Dark Theme + Stripe UI + Auditoría Seguridad)*
+
+---
+
+## 27. Actualizaciones Junio 2026
+
+### 27.1 Política RLS corregida — trade_invoices
+
+La política anterior solo permitía al **owner** crear/leer facturas. Corregida para incluir miembros activos:
+
+```sql
+-- Eliminar política antigua (solo owner)
+DROP POLICY IF EXISTS "Acceso a facturas propias" ON trade_invoices;
+
+-- Nueva política que incluye miembros activos
+CREATE POLICY "invoices_org_access" ON trade_invoices
+  FOR ALL USING (
+    org_id IN (
+      SELECT id FROM trade_organizations WHERE owner_id = auth.uid()
+      UNION
+      SELECT org_id FROM trade_org_members WHERE user_id = auth.uid() AND activo = true
+    )
+  );
+```
+
+**Por qué:** Roles admin/oficina recibían error "al generar la factura" porque no podían insertar en trade_invoices.
+
+### 27.2 Edge function send-invite — versión 4
+
+Ahora guarda `worker_profile_id` en `trade_org_members` al crear la invitación:
+
+```typescript
+// Antes: solo guardaba org_id, user_id, email, rol, activo
+// Ahora: también guarda worker_profile_id si se pasa en el body
+const memberRow = { org_id, user_id, email, rol, activo: false, invited_at: ... };
+if (worker_profile_id) memberRow.worker_profile_id = worker_profile_id;
+await supabase.from('trade_org_members').upsert(memberRow, { onConflict: 'org_id,user_id' });
+```
+
+### 27.3 Nuevas tablas añadidas
+
+Ver sección 1 (Diagrama de entidades actualizado) para el SQL completo de:
+- `trade_field_actions` — notas de campo de técnicos
+- Columnas nuevas en `trade_organizations`, `trade_org_members`, `trade_jobs`, `trade_invoices`
+
+### 27.4 Edge function trade-chatbot — versión 2
+
+Actualizado con conocimiento completo de todos los módulos de la app. Captura necesidades en `trade_installer_needs`. Modelo: Claude Haiku 4.5.
+
+### 27.5 Onboarding wizard
+
+Al completar el wizard: `UPDATE trade_organizations SET is_onboarded = true`. Esto evita que el wizard aparezca de nuevo. Solo se muestra a propietarios (`rol === 'owner'`).
+
+### 27.6 Documentación HTML
+
+Archivo `public/TrabFlow_AI_AnalisisCompleto_v3_Junio2026.html` (accesible en producción). Acceso desde AdminView → sección "Documentación".
+
+---
+
+*Actualizado por Claude Code — TrabFlow AI — Junio 2026 (v3: Módulo Técnico, Facturación Unificada, Onboarding Wizard, ScreenEquipo Visual, RLS Fix, Chatbot v2, Documentación HTML)*
