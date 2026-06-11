@@ -2468,11 +2468,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         )}
       </AnimatePresence>
 
-      {/* ================= ONBOARDING WIZARD ================= */}
-      {showOnboarding && orgId && (
+      {/* ================= ONBOARDING WIZARD — solo propietarios nuevos ================= */}
+      {showOnboarding && rol === 'owner' && (
         <OnboardingWizard
-          orgId={orgId}
-          onClose={() => setShowOnboarding(false)}
+          onComplete={() => setShowOnboarding(false)}
+          showToast={showToast}
         />
       )}
 
@@ -5466,9 +5466,54 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= DESKTOP: DASHBOARD SCREEN =================
   function ScreenDashboard() {
+    // ── Pasos de configuración pendientes ─────────────────────────────────
+    const pendingSetup: { label: string; action: string; onClick: () => void }[] = [];
+    if (isLiveMode && orgData) {
+      const orgAny = orgData as unknown as Record<string, unknown>;
+      if (!orgAny.nif && !(orgAny.nombre as string)?.trim()) {
+        pendingSetup.push({ label: 'Datos fiscales de la empresa (NIF, nombre, dirección)', action: 'Completar', onClick: () => setActiveTab('settings') });
+      }
+      if (!orgAny.logo_url) {
+        pendingSetup.push({ label: 'Logo para presupuestos y facturas', action: 'Subir logo', onClick: () => setActiveTab('settings') });
+      }
+      if (tarifas.length === 0) {
+        pendingSetup.push({ label: 'Catálogo de productos/servicios (sin catálogo la IA no funciona bien)', action: 'Ir a Catálogo', onClick: () => setActiveTab('catalog') });
+      }
+    }
+
     return (
       <div className="space-y-6">
-        
+
+        {/* ── Banner de configuración pendiente ─────────────────────── */}
+        {pendingSetup.length > 0 && rol === 'owner' && (
+          <div className="bg-amber-50 border-2 border-amber-300 rounded-2xl p-5 space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 bg-amber-100 rounded-xl flex items-center justify-center shrink-0">
+                <AlertTriangle className="w-5 h-5 text-amber-600" />
+              </div>
+              <div>
+                <p className="font-bold text-amber-900 text-sm">Configuración incompleta</p>
+                <p className="text-xs text-amber-700 mt-0.5">
+                  Faltan {pendingSetup.length} paso{pendingSetup.length !== 1 ? 's' : ''} para que la aplicación funcione correctamente.
+                </p>
+              </div>
+            </div>
+            <div className="space-y-2">
+              {pendingSetup.map((item, i) => (
+                <div key={i} className="flex items-center justify-between gap-3 bg-white border border-amber-200 rounded-xl px-4 py-2.5">
+                  <span className="text-xs text-slate-700 flex-1">{item.label}</span>
+                  <button
+                    onClick={item.onClick}
+                    className="text-[11px] font-bold text-amber-700 bg-amber-100 hover:bg-amber-200 px-3 py-1 rounded-lg transition-colors cursor-pointer shrink-0 flex items-center gap-1"
+                  >
+                    {item.action} <ChevronRight className="w-3 h-3" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Recomendador IA flotante */}
         {showPricingSuggestion && (
           <motion.div 
