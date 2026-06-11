@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import {
-  FileText, RefreshCw, CheckCircle2, Clock, AlertTriangle, X,
+  FileText, RefreshCw, CheckCircle2, Clock, AlertTriangle, X, MessageSquare,
   Download, Eye, Search, RotateCcw, FileDown, ArrowUpDown, CalendarRange,
   Banknote, CreditCard, Building2, Smartphone,
 } from 'lucide-react';
@@ -11,6 +11,7 @@ import {
   TradeInvoice, TradeInvoiceLine,
 } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
+import { downloadAsWordDocx } from '../lib/exportWord';
 import { useSession } from '../context/SessionContext';
 
 // ── Helpers ───────────────────────────────────────────────────────────────
@@ -60,7 +61,7 @@ interface Props {
   isLiveMode: boolean;
 }
 
-type InvoiceWithClient = TradeInvoice & { trade_clients?: { nombre: string } | null };
+type InvoiceWithClient = TradeInvoice & { trade_clients?: { nombre: string; telefono?: string | null } | null };
 
 export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
   const { org } = useSession();
@@ -232,14 +233,50 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
   function handlePrintInvoice(inv: InvoiceWithClient, lines: TradeInvoiceLine[]) {
     if (!org) return;
     printTradeInvoice(inv, lines, {
-      nombre: org.nombre,
-      cif: org.nif,
+      nombre: (org as unknown as Record<string,unknown>).razon_social as string ?? org.nombre,
+      cif: (org as unknown as Record<string,unknown>).cif as string ?? org.nif,
+      nif: org.nif,
       direccion: org.direccion,
       ciudad: org.ciudad,
       telefono: org.telefono,
       email: org.email,
       logo_url: org.logo_url,
     });
+  }
+
+  function handleWordDownload(inv: InvoiceWithClient, lines: TradeInvoiceLine[]) {
+    if (!org) return;
+    const partidas = lines.length > 0
+      ? lines.map(l => ({ descripcion: l.descripcion, tipo: 'mano_de_obra' as const, cantidad: l.cantidad ?? 1, precioUnitario: l.precio_unitario ?? 0, total: l.subtotal ?? 0 }))
+      : [{ descripcion: inv.concepto ?? 'Servicio', tipo: 'mano_de_obra' as const, cantidad: 1, precioUnitario: inv.subtotal ?? 0, total: inv.subtotal ?? 0 }];
+    downloadAsWordDocx({
+      tipo: 'factura',
+      numero: inv.numero,
+      fecha: (inv.fecha_emision ?? inv.fecha ?? '').split('T')[0],
+      fechaVencimiento: inv.fecha_vencimiento ?? '',
+      clienteNombre: inv.razon_social_cliente ?? inv.trade_clients?.nombre ?? '—',
+      empresa: {
+        nombre: (org as unknown as Record<string,unknown>).razon_social as string ?? org.nombre,
+        nif: (org as unknown as Record<string,unknown>).cif as string ?? org.nif ?? '',
+        direccion: org.direccion ?? '',
+        localidad: org.ciudad ?? '',
+        email: org.email ?? '',
+        telefonoMovil: org.telefono ?? '',
+      },
+      partidas,
+      total: inv.subtotal ?? 0,
+      iva: inv.iva_pct ?? 21,
+      estado: inv.estado,
+    }, inv.numero);
+  }
+
+  function handleWhatsApp(inv: InvoiceWithClient) {
+    const telefono = inv.trade_clients?.telefono?.replace(/\D/g, '');
+    if (!telefono) { showToast('El cliente no tiene teléfono registrado', 'error'); return; }
+    const texto = encodeURIComponent(
+      `Hola, le enviamos la factura ${inv.numero} por importe de ${fmt(inv.total ?? 0)}. ¿Podría confirmar la recepción? Muchas gracias.`
+    );
+    window.open(`https://wa.me/${telefono}?text=${texto}`, '_blank');
   }
 
   // ── Gestoría CSV export ───────────────────────────────────────────────────
@@ -326,6 +363,56 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
           </div>
         ))}
       </div>
+
+      {/* Alertas próximas a cobrar */}
+      {(() => {
+        const hoy = new Date();
+        const en15 = new Date(hoy); en15.setDate(hoy.getDate() + 15);
+        const proximas = invoices.filter(inv => {
+          if (!inv.fecha_vencimiento) return false;
+          if (inv.estado !== 'Emitida' && inv.estado !== 'Pendiente') return false;
+          const v = new Date(inv.fecha_vencimiento);
+          return v >= hoy && v <= en15;
+        }).sort((a, b) => (a.fecha_vencimiento ?? '') > (b.fecha_vencimiento ?? '') ? 1 : -1);
+        if (proximas.length === 0) return null;
+        return (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+            <div className="flex items-center gap-2 mb-3">
+              <Clock className="w-4 h-4 text-amber-600" />
+              <span className="text-[11px] font-bold uppercase tracking-wider text-amber-700">
+                Próximas a cobrar — {proximas.length} factura{proximas.length !== 1 ? 's' : ''} en 15 días
+              </span>
+              <span className="ml-auto text-xs font-bold font-mono text-amber-700">
+                {fmt(proximas.reduce((s, i) => s + (i.total ?? 0), 0))}
+              </span>
+            </div>
+            <div className="space-y-2">
+              {proximas.map(inv => {
+                const dias = Math.ceil((new Date(inv.fecha_vencimiento!).getTime() - hoy.getTime()) / 86400000);
+                const telefono = inv.trade_clients?.telefono?.replace(/\D/g, '');
+                return (
+                  <div key={inv.id} className="flex items-center gap-3 bg-white border border-amber-100 rounded-lg px-3 py-2">
+                    <div className="flex-1 min-w-0">
+                      <span className="font-mono text-[10px] font-bold text-slate-700">{inv.numero}</span>
+                      <span className="text-[10px] text-slate-500 ml-2 truncate">{inv.razon_social_cliente ?? inv.trade_clients?.nombre}</span>
+                    </div>
+                    <span className="text-[10px] text-amber-700 font-semibold shrink-0">Vence en {dias} día{dias !== 1 ? 's' : ''}</span>
+                    <span className="text-[11px] font-bold font-mono text-slate-800 shrink-0">{fmt(inv.total ?? 0)}</span>
+                    {telefono && (
+                      <button
+                        onClick={() => handleWhatsApp(inv as InvoiceWithClient)}
+                        className="text-[9px] px-2 py-1 bg-green-100 text-green-700 rounded font-bold cursor-pointer hover:bg-green-200 transition-colors shrink-0"
+                      >
+                        💬 WA
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Filtros */}
       <div className="flex flex-wrap gap-2 items-center">
@@ -663,15 +750,33 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
                   Cerrar
                 </button>
               </div>
-              {/* Fila secundaria: PDF + Rectificadora */}
-              <div className="flex gap-2">
+              {/* Fila secundaria: PDF + Word + WhatsApp + Rectificadora */}
+              <div className="flex flex-wrap gap-2">
                 {selectedInv.estado !== 'Borrador' && (
                   <button
                     onClick={() => handlePrintInvoice(selectedInv, invLines)}
                     className="flex-1 py-2 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50 cursor-pointer transition-colors flex items-center justify-center gap-1.5"
                   >
                     <FileDown className="w-3.5 h-3.5" />
-                    Ver PDF
+                    PDF
+                  </button>
+                )}
+                {selectedInv.estado !== 'Borrador' && (
+                  <button
+                    onClick={() => handleWordDownload(selectedInv, invLines)}
+                    className="flex-1 py-2 rounded-xl border border-blue-200 text-blue-600 bg-blue-50 hover:bg-blue-100 text-xs font-semibold cursor-pointer transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <FileText className="w-3.5 h-3.5" />
+                    Word
+                  </button>
+                )}
+                {selectedInv.trade_clients?.telefono && (
+                  <button
+                    onClick={() => handleWhatsApp(selectedInv)}
+                    className="flex-1 py-2 rounded-xl border border-green-200 text-green-700 bg-green-50 hover:bg-green-100 text-xs font-semibold cursor-pointer transition-colors flex items-center justify-center gap-1.5"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    WhatsApp
                   </button>
                 )}
                 {(selectedInv.estado === 'Emitida' || selectedInv.estado === 'Pagada' || selectedInv.estado === 'Pendiente') && selectedInv.tipo_factura !== 'rectificativa' && (
@@ -681,7 +786,7 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
                     className="flex-1 py-2 rounded-xl border border-orange-200 text-orange-600 bg-orange-50 hover:bg-orange-100 text-xs font-semibold disabled:opacity-50 cursor-pointer transition-colors flex items-center justify-center gap-1.5"
                   >
                     <AlertTriangle className="w-3 h-3" />
-                    {rectificando === selectedInv.id ? '...' : 'Crear rectificativa'}
+                    {rectificando === selectedInv.id ? '...' : 'Rectificativa'}
                   </button>
                 )}
               </div>

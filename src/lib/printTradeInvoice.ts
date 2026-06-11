@@ -160,6 +160,10 @@ export function printTradeInvoice(
       ${empresaNombre}${empresaCif ? ` · CIF ${empresaCif}` : ''}${empresaDir ? ` · ${empresaDir}` : ''}<br>
       Documento generado el ${new Date().toLocaleDateString('es-ES')}
     </div>
+    <div style="margin-top:16px;padding-top:12px;border-top:1px solid #f1f5f9;text-align:center;font-size:9px;color:#cbd5e1;line-height:1.6">
+      Factura expedida en el marco del Reglamento de Sistemas de Facturación Verificable (VeriFactu) · RD 1007/2023<br>
+      Software de facturación verificable · Nº Registro: <span style="font-family:monospace">${inv.numero}</span>
+    </div>
   </body></html>`;
 
   const win = window.open('', '_blank', 'width=900,height=700');

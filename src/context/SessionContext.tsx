@@ -32,6 +32,7 @@ export const ROL_PERMISOS: Record<Rol, string[]> = {
     'ingresos.view',
     'mantenimiento.view',
     'settings.manage',
+    'field_notes.create',
   ],
   // Oficina: todo excepto ajustes de empresa
   oficina: [

@@ -997,7 +997,7 @@ export async function emitirFactura(id: string, orgId: string): Promise<TradeInv
 export async function loadAllInvoices(orgId: string): Promise<TradeInvoice[]> {
   const { data, error } = await supabase
     .from('trade_invoices')
-    .select('*, trade_clients(nombre)')
+    .select('*, trade_clients(nombre, telefono)')
     .eq('org_id', orgId)
     .order('created_at', { ascending: false });
   if (error) throw error;

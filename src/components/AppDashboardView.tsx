@@ -551,6 +551,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   const [isMobileMode, setIsMobileMode] = useState<boolean>(initialMobile);
   const [activeTab, setActiveTab] = useState<string>(rol === 'tecnico' ? 'planificacion' : 'dashboard');
+  const [newJobTrigger, setNewJobTrigger] = useState(0);
 
   // Detectar si estamos en un dispositivo móvil real (PWA instalada o teléfono)
   const isNativeDevice = (() => {
@@ -570,6 +571,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // Tabs de navegación móvil
   const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'contratos' | 'ruta'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
+  // Fix timing: session carga async, rol llega tarde — forzar tab correcto cuando cambia
+  useEffect(() => {
+    if (rol === 'tecnico') setMobileTab('trabajos');
+  }, [rol]);
   const [parteJob, setParteJob] = useState<import('../lib/supabase').TradeJob | null>(null);
   const [parteMantenimiento, setParteMantenimiento] = useState<{ activo: boolean; materialesIncluidos: boolean; nombre: string | null } | null>(null);
   const [parteMode, setParteMode] = useState<'edit' | 'view' | 'supplement'>('edit');
@@ -2825,15 +2830,23 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         >
           {/* Logo + brand */}
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/40 shrink-0">
-              <span className="text-white font-black text-[11px] tracking-tight">TF</span>
-            </div>
+            {isTecnico ? (
+              <div className="w-9 h-9 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/40 shrink-0">
+                <span className="text-white font-black text-[11px] tracking-tight">{(workerProfile?.nombre?.[0] ?? 'T').toUpperCase()}</span>
+              </div>
+            ) : (
+              <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/40 shrink-0">
+                <span className="text-white font-black text-[11px] tracking-tight">TF</span>
+              </div>
+            )}
             <div>
               <span className="text-white font-black text-sm tracking-tight">
-                TrabFlow <span className="text-blue-400">AI</span>
+                {isTecnico ? (workerProfile?.nombre ?? 'Técnico') : <>{`TrabFlow `}<span className="text-blue-400">AI</span></>}
               </span>
               <div className="flex items-center gap-1 mt-0.5">
-                {isLiveMode ? (
+                {isTecnico ? (
+                  <span className="text-[8.5px] text-emerald-400 font-mono font-bold">TÉCNICO · {empresaAjustes.nombre}</span>
+                ) : isLiveMode ? (
                   <span className="text-[8.5px] text-emerald-400 font-mono font-bold flex items-center gap-1">
                     <span className="w-1 h-1 bg-emerald-400 rounded-full inline-block animate-pulse" />
                     EN VIVO
@@ -2847,15 +2860,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
           {/* Derecha: nuevo presupuesto + ajustes + logout */}
           <div className="flex items-center gap-2">
-            {!isTecnico && (
-              <button
-                onClick={() => { setVisitaDraft({ titulo: '', client_id: null, fecha: new Date().toISOString().split('T')[0] }); setShowVisitaModal(true); }}
-                className="flex items-center gap-1.5 bg-violet-600 active:bg-violet-700 text-white font-bold text-[11px] px-3 py-2 rounded-xl cursor-pointer transition-colors"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                Añadir Trabajo
-              </button>
-            )}
+            <button
+              onClick={() => { setMobileTab('trabajos'); setNewJobTrigger(p => p + 1); }}
+              className="flex items-center gap-1.5 bg-violet-600 active:bg-violet-700 text-white font-bold text-[11px] px-3 py-2 rounded-xl cursor-pointer transition-colors"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              {isTecnico ? 'Nuevo trabajo' : 'Añadir Trabajo'}
+            </button>
             {!isTecnico && (
               <button
                 onClick={() => setMobileTab('ajustes')}
@@ -2886,7 +2897,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               : '88px'),
           }}
         >
-          {mobileTab === 'inicio' && MobileScreenInicio()}
+          {mobileTab === 'inicio' && !isTecnico && MobileScreenInicio()}
           {mobileTab === 'presupuestos' && MobileScreenPresupuestos()}
           {mobileTab === 'clientes' && MobileScreenClientes()}
           {mobileTab === 'facturas' && MobileScreenFacturas()}
@@ -3011,6 +3022,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               }}
               presupuestosPorId={Object.fromEntries(presupuestos.map(p => [p.id, { id: p.id, descripcion: p.descripcion, total: p.total, estado: p.estado, fecha: p.fecha }]))}
               showToast={showToast}
+              triggerNew={newJobTrigger}
             />
           )}
           {mobileTab === 'mantenimiento' && orgId && (
@@ -3515,7 +3527,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           <div className="grid grid-cols-2 gap-2.5">
             {/* 0 Añadir visita/trabajo */}
             <button
-              onClick={() => { setVisitaDraft({ titulo: '', client_id: null, fecha: new Date().toISOString().split('T')[0] }); setShowVisitaModal(true); }}
+              onClick={() => { setMobileTab('trabajos'); setNewJobTrigger(p => p + 1); }}
               className="bg-violet-600 rounded-2xl p-4 flex flex-col items-start gap-2.5 cursor-pointer active:scale-95 transition-transform text-left"
               style={{ boxShadow: '0 4px 16px rgba(124,58,237,0.35)' }}
             >
@@ -4985,12 +4997,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {!isTecnico && SidebarBtn({ id: 'dashboard', icon: <TrendingUp className="w-4 h-4" />, label: 'Panel Control' })}
             {can('quotes.create') && SidebarBtn({ id: 'quotes', icon: <FileText className="w-4 h-4" />, label: 'Presupuestos' })}
             {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
-            {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <FileText className="w-4 h-4" />, label: 'Facturación' })}
+            {can('invoices.manage') && SidebarBtn({ id: 'invoices', icon: <Receipt className="w-4 h-4" />, label: 'Facturas' })}
             {can('catalog.manage') && SidebarBtn({ id: 'catalog', icon: <Package className="w-4 h-4" />, label: 'Catálogo' })}
             {can('jobs.view') && SidebarBtn({ id: 'planificacion', icon: <Calendar className="w-4 h-4" />, label: 'Planificación' })}
             {can('jobs.view') && SidebarBtn({ id: 'ruta_dia', icon: <Navigation className="w-4 h-4" />, label: 'Ruta del Día' })}
             {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos' })}
-            {can('invoices.manage') && SidebarBtn({ id: 'facturas', icon: <Receipt className="w-4 h-4" />, label: 'Facturas' })}
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
             {can('team.manage') && SidebarBtn({ id: 'trabajadores', icon: <UserCheck className="w-4 h-4" />, label: 'Trabajadores' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
@@ -5071,7 +5082,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'create_quote' && 'Nuevo Presupuesto'}
                 {activeTab === 'ai_scan' && 'Escáner Fotográfico IA'}
                 {activeTab === 'crm' && 'Clientes CRM'}
-                {activeTab === 'invoices' && 'Facturación'}
+                {activeTab === 'invoices' && 'Gestión de Facturas'}
                 {activeTab === 'catalog' && 'Catálogo de Productos'}
                 {activeTab === 'planificacion' && 'Planificación de Trabajos'}
                 {activeTab === 'ruta_dia' && 'Ruta del Día'}
@@ -5173,7 +5184,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'create_quote' && ScreenCreateQuote()}
                 {activeTab === 'ai_scan' && ScreenAIScan()}
                 {activeTab === 'crm' && ScreenCRM()}
-                {activeTab === 'invoices' && ScreenInvoices()}
+                {activeTab === 'invoices' && <ScreenFacturas showToast={showToast} isLiveMode={isLiveMode} />}
                 {activeTab === 'catalog' && ScreenCatalog()}
                 {activeTab === 'planificacion' && (
                   <ScreenPlanificacion
@@ -5213,6 +5224,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     }}
                     onViewRoute={() => setActiveTab('ruta_dia')}
                     showToast={showToast}
+                    triggerNew={newJobTrigger}
                   />
                 )}
                 {activeTab === 'ruta_dia' && orgId && (
@@ -5243,9 +5255,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
                 {activeTab === 'ingresos' && (
                   <ScreenIngresos showToast={showToast} />
-                )}
-                {activeTab === 'facturas' && (
-                  <ScreenFacturas showToast={showToast} isLiveMode={isLiveMode} />
                 )}
                 {activeTab === 'trabajadores' && (
                   <ScreenTrabajadores showToast={showToast} isLiveMode={isLiveMode} />
@@ -5549,7 +5558,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </button>
 
           <button
-            onClick={() => { setVisitaDraft({ titulo: '', client_id: null, fecha: new Date().toISOString().split('T')[0] }); setShowVisitaModal(true); }}
+            onClick={() => { setActiveTab('planificacion'); setNewJobTrigger(p => p + 1); }}
             className="bg-violet-600 hover:bg-violet-700 text-white rounded-2xl p-5 text-center space-y-2 cursor-pointer flex flex-col items-center justify-center transition-transform hover:scale-101 border border-violet-500"
           >
             <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">

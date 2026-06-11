@@ -45,6 +45,8 @@ export interface ScreenPlanificacionProps {
   /** Abre la pantalla de Ruta del Día para la fecha seleccionada. */
   onViewRoute?: (fecha: string) => void;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
+  /** Incrementar para abrir el modal de creación desde fuera. */
+  triggerNew?: number;
 }
 
 const ESTADO_CFG: Record<TradeJob['estado'], { label: string; cls: string; dot: string }> = {
@@ -666,7 +668,7 @@ export default function ScreenPlanificacion({
   presupuestosAceptados = [],
   presupuestosPorId = {},
   onCreateJob, onUpdateJob, onDeleteJob, onAssignWorker, onRemoveWorker,
-  onOpenParte, onCreatePresupuesto, onViewRoute, showToast,
+  onOpenParte, onCreatePresupuesto, onViewRoute, showToast, triggerNew,
 }: ScreenPlanificacionProps) {
   const jobs  = isLiveMode ? propJobs : DEMO_JOBS;
   const today = new Date().toISOString().split('T')[0];
@@ -721,6 +723,15 @@ export default function ScreenPlanificacion({
     setSelectedWorkerIds(new Set());
     setShowModal(true);
   };
+
+  const triggerNewRef = useRef(0);
+  useEffect(() => {
+    if (!triggerNew || triggerNew === triggerNewRef.current) return;
+    triggerNewRef.current = triggerNew;
+    openCreate();
+  // openCreate reads state via closures; triggerNew is the only external dep
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [triggerNew]);
 
   const openEdit = (job: TradeJob) => {
     setEditingJob(job);
