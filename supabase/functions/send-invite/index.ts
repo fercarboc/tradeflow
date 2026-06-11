@@ -34,7 +34,7 @@ serve(async (req) => {
   if (authErr || !caller) return json({ error: 'Token invalido' }, 401);
 
   try {
-    const { email, rol, org_id } = await req.json() as { email: string; rol: string; org_id: string };
+    const { email, rol, org_id, worker_profile_id } = await req.json() as { email: string; rol: string; org_id: string; worker_profile_id?: string | null };
 
     if (!email || !rol || !org_id) return json({ error: 'Faltan campos requeridos' }, 400);
     if (!VALID_ROLES.has(rol)) return json({ error: 'Rol no valido' }, 400);
@@ -122,16 +122,19 @@ serve(async (req) => {
     const invitedUserId = inviteData.user.id;
 
     // Guardar registro en trade_org_members (activo = false hasta que acepte)
+    const memberRow: Record<string, unknown> = {
+      org_id,
+      user_id: invitedUserId,
+      email: normalEmail,
+      rol,
+      activo: false,
+      invited_at: new Date().toISOString(),
+    };
+    if (worker_profile_id) memberRow.worker_profile_id = worker_profile_id;
+
     const { error: upsertErr } = await supabase
       .from('trade_org_members')
-      .upsert({
-        org_id,
-        user_id: invitedUserId,
-        email: normalEmail,
-        rol,
-        activo: false,
-        invited_at: new Date().toISOString(),
-      }, { onConflict: 'org_id,user_id' });
+      .upsert(memberRow, { onConflict: 'org_id,user_id' });
 
     if (upsertErr) throw upsertErr;
 

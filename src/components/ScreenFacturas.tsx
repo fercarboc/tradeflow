@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   FileText, RefreshCw, CheckCircle2, Clock, AlertTriangle, X,
-  Download, Eye, Search, RotateCcw, FileDown,
+  Download, Eye, Search, RotateCcw, FileDown, ArrowUpDown, CalendarRange,
   Banknote, CreditCard, Building2, Smartphone,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
@@ -69,6 +69,9 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
   const [filterEstado, setFilterEstado] = useState<EstadoFilter>('todos');
   const [filterSerie, setFilterSerie] = useState<'todos' | 'F' | 'M'>('todos');
   const [search, setSearch] = useState('');
+  const [sortDir, setSortDir] = useState<'desc' | 'asc'>('desc');
+  const [dateFrom, setDateFrom] = useState('');
+  const [dateTo, setDateTo] = useState('');
   const [selectedInv, setSelectedInv] = useState<InvoiceWithClient | null>(null);
   const [invLines, setInvLines] = useState<TradeInvoiceLine[]>([]);
   const [loadingLines, setLoadingLines] = useState(false);
@@ -103,9 +106,12 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
   useEffect(() => { fetchInvoices(); }, [fetchInvoices]);
 
   const filtered = useMemo(() => {
-    return invoices.filter(inv => {
+    const result = invoices.filter(inv => {
       if (filterEstado !== 'todos' && inv.estado !== filterEstado) return false;
       if (filterSerie !== 'todos' && inv.serie !== filterSerie) return false;
+      const fechaInv = (inv.fecha_emision ?? inv.fecha ?? '').split('T')[0];
+      if (dateFrom && fechaInv < dateFrom) return false;
+      if (dateTo && fechaInv > dateTo) return false;
       if (search.trim()) {
         const q = search.toLowerCase();
         const clientName = (inv.trade_clients?.nombre ?? '').toLowerCase();
@@ -113,7 +119,12 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
       }
       return true;
     });
-  }, [invoices, filterEstado, filterSerie, search]);
+    return result.sort((a, b) => {
+      const fa = (a.fecha_emision ?? a.fecha ?? '').split('T')[0];
+      const fb = (b.fecha_emision ?? b.fecha ?? '').split('T')[0];
+      return sortDir === 'desc' ? fb.localeCompare(fa) : fa.localeCompare(fb);
+    });
+  }, [invoices, filterEstado, filterSerie, search, dateFrom, dateTo, sortDir]);
 
   const counts = useMemo(() => ({
     borrador: invoices.filter(i => i.estado === 'Borrador').length,
@@ -328,7 +339,8 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
             className="w-full pl-8 pr-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-blue-400"
           />
         </div>
-        <div className="flex bg-slate-100 rounded-lg p-0.5 gap-0.5">
+        {/* Estado */}
+        <div className="flex bg-slate-100 rounded-lg p-0.5 gap-0.5 flex-wrap">
           {(['todos', 'Borrador', 'Emitida', 'Pendiente', 'Pagada', 'Vencida'] as EstadoFilter[]).map(f => (
             <button
               key={f}
@@ -339,6 +351,7 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
             </button>
           ))}
         </div>
+        {/* Serie */}
         <div className="flex bg-slate-100 rounded-lg p-0.5 gap-0.5">
           {([['todos', 'Todo'], ['F', 'F-'], ['M', 'M-']] as [string, string][]).map(([v, l]) => (
             <button
@@ -349,6 +362,44 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
               {l}
             </button>
           ))}
+        </div>
+      </div>
+
+      {/* Filtro de fechas + ordenación */}
+      <div className="flex flex-wrap gap-2 items-center">
+        <CalendarRange className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+        <input
+          type="date"
+          value={dateFrom}
+          onChange={e => setDateFrom(e.target.value)}
+          title="Desde"
+          className="text-xs bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-400 text-slate-600"
+        />
+        <span className="text-xs text-slate-400">—</span>
+        <input
+          type="date"
+          value={dateTo}
+          onChange={e => setDateTo(e.target.value)}
+          title="Hasta"
+          className="text-xs bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-400 text-slate-600"
+        />
+        {(dateFrom || dateTo) && (
+          <button
+            onClick={() => { setDateFrom(''); setDateTo(''); }}
+            className="text-[10px] text-red-500 hover:text-red-700 font-semibold cursor-pointer flex items-center gap-1"
+          >
+            <X className="w-3 h-3" />Limpiar
+          </button>
+        )}
+        <div className="ml-auto flex items-center">
+          <button
+            onClick={() => setSortDir(d => d === 'desc' ? 'asc' : 'desc')}
+            className="flex items-center gap-1.5 text-[10px] font-semibold text-slate-500 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer"
+            title="Ordenar por fecha"
+          >
+            <ArrowUpDown className="w-3 h-3" />
+            Fecha {sortDir === 'desc' ? '↓ reciente' : '↑ antigua'}
+          </button>
         </div>
       </div>
 
@@ -367,7 +418,9 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
               <tr className="bg-slate-50 border-b border-slate-100">
                 <th className="text-left px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px]">Número</th>
                 <th className="text-left px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px]">Cliente</th>
-                <th className="text-left px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px] hidden md:table-cell">Fecha</th>
+                <th className="text-left px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px] hidden md:table-cell cursor-pointer hover:text-blue-600 select-none" onClick={() => setSortDir(d => d === 'desc' ? 'asc' : 'desc')}>
+                  Fecha {sortDir === 'desc' ? '↓' : '↑'}
+                </th>
                 <th className="text-right px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px]">Total</th>
                 <th className="text-center px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px]">Estado</th>
                 <th className="text-center px-4 py-2.5 font-bold text-slate-400 uppercase tracking-wider text-[9px] w-28">Acciones</th>

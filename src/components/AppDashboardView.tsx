@@ -4962,12 +4962,21 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {/* SIDEBAR NAVEGACIÓN */}
         <aside className="hidden md:flex flex-col w-64 bg-slate-900 border-r border-slate-850 text-slate-300 shrink-0 select-none">
           <div className="p-5 border-b border-slate-850 flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-xl flex items-center justify-center font-bold text-white shadow-md shadow-blue-500/10 shrink-0">
-              SI
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white shadow-md shrink-0 ${isTecnico ? 'bg-gradient-to-tr from-emerald-600 to-teal-500 shadow-emerald-500/10' : 'bg-gradient-to-tr from-blue-600 to-indigo-500 shadow-blue-500/10'}`}>
+              {isTecnico ? (workerProfile?.nombre?.[0] ?? 'T').toUpperCase() : 'SI'}
             </div>
             <div className="overflow-hidden">
-              <span className="font-bold text-xs text-white block uppercase tracking-wide truncate">{empresaAjustes.nombre}</span>
-              <span className="text-[10px] text-slate-500 block font-mono truncate">{empresaAjustes.nif}</span>
+              {isTecnico ? (
+                <>
+                  <span className="font-bold text-xs text-white block uppercase tracking-wide truncate">{workerProfile?.nombre ?? 'Técnico'}</span>
+                  <span className="text-[10px] text-emerald-500 block font-mono truncate">Técnico · {empresaAjustes.nombre}</span>
+                </>
+              ) : (
+                <>
+                  <span className="font-bold text-xs text-white block uppercase tracking-wide truncate">{empresaAjustes.nombre}</span>
+                  <span className="text-[10px] text-slate-500 block font-mono truncate">{empresaAjustes.nif}</span>
+                </>
+              )}
             </div>
           </div>
 
@@ -4990,7 +4999,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </nav>
 
           <div className="p-4 border-t border-slate-800 bg-slate-950/20 space-y-2">
-            {(() => {
+            {isTecnico ? (
+              <button
+                onClick={handleLogout}
+                className="w-full flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 border border-red-900/40 hover:border-red-500/50 rounded-lg py-1.5 cursor-pointer transition-colors"
+              >
+                <LogOut className="w-3 h-3" />Cerrar sesión
+              </button>
+            ) : (() => {
               const sub = subscription;
               // Use orgData.plan as immediate fallback while subscription loads async
               const effectivePlan = sub?.plan ?? orgData?.plan ?? 'basico';
@@ -5038,6 +5054,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             })()}
           </div>
         </aside>
+
 
         {/* CUERPO CENTRAL DE LA CONSOLA DESKTOP */}
         <div className="flex-grow flex flex-col min-w-0 bg-slate-50">
