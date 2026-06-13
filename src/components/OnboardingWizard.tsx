@@ -4,11 +4,15 @@ import {
   Bell, ChevronRight, ChevronLeft, Check, X, Loader2,
   Wrench, Zap, Thermometer, Hammer, PaintBucket, Layers,
   Wifi, KeyRound, Scissors, Truck, Leaf, Shield,
-  Upload, Star, Info, ArrowRight,
+  Upload, Star, Info, ArrowRight, CalendarDays,
 } from 'lucide-react';
 import { supabase, importCatalogItems, saveOrgTemplate, uploadOrgLogo } from '../lib/supabase';
 import type { TemplateType } from '../lib/supabase';
 import { useSession } from '../context/SessionContext';
+import {
+  loadWorkCalendar, saveWorkCalendar, DAY_NAMES, FESTIVOS_NACIONALES,
+  type WorkCalendar, type HolidayEntry,
+} from '../lib/workCalendar';
 
 // ─── Catálogo base por área ───────────────────────────────────────────────────
 
@@ -188,7 +192,8 @@ const STEPS = [
   { id: 4, title: 'Plan',        icon: <CreditCard className="w-4 h-4" /> },
   { id: 5, title: 'Logo',        icon: <Image className="w-4 h-4" /> },
   { id: 6, title: 'Plantillas',  icon: <MessageSquare className="w-4 h-4" /> },
-  { id: 7, title: 'Finalizar',   icon: <Bell className="w-4 h-4" /> },
+  { id: 7, title: 'Calendario',  icon: <CalendarDays className="w-4 h-4" /> },
+  { id: 8, title: 'Finalizar',   icon: <Bell className="w-4 h-4" /> },
 ];
 
 // ─── Props ────────────────────────────────────────────────────────────────────
@@ -246,7 +251,11 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
   const [templatesLoaded, setTemplatesLoaded] = useState(false);
   const [previewIdx, setPreviewIdx] = useState(0);
 
-  // Step 7
+  // Step 7 — Calendario
+  const [wizCalendar, setWizCalendar] = useState<WorkCalendar>(() => loadWorkCalendar());
+  const [calNacionalesLoaded, setCalNacionalesLoaded] = useState(false);
+
+  // Step 8
   const [notificaciones, setNotificaciones] = useState(true);
 
   // Skip confirmation
@@ -349,6 +358,7 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
       if (step === 1) await saveStep1();
       if (step === 2) await saveStep2();
       if (step === 5 && logoFile) await saveStep5();
+      if (step === 7) saveWorkCalendar(wizCalendar);
     } finally {
       setSaving(false);
     }
@@ -723,8 +733,84 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
               </>
             )}
 
-            {/* ── Step 7: Finalizar ────────────────────────────────── */}
+            {/* ── Step 7: Calendario laboral ───────────────────────── */}
             {step === 7 && (
+              <>
+                <div>
+                  <h2 className="text-xl font-black text-slate-900">Calendario laboral</h2>
+                  <p className="text-sm text-slate-500 mt-1">Define cuándo trabajas. La app reprogramará automáticamente los trabajos pendientes al siguiente día laborable.</p>
+                </div>
+
+                {/* Horario semanal */}
+                <div className="space-y-1.5">
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Días y horas de trabajo</p>
+                  {[1,2,3,4,5,6,0].map(dow => {
+                    const cfg = wizCalendar.workDays[dow];
+                    return (
+                      <div key={dow} className={`flex items-center gap-3 px-3 py-2.5 rounded-xl border transition-colors ${cfg.active ? 'bg-white border-slate-200' : 'bg-slate-50 border-slate-100'}`}>
+                        <button
+                          type="button"
+                          onClick={() => setWizCalendar(c => ({ ...c, workDays: { ...c.workDays, [dow]: { ...c.workDays[dow], active: !c.workDays[dow].active } } }))}
+                          className={`rounded-full transition-colors shrink-0 cursor-pointer flex items-center px-0.5 ${cfg.active ? 'bg-blue-600' : 'bg-slate-200'}`}
+                          style={{ width: 32, height: 18 }}
+                        >
+                          <span className={`w-3.5 h-3.5 rounded-full bg-white shadow transition-transform ${cfg.active ? 'translate-x-3.5' : 'translate-x-0'}`} style={{ width: 14, height: 14 }} />
+                        </button>
+                        <span className={`text-xs font-bold w-20 ${cfg.active ? 'text-slate-800' : 'text-slate-400'}`}>{DAY_NAMES[dow]}</span>
+                        {cfg.active ? (
+                          <div className="flex items-center gap-1.5 flex-1">
+                            <input type="time" value={cfg.start}
+                              onChange={e => setWizCalendar(c => ({ ...c, workDays: { ...c.workDays, [dow]: { ...c.workDays[dow], start: e.target.value } } }))}
+                              className="text-xs border border-slate-200 rounded-lg px-2 py-1 focus:outline-none focus:border-blue-400 bg-white w-24" />
+                            <span className="text-[10px] text-slate-400">—</span>
+                            <input type="time" value={cfg.end}
+                              onChange={e => setWizCalendar(c => ({ ...c, workDays: { ...c.workDays, [dow]: { ...c.workDays[dow], end: e.target.value } } }))}
+                              className="text-xs border border-slate-200 rounded-lg px-2 py-1 focus:outline-none focus:border-blue-400 bg-white w-24" />
+                          </div>
+                        ) : (
+                          <span className="text-[10px] text-slate-400 italic flex-1">Cerrado</span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Festivos nacionales */}
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-start gap-3">
+                  <CalendarDays className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <p className="text-sm font-bold text-blue-900">Festivos nacionales de España</p>
+                    <p className="text-xs text-blue-700 mt-0.5">Carga automáticamente los 10 festivos nacionales recurrentes (Año Nuevo, Reyes, 1 de mayo, etc.)</p>
+                    {calNacionalesLoaded ? (
+                      <p className="text-xs text-emerald-700 font-semibold mt-2 flex items-center gap-1"><Check className="w-3.5 h-3.5" /> {FESTIVOS_NACIONALES.length} festivos cargados</p>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const existing = new Set(wizCalendar.holidays.map(h => h.date));
+                          const nuevos = FESTIVOS_NACIONALES.filter(f => !existing.has(f.date)).map(f => ({ ...f, id: crypto.randomUUID() })) as HolidayEntry[];
+                          setWizCalendar(c => ({ ...c, holidays: [...c.holidays, ...nuevos] }));
+                          setCalNacionalesLoaded(true);
+                        }}
+                        className="mt-2 text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg cursor-pointer transition-colors"
+                      >
+                        Cargar festivos nacionales
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <div className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3">
+                  <p className="text-xs text-slate-500 flex items-start gap-2">
+                    <Info className="w-4 h-4 shrink-0 mt-0.5 text-slate-400" />
+                    Puedes añadir festivos regionales, vacaciones y días cerrados en cualquier momento desde <strong>Ajustes y Tarifas → Calendario laboral</strong>.
+                  </p>
+                </div>
+              </>
+            )}
+
+            {/* ── Step 8: Finalizar ────────────────────────────────── */}
+            {step === 8 && (
               <>
                 <div>
                   <h2 className="text-xl font-black text-slate-900">¡Todo listo para empezar!</h2>
@@ -756,6 +842,7 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
                     { label: 'Catálogo',       val: catalogLoaded ? `${Array.from(selectedAreas).reduce((s, a) => s + (CATALOG_BASE[a]?.length ?? 0), 0)} artículos` : selectedAreas.size === 0 ? 'Sin seleccionar' : 'Pendiente de cargar', ok: catalogLoaded },
                     { label: 'Logo',           val: logoPreview ? 'Subido' : 'Sin logo', ok: !!logoPreview },
                     { label: 'Plantillas',     val: templatesLoaded ? `${DEFAULT_TEMPLATES.length} cargadas` : 'Sin cargar', ok: templatesLoaded },
+                  { label: 'Calendario',     val: calNacionalesLoaded ? `${FESTIVOS_NACIONALES.length} festivos + horario semanal` : 'Horario semanal configurado', ok: true },
                   ].map(item => (
                     <div key={item.label} className="flex items-center justify-between text-sm">
                       <span className="text-slate-500">{item.label}</span>

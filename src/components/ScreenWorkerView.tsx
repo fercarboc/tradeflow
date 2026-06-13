@@ -22,19 +22,25 @@ interface Props {
 }
 
 const ESTADO_DOT: Record<TradeJob['estado'], string> = {
-  planificado:        'bg-blue-500',
-  en_curso:           'bg-amber-500',
-  completado:         'bg-emerald-500',
-  cancelado:          'bg-red-500',
-  pendiente_material: 'bg-orange-500',
+  planificado:               'bg-blue-500',
+  en_curso:                  'bg-amber-500',
+  completado:                'bg-emerald-500',
+  cancelado:                 'bg-red-500',
+  pendiente_material:        'bg-orange-500',
+  no_realizado:              'bg-slate-400',
+  pausado_continua:          'bg-violet-500',
+  bloqueado_espera_material: 'bg-rose-500',
 };
 
 const ESTADO_LABEL: Record<TradeJob['estado'], string> = {
-  planificado:        'Planificado',
-  en_curso:           'En curso',
-  completado:         'Completado',
-  cancelado:          'Cancelado',
-  pendiente_material: 'Pdte. material',
+  planificado:               'Planificado',
+  en_curso:                  'En curso',
+  completado:                'Completado',
+  cancelado:                 'Cancelado',
+  pendiente_material:        'Pdte. material',
+  no_realizado:              'No realizado',
+  pausado_continua:          'Pausado',
+  bloqueado_espera_material: 'Espera material',
 };
 
 const FILTER_OPTIONS: Array<'todos' | TradeJob['estado']> = [

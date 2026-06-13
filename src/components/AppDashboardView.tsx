@@ -32,7 +32,7 @@ import {
   Volume2, 
   Sparkles, 
   FileCheck, 
-  CheckCircle2,
+  CheckCircle2, CalendarRange,
   Mail,
   Zap,
   Info,
@@ -90,6 +90,11 @@ import ScreenFacturas from './ScreenFacturas';
 import ScreenTrabajadores from './ScreenTrabajadores';
 import ScreenContratos from './ScreenContratos';
 import { resolveTemplate, buildTemplateVars, DEFAULT_TEMPLATES, VARIABLE_GROUPS } from '../lib/templateEngine';
+import {
+  loadWorkCalendar, saveWorkCalendar, isWorkingDay,
+  DAY_NAMES, FESTIVOS_NACIONALES,
+  type WorkCalendar, type HolidayEntry,
+} from '../lib/workCalendar';
 import PlanUpgradeModal from './PlanUpgradeModal';
 import OnboardingWizard from './OnboardingWizard';
 import ChatbotWidget from './ChatbotWidget';
@@ -500,6 +505,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           loadCatalogProducts(org.id),
           loadJobs(org.id),
         ]);
+        supabase.from('trade_maintenance_contratos').select('id', { count: 'exact', head: true }).eq('org_id', org.id).eq('estado', 'activo').eq('incluye_guardia', true).then(({ count }) => setUrgentContratosCount(count ?? 0));
         setTrabajadores(workersRes.map((w: TradeWorker) => ({ id: w.id, nombre: w.nombre, telefono: w.telefono ?? '', email: w.email ?? '', rol: w.rol as TrabajadorItem['rol'], activo: w.activo })));
         setTarifas(tarifasRes.map((t: TradeTarifa) => ({ id: t.id, codigo: t.codigo ?? '', familia: t.familia, descripcion: t.descripcion, precioBase: t.precio_base, unidad: t.unidad, activo: t.activo })));
         setCatalogProducts(catalogRes);
@@ -789,6 +795,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const [openTemplateTipo, setOpenTemplateTipo] = useState<TemplateType | null>(null);
   const [pushEnabled, setPushEnabled] = useState(false);
+  const [workCalendar, setWorkCalendar] = useState<WorkCalendar>(() => loadWorkCalendar());
+  const [newHoliday, setNewHoliday] = useState({ date: '', name: '', recurring: false });
+  const [showAddHoliday, setShowAddHoliday] = useState(false);
+  const [urgentContratosCount, setUrgentContratosCount] = useState(0);
   const [pushLoading, setPushLoading] = useState(false);
   const [subscription, setSubscription] = useState<TradeSubscription | null>(null);
   const [stripeLoading, setStripeLoading] = useState(false);
@@ -796,6 +806,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [mantenimientoInitialText, setMantenimientoInitialText] = useState<string>('');
   const [presupuestoSearch, setPresupuestoSearch] = useState('');
   const [presupuestoEstado, setPresupuestoEstado] = useState('todos');
+  const [presupuestoFechaDesde, setPresupuestoFechaDesde] = useState('');
+  const [presupuestoFechaHasta, setPresupuestoFechaHasta] = useState('');
+  const [presupuestoClienteFiltro, setPresupuestoClienteFiltro] = useState('');
   const [generatingLink, setGeneratingLink] = useState(false);
   const [quoteTokenStatus, setQuoteTokenStatus] = useState<{ status: string; accepted_at: string | null } | null>(null);
   const [platformInvoices, setPlatformInvoices] = useState<Array<{
@@ -2087,6 +2100,24 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   void setShowConfetti;
   void triggerWhatsAppShare;
+
+  const markQuoteAs = async (quote: Presupuesto, newEstado: string) => {
+    if (!isLiveMode) {
+      setPresupuestos(prev => prev.map(p => p.id === quote.id ? { ...p, estado: newEstado as Presupuesto['estado'] } : p));
+      if (selectedQuoteForPreview?.id === quote.id) setSelectedQuoteForPreview(prev => prev ? { ...prev, estado: newEstado as Presupuesto['estado'] } : null);
+      showToast(`Presupuesto marcado como ${newEstado}`, 'success');
+      return;
+    }
+    try {
+      const { error } = await supabase.from('trade_quotes').update({ estado: newEstado.toLowerCase() }).eq('numero', quote.id);
+      if (error) throw error;
+      setPresupuestos(prev => prev.map(p => p.id === quote.id ? { ...p, estado: newEstado as Presupuesto['estado'] } : p));
+      if (selectedQuoteForPreview?.id === quote.id) setSelectedQuoteForPreview(prev => prev ? { ...prev, estado: newEstado as Presupuesto['estado'] } : null);
+      showToast(`Presupuesto marcado como ${newEstado} ✓`, 'success');
+    } catch {
+      showToast('Error al cambiar el estado', 'error');
+    }
+  };
 
   const generateAcceptanceLink = async (quote: Presupuesto) => {
     if (!orgId) return;
@@ -5514,6 +5545,41 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         )}
 
+        {/* ── Banner festivos con contratos urgencia/24×7 ─────────────── */}
+        {urgentContratosCount > 0 && (() => {
+          const today = new Date().toISOString().split('T')[0];
+          const upcomingHolidays: { date: string; name: string }[] = [];
+          for (let i = 0; i < 14; i++) {
+            const d = new Date(today + 'T12:00:00');
+            d.setDate(d.getDate() + i);
+            const ds = d.toISOString().split('T')[0];
+            if (!isWorkingDay(ds, workCalendar)) {
+              const mmdd = ds.slice(5);
+              const holiday = workCalendar.holidays.find(h => (h.recurring && h.date === mmdd) || (!h.recurring && h.date === ds));
+              const dowCfg = workCalendar.workDays[d.getDay()];
+              if (holiday) upcomingHolidays.push({ date: ds, name: holiday.name });
+              else if (!dowCfg?.active) upcomingHolidays.push({ date: ds, name: DAY_NAMES[d.getDay()] + ' (día de descanso)' });
+            }
+          }
+          if (upcomingHolidays.length === 0) return null;
+          const isTodayHoliday = !isWorkingDay(today, workCalendar);
+          return (
+            <div className="bg-orange-50 border border-orange-300 rounded-2xl p-4 flex items-start gap-3">
+              <span className="text-xl mt-0.5">⚡</span>
+              <div className="flex-1">
+                <p className="font-bold text-orange-900 text-sm">
+                  {isTodayHoliday ? 'Hoy es festivo — contratos de urgencia activos' : `Próximos días festivos — contratos urgencia/24×7 activos`}
+                </p>
+                <p className="text-xs text-orange-700 mt-0.5 leading-relaxed">
+                  Tienes <strong>{urgentContratosCount} contrato{urgentContratosCount !== 1 ? 's' : ''} de mantenimiento con cobertura urgencia/24×7</strong>. Estos seguirán activos en los siguientes días no laborables:
+                  {' '}<span className="font-semibold">{upcomingHolidays.slice(0, 5).map(h => `${h.name} (${new Date(h.date + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })})`).join(', ')}</span>.
+                </p>
+                <p className="text-[10px] text-orange-600 mt-1">Recuerda comunicar a tus técnicos la disponibilidad requerida esos días.</p>
+              </div>
+            </div>
+          );
+        })()}
+
         {/* Recomendador IA flotante */}
         {showPricingSuggestion && (
           <motion.div 
@@ -5824,11 +5890,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         ) : (
           <div className="space-y-3">
-            {/* Filtros */}
+            {/* Filtros — fila 1: búsqueda + estado + cliente */}
             <div className="flex flex-wrap gap-2 items-center">
               <input
                 type="text"
-                placeholder="Buscar cliente o descripción…"
+                placeholder="Buscar número, descripción…"
                 value={presupuestoSearch}
                 onChange={e => setPresupuestoSearch(e.target.value)}
                 className="flex-1 min-w-[180px] rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-blue-400 focus:outline-none"
@@ -5844,7 +5910,56 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <option value="aceptado">Aceptado</option>
                 <option value="rechazado">Rechazado</option>
                 <option value="facturado">Facturado</option>
+                <option value="vencido">Vencido</option>
               </select>
+              <select
+                value={presupuestoClienteFiltro}
+                onChange={e => setPresupuestoClienteFiltro(e.target.value)}
+                className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 focus:border-blue-400 focus:outline-none cursor-pointer"
+              >
+                <option value="">Todos los clientes</option>
+                {[...new Set(presupuestos.map(p => p.nombreCliente).filter(Boolean))].sort().map(c => (
+                  <option key={c} value={c}>{c}</option>
+                ))}
+              </select>
+            </div>
+            {/* Filtros — fila 2: rango de fechas */}
+            <div className="flex flex-wrap gap-2 items-center">
+              <CalendarRange className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+              <input
+                type="date"
+                value={presupuestoFechaDesde}
+                onChange={e => setPresupuestoFechaDesde(e.target.value)}
+                title="Desde"
+                className="text-xs bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-blue-400 text-slate-600"
+              />
+              <span className="text-xs text-slate-400">—</span>
+              <input
+                type="date"
+                value={presupuestoFechaHasta}
+                onChange={e => setPresupuestoFechaHasta(e.target.value)}
+                title="Hasta"
+                className="text-xs bg-white border border-slate-200 rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-blue-400 text-slate-600"
+              />
+              {(presupuestoFechaDesde || presupuestoFechaHasta || presupuestoClienteFiltro || presupuestoEstado !== 'todos' || presupuestoSearch) && (
+                <button
+                  onClick={() => { setPresupuestoFechaDesde(''); setPresupuestoFechaHasta(''); setPresupuestoClienteFiltro(''); setPresupuestoEstado('todos'); setPresupuestoSearch(''); }}
+                  className="text-[10px] text-red-500 hover:text-red-700 font-semibold cursor-pointer flex items-center gap-1"
+                >
+                  <X className="w-3 h-3" />Limpiar filtros
+                </button>
+              )}
+              <span className="ml-auto text-[10px] text-slate-400">
+                {presupuestos.filter(p => {
+                  const q = presupuestoSearch.toLowerCase().trim();
+                  const matchSearch = !q || p.nombreCliente.toLowerCase().includes(q) || p.descripcion.toLowerCase().includes(q) || p.id.toLowerCase().includes(q);
+                  const matchEstado = presupuestoEstado === 'todos' || p.estado.toLowerCase() === presupuestoEstado;
+                  const matchCliente = !presupuestoClienteFiltro || p.nombreCliente === presupuestoClienteFiltro;
+                  const matchDesde = !presupuestoFechaDesde || p.fecha >= presupuestoFechaDesde;
+                  const matchHasta = !presupuestoFechaHasta || p.fecha <= presupuestoFechaHasta;
+                  return matchSearch && matchEstado && matchCliente && matchDesde && matchHasta;
+                }).length} resultado{presupuestos.length !== 1 ? 's' : ''}
+              </span>
             </div>
           <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">
             <table className="w-full text-xs">
@@ -5862,9 +5977,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <tbody className="divide-y divide-slate-100">
                 {presupuestos.filter(p => {
                   const q = presupuestoSearch.toLowerCase().trim();
-                  const matchSearch = !q || p.nombreCliente.toLowerCase().includes(q) || p.descripcion.toLowerCase().includes(q);
+                  const matchSearch = !q || p.nombreCliente.toLowerCase().includes(q) || p.descripcion.toLowerCase().includes(q) || p.id.toLowerCase().includes(q);
                   const matchEstado = presupuestoEstado === 'todos' || p.estado.toLowerCase() === presupuestoEstado;
-                  return matchSearch && matchEstado;
+                  const matchCliente = !presupuestoClienteFiltro || p.nombreCliente === presupuestoClienteFiltro;
+                  const matchDesde = !presupuestoFechaDesde || p.fecha >= presupuestoFechaDesde;
+                  const matchHasta = !presupuestoFechaHasta || p.fecha <= presupuestoFechaHasta;
+                  return matchSearch && matchEstado && matchCliente && matchDesde && matchHasta;
                 }).map(p => (
                   <tr
                     key={p.id}
@@ -6319,6 +6437,36 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   ? <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                   : <span>🔗</span>}
                 Enlace aceptación
+              </button>
+            )}
+            {/* Cambio rápido de estado — el cliente llama y acepta/rechaza */}
+            {!['Aceptado','Facturado','Rechazado'].includes(selectedQuoteForPreview.estado) && (
+              <button
+                onClick={() => markQuoteAs(selectedQuoteForPreview, 'Aceptado')}
+                className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer"
+                title="El cliente ha llamado y acepta el presupuesto"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                Aceptado por cliente
+              </button>
+            )}
+            {!['Aceptado','Facturado','Rechazado','Borrador'].includes(selectedQuoteForPreview.estado) && (
+              <button
+                onClick={() => markQuoteAs(selectedQuoteForPreview, 'Rechazado')}
+                className="flex items-center gap-1.5 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer"
+                title="El cliente rechaza el presupuesto"
+              >
+                <X className="w-3.5 h-3.5" />
+                Rechazado
+              </button>
+            )}
+            {selectedQuoteForPreview.estado === 'Borrador' && (
+              <button
+                onClick={() => markQuoteAs(selectedQuoteForPreview, 'Enviado')}
+                className="flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer"
+              >
+                <Send className="w-3.5 h-3.5" />
+                Marcar enviado
               </button>
             )}
           </div>
@@ -8694,7 +8842,159 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           );
         })()}
 
-        {/* ── 7. Notificaciones push ── */}
+        {/* ── 7. Calendario laboral ── */}
+        {(() => {
+          const today = new Date().toISOString().split('T')[0];
+          const updateDay = (dow: number, patch: Partial<WorkCalendar['workDays'][0]>) => {
+            const updated = { ...workCalendar, workDays: { ...workCalendar.workDays, [dow]: { ...workCalendar.workDays[dow], ...patch } } };
+            setWorkCalendar(updated);
+            saveWorkCalendar(updated);
+          };
+          const removeHoliday = (id: string) => {
+            const updated = { ...workCalendar, holidays: workCalendar.holidays.filter(h => h.id !== id) };
+            setWorkCalendar(updated);
+            saveWorkCalendar(updated);
+          };
+          const addHoliday = (entry: Omit<HolidayEntry, 'id'>) => {
+            const updated = { ...workCalendar, holidays: [...workCalendar.holidays, { ...entry, id: crypto.randomUUID() }] };
+            setWorkCalendar(updated);
+            saveWorkCalendar(updated);
+            setNewHoliday({ date: '', name: '', recurring: false });
+            setShowAddHoliday(false);
+          };
+          const addNacionales = () => {
+            const existing = new Set(workCalendar.holidays.map(h => h.date));
+            const nuevos = FESTIVOS_NACIONALES.filter(f => !existing.has(f.date)).map(f => ({ ...f, id: crypto.randomUUID() }));
+            if (!nuevos.length) { showToast('Ya están todos los festivos nacionales añadidos', 'info'); return; }
+            const updated = { ...workCalendar, holidays: [...workCalendar.holidays, ...nuevos] };
+            setWorkCalendar(updated);
+            saveWorkCalendar(updated);
+            showToast(`${nuevos.length} festivos nacionales añadidos ✓`, 'success');
+          };
+
+          return (
+            <div className={sec}>
+              <h3 className={secTitle}>Calendario laboral</h3>
+              <p className="text-[11px] text-slate-400 mb-4">Define tu horario semanal, festivos y vacaciones. Los trabajos atrasados se reprogramarán al siguiente día laborable.</p>
+
+              {/* Horario semanal */}
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Horario semanal</p>
+              <div className="space-y-1 mb-5">
+                {[1,2,3,4,5,6,0].map(dow => {
+                  const cfg = workCalendar.workDays[dow];
+                  return (
+                    <div key={dow} className={`flex items-center gap-3 px-3 py-2 rounded-lg border transition-colors ${cfg.active ? 'bg-white border-slate-200' : 'bg-slate-50 border-slate-100'}`}>
+                      {/* Toggle activo */}
+                      <button
+                        onClick={() => updateDay(dow, { active: !cfg.active })}
+                        className={`w-8 h-4.5 rounded-full transition-colors shrink-0 cursor-pointer flex items-center px-0.5 ${cfg.active ? 'bg-blue-600' : 'bg-slate-200'}`}
+                        style={{ width: 32, height: 18 }}
+                      >
+                        <span className={`w-3.5 h-3.5 rounded-full bg-white shadow transition-transform ${cfg.active ? 'translate-x-3.5' : 'translate-x-0'}`} style={{ width: 14, height: 14 }} />
+                      </button>
+                      {/* Nombre del día */}
+                      <span className={`text-xs font-bold w-20 ${cfg.active ? 'text-slate-800' : 'text-slate-400'}`}>{DAY_NAMES[dow]}</span>
+                      {/* Horario */}
+                      {cfg.active ? (
+                        <div className="flex items-center gap-1.5 flex-1">
+                          <input type="time" value={cfg.start} onChange={e => updateDay(dow, { start: e.target.value })}
+                            className="text-xs border border-slate-200 rounded-lg px-2 py-1 focus:outline-none focus:border-blue-400 bg-white text-slate-700 w-24" />
+                          <span className="text-[10px] text-slate-400">—</span>
+                          <input type="time" value={cfg.end} onChange={e => updateDay(dow, { end: e.target.value })}
+                            className="text-xs border border-slate-200 rounded-lg px-2 py-1 focus:outline-none focus:border-blue-400 bg-white text-slate-700 w-24" />
+                        </div>
+                      ) : (
+                        <span className="text-[10px] text-slate-400 italic flex-1">Cerrado</span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Festivos y cierres */}
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Festivos y días de cierre</p>
+                <div className="flex gap-2">
+                  <button onClick={addNacionales} className="text-[10px] text-blue-600 hover:text-blue-800 font-semibold cursor-pointer border border-blue-200 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg transition-colors">
+                    + Festivos nacionales ES
+                  </button>
+                  <button onClick={() => setShowAddHoliday(v => !v)} className="text-[10px] text-slate-600 hover:text-slate-800 font-semibold cursor-pointer border border-slate-200 bg-white hover:bg-slate-50 px-2.5 py-1 rounded-lg transition-colors">
+                    + Añadir día
+                  </button>
+                </div>
+              </div>
+
+              {/* Formulario nuevo festivo */}
+              {showAddHoliday && (
+                <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 mb-3 space-y-2">
+                  <div className="flex gap-2 flex-wrap">
+                    <input type="date" value={newHoliday.date} onChange={e => setNewHoliday(v => ({ ...v, date: e.target.value }))}
+                      className="text-xs border border-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-400 bg-white" />
+                    <input type="text" placeholder="Nombre del festivo / cierre" value={newHoliday.name} onChange={e => setNewHoliday(v => ({ ...v, name: e.target.value }))}
+                      className="flex-1 min-w-[160px] text-xs border border-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-400 bg-white" />
+                  </div>
+                  <div className="flex items-center justify-between gap-3">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input type="checkbox" checked={newHoliday.recurring} onChange={e => setNewHoliday(v => ({ ...v, recurring: e.target.checked }))} className="rounded" />
+                      <span className="text-[10px] text-slate-600">Se repite cada año (festivo recurrente)</span>
+                    </label>
+                    <div className="flex gap-2">
+                      <button onClick={() => { setShowAddHoliday(false); setNewHoliday({ date: '', name: '', recurring: false }); }}
+                        className="text-[10px] text-slate-500 cursor-pointer hover:text-slate-700 px-2 py-1">Cancelar</button>
+                      <button
+                        onClick={() => {
+                          if (!newHoliday.date || !newHoliday.name.trim()) { showToast('Indica fecha y nombre', 'error'); return; }
+                          const dateToSave = newHoliday.recurring ? newHoliday.date.slice(5) : newHoliday.date;
+                          addHoliday({ date: dateToSave, name: newHoliday.name.trim(), recurring: newHoliday.recurring });
+                          showToast('Día añadido al calendario ✓', 'success');
+                        }}
+                        className="text-[10px] bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-1 rounded-lg cursor-pointer">
+                        Guardar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Lista de festivos */}
+              {workCalendar.holidays.length === 0 ? (
+                <p className="text-[11px] text-slate-400 italic py-2">No hay festivos configurados. Pulsa "+ Festivos nacionales ES" para cargar los festivos de España.</p>
+              ) : (
+                <div className="space-y-1 max-h-60 overflow-y-auto pr-1">
+                  {[...workCalendar.holidays]
+                    .sort((a, b) => a.date.localeCompare(b.date))
+                    .map(h => {
+                      const displayDate = h.recurring
+                        ? h.date.replace(/^(\d{2})-(\d{2})$/, 'Cada año: $2/$1')
+                        : new Date(h.date + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+                      const isFestivo = !h.recurring && h.date >= today && isWorkingDay(h.date, { ...workCalendar, holidays: workCalendar.holidays.filter(x => x.id !== h.id) });
+                      return (
+                        <div key={h.id} className="flex items-center gap-2 px-3 py-2 bg-white border border-slate-100 rounded-lg">
+                          <span className="text-sm">{h.recurring ? '🔁' : '📅'}</span>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-semibold text-slate-800 truncate">{h.name}</p>
+                            <p className="text-[10px] text-slate-400">{displayDate}</p>
+                          </div>
+                          {isFestivo && <span className="text-[9px] bg-amber-100 text-amber-700 font-bold px-1.5 py-0.5 rounded-full">próximo</span>}
+                          <button onClick={() => removeHoliday(h.id)} className="p-1 text-slate-300 hover:text-red-500 cursor-pointer transition-colors rounded"><X className="w-3 h-3" /></button>
+                        </div>
+                      );
+                    })}
+                </div>
+              )}
+
+              {/* Nota urgencias 24/7 */}
+              <div className="mt-3 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5 flex gap-2">
+                <span className="text-sm mt-0.5">⚡</span>
+                <p className="text-[10px] text-amber-700 leading-relaxed">
+                  <strong>Contratos de urgencia / 24×7:</strong> Los trabajos vinculados a contratos de mantenimiento con cobertura de urgencia o 24×7 sí se programan en festivos. Aparecerán con aviso naranja en el Panel de Control.
+                </p>
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* ── 8. Notificaciones push ── */}
         {isLiveMode && 'Notification' in window && (
           <div className={sec}>
             <h3 className={secTitle}>Notificaciones</h3>

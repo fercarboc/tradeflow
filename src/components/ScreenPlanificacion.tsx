@@ -3,9 +3,10 @@ import {
   Plus, ChevronLeft, ChevronRight, MapPin, User, Users,
   CheckCircle, Play, Trash2, Edit3, Navigation, CalendarDays,
   AlertTriangle, X, Check, Zap, FileText, Phone, Receipt,
-  Loader2,
+  Loader2, PauseCircle, Package, Clock, Ban, ChevronDown,
 } from 'lucide-react';
 import type { TradeJob } from '../lib/supabase';
+import { loadWorkCalendar, getNextWorkingDay } from '../lib/workCalendar';
 import { geocodeAddress, addressChanged, type GeoStatus } from '../lib/geocoder';
 
 interface Worker { id: string; nombre: string; rol: string; activo: boolean; }
@@ -50,11 +51,14 @@ export interface ScreenPlanificacionProps {
 }
 
 const ESTADO_CFG: Record<TradeJob['estado'], { label: string; cls: string; dot: string }> = {
-  planificado:        { label: 'Planificado',    cls: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300',     dot: 'bg-blue-500' },
-  en_curso:           { label: 'En curso',       cls: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300', dot: 'bg-amber-500' },
-  completado:         { label: 'Completado',     cls: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300', dot: 'bg-emerald-500' },
-  cancelado:          { label: 'Cancelado',      cls: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300',         dot: 'bg-red-500' },
-  pendiente_material: { label: 'Pdte. material', cls: 'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300', dot: 'bg-orange-500' },
+  planificado:               { label: 'Planificado',      cls: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300',     dot: 'bg-blue-500' },
+  en_curso:                  { label: 'En curso',         cls: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300', dot: 'bg-amber-500' },
+  completado:                { label: 'Completado',       cls: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300', dot: 'bg-emerald-500' },
+  cancelado:                 { label: 'Cancelado',        cls: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300',         dot: 'bg-red-500' },
+  pendiente_material:        { label: 'Pdte. material',   cls: 'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300', dot: 'bg-orange-500' },
+  no_realizado:              { label: 'No realizado',     cls: 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400',    dot: 'bg-slate-400' },
+  pausado_continua:          { label: 'Pausado',          cls: 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300', dot: 'bg-violet-500' },
+  bloqueado_espera_material: { label: 'Espera material',  cls: 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300',     dot: 'bg-rose-500' },
 };
 
 const PRIORIDAD_CFG: Record<TradeJob['prioridad'], { label: string; cls: string } | null> = {
@@ -366,9 +370,321 @@ function addHoursToTime(time: string, hours: number): string {
   return `${String(Math.floor(total / 60) % 24).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
 }
 
+// ── MaterialDisponibleButton ──────────────────────────────────────────────────
+function MaterialDisponibleButton({ job, onConfirm }: { job: TradeJob; onConfirm: (job: TradeJob, fecha?: string) => Promise<void> }) {
+  const [open, setOpen] = useState(false);
+  const [fecha, setFecha] = useState('');
+  const [saving, setSaving] = useState(false);
+  const today = new Date().toISOString().split('T')[0];
+
+  const handleConfirm = async () => {
+    setSaving(true);
+    try { await onConfirm(job, fecha || undefined); setOpen(false); }
+    finally { setSaving(false); }
+  };
+
+  if (!open) {
+    return (
+      <button onClick={() => setOpen(true)}
+        className="flex items-center gap-1.5 text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-xl cursor-pointer transition-colors">
+        <Check className="w-3.5 h-3.5" /> Material disponible
+      </button>
+    );
+  }
+  return (
+    <div className="flex items-center gap-2 flex-wrap bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2">
+      <span className="text-[10px] font-bold text-emerald-700">Fecha llegada (opcional):</span>
+      <input type="date" value={fecha} min={today} onChange={e => setFecha(e.target.value)}
+        className="text-xs border border-emerald-200 rounded-lg px-2 py-1 focus:outline-none focus:border-emerald-400 bg-white" />
+      <button onClick={handleConfirm} disabled={saving}
+        className="flex items-center gap-1 text-[10px] font-bold bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white px-2.5 py-1.5 rounded-lg cursor-pointer transition-colors">
+        {saving ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />} Reprogramar
+      </button>
+      <button onClick={() => setOpen(false)} className="text-[10px] text-slate-500 cursor-pointer hover:text-slate-700">Cancelar</button>
+    </div>
+  );
+}
+
+// ── PreviousPendingModal ──────────────────────────────────────────────────────
+type PrevResolutionAction = 'completado' | 'no_realizado' | 'reprogramar' | null;
+interface PrevResolution { action: PrevResolutionAction; notas: string; fechaReprog: string; }
+interface PreviousPendingModalProps {
+  pendingJobs: TradeJob[];
+  targetJob: TradeJob;
+  onResolveAll: (resolutions: Record<string, PrevResolution>) => Promise<void>;
+  onClose: () => void;
+}
+
+function PreviousPendingModal({ pendingJobs, targetJob, onResolveAll, onClose }: PreviousPendingModalProps) {
+  const today = new Date().toISOString().split('T')[0];
+  const initResolutions = () => {
+    const r: Record<string, PrevResolution> = {};
+    pendingJobs.forEach(j => { r[j.id] = { action: null, notas: '', fechaReprog: today }; });
+    return r;
+  };
+  const [resolutions, setResolutions] = useState<Record<string, PrevResolution>>(initResolutions);
+  const [saving, setSaving] = useState(false);
+
+  const setResolution = (id: string, patch: Partial<PrevResolution>) =>
+    setResolutions(r => ({ ...r, [id]: { ...r[id], ...patch } }));
+
+  const allResolved = pendingJobs.every(j => resolutions[j.id]?.action !== null);
+
+  const handleConfirm = async () => {
+    setSaving(true);
+    try { await onResolveAll(resolutions); } finally { setSaving(false); }
+  };
+
+  return (
+    <div className="fixed inset-0 z-[200] bg-black/60 flex items-end sm:items-center justify-center p-4">
+      <div className="bg-white rounded-2xl w-full max-w-lg shadow-2xl border border-slate-200 flex flex-col max-h-[90vh]">
+        <div className="px-5 pt-5 pb-3 border-b border-slate-100">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center shrink-0">
+              <AlertTriangle className="w-5 h-5 text-amber-600" />
+            </div>
+            <div>
+              <p className="font-black text-slate-900 text-base">Visitas anteriores sin cerrar</p>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Antes de iniciar <strong>"{targetJob.titulo}"</strong>, resuelve {pendingJobs.length === 1 ? 'esta visita' : 'estas visitas'} del mismo día:
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex-1 overflow-y-auto p-4 space-y-3">
+          {pendingJobs.map(job => {
+            const res = resolutions[job.id];
+            const wasStarted = job.estado === 'en_curso';
+            return (
+              <div key={job.id} className={`border rounded-xl p-3.5 space-y-3 transition-colors ${res.action ? 'border-emerald-200 bg-emerald-50/40' : 'border-amber-200 bg-amber-50'}`}>
+                <div className="flex items-start gap-2">
+                  <span className={`mt-0.5 text-[10px] font-bold px-2 py-0.5 rounded-full ${wasStarted ? 'bg-amber-200 text-amber-800' : 'bg-blue-100 text-blue-700'}`}>
+                    {wasStarted ? 'EN CURSO' : 'PLANIFICADO'}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold text-slate-900 truncate">{job.titulo}</p>
+                    <p className="text-[10px] text-slate-500">
+                      {job.hora_inicio && `${job.hora_inicio} · `}{job.trade_clients?.nombre}
+                    </p>
+                  </div>
+                  {res.action && <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />}
+                </div>
+
+                <p className="text-xs text-slate-600 font-medium">
+                  {wasStarted ? '¿Terminaste este trabajo?' : '¿Realizaste esta visita?'}
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  <button onClick={() => setResolution(job.id, { action: 'completado' })}
+                    className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl border cursor-pointer transition-all ${res.action === 'completado' ? 'bg-emerald-600 border-emerald-600 text-white' : 'bg-white border-slate-200 text-slate-700 hover:border-emerald-400'}`}>
+                    <Check className="w-3.5 h-3.5" /> Sí, completada
+                  </button>
+                  <button onClick={() => setResolution(job.id, { action: 'no_realizado' })}
+                    className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl border cursor-pointer transition-all ${res.action === 'no_realizado' ? 'bg-slate-600 border-slate-600 text-white' : 'bg-white border-slate-200 text-slate-700 hover:border-slate-400'}`}>
+                    <Ban className="w-3.5 h-3.5" /> No realizada
+                  </button>
+                  <button onClick={() => setResolution(job.id, { action: 'reprogramar' })}
+                    className={`flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl border cursor-pointer transition-all ${res.action === 'reprogramar' ? 'bg-blue-600 border-blue-600 text-white' : 'bg-white border-slate-200 text-slate-700 hover:border-blue-400'}`}>
+                    <CalendarDays className="w-3.5 h-3.5" /> Reprogramar
+                  </button>
+                </div>
+
+                {res.action === 'reprogramar' && (
+                  <div className="flex items-center gap-2 pt-1">
+                    <label className="text-[10px] text-slate-500 font-semibold shrink-0">Nueva fecha:</label>
+                    <input type="date" value={res.fechaReprog} min={today}
+                      onChange={e => setResolution(job.id, { fechaReprog: e.target.value })}
+                      className="text-xs border border-slate-200 rounded-lg px-2 py-1 focus:outline-none focus:border-blue-400 bg-white" />
+                  </div>
+                )}
+
+                {(res.action === 'no_realizado' || res.action === 'completado') && (
+                  <textarea
+                    placeholder={res.action === 'no_realizado' ? 'Motivo (opcional): cliente ausente, canceló...' : 'Notas de cierre (opcional)'}
+                    value={res.notas}
+                    onChange={e => setResolution(job.id, { notas: e.target.value })}
+                    rows={2}
+                    className="w-full text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-blue-400 bg-white resize-none"
+                  />
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="px-5 py-4 border-t border-slate-100 flex gap-3">
+          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold cursor-pointer hover:bg-slate-50 transition-colors">
+            Cancelar
+          </button>
+          <button
+            onClick={handleConfirm}
+            disabled={!allResolved || saving}
+            className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white text-sm font-bold cursor-pointer transition-colors flex items-center justify-center gap-2"
+          >
+            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Play className="w-4 h-4" />}
+            Resolver e Iniciar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── PauseJobModal ─────────────────────────────────────────────────────────────
+interface PauseJobModalProps {
+  job: TradeJob;
+  nextWorkDay: string;
+  onPause: (reason: 'falta_tiempo' | 'falta_material', material?: string, fechaEstimada?: string) => Promise<void>;
+  onMarkNoRealizado: (notas: string) => Promise<void>;
+  onClose: () => void;
+}
+
+function PauseJobModal({ job, nextWorkDay, onPause, onMarkNoRealizado, onClose }: PauseJobModalProps) {
+  const [reason, setReason] = useState<'falta_tiempo' | 'falta_material' | 'no_realizado' | null>(null);
+  const [material, setMaterial] = useState('');
+  const [fechaEstimada, setFechaEstimada] = useState('');
+  const [notas, setNotas] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  const handleConfirm = async () => {
+    if (!reason) return;
+    setSaving(true);
+    try {
+      if (reason === 'no_realizado') {
+        await onMarkNoRealizado(notas);
+      } else if (reason === 'falta_material') {
+        if (!material.trim()) return;
+        await onPause('falta_material', material.trim(), fechaEstimada || undefined);
+      } else {
+        await onPause('falta_tiempo');
+      }
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const canConfirm = reason !== null && (reason !== 'falta_material' || material.trim().length > 0);
+
+  return (
+    <div className="fixed inset-0 z-[200] bg-black/60 flex items-end sm:items-center justify-center p-4">
+      <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl border border-slate-200">
+        <div className="px-5 pt-5 pb-3 border-b border-slate-100">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center shrink-0">
+              <PauseCircle className="w-5 h-5 text-violet-600" />
+            </div>
+            <div>
+              <p className="font-black text-slate-900 text-base">Cerrar jornada / pausar trabajo</p>
+              <p className="text-xs text-slate-500 mt-0.5 truncate max-w-xs">"{job.titulo}"</p>
+            </div>
+            <button onClick={onClose} className="ml-auto p-1.5 text-slate-400 hover:text-slate-600 cursor-pointer rounded-lg"><X className="w-4 h-4" /></button>
+          </div>
+        </div>
+
+        <div className="p-5 space-y-3">
+          <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">¿Qué ha ocurrido?</p>
+
+          {/* Opción: Falta de tiempo */}
+          <button
+            onClick={() => setReason('falta_tiempo')}
+            className={`w-full flex items-start gap-3 p-3.5 rounded-xl border-2 cursor-pointer transition-all text-left ${reason === 'falta_tiempo' ? 'border-violet-500 bg-violet-50' : 'border-slate-200 hover:border-violet-300'}`}
+          >
+            <Clock className={`w-5 h-5 shrink-0 mt-0.5 ${reason === 'falta_tiempo' ? 'text-violet-600' : 'text-slate-400'}`} />
+            <div>
+              <p className={`text-sm font-bold ${reason === 'falta_tiempo' ? 'text-violet-900' : 'text-slate-700'}`}>No me ha dado tiempo</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">El trabajo se retomará como primera tarea el {nextWorkDay}</p>
+            </div>
+            {reason === 'falta_tiempo' && <Check className="w-4 h-4 text-violet-600 ml-auto shrink-0 mt-0.5" />}
+          </button>
+
+          {/* Opción: Falta de material */}
+          <button
+            onClick={() => setReason('falta_material')}
+            className={`w-full flex items-start gap-3 p-3.5 rounded-xl border-2 cursor-pointer transition-all text-left ${reason === 'falta_material' ? 'border-rose-500 bg-rose-50' : 'border-slate-200 hover:border-rose-300'}`}
+          >
+            <Package className={`w-5 h-5 shrink-0 mt-0.5 ${reason === 'falta_material' ? 'text-rose-600' : 'text-slate-400'}`} />
+            <div>
+              <p className={`text-sm font-bold ${reason === 'falta_material' ? 'text-rose-900' : 'text-slate-700'}`}>Falta material / pieza</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">El trabajo queda bloqueado hasta que llegue el material</p>
+            </div>
+            {reason === 'falta_material' && <Check className="w-4 h-4 text-rose-600 ml-auto shrink-0 mt-0.5" />}
+          </button>
+
+          {/* Opción: No realizado */}
+          <button
+            onClick={() => setReason('no_realizado')}
+            className={`w-full flex items-start gap-3 p-3.5 rounded-xl border-2 cursor-pointer transition-all text-left ${reason === 'no_realizado' ? 'border-slate-500 bg-slate-50' : 'border-slate-200 hover:border-slate-400'}`}
+          >
+            <Ban className={`w-5 h-5 shrink-0 mt-0.5 ${reason === 'no_realizado' ? 'text-slate-600' : 'text-slate-400'}`} />
+            <div>
+              <p className={`text-sm font-bold ${reason === 'no_realizado' ? 'text-slate-900' : 'text-slate-700'}`}>No realizado</p>
+              <p className="text-[11px] text-slate-500 mt-0.5">Cliente ausente, cancelado u otro motivo</p>
+            </div>
+            {reason === 'no_realizado' && <Check className="w-4 h-4 text-slate-600 ml-auto shrink-0 mt-0.5" />}
+          </button>
+
+          {/* Detalles de material */}
+          {reason === 'falta_material' && (
+            <div className="space-y-2 pt-1">
+              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Descripción del material *</label>
+              <textarea
+                placeholder="Ej: Válvula de 3/4&quot; para caldera Roca 24kW"
+                value={material}
+                onChange={e => setMaterial(e.target.value)}
+                rows={2}
+                className="w-full text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-rose-400 bg-white resize-none"
+              />
+              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Fecha estimada de llegada <span className="font-normal normal-case">(opcional — si no se sabe, dejar vacío)</span></label>
+              <input type="date" value={fechaEstimada} onChange={e => setFechaEstimada(e.target.value)}
+                min={new Date().toISOString().split('T')[0]}
+                className="text-xs border border-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-rose-400 bg-white" />
+              {fechaEstimada ? (
+                <p className="text-[10px] text-rose-700 bg-rose-50 border border-rose-200 rounded-lg px-2.5 py-2">
+                  El trabajo se reprogramará automáticamente el día siguiente a la llegada del material.
+                </p>
+              ) : (
+                <p className="text-[10px] text-slate-500 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-2">
+                  Sin fecha estimada: el trabajo quedará en "Pendientes de material" hasta que confirmes su llegada manualmente.
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Notas para no_realizado */}
+          {reason === 'no_realizado' && (
+            <div className="space-y-1.5 pt-1">
+              <label className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Motivo (opcional)</label>
+              <textarea placeholder="Cliente ausente, canceló, acceso denegado..."
+                value={notas} onChange={e => setNotas(e.target.value)} rows={2}
+                className="w-full text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-slate-400 bg-white resize-none" />
+            </div>
+          )}
+        </div>
+
+        <div className="px-5 pb-5 flex gap-3">
+          <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold cursor-pointer hover:bg-slate-50 transition-colors">
+            Cancelar
+          </button>
+          <button
+            onClick={handleConfirm}
+            disabled={!canConfirm || saving}
+            className="flex-1 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 disabled:opacity-40 text-white text-sm font-bold cursor-pointer transition-colors flex items-center justify-center gap-2"
+          >
+            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <PauseCircle className="w-4 h-4" />}
+            Confirmar
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── JobCard ───────────────────────────────────────────────────────────────────
 interface JobCardProps {
   job: TradeJob;
+  onIniciar: (job: TradeJob) => void;
+  onPause: (job: TradeJob) => void;
   onQuickStatus: (job: TradeJob, estado: TradeJob['estado']) => void;
   onEdit: (job: TradeJob) => void;
   onDelete: (job: TradeJob) => void;
@@ -377,7 +693,7 @@ interface JobCardProps {
   linkedPresupuesto?: LinkedPresupuesto;
 }
 
-function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePresupuesto, linkedPresupuesto }: JobCardProps) {
+function JobCard({ job, onIniciar, onPause, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePresupuesto, linkedPresupuesto }: JobCardProps) {
   const est = ESTADO_CFG[job.estado];
   const pri = PRIORIDAD_CFG[job.prioridad];
   const isVisita = job.tipo === 'visita';
@@ -561,6 +877,23 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePr
 
         {/* Estado rápido + editar/borrar */}
         <div className="flex items-center gap-2 pt-1 border-t border-slate-100">
+          {/* Badges especiales para estados nuevos */}
+          {job.estado === 'pausado_continua' && (
+            <span className="flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1.5 bg-violet-100 text-violet-700 rounded-xl">
+              <PauseCircle className="w-3.5 h-3.5" /> Retoma mañana
+            </span>
+          )}
+          {job.estado === 'bloqueado_espera_material' && (
+            <span className="flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1.5 bg-rose-100 text-rose-700 rounded-xl">
+              <Package className="w-3.5 h-3.5" /> {job.material_pendiente ? job.material_pendiente.slice(0, 28) : 'Material pendiente'}
+            </span>
+          )}
+          {job.estado === 'no_realizado' && (
+            <span className="flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1.5 bg-slate-100 text-slate-500 rounded-xl">
+              <Ban className="w-3.5 h-3.5" /> No realizado
+            </span>
+          )}
+
           {/* VISITA planificada: Presupuesto + Parte + Iniciar */}
           {isVisita && job.estado === 'planificado' && (
             <>
@@ -576,13 +909,13 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePr
                   <FileText className="w-3.5 h-3.5" /> Parte
                 </button>
               )}
-              <button onClick={() => onQuickStatus(job, 'en_curso')}
+              <button onClick={() => onIniciar(job)}
                 className="flex items-center gap-1.5 bg-violet-600 active:bg-violet-700 text-white text-xs font-bold px-4 py-2 rounded-xl cursor-pointer transition-colors">
                 <Play className="w-3.5 h-3.5" /> Iniciar
               </button>
             </>
           )}
-          {/* VISITA en curso: Presupuesto + Parte + Completar */}
+          {/* VISITA en curso: Presupuesto + Parte + Completar + Pausar */}
           {isVisita && job.estado === 'en_curso' && (
             <>
               {onCreatePresupuesto && !linkedPresupuesto && (
@@ -597,6 +930,10 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePr
                   <FileText className="w-3.5 h-3.5" /> Parte
                 </button>
               )}
+              <button onClick={() => onPause(job)}
+                className="flex items-center gap-1.5 bg-violet-100 border border-violet-300 text-violet-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-violet-200 transition-colors">
+                <PauseCircle className="w-3.5 h-3.5" /> Pausar
+              </button>
               <button onClick={() => onQuickStatus(job, 'completado')}
                 className="flex items-center gap-1.5 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
                 <CheckCircle className="w-3.5 h-3.5" /> Completar
@@ -607,22 +944,28 @@ function JobCard({ job, onQuickStatus, onEdit, onDelete, onOpenParte, onCreatePr
           {!isVisita && (
             <>
               {job.estado === 'planificado' && !linkedPresupuesto && (
-                <button onClick={() => onQuickStatus(job, 'en_curso')}
+                <button onClick={() => onIniciar(job)}
                   className="flex items-center gap-1.5 bg-amber-500 active:bg-amber-600 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
                   <Play className="w-3.5 h-3.5" /> Iniciar
                 </button>
               )}
               {job.estado === 'planificado' && linkedPresupuesto?.estado === 'Aceptado' && (
-                <button onClick={() => onQuickStatus(job, 'en_curso')}
+                <button onClick={() => onIniciar(job)}
                   className="flex items-center gap-1.5 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors shadow-sm">
                   <Play className="w-3.5 h-3.5" /> Iniciar trabajo
                 </button>
               )}
               {job.estado === 'en_curso' && (
-                <button onClick={() => onOpenParte ? onOpenParte(job) : onQuickStatus(job, 'completado')}
-                  className="flex items-center gap-1.5 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
-                  <CheckCircle className="w-3.5 h-3.5" /> Completar
-                </button>
+                <>
+                  <button onClick={() => onPause(job)}
+                    className="flex items-center gap-1.5 bg-violet-100 border border-violet-300 text-violet-700 text-xs font-bold px-3 py-2 rounded-xl cursor-pointer active:bg-violet-200 transition-colors">
+                    <PauseCircle className="w-3.5 h-3.5" /> Pausar
+                  </button>
+                  <button onClick={() => onOpenParte ? onOpenParte(job) : onQuickStatus(job, 'completado')}
+                    className="flex items-center gap-1.5 bg-emerald-600 active:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-xl cursor-pointer transition-colors">
+                    <CheckCircle className="w-3.5 h-3.5" /> Completar
+                  </button>
+                </>
               )}
               {onCreatePresupuesto && job.estado !== 'cancelado' && job.estado !== 'completado' && !linkedPresupuesto && (
                 <button onClick={() => onCreatePresupuesto(job)}
@@ -675,7 +1018,7 @@ export default function ScreenPlanificacion({
 
   const [selectedDate, setSelectedDate]           = useState(today);
   const [weekOffset, setWeekOffset]               = useState(0);
-  const [filterEstado, setFilterEstado]           = useState<'todos' | TradeJob['estado']>('todos');
+  const [filterEstado, setFilterEstado]           = useState<'todos' | TradeJob['estado'] | 'materiales_pendientes'>('todos');
   const [showModal, setShowModal]                 = useState(false);
   const [editingJob, setEditingJob]               = useState<TradeJob | null>(null);
   const [draft, setDraft]                         = useState<Partial<TradeJob>>(EMPTY_DRAFT());
@@ -684,38 +1027,82 @@ export default function ScreenPlanificacion({
   const [geoStatus, setGeoStatus]                 = useState<GeoStatus>('idle');
   const autoRescheduledRef                        = useRef(false);
 
+  // Modal: visitas anteriores sin resolver
+  const [pendingPrevJobs, setPendingPrevJobs]   = useState<TradeJob[]>([]);
+  const [targetInitJob, setTargetInitJob]       = useState<TradeJob | null>(null);
+  // Modal: pausar trabajo
+  const [pausingJob, setPausingJob]             = useState<TradeJob | null>(null);
+
   // Sincroniza el estado geo con el job que se está editando
   useEffect(() => {
     if (!showModal) return;
     setGeoStatus(editingJob?.latitud != null ? 'ok' : 'idle');
   }, [showModal, editingJob]);
 
-  // Auto-reprogramar trabajos atrasados al cargar
+  // Auto-reprogramar trabajos atrasados al cargar — al siguiente día laborable
   useEffect(() => {
     if (!isLiveMode || autoRescheduledRef.current || propJobs.length === 0) return;
-    const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+    autoRescheduledRef.current = true;
+
+    const calendar = loadWorkCalendar();
+    const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+    const nextWorkDay = getNextWorkingDay(yesterday, calendar);
+
+    // 1) Jobs genéricos atrasados (planificado/en_curso)
     const overdue = propJobs.filter(j =>
       j.fecha_inicio != null && j.fecha_inicio < today &&
-      j.estado !== 'completado' &&
-      j.estado !== 'cancelado',
+      (j.estado === 'planificado' || j.estado === 'en_curso'),
     );
-    if (overdue.length === 0) return;
-    autoRescheduledRef.current = true;
-    void Promise.all(overdue.map(j => onUpdateJob(j.id, { fecha_inicio: tomorrow })))
-      .then(() => showToast(`${overdue.length} trabajo${overdue.length !== 1 ? 's' : ''} atrasado${overdue.length !== 1 ? 's' : ''} reprogramado${overdue.length !== 1 ? 's' : ''} para mañana`, 'info'))
+
+    // 2) Jobs en pausa (falta de tiempo) de días anteriores → primera tarea
+    const pausados = propJobs.filter(j =>
+      j.estado === 'pausado_continua' && j.fecha_inicio != null && j.fecha_inicio < today,
+    );
+
+    // 3) Jobs bloqueados por material cuya fecha estimada ya llegó → primera tarea
+    const materialLlegado = propJobs.filter(j =>
+      j.estado === 'bloqueado_espera_material' &&
+      j.fecha_estimada_material != null &&
+      j.fecha_estimada_material <= today,
+    );
+
+    const toReschedule = [
+      ...overdue.map(j => ({ id: j.id, updates: { fecha_inicio: nextWorkDay } })),
+      ...pausados.map(j => ({ id: j.id, updates: { fecha_inicio: nextWorkDay, estado: 'planificado' as const, priority_insert: true, pause_reason: null } })),
+      ...materialLlegado.map(j => ({ id: j.id, updates: { fecha_inicio: getNextWorkingDay(today, calendar), estado: 'planificado' as const, priority_insert: true, fecha_estimada_material: null, pause_reason: null } })),
+    ];
+
+    if (toReschedule.length === 0) return;
+
+    void Promise.all(toReschedule.map(({ id, updates }) => onUpdateJob(id, updates)))
+      .then(() => {
+        const n = toReschedule.length;
+        const pausMsg = pausados.length > 0 ? ` (${pausados.length} pausado${pausados.length !== 1 ? 's' : ''} como 1ª tarea)` : '';
+        showToast(`${n} trabajo${n !== 1 ? 's' : ''} reprogramado${n !== 1 ? 's' : ''} para el ${nextWorkDay}${pausMsg}`, 'info');
+      })
       .catch(() => {});
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLiveMode, propJobs]);
 
-  const dayJobs = jobs.filter(j => j.fecha_inicio === selectedDate);
+  const dayJobs = jobs
+    .filter(j => j.fecha_inicio === selectedDate)
+    .sort((a, b) => {
+      if (a.priority_insert && !b.priority_insert) return -1;
+      if (!a.priority_insert && b.priority_insert) return 1;
+      return (a.hora_inicio ?? '').localeCompare(b.hora_inicio ?? '');
+    });
+
+  const materialesPendientes = jobs.filter(j => j.estado === 'bloqueado_espera_material');
 
   const FILTER_STATES: Array<'todos' | TradeJob['estado']> = [
-    'todos', 'planificado', 'en_curso', 'pendiente_material', 'completado', 'cancelado',
+    'todos', 'planificado', 'en_curso', 'pausado_continua', 'bloqueado_espera_material', 'pendiente_material', 'no_realizado', 'completado', 'cancelado',
   ];
 
   const filtered = filterEstado === 'todos'
     ? dayJobs
-    : dayJobs.filter(j => j.estado === filterEstado);
+    : filterEstado === 'materiales_pendientes'
+      ? []
+      : dayJobs.filter(j => j.estado === filterEstado);
 
   const openCreate = () => {
     setEditingJob(null);
@@ -815,6 +1202,116 @@ export default function ScreenPlanificacion({
     }
   };
 
+  // Intercepta el botón "Iniciar": comprueba si hay visitas/trabajos anteriores sin cerrar
+  const handleIniciar = (job: TradeJob) => {
+    if (!isLiveMode) { showToast('Activa el modo real para cambiar estados', 'info'); return; }
+    const now = new Date();
+    const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    const pending = jobs.filter(j =>
+      j.id !== job.id &&
+      j.fecha_inicio === job.fecha_inicio &&
+      (j.estado === 'planificado' || j.estado === 'en_curso') &&
+      (j.hora_inicio ?? '00:00') < (job.hora_inicio ?? currentTime),
+    );
+    if (pending.length > 0) {
+      setPendingPrevJobs(pending);
+      setTargetInitJob(job);
+    } else {
+      void handleQuickStatus(job, 'en_curso').then(() =>
+        onUpdateJob(job.id, { started_at: new Date().toISOString() }).catch(() => {})
+      );
+    }
+  };
+
+  // Resuelve las visitas anteriores y luego inicia el trabajo objetivo
+  const handleResolvePrevAndStart = async (resolutions: Record<string, PrevResolution>) => {
+    const calendar = loadWorkCalendar();
+    const nextWorkDay = getNextWorkingDay(today, calendar);
+    await Promise.all(Object.entries(resolutions).map(([id, res]) => {
+      if (res.action === 'completado') {
+        return onUpdateJob(id, { estado: 'completado', completado_at: new Date().toISOString(), notas_cierre: res.notas || undefined });
+      } else if (res.action === 'no_realizado') {
+        return onUpdateJob(id, { estado: 'no_realizado', notas_cierre: res.notas || undefined });
+      } else {
+        return onUpdateJob(id, { fecha_inicio: res.fechaReprog || nextWorkDay });
+      }
+    }));
+    setPendingPrevJobs([]);
+    if (targetInitJob) {
+      const job = targetInitJob;
+      setTargetInitJob(null);
+      await handleQuickStatus(job, 'en_curso');
+      await onUpdateJob(job.id, { started_at: new Date().toISOString() }).catch(() => {});
+    }
+  };
+
+  // Pausa un trabajo en curso
+  const handlePauseJob = async (reason: 'falta_tiempo' | 'falta_material', material?: string, fechaEstimada?: string) => {
+    if (!pausingJob) return;
+    const job = pausingJob;
+    setPausingJob(null);
+    const calendar = loadWorkCalendar();
+    const nextWorkDay = getNextWorkingDay(today, calendar);
+    try {
+      if (reason === 'falta_tiempo') {
+        await onUpdateJob(job.id, {
+          estado: 'pausado_continua',
+          pause_reason: 'falta_tiempo',
+          fecha_inicio: nextWorkDay,
+          priority_insert: true,
+        });
+        showToast(`Pausado — retomará el ${nextWorkDay} como primera tarea ✓`, 'info');
+      } else {
+        await onUpdateJob(job.id, {
+          estado: 'bloqueado_espera_material',
+          pause_reason: 'falta_material',
+          material_pendiente: material ?? null,
+          fecha_estimada_material: fechaEstimada ?? null,
+        });
+        if (fechaEstimada) {
+          showToast(`Bloqueado — se reprogramará el día siguiente al ${fechaEstimada} ✓`, 'info');
+        } else {
+          showToast('Bloqueado — aparece en "Materiales pendientes" ✓', 'info');
+        }
+      }
+    } catch (e: unknown) {
+      showToast('Error: ' + (e as Error).message, 'error');
+    }
+  };
+
+  const handleMarkNoRealizado = async (notas: string) => {
+    if (!pausingJob) return;
+    const job = pausingJob;
+    setPausingJob(null);
+    try {
+      await onUpdateJob(job.id, { estado: 'no_realizado', notas_cierre: notas || undefined });
+      showToast('Marcado como no realizado ✓', 'info');
+    } catch (e: unknown) {
+      showToast('Error: ' + (e as Error).message, 'error');
+    }
+  };
+
+  // Reactiva un job bloqueado por material
+  const handleMaterialDisponible = async (job: TradeJob, fechaEnt?: string) => {
+    if (!isLiveMode) return;
+    const calendar = loadWorkCalendar();
+    const base = fechaEnt ?? today;
+    const nextWorkDay = getNextWorkingDay(base, calendar);
+    try {
+      await onUpdateJob(job.id, {
+        estado: 'planificado',
+        fecha_inicio: nextWorkDay,
+        priority_insert: true,
+        pause_reason: null,
+        material_pendiente: null,
+        fecha_estimada_material: null,
+      });
+      showToast(`Reprogramado para el ${nextWorkDay} como primera tarea ✓`, 'success');
+    } catch (e: unknown) {
+      showToast('Error: ' + (e as Error).message, 'error');
+    }
+  };
+
   const handleDelete = async (job: TradeJob) => {
     if (!window.confirm(`¿Eliminar "${job.titulo}"?`)) return;
     if (!isLiveMode) { showToast('Activa el modo real para eliminar trabajos', 'info'); return; }
@@ -870,6 +1367,19 @@ export default function ScreenPlanificacion({
               </button>
             );
           })}
+          {/* Botón especial: Materiales pendientes (cross-date) */}
+          {materialesPendientes.length > 0 && (
+            <button
+              onClick={() => setFilterEstado(prev => prev === 'materiales_pendientes' ? 'todos' : 'materiales_pendientes')}
+              className={`shrink-0 flex items-center gap-1 text-[9px] font-bold uppercase px-2.5 py-1 rounded-full border cursor-pointer transition-all ${
+                filterEstado === 'materiales_pendientes'
+                  ? 'bg-rose-700 text-white border-transparent'
+                  : 'border-rose-300 text-rose-600 bg-rose-50 hover:border-rose-500'
+              }`}
+            >
+              <Package className="w-3 h-3" /> Materiales <span className="opacity-60">{materialesPendientes.length}</span>
+            </button>
+          )}
           {onViewRoute && dayJobs.length > 0 && (
             <button
               onClick={() => onViewRoute(selectedDate)}
@@ -984,6 +1494,8 @@ export default function ScreenPlanificacion({
                   <JobCard
                     key={job.id}
                     job={job}
+                    onIniciar={handleIniciar}
+                    onPause={setPausingJob}
                     onQuickStatus={handleQuickStatus}
                     onEdit={openEdit}
                     onDelete={handleDelete}
@@ -1044,8 +1556,53 @@ export default function ScreenPlanificacion({
           </div>
         )}
 
-        {/* Jobs */}
-        {filtered.length === 0 ? (
+        {/* Sección: Materiales pendientes (cross-date) */}
+        {filterEstado === 'materiales_pendientes' && (
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Package className="w-4 h-4 text-rose-600" />
+              <h3 className="text-sm font-black text-slate-900">Materiales pendientes</h3>
+              <span className="text-[10px] bg-rose-100 text-rose-700 font-bold px-2 py-0.5 rounded-full">{materialesPendientes.length}</span>
+            </div>
+            {materialesPendientes.length === 0 ? (
+              <p className="text-xs text-slate-400 italic text-center py-8">No hay trabajos bloqueados por material.</p>
+            ) : materialesPendientes.map(job => (
+              <div key={job.id} className="bg-white border border-rose-200 rounded-xl p-4 space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 bg-rose-100 rounded-xl flex items-center justify-center shrink-0">
+                    <Package className="w-4 h-4 text-rose-600" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-bold text-sm text-slate-900 truncate">{job.titulo}</p>
+                    <p className="text-[10px] text-slate-500">
+                      {job.trade_clients?.nombre}
+                      {job.fecha_inicio && ` · ${new Date(job.fecha_inicio + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}`}
+                    </p>
+                  </div>
+                </div>
+                <div className="bg-rose-50 rounded-xl px-3 py-2.5 space-y-1">
+                  <p className="text-[10px] font-bold text-rose-600 uppercase tracking-wider">Material que falta</p>
+                  <p className="text-xs text-slate-800">{job.material_pendiente ?? '—'}</p>
+                  {job.fecha_estimada_material ? (
+                    <p className="text-[10px] text-rose-700">Estimado: {new Date(job.fecha_estimada_material + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}</p>
+                  ) : (
+                    <p className="text-[10px] text-slate-400 italic">Sin fecha estimada</p>
+                  )}
+                </div>
+                <div className="flex gap-2 flex-wrap">
+                  <MaterialDisponibleButton job={job} onConfirm={handleMaterialDisponible} />
+                  <button onClick={() => openEdit(job)}
+                    className="flex items-center gap-1.5 text-xs text-slate-500 border border-slate-200 hover:border-slate-400 px-3 py-1.5 rounded-xl cursor-pointer transition-colors">
+                    <Edit3 className="w-3 h-3" /> Editar
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Jobs del día */}
+        {filterEstado !== 'materiales_pendientes' && (filtered.length === 0 ? (
           <div className="text-center py-14">
             <CalendarDays className="w-10 h-10 text-slate-300 mx-auto mb-3" />
             <p className="text-slate-400 text-xs mb-4">No hay trabajos para este día.</p>
@@ -1057,24 +1614,47 @@ export default function ScreenPlanificacion({
             </button>
           </div>
         ) : (
-          filtered
-            .sort((a, b) => (a.hora_inicio ?? '').localeCompare(b.hora_inicio ?? ''))
-            .map(job => (
-              <JobCard
-                key={job.id}
-                job={job}
-                onQuickStatus={handleQuickStatus}
-                onEdit={openEdit}
-                onDelete={handleDelete}
-                onOpenParte={onOpenParte}
-                onCreatePresupuesto={onCreatePresupuesto}
-                linkedPresupuesto={job.quote_id ? presupuestosPorId[job.quote_id] : undefined}
-              />
-            ))
-        )}
+          filtered.map(job => (
+            <JobCard
+              key={job.id}
+              job={job}
+              onIniciar={handleIniciar}
+              onPause={setPausingJob}
+              onQuickStatus={handleQuickStatus}
+              onEdit={openEdit}
+              onDelete={handleDelete}
+              onOpenParte={onOpenParte}
+              onCreatePresupuesto={onCreatePresupuesto}
+              linkedPresupuesto={job.quote_id ? presupuestosPorId[job.quote_id] : undefined}
+            />
+          ))
+        ))}
       </div>
 
-      {/* Modal */}
+      {/* Modales: visitas anteriores + pausa + create/edit */}
+      {pendingPrevJobs.length > 0 && targetInitJob && (
+        <PreviousPendingModal
+          pendingJobs={pendingPrevJobs}
+          targetJob={targetInitJob}
+          onResolveAll={handleResolvePrevAndStart}
+          onClose={() => { setPendingPrevJobs([]); setTargetInitJob(null); }}
+        />
+      )}
+      {pausingJob && (() => {
+        const calendar = loadWorkCalendar();
+        const nextWorkDay = getNextWorkingDay(today, calendar);
+        return (
+          <PauseJobModal
+            job={pausingJob}
+            nextWorkDay={nextWorkDay}
+            onPause={handlePauseJob}
+            onMarkNoRealizado={handleMarkNoRealizado}
+            onClose={() => setPausingJob(null)}
+          />
+        );
+      })()}
+
+      {/* Modal crear/editar */}
       {showModal && (
         <JobModalPanel
           draft={draft}

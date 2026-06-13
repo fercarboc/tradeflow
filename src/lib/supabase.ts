@@ -1670,7 +1670,7 @@ export interface TradeJob {
   titulo: string;
   descripcion?: string | null;
   tipo?: 'trabajo' | 'visita';
-  estado: 'planificado' | 'en_curso' | 'completado' | 'cancelado' | 'pendiente_material';
+  estado: 'planificado' | 'en_curso' | 'completado' | 'cancelado' | 'pendiente_material' | 'no_realizado' | 'pausado_continua' | 'bloqueado_espera_material';
   prioridad: 'urgente' | 'alta' | 'normal' | 'baja';
   fecha_inicio?: string | null;
   hora_inicio?: string | null;
@@ -1692,6 +1692,11 @@ export interface TradeJob {
   duracion_estimada_min?: number | null;
   notas_trabajador?: string | null;
   started_at?: string | null;
+  pause_reason?: 'falta_tiempo' | 'falta_material' | null;
+  material_pendiente?: string | null;
+  fecha_estimada_material?: string | null;
+  rescheduled_from?: string | null;
+  priority_insert?: boolean | null;
   created_at: string;
   updated_at: string;
   trade_clients?: { nombre: string; telefono?: string | null } | null;
