@@ -798,6 +798,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [workCalendar, setWorkCalendar] = useState<WorkCalendar>(() => loadWorkCalendar());
   const [newHoliday, setNewHoliday] = useState({ date: '', name: '', recurring: false });
   const [showAddHoliday, setShowAddHoliday] = useState(false);
+  const [showAddPeriod, setShowAddPeriod] = useState(false);
+  const [newPeriod, setNewPeriod] = useState({ name: '', date_from: '', date_to: '', recurring: false });
   const [urgentContratosCount, setUrgentContratosCount] = useState(0);
   const [pushLoading, setPushLoading] = useState(false);
   const [subscription, setSubscription] = useState<TradeSubscription | null>(null);
@@ -8912,31 +8914,94 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </div>
 
               {/* Festivos y cierres */}
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Festivos y días de cierre</p>
-                <div className="flex gap-2">
+              <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Festivos, puentes y vacaciones</p>
+                <div className="flex gap-1.5 flex-wrap">
                   <button onClick={addNacionales} className="text-[10px] text-blue-600 hover:text-blue-800 font-semibold cursor-pointer border border-blue-200 bg-blue-50 hover:bg-blue-100 px-2.5 py-1 rounded-lg transition-colors">
-                    + Festivos nacionales ES
+                    + Festivos ES
                   </button>
-                  <button onClick={() => setShowAddHoliday(v => !v)} className="text-[10px] text-slate-600 hover:text-slate-800 font-semibold cursor-pointer border border-slate-200 bg-white hover:bg-slate-50 px-2.5 py-1 rounded-lg transition-colors">
-                    + Añadir día
+                  <button
+                    onClick={() => { setShowAddPeriod(v => !v); setShowAddHoliday(false); }}
+                    className={`text-[10px] font-semibold cursor-pointer border px-2.5 py-1 rounded-lg transition-colors ${showAddPeriod ? 'bg-violet-600 text-white border-violet-600' : 'text-violet-700 border-violet-200 bg-violet-50 hover:bg-violet-100'}`}>
+                    + Período / Vacaciones
+                  </button>
+                  <button
+                    onClick={() => { setShowAddHoliday(v => !v); setShowAddPeriod(false); }}
+                    className={`text-[10px] font-semibold cursor-pointer border px-2.5 py-1 rounded-lg transition-colors ${showAddHoliday ? 'bg-slate-700 text-white border-slate-700' : 'text-slate-600 border-slate-200 bg-white hover:bg-slate-50'}`}>
+                    + Día suelto
                   </button>
                 </div>
               </div>
 
-              {/* Formulario nuevo festivo */}
+              {/* Formulario: período / vacaciones */}
+              {showAddPeriod && (
+                <div className="bg-violet-50 border border-violet-200 rounded-xl p-3 mb-3 space-y-3">
+                  <p className="text-[10px] font-bold text-violet-700 uppercase tracking-wider">Nuevo período de cierre</p>
+                  <input type="text" placeholder="Nombre: Semana Santa, Vacaciones verano, Puente mayo…"
+                    value={newPeriod.name} onChange={e => setNewPeriod(v => ({ ...v, name: e.target.value }))}
+                    className="w-full text-xs border border-violet-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-violet-400 bg-white" />
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[10px] text-slate-500 font-semibold shrink-0">Desde:</span>
+                      <input type="date" value={newPeriod.date_from} onChange={e => setNewPeriod(v => ({ ...v, date_from: e.target.value }))}
+                        className="text-xs border border-violet-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-violet-400 bg-white" />
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[10px] text-slate-500 font-semibold shrink-0">Hasta:</span>
+                      <input type="date" value={newPeriod.date_to}
+                        min={newPeriod.date_from || undefined}
+                        onChange={e => setNewPeriod(v => ({ ...v, date_to: e.target.value }))}
+                        className="text-xs border border-violet-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-violet-400 bg-white" />
+                    </div>
+                  </div>
+                  {newPeriod.date_from && newPeriod.date_to && newPeriod.date_from <= newPeriod.date_to && (
+                    <p className="text-[10px] text-violet-600 bg-white border border-violet-100 rounded-lg px-2.5 py-1.5">
+                      {(() => {
+                        const days = Math.round((new Date(newPeriod.date_to).getTime() - new Date(newPeriod.date_from).getTime()) / 86400000) + 1;
+                        const fmtOpts: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'long' };
+                        return `${days} día${days !== 1 ? 's' : ''} · del ${new Date(newPeriod.date_from + 'T12:00:00').toLocaleDateString('es-ES', fmtOpts)} al ${new Date(newPeriod.date_to + 'T12:00:00').toLocaleDateString('es-ES', fmtOpts)}`;
+                      })()}
+                    </p>
+                  )}
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" checked={newPeriod.recurring} onChange={e => setNewPeriod(v => ({ ...v, recurring: e.target.checked }))} className="rounded accent-violet-600" />
+                    <span className="text-[10px] text-slate-600">Se repite cada año (ej. vacaciones de verano siempre en agosto)</span>
+                  </label>
+                  <div className="flex justify-end gap-2">
+                    <button onClick={() => { setShowAddPeriod(false); setNewPeriod({ name: '', date_from: '', date_to: '', recurring: false }); }}
+                      className="text-[10px] text-slate-500 cursor-pointer hover:text-slate-700 px-2 py-1">Cancelar</button>
+                    <button
+                      onClick={() => {
+                        if (!newPeriod.name.trim() || !newPeriod.date_from || !newPeriod.date_to) { showToast('Indica nombre y fechas de inicio y fin', 'error'); return; }
+                        if (newPeriod.date_from > newPeriod.date_to) { showToast('La fecha de inicio debe ser anterior a la de fin', 'error'); return; }
+                        const from = newPeriod.recurring ? newPeriod.date_from.slice(5) : newPeriod.date_from;
+                        const to   = newPeriod.recurring ? newPeriod.date_to.slice(5)   : newPeriod.date_to;
+                        addHoliday({ date: from, date_to: to, name: newPeriod.name.trim(), recurring: newPeriod.recurring });
+                        setShowAddPeriod(false);
+                        setNewPeriod({ name: '', date_from: '', date_to: '', recurring: false });
+                        showToast('Período añadido al calendario ✓', 'success');
+                      }}
+                      className="text-[10px] bg-violet-600 hover:bg-violet-700 text-white font-bold px-3 py-1 rounded-lg cursor-pointer">
+                      Guardar período
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Formulario: día suelto */}
               {showAddHoliday && (
                 <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 mb-3 space-y-2">
+                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Nuevo día festivo / cierre</p>
                   <div className="flex gap-2 flex-wrap">
                     <input type="date" value={newHoliday.date} onChange={e => setNewHoliday(v => ({ ...v, date: e.target.value }))}
                       className="text-xs border border-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-400 bg-white" />
-                    <input type="text" placeholder="Nombre del festivo / cierre" value={newHoliday.name} onChange={e => setNewHoliday(v => ({ ...v, name: e.target.value }))}
+                    <input type="text" placeholder="Nombre: Día de la Hispanidad, Puente…" value={newHoliday.name} onChange={e => setNewHoliday(v => ({ ...v, name: e.target.value }))}
                       className="flex-1 min-w-[160px] text-xs border border-slate-200 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-400 bg-white" />
                   </div>
-                  <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center justify-between gap-3 flex-wrap">
                     <label className="flex items-center gap-2 cursor-pointer">
                       <input type="checkbox" checked={newHoliday.recurring} onChange={e => setNewHoliday(v => ({ ...v, recurring: e.target.checked }))} className="rounded" />
-                      <span className="text-[10px] text-slate-600">Se repite cada año (festivo recurrente)</span>
+                      <span className="text-[10px] text-slate-600">Se repite cada año</span>
                     </label>
                     <div className="flex gap-2">
                       <button onClick={() => { setShowAddHoliday(false); setNewHoliday({ date: '', name: '', recurring: false }); }}
@@ -8958,19 +9023,26 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
               {/* Lista de festivos */}
               {workCalendar.holidays.length === 0 ? (
-                <p className="text-[11px] text-slate-400 italic py-2">No hay festivos configurados. Pulsa "+ Festivos nacionales ES" para cargar los festivos de España.</p>
+                <p className="text-[11px] text-slate-400 italic py-2">No hay festivos configurados. Pulsa "+ Festivos ES" para cargar los festivos de España.</p>
               ) : (
-                <div className="space-y-1 max-h-60 overflow-y-auto pr-1">
+                <div className="space-y-1 max-h-72 overflow-y-auto pr-1">
                   {[...workCalendar.holidays]
                     .sort((a, b) => a.date.localeCompare(b.date))
                     .map(h => {
+                      const isPeriod = !!h.date_to;
+                      const fmtDay = (d: string) => new Date(d + 'T12:00:00').toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+                      const fmtMmdd = (mmdd: string) => { const [m, d] = mmdd.split('-'); return `${d}/${m}`; };
                       const displayDate = h.recurring
-                        ? h.date.replace(/^(\d{2})-(\d{2})$/, 'Cada año: $2/$1')
-                        : new Date(h.date + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
-                      const isFestivo = !h.recurring && h.date >= today && isWorkingDay(h.date, { ...workCalendar, holidays: workCalendar.holidays.filter(x => x.id !== h.id) });
+                        ? isPeriod
+                          ? `Cada año: ${fmtMmdd(h.date)} — ${fmtMmdd(h.date_to!)}`
+                          : `Cada año: ${fmtMmdd(h.date)}`
+                        : isPeriod
+                          ? `${fmtDay(h.date)} — ${fmtDay(h.date_to!)}`
+                          : new Date(h.date + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+                      const isFestivo = !h.recurring && !isPeriod && h.date >= today && isWorkingDay(h.date, { ...workCalendar, holidays: workCalendar.holidays.filter(x => x.id !== h.id) });
                       return (
-                        <div key={h.id} className="flex items-center gap-2 px-3 py-2 bg-white border border-slate-100 rounded-lg">
-                          <span className="text-sm">{h.recurring ? '🔁' : '📅'}</span>
+                        <div key={h.id} className={`flex items-center gap-2 px-3 py-2 border rounded-lg ${isPeriod ? 'bg-violet-50 border-violet-100' : 'bg-white border-slate-100'}`}>
+                          <span className="text-sm">{h.recurring ? '🔁' : isPeriod ? '🏖️' : '📅'}</span>
                           <div className="flex-1 min-w-0">
                             <p className="text-xs font-semibold text-slate-800 truncate">{h.name}</p>
                             <p className="text-[10px] text-slate-400">{displayDate}</p>

@@ -10,6 +10,7 @@ export interface WorkDayConfig {
 export interface HolidayEntry {
   id: string;
   date: string;      // "YYYY-MM-DD" si no es recurrente, "MM-DD" si es recurrente
+  date_to?: string;  // Si está presente: rango desde date hasta date_to (mismo formato que date)
   name: string;
   recurring: boolean; // true = se repite cada año
 }
@@ -59,10 +60,23 @@ export function isWorkingDay(dateStr: string, cal: WorkCalendar): boolean {
   const dow = date.getDay();
   if (!cal.workDays[dow]?.active) return false;
   const mmdd = dateStr.slice(5); // MM-DD
-  return !cal.holidays.some(h =>
-    (h.recurring && h.date === mmdd) ||
-    (!h.recurring && h.date === dateStr)
-  );
+  return !cal.holidays.some(h => {
+    if (h.recurring) {
+      if (h.date_to) {
+        // Rango recurrente: comparar MM-DD dentro del rango (mismo año, ej. 08-01 a 08-31)
+        const from = h.date;
+        const to   = h.date_to;
+        // Rango que no cruza fin de año
+        if (from <= to) return mmdd >= from && mmdd <= to;
+        // Rango que cruza fin de año (ej. 12-26 a 01-06)
+        return mmdd >= from || mmdd <= to;
+      }
+      return h.date === mmdd;
+    } else {
+      if (h.date_to) return dateStr >= h.date && dateStr <= h.date_to;
+      return h.date === dateStr;
+    }
+  });
 }
 
 /** Devuelve el siguiente día laborable DESPUÉS de fromDate (YYYY-MM-DD) */
