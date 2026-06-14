@@ -374,6 +374,59 @@ export async function registerUser(params: {
   return { error: null, needsConfirmation: !data.session };
 }
 
+export type EmailCheckResult =
+  | { exists: false }
+  | { exists: true; type: 'owner' | 'tecnico' | 'orphan'; org_nombre?: string };
+
+export async function checkEmailForRegistration(email: string): Promise<EmailCheckResult> {
+  const { data, error } = await supabase.rpc('check_email_for_registration', { p_email: email.trim().toLowerCase() });
+  if (error || !data) return { exists: false };
+  return data as EmailCheckResult;
+}
+
+export async function createOrgForExistingUser(params: {
+  userId: string;
+  email: string;
+  fullName: string;
+  companyName?: string;
+  phone?: string;
+  tradeTypes: string[];
+  plan: 'basico' | 'profesional' | 'empresa' | 'empresa_plus';
+  billingCycle: 'monthly' | 'yearly';
+}): Promise<{ error: string | null }> {
+  const trialEnd = new Date();
+  trialEnd.setDate(trialEnd.getDate() + 15);
+
+  const { data: org, error: orgErr } = await supabase
+    .from('trade_organizations')
+    .insert({
+      owner_id: params.userId,
+      nombre: params.companyName || params.fullName,
+      oficio: params.tradeTypes.join(','),
+      email: params.email,
+      telefono: params.phone,
+      plan: params.plan,
+      is_onboarded: false,
+      force_password_change: false,
+    })
+    .select()
+    .single();
+
+  if (orgErr) return { error: orgErr.message };
+
+  await supabase.from('trade_subscriptions').insert({
+    org_id: org.id,
+    plan: params.plan,
+    billing_cycle: params.billingCycle,
+    status: 'trial',
+    trial_start: new Date().toISOString(),
+    trial_end: trialEnd.toISOString(),
+  });
+  await supabase.rpc('seed_org_catalog', { new_org_id: org.id });
+
+  return { error: null };
+}
+
 export async function getAdminOrgs(): Promise<AdminOrgRow[]> {
   const [orgsRes, authRes, quotesRes, clientsRes, lastQuoteRes] = await Promise.all([
     supabase

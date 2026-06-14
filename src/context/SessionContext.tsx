@@ -116,23 +116,32 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         .eq('user_id', user.id)
         .eq('activo', false);
 
-      let org: TradeOrganization | null = await getOwnOrg();
-      let rol: Rol = 'owner';
-      let memberId: string | null = null;
-
-      if (!org) {
-        const { data: member } = await supabase
+      // Cargar org propia y membresía en paralelo
+      const [ownOrg, memberRes] = await Promise.all([
+        getOwnOrg(),
+        supabase
           .from('trade_org_members')
           .select('id, rol, org_id')
           .eq('user_id', user.id)
           .eq('activo', true)
-          .maybeSingle();
+          .maybeSingle(),
+      ]);
 
-        if (member) {
-          rol = member.rol as Rol;
-          memberId = member.id;
-          org = await loadOrgById(member.org_id);
-        }
+      let org: TradeOrganization | null = ownOrg;
+      let rol: Rol = 'owner';
+      let memberId: string | null = null;
+
+      const member = memberRes.data;
+
+      if (member && (!ownOrg || member.org_id !== ownOrg.id)) {
+        // El usuario fue invitado a una organización distinta a la suya.
+        // Se prioriza esa membresía (técnico, comercial, etc.) sobre el rol owner de la org propia.
+        rol = member.rol as Rol;
+        memberId = member.id;
+        org = await loadOrgById(member.org_id);
+      } else if (!ownOrg) {
+        // Sin org propia ni membresía en otra org → sin acceso
+        org = null;
       }
 
       let permisos = [...(ROL_PERMISOS[rol] ?? [])];

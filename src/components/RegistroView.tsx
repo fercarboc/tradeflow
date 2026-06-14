@@ -3,9 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { ActivePage } from '../types';
-import { supabase, registerUser, sendTrabflowEmail, applyReferralCode } from '../lib/supabase';
+import { supabase, registerUser, sendTrabflowEmail, applyReferralCode, checkEmailForRegistration, createOrgForExistingUser } from '../lib/supabase';
+import type { EmailCheckResult } from '../lib/supabase';
 import {
   Droplets, Zap, Hammer, Wind, TreeDeciduous, KeyRound, Paintbrush,
   Layers, Wrench, Building2, ChevronRight, ChevronLeft, Check,
@@ -97,17 +98,45 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
   const [resendLoading, setResendLoading] = useState(false);
   const [resendDone, setResendDone] = useState(false);
 
+  // Email check state
+  const [emailCheck, setEmailCheck] = useState<EmailCheckResult | null>(null);
+  const [emailChecking, setEmailChecking] = useState(false);
+  const emailCheckAbort = useRef<AbortController | null>(null);
+  const tecnicoMode = emailCheck?.exists === true && emailCheck.type === 'tecnico';
+  const ownerBlocked = emailCheck?.exists === true && emailCheck.type === 'owner';
+  const orphanMode = emailCheck?.exists === true && emailCheck.type === 'orphan';
+  const tecnicoOrgName = (emailCheck?.exists === true && (emailCheck.type === 'tecnico') ? emailCheck.org_nombre : undefined) ?? '';
+
   const toggleTrade = (id: string) => {
     setSelectedTrades(prev => prev.includes(id) ? prev.filter(t => t !== id) : [...prev, id]);
   };
 
+  const handleEmailBlur = async () => {
+    const email = form.email.trim();
+    if (!email || !email.includes('@')) return;
+
+    if (emailCheckAbort.current) emailCheckAbort.current.abort();
+    const ctrl = new AbortController();
+    emailCheckAbort.current = ctrl;
+
+    setEmailChecking(true);
+    setEmailCheck(null);
+    const result = await checkEmailForRegistration(email);
+    if (!ctrl.signal.aborted) {
+      setEmailCheck(result);
+      setEmailChecking(false);
+    }
+  };
+
   const canProceedStep1 = selectedTrades.length > 0;
-  const canProceedStep3 =
-    form.fullName.trim().length > 0 &&
-    form.email.trim().length > 0 &&
-    form.password.length >= 8 &&
-    form.password === form.confirmPassword &&
-    form.acceptTerms;
+  const canProceedStep3 = tecnicoMode || orphanMode
+    ? form.fullName.trim().length > 0 && form.password.length >= 1 && form.acceptTerms && !ownerBlocked
+    : form.fullName.trim().length > 0 &&
+      form.email.trim().length > 0 &&
+      form.password.length >= 8 &&
+      form.password === form.confirmPassword &&
+      form.acceptTerms &&
+      !ownerBlocked;
 
   const displayName = (businessType === 'empresa' ? form.companyName.trim() : form.fullName.trim()) || form.fullName.trim();
 
@@ -115,6 +144,33 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
     setLoading(true);
     setError('');
     try {
+      if (tecnicoMode || orphanMode) {
+        // Existing user (técnico or orphan) wants to create their own company
+        const { data, error: loginErr } = await supabase.auth.signInWithPassword({
+          email: form.email.trim(),
+          password: form.password,
+        });
+        if (loginErr || !data.user) {
+          setError('Contraseña incorrecta. Inténtalo de nuevo.');
+          return;
+        }
+        const { error: orgErr } = await createOrgForExistingUser({
+          userId: data.user.id,
+          email: form.email.trim(),
+          fullName: form.fullName.trim(),
+          companyName: businessType === 'empresa' ? form.companyName.trim() : undefined,
+          phone: form.phone.trim() || undefined,
+          tradeTypes: selectedTrades,
+          plan: selectedPlan,
+          billingCycle,
+        });
+        if (orgErr) { setError(orgErr); return; }
+        setNeedsConfirmation(false);
+        setStep(4);
+        sendTrabflowEmail({ type: 'welcome', nombre: displayName, email: form.email.trim() });
+        return;
+      }
+
       const { error: regError, needsConfirmation: nc } = await registerUser({
         email: form.email.trim(),
         password: form.password,
@@ -132,10 +188,8 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
       const code = form.referralCode.trim().toUpperCase();
       if (code) {
         if (!nc) {
-          // Session available immediately — apply now
           await applyReferralCode(code);
         } else {
-          // Confirmation required — apply after login
           localStorage.setItem('trabflow_pending_referral', code);
         }
       }
@@ -385,11 +439,33 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
       {step === 3 && (
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-[#00CFE8]/15 border border-[#00CFE8]/35 rounded-xl px-3 py-1.5 text-[10px] font-black text-[#00CFE8] mb-3 uppercase tracking-widest">
-              🎁 Beta — Sin tarjeta de crédito
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">Crea tu cuenta</h1>
-            <p className="text-white/40 mt-2 text-sm">Acceso inmediato y gratuito. No se cobra nada.</p>
+            {tecnicoMode ? (
+              <>
+                <div className="inline-flex items-center gap-2 bg-amber-500/15 border border-amber-500/40 rounded-xl px-3 py-1.5 text-[10px] font-black text-amber-400 mb-3 uppercase tracking-widest">
+                  Cuenta existente detectada
+                </div>
+                <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">Crea tu empresa</h1>
+                <p className="text-white/40 mt-2 text-sm">
+                  Eres técnico en <span className="text-white font-bold">{tecnicoOrgName || 'otra empresa'}</span>. Introduce tu contraseña actual para crear tu propia empresa.
+                </p>
+              </>
+            ) : orphanMode ? (
+              <>
+                <div className="inline-flex items-center gap-2 bg-amber-500/15 border border-amber-500/40 rounded-xl px-3 py-1.5 text-[10px] font-black text-amber-400 mb-3 uppercase tracking-widest">
+                  Cuenta existente detectada
+                </div>
+                <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">Crea tu empresa</h1>
+                <p className="text-white/40 mt-2 text-sm">Ya tienes cuenta. Introduce tu contraseña actual para continuar.</p>
+              </>
+            ) : (
+              <>
+                <div className="inline-flex items-center gap-2 bg-[#00CFE8]/15 border border-[#00CFE8]/35 rounded-xl px-3 py-1.5 text-[10px] font-black text-[#00CFE8] mb-3 uppercase tracking-widest">
+                  🎁 Beta — Sin tarjeta de crédito
+                </div>
+                <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">Crea tu cuenta</h1>
+                <p className="text-white/40 mt-2 text-sm">Acceso inmediato y gratuito. No se cobra nada.</p>
+              </>
+            )}
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-[#0d1f38] p-6 space-y-4">
@@ -422,45 +498,75 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
               <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">Email</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/25" />
-                <input type="email" placeholder="tucorreo@ejemplo.com" value={form.email}
-                  onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                  className={inputClass} />
+                <input
+                  type="email"
+                  placeholder="tucorreo@ejemplo.com"
+                  value={form.email}
+                  onChange={e => { setForm(f => ({ ...f, email: e.target.value })); setEmailCheck(null); }}
+                  onBlur={handleEmailBlur}
+                  readOnly={tecnicoMode || orphanMode}
+                  className={inputClass + (tecnicoMode || orphanMode ? ' opacity-60 cursor-default' : '')}
+                />
+                {emailChecking && (
+                  <svg className="animate-spin absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#00CFE8]" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                )}
               </div>
+              {ownerBlocked && (
+                <div className="mt-2 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-[11px] text-red-400 flex items-center gap-2">
+                  <span>⛔</span>
+                  <span>Ya tienes una empresa registrada con este email.{' '}
+                    <button type="button" onClick={() => setCurrentPage(ActivePage.AppDashboard)} className="underline font-bold">Inicia sesión</button>
+                  </span>
+                </div>
+              )}
             </div>
+
+            {!tecnicoMode && !orphanMode && (
+              <div>
+                <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">
+                  Teléfono <span className="text-white/25 normal-case font-normal">(opcional)</span>
+                </label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/25" />
+                  <input type="tel" placeholder="+34 600 000 000" value={form.phone}
+                    onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
+                    className={inputClass} />
+                </div>
+              </div>
+            )}
+
+            {!tecnicoMode && !orphanMode && (
+              <div>
+                <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">
+                  Código de invitación <span className="text-white/25 normal-case font-normal">(opcional — 1 mes gratis)</span>
+                </label>
+                <div className="relative">
+                  <Gift className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#FFC400]/60" />
+                  <input type="text" placeholder="Ej. AB12CD" value={form.referralCode}
+                    onChange={e => setForm(f => ({ ...f, referralCode: e.target.value.toUpperCase() }))}
+                    maxLength={6}
+                    className={inputClass + ' tracking-widest font-mono placeholder:font-sans placeholder:tracking-normal'} />
+                </div>
+                <p className="text-[10px] text-white/30 mt-1">Si un instalador te lo pasó, ganaréis un mes gratis cada uno.</p>
+              </div>
+            )}
 
             <div>
               <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">
-                Teléfono <span className="text-white/25 normal-case font-normal">(opcional)</span>
+                {tecnicoMode || orphanMode ? 'Tu contraseña actual' : 'Contraseña'}
               </label>
-              <div className="relative">
-                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/25" />
-                <input type="tel" placeholder="+34 600 000 000" value={form.phone}
-                  onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
-                  className={inputClass} />
-              </div>
-            </div>
-
-            <div>
-              <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">
-                Código de invitación <span className="text-white/25 normal-case font-normal">(opcional — 1 mes gratis)</span>
-              </label>
-              <div className="relative">
-                <Gift className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#FFC400]/60" />
-                <input type="text" placeholder="Ej. AB12CD" value={form.referralCode}
-                  onChange={e => setForm(f => ({ ...f, referralCode: e.target.value.toUpperCase() }))}
-                  maxLength={6}
-                  className={inputClass + ' tracking-widest font-mono placeholder:font-sans placeholder:tracking-normal'} />
-              </div>
-              <p className="text-[10px] text-white/30 mt-1">Si un instalador te lo pasó, ganaréis un mes gratis cada uno.</p>
-            </div>
-
-            <div>
-              <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">Contraseña</label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/25" />
-                <input type={showPassword ? 'text' : 'password'} placeholder="Mínimo 8 caracteres" value={form.password}
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder={tecnicoMode || orphanMode ? 'Introduce tu contraseña' : 'Mínimo 8 caracteres'}
+                  value={form.password}
                   onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
-                  className={inputClass + ' pr-9'} />
+                  className={inputClass + ' pr-9'}
+                />
                 <button type="button" onClick={() => setShowPassword(p => !p)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 cursor-pointer">
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
@@ -468,22 +574,24 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
               </div>
             </div>
 
-            <div>
-              <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">Confirmar contraseña</label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/25" />
-                <input type={showConfirm ? 'text' : 'password'} placeholder="Repite la contraseña" value={form.confirmPassword}
-                  onChange={e => setForm(f => ({ ...f, confirmPassword: e.target.value }))}
-                  className={inputClass + ' pr-9 ' + (form.confirmPassword && form.password !== form.confirmPassword ? 'border-red-500/50' : '')} />
-                <button type="button" onClick={() => setShowConfirm(p => !p)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 cursor-pointer">
-                  {showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                </button>
+            {!tecnicoMode && !orphanMode && (
+              <div>
+                <label className="text-[10px] font-black text-white/40 uppercase tracking-widest block mb-1.5">Confirmar contraseña</label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/25" />
+                  <input type={showConfirm ? 'text' : 'password'} placeholder="Repite la contraseña" value={form.confirmPassword}
+                    onChange={e => setForm(f => ({ ...f, confirmPassword: e.target.value }))}
+                    className={inputClass + ' pr-9 ' + (form.confirmPassword && form.password !== form.confirmPassword ? 'border-red-500/50' : '')} />
+                  <button type="button" onClick={() => setShowConfirm(p => !p)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 cursor-pointer">
+                    {showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+                {form.confirmPassword && form.password !== form.confirmPassword && (
+                  <p className="text-red-400 text-[11px] mt-1">Las contraseñas no coinciden</p>
+                )}
               </div>
-              {form.confirmPassword && form.password !== form.confirmPassword && (
-                <p className="text-red-400 text-[11px] mt-1">Las contraseñas no coinciden</p>
-              )}
-            </div>
+            )}
 
             <label className="flex items-start gap-2.5 cursor-pointer">
               <input type="checkbox" checked={form.acceptTerms}
@@ -505,11 +613,11 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
           </div>
 
           <div className="flex gap-3 mt-4">
-            <button onClick={() => setStep(2)}
+            <button onClick={() => { setStep(2); setEmailCheck(null); }}
               className="px-6 py-3.5 rounded-xl border border-white/15 text-white/60 font-bold text-sm flex items-center gap-2 cursor-pointer hover:border-white/35 hover:text-white transition-colors">
               <ChevronLeft className="h-4 w-4" /> Atrás
             </button>
-            <button onClick={handleSubmit} disabled={!canProceedStep3 || loading}
+            <button onClick={handleSubmit} disabled={!canProceedStep3 || loading || ownerBlocked}
               className="flex-1 py-3.5 rounded-xl bg-[#FFC400] hover:brightness-110 disabled:opacity-30 disabled:cursor-not-allowed text-[#020B16] font-black uppercase tracking-widest text-sm flex items-center justify-center gap-2 cursor-pointer transition-all shadow-lg shadow-[#FFC400]/15">
               {loading ? (
                 <span className="flex items-center gap-2">
@@ -517,8 +625,10 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  Creando cuenta...
+                  {tecnicoMode || orphanMode ? 'Creando empresa...' : 'Creando cuenta...'}
                 </span>
+              ) : tecnicoMode || orphanMode ? (
+                <>Crear mi empresa <ArrowRight className="h-4 w-4" /></>
               ) : (
                 <>Crear cuenta y empezar gratis <ArrowRight className="h-4 w-4" /></>
               )}
@@ -542,12 +652,18 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
             {needsConfirmation ? <Mail className="h-8 w-8 text-[#00CFE8]" /> : <Check className="h-8 w-8 text-[#00CFE8]" />}
           </div>
           <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mb-3">
-            {needsConfirmation ? '¡Revisa tu email!' : '¡Cuenta creada!'}
+            {needsConfirmation
+              ? '¡Revisa tu email!'
+              : tecnicoMode || orphanMode
+                ? '¡Tu empresa está lista!'
+                : '¡Cuenta creada!'}
           </h1>
           <p className="text-white/45 text-sm leading-relaxed mb-2">
             {needsConfirmation
               ? <>Hemos enviado un enlace de confirmación a <strong className="text-white">{form.email.trim()}</strong>. Pulsa el enlace para activar tu cuenta.</>
-              : <>Tu período de prueba gratuito de <strong className="text-white">15 días</strong> ha comenzado.</>}
+              : tecnicoMode || orphanMode
+                ? <>Ya puedes gestionar tus trabajos como <strong className="text-white">propietario</strong>. Tu período de prueba de <strong className="text-white">15 días</strong> ha comenzado.</>
+                : <>Tu período de prueba gratuito de <strong className="text-white">15 días</strong> ha comenzado.</>}
           </p>
           {needsConfirmation && (
             <p className="text-white/30 text-xs mb-2">Si no lo ves, revisa la carpeta de spam.</p>
@@ -594,7 +710,7 @@ export default function RegistroView({ setCurrentPage }: RegistroViewProps) {
               onClick={() => setCurrentPage(ActivePage.AppDashboard)}
               className="w-full py-3.5 rounded-xl bg-[#FFC400] hover:brightness-110 text-[#020B16] font-black uppercase tracking-widest text-sm flex items-center justify-center gap-2 cursor-pointer transition-all shadow-lg shadow-[#FFC400]/15"
             >
-              Ir al panel <ArrowRight className="h-4 w-4" />
+              {tecnicoMode || orphanMode ? 'Ir a mi empresa' : 'Ir al panel'} <ArrowRight className="h-4 w-4" />
             </button>
           )}
         </div>
