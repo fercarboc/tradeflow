@@ -360,14 +360,24 @@ export default function ScreenEquipo({ showToast }: Props) {
     if (!org || !m.email) return;
     setResendingMember(m.id);
     try {
-      const { data, error } = await supabase.functions.invoke('send-invite', {
-        body: { email: m.email.trim().toLowerCase(), rol: m.rol, org_id: org.id },
-      });
-      if (error) throw new Error(error.message);
-      if (data?.plan_restriction) { showToast(data.error ?? 'Tu plan no permite más miembros', 'error'); return; }
-      showToast(`Invitación reenviada a ${m.email} ✓`, 'success');
+      if (m.activo) {
+        // Miembro activo → enviar email de restablecimiento de contraseña
+        const { error } = await supabase.auth.resetPasswordForEmail(m.email.trim().toLowerCase(), {
+          redirectTo: `${window.location.origin}/reset-password`,
+        });
+        if (error) throw new Error(error.message);
+        showToast(`Email de cambio de contraseña enviado a ${m.email} ✓`, 'success');
+      } else {
+        // Miembro pendiente → reenviar invitación
+        const { data, error } = await supabase.functions.invoke('send-invite', {
+          body: { email: m.email.trim().toLowerCase(), rol: m.rol, org_id: org.id },
+        });
+        if (error) throw new Error(error.message);
+        if (data?.plan_restriction) { showToast(data.error ?? 'Tu plan no permite más miembros', 'error'); return; }
+        showToast(`Invitación reenviada a ${m.email} ✓`, 'success');
+      }
     } catch (e: unknown) {
-      showToast((e as Error).message ?? 'Error al reenviar', 'error');
+      showToast((e as Error).message ?? 'Error al enviar', 'error');
     } finally {
       setResendingMember(null);
     }
@@ -534,12 +544,12 @@ export default function ScreenEquipo({ showToast }: Props) {
               {p.member.activo ? 'Activo' : 'Pendiente'}
             </span>
           )}
-          {/* Botón reenviar invitación (miembro pendiente) */}
-          {!p.isPropietario && p.member && !p.member.activo && canManage && (
+          {/* Botón enviar email (reenviar invitación o cambio de contraseña) */}
+          {!p.isPropietario && p.member && canManage && (
             <button
               onClick={e => { e.stopPropagation(); handleResendMemberInvite(p.member!); }}
               disabled={resendingMember === p.member.id}
-              title="Reenviar invitación por email"
+              title={p.member.activo ? 'Enviar email de cambio de contraseña' : 'Reenviar invitación por email'}
               className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-colors cursor-pointer shrink-0"
             >
               {resendingMember === p.member.id
