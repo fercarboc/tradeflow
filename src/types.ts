@@ -85,6 +85,7 @@ nombreCliente: string;
 descripcion: string;
 partidas: PartidaPresupuesto[];
 total: number;
+iva_pct?: number;
 fecha: string;
 estado: 'Borrador' | 'Enviado' | 'Aceptado' | 'Facturado';
 telefonoCliente?: string;

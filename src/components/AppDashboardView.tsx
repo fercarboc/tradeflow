@@ -476,7 +476,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       const data = await loadDashboard(org.id);
       // Always replace demo clients with real data (even if empty list)
       setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
-      setPresupuestos(data.quotes.map(q => ({ id: q.numero, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '' })));
+      setPresupuestos(data.quotes.map(q => ({ id: q.numero, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, iva_pct: q.iva_pct, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '' })));
       setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : (f.concepto?.split('—')[1]?.trim() ?? ''), idPresupuesto: f.quote_id ?? '', importe: f.subtotal, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any, concepto: f.concepto ?? undefined, esMantenimineto: !!f.contract_id })));
       if (org) {
         setOrgId(org.id);
@@ -1597,7 +1597,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             orgId, clientId, finalQuote.descripcion ?? '',
             (finalQuote.partidas ?? []).map(p => ({ descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precio_unitario: p.precioUnitario })),
           );
-          savedQuote = { ...finalQuote, id: dbQuote.numero, total: dbQuote.total_neto, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
+          savedQuote = { ...finalQuote, id: dbQuote.numero, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
         } catch (e) { console.error('Error guardando presupuesto:', e); }
       }
     }
@@ -2073,7 +2073,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           orgId, client.id, editingQuote.descripcion,
           editingQuote.partidas.map(p => ({ descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precio_unitario: p.precioUnitario })),
         );
-        saved = { id: dbQuote.numero, nombreCliente: editingQuote.nombreCliente, descripcion: dbQuote.descripcion ?? '', partidas: editingQuote.partidas, total: dbQuote.total_neto, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], telefonoCliente: editingQuote.telefonoCliente, emailCliente: editingQuote.emailCliente };
+        saved = { id: dbQuote.numero, nombreCliente: editingQuote.nombreCliente, descripcion: dbQuote.descripcion ?? '', partidas: editingQuote.partidas, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], telefonoCliente: editingQuote.telefonoCliente, emailCliente: editingQuote.emailCliente };
       } catch (e: any) { showToast('Error al guardar: ' + e.message, 'error'); return; }
     } else {
       saved = { ...editingQuote, id: `P-2026-00${presupuestos.length + 1}` };
@@ -6534,22 +6534,44 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <thead>
               <tr className="border-b border-slate-200 font-mono text-[9px] uppercase text-slate-400">
                 <th className="py-2">Concepto</th>
-                <th className="py-2 text-right">Total</th>
+                <th className="py-2 text-right w-16">Cant.</th>
+                <th className="py-2 text-right w-20">P. Unit.</th>
+                <th className="py-2 text-right w-20">Total</th>
               </tr>
             </thead>
             <tbody>
               {selectedQuoteForPreview.partidas.map((item, idx) => (
                 <tr key={idx} className="border-b border-slate-100 text-slate-700">
                   <td className="py-2.5">{item.descripcion}</td>
-                  <td className="py-2.5 text-right font-mono font-bold text-slate-900">{item.total}€</td>
+                  <td className="py-2.5 text-right font-mono text-slate-500">{item.cantidad}</td>
+                  <td className="py-2.5 text-right font-mono text-slate-500">{Number(item.precioUnitario).toFixed(2)}€</td>
+                  <td className="py-2.5 text-right font-mono font-bold text-slate-900">{Number(item.total).toFixed(2)}€</td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div className="text-right mt-6 text-xs space-y-1 font-mono">
-            <p className="text-slate-550">Subtotal: {selectedQuoteForPreview.total.toFixed(2)}€</p>
-            <p className="text-slate-905 font-bold">Total (+IVA): {(selectedQuoteForPreview.total * 1.21).toFixed(2)}€</p>
-          </div>
+          {(() => {
+            const ivaPct = selectedQuoteForPreview.iva_pct ?? 21;
+            const base = selectedQuoteForPreview.total;
+            const ivaImporte = Math.round(base * ivaPct) / 100;
+            const totalConIva = Math.round((base + ivaImporte) * 100) / 100;
+            return (
+              <div className="mt-6 border-t border-slate-200 pt-4 space-y-1 text-xs font-mono">
+                <div className="flex justify-between text-slate-500">
+                  <span>Base imponible</span>
+                  <span>{base.toFixed(2)}€</span>
+                </div>
+                <div className="flex justify-between text-slate-500">
+                  <span>IVA {ivaPct}%</span>
+                  <span>{ivaImporte.toFixed(2)}€</span>
+                </div>
+                <div className="flex justify-between font-bold text-slate-900 text-sm pt-1 border-t border-slate-200">
+                  <span>TOTAL</span>
+                  <span>{totalConIva.toFixed(2)}€</span>
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </div>
     );
