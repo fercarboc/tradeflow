@@ -259,6 +259,9 @@ export default function ScreenEquipo({ showToast }: Props) {
   // Worker invite (from field worker → app)
   const [invitingWorker, setInvitingWorker] = useState<string | null>(null);
 
+  // Resend member invite (activo: false)
+  const [resendingMember, setResendingMember] = useState<string | null>(null);
+
   // Worker form modal
   const [workerForm, setWorkerForm]   = useState<Partial<TradeWorker>>(emptyWorkerForm());
   const [workerFormSchedules, setWorkerFormSchedules] = useState<Omit<TradeWorkerSchedule,'id'>[]>([]);
@@ -348,6 +351,25 @@ export default function ScreenEquipo({ showToast }: Props) {
       showToast((e as Error).message ?? 'Error al enviar invitación', 'error');
     } finally {
       setInvitingWorker(null);
+    }
+  }
+
+  // ── Resend invite to pending member ─────────────────────────────────────
+
+  async function handleResendMemberInvite(m: OrgMember) {
+    if (!org || !m.email) return;
+    setResendingMember(m.id);
+    try {
+      const { data, error } = await supabase.functions.invoke('send-invite', {
+        body: { email: m.email.trim().toLowerCase(), rol: m.rol, org_id: org.id },
+      });
+      if (error) throw new Error(error.message);
+      if (data?.plan_restriction) { showToast(data.error ?? 'Tu plan no permite más miembros', 'error'); return; }
+      showToast(`Invitación reenviada a ${m.email} ✓`, 'success');
+    } catch (e: unknown) {
+      showToast((e as Error).message ?? 'Error al reenviar', 'error');
+    } finally {
+      setResendingMember(null);
     }
   }
 
@@ -506,13 +528,37 @@ export default function ScreenEquipo({ showToast }: Props) {
           {p.worker && (
             <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${campoCfg?.color ?? ''}`}>{campoCfg?.label}</span>
           )}
+          {/* Estado miembro app */}
           {!p.isPropietario && p.member && (
-            <span className={`text-xs font-medium w-16 text-right ${p.member.activo ? 'text-emerald-600' : 'text-amber-600'}`}>
+            <span className={`text-xs font-medium ${p.member.activo ? 'text-emerald-600' : 'text-amber-600'}`}>
               {p.member.activo ? 'Activo' : 'Pendiente'}
             </span>
           )}
+          {/* Botón reenviar invitación (miembro pendiente) */}
+          {!p.isPropietario && p.member && !p.member.activo && canManage && (
+            <button
+              onClick={e => { e.stopPropagation(); handleResendMemberInvite(p.member!); }}
+              disabled={resendingMember === p.member.id}
+              title="Reenviar invitación por email"
+              className="p-1.5 rounded-lg text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 transition-colors cursor-pointer shrink-0"
+            >
+              {resendingMember === p.member.id
+                ? <span className="text-[9px] animate-pulse font-bold">...</span>
+                : <Send className="w-3.5 h-3.5" />}
+            </button>
+          )}
+          {/* Botón invitar a la app (solo campo con email) */}
           {!p.isPropietario && !p.member && p.worker && (
-            <span className="text-xs text-slate-400 w-16 text-right">Sin app</span>
+            <button
+              onClick={e => { e.stopPropagation(); p.worker?.email ? handleInviteWorkerToApp(p.worker) : undefined; }}
+              disabled={invitingWorker === p.worker.id || !p.worker.email}
+              title={p.worker.email ? `Invitar a ${p.worker.email} a la app` : 'Añade email al trabajador para invitarle'}
+              className={`p-1.5 rounded-lg transition-colors cursor-pointer shrink-0 ${p.worker.email ? 'text-slate-400 hover:text-emerald-600 hover:bg-emerald-50' : 'text-slate-200 cursor-not-allowed'}`}
+            >
+              {invitingWorker === p.worker.id
+                ? <span className="text-[9px] animate-pulse font-bold">...</span>
+                : <Send className="w-3.5 h-3.5" />}
+            </button>
           )}
         </div>
       </div>
