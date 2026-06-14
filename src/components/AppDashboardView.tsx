@@ -60,7 +60,6 @@ import {
   Navigation,
   Route,
   Receipt,
-  UserCheck,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -87,7 +86,6 @@ import ScreenEquipo from './ScreenEquipo';
 import ScreenIngresos from './ScreenIngresos';
 import ScreenMantenimiento from './ScreenMantenimiento';
 import ScreenFacturas from './ScreenFacturas';
-import ScreenTrabajadores from './ScreenTrabajadores';
 import ScreenContratos from './ScreenContratos';
 import { resolveTemplate, buildTemplateVars, DEFAULT_TEMPLATES, VARIABLE_GROUPS } from '../lib/templateEngine';
 import {
@@ -5036,7 +5034,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('jobs.view') && SidebarBtn({ id: 'ruta_dia', icon: <Navigation className="w-4 h-4" />, label: 'Ruta del Día' })}
             {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos' })}
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
-            {can('team.manage') && SidebarBtn({ id: 'trabajadores', icon: <UserCheck className="w-4 h-4" />, label: 'Trabajadores' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'contratos', icon: <FileText className="w-4 h-4" />, label: 'Contratos' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
@@ -5121,8 +5118,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'ruta_dia' && 'Ruta del Día'}
                 {activeTab === 'ingresos' && 'Ingresos y Rentabilidad'}
                 {activeTab === 'facturas' && 'Gestión de Facturas'}
-                {activeTab === 'trabajadores' && 'Trabajadores y Rutas'}
-                {activeTab === 'equipo' && 'Equipo y Permisos'}
+                {activeTab === 'equipo' && 'Equipo y Trabajadores'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
@@ -5288,9 +5284,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
                 {activeTab === 'ingresos' && (
                   <ScreenIngresos showToast={showToast} />
-                )}
-                {activeTab === 'trabajadores' && (
-                  <ScreenTrabajadores showToast={showToast} isLiveMode={isLiveMode} />
                 )}
                 {activeTab === 'equipo' && (
                   <ScreenEquipo showToast={showToast} isLiveMode={isLiveMode} />
