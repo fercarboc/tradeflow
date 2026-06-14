@@ -577,7 +577,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'contratos' | 'ruta'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
   // Fix timing: session carga async, rol llega tarde — forzar tab correcto cuando cambia
   useEffect(() => {
-    if (rol === 'tecnico') setMobileTab('trabajos');
+    if (rol === 'tecnico') {
+      setMobileTab('trabajos');
+      setActiveTab(prev => prev === 'dashboard' ? 'planificacion' : prev);
+    }
   }, [rol]);
   const [parteJob, setParteJob] = useState<import('../lib/supabase').TradeJob | null>(null);
   const [parteMantenimiento, setParteMantenimiento] = useState<{ activo: boolean; materialesIncluidos: boolean; nombre: string | null } | null>(null);
