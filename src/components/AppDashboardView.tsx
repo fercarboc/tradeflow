@@ -477,7 +477,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       const data = await loadDashboard(org.id);
       // Always replace demo clients with real data (even if empty list)
       setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
-      setPresupuestos(data.quotes.map(q => ({ id: q.numero, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, iva_pct: q.iva_pct, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '' })));
+      setPresupuestos(data.quotes.map(q => ({ id: q.numero, dbId: q.id, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, iva_pct: q.iva_pct, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '' })));
       setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : (f.concepto?.split('—')[1]?.trim() ?? ''), idPresupuesto: f.quote_id ?? '', importe: f.subtotal, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any, concepto: f.concepto ?? undefined, esMantenimineto: !!f.contract_id })));
       if (org) {
         setOrgId(org.id);
@@ -1601,7 +1601,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             orgId, clientId, finalQuote.descripcion ?? '',
             (finalQuote.partidas ?? []).map(p => ({ descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precio_unitario: p.precioUnitario })),
           );
-          savedQuote = { ...finalQuote, id: dbQuote.numero, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
+          savedQuote = { ...finalQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
         } catch (e) { console.error('Error guardando presupuesto:', e); }
       }
     }
@@ -2078,10 +2078,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       try {
         if (isEditing) {
           const dbQuote = await updateQuote(editingQuoteId, client.id, editingQuote.descripcion, partidasPayload);
-          saved = { ...editingQuote, id: dbQuote.numero, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
+          saved = { ...editingQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
         } else {
           const dbQuote = await saveQuote(orgId, client.id, editingQuote.descripcion, partidasPayload);
-          saved = { id: dbQuote.numero, nombreCliente: editingQuote.nombreCliente, descripcion: dbQuote.descripcion ?? '', partidas: editingQuote.partidas, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], telefonoCliente: editingQuote.telefonoCliente, emailCliente: editingQuote.emailCliente };
+          saved = { id: dbQuote.numero, dbId: dbQuote.id, nombreCliente: editingQuote.nombreCliente, descripcion: dbQuote.descripcion ?? '', partidas: editingQuote.partidas, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], telefonoCliente: editingQuote.telefonoCliente, emailCliente: editingQuote.emailCliente };
         }
       } catch (e: any) { showToast('Error al guardar: ' + e.message, 'error'); return; }
     } else {
@@ -6066,7 +6066,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             )}
             <div>
               <h3 className="text-md font-black uppercase text-slate-900">
-                {editingQuoteId ? `Editar ${editingQuoteId}` : 'Borrador de Presupuesto'}
+                {editingQuoteId ? `Editar ${editingQuote.id}` : 'Borrador de Presupuesto'}
               </h3>
               {editingQuoteId && (
                 <p className="text-[10px] text-amber-600 font-semibold mt-0.5">Editando presupuesto existente — estado: {editingQuote.estado}</p>
@@ -6474,7 +6474,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 onClick={() => {
                   // Cargar presupuesto en el editor para editar
                   const q = selectedQuoteForPreview;
-                  setEditingQuoteId(q.id);
+                  setEditingQuoteId(q.dbId ?? q.id); // usar UUID real para la BD
                   setEditingQuote({
                     id: q.id,
                     nombreCliente: q.nombreCliente,

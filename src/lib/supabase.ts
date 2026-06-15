@@ -3961,3 +3961,54 @@ export async function deleteSubcontrataNota(id: string): Promise<void> {
   const { error } = await supabase.from('trade_subcontrata_notas').delete().eq('id', id);
   if (error) throw error;
 }
+
+// Vincula subcontrata al presupuesto del trabajo: añade una partida con precio_cliente
+// Devuelve el número del presupuesto afectado, o null si el trabajo no tiene presupuesto
+export async function addSubcontrataToJobQuote(
+  jobId: string,
+  subcontrataId: string,
+  descripcion: string,
+  precioCliente: number,
+): Promise<{ quoteId: string; quoteNumero: string } | null> {
+  const { data: job } = await supabase
+    .from('trade_jobs')
+    .select('quote_id')
+    .eq('id', jobId)
+    .maybeSingle();
+  if (!job?.quote_id) return null;
+
+  const quoteId = job.quote_id as string;
+
+  // Posición: al final de las partidas actuales
+  const { count } = await supabase
+    .from('trade_quote_items')
+    .select('*', { count: 'exact', head: true })
+    .eq('quote_id', quoteId);
+
+  const ref = subcontrataId.replace(/-/g, '').substring(0, 8).toUpperCase();
+  await supabase.from('trade_quote_items').insert({
+    quote_id: quoteId,
+    descripcion: `Trabajos subcontratados — ${descripcion} [SUB-${ref}]`,
+    tipo: 'mano_de_obra',
+    cantidad: 1,
+    precio_unitario: precioCliente,
+    total: precioCliente,
+    posicion: (count ?? 0),
+  });
+
+  // Recalcular total del presupuesto
+  const { data: items } = await supabase
+    .from('trade_quote_items')
+    .select('precio_unitario, cantidad')
+    .eq('quote_id', quoteId);
+  const nuevoTotal = (items ?? []).reduce((s: number, i: { precio_unitario: number; cantidad: number }) => s + i.precio_unitario * i.cantidad, 0);
+  await supabase.from('trade_quotes').update({ total_neto: nuevoTotal }).eq('id', quoteId);
+
+  const { data: quote } = await supabase
+    .from('trade_quotes')
+    .select('numero')
+    .eq('id', quoteId)
+    .maybeSingle();
+
+  return { quoteId, quoteNumero: quote?.numero ?? quoteId };
+}

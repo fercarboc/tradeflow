@@ -10,7 +10,7 @@ import {
   loadSubcontratas, saveSubcontrata, deleteSubcontrata,
   updateSubcontrataEstado, loadSubcontrataNotes,
   addSubcontrataNota, deleteSubcontrataNota,
-  loadJobs, loadContracts,
+  loadJobs, loadContracts, addSubcontrataToJobQuote,
 } from '../lib/supabase';
 import type {
   TradeSubcontractor, TradeSubcontrata, TradeSubcontrataNota,
@@ -189,11 +189,18 @@ export default function ScreenSubcontratas({ orgId, showToast }: Props) {
       if (editingId) {
         setSubcontratas(prev => prev.map(s => s.id === saved.id ? saved : s));
         if (selected?.id === saved.id) setSelected(saved);
+        showToast('Subcontrata actualizada');
       } else {
         setSubcontratas(prev => [saved, ...prev]);
+        // Si está vinculada a un trabajo con presupuesto, añadir partida automáticamente
+        let toastMsg = 'Subcontrata creada';
+        if (draft.job_id && draft.precio_cliente > 0) {
+          const result = await addSubcontrataToJobQuote(draft.job_id, saved.id, draft.descripcion, draft.precio_cliente).catch(() => null);
+          if (result) toastMsg = `Subcontrata creada y añadida al presupuesto ${result.quoteNumero}`;
+        }
+        showToast(toastMsg);
       }
       setShowModal(false);
-      showToast(editingId ? 'Subcontrata actualizada' : 'Subcontrata creada');
     } catch (e: unknown) { showToast('Error: ' + (e as Error).message, 'error'); }
     setSaving(false);
   }

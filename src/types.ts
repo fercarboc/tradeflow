@@ -81,6 +81,7 @@ aviso?: string;
 
 export interface Presupuesto {
 id: string;
+dbId?: string; // UUID real en BD; id es el número visible PRE-XXXX-XXX
 nombreCliente: string;
 descripcion: string;
 partidas: PartidaPresupuesto[];
