@@ -62,11 +62,13 @@ import {
   Receipt,
   Edit2,
   Layers,
+  Building2,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote } from '../lib/supabase';
+import type { TradeSubcontractor, TradeSubcontrata } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { geocodeAddress } from '../lib/geocoder';
 import type { GeoLocation } from '../lib/routeOptimizer';
@@ -1909,6 +1911,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [savedActuacion, setSavedActuacion] = useState<boolean>(false);
   const [selectedQuoteForPreview, setSelectedQuoteForPreview] = useState<Presupuesto | null>(null);
   const [editingQuoteId, setEditingQuoteId] = useState<string | null>(null); // null = crear nuevo, string = editar existente
+  // Subcontratas vinculadas al presupuesto en preview
+  const [previewSubcontratas, setPreviewSubcontratas] = useState<TradeSubcontrata[]>([]);
+  const [previewProveedores, setPreviewProveedores] = useState<TradeSubcontractor[]>([]);
+  const [showAddSubcontrataModal, setShowAddSubcontrataModal] = useState(false);
+  const [draftSubcontrata, setDraftSubcontrata] = useState({ subcontractor_id: '', descripcion: '', coste: 0, precio_cliente: 0 });
+  const [savingSubcontrata, setSavingSubcontrata] = useState(false);
 
   useEffect(() => {
     if (!selectedQuoteForPreview) { setQuoteTokenStatus(null); return; }
@@ -1921,6 +1929,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       .maybeSingle()
       .then(({ data }) => setQuoteTokenStatus(data ? { status: data.status, accepted_at: data.accepted_at } : null));
   }, [selectedQuoteForPreview]);
+
+  // Cargar subcontratas y proveedores al abrir preview de un presupuesto
+  useEffect(() => {
+    if (!selectedQuoteForPreview?.dbId) { setPreviewSubcontratas([]); return; }
+    loadSubcontratasByQuote(selectedQuoteForPreview.dbId).then(setPreviewSubcontratas).catch(() => {});
+    if (orgId && previewProveedores.length === 0) {
+      loadSubcontractors(orgId).then(setPreviewProveedores).catch(() => {});
+    }
+  }, [selectedQuoteForPreview?.dbId]);
 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const filteredClientes = clientes.filter(c => {
@@ -5050,7 +5067,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'contratos', icon: <FileText className="w-4 h-4" />, label: 'Contratos' })}
-            {can('jobs.view') && orgId && SidebarBtn({ id: 'subcontratas', icon: <Layers className="w-4 h-4" />, label: 'Subcontratas' })}
+            {can('jobs.view') && orgId && SidebarBtn({ id: 'subcontratas', icon: <Layers className="w-4 h-4" />, label: 'Externalizados' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
@@ -5135,7 +5152,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'facturas' && 'Gestión de Facturas'}
                 {activeTab === 'equipo' && 'Equipo y Trabajadores'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
-                {activeTab === 'subcontratas' && 'Subcontratas'}
+                {activeTab === 'subcontratas' && 'Trabajos Externalizados'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
               </h2>
@@ -6594,6 +6611,147 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </button>
           )}
         </div>
+
+        {/* Trabajos externalizados vinculados al presupuesto */}
+        {orgId && selectedQuoteForPreview.dbId && (
+          <div className="bg-white border border-violet-200 rounded-xl p-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-black uppercase tracking-wider text-violet-600 flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5" />
+                Trabajos externalizados ({previewSubcontratas.length})
+              </h3>
+              <button
+                onClick={() => { setDraftSubcontrata({ subcontractor_id: '', descripcion: '', coste: 0, precio_cliente: 0 }); setShowAddSubcontrataModal(true); }}
+                className="flex items-center gap-1 text-[10px] font-bold text-violet-700 border border-violet-200 px-3 py-1.5 rounded-lg hover:bg-violet-50 cursor-pointer"
+              >
+                <Plus className="w-3 h-3" /> Añadir trabajo externalizado
+              </button>
+            </div>
+            {previewSubcontratas.length === 0 ? (
+              <p className="text-xs text-slate-400 italic">Sin trabajos externalizados en este presupuesto. Añade uno si vas a delegar alguna parte a un proveedor.</p>
+            ) : (
+              <div className="space-y-2">
+                {previewSubcontratas.map(s => {
+                  const mg = s.precio_cliente > 0 ? ((s.precio_cliente - s.coste) / s.precio_cliente * 100).toFixed(1) : '0';
+                  return (
+                    <div key={s.id} className="flex items-center justify-between bg-violet-50 border border-violet-100 rounded-xl px-3 py-2.5 text-xs gap-3">
+                      <div className="flex-1 min-w-0">
+                        <p className="font-bold text-slate-800 truncate">{s.descripcion}</p>
+                        <p className="text-slate-500 flex items-center gap-1 mt-0.5">
+                          <Building2 className="w-2.5 h-2.5" />
+                          {s.trade_subcontractors?.nombre ?? '—'}
+                          {s.numero && <span className="font-mono text-violet-500 ml-1">{s.numero}</span>}
+                        </p>
+                      </div>
+                      <div className="text-right shrink-0">
+                        <p className="font-mono font-bold text-slate-700">{s.precio_cliente.toFixed(2)}€</p>
+                        <p className="text-[9px] text-slate-400">Coste: {s.coste.toFixed(2)}€ · Margen: {mg}%</p>
+                      </div>
+                      <button onClick={() => { setActiveTab('subcontratas'); }} className="text-violet-400 hover:text-violet-700 cursor-pointer shrink-0" title="Ver en Externalizados">
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  );
+                })}
+                <div className="flex justify-between pt-1 text-xs text-slate-500 border-t border-violet-100">
+                  <span>Total externalizado (tu coste)</span>
+                  <span className="font-bold text-red-600">−{previewSubcontratas.reduce((a, s) => a + s.coste, 0).toFixed(2)}€</span>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Modal añadir trabajo externalizado desde presupuesto */}
+        {showAddSubcontrataModal && orgId && selectedQuoteForPreview?.dbId && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowAddSubcontrataModal(false)}>
+            <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl" onClick={e => e.stopPropagation()}>
+              <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-slate-100">
+                <h3 className="font-black text-slate-800">Añadir trabajo externalizado al presupuesto</h3>
+                <button onClick={() => setShowAddSubcontrataModal(false)} className="text-slate-400 hover:text-slate-700 cursor-pointer"><X className="w-5 h-5" /></button>
+              </div>
+              <div className="p-5 space-y-3">
+                <div>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Proveedor *</p>
+                  <select value={draftSubcontrata.subcontractor_id}
+                    onChange={e => setDraftSubcontrata(d => ({ ...d, subcontractor_id: e.target.value }))}
+                    className="w-full mt-1 px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-violet-400">
+                    <option value="">— Selecciona proveedor —</option>
+                    {previewProveedores.map(p => <option key={p.id} value={p.id}>{p.nombre}{p.especialidad ? ` · ${p.especialidad}` : ''}</option>)}
+                  </select>
+                  {previewProveedores.length === 0 && <p className="text-[10px] text-amber-600 mt-1">Sin proveedores — ve a Externalizados › Proveedores para añadir uno</p>}
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Descripción del trabajo *</p>
+                  <input type="text" value={draftSubcontrata.descripcion}
+                    onChange={e => setDraftSubcontrata(d => ({ ...d, descripcion: e.target.value }))}
+                    placeholder="Ej: Instalación unidades interiores A/A"
+                    className="w-full mt-1 px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-violet-400" />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Lo que te cobran (coste)</p>
+                    <input type="number" min="0" step="0.01" value={draftSubcontrata.coste}
+                      onChange={e => setDraftSubcontrata(d => ({ ...d, coste: parseFloat(e.target.value) || 0 }))}
+                      className="w-full mt-1 px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-violet-400" />
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Lo que cobras al cliente</p>
+                    <input type="number" min="0" step="0.01" value={draftSubcontrata.precio_cliente}
+                      onChange={e => setDraftSubcontrata(d => ({ ...d, precio_cliente: parseFloat(e.target.value) || 0 }))}
+                      className="w-full mt-1 px-3 py-2 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-violet-400" />
+                  </div>
+                </div>
+                {(draftSubcontrata.precio_cliente > 0 || draftSubcontrata.coste > 0) && (
+                  <div className={`rounded-xl px-4 py-2.5 flex justify-between items-center text-xs ${draftSubcontrata.precio_cliente >= draftSubcontrata.coste ? 'bg-emerald-50 border border-emerald-200' : 'bg-red-50 border border-red-200'}`}>
+                    <span className="font-bold text-slate-600">Tu margen</span>
+                    <span className={`font-black ${draftSubcontrata.precio_cliente >= draftSubcontrata.coste ? 'text-emerald-700' : 'text-red-700'}`}>
+                      {(draftSubcontrata.precio_cliente - draftSubcontrata.coste).toFixed(2)}€
+                      {draftSubcontrata.precio_cliente > 0 && ` (${((draftSubcontrata.precio_cliente - draftSubcontrata.coste) / draftSubcontrata.precio_cliente * 100).toFixed(1)}%)`}
+                    </span>
+                  </div>
+                )}
+                <p className="text-[10px] text-slate-400 italic">Se añadirá una línea al presupuesto con el importe al cliente. El coste es solo interno y no aparece en el documento.</p>
+              </div>
+              <div className="flex gap-3 px-5 py-4 border-t border-slate-100">
+                <button onClick={() => setShowAddSubcontrataModal(false)} className="flex-1 py-2.5 border border-slate-200 rounded-xl text-xs font-bold text-slate-500 cursor-pointer hover:border-slate-400">Cancelar</button>
+                <button
+                  disabled={savingSubcontrata || !draftSubcontrata.subcontractor_id || !draftSubcontrata.descripcion.trim()}
+                  onClick={async () => {
+                    if (!orgId || !selectedQuoteForPreview?.dbId) return;
+                    setSavingSubcontrata(true);
+                    try {
+                      const saved = await createSubcontrataFromQuote(orgId, selectedQuoteForPreview.dbId, selectedQuoteForPreview.id, {
+                        subcontractor_id: draftSubcontrata.subcontractor_id,
+                        job_id: null, contract_id: null, quote_id: selectedQuoteForPreview.dbId,
+                        descripcion: draftSubcontrata.descripcion,
+                        coste: draftSubcontrata.coste,
+                        precio_cliente: draftSubcontrata.precio_cliente,
+                        estado: 'pendiente',
+                        fecha_inicio: null, fecha_fin_prevista: null,
+                        importe_factura_recibida: null, fecha_factura_recibida: null,
+                        referencia_factura_subcontrata: null, pagado: false, pagado_at: null,
+                      });
+                      setPreviewSubcontratas(prev => [...prev, saved]);
+                      // Actualizar total del presupuesto en el estado local
+                      const newTotal = selectedQuoteForPreview.total + draftSubcontrata.precio_cliente;
+                      const updatedQuote = { ...selectedQuoteForPreview, total: newTotal, partidas: [...selectedQuoteForPreview.partidas, { descripcion: `Trabajo externalizado — ${draftSubcontrata.descripcion}`, tipo: 'mano_de_obra' as const, cantidad: 1, precioUnitario: draftSubcontrata.precio_cliente, total: draftSubcontrata.precio_cliente }] };
+                      setSelectedQuoteForPreview(updatedQuote);
+                      setPresupuestos(prev => prev.map(p => p.id === updatedQuote.id ? updatedQuote : p));
+                      setShowAddSubcontrataModal(false);
+                      showToast(`Trabajo externalizado ${saved.numero ?? ''} añadido al presupuesto`);
+                    } catch (e: unknown) { showToast('Error: ' + (e as Error).message, 'error'); }
+                    setSavingSubcontrata(false);
+                  }}
+                  className="flex-1 py-2.5 bg-violet-600 hover:bg-violet-700 text-white rounded-xl text-xs font-bold cursor-pointer disabled:opacity-50 flex items-center justify-center gap-1.5"
+                >
+                  {savingSubcontrata ? <span className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
+                  Añadir al presupuesto
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         <div className="bg-white text-slate-900 p-8 rounded-2xl max-w-2xl mx-auto border shadow-sm">
           <h3 className="font-bold text-sm uppercase text-slate-900 mb-4">{empresaAjustes.nombre}</h3>

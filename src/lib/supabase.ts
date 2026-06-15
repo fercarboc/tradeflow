@@ -3810,26 +3810,43 @@ export interface TradeSubcontractor {
   notas?: string | null;
   activo: boolean;
   created_at: string;
+  // Campos ampliados
+  direccion_fiscal?: string | null;
+  direccion_trabajo?: string | null;
+  persona_contacto?: string | null;
+  horarios?: string | null;
+  cobertura?: string | null;
+  valoracion?: number | null;
+  estado_proveedor?: 'activo' | 'pendiente' | 'bloqueado' | null;
 }
 
 export interface TradeSubcontrata {
   id: string;
   org_id: string;
+  numero?: string | null;          // SUB-YYYY-NNN (generado por trigger)
   subcontractor_id: string;
   job_id?: string | null;
   contract_id?: string | null;
+  quote_id?: string | null;        // presupuesto directamente vinculado
   descripcion: string;
   coste: number;
   precio_cliente: number;
-  estado: 'pendiente' | 'en_curso' | 'completado' | 'cancelado';
+  estado: 'pendiente' | 'solicitado' | 'presupuesto_recibido' | 'añadido_presupuesto' | 'pendiente_cliente' | 'en_curso' | 'completado' | 'factura_recibida' | 'pagado' | 'cancelado';
   fecha_inicio?: string | null;
   fecha_fin_prevista?: string | null;
+  // Facturación de la subcontrata hacia nosotros
+  importe_factura_recibida?: number | null;
+  fecha_factura_recibida?: string | null;
+  referencia_factura_subcontrata?: string | null;
+  pagado?: boolean;
+  pagado_at?: string | null;
   created_at: string;
   updated_at: string;
   // joined
   trade_subcontractors?: TradeSubcontractor;
   trade_jobs?: { titulo: string } | null;
   trade_contracts?: { referencia: string } | null;
+  trade_quotes?: { numero: string } | null;
 }
 
 export interface TradeSubcontrataNota {
@@ -3885,7 +3902,7 @@ export async function deleteSubcontractor(id: string): Promise<void> {
 export async function loadSubcontratas(orgId: string): Promise<TradeSubcontrata[]> {
   const { data, error } = await supabase
     .from('trade_subcontratas')
-    .select('*, trade_subcontractors(id,nombre,especialidad,telefono,email), trade_jobs(titulo), trade_contracts(referencia)')
+    .select('*, trade_subcontractors(id,nombre,especialidad,telefono,email), trade_jobs(titulo), trade_contracts(referencia), trade_quotes(numero)')
     .eq('org_id', orgId)
     .order('created_at', { ascending: false });
   if (error) throw error;
@@ -3902,7 +3919,7 @@ export async function saveSubcontrata(
       .from('trade_subcontratas')
       .update({ ...payload, updated_at: new Date().toISOString() })
       .eq('id', id)
-      .select('*, trade_subcontractors(id,nombre,especialidad,telefono,email), trade_jobs(titulo), trade_contracts(referencia)')
+      .select('*, trade_subcontractors(id,nombre,especialidad,telefono,email), trade_jobs(titulo), trade_contracts(referencia), trade_quotes(numero)')
       .single();
     if (error) throw error;
     return data as TradeSubcontrata;
@@ -3910,7 +3927,7 @@ export async function saveSubcontrata(
   const { data, error } = await supabase
     .from('trade_subcontratas')
     .insert({ ...payload, org_id: orgId })
-    .select('*, trade_subcontractors(id,nombre,especialidad,telefono,email), trade_jobs(titulo), trade_contracts(referencia)')
+    .select('*, trade_subcontractors(id,nombre,especialidad,telefono,email), trade_jobs(titulo), trade_contracts(referencia), trade_quotes(numero)')
     .single();
   if (error) throw error;
   return data as TradeSubcontrata;
@@ -4011,4 +4028,75 @@ export async function addSubcontrataToJobQuote(
     .maybeSingle();
 
   return { quoteId, quoteNumero: quote?.numero ?? quoteId };
+}
+
+// Crea subcontrata vinculada directamente a un presupuesto y añade la partida
+export async function createSubcontrataFromQuote(
+  orgId: string,
+  quoteId: string,
+  quoteNumero: string,
+  payload: Omit<TradeSubcontrata, 'id' | 'org_id' | 'numero' | 'created_at' | 'updated_at' | 'trade_subcontractors' | 'trade_jobs' | 'trade_contracts' | 'trade_quotes'>,
+): Promise<TradeSubcontrata> {
+  const sub = await saveSubcontrata(orgId, { ...payload, quote_id: quoteId });
+
+  // Añadir partida al presupuesto
+  const { count } = await supabase
+    .from('trade_quote_items')
+    .select('*', { count: 'exact', head: true })
+    .eq('quote_id', quoteId);
+
+  const ref = sub.numero ?? sub.id.replace(/-/g, '').substring(0, 8).toUpperCase();
+  await supabase.from('trade_quote_items').insert({
+    quote_id: quoteId,
+    descripcion: `Trabajos subcontratados — ${payload.descripcion} [${ref}]`,
+    tipo: 'mano_de_obra',
+    cantidad: 1,
+    precio_unitario: payload.precio_cliente,
+    total: payload.precio_cliente,
+    posicion: (count ?? 0),
+  });
+
+  // Recalcular total del presupuesto
+  const { data: items } = await supabase
+    .from('trade_quote_items')
+    .select('precio_unitario, cantidad')
+    .eq('quote_id', quoteId);
+  const nuevoTotal = (items ?? []).reduce((s: number, i: { precio_unitario: number; cantidad: number }) => s + i.precio_unitario * i.cantidad, 0);
+  await supabase.from('trade_quotes').update({ total_neto: nuevoTotal }).eq('id', quoteId);
+
+  return sub;
+}
+
+// Registrar factura recibida de la subcontrata
+export async function registrarFacturaSubcontrata(
+  subcontrataId: string,
+  importe: number,
+  fecha: string,
+  referencia: string,
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_subcontratas')
+    .update({ importe_factura_recibida: importe, fecha_factura_recibida: fecha, referencia_factura_subcontrata: referencia })
+    .eq('id', subcontrataId);
+  if (error) throw error;
+}
+
+// Marcar subcontrata como pagada
+export async function marcarSubcontrataPagada(subcontrataId: string, pagado: boolean): Promise<void> {
+  const { error } = await supabase
+    .from('trade_subcontratas')
+    .update({ pagado, pagado_at: pagado ? new Date().toISOString() : null })
+    .eq('id', subcontrataId);
+  if (error) throw error;
+}
+
+// Carga subcontratas vinculadas a un presupuesto concreto
+export async function loadSubcontratasByQuote(quoteId: string): Promise<TradeSubcontrata[]> {
+  const { data, error } = await supabase
+    .from('trade_subcontratas')
+    .select('*, trade_subcontractors(id,nombre,especialidad,telefono,email), trade_jobs(titulo), trade_contracts(referencia), trade_quotes(numero)')
+    .eq('quote_id', quoteId)
+    .order('created_at');
+  if (error) throw error;
+  return (data ?? []) as TradeSubcontrata[];
 }
