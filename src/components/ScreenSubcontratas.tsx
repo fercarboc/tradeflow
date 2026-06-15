@@ -562,6 +562,7 @@ export default function ScreenSubcontratas({ orgId, showToast }: Props) {
     const prov = selected.trade_subcontractors;
     const cfg = ESTADO_CFG[selected.estado] ?? ESTADO_CFG.pendiente;
     const estadoIdx = ESTADOS_ORDEN.indexOf(selected.estado);
+    const bloqueado = selected.pagado || selected.estado === 'pagado';
 
     return (
       <div className="space-y-4">
@@ -571,10 +572,17 @@ export default function ScreenSubcontratas({ orgId, showToast }: Props) {
           </button>
           {selected.numero && <span className="font-mono text-[10px] font-bold text-violet-500 bg-violet-50 border border-violet-200 px-2 py-0.5 rounded-full">{selected.numero}</span>}
           <span className={`flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-full border ${cfg.color}`}>{cfg.icon}{cfg.label}</span>
-          <div className="ml-auto flex gap-2">
-            <button onClick={() => openEdit(selected)} className="flex items-center gap-1.5 border border-slate-200 text-slate-600 hover:border-slate-400 font-bold text-xs uppercase px-3 py-1.5 rounded-xl cursor-pointer"><Edit2 className="w-3 h-3" /> Editar</button>
-            <button onClick={() => handleDelete(selected)} className="flex items-center gap-1.5 border border-red-200 text-red-500 hover:bg-red-50 font-bold text-xs uppercase px-3 py-1.5 rounded-xl cursor-pointer"><Trash2 className="w-3 h-3" /> Eliminar</button>
-          </div>
+          {bloqueado && (
+            <span className="flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-400 border border-slate-200">
+              <Shield className="w-3 h-3" /> Solo lectura
+            </span>
+          )}
+          {!bloqueado && (
+            <div className="ml-auto flex gap-2">
+              <button onClick={() => openEdit(selected)} className="flex items-center gap-1.5 border border-slate-200 text-slate-600 hover:border-slate-400 font-bold text-xs uppercase px-3 py-1.5 rounded-xl cursor-pointer"><Edit2 className="w-3 h-3" /> Editar</button>
+              <button onClick={() => handleDelete(selected)} className="flex items-center gap-1.5 border border-red-200 text-red-500 hover:bg-red-50 font-bold text-xs uppercase px-3 py-1.5 rounded-xl cursor-pointer"><Trash2 className="w-3 h-3" /> Eliminar</button>
+            </div>
+          )}
         </div>
 
         {/* Barra de progreso de estados */}
@@ -585,11 +593,14 @@ export default function ScreenSubcontratas({ orgId, showToast }: Props) {
               const done = ESTADOS_ORDEN.indexOf(e) <= estadoIdx && selected.estado !== 'cancelado';
               const active = e === selected.estado;
               return (
-                <button key={e} onClick={() => handleEstado(selected, e)}
-                  className={`flex items-center gap-1 text-[9px] font-bold px-2 py-1.5 rounded-lg border whitespace-nowrap cursor-pointer transition-all shrink-0 ${
+                <button key={e} onClick={() => !bloqueado && handleEstado(selected, e)}
+                  disabled={bloqueado}
+                  className={`flex items-center gap-1 text-[9px] font-bold px-2 py-1.5 rounded-lg border whitespace-nowrap transition-all shrink-0 ${
+                    bloqueado ? 'cursor-default opacity-70' : 'cursor-pointer'
+                  } ${
                     active ? c.color + ' border-current' : done ? 'bg-slate-100 text-slate-500 border-slate-200' : 'border-slate-100 text-slate-400 hover:border-slate-300'
                   }`}
-                  title={c.desc}
+                  title={bloqueado ? 'Trabajo cerrado — solo lectura' : c.desc}
                 >
                   {c.icon} {c.label}
                 </button>
