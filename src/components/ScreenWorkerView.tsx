@@ -76,7 +76,7 @@ function TodaySummary({ jobs, onFocus }: TodaySummaryProps) {
   const allDone    = completed === jobs.length;
 
   return (
-    <div className="bg-slate-900 border border-blue-800/40 rounded-xl p-4 mb-1">
+    <div className="bg-slate-800/70 border border-blue-700/40 rounded-xl p-4 mb-1">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Route className="w-3.5 h-3.5 text-blue-400" />
@@ -681,7 +681,7 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    setCurrentPage(ActivePage.Home);
+    setCurrentPage(ActivePage.Login);
   };
 
   const handleTogglePush = async () => {
@@ -911,7 +911,7 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
                     const isUploading = photoUploading === job.id;
                     const assignedWorkers = job.trade_job_workers ?? [];
                     return (
-                      <div key={job.id} className={`bg-slate-900 border rounded-xl overflow-hidden transition-all ${isDone ? 'border-emerald-900/40 opacity-70' : 'border-slate-800'}`}>
+                      <div key={job.id} className={`bg-slate-800/70 border rounded-xl overflow-hidden transition-all ${isDone ? 'border-emerald-800/40 opacity-70' : 'border-slate-700/60'}`}>
                         <button
                           onClick={() => handleExpand(job.id)}
                           className="w-full px-4 py-3 flex items-start gap-3 text-left cursor-pointer"
