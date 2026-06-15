@@ -3796,3 +3796,168 @@ export async function adminMarkFeedbackApplied(id: string): Promise<void> {
     .eq('id', id);
   if (error) throw error;
 }
+
+// ── Subcontratas ──────────────────────────────────────────────────────────────
+
+export interface TradeSubcontractor {
+  id: string;
+  org_id: string;
+  nombre: string;
+  nif?: string | null;
+  email?: string | null;
+  telefono?: string | null;
+  especialidad?: string | null;
+  notas?: string | null;
+  activo: boolean;
+  created_at: string;
+}
+
+export interface TradeSubcontrata {
+  id: string;
+  org_id: string;
+  subcontractor_id: string;
+  job_id?: string | null;
+  contract_id?: string | null;
+  descripcion: string;
+  coste: number;
+  precio_cliente: number;
+  estado: 'pendiente' | 'en_curso' | 'completado' | 'cancelado';
+  fecha_inicio?: string | null;
+  fecha_fin_prevista?: string | null;
+  created_at: string;
+  updated_at: string;
+  // joined
+  trade_subcontractors?: TradeSubcontractor;
+  trade_jobs?: { titulo: string } | null;
+  trade_contracts?: { referencia: string } | null;
+}
+
+export interface TradeSubcontrataNota {
+  id: string;
+  subcontrata_id: string;
+  org_id: string;
+  texto: string;
+  created_at: string;
+}
+
+// Proveedores (subcontractors)
+export async function loadSubcontractors(orgId: string): Promise<TradeSubcontractor[]> {
+  const { data, error } = await supabase
+    .from('trade_subcontractors')
+    .select('*')
+    .eq('org_id', orgId)
+    .eq('activo', true)
+    .order('nombre');
+  if (error) throw error;
+  return (data ?? []) as TradeSubcontractor[];
+}
+
+export async function saveSubcontractor(
+  orgId: string,
+  payload: Omit<TradeSubcontractor, 'id' | 'org_id' | 'created_at'>,
+  id?: string,
+): Promise<TradeSubcontractor> {
+  if (id) {
+    const { data, error } = await supabase
+      .from('trade_subcontractors')
+      .update(payload)
+      .eq('id', id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data as TradeSubcontractor;
+  }
+  const { data, error } = await supabase
+    .from('trade_subcontractors')
+    .insert({ ...payload, org_id: orgId })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as TradeSubcontractor;
+}
+
+export async function deleteSubcontractor(id: string): Promise<void> {
+  const { error } = await supabase.from('trade_subcontractors').update({ activo: false }).eq('id', id);
+  if (error) throw error;
+}
+
+// Subcontratas
+export async function loadSubcontratas(orgId: string): Promise<TradeSubcontrata[]> {
+  const { data, error } = await supabase
+    .from('trade_subcontratas')
+    .select('*, trade_subcontractors(id,nombre,especialidad,telefono,email), trade_jobs(titulo), trade_contracts(referencia)')
+    .eq('org_id', orgId)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as TradeSubcontrata[];
+}
+
+export async function saveSubcontrata(
+  orgId: string,
+  payload: Omit<TradeSubcontrata, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_subcontractors' | 'trade_jobs' | 'trade_contracts'>,
+  id?: string,
+): Promise<TradeSubcontrata> {
+  if (id) {
+    const { data, error } = await supabase
+      .from('trade_subcontratas')
+      .update({ ...payload, updated_at: new Date().toISOString() })
+      .eq('id', id)
+      .select('*, trade_subcontractors(id,nombre,especialidad,telefono,email), trade_jobs(titulo), trade_contracts(referencia)')
+      .single();
+    if (error) throw error;
+    return data as TradeSubcontrata;
+  }
+  const { data, error } = await supabase
+    .from('trade_subcontratas')
+    .insert({ ...payload, org_id: orgId })
+    .select('*, trade_subcontractors(id,nombre,especialidad,telefono,email), trade_jobs(titulo), trade_contracts(referencia)')
+    .single();
+  if (error) throw error;
+  return data as TradeSubcontrata;
+}
+
+export async function deleteSubcontrata(id: string): Promise<void> {
+  const { error } = await supabase.from('trade_subcontratas').delete().eq('id', id);
+  if (error) throw error;
+}
+
+export async function updateSubcontrataEstado(
+  id: string,
+  estado: TradeSubcontrata['estado'],
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_subcontratas')
+    .update({ estado, updated_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+// Notas
+export async function loadSubcontrataNotes(subcontrataId: string): Promise<TradeSubcontrataNota[]> {
+  const { data, error } = await supabase
+    .from('trade_subcontrata_notas')
+    .select('*')
+    .eq('subcontrata_id', subcontrataId)
+    .order('created_at', { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as TradeSubcontrataNota[];
+}
+
+export async function addSubcontrataNota(
+  subcontrataId: string,
+  orgId: string,
+  texto: string,
+): Promise<TradeSubcontrataNota> {
+  const { data, error } = await supabase
+    .from('trade_subcontrata_notas')
+    .insert({ subcontrata_id: subcontrataId, org_id: orgId, texto })
+    .select()
+    .single();
+  if (error) throw error;
+  return data as TradeSubcontrataNota;
+}
+
+export async function deleteSubcontrataNota(id: string): Promise<void> {
+  const { error } = await supabase.from('trade_subcontrata_notas').delete().eq('id', id);
+  if (error) throw error;
+}

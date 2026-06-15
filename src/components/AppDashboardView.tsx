@@ -61,6 +61,7 @@ import {
   Route,
   Receipt,
   Edit2,
+  Layers,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -88,6 +89,7 @@ import ScreenIngresos from './ScreenIngresos';
 import ScreenMantenimiento from './ScreenMantenimiento';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
+import ScreenSubcontratas from './ScreenSubcontratas';
 import { resolveTemplate, buildTemplateVars, DEFAULT_TEMPLATES, VARIABLE_GROUPS } from '../lib/templateEngine';
 import {
   loadWorkCalendar, saveWorkCalendar, isWorkingDay,
@@ -5048,6 +5050,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'contratos', icon: <FileText className="w-4 h-4" />, label: 'Contratos' })}
+            {can('jobs.view') && orgId && SidebarBtn({ id: 'subcontratas', icon: <Layers className="w-4 h-4" />, label: 'Subcontratas' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
@@ -5132,6 +5135,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'facturas' && 'Gestión de Facturas'}
                 {activeTab === 'equipo' && 'Equipo y Trabajadores'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
+                {activeTab === 'subcontratas' && 'Subcontratas'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
               </h2>
@@ -5317,6 +5321,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     oficio={orgData.oficio}
                     plan={subscription?.plan ?? orgData?.plan ?? 'basico'}
                   />
+                )}
+                {activeTab === 'subcontratas' && orgId && (
+                  <ScreenSubcontratas orgId={orgId} showToast={showToast} />
                 )}
                 {activeTab === 'settings' && ScreenSettings()}
                 {activeTab === 'preview' && ScreenPreview()}
