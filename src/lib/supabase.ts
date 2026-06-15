@@ -1386,6 +1386,28 @@ export async function updateQuoteStatus(
   if (error) throw error;
 }
 
+export async function updateQuote(
+  quoteId: string,
+  clientId: string,
+  descripcion: string,
+  items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario'>[],
+): Promise<TradeQuote> {
+  const totalNeto = items.reduce((s, i) => s + i.cantidad * i.precio_unitario, 0);
+  const { data: quote, error: qErr } = await supabase
+    .from('trade_quotes')
+    .update({ client_id: clientId, descripcion, total_neto: totalNeto })
+    .eq('id', quoteId)
+    .select()
+    .single();
+  if (qErr) throw qErr;
+  await supabase.from('trade_quote_items').delete().eq('quote_id', quoteId);
+  const { error: iErr } = await supabase.from('trade_quote_items').insert(
+    items.map((item, idx) => ({ quote_id: quoteId, ...item, posicion: idx })),
+  );
+  if (iErr) throw iErr;
+  return quote as TradeQuote;
+}
+
 // ── Datos fiscales ────────────────────────────────────────────────────────
 
 export async function saveFiscalData(

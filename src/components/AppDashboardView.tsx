@@ -60,11 +60,12 @@ import {
   Navigation,
   Route,
   Receipt,
+  Edit2,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { geocodeAddress } from '../lib/geocoder';
 import type { GeoLocation } from '../lib/routeOptimizer';
@@ -1905,6 +1906,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   } | null>(null);
   const [savedActuacion, setSavedActuacion] = useState<boolean>(false);
   const [selectedQuoteForPreview, setSelectedQuoteForPreview] = useState<Presupuesto | null>(null);
+  const [editingQuoteId, setEditingQuoteId] = useState<string | null>(null); // null = crear nuevo, string = editar existente
 
   useEffect(() => {
     if (!selectedQuoteForPreview) { setQuoteTokenStatus(null); return; }
@@ -2064,30 +2066,37 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     if (!editingQuote.nombreCliente) { showToast('Selecciona un cliente', 'error'); return; }
     if (editingQuote.partidas.length === 0) { showToast('Añade al menos una partida', 'error'); return; }
 
+    const isEditing = !!editingQuoteId;
     let saved: Presupuesto;
+    const partidasPayload = editingQuote.partidas.map(p => ({ descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precio_unitario: p.precioUnitario }));
 
     if (isLiveMode && orgId) {
       const client = clientes.find(c => c.nombre === editingQuote.nombreCliente);
       if (!client) { showToast('Cliente no encontrado en CRM', 'error'); return; }
       try {
-        const dbQuote = await saveQuote(
-          orgId, client.id, editingQuote.descripcion,
-          editingQuote.partidas.map(p => ({ descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precio_unitario: p.precioUnitario })),
-        );
-        saved = { id: dbQuote.numero, nombreCliente: editingQuote.nombreCliente, descripcion: dbQuote.descripcion ?? '', partidas: editingQuote.partidas, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], telefonoCliente: editingQuote.telefonoCliente, emailCliente: editingQuote.emailCliente };
+        if (isEditing) {
+          const dbQuote = await updateQuote(editingQuoteId, client.id, editingQuote.descripcion, partidasPayload);
+          saved = { ...editingQuote, id: dbQuote.numero, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
+        } else {
+          const dbQuote = await saveQuote(orgId, client.id, editingQuote.descripcion, partidasPayload);
+          saved = { id: dbQuote.numero, nombreCliente: editingQuote.nombreCliente, descripcion: dbQuote.descripcion ?? '', partidas: editingQuote.partidas, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], telefonoCliente: editingQuote.telefonoCliente, emailCliente: editingQuote.emailCliente };
+        }
       } catch (e: any) { showToast('Error al guardar: ' + e.message, 'error'); return; }
     } else {
-      saved = { ...editingQuote, id: `P-2026-00${presupuestos.length + 1}` };
+      saved = { ...editingQuote, id: editingQuoteId ?? `P-2026-00${presupuestos.length + 1}` };
     }
 
-    // Aprender precios rellenados por el usuario
     autoLearnPrices(editingQuote.partidas, 'manual');
-    setPresupuestos(prev => [saved, ...prev]);
+    if (isEditing) {
+      setPresupuestos(prev => prev.map(p => p.id === saved.id ? saved : p));
+    } else {
+      setPresupuestos(prev => [saved, ...prev]);
+    }
+    setEditingQuoteId(null);
     setSelectedQuoteForPreview(saved);
     setActiveTab('preview');
-    showToast('Presupuesto guardado');
-    setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 3000);
+    showToast(isEditing ? 'Presupuesto actualizado' : 'Presupuesto guardado');
+    if (!isEditing) { setShowConfetti(true); setTimeout(() => setShowConfetti(false), 3000); }
   };
 
   const convertQuoteToInvoice = (presupuesto: Presupuesto) => {
@@ -5148,7 +5157,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <span>Voz IA</span>
                   </button>
                   <button
-                    onClick={() => setActiveTab('create_quote')}
+                    onClick={() => { setEditingQuoteId(null); setActiveTab('create_quote'); }}
                     className="bg-blue-600 hover:bg-blue-700 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl shadow-xs flex items-center gap-1.5 cursor-pointer"
                   >
                     <FilePlus className="w-3.5 h-3.5" />
@@ -5347,6 +5356,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               };
               setWizardQuote(quoteBase);
               setEditingQuote(quoteBase);
+              setEditingQuoteId(null);
               setWizardOrigin('voz');
               setWizardStep(4);
               setWizardActive(true);
@@ -5878,7 +5888,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 Voz IA
               </button>
               <button
-                onClick={() => setActiveTab('create_quote')}
+                onClick={() => { setEditingQuoteId(null); setActiveTab('create_quote'); }}
                 className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl cursor-pointer border border-slate-200"
               >
                 <FilePlus className="w-4 h-4" />
@@ -6033,21 +6043,38 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     );
   }
 
-  // ================= DESKTOP: CREAR PRESUPUESTO SCREEN =================
+  // ================= DESKTOP: CREAR/EDITAR PRESUPUESTO SCREEN =================
   function ScreenCreateQuote() {
     return (
       <div className="bg-white border border-slate-200 rounded-xl p-5 space-y-6">
         <div className="flex justify-between items-center pb-4 border-b border-slate-200">
-          <div>
-            <h3 className="text-md font-black uppercase text-slate-900">Borrador de Presupuesto</h3>
+          <div className="flex items-center gap-3">
+            {editingQuoteId && (
+              <button
+                onClick={() => { setEditingQuoteId(null); setActiveTab('preview'); }}
+                className="flex items-center gap-1 text-slate-400 hover:text-slate-700 cursor-pointer text-xs"
+              >
+                ← Volver
+              </button>
+            )}
+            <div>
+              <h3 className="text-md font-black uppercase text-slate-900">
+                {editingQuoteId ? `Editar ${editingQuoteId}` : 'Borrador de Presupuesto'}
+              </h3>
+              {editingQuoteId && (
+                <p className="text-[10px] text-amber-600 font-semibold mt-0.5">Editando presupuesto existente — estado: {editingQuote.estado}</p>
+              )}
+            </div>
           </div>
-          <button 
-            onClick={() => setIsVoiceModalOpen(true)}
-            className="flex items-center gap-2 bg-blue-600/10 hover:bg-blue-650/20 border border-blue-500/30 text-blue-450 font-bold uppercase tracking-wider text-[10px] py-2.5 px-4 rounded-xl cursor-pointer"
-          >
-            <Mic className="w-4 h-4 animate-pulse text-blue-400" />
-            <span>Asistente por Voz 🎙️</span>
-          </button>
+          {!editingQuoteId && (
+            <button
+              onClick={() => setIsVoiceModalOpen(true)}
+              className="flex items-center gap-2 bg-blue-600/10 hover:bg-blue-650/20 border border-blue-500/30 text-blue-450 font-bold uppercase tracking-wider text-[10px] py-2.5 px-4 rounded-xl cursor-pointer"
+            >
+              <Mic className="w-4 h-4 animate-pulse text-blue-400" />
+              <span>Asistente por Voz 🎙️</span>
+            </button>
+          )}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -6435,6 +6462,31 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <FileText className="w-3.5 h-3.5" />
               Word
             </button>
+            {selectedQuoteForPreview.estado !== 'Facturado' && (
+              <button
+                onClick={() => {
+                  // Cargar presupuesto en el editor para editar
+                  const q = selectedQuoteForPreview;
+                  setEditingQuoteId(q.id);
+                  setEditingQuote({
+                    id: q.id,
+                    nombreCliente: q.nombreCliente,
+                    telefonoCliente: q.telefonoCliente ?? '',
+                    emailCliente: q.emailCliente ?? '',
+                    descripcion: q.descripcion,
+                    fecha: q.fecha,
+                    partidas: q.partidas ?? [],
+                    total: q.total ?? 0,
+                    estado: q.estado,
+                  });
+                  setActiveTab('create_quote');
+                }}
+                className="flex items-center gap-1.5 bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer"
+              >
+                <Edit2 className="w-3.5 h-3.5" />
+                Editar
+              </button>
+            )}
             {selectedQuoteForPreview.estado !== 'Facturado' && (
               <button onClick={() => convertQuoteToInvoice(selectedQuoteForPreview)} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer flex items-center gap-1.5">
                 <FileText className="w-3.5 h-3.5" />
