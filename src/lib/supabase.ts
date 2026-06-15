@@ -1911,22 +1911,45 @@ export async function loadJobPhotos(jobId: string): Promise<TradeJobPhoto[]> {
   return (data ?? []) as TradeJobPhoto[];
 }
 
+async function compressImage(file: File, maxPx = 1280, quality = 0.80): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let { width, height } = img;
+      if (width > maxPx || height > maxPx) {
+        if (width >= height) { height = Math.round(height * maxPx / width); width = maxPx; }
+        else { width = Math.round(width * maxPx / height); height = maxPx; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = width; canvas.height = height;
+      canvas.getContext('2d')!.drawImage(img, 0, 0, width, height);
+      canvas.toBlob(b => b ? resolve(b) : reject(new Error('compress failed')), 'image/jpeg', quality);
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
 export async function uploadJobPhoto(
   jobId: string,
   file: File,
-  workerId: string,
+  _workerIdUnused: string,
   orgId: string,
 ): Promise<TradeJobPhoto> {
-  const ext = file.name.split('.').pop() ?? 'jpg';
-  const path = `${orgId}/${jobId}/${Date.now()}.${ext}`;
+  const { data: { user } } = await supabase.auth.getUser();
+  const authUid = user?.id ?? '';
+  const compressed = await compressImage(file);
+  const path = `${orgId}/${jobId}/${Date.now()}.jpg`;
   const { error: upErr } = await supabase.storage
     .from('trade-job-photos')
-    .upload(path, file, { contentType: file.type, upsert: false });
+    .upload(path, compressed, { contentType: 'image/jpeg', upsert: false });
   if (upErr) throw upErr;
   const { data: { publicUrl } } = supabase.storage.from('trade-job-photos').getPublicUrl(path);
   const { data, error } = await supabase
     .from('trade_job_photos')
-    .insert({ job_id: jobId, org_id: orgId, uploaded_by_worker_id: workerId, photo_url: publicUrl })
+    .insert({ job_id: jobId, org_id: orgId, uploaded_by_worker_id: authUid, photo_url: publicUrl })
     .select()
     .single();
   if (error) throw error;
@@ -3687,9 +3710,12 @@ export async function callChatbot(
   history: ChatbotMessage[],
   context: ChatbotContext,
 ): Promise<ChatbotResponse> {
+  const { data: { session } } = await supabase.auth.getSession();
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  if (session?.access_token) headers['Authorization'] = `Bearer ${session.access_token}`;
   const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/trade-chatbot`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers,
     body: JSON.stringify({ message, history, context }),
   });
   if (!res.ok) {
