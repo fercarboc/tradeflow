@@ -2819,19 +2819,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= RENDERIZADO MÓVIL REFACTORIZADO Y MEJORADO =================
   function AppContentMobile() {
-    // Sesión cerrada en dispositivo nativo — no mostrar demo
-    if (isNativeDevice && isSessionClosed && !isLiveMode) {
+    // En dispositivo nativo (PWA/móvil) nunca mostrar el modo demo — siempre login
+    if (isNativeDevice && !isLiveMode) {
       return (
         <div
           className="fixed inset-0 bg-[#0B0F14] flex flex-col items-center justify-center p-8 gap-8"
           style={{ paddingTop: 'env(safe-area-inset-top, 0px)', paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
         >
           <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-600/40">
-            <span className="text-white font-black text-xl">TF</span>
+            <img src="/tradeflow.png" alt="TF" className="h-9 w-auto" onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
           </div>
           <div className="text-center space-y-2">
-            <h2 className="text-xl font-bold text-white">Sesión cerrada</h2>
-            <p className="text-sm text-slate-400">Inicia sesión para continuar usando TradeFlow AI</p>
+            <h2 className="text-xl font-bold text-white">TrabFlow AI</h2>
+            <p className="text-sm text-slate-400">Inicia sesión para continuar</p>
           </div>
           <div className="w-full max-w-xs space-y-3">
             <button
@@ -2839,7 +2839,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               className="w-full bg-blue-600 text-white font-bold py-4 rounded-2xl text-sm cursor-pointer active:opacity-80 transition-opacity"
               style={{ boxShadow: '0 0 30px rgba(37,99,235,0.4)' }}
             >
-              Iniciar sesión con email
+              Iniciar sesión
             </button>
           </div>
         </div>
@@ -3425,21 +3425,21 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <div
                 key={j.id}
                 onClick={() => setMobileTab('trabajos')}
-                className="rounded-2xl p-3.5 cursor-pointer active:scale-99 transition-transform border border-amber-500/40 bg-amber-500/12"
+                className="rounded-2xl p-3.5 cursor-pointer active:scale-99 transition-transform border border-amber-500/50 bg-slate-900"
               >
                 <div className="flex items-center justify-between gap-2">
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-bold text-white truncate">{j.titulo}</p>
                     <div className="flex items-center gap-2 mt-0.5">
                       {j.trade_clients?.nombre && (
-                        <p className="text-[10px] text-amber-300 truncate">{j.trade_clients.nombre}</p>
+                        <p className="text-[10px] text-amber-400 truncate">{j.trade_clients.nombre}</p>
                       )}
                       {j.fecha_inicio && (
-                        <span className="text-[9px] font-mono text-slate-400">{new Date(j.fecha_inicio + 'T12:00:00').toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })}</span>
+                        <span className="text-[9px] font-mono text-slate-500">{new Date(j.fecha_inicio + 'T12:00:00').toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })}</span>
                       )}
                     </div>
                   </div>
-                  <span className="text-[8px] font-bold bg-amber-500/25 text-amber-300 border border-amber-500/50 rounded-full px-2 py-0.5 uppercase shrink-0">Visita</span>
+                  <span className="text-[8px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40 rounded-full px-2 py-0.5 uppercase shrink-0">Visita</span>
                 </div>
               </div>
             ))}
@@ -3465,7 +3465,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   key={j.id}
                   onClick={() => setMobileTab('trabajos')}
                   className={`rounded-2xl p-4 cursor-pointer active:scale-99 transition-transform border ${
-                    isCurrent ? 'bg-amber-500/10 border-amber-500/30' : 'bg-slate-900 border-slate-800'
+                    isCurrent ? 'bg-amber-950/70 border-amber-500/50' : 'bg-slate-900 border-slate-800'
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2">
@@ -5888,7 +5888,36 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         ) : (
           <div className="space-y-3">
-            {/* Filtros — fila 1: búsqueda + estado + cliente */}
+            {/* Chips rápidos por estado */}
+            <div className="flex flex-wrap gap-1.5">
+              {([
+                ['todos',     'Todos',      'bg-slate-700 text-white',             'bg-white border-slate-200 text-slate-500 hover:border-slate-400'],
+                ['borrador',  'Borrador',   'bg-slate-600 text-white',             'bg-white border-slate-200 text-slate-500 hover:border-slate-400'],
+                ['enviado',   'Enviado',    'bg-blue-600 text-white',              'bg-blue-50 border-blue-200 text-blue-600 hover:border-blue-400'],
+                ['aceptado',  'Aceptado',   'bg-emerald-600 text-white',           'bg-emerald-50 border-emerald-200 text-emerald-600 hover:border-emerald-400'],
+                ['rechazado', 'Rechazado',  'bg-red-500 text-white',               'bg-red-50 border-red-200 text-red-500 hover:border-red-400'],
+                ['facturado', 'Facturado',  'bg-violet-600 text-white',            'bg-violet-50 border-violet-200 text-violet-600 hover:border-violet-400'],
+                ['vencido',   'Vencido',    'bg-orange-500 text-white',            'bg-orange-50 border-orange-200 text-orange-500 hover:border-orange-400'],
+              ] as [string, string, string, string][]).map(([val, label, activeClass, inactiveClass]) => {
+                const count = val === 'todos'
+                  ? presupuestos.length
+                  : presupuestos.filter(p => p.estado.toLowerCase() === val).length;
+                if (val !== 'todos' && count === 0) return null;
+                const isActive = presupuestoEstado === val;
+                return (
+                  <button
+                    key={val}
+                    onClick={() => setPresupuestoEstado(val)}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold border transition-all cursor-pointer ${isActive ? activeClass + ' border-transparent' : inactiveClass + ' border'}`}
+                  >
+                    {label}
+                    <span className={`text-[9px] font-black rounded-full px-1.5 py-0 ${isActive ? 'bg-white/25' : 'bg-slate-100 text-slate-500'}`}>{count}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Filtros — fila 1: búsqueda + cliente */}
             <div className="flex flex-wrap gap-2 items-center">
               <input
                 type="text"
@@ -5897,19 +5926,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 onChange={e => setPresupuestoSearch(e.target.value)}
                 className="flex-1 min-w-[180px] rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-800 placeholder:text-slate-400 focus:border-blue-400 focus:outline-none"
               />
-              <select
-                value={presupuestoEstado}
-                onChange={e => setPresupuestoEstado(e.target.value)}
-                className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 focus:border-blue-400 focus:outline-none cursor-pointer"
-              >
-                <option value="todos">Todos los estados</option>
-                <option value="borrador">Borrador</option>
-                <option value="enviado">Enviado</option>
-                <option value="aceptado">Aceptado</option>
-                <option value="rechazado">Rechazado</option>
-                <option value="facturado">Facturado</option>
-                <option value="vencido">Vencido</option>
-              </select>
               <select
                 value={presupuestoClienteFiltro}
                 onChange={e => setPresupuestoClienteFiltro(e.target.value)}
@@ -5956,7 +5972,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   const matchDesde = !presupuestoFechaDesde || p.fecha >= presupuestoFechaDesde;
                   const matchHasta = !presupuestoFechaHasta || p.fecha <= presupuestoFechaHasta;
                   return matchSearch && matchEstado && matchCliente && matchDesde && matchHasta;
-                }).length} resultado{presupuestos.length !== 1 ? 's' : ''}
+                }).length} resultados
               </span>
             </div>
           <div className="bg-white border border-slate-200 rounded-xl overflow-hidden">

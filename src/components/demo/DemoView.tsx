@@ -1132,10 +1132,10 @@ function DemoMobileShell({ setCurrentPage, onSwitchToDesktop }: {
         </div>
         <div className="flex items-center gap-2">
           <button
-            onClick={onSwitchToDesktop}
-            className="text-[10px] text-slate-400 hover:text-white cursor-pointer px-2 py-1 rounded-lg border border-white/10 hover:border-white/25 transition-colors hidden sm:block"
+            onClick={() => setCurrentPage(ActivePage.Home)}
+            className="text-[10px] text-slate-400 hover:text-white cursor-pointer px-2 py-1 rounded-lg border border-white/10 hover:border-white/25 transition-colors"
           >
-            Vista PC →
+            ← Sitio web
           </button>
           <button
             onClick={() => setCurrentPage(ActivePage.Registro)}
@@ -1309,7 +1309,51 @@ export default function DemoView({ setCurrentPage }: DemoViewProps) {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-slate-50">
+    <div className="flex flex-col h-screen overflow-hidden bg-slate-50">
+
+      {/* ── Barra de navegación web — siempre visible ── */}
+      <div className="shrink-0 bg-[#020B16] border-b border-white/10 flex items-center justify-between px-4 py-2.5 z-50">
+        <button
+          onClick={() => setCurrentPage(ActivePage.Home)}
+          className="flex items-center gap-2 cursor-pointer group"
+        >
+          <img src="/tradeflow.png" alt="TrabFlow" className="h-5 w-auto" onError={e => { (e.target as HTMLImageElement).style.display='none'; }} />
+          <span className="text-white font-black text-xs tracking-widest uppercase group-hover:text-[#00CFE8] transition-colors">TRABFLOW</span>
+        </button>
+        <nav className="hidden sm:flex items-center gap-1">
+          {([
+            [ActivePage.Home, 'Inicio'],
+            [ActivePage.ComoFunciona, 'Funciones'],
+            [ActivePage.Precios, 'Precios'],
+            [ActivePage.Contacto, 'Contacto'],
+          ] as [ActivePage, string][]).map(([page, label]) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className="px-3 py-1.5 text-[11px] font-semibold text-white/60 hover:text-white transition-colors cursor-pointer"
+            >
+              {label}
+            </button>
+          ))}
+        </nav>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setCurrentPage(ActivePage.AppDashboard)}
+            className="text-[11px] font-semibold text-white/60 hover:text-white transition-colors cursor-pointer px-3 py-1.5 hidden sm:block"
+          >
+            Iniciar sesión
+          </button>
+          <button
+            onClick={() => setCurrentPage(ActivePage.Registro)}
+            className="px-3 py-1.5 rounded-lg bg-[#FFC400] text-[#020B16] text-[11px] font-black uppercase cursor-pointer hover:brightness-110 transition-all"
+          >
+            Registrarse
+          </button>
+        </div>
+      </div>
+
+      {/* ── Contenido demo ── */}
+      <div className="flex flex-1 overflow-hidden">
 
       {/* Mobile overlay */}
       {sidebarOpen && (
@@ -1434,6 +1478,8 @@ export default function DemoView({ setCurrentPage }: DemoViewProps) {
           {renderScreen()}
         </div>
       </div>
+
+      </div>{/* end ── Contenido demo ── */}
     </div>
   );
 }
