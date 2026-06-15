@@ -831,12 +831,12 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
               <button
                 key={e}
                 onClick={() => setFilterEstado(e)}
-                className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-[9px] font-bold uppercase whitespace-nowrap transition-colors cursor-pointer shrink-0 ${
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[11px] font-bold uppercase whitespace-nowrap transition-colors cursor-pointer shrink-0 ${
                   isActive ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'
                 }`}
               >
                 {e === 'todos' ? 'Todos' : ESTADO_LABEL[e]}
-                <span className={`font-mono ${isActive ? 'text-blue-200' : 'text-slate-500'}`}>{count}</span>
+                <span className={`text-[10px] font-black rounded-full px-1.5 ${isActive ? 'bg-white/25' : 'bg-slate-700 text-slate-400'}`}>{count}</span>
               </button>
             );
           })}
@@ -933,6 +933,17 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
                             </div>
                           </div>
                           <div className="flex items-center gap-2 shrink-0">
+                            {(job.direccion || job.localidad) && (
+                              <a
+                                href={mapsUrl(job)}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={e => e.stopPropagation()}
+                                className="flex items-center gap-1 text-[9px] font-bold text-blue-400 hover:text-blue-300 bg-blue-950/60 border border-blue-800/60 px-2 py-1 rounded-lg"
+                              >
+                                <Navigation className="w-2.5 h-2.5" /> Maps
+                              </a>
+                            )}
                             <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded ${
                               isDone ? 'bg-emerald-900/50 text-emerald-400' :
                               job.estado === 'en_curso' ? 'bg-amber-900/50 text-amber-400' :

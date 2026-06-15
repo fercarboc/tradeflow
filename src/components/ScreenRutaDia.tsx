@@ -457,12 +457,22 @@ export default function ScreenRutaDia({
                         {job.titulo}
                       </p>
 
-                      {/* Dirección */}
+                      {/* Dirección + Maps */}
                       <div className="flex items-start gap-1.5">
                         <MapPin className={`w-3 h-3 mt-0.5 shrink-0 ${hasCoords ? 'text-emerald-500' : 'text-amber-400'}`} />
-                        <p className="text-[11px] text-slate-500 leading-tight">
+                        <p className="text-[11px] text-slate-500 leading-tight flex-1">
                           {addressLine(job)}
                         </p>
+                        {(job.direccion || job.localidad) && (
+                          <a
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent([job.direccion, job.localidad, job.cp].filter(Boolean).join(', '))}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1 text-[9px] font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-200 px-2 py-1 rounded-lg shrink-0 ml-1"
+                          >
+                            <Navigation className="w-2.5 h-2.5" /> Cómo llegar
+                          </a>
+                        )}
                       </div>
                       {/* Badge de geolocalización */}
                       <div className="mt-1">
