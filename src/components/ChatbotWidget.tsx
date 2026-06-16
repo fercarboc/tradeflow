@@ -16,9 +16,10 @@ const INITIAL_CHIPS = [
   '¿Cómo hago un presupuesto por voz?',
   '¿Cómo envío por WhatsApp?',
   '¿Qué diferencia hay entre los planes?',
-  '¿Cómo creo un contrato de mantenimiento?',
-  '¿Cómo actualizo mis precios?',
   '¿Cómo facturo a un cliente?',
+  '¿Qué son los Trabajos Externalizados?',
+  '¿Cómo registro una factura de proveedor?',
+  '¿Cómo veo la rentabilidad de mi negocio?',
 ];
 
 // ── Flujo para oficio desconocido ─────────────────────────────────────────────

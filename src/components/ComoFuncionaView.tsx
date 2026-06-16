@@ -432,6 +432,102 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
           </div>
         </div>
 
+        {/* ── Trabajos Externalizados + Gastos ────────── */}
+        <div className="space-y-8">
+          <div className="text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#FFC400]/30 bg-[#FFC400]/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#FFC400] mb-4">
+              Planes Empresa y Empresa+
+            </span>
+            <h2 className="text-3xl font-black uppercase tracking-tight text-white">
+              Gestiona proveedores y controla tus gastos
+            </h2>
+            <p className="text-white/40 text-sm mt-3 max-w-2xl mx-auto leading-relaxed">
+              Subcontrata trabajos, registra facturas de material y conoce la rentabilidad real de cada proyecto — todo en un solo lugar.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Card 1 — Trabajos Externalizados */}
+            <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-7 space-y-4">
+              <div className="h-12 w-12 rounded-2xl bg-[#020B16] flex items-center justify-center text-2xl">🤝</div>
+              <div>
+                <h3 className="text-sm font-black uppercase tracking-wide text-white mb-2">Trabajos Externalizados</h3>
+                <p className="text-sm text-white/50 leading-relaxed">
+                  Subcontrata a otro instalador o empresa cuando no tienes disponibilidad. Gestiona 10 estados del proceso — desde solicitar precio hasta pagar la factura. El cliente nunca ve "subcontrata", solo la partida de obra.
+                </p>
+              </div>
+              <ul className="space-y-1.5">
+                {['Calculadora de margen automática', 'Vinculación a presupuestos', 'Bloqueo al pagar (solo lectura)', 'Directorio de proveedores colaboradores'].map(f => (
+                  <li key={f} className="flex items-center gap-2 text-xs text-white/55">
+                    <span className="text-[#00CFE8]">✓</span>{f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Card 2 — Mayoristas / Material */}
+            <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-7 space-y-4">
+              <div className="h-12 w-12 rounded-2xl bg-[#020B16] flex items-center justify-center text-2xl">🏭</div>
+              <div>
+                <h3 className="text-sm font-black uppercase tracking-wide text-white mb-2">Mayoristas y Distribuidores</h3>
+                <p className="text-sm text-white/50 leading-relaxed">
+                  Da de alta a tus proveedores de material con sus datos fiscales completos. Registra cada factura de compra con su IVA y fecha de vencimiento. Consulta el historial de pagos por proveedor.
+                </p>
+              </div>
+              <ul className="space-y-1.5">
+                {['Ficha fiscal completa (NIF, dirección, IBAN)', 'Facturas con IVA 0/10/21%', 'Estado pagado / pendiente por factura', 'Historial por proveedor'].map(f => (
+                  <li key={f} className="flex items-center gap-2 text-xs text-white/55">
+                    <span className="text-[#00CFE8]">✓</span>{f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Card 3 — Panel Gastos + Resultado */}
+            <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-7 space-y-4">
+              <div className="h-12 w-12 rounded-2xl bg-[#020B16] flex items-center justify-center text-2xl">📊</div>
+              <div>
+                <h3 className="text-sm font-black uppercase tracking-wide text-white mb-2">Panel Gastos y Rentabilidad</h3>
+                <p className="text-sm text-white/50 leading-relaxed">
+                  En Ingresos → Gastos tienes todas las compras de material y facturas de proveedores. En la pestaña Resultado ves el margen bruto real: lo que cobras menos lo que pagas.
+                </p>
+              </div>
+              <ul className="space-y-1.5">
+                {['Gastos agrupados: material + externalizados', 'Resultado neto y margen bruto %', 'Gráfico ingresos vs gastos por mes', 'Vinculación de compra a trabajo concreto'].map(f => (
+                  <li key={f} className="flex items-center gap-2 text-xs text-white/55">
+                    <span className="text-[#00CFE8]">✓</span>{f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Flujo visual */}
+          <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-6 sm:p-8">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-white/40 text-center mb-6">Ciclo completo de un trabajo externalizado</h4>
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-0">
+              {[
+                { label: 'Solicitas precio', emoji: '📋' },
+                { label: 'Recibes presupuesto', emoji: '📩' },
+                { label: 'Lo añades al cliente', emoji: '👤' },
+                { label: 'Proveedor ejecuta', emoji: '🔧' },
+                { label: 'Recibes factura', emoji: '🧾' },
+                { label: 'Pagas y cierras', emoji: '✅' },
+              ].map((step, i, arr) => (
+                <div key={step.label} className="flex items-center gap-2 sm:gap-0">
+                  <div className="flex flex-col items-center gap-1 px-3">
+                    <span className="text-xl">{step.emoji}</span>
+                    <span className="text-[10px] font-bold text-white/55 text-center leading-tight max-w-[80px]">{step.label}</span>
+                  </div>
+                  {i < arr.length - 1 && (
+                    <span className="text-white/20 text-lg hidden sm:block">→</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* ── FAQ ─────────────────────────────────────── */}
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-black uppercase tracking-tight text-white text-center mb-8">

@@ -23,6 +23,10 @@
 | `trade_jobs` + `trade_job_workers` | ✅ Planificación y asignación |
 | `trade_job_photos` | ✅ Storage bucket `trade-job-photos` |
 | `trade_push_subscriptions` | ✅ VAPID Web Push |
+| `trade_subcontractors` | ✅ Proveedores colaboradores (ampliado Jun-2026) |
+| `trade_subcontratas` | ✅ Trabajos externalizados, 10 estados |
+| `trade_mayoristas` | ✅ Proveedores de material (Jun-2026) |
+| `trade_compras` | ✅ Facturas de compra de material (Jun-2026) |
 
 ### Edge Functions desplegadas
 | Función | Estado | Modelo |
@@ -30,6 +34,7 @@
 | `trade-voice-to-quote` | ✅ Claude Haiku 4.5 | Voz → JSON partidas |
 | `trade-photo-scan` | ✅ Claude Haiku 4.5 Vision | Foto → JSON partidas |
 | `trade-push-notify` | ✅ VAPID P-256 nativo Deno | Web Push |
+| `trade-chatbot` | ✅ Claude Haiku 4.5 | Chatbot de ayuda con conocimiento completo |
 | `trade-email` | ⚠️ Parcial | Necesita tipos contact_admin/support_admin |
 
 ### Variables de entorno — Vercel + Supabase
@@ -158,7 +163,26 @@ auth.users
 
 ---
 
-## FASE 7 — Pendientes próximas
+## FASE 7 — Módulos Empresa (Junio 2026) ✅ COMPLETADA
+
+- [x] **Trabajos Externalizados** — `ScreenSubcontratas.tsx` reescrito con 10 estados, calculadora de margen, lock solo lectura al pagar
+- [x] **Proveedores Colaboradores** — directorio con valoración, cobertura, historial
+- [x] **Mayoristas / Distribuidores** — `trade_mayoristas` + CRUD completo
+- [x] **Facturas de compra** — `trade_compras` con IVA (0/10/21%), vencimiento, vinculación a trabajo
+- [x] **ScreenIngresos 3 pestañas** — Ingresos / Gastos / Resultado con KPIs y gráfico dual
+- [x] **Bloqueo de presupuestos facturados** — no se puede añadir partida externalizada a presupuesto Facturado
+- [x] **"Enviar al cliente"** — modal canal WhatsApp / Email (mailto prellenado) / Solo registrar
+- [x] **Chatbot v3** — conocimiento actualizado de todos los módulos, precios Profesional/Empresa/Empresa+
+- [x] **ComoFuncionaView** — nueva sección pública: Trabajos Externalizados + Gastos
+- [x] **Documentación actualizada** — analisis-subcontratas.md, TrabFlow_AnalisisCompleto_v3, plan implementación
+
+### Migraciones BD aplicadas (Jun-2026)
+- `expand_subcontratas_estados_and_proveedor_fields` — 10 estados + 7 campos en `trade_subcontractors`
+- `create_mayoristas_and_compras` — tablas `trade_mayoristas` y `trade_compras` con RLS completo
+
+---
+
+## FASE 8 — Pendientes próximas
 
 ### 🔴 Crítico / Bloquea usuarios reales
 
