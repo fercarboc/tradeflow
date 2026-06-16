@@ -11,6 +11,7 @@ import {
   PaintRoller, BrickWall, PanelsTopLeft, Leaf, SquareStack,
   Blinds, RadioTower, Sun, ArrowUpDown, Car, Brush, Droplets, Camera,
   Monitor, Star, ShieldCheck, Users, Phone, Download, Share2,
+  Handshake, PackageCheck, TrendingUp, Clock, EuroIcon, Lock,
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -117,14 +118,15 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
     'Hasta 5 usuarios en equipo',
     'Roles y permisos granulares',
     'Módulo Ingresos y rentabilidad',
-    'Panel Equipo y Permisos',
+    'Trabajos externalizados + proveedores',
+    'Gastos: material, facturas, mayoristas',
   ];
 
   const empresaPlusFeatures = [
     'Todo lo del plan Empresa',
     'Hasta 15 usuarios en equipo',
     'Módulo Contratos y mantenimientos',
-    'Panel financiero avanzado',
+    'Dashboard gastos y rentabilidad avanzado',
     'Soporte dedicado 1-on-1',
   ];
 
@@ -522,6 +524,128 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          3b. TRABAJA CON PROVEEDORES  (white)
+      ══════════════════════════════════════════════════════ */}
+      <section id="proveedores-section" className="bg-white py-24 px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl space-y-16">
+
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto">
+            <span className="inline-block rounded-full bg-[#020B16] px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#FFC400] mb-5">
+              Planes Empresa y Empresa+
+            </span>
+            <h2 className="text-4xl sm:text-5xl font-black text-[#020B16] uppercase tracking-tight leading-tight mb-4">
+              ¿Te quedas sin manos?<br />
+              <span className="text-[#00CFE8]">Subcontrata sin perder el control.</span>
+            </h2>
+            <p className="text-slate-400 text-base leading-relaxed">
+              Cuando tu equipo está completo o necesitas una especialidad puntual, delega el trabajo a otro instalador o empresa. TrabFlow gestiona todo el ciclo — desde pedir precio hasta pagar la factura — sin que tu cliente sepa que lo has externalizado.
+            </p>
+          </div>
+
+          {/* Benefit rows */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            {/* Benefit 1 — Tiempo */}
+            <div className="rounded-2xl bg-slate-50 border border-slate-100 p-7 flex gap-5">
+              <div className="h-12 w-12 shrink-0 rounded-2xl bg-[#020B16] text-[#00CFE8] flex items-center justify-center">
+                <Clock className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-sm font-black uppercase tracking-wide text-[#020B16] mb-2">Ahorra horas de gestión manual</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">
+                  Sin emails sueltos ni hojas de cálculo. Cada trabajo externalizado tiene su propia ficha con 10 estados de seguimiento: desde que contactas al proveedor hasta que pagas su factura. Todo en un solo lugar.
+                </p>
+              </div>
+            </div>
+
+            {/* Benefit 2 — Margen */}
+            <div className="rounded-2xl bg-slate-50 border border-slate-100 p-7 flex gap-5">
+              <div className="h-12 w-12 shrink-0 rounded-2xl bg-[#020B16] text-[#FFC400] flex items-center justify-center">
+                <EuroIcon className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-sm font-black uppercase tracking-wide text-[#020B16] mb-2">Tu margen, siempre asegurado</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">
+                  La calculadora de margen integrada te muestra el precio al cliente en función de lo que te cobra el proveedor. Botones rápidos del 15 al 40% — el precio al cliente se calcula solo. Tú siempre sabes cuánto ganas.
+                </p>
+              </div>
+            </div>
+
+            {/* Benefit 3 — Cliente no lo ve */}
+            <div className="rounded-2xl bg-slate-50 border border-slate-100 p-7 flex gap-5">
+              <div className="h-12 w-12 shrink-0 rounded-2xl bg-[#020B16] text-[#00CFE8] flex items-center justify-center">
+                <Lock className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-sm font-black uppercase tracking-wide text-[#020B16] mb-2">Tu cliente solo ve la partida de obra</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">
+                  En el presupuesto del cliente aparece la partida como cualquier otra. Nunca se menciona "subcontrata". Tú mantienes la relación con el cliente y la imagen de empresa que lo hace todo.
+                </p>
+              </div>
+            </div>
+
+            {/* Benefit 4 — Proveedores */}
+            <div className="rounded-2xl bg-slate-50 border border-slate-100 p-7 flex gap-5">
+              <div className="h-12 w-12 shrink-0 rounded-2xl bg-[#020B16] text-[#FFC400] flex items-center justify-center">
+                <Handshake className="h-6 w-6" />
+              </div>
+              <div>
+                <h3 className="text-sm font-black uppercase tracking-wide text-[#020B16] mb-2">Directorio de proveedores colaboradores</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">
+                  Da de alta a los instaladores y empresas con los que colaboras habitual­mente. Datos fiscales, área de cobertura, valoración y historial de trabajos. Siempre sabes a quién llamar según la especialidad.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Dark banner — material y gastos */}
+          <div className="rounded-2xl bg-[#020B16] p-8 sm:p-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div className="space-y-4">
+              <span className="inline-block rounded-full border border-[#FFC400]/40 bg-[#FFC400]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-[#FFC400]">
+                Además — Control de gastos
+              </span>
+              <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight leading-tight">
+                Registra tus facturas<br />
+                <span className="text-[#FFC400]">de material y proveedores</span>
+              </h3>
+              <p className="text-sm text-white/50 leading-relaxed max-w-md">
+                En la sección Gastos puedes dar de alta a tus mayoristas y distribuidores de material, registrar sus facturas con el IVA correcto y ver en un vistazo cuánto tienes pendiente de pagar. Todo integrado con el panel de rentabilidad.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {[
+                { icon: <PackageCheck className="h-5 w-5" />, color: 'text-[#00CFE8]', title: 'Facturas de material', desc: 'IVA 0/10/21%, fecha de vencimiento, estado pagado/pendiente' },
+                { icon: <TrendingUp className="h-5 w-5" />, color: 'text-[#FFC400]', title: 'Rentabilidad real', desc: 'Ingresos cobrados menos todos tus gastos = margen bruto real' },
+                { icon: <Handshake className="h-5 w-5" />, color: 'text-[#00CFE8]', title: 'Directorio mayoristas', desc: 'Ficha fiscal completa de cada proveedor de material' },
+                { icon: <CheckCircle className="h-5 w-5" />, color: 'text-[#FFC400]', title: 'Sin duplicidades', desc: 'Todo vinculado al trabajo o presupuesto correspondiente' },
+              ].map((item) => (
+                <div key={item.title} className="rounded-xl bg-white/5 border border-white/8 p-4 space-y-1.5">
+                  <div className={`${item.color}`}>{item.icon}</div>
+                  <div className="text-sm font-black text-white">{item.title}</div>
+                  <p className="text-xs text-white/40 leading-snug">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center">
+            <p className="text-sm text-slate-400 mb-4">Disponible en los planes Empresa (89€/mes) y Empresa+ (179€/mes)</p>
+            <button
+              onClick={() => go(ActivePage.Registro)}
+              className="inline-flex items-center gap-2 rounded-xl bg-[#020B16] px-8 py-4 text-sm font-black uppercase tracking-widest text-[#FFC400] hover:bg-[#0d1f38] transition-colors shadow-lg cursor-pointer"
+            >
+              Empieza gratis 15 días
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+
         </div>
       </section>
 
