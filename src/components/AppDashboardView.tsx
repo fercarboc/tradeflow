@@ -627,6 +627,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [whatsAppProgress, setWhatsAppProgress] = useState<number>(0);
   const [targetQuoteForWhatsApp, setTargetQuoteForWhatsApp] = useState<Presupuesto | null>(null);
 
+  // Modal de envío de presupuesto (elige canal)
+  const [showEnviarModal, setShowEnviarModal] = useState(false);
+
   // CRM Mobile detail active
   const [expandedClientMobileId, setExpandedClientMobileId] = useState<string | null>(null);
   const [crmClientInvoices, setCrmClientInvoices] = useState<Record<string, { numero: string; fecha: string; total: number; estado: string; concepto?: string | null }[]>>({});
@@ -6552,11 +6555,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             )}
             {selectedQuoteForPreview.estado === 'Borrador' && (
               <button
-                onClick={() => markQuoteAs(selectedQuoteForPreview, 'Enviado')}
-                className="flex items-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer"
+                onClick={() => setShowEnviarModal(true)}
+                className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white border border-blue-600 font-bold py-2 px-4 rounded-xl text-[10px] uppercase cursor-pointer"
               >
                 <Send className="w-3.5 h-3.5" />
-                Marcar enviado
+                Enviar al cliente
               </button>
             )}
           </div>
@@ -6620,15 +6623,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <Layers className="w-3.5 h-3.5" />
                 Trabajos externalizados ({previewSubcontratas.length})
               </h3>
-              <button
-                onClick={() => { setDraftSubcontrata({ subcontractor_id: '', descripcion: '', coste: 0, precio_cliente: 0 }); setShowAddSubcontrataModal(true); }}
-                className="flex items-center gap-1 text-[10px] font-bold text-violet-700 border border-violet-200 px-3 py-1.5 rounded-lg hover:bg-violet-50 cursor-pointer"
-              >
-                <Plus className="w-3 h-3" /> Añadir trabajo externalizado
-              </button>
+              {selectedQuoteForPreview.estado !== 'Facturado' && (
+                <button
+                  onClick={() => { setDraftSubcontrata({ subcontractor_id: '', descripcion: '', coste: 0, precio_cliente: 0 }); setShowAddSubcontrataModal(true); }}
+                  className="flex items-center gap-1 text-[10px] font-bold text-violet-700 border border-violet-200 px-3 py-1.5 rounded-lg hover:bg-violet-50 cursor-pointer"
+                >
+                  <Plus className="w-3 h-3" /> Añadir trabajo externalizado
+                </button>
+              )}
             </div>
             {previewSubcontratas.length === 0 ? (
-              <p className="text-xs text-slate-400 italic">Sin trabajos externalizados en este presupuesto. Añade uno si vas a delegar alguna parte a un proveedor.</p>
+              <p className="text-xs text-slate-400 italic">{selectedQuoteForPreview.estado === 'Facturado' ? 'Presupuesto ya facturado — sin trabajos externalizados vinculados.' : 'Sin trabajos externalizados en este presupuesto. Añade uno si vas a delegar alguna parte a un proveedor.'}</p>
             ) : (
               <div className="space-y-2">
                 {previewSubcontratas.map(s => {
@@ -6802,6 +6807,92 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             );
           })()}
         </div>
+
+        {/* Modal enviar presupuesto al cliente */}
+        {showEnviarModal && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowEnviarModal(false)}>
+            <div className="bg-white rounded-2xl w-full max-w-sm shadow-2xl" onClick={e => e.stopPropagation()}>
+              <div className="px-5 pt-5 pb-3 border-b border-slate-100">
+                <h3 className="font-black text-slate-800">Enviar presupuesto al cliente</h3>
+                <p className="text-xs text-slate-400 mt-0.5">{selectedQuoteForPreview.nombreCliente} — {selectedQuoteForPreview.id}</p>
+              </div>
+              <div className="p-4 space-y-2">
+                {/* WhatsApp */}
+                <button
+                  onClick={() => {
+                    setShowEnviarModal(false);
+                    triggerWhatsAppShare(selectedQuoteForPreview);
+                  }}
+                  className="w-full flex items-center gap-3 p-4 rounded-xl border-2 border-emerald-200 hover:bg-emerald-50 cursor-pointer text-left transition-all group"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-emerald-500 flex items-center justify-center shrink-0 text-white text-base">💬</div>
+                  <div>
+                    <p className="text-sm font-black text-slate-800">WhatsApp</p>
+                    <p className="text-[10px] text-slate-400">Abre WhatsApp con el mensaje y el presupuesto</p>
+                    {selectedQuoteForPreview.telefonoCliente && <p className="text-[10px] text-emerald-600 font-bold mt-0.5">{selectedQuoteForPreview.telefonoCliente}</p>}
+                  </div>
+                </button>
+
+                {/* Email */}
+                {selectedQuoteForPreview.emailCliente ? (
+                  <button
+                    onClick={() => {
+                      const subject = encodeURIComponent(`Presupuesto ${selectedQuoteForPreview.id} — ${empresaAjustes.nombre ?? ''}`);
+                      const body = encodeURIComponent(
+                        `Hola ${selectedQuoteForPreview.nombreCliente},\n\nAdjunto encontrarás el presupuesto ${selectedQuoteForPreview.id} por importe de ${selectedQuoteForPreview.total.toFixed(2)}€.\n\n${selectedQuoteForPreview.descripcion}\n\nQuedo a tu disposición para cualquier consulta.\n\nSaludos,\n${empresaAjustes.nombre ?? ''}`
+                      );
+                      window.open(`mailto:${selectedQuoteForPreview.emailCliente}?subject=${subject}&body=${body}`, '_blank');
+                      markQuoteAs(selectedQuoteForPreview, 'Enviado');
+                      setShowEnviarModal(false);
+                      showToast('Email abierto — recuerda adjuntar el PDF');
+                    }}
+                    className="w-full flex items-center gap-3 p-4 rounded-xl border-2 border-blue-200 hover:bg-blue-50 cursor-pointer text-left transition-all"
+                  >
+                    <div className="w-9 h-9 rounded-xl bg-blue-500 flex items-center justify-center shrink-0 text-white">
+                      <Mail className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-black text-slate-800">Email</p>
+                      <p className="text-[10px] text-slate-400">Abre tu cliente de correo con el mensaje redactado</p>
+                      <p className="text-[10px] text-blue-600 font-bold mt-0.5">{selectedQuoteForPreview.emailCliente}</p>
+                    </div>
+                  </button>
+                ) : (
+                  <div className="w-full flex items-center gap-3 p-4 rounded-xl border-2 border-slate-100 bg-slate-50 text-left opacity-60">
+                    <div className="w-9 h-9 rounded-xl bg-slate-300 flex items-center justify-center shrink-0 text-white">
+                      <Mail className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-black text-slate-400">Email</p>
+                      <p className="text-[10px] text-slate-400">Sin email registrado para este cliente</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Solo registrar */}
+                <button
+                  onClick={() => {
+                    markQuoteAs(selectedQuoteForPreview, 'Enviado');
+                    setShowEnviarModal(false);
+                    showToast('Presupuesto marcado como enviado');
+                  }}
+                  className="w-full flex items-center gap-3 p-4 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer text-left transition-all"
+                >
+                  <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
+                    <CheckCircle2 className="w-4 h-4 text-slate-500" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-black text-slate-600">Solo registrar como enviado</p>
+                    <p className="text-[10px] text-slate-400">Lo envié por otro canal (teléfono, en persona…)</p>
+                  </div>
+                </button>
+              </div>
+              <div className="px-5 pb-4">
+                <button onClick={() => setShowEnviarModal(false)} className="w-full py-2.5 border border-slate-200 rounded-xl text-xs font-bold text-slate-500 cursor-pointer hover:border-slate-400">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
