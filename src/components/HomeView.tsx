@@ -236,6 +236,17 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
                         </div>
                       </div>
                     )}
+                    {/* Proveedores scroll CTA */}
+                    <button
+                      onClick={() => document.getElementById('proveedores-section')?.scrollIntoView({ behavior: 'smooth' })}
+                      className="flex items-center gap-3 rounded-xl border border-[#FFC400]/35 bg-[#FFC400]/10 px-4 py-2.5 hover:bg-[#FFC400]/20 transition-all cursor-pointer"
+                    >
+                      <Handshake className="h-5 w-5 text-[#FFC400] shrink-0" />
+                      <div className="text-left leading-tight">
+                        <div className="text-[9px] text-[#FFC400]/70 uppercase tracking-wider">Empresas</div>
+                        <div className="text-sm font-black text-white">Gestiona proveedores</div>
+                      </div>
+                    </button>
                     {/* iOS — instrucciones Share → Añadir a pantalla de inicio */}
                     <button
                       onClick={() => setShowIOSInstructions(!showIOSInstructions)}

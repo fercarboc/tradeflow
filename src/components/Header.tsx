@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { ActivePage } from '../types';
-import { Menu, X, LogIn, Smartphone } from 'lucide-react';
+import { Menu, X, LogIn, Smartphone, Handshake } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface HeaderProps {
@@ -33,6 +33,18 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
     setCurrentPage(page);
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleScrollToProveedores = () => {
+    setMobileMenuOpen(false);
+    if (currentPage === ActivePage.Home) {
+      document.getElementById('proveedores-section')?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      setCurrentPage(ActivePage.Home);
+      setTimeout(() => {
+        document.getElementById('proveedores-section')?.scrollIntoView({ behavior: 'smooth' });
+      }, 120);
+    }
   };
 
   const handleLogin = () => {
@@ -90,6 +102,13 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
         {/* Desktop CTA */}
         <div className="hidden lg:flex items-center gap-2" id="desktop-cta">
           <button
+            onClick={handleScrollToProveedores}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#FFC400]/40 bg-[#FFC400]/10 text-[10px] font-bold uppercase tracking-widest text-[#FFC400] hover:bg-[#FFC400]/20 transition-all cursor-pointer"
+          >
+            <Handshake className="h-3 w-3" />
+            Proveedores
+          </button>
+          <button
             onClick={handleLogin}
             className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-white/70 border border-white/15 rounded-lg hover:border-white/40 hover:text-white transition-colors cursor-pointer flex items-center gap-1.5"
             id="header-login-button"
@@ -146,6 +165,13 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
                 );
               })}
               <div className="pt-4 mt-2 border-t border-white/10 flex flex-col gap-2">
+                <button
+                  onClick={handleScrollToProveedores}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#FFC400]/40 bg-[#FFC400]/10 py-3 font-bold text-sm text-[#FFC400] cursor-pointer hover:bg-[#FFC400]/20"
+                >
+                  <Handshake className="h-4 w-4" />
+                  Gestión de Proveedores
+                </button>
                 <button
                   onClick={() => { setCurrentPage(ActivePage.Demo); setMobileMenuOpen(false); }}
                   className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#00CFE8] py-3 font-bold text-sm text-[#020B16] cursor-pointer"
