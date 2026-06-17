@@ -1,0 +1,27 @@
+ Categoría: ACS
+
+Título:
+Prevención y control de la legionelosis
+
+Norma base:
+Real Decreto 487/2022, de 21 de junio
+
+Fuente:
+BOE
+
+ID BOE:
+BOE-A-2022-10297
+
+Tipo:
+Texto consolidado
+
+Uso:
+- Agua caliente sanitaria
+- Legionella
+- Mantenimiento
+- Limpieza y desinfección
+- Control sanitario
+- Instalaciones con acumulación y retorno
+
+Estado:
+Activo

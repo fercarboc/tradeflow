@@ -1,0 +1,1220 @@
+[
+  {
+    "chunk_id": "CTE-SEC-000",
+    "article_id": null,
+    "article_title": null,
+    "token_count": 102
+  },
+  {
+    "chunk_id": "CTE-SEC-001",
+    "article_id": null,
+    "article_title": "2 \nDisposiciones normativas publicadas en el Boletín Oficial del Estado",
+    "token_count": 261
+  },
+  {
+    "chunk_id": "CTE-SEC-002",
+    "article_id": null,
+    "article_title": "3 \nIntroducción",
+    "token_count": 178
+  },
+  {
+    "chunk_id": "CTE-SEC-003",
+    "article_id": null,
+    "article_title": "1 El objetivo del requisito básico “Seguridad en caso de incendio” consiste en reducir a límites acep-",
+    "token_count": 77
+  },
+  {
+    "chunk_id": "CTE-SEC-005",
+    "article_id": null,
+    "article_title": "3 El Documento Básico DB-SI especifica parámetros objetivos y procedimientos cuyo cumplimiento",
+    "token_count": 134
+  },
+  {
+    "chunk_id": "CTE-SEC-011-1",
+    "article_id": null,
+    "article_title": "11.6 Exigencia básica SI 6 – Resistencia al fuego de la estructura",
+    "token_count": 1040
+  },
+  {
+    "chunk_id": "CTE-SEC-012",
+    "article_id": null,
+    "article_title": "5 \nLas normas recogidas en este DB podrán ser sustituidas por otras de las utilizadas en cualquiera de los",
+    "token_count": 168
+  },
+  {
+    "chunk_id": "CTE-SEC-013",
+    "article_id": null,
+    "article_title": "1 En aquellas zonas destinadas a albergar personas bajo régimen de privación de libertad o con limita-",
+    "token_count": 92
+  },
+  {
+    "chunk_id": "CTE-SEC-017",
+    "article_id": null,
+    "article_title": "5 En los edificios, establecimientos o zonas de uso Almacén el cumplimiento de las exigencias básicas",
+    "token_count": 184
+  },
+  {
+    "chunk_id": "CTE-SEC-018",
+    "article_id": null,
+    "article_title": "6 Los establecimientos cuya actividad sea el servicio de alquiler de trasteros y almacenes se conside-",
+    "token_count": 161
+  },
+  {
+    "chunk_id": "CTE-SEC-019",
+    "article_id": null,
+    "article_title": "7 A los efectos de la aplicación de este Documento Básico las áreas públicas de venta integradas en",
+    "token_count": 325
+  },
+  {
+    "chunk_id": "CTE-SEC-020",
+    "article_id": null,
+    "article_title": "8 Cuando un cambio de uso afecte únicamente a parte de un edificio o de un establecimiento, este DB",
+    "token_count": 145
+  },
+  {
+    "chunk_id": "CTE-SEC-022",
+    "article_id": null,
+    "article_title": "10 Si la reforma altera la ocupación o su distribución con respecto a los elementos de evacuación, la",
+    "token_count": 100
+  },
+  {
+    "chunk_id": "CTE-SEC-024",
+    "article_id": null,
+    "article_title": "1 La aplicación de los procedimientos de este DB se llevará a cabo de acuerdo con las condiciones",
+    "token_count": 126
+  },
+  {
+    "chunk_id": "CTE-SEC-025",
+    "article_id": null,
+    "article_title": "1 Este DB establece las condiciones de reacción al fuego y de resistencia al fuego de los elementos",
+    "token_count": 157
+  },
+  {
+    "chunk_id": "CTE-SEC-027",
+    "article_id": null,
+    "article_title": "3 Los sistemas de cierre automático de las puertas resistentes al fuego deben consistir en un dispositi-",
+    "token_count": 127
+  },
+  {
+    "chunk_id": "CTE-SEC-029",
+    "article_id": null,
+    "article_title": "5 La utilización en las obras de sistemas complejos y no convencionales (por ejemplo, los sistemas de",
+    "token_count": 196
+  },
+  {
+    "chunk_id": "CTE-SEC-030",
+    "article_id": null,
+    "article_title": "7 \nVI Laboratorios de ensayo",
+    "token_count": 359
+  },
+  {
+    "chunk_id": "CTE-SEC-037",
+    "article_id": null,
+    "article_title": "4.2 Cálculo",
+    "token_count": 76
+  },
+  {
+    "chunk_id": "CTE-SEC-043",
+    "article_id": null,
+    "article_title": "6 Determinación de la resistencia al fuego",
+    "token_count": 134
+  },
+  {
+    "chunk_id": "CTE-SEC-044",
+    "article_id": null,
+    "article_title": "10 \nSección SI 1",
+    "token_count": 98
+  },
+  {
+    "chunk_id": "CTE-SEC-045",
+    "article_id": null,
+    "article_title": "2 A efectos del cómputo de la superficie de un sector de incendio, se considera que los locales de",
+    "token_count": 78
+  },
+  {
+    "chunk_id": "CTE-SEC-046",
+    "article_id": null,
+    "article_title": "3 La resistencia al fuego de los elementos separadores de los sectores de incendio debe satisfacer las",
+    "token_count": 118
+  },
+  {
+    "chunk_id": "CTE-SEC-047",
+    "article_id": null,
+    "article_title": "4 Las escaleras y los ascensores que comuniquen sectores de incendio diferentes o bien zonas de",
+    "token_count": 439
+  },
+  {
+    "chunk_id": "CTE-SEC-048-1",
+    "article_id": null,
+    "article_title": "11 \nZona de uso Residencial Vivienda en todo caso.",
+    "token_count": 932
+  },
+  {
+    "chunk_id": "CTE-SEC-049-1",
+    "article_id": null,
+    "article_title": "12 \nHospitalario",
+    "token_count": 793
+  },
+  {
+    "chunk_id": "CTE-SEC-050",
+    "article_id": null,
+    "article_title": "13 \n \nTabla 1.2 Resistencia al fuego de las paredes, techos y puertas que delimitan sectores de incendio",
+    "token_count": 157
+  },
+  {
+    "chunk_id": "CTE-SEC-053",
+    "article_id": null,
+    "article_title": "EI\n2",
+    "token_count": 492
+  },
+  {
+    "chunk_id": "CTE-SEC-054",
+    "article_id": null,
+    "article_title": "2 Locales y zonas de riesgo especial",
+    "token_count": 83
+  },
+  {
+    "chunk_id": "CTE-SEC-055",
+    "article_id": null,
+    "article_title": "2 Los locales destinados a albergar instalaciones y equipos regulados por reglamentos específicos,",
+    "token_count": 187
+  },
+  {
+    "chunk_id": "CTE-SEC-056",
+    "article_id": null,
+    "article_title": "14 \n \n \nTabla 2.1 Clasificación de los locales y zonas de riesgo especial integrados en edificios",
+    "token_count": 156
+  },
+  {
+    "chunk_id": "CTE-SEC-059",
+    "article_id": null,
+    "article_title": "2\n S>200 m",
+    "token_count": 275
+  },
+  {
+    "chunk_id": "CTE-SEC-068",
+    "article_id": null,
+    "article_title": "2 \nS<300 m",
+    "token_count": 85
+  },
+  {
+    "chunk_id": "CTE-SEC-070",
+    "article_id": null,
+    "article_title": "6\n MJ, se considerarán zonas de uso Almacén.",
+    "token_count": 783
+  },
+  {
+    "chunk_id": "CTE-SEC-071",
+    "article_id": null,
+    "article_title": "6\n MJ se considerarán zonas de uso Almacén.",
+    "token_count": 691
+  },
+  {
+    "chunk_id": "CTE-SEC-073",
+    "article_id": null,
+    "article_title": "1 La compartimentación contra incendios de los espacios ocupables debe tener continuidad en los",
+    "token_count": 92
+  },
+  {
+    "chunk_id": "CTE-SEC-074",
+    "article_id": null,
+    "article_title": "2 La resistencia al fuego requerida a los elementos de compartimentación de incendios se debe man-",
+    "token_count": 285
+  },
+  {
+    "chunk_id": "CTE-SEC-077",
+    "article_id": null,
+    "article_title": "2 Las condiciones de reacción al fuego de los componentes de las instalaciones eléctricas (cables,",
+    "token_count": 518
+  },
+  {
+    "chunk_id": "CTE-SEC-078",
+    "article_id": null,
+    "article_title": "3 Los cerramientos formados por elementos textiles, tales como carpas, serán nivel T2 conforme a la",
+    "token_count": 89
+  },
+  {
+    "chunk_id": "CTE-SEC-079",
+    "article_id": null,
+    "article_title": "4 En los edificios y establecimientos de uso Pública concurrencia los elementos decorativos y de mobi-",
+    "token_count": 85
+  },
+  {
+    "chunk_id": "CTE-SEC-080",
+    "article_id": null,
+    "article_title": "18 \nPasan el ensayo según las normas siguientes:",
+    "token_count": 160
+  },
+  {
+    "chunk_id": "CTE-SEC-082",
+    "article_id": null,
+    "article_title": "2 Con el fin de limitar el riesgo de propagación exterior horizontal del incendio a través de la fachada",
+    "token_count": 287
+  },
+  {
+    "chunk_id": "CTE-SEC-084",
+    "article_id": null,
+    "article_title": "3 Con el fin de limitar el riesgo de propagación vertical del incendio por fachada entre dos sectores de",
+    "token_count": 173
+  },
+  {
+    "chunk_id": "CTE-SEC-085",
+    "article_id": null,
+    "article_title": "4 La clase de reacción al fuego de los sistemas constructivos de fachada que ocupen más del 10% de",
+    "token_count": 141
+  },
+  {
+    "chunk_id": "CTE-SEC-086",
+    "article_id": null,
+    "article_title": "5 Los sistemas de aislamiento situados en el interior de cámaras ventiladas deben tener al menos la",
+    "token_count": 153
+  },
+  {
+    "chunk_id": "CTE-SEC-087",
+    "article_id": null,
+    "article_title": "6 En aquellas fachadas de altura igual o inferior a 18 m cuyo arranque inferior sea accesible al público",
+    "token_count": 97
+  },
+  {
+    "chunk_id": "CTE-SEC-088",
+    "article_id": null,
+    "article_title": "2 Cubiertas",
+    "token_count": 182
+  },
+  {
+    "chunk_id": "CTE-SEC-089",
+    "article_id": null,
+    "article_title": "2 En el encuentro entre una cubierta y una fachada que pertenezcan a sectores de incendio o a edifi-",
+    "token_count": 150
+  },
+  {
+    "chunk_id": "CTE-SEC-090",
+    "article_id": null,
+    "article_title": "3 Los materiales que ocupen más del 10% del revestimiento o acabado exterior de las zonas de cu-",
+    "token_count": 146
+  },
+  {
+    "chunk_id": "CTE-SEC-091",
+    "article_id": null,
+    "article_title": "22 \nSección SI 3",
+    "token_count": 277
+  },
+  {
+    "chunk_id": "CTE-SEC-092",
+    "article_id": null,
+    "article_title": "2 Como excepción, los establecimientos de uso Pública concurrencia cuya superficie construida total",
+    "token_count": 103
+  },
+  {
+    "chunk_id": "CTE-SEC-093",
+    "article_id": null,
+    "article_title": "2 Cálculo de la ocupación",
+    "token_count": 143
+  },
+  {
+    "chunk_id": "CTE-SEC-094",
+    "article_id": null,
+    "article_title": "2 A efectos de determinar la ocupación, se debe tener en cuenta el carácter simultáneo o alternativo",
+    "token_count": 146
+  },
+  {
+    "chunk_id": "CTE-SEC-095",
+    "article_id": null,
+    "article_title": "23 \nResidencial",
+    "token_count": 118
+  },
+  {
+    "chunk_id": "CTE-SEC-097",
+    "article_id": null,
+    "article_title": "5 \n \nAulas (excepto de escuelas infantiles) 1,5",
+    "token_count": 206
+  },
+  {
+    "chunk_id": "CTE-SEC-098",
+    "article_id": null,
+    "article_title": "5 \nPública concu-",
+    "token_count": 243
+  },
+  {
+    "chunk_id": "CTE-SEC-101",
+    "article_id": null,
+    "article_title": "2 \n Zonas de público en terminales de transporte 10",
+    "token_count": 238
+  },
+  {
+    "chunk_id": "CTE-SEC-103",
+    "article_id": null,
+    "article_title": "1 En la tabla 3.1 se indica el número de salidas que debe haber en cada caso, como mínimo, así como",
+    "token_count": 271
+  },
+  {
+    "chunk_id": "CTE-SEC-104",
+    "article_id": null,
+    "article_title": "25 \nLa longitud de los recorridos de evacuación hasta una salida de planta no excede de 25",
+    "token_count": 703
+  },
+  {
+    "chunk_id": "CTE-SEC-106",
+    "article_id": null,
+    "article_title": "1 Cuando en una zona, en un recinto, en una planta o en el edificio deba existir más de una salida,",
+    "token_count": 79
+  },
+  {
+    "chunk_id": "CTE-SEC-107",
+    "article_id": null,
+    "article_title": "2 A efectos del cálculo de la capacidad de evacuación de las escaleras y de la distribución de los ocu-",
+    "token_count": 134
+  },
+  {
+    "chunk_id": "CTE-SEC-108",
+    "article_id": null,
+    "article_title": "3 En la planta de desembarco de una escalera, el flujo de personas que la utiliza deberá añadirse a la",
+    "token_count": 131
+  },
+  {
+    "chunk_id": "CTE-SEC-109-1",
+    "article_id": null,
+    "article_title": "4.2 Cálculo",
+    "token_count": 567
+  },
+  {
+    "chunk_id": "CTE-SEC-109-2",
+    "article_id": null,
+    "article_title": "4.2 Cálculo",
+    "token_count": 893
+  },
+  {
+    "chunk_id": "CTE-SEC-109-3",
+    "article_id": null,
+    "article_title": "4.2 Cálculo",
+    "token_count": 154
+  },
+  {
+    "chunk_id": "CTE-SEC-110",
+    "article_id": null,
+    "article_title": "5 Protección de las escaleras",
+    "token_count": 609
+  },
+  {
+    "chunk_id": "CTE-SEC-111",
+    "article_id": null,
+    "article_title": "6 Puertas situadas en recorridos de evacuación",
+    "token_count": 146
+  },
+  {
+    "chunk_id": "CTE-SEC-112",
+    "article_id": null,
+    "article_title": "2 Se considera que satisfacen el anterior requisito funcional los dispositivos de apertura mediante ma-",
+    "token_count": 128
+  },
+  {
+    "chunk_id": "CTE-SEC-113",
+    "article_id": null,
+    "article_title": "3 Abrirá en el sentido de la evacuación toda puerta de salida:",
+    "token_count": 119
+  },
+  {
+    "chunk_id": "CTE-SEC-114",
+    "article_id": null,
+    "article_title": "4 Cuando existan puertas giratorias, deben disponerse puertas abatibles de apertura manual contiguas",
+    "token_count": 100
+  },
+  {
+    "chunk_id": "CTE-SEC-116",
+    "article_id": null,
+    "article_title": "5 Las puertas peatonales automáticas dispondrán de un sistema que en caso de fallo en el suministro",
+    "token_count": 319
+  },
+  {
+    "chunk_id": "CTE-SEC-117",
+    "article_id": null,
+    "article_title": "7 Señalización de los medios de evacuación",
+    "token_count": 688
+  },
+  {
+    "chunk_id": "CTE-SEC-118",
+    "article_id": null,
+    "article_title": "2 Las señales deben ser visibles incluso en caso de fallo en el suministro al alumbrado normal. Cuan-",
+    "token_count": 79
+  },
+  {
+    "chunk_id": "CTE-SEC-119",
+    "article_id": null,
+    "article_title": "8 Control del humo de incendio",
+    "token_count": 176
+  },
+  {
+    "chunk_id": "CTE-SEC-120",
+    "article_id": null,
+    "article_title": "2 El diseño, cálculo, instalación y mantenimiento del sistema pueden realizarse de acuerdo con las",
+    "token_count": 308
+  },
+  {
+    "chunk_id": "CTE-SEC-122",
+    "article_id": null,
+    "article_title": "1 En los edificios de uso Residencial Vivienda con altura de evacuación superior a 28 m, de uso Resi-",
+    "token_count": 259
+  },
+  {
+    "chunk_id": "CTE-SEC-128",
+    "article_id": null,
+    "article_title": "1 Los edificios deben disponer de los equipos e instalaciones de protección contra incendios que se",
+    "token_count": 580
+  },
+  {
+    "chunk_id": "CTE-SEC-129",
+    "article_id": null,
+    "article_title": "33 \nInstalación automática de",
+    "token_count": 791
+  },
+  {
+    "chunk_id": "CTE-SEC-130",
+    "article_id": null,
+    "article_title": "34 \nAscensor de emergencia En las zonas de hospitalización y de tratamiento intensivo cuya altura de evacua-",
+    "token_count": 773
+  },
+  {
+    "chunk_id": "CTE-SEC-131",
+    "article_id": null,
+    "article_title": "35 \nSistema de detección de in-",
+    "token_count": 651
+  },
+  {
+    "chunk_id": "CTE-SEC-133",
+    "article_id": null,
+    "article_title": "1 La señalización de las instalaciones manuales de protección contra incendios debe cumplir lo esta-",
+    "token_count": 79
+  },
+  {
+    "chunk_id": "CTE-SEC-134",
+    "article_id": null,
+    "article_title": "36 \n \nSección SI 5",
+    "token_count": 103
+  },
+  {
+    "chunk_id": "CTE-SEC-136",
+    "article_id": null,
+    "article_title": "1.2 Entorno de los edificios",
+    "token_count": 221
+  },
+  {
+    "chunk_id": "CTE-SEC-137",
+    "article_id": null,
+    "article_title": "2 La condición referida al punzonamiento debe cumplirse en las tapas de registro de las canalizaciones",
+    "token_count": 114
+  },
+  {
+    "chunk_id": "CTE-SEC-138",
+    "article_id": null,
+    "article_title": "3 El espacio de maniobra debe mantenerse libre de mobiliario urbano, arbolado, jardines, mojones u",
+    "token_count": 85
+  },
+  {
+    "chunk_id": "CTE-SEC-141",
+    "article_id": null,
+    "article_title": "6 En zonas edificadas limítrofes o interiores a áreas forestales, deben cumplirse las condiciones si-",
+    "token_count": 207
+  },
+  {
+    "chunk_id": "CTE-SEC-142",
+    "article_id": null,
+    "article_title": "2 Accesibilidad por fachada",
+    "token_count": 233
+  },
+  {
+    "chunk_id": "CTE-SEC-143",
+    "article_id": null,
+    "article_title": "2 Los aparcamientos robotizados dispondrán, en cada sector de incendios en que estén compartimen-",
+    "token_count": 105
+  },
+  {
+    "chunk_id": "CTE-SEC-145",
+    "article_id": null,
+    "article_title": "1 Generalidades",
+    "token_count": 116
+  },
+  {
+    "chunk_id": "CTE-SEC-146",
+    "article_id": null,
+    "article_title": "2 En este Documento Básico se indican únicamente métodos simplificados de cálculo suficientemente",
+    "token_count": 84
+  },
+  {
+    "chunk_id": "CTE-SEC-147",
+    "article_id": null,
+    "article_title": "3 Pueden adoptarse otros modelos de incendio para representar la evolución de la temperatura duran-",
+    "token_count": 187
+  },
+  {
+    "chunk_id": "CTE-SEC-152",
+    "article_id": null,
+    "article_title": "2 Resistencia al fuego de la estructura",
+    "token_count": 111
+  },
+  {
+    "chunk_id": "CTE-SEC-153",
+    "article_id": null,
+    "article_title": "2 En el caso de sectores de riesgo mínimo y en aquellos sectores de incendio en los que, por su tama-",
+    "token_count": 147
+  },
+  {
+    "chunk_id": "CTE-SEC-155",
+    "article_id": null,
+    "article_title": "3 Elementos estructurales principales",
+    "token_count": 606
+  },
+  {
+    "chunk_id": "CTE-SEC-156",
+    "article_id": null,
+    "article_title": "2 La estructura principal de las cubiertas ligeras no previstas para ser utilizadas en la evacuación de",
+    "token_count": 177
+  },
+  {
+    "chunk_id": "CTE-SEC-158",
+    "article_id": null,
+    "article_title": "4 Elementos estructurales secundarios",
+    "token_count": 181
+  },
+  {
+    "chunk_id": "CTE-SEC-159",
+    "article_id": null,
+    "article_title": "2 Las estructuras sustentantes de cerramientos formados por elementos textiles, tales como carpas,",
+    "token_count": 122
+  },
+  {
+    "chunk_id": "CTE-SEC-165",
+    "article_id": null,
+    "article_title": "5 Como simplificación para el cálculo se puede estimar el efecto de las acciones de cálculo en situa-",
+    "token_count": 157
+  },
+  {
+    "chunk_id": "CTE-SEC-166",
+    "article_id": null,
+    "article_title": "6 Determinación de la resistencia al fuego",
+    "token_count": 129
+  },
+  {
+    "chunk_id": "CTE-SEC-170",
+    "article_id": null,
+    "article_title": "5 En la utilización de algunas tablas de especificaciones de hormigón y acero se considera el coefi-",
+    "token_count": 97
+  },
+  {
+    "chunk_id": "CTE-SEC-171",
+    "article_id": null,
+    "article_title": "42 \nAnejo SI A Terminología",
+    "token_count": 757
+  },
+  {
+    "chunk_id": "CTE-SEC-172",
+    "article_id": null,
+    "article_title": "43 \nAtrio",
+    "token_count": 778
+  },
+  {
+    "chunk_id": "CTE-SEC-173",
+    "article_id": null,
+    "article_title": "44 \nDensidad de carga de fuego",
+    "token_count": 476
+  },
+  {
+    "chunk_id": "CTE-SEC-174",
+    "article_id": null,
+    "article_title": "1 Es un recinto destinado exclusivamente a circulación y compartimentado del resto del edificio me-",
+    "token_count": 159
+  },
+  {
+    "chunk_id": "CTE-SEC-176",
+    "article_id": null,
+    "article_title": "EI\n2",
+    "token_count": 124
+  },
+  {
+    "chunk_id": "CTE-SEC-177",
+    "article_id": null,
+    "article_title": "3 En la planta de salida del edificio, la longitud del recorrido desde la puerta de salida del recinto de la",
+    "token_count": 123
+  },
+  {
+    "chunk_id": "CTE-SEC-178",
+    "article_id": null,
+    "article_title": "4 El recinto cuenta con protección frente al humo, mediante una de las siguientes opciones:",
+    "token_count": 325
+  },
+  {
+    "chunk_id": "CTE-SEC-180",
+    "article_id": null,
+    "article_title": "2 Se puede considerar que dicha condición se cumple cuando el espacio exterior tiene, delante de",
+    "token_count": 108
+  },
+  {
+    "chunk_id": "CTE-SEC-181",
+    "article_id": null,
+    "article_title": "3 Si el espacio considerado no está comunicado con la red viaria o con otros espacios abiertos no",
+    "token_count": 114
+  },
+  {
+    "chunk_id": "CTE-SEC-184",
+    "article_id": null,
+    "article_title": "6 La cubierta de un edificio se puede considerar como espacio exterior seguro siempre que, además",
+    "token_count": 211
+  },
+  {
+    "chunk_id": "CTE-SEC-185",
+    "article_id": null,
+    "article_title": "46 \nFuego totalmente desarrollado",
+    "token_count": 726
+  },
+  {
+    "chunk_id": "CTE-SEC-186-1",
+    "article_id": null,
+    "article_title": "47 \nRecorrido de evacuación",
+    "token_count": 906
+  },
+  {
+    "chunk_id": "CTE-SEC-187",
+    "article_id": null,
+    "article_title": "48 \nRecorridos de evacuación alternativos",
+    "token_count": 339
+  },
+  {
+    "chunk_id": "CTE-SEC-188",
+    "article_id": null,
+    "article_title": "1 El arranque de una escalera compartimentada como los sectores de incendio, o una puerta de acce-",
+    "token_count": 157
+  },
+  {
+    "chunk_id": "CTE-SEC-189",
+    "article_id": null,
+    "article_title": "2 Una puerta de paso, a través de un vestíbulo de independencia, a un sector de incendio diferente",
+    "token_count": 194
+  },
+  {
+    "chunk_id": "CTE-SEC-191",
+    "article_id": null,
+    "article_title": "49 \nSector de incendio",
+    "token_count": 662
+  },
+  {
+    "chunk_id": "CTE-SEC-192-1",
+    "article_id": null,
+    "article_title": "50 \nUso Administrativo",
+    "token_count": 871
+  },
+  {
+    "chunk_id": "CTE-SEC-193-1",
+    "article_id": null,
+    "article_title": "51 \nUso Hospitalario",
+    "token_count": 739
+  },
+  {
+    "chunk_id": "CTE-SEC-193-2",
+    "article_id": null,
+    "article_title": "51 \nUso Hospitalario",
+    "token_count": 461
+  },
+  {
+    "chunk_id": "CTE-SEC-195",
+    "article_id": null,
+    "article_title": "1 Este anejo establece el procedimiento para obtener el tiempo equivalente de exposición al fuego",
+    "token_count": 101
+  },
+  {
+    "chunk_id": "CTE-SEC-196",
+    "article_id": null,
+    "article_title": "2 En este anejo se indica también la expresión de la curva normalizada tiempo-temperatura definida en",
+    "token_count": 92
+  },
+  {
+    "chunk_id": "CTE-SEC-197",
+    "article_id": null,
+    "article_title": "1 La curva normalizada tiempo-temperatura es la curva nominal definida en la norma UNE EN 1363-",
+    "token_count": 160
+  },
+  {
+    "chunk_id": "CTE-SEC-198",
+    "article_id": null,
+    "article_title": "1 Para elementos estructurales de hormigón armado o acero puede tomarse como valor de cálculo del",
+    "token_count": 202
+  },
+  {
+    "chunk_id": "CTE-SEC-199",
+    "article_id": null,
+    "article_title": "2 El coeficiente de ventilación w",
+    "token_count": 424
+  },
+  {
+    "chunk_id": "CTE-SEC-200",
+    "article_id": null,
+    "article_title": "3 Los valores del coeficiente de corrección k",
+    "token_count": 90
+  },
+  {
+    "chunk_id": "CTE-SEC-202",
+    "article_id": null,
+    "article_title": "1 El valor de cálculo de la densidad de carga de fuego se determina en función del valor característico",
+    "token_count": 274
+  },
+  {
+    "chunk_id": "CTE-SEC-203",
+    "article_id": null,
+    "article_title": "2 Los valores de",
+    "token_count": 86
+  },
+  {
+    "chunk_id": "CTE-SEC-204",
+    "article_id": null,
+    "article_title": "3 Los valores de",
+    "token_count": 108
+  },
+  {
+    "chunk_id": "CTE-SEC-207",
+    "article_id": null,
+    "article_title": "5 Los valores de",
+    "token_count": 215
+  },
+  {
+    "chunk_id": "CTE-SEC-208",
+    "article_id": null,
+    "article_title": "1 El valor característico de la densidad de carga de fuego, q",
+    "token_count": 86
+  },
+  {
+    "chunk_id": "CTE-SEC-209",
+    "article_id": null,
+    "article_title": "2 La densidad de carga de fuego permanente corresponde a los revestimientos y otros elementos",
+    "token_count": 78
+  },
+  {
+    "chunk_id": "CTE-SEC-210",
+    "article_id": null,
+    "article_title": "3 La densidad de carga de fuego variable puede evaluarse elemento a elemento, según se indica en la",
+    "token_count": 145
+  },
+  {
+    "chunk_id": "CTE-SEC-211",
+    "article_id": null,
+    "article_title": "730 \nResidencial Vivienda",
+    "token_count": 169
+  },
+  {
+    "chunk_id": "CTE-SEC-212",
+    "article_id": null,
+    "article_title": "57 \nAnejo C. Resistencia al fuego de las estructuras de hormigón armado",
+    "token_count": 150
+  },
+  {
+    "chunk_id": "CTE-SEC-213",
+    "article_id": null,
+    "article_title": "1 Mediante las tablas y apartados siguientes puede obtenerse la resistencia de los elementos estructu-",
+    "token_count": 76
+  },
+  {
+    "chunk_id": "CTE-SEC-214",
+    "article_id": null,
+    "article_title": "2 Para aplicación de las tablas, se define como distancia mínima equivalente al eje a",
+    "token_count": 424
+  },
+  {
+    "chunk_id": "CTE-SEC-215",
+    "article_id": null,
+    "article_title": "3 Los valores dados en las tablas siguientes son aplicables a hormigones de densidad normal, confec-",
+    "token_count": 92
+  },
+  {
+    "chunk_id": "CTE-SEC-216",
+    "article_id": null,
+    "article_title": "4 En zonas traccionadas con recubrimientos de hormigón mayores de 50 mm debe disponerse una",
+    "token_count": 94
+  },
+  {
+    "chunk_id": "CTE-SEC-218",
+    "article_id": null,
+    "article_title": "2 Para resistencias al fuego mayores que R 90 y cuando la armadura del soporte sea superior al 2%",
+    "token_count": 246
+  },
+  {
+    "chunk_id": "CTE-SEC-219",
+    "article_id": null,
+    "article_title": "3 Si el elemento está sometido a tracción se comprobará como elemento de acero revestido.",
+    "token_count": 127
+  },
+  {
+    "chunk_id": "CTE-SEC-220",
+    "article_id": null,
+    "article_title": "59 \n \nPara vigas doble T, el canto del ala inferior deberá ser mayor que la dimensión que se establezca como",
+    "token_count": 432
+  },
+  {
+    "chunk_id": "CTE-SEC-221",
+    "article_id": null,
+    "article_title": "1 Mediante la tabla C.4 puede obtenerse la resistencia al fuego de las secciones de las losas macizas,",
+    "token_count": 275
+  },
+  {
+    "chunk_id": "CTE-SEC-226",
+    "article_id": null,
+    "article_title": "1 Mediante la tabla C.5 puede obtenerse la resistencia al fuego de las secciones de los forjado nerva-",
+    "token_count": 376
+  },
+  {
+    "chunk_id": "CTE-SEC-227",
+    "article_id": null,
+    "article_title": "2 En losas nervadas sobre apoyos puntuales y en los casos de resistencia al fuego R 90 o mayor, el",
+    "token_count": 110
+  },
+  {
+    "chunk_id": "CTE-SEC-228",
+    "article_id": null,
+    "article_title": "1 Si los forjados disponen de elementos de entrevigado cerámicos o de hormigón y revestimiento infe-",
+    "token_count": 177
+  },
+  {
+    "chunk_id": "CTE-SEC-230",
+    "article_id": null,
+    "article_title": "3 Para resistencias al fuego mayores que R 120, o bien cuando los elementos de entrevigado no sean",
+    "token_count": 199
+  },
+  {
+    "chunk_id": "CTE-SEC-232",
+    "article_id": null,
+    "article_title": "2 Los revestimientos con mortero de yeso pueden considerarse como espesores adicionales de hormi-",
+    "token_count": 109
+  },
+  {
+    "chunk_id": "CTE-SEC-234",
+    "article_id": null,
+    "article_title": "2 Para poder aplicar este método, la dimensión del lado menor de las vigas o soportes expuestos por",
+    "token_count": 105
+  },
+  {
+    "chunk_id": "CTE-SEC-235",
+    "article_id": null,
+    "article_title": "1 La comprobación de la capacidad portante de una sección de hormigón armado se realiza por los",
+    "token_count": 260
+  },
+  {
+    "chunk_id": "CTE-SEC-236",
+    "article_id": null,
+    "article_title": "2 La comprobación de vigas o losas sección a sección resulta del lado de la seguridad. Un procedi-",
+    "token_count": 88
+  },
+  {
+    "chunk_id": "CTE-SEC-237",
+    "article_id": null,
+    "article_title": "1 La resistencia de los materiales se reduce, en función de la temperatura que se alcance en cada",
+    "token_count": 164
+  },
+  {
+    "chunk_id": "CTE-SEC-239",
+    "article_id": null,
+    "article_title": "2 Las isotermas de las figuras de este apartado pueden utilizarse para determinar las temperaturas en",
+    "token_count": 132
+  },
+  {
+    "chunk_id": "CTE-SEC-252",
+    "article_id": null,
+    "article_title": "1 Mediante la Tabla D.1 puede dimensionarse la protección frente al fuego de vigas arriostradas late-",
+    "token_count": 194
+  },
+  {
+    "chunk_id": "CTE-SEC-253",
+    "article_id": null,
+    "article_title": "2\nK/W) obtenido como promedio de las caras ex-",
+    "token_count": 118
+  },
+  {
+    "chunk_id": "CTE-SEC-255",
+    "article_id": null,
+    "article_title": "2\nK/W) de vigas y tirantes",
+    "token_count": 225
+  },
+  {
+    "chunk_id": "CTE-SEC-256",
+    "article_id": null,
+    "article_title": "1 En soportes de acero revestidos mediante elementos de fábrica en todo el contorno expuesto al fue-",
+    "token_count": 95
+  },
+  {
+    "chunk_id": "CTE-SEC-258",
+    "article_id": null,
+    "article_title": "3 En cualquier caso, en soportes de pared no delgada (clases 1,2 o 3), la capacidad resistente de",
+    "token_count": 316
+  },
+  {
+    "chunk_id": "CTE-SEC-260",
+    "article_id": null,
+    "article_title": "2 Para acero sin revestir, el incremento de temperatura en el acero, ",
+    "token_count": 369
+  },
+  {
+    "chunk_id": "CTE-SEC-261",
+    "article_id": null,
+    "article_title": "2\nK. En",
+    "token_count": 114
+  },
+  {
+    "chunk_id": "CTE-SEC-262",
+    "article_id": null,
+    "article_title": "3 Para acero revestido, el incremento de temperatura en el acero, ",
+    "token_count": 181
+  },
+  {
+    "chunk_id": "CTE-SEC-264",
+    "article_id": null,
+    "article_title": "2 Si los elementos están revestidos, la unión entre los mismos debe estar asimismo revestida, de tal",
+    "token_count": 91
+  },
+  {
+    "chunk_id": "CTE-SEC-267",
+    "article_id": null,
+    "article_title": "1 La comprobación de la capacidad portante de un elemento estructural de madera se realiza por los",
+    "token_count": 297
+  },
+  {
+    "chunk_id": "CTE-SEC-268",
+    "article_id": null,
+    "article_title": "1 Superficie inicial del elemento",
+    "token_count": 219
+  },
+  {
+    "chunk_id": "CTE-SEC-269",
+    "article_id": null,
+    "article_title": "2 En este método se consideran las siguientes hipótesis implícitas:",
+    "token_count": 117
+  },
+  {
+    "chunk_id": "CTE-SEC-271",
+    "article_id": null,
+    "article_title": "2 La profundidad carbonizada nominal de cálculo en una dirección, d",
+    "token_count": 148
+  },
+  {
+    "chunk_id": "CTE-SEC-272",
+    "article_id": null,
+    "article_title": "1 Para maderas sin protección, la velocidad de carbonización nominal de cálculo, ",
+    "token_count": 147
+  },
+  {
+    "chunk_id": "CTE-SEC-273",
+    "article_id": null,
+    "article_title": "75 \nFrondosas",
+    "token_count": 110
+  },
+  {
+    "chunk_id": "CTE-SEC-274",
+    "article_id": null,
+    "article_title": "1 Para elementos de madera protegidos (ver figura E.2), la velocidad de carbonización nominal de",
+    "token_count": 718
+  },
+  {
+    "chunk_id": "CTE-SEC-276",
+    "article_id": null,
+    "article_title": "2 Salvo para los casos que se establecen en este Documento o para aquellos en que se disponga de",
+    "token_count": 111
+  },
+  {
+    "chunk_id": "CTE-SEC-278",
+    "article_id": null,
+    "article_title": "1 En el caso de revestimientos de protección consistentes en una o varias capas de tableros derivados",
+    "token_count": 324
+  },
+  {
+    "chunk_id": "CTE-SEC-279",
+    "article_id": null,
+    "article_title": "2 En el caso de muros o forjados formados por tableros unidos a un entramado de madera (ver figura",
+    "token_count": 105
+  },
+  {
+    "chunk_id": "CTE-SEC-280",
+    "article_id": null,
+    "article_title": "3 Para los casos de elementos protegidos mediante mantas de lana de roca, que cumplan las especifi-",
+    "token_count": 105
+  },
+  {
+    "chunk_id": "CTE-SEC-281",
+    "article_id": null,
+    "article_title": "4 En el caso de elementos protegidos con una capa de paneles de yeso de tipo A, F o H, situados lejos",
+    "token_count": 119
+  },
+  {
+    "chunk_id": "CTE-SEC-282",
+    "article_id": null,
+    "article_title": "5 En el caso de revestimientos compuestos por dos capas de paneles de yeso, se pueden emplear las",
+    "token_count": 87
+  },
+  {
+    "chunk_id": "CTE-SEC-283",
+    "article_id": null,
+    "article_title": "1 El fallo del revestimiento de protección contra el fuego puede ocurrir por los siguiente motivos:",
+    "token_count": 88
+  },
+  {
+    "chunk_id": "CTE-SEC-284",
+    "article_id": null,
+    "article_title": "2 En el caso de revestimientos de protección contra el fuego mediante tableros derivados de la madera",
+    "token_count": 86
+  },
+  {
+    "chunk_id": "CTE-SEC-286",
+    "article_id": null,
+    "article_title": "4 Para evitar el fallo por insuficiente longitud de penetración de los elementos de fijación en la zona no",
+    "token_count": 176
+  },
+  {
+    "chunk_id": "CTE-SEC-290",
+    "article_id": null,
+    "article_title": "4 Se considera que no se produce el fallo del arriostramiento si el ancho y la sección reducida del",
+    "token_count": 75
+  },
+  {
+    "chunk_id": "CTE-SEC-296",
+    "article_id": null,
+    "article_title": "2 El módulo de deslizamiento K",
+    "token_count": 109
+  },
+  {
+    "chunk_id": "CTE-SEC-298",
+    "article_id": null,
+    "article_title": "1 En este apartado se tratan las uniones entre elementos expuestos a la acción representada por la",
+    "token_count": 103
+  },
+  {
+    "chunk_id": "CTE-SEC-300",
+    "article_id": null,
+    "article_title": "1 Mediante la tabla E.5 puede obtenerse la resistencia al fuego de uniones no protegidas entre madera",
+    "token_count": 165
+  },
+  {
+    "chunk_id": "CTE-SEC-301",
+    "article_id": null,
+    "article_title": "2 En uniones realizadas con pasadores, clavos o tirafondos en los que la cabeza no sobresalga de la",
+    "token_count": 287
+  },
+  {
+    "chunk_id": "CTE-SEC-302",
+    "article_id": null,
+    "article_title": "1 Cuando la unión se proteja mediante el adosado de tableros de madera o tableros derivados de la",
+    "token_count": 126
+  },
+  {
+    "chunk_id": "CTE-SEC-306",
+    "article_id": null,
+    "article_title": "5 Cuando la fijación de la protección se realice con clavos o tirafondos deben cumplirse las siguientes",
+    "token_count": 111
+  },
+  {
+    "chunk_id": "CTE-SEC-308",
+    "article_id": null,
+    "article_title": "1 Parches encolados",
+    "token_count": 114
+  },
+  {
+    "chunk_id": "CTE-SEC-310",
+    "article_id": null,
+    "article_title": "1 En uniones con placas de acero espesor mayor o igual a 2 mm, situadas como piezas centrales, en",
+    "token_count": 132
+  },
+  {
+    "chunk_id": "CTE-SEC-311",
+    "article_id": null,
+    "article_title": "2 En placas de acero cuyo ancho sea menor que el de las piezas de madera pueden considerarse",
+    "token_count": 226
+  },
+  {
+    "chunk_id": "CTE-SEC-317",
+    "article_id": null,
+    "article_title": "3 Para las uniones del tipo de las representadas en la figura E.6 con:",
+    "token_count": 173
+  },
+  {
+    "chunk_id": "CTE-SEC-318",
+    "article_id": null,
+    "article_title": "4 El factor de conversión  para recubrimientos laterales d",
+    "token_count": 88
+  },
+  {
+    "chunk_id": "CTE-SEC-324",
+    "article_id": null,
+    "article_title": "2 Para los paneles o tableros de madera o derivados de la madera fijados con clavos, la separación",
+    "token_count": 104
+  },
+  {
+    "chunk_id": "CTE-SEC-328",
+    "article_id": null,
+    "article_title": "1 Los tableros utilizados como protección de elementos estructurales tales como vigas y soportes de-",
+    "token_count": 267
+  },
+  {
+    "chunk_id": "CTE-SEC-330",
+    "article_id": null,
+    "article_title": "2 Para el encolado de madera con madera, madera con productos derivados de la madera o productos",
+    "token_count": 103
+  },
+  {
+    "chunk_id": "CTE-SEC-332",
+    "article_id": null,
+    "article_title": "85 \nAnejo F Resistencia al fuego de los elementos de fábrica",
+    "token_count": 435
+  },
+  {
+    "chunk_id": "CTE-SEC-343",
+    "article_id": null,
+    "article_title": "1 Reacción al fuego",
+    "token_count": 380
+  },
+  {
+    "chunk_id": "CTE-SEC-344",
+    "article_id": null,
+    "article_title": "87 \n \n \nUNE-EN 13823:2012+A1:2016 Ensayos de reacción al fuego de productos de construcción - Pro-",
+    "token_count": 314
+  },
+  {
+    "chunk_id": "CTE-SEC-345",
+    "article_id": null,
+    "article_title": "2 Resistencia al fuego",
+    "token_count": 215
+  },
+  {
+    "chunk_id": "CTE-SEC-346-1",
+    "article_id": null,
+    "article_title": "88 \n \n \nUNE-EN 1365 Ensayos de resistencia al fuego de elementos portantes",
+    "token_count": 431
+  },
+  {
+    "chunk_id": "CTE-SEC-346-2",
+    "article_id": null,
+    "article_title": "88 \n \n \nUNE-EN 1365 Ensayos de resistencia al fuego de elementos portantes",
+    "token_count": 623
+  },
+  {
+    "chunk_id": "CTE-SEC-346-3",
+    "article_id": null,
+    "article_title": "88 \n \n \nUNE-EN 1365 Ensayos de resistencia al fuego de elementos portantes",
+    "token_count": 559
+  },
+  {
+    "chunk_id": "CTE-SEC-348",
+    "article_id": null,
+    "article_title": "3 Instalaciones para control del humo y del calor",
+    "token_count": 316
+  },
+  {
+    "chunk_id": "CTE-SEC-349",
+    "article_id": null,
+    "article_title": "4 Puertas, herrajes y dispositivos de apertura",
+    "token_count": 415
+  },
+  {
+    "chunk_id": "CTE-SEC-350",
+    "article_id": null,
+    "article_title": "5 Señalización",
+    "token_count": 114
+  },
+  {
+    "chunk_id": "CTE-SEC-351",
+    "article_id": null,
+    "article_title": "6 Otras materias",
+    "token_count": 134
+  }
+]

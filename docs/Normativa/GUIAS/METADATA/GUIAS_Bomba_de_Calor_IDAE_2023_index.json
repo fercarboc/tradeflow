@@ -1,0 +1,2450 @@
+[
+  {
+    "chunk_id": "GUIAS-SEC-000",
+    "article_id": null,
+    "article_title": null,
+    "token_count": 335
+  },
+  {
+    "chunk_id": "GUIAS-SEC-002",
+    "article_id": null,
+    "article_title": "2 Descripción de la tecnología ______________________________________________13",
+    "token_count": 271
+  },
+  {
+    "chunk_id": "GUIAS-SEC-003",
+    "article_id": null,
+    "article_title": "3 Aspectos técnicos y de diseño para rehabilitación ____________________________103",
+    "token_count": 296
+  },
+  {
+    "chunk_id": "GUIAS-SEC-004",
+    "article_id": null,
+    "article_title": "4 Casos-tipo ___________________________________________________________143",
+    "token_count": 573
+  },
+  {
+    "chunk_id": "GUIAS-SEC-006",
+    "article_id": null,
+    "article_title": "5 Casos reales de éxito ___________________________________________________291",
+    "token_count": 126
+  },
+  {
+    "chunk_id": "GUIAS-SEC-008",
+    "article_id": null,
+    "article_title": "7 Anexos ______________________________________________________________333",
+    "token_count": 277
+  },
+  {
+    "chunk_id": "GUIAS-SEC-009-1",
+    "article_id": null,
+    "article_title": "9\nGuias IDAE",
+    "token_count": 873
+  },
+  {
+    "chunk_id": "GUIAS-SEC-009-2",
+    "article_id": null,
+    "article_title": "9\nGuias IDAE",
+    "token_count": 868
+  },
+  {
+    "chunk_id": "GUIAS-SEC-010",
+    "article_id": null,
+    "article_title": "11\nGuias IDAE",
+    "token_count": 669
+  },
+  {
+    "chunk_id": "GUIAS-SEC-011",
+    "article_id": null,
+    "article_title": "13\nGuias IDAE",
+    "token_count": 724
+  },
+  {
+    "chunk_id": "GUIAS-SEC-012",
+    "article_id": null,
+    "article_title": "025\nVálvula de expansión",
+    "token_count": 447
+  },
+  {
+    "chunk_id": "GUIAS-SEC-013",
+    "article_id": null,
+    "article_title": "15\nGuias IDAE",
+    "token_count": 139
+  },
+  {
+    "chunk_id": "GUIAS-SEC-014",
+    "article_id": null,
+    "article_title": "025\nGráfico 2‑3. Aporte renovable de las bombas de calor",
+    "token_count": 345
+  },
+  {
+    "chunk_id": "GUIAS-SEC-015",
+    "article_id": null,
+    "article_title": "17\nGuias IDAE",
+    "token_count": 610
+  },
+  {
+    "chunk_id": "GUIAS-SEC-016",
+    "article_id": null,
+    "article_title": "600\nTª exterior",
+    "token_count": 550
+  },
+  {
+    "chunk_id": "GUIAS-SEC-017",
+    "article_id": null,
+    "article_title": "19\nGuias IDAE",
+    "token_count": 142
+  },
+  {
+    "chunk_id": "GUIAS-SEC-018",
+    "article_id": null,
+    "article_title": "0\nDEMANDA DE ENERGÍA EN ACS kwh/DÍA",
+    "token_count": 344
+  },
+  {
+    "chunk_id": "GUIAS-SEC-019",
+    "article_id": null,
+    "article_title": "025\nEste dato de rendimiento considera una variación de la potencia aportada por el generador en ca-",
+    "token_count": 675
+  },
+  {
+    "chunk_id": "GUIAS-SEC-020-1",
+    "article_id": null,
+    "article_title": "21\nGuias IDAE",
+    "token_count": 645
+  },
+  {
+    "chunk_id": "GUIAS-SEC-020-2",
+    "article_id": null,
+    "article_title": "21\nGuias IDAE",
+    "token_count": 619
+  },
+  {
+    "chunk_id": "GUIAS-SEC-021",
+    "article_id": null,
+    "article_title": "23\nGuias IDAE",
+    "token_count": 261
+  },
+  {
+    "chunk_id": "GUIAS-SEC-022",
+    "article_id": null,
+    "article_title": "025\nA título ilustrativo se incluye aquí una tabla de ejemplo como la que se puede encontrar en la documen-",
+    "token_count": 715
+  },
+  {
+    "chunk_id": "GUIAS-SEC-023",
+    "article_id": null,
+    "article_title": "25\nGuias IDAE",
+    "token_count": 713
+  },
+  {
+    "chunk_id": "GUIAS-SEC-024",
+    "article_id": null,
+    "article_title": "025\nRequisitos de diseño ecológico para calentadores de agua y etiquetado energético en ACS",
+    "token_count": 633
+  },
+  {
+    "chunk_id": "GUIAS-SEC-025-1",
+    "article_id": null,
+    "article_title": "27\nGuias IDAE",
+    "token_count": 770
+  },
+  {
+    "chunk_id": "GUIAS-SEC-025-2",
+    "article_id": null,
+    "article_title": "27\nGuias IDAE",
+    "token_count": 622
+  },
+  {
+    "chunk_id": "GUIAS-SEC-026-1",
+    "article_id": null,
+    "article_title": "29\nGuias IDAE",
+    "token_count": 382
+  },
+  {
+    "chunk_id": "GUIAS-SEC-026-2",
+    "article_id": null,
+    "article_title": "29\nGuias IDAE",
+    "token_count": 584
+  },
+  {
+    "chunk_id": "GUIAS-SEC-027",
+    "article_id": null,
+    "article_title": "31\nGuias IDAE",
+    "token_count": 597
+  },
+  {
+    "chunk_id": "GUIAS-SEC-028",
+    "article_id": null,
+    "article_title": "025\nGráfico 2‑11. Bombas de Calor aire‑aire",
+    "token_count": 225
+  },
+  {
+    "chunk_id": "GUIAS-SEC-029",
+    "article_id": null,
+    "article_title": "33\nGuias IDAE",
+    "token_count": 424
+  },
+  {
+    "chunk_id": "GUIAS-SEC-030",
+    "article_id": null,
+    "article_title": "1112\nHumedad específica W g/kg a.s",
+    "token_count": 263
+  },
+  {
+    "chunk_id": "GUIAS-SEC-031",
+    "article_id": null,
+    "article_title": "2\nO por",
+    "token_count": 156
+  },
+  {
+    "chunk_id": "GUIAS-SEC-032-1",
+    "article_id": null,
+    "article_title": "35\nGuias IDAE",
+    "token_count": 567
+  },
+  {
+    "chunk_id": "GUIAS-SEC-032-2",
+    "article_id": null,
+    "article_title": "35\nGuias IDAE",
+    "token_count": 437
+  },
+  {
+    "chunk_id": "GUIAS-SEC-033",
+    "article_id": null,
+    "article_title": "12\nPotencia (kW)",
+    "token_count": 97
+  },
+  {
+    "chunk_id": "GUIAS-SEC-034-1",
+    "article_id": null,
+    "article_title": "37\nGuias IDAE",
+    "token_count": 566
+  },
+  {
+    "chunk_id": "GUIAS-SEC-034-2",
+    "article_id": null,
+    "article_title": "37\nGuias IDAE",
+    "token_count": 862
+  },
+  {
+    "chunk_id": "GUIAS-SEC-035",
+    "article_id": null,
+    "article_title": "39\nGuias IDAE",
+    "token_count": 439
+  },
+  {
+    "chunk_id": "GUIAS-SEC-036",
+    "article_id": null,
+    "article_title": "025\nEn modo refrigeración producen agua fría en el circuito interior, cediendo calor al circuito de agua exterior.",
+    "token_count": 535
+  },
+  {
+    "chunk_id": "GUIAS-SEC-037-1",
+    "article_id": null,
+    "article_title": "41\nGuias IDAE",
+    "token_count": 509
+  },
+  {
+    "chunk_id": "GUIAS-SEC-037-2",
+    "article_id": null,
+    "article_title": "41\nGuias IDAE",
+    "token_count": 372
+  },
+  {
+    "chunk_id": "GUIAS-SEC-038",
+    "article_id": null,
+    "article_title": "43\nGuias IDAE",
+    "token_count": 634
+  },
+  {
+    "chunk_id": "GUIAS-SEC-039",
+    "article_id": null,
+    "article_title": "45\nGuias IDAE",
+    "token_count": 395
+  },
+  {
+    "chunk_id": "GUIAS-SEC-040",
+    "article_id": null,
+    "article_title": "025\nUnidad exterior",
+    "token_count": 336
+  },
+  {
+    "chunk_id": "GUIAS-SEC-041",
+    "article_id": null,
+    "article_title": "47\nGuias IDAE",
+    "token_count": 307
+  },
+  {
+    "chunk_id": "GUIAS-SEC-042-1",
+    "article_id": null,
+    "article_title": "025\nEste tipo de bombas de calor requiere un dimensionamiento muy preciso en cuanto a la potencia que",
+    "token_count": 943
+  },
+  {
+    "chunk_id": "GUIAS-SEC-043-1",
+    "article_id": null,
+    "article_title": "49\nGuias IDAE",
+    "token_count": 922
+  },
+  {
+    "chunk_id": "GUIAS-SEC-043-2",
+    "article_id": null,
+    "article_title": "49\nGuias IDAE",
+    "token_count": 145
+  },
+  {
+    "chunk_id": "GUIAS-SEC-045",
+    "article_id": null,
+    "article_title": "51\nGuias IDAE",
+    "token_count": 601
+  },
+  {
+    "chunk_id": "GUIAS-SEC-046-1",
+    "article_id": null,
+    "article_title": "30 W/m2, lo que hace que para una habitación de 10m2 la potencia máxima en",
+    "token_count": 835
+  },
+  {
+    "chunk_id": "GUIAS-SEC-047",
+    "article_id": null,
+    "article_title": "53\nGuias IDAE",
+    "token_count": 533
+  },
+  {
+    "chunk_id": "GUIAS-SEC-048",
+    "article_id": null,
+    "article_title": "025\nPor el contrario, cuanto mayores sean las pérdidas de energía características de este edificio al descen-",
+    "token_count": 464
+  },
+  {
+    "chunk_id": "GUIAS-SEC-050",
+    "article_id": null,
+    "article_title": "553560\nTabla 2‑10. Tabla simplificada de emisión de un radiador tipo en función de la temperatura de impulsión. Cada",
+    "token_count": 155
+  },
+  {
+    "chunk_id": "GUIAS-SEC-051",
+    "article_id": null,
+    "article_title": "55\nGuias IDAE",
+    "token_count": 519
+  },
+  {
+    "chunk_id": "GUIAS-SEC-052",
+    "article_id": null,
+    "article_title": "025\nSe diseñan para trabajar en los rangos de temperatura habituales de calefacción y se fabrican tam-",
+    "token_count": 550
+  },
+  {
+    "chunk_id": "GUIAS-SEC-053",
+    "article_id": null,
+    "article_title": "57\nGuias IDAE",
+    "token_count": 322
+  },
+  {
+    "chunk_id": "GUIAS-SEC-054",
+    "article_id": null,
+    "article_title": "025\nComo ejemplo, en la tabla 2-11 se compara el tiempo que se necesitaría en calentar una habitación",
+    "token_count": 105
+  },
+  {
+    "chunk_id": "GUIAS-SEC-056",
+    "article_id": null,
+    "article_title": "1\nK1010101010",
+    "token_count": 208
+  },
+  {
+    "chunk_id": "GUIAS-SEC-057",
+    "article_id": null,
+    "article_title": "59\nGuias IDAE",
+    "token_count": 121
+  },
+  {
+    "chunk_id": "GUIAS-SEC-059",
+    "article_id": null,
+    "article_title": "2\nTotal",
+    "token_count": 425
+  },
+  {
+    "chunk_id": "GUIAS-SEC-060",
+    "article_id": null,
+    "article_title": "025\nEn la tabla se observa que, para calentar la estancia al principio de la temporada de calefacción, es",
+    "token_count": 381
+  },
+  {
+    "chunk_id": "GUIAS-SEC-061",
+    "article_id": null,
+    "article_title": "61\nGuias IDAE",
+    "token_count": 452
+  },
+  {
+    "chunk_id": "GUIAS-SEC-062",
+    "article_id": null,
+    "article_title": "025\nEdif. Clase AEdif. Clase BEdif. Clase CEdif. Clase DEdif. Clase EEdif. Clase F",
+    "token_count": 332
+  },
+  {
+    "chunk_id": "GUIAS-SEC-063-1",
+    "article_id": null,
+    "article_title": "63\nGuias IDAE",
+    "token_count": 783
+  },
+  {
+    "chunk_id": "GUIAS-SEC-063-2",
+    "article_id": null,
+    "article_title": "63\nGuias IDAE",
+    "token_count": 229
+  },
+  {
+    "chunk_id": "GUIAS-SEC-064",
+    "article_id": null,
+    "article_title": "14511\nComo se puede observar, impulsar a una temperatura fija es menos eficiente que modificar la tem-",
+    "token_count": 150
+  },
+  {
+    "chunk_id": "GUIAS-SEC-069",
+    "article_id": null,
+    "article_title": "7\nHasta separador hidráulico",
+    "token_count": 568
+  },
+  {
+    "chunk_id": "GUIAS-SEC-070",
+    "article_id": null,
+    "article_title": "025\nAlgunos de estos reglamentos de ecodiseño se recogen en la tabla 2-18.",
+    "token_count": 170
+  },
+  {
+    "chunk_id": "GUIAS-SEC-073-1",
+    "article_id": null,
+    "article_title": "67\nGuias IDAE",
+    "token_count": 869
+  },
+  {
+    "chunk_id": "GUIAS-SEC-074",
+    "article_id": null,
+    "article_title": "025\nPotencia calorífica",
+    "token_count": 543
+  },
+  {
+    "chunk_id": "GUIAS-SEC-075-1",
+    "article_id": null,
+    "article_title": "69\nGuias IDAE",
+    "token_count": 980
+  },
+  {
+    "chunk_id": "GUIAS-SEC-076",
+    "article_id": null,
+    "article_title": "025\nClases de energía energética estacional de calefacción de calefactores, excepto bombas de calor",
+    "token_count": 380
+  },
+  {
+    "chunk_id": "GUIAS-SEC-077-1",
+    "article_id": null,
+    "article_title": "71\nGuias IDAE",
+    "token_count": 429
+  },
+  {
+    "chunk_id": "GUIAS-SEC-077-2",
+    "article_id": null,
+    "article_title": "71\nGuias IDAE",
+    "token_count": 440
+  },
+  {
+    "chunk_id": "GUIAS-SEC-078",
+    "article_id": null,
+    "article_title": "73\nGuias IDAE",
+    "token_count": 657
+  },
+  {
+    "chunk_id": "GUIAS-SEC-079",
+    "article_id": null,
+    "article_title": "600\nTª exterior",
+    "token_count": 203
+  },
+  {
+    "chunk_id": "GUIAS-SEC-080",
+    "article_id": null,
+    "article_title": "500\nTª exterior",
+    "token_count": 161
+  },
+  {
+    "chunk_id": "GUIAS-SEC-082",
+    "article_id": null,
+    "article_title": "600\nTª exterior",
+    "token_count": 189
+  },
+  {
+    "chunk_id": "GUIAS-SEC-083-1",
+    "article_id": null,
+    "article_title": "600\nTª exterior",
+    "token_count": 146
+  },
+  {
+    "chunk_id": "GUIAS-SEC-083-2",
+    "article_id": null,
+    "article_title": "600\nTª exterior",
+    "token_count": 817
+  },
+  {
+    "chunk_id": "GUIAS-SEC-084",
+    "article_id": null,
+    "article_title": "77\nGuias IDAE",
+    "token_count": 509
+  },
+  {
+    "chunk_id": "GUIAS-SEC-085",
+    "article_id": null,
+    "article_title": "025\nAUTOCONSUMO",
+    "token_count": 323
+  },
+  {
+    "chunk_id": "GUIAS-SEC-086-1",
+    "article_id": null,
+    "article_title": "79\nGuias IDAE",
+    "token_count": 704
+  },
+  {
+    "chunk_id": "GUIAS-SEC-086-2",
+    "article_id": null,
+    "article_title": "79\nGuias IDAE",
+    "token_count": 853
+  },
+  {
+    "chunk_id": "GUIAS-SEC-087-1",
+    "article_id": null,
+    "article_title": "81\nGuias IDAE",
+    "token_count": 911
+  },
+  {
+    "chunk_id": "GUIAS-SEC-088",
+    "article_id": null,
+    "article_title": "025\nLas posibilidades de hibridación de energía solar térmica con bomba de calor descritas no son ex-",
+    "token_count": 154
+  },
+  {
+    "chunk_id": "GUIAS-SEC-089-1",
+    "article_id": null,
+    "article_title": "83\nGuias IDAE",
+    "token_count": 527
+  },
+  {
+    "chunk_id": "GUIAS-SEC-089-2",
+    "article_id": null,
+    "article_title": "83\nGuias IDAE",
+    "token_count": 393
+  },
+  {
+    "chunk_id": "GUIAS-SEC-090",
+    "article_id": null,
+    "article_title": "85\nGuias IDAE",
+    "token_count": 318
+  },
+  {
+    "chunk_id": "GUIAS-SEC-091",
+    "article_id": null,
+    "article_title": "1\nSistema bivalente paralelo y alternativo",
+    "token_count": 248
+  },
+  {
+    "chunk_id": "GUIAS-SEC-092",
+    "article_id": null,
+    "article_title": "87\nGuias IDAE",
+    "token_count": 281
+  },
+  {
+    "chunk_id": "GUIAS-SEC-093",
+    "article_id": null,
+    "article_title": "45678812141516182020\nPotencia térmica necesaria en la instalación",
+    "token_count": 154
+  },
+  {
+    "chunk_id": "GUIAS-SEC-094",
+    "article_id": null,
+    "article_title": "25\nPotencia térmica (kW)",
+    "token_count": 666
+  },
+  {
+    "chunk_id": "GUIAS-SEC-095",
+    "article_id": null,
+    "article_title": "89\nGuias IDAE",
+    "token_count": 536
+  },
+  {
+    "chunk_id": "GUIAS-SEC-096",
+    "article_id": null,
+    "article_title": "025\nGráfico 2‑66. Ejemplo de cobertura de energía sobre el total necesario en calefacción en función del modo de",
+    "token_count": 543
+  },
+  {
+    "chunk_id": "GUIAS-SEC-097",
+    "article_id": null,
+    "article_title": "91\nGuias IDAE",
+    "token_count": 784
+  },
+  {
+    "chunk_id": "GUIAS-SEC-098",
+    "article_id": null,
+    "article_title": "025\nEn el caso de que se desee recuperar la energía sobre varias aplicaciones, una solución habitual es la",
+    "token_count": 628
+  },
+  {
+    "chunk_id": "GUIAS-SEC-099",
+    "article_id": null,
+    "article_title": "93\nGuias IDAE",
+    "token_count": 774
+  },
+  {
+    "chunk_id": "GUIAS-SEC-100",
+    "article_id": null,
+    "article_title": "025\nDatos técnicos de una bomba de calor en la que, en fábrica, se ha modificado parcialmente",
+    "token_count": 475
+  },
+  {
+    "chunk_id": "GUIAS-SEC-101-1",
+    "article_id": null,
+    "article_title": "95\nGuias IDAE",
+    "token_count": 855
+  },
+  {
+    "chunk_id": "GUIAS-SEC-101-2",
+    "article_id": null,
+    "article_title": "95\nGuias IDAE",
+    "token_count": 552
+  },
+  {
+    "chunk_id": "GUIAS-SEC-102",
+    "article_id": null,
+    "article_title": "97\nGuias IDAE",
+    "token_count": 570
+  },
+  {
+    "chunk_id": "GUIAS-SEC-103",
+    "article_id": null,
+    "article_title": "025\nEl esquema hidráulico podría ser el que se observa en el gráfico 2-68, para las temperaturas anteri-",
+    "token_count": 512
+  },
+  {
+    "chunk_id": "GUIAS-SEC-104",
+    "article_id": null,
+    "article_title": "99\nGuias IDAE",
+    "token_count": 693
+  },
+  {
+    "chunk_id": "GUIAS-SEC-105",
+    "article_id": null,
+    "article_title": "025\nLas temperaturas de entrada a los intercambiadores de recuperación de calor en la bomba de calor",
+    "token_count": 447
+  },
+  {
+    "chunk_id": "GUIAS-SEC-106",
+    "article_id": null,
+    "article_title": "101\nGuias IDAE",
+    "token_count": 311
+  },
+  {
+    "chunk_id": "GUIAS-SEC-107-1",
+    "article_id": null,
+    "article_title": "103\nGuias IDAE",
+    "token_count": 741
+  },
+  {
+    "chunk_id": "GUIAS-SEC-107-2",
+    "article_id": null,
+    "article_title": "103\nGuias IDAE",
+    "token_count": 695
+  },
+  {
+    "chunk_id": "GUIAS-SEC-108-1",
+    "article_id": null,
+    "article_title": "105\nGuias IDAE",
+    "token_count": 824
+  },
+  {
+    "chunk_id": "GUIAS-SEC-108-2",
+    "article_id": null,
+    "article_title": "105\nGuias IDAE",
+    "token_count": 769
+  },
+  {
+    "chunk_id": "GUIAS-SEC-109",
+    "article_id": null,
+    "article_title": "107\nGuias IDAE",
+    "token_count": 364
+  },
+  {
+    "chunk_id": "GUIAS-SEC-110",
+    "article_id": null,
+    "article_title": "025\n \nGráfico 3‑2. Esquema de principio de bomba de calor con tres circuitos hidráulicos. Funcionamiento en calefacción",
+    "token_count": 102
+  },
+  {
+    "chunk_id": "GUIAS-SEC-111",
+    "article_id": null,
+    "article_title": "109\nGuias IDAE",
+    "token_count": 491
+  },
+  {
+    "chunk_id": "GUIAS-SEC-112",
+    "article_id": null,
+    "article_title": "025\nEn este ejemplo se analizan tres instalaciones con radiadores que van a ser objeto de rehabilitación,",
+    "token_count": 362
+  },
+  {
+    "chunk_id": "GUIAS-SEC-113-1",
+    "article_id": null,
+    "article_title": "111\nGuias IDAE",
+    "token_count": 578
+  },
+  {
+    "chunk_id": "GUIAS-SEC-113-2",
+    "article_id": null,
+    "article_title": "111\nGuias IDAE",
+    "token_count": 621
+  },
+  {
+    "chunk_id": "GUIAS-SEC-114-1",
+    "article_id": null,
+    "article_title": "113\nGuias IDAE",
+    "token_count": 474
+  },
+  {
+    "chunk_id": "GUIAS-SEC-114-2",
+    "article_id": null,
+    "article_title": "113\nGuias IDAE",
+    "token_count": 537
+  },
+  {
+    "chunk_id": "GUIAS-SEC-115-1",
+    "article_id": null,
+    "article_title": "115\nGuias IDAE",
+    "token_count": 488
+  },
+  {
+    "chunk_id": "GUIAS-SEC-115-2",
+    "article_id": null,
+    "article_title": "115\nGuias IDAE",
+    "token_count": 662
+  },
+  {
+    "chunk_id": "GUIAS-SEC-116",
+    "article_id": null,
+    "article_title": "117\nGuias IDAE",
+    "token_count": 116
+  },
+  {
+    "chunk_id": "GUIAS-SEC-117",
+    "article_id": null,
+    "article_title": "102030405060\nSalto de temperatura (oC)",
+    "token_count": 80
+  },
+  {
+    "chunk_id": "GUIAS-SEC-118",
+    "article_id": null,
+    "article_title": "025\nPara conocer la potencia aportada por un radiador se puede acudir a las tablas de los catálogos su-",
+    "token_count": 480
+  },
+  {
+    "chunk_id": "GUIAS-SEC-119-1",
+    "article_id": null,
+    "article_title": "119\nGuias IDAE",
+    "token_count": 890
+  },
+  {
+    "chunk_id": "GUIAS-SEC-120-1",
+    "article_id": null,
+    "article_title": "025\nEn la selección de la unidad interior, ya sea con interacumulador de ACS integrado o separado, se",
+    "token_count": 806
+  },
+  {
+    "chunk_id": "GUIAS-SEC-121",
+    "article_id": null,
+    "article_title": "121\nGuias IDAE",
+    "token_count": 369
+  },
+  {
+    "chunk_id": "GUIAS-SEC-122",
+    "article_id": null,
+    "article_title": "025\nEn todos los acumuladores de ACS, pero especialmente en los acumuladores que trabajan con inter-",
+    "token_count": 662
+  },
+  {
+    "chunk_id": "GUIAS-SEC-123",
+    "article_id": null,
+    "article_title": "123\nGuias IDAE",
+    "token_count": 483
+  },
+  {
+    "chunk_id": "GUIAS-SEC-124",
+    "article_id": null,
+    "article_title": "025\nEl ratio de acumulación antes indicado es ampliable en función del tipo de usuario y uso del local, por",
+    "token_count": 599
+  },
+  {
+    "chunk_id": "GUIAS-SEC-125",
+    "article_id": null,
+    "article_title": "125\nGuias IDAE",
+    "token_count": 404
+  },
+  {
+    "chunk_id": "GUIAS-SEC-126",
+    "article_id": null,
+    "article_title": "025\nGráfico 3‑13. Consecuencias de la recirculación de aire en modo «calefacción»",
+    "token_count": 450
+  },
+  {
+    "chunk_id": "GUIAS-SEC-127",
+    "article_id": null,
+    "article_title": "127\nGuias IDAE",
+    "token_count": 512
+  },
+  {
+    "chunk_id": "GUIAS-SEC-128",
+    "article_id": null,
+    "article_title": "025\nEn general, los manuales técnicos de los fabricantes muestran reglas de cálculo para determinar la",
+    "token_count": 661
+  },
+  {
+    "chunk_id": "GUIAS-SEC-129",
+    "article_id": null,
+    "article_title": "129\nGuias IDAE",
+    "token_count": 600
+  },
+  {
+    "chunk_id": "GUIAS-SEC-130",
+    "article_id": null,
+    "article_title": "131\nGuias IDAE",
+    "token_count": 491
+  },
+  {
+    "chunk_id": "GUIAS-SEC-131-1",
+    "article_id": null,
+    "article_title": "025\nEstos límites operativos de temperatura exterior para cada modo pueden, en algunas ocasiones,",
+    "token_count": 835
+  },
+  {
+    "chunk_id": "GUIAS-SEC-132-1",
+    "article_id": null,
+    "article_title": "133\nGuias IDAE",
+    "token_count": 875
+  },
+  {
+    "chunk_id": "GUIAS-SEC-132-2",
+    "article_id": null,
+    "article_title": "133\nGuias IDAE",
+    "token_count": 506
+  },
+  {
+    "chunk_id": "GUIAS-SEC-133-1",
+    "article_id": null,
+    "article_title": "135\nGuias IDAE",
+    "token_count": 830
+  },
+  {
+    "chunk_id": "GUIAS-SEC-133-2",
+    "article_id": null,
+    "article_title": "135\nGuias IDAE",
+    "token_count": 761
+  },
+  {
+    "chunk_id": "GUIAS-SEC-134",
+    "article_id": null,
+    "article_title": "137\nGuias IDAE",
+    "token_count": 605
+  },
+  {
+    "chunk_id": "GUIAS-SEC-135",
+    "article_id": null,
+    "article_title": "025\nResponsabilidad del cumplimiento del RITE y contenido mínimo de la documentación técnica",
+    "token_count": 716
+  },
+  {
+    "chunk_id": "GUIAS-SEC-136-1",
+    "article_id": null,
+    "article_title": "139\nGuias IDAE",
+    "token_count": 604
+  },
+  {
+    "chunk_id": "GUIAS-SEC-136-2",
+    "article_id": null,
+    "article_title": "139\nGuias IDAE",
+    "token_count": 663
+  },
+  {
+    "chunk_id": "GUIAS-SEC-137",
+    "article_id": null,
+    "article_title": "141\nGuias IDAE",
+    "token_count": 410
+  },
+  {
+    "chunk_id": "GUIAS-SEC-138",
+    "article_id": null,
+    "article_title": "143\nGuias IDAE",
+    "token_count": 493
+  },
+  {
+    "chunk_id": "GUIAS-SEC-139",
+    "article_id": null,
+    "article_title": "025\nAdemás, en los edificios nuevos o sometidos a reforma, con previsión de demanda térmica, una parte",
+    "token_count": 681
+  },
+  {
+    "chunk_id": "GUIAS-SEC-140",
+    "article_id": null,
+    "article_title": "145\nGuias IDAE",
+    "token_count": 498
+  },
+  {
+    "chunk_id": "GUIAS-SEC-141",
+    "article_id": null,
+    "article_title": "025\nA título de ejemplo se incluyen tablas del Anexo II del Real Decreto 1367/2007, de 19 de octubre, por",
+    "token_count": 97
+  },
+  {
+    "chunk_id": "GUIAS-SEC-143",
+    "article_id": null,
+    "article_title": "35\nDormitorios",
+    "token_count": 245
+  },
+  {
+    "chunk_id": "GUIAS-SEC-144",
+    "article_id": null,
+    "article_title": "147\nGuias IDAE",
+    "token_count": 205
+  },
+  {
+    "chunk_id": "GUIAS-SEC-145",
+    "article_id": null,
+    "article_title": "7\nRadiadores",
+    "token_count": 90
+  },
+  {
+    "chunk_id": "GUIAS-SEC-148",
+    "article_id": null,
+    "article_title": "126\nRadiadores",
+    "token_count": 95
+  },
+  {
+    "chunk_id": "GUIAS-SEC-150-1",
+    "article_id": null,
+    "article_title": "149\nGuias IDAE",
+    "token_count": 445
+  },
+  {
+    "chunk_id": "GUIAS-SEC-150-2",
+    "article_id": null,
+    "article_title": "149\nGuias IDAE",
+    "token_count": 376
+  },
+  {
+    "chunk_id": "GUIAS-SEC-151",
+    "article_id": null,
+    "article_title": "151\nGuias IDAE",
+    "token_count": 524
+  },
+  {
+    "chunk_id": "GUIAS-SEC-152",
+    "article_id": null,
+    "article_title": "025\nGráfico 4‑3. Caso tipo 1. Vivienda unifamiliar. Esquema de principio (ejemplo)",
+    "token_count": 358
+  },
+  {
+    "chunk_id": "GUIAS-SEC-153",
+    "article_id": null,
+    "article_title": "153\nGuias IDAE",
+    "token_count": 87
+  },
+  {
+    "chunk_id": "GUIAS-SEC-154",
+    "article_id": null,
+    "article_title": "3056\nUd. Ext",
+    "token_count": 513
+  },
+  {
+    "chunk_id": "GUIAS-SEC-155",
+    "article_id": null,
+    "article_title": "155\nGuias IDAE",
+    "token_count": 647
+  },
+  {
+    "chunk_id": "GUIAS-SEC-156",
+    "article_id": null,
+    "article_title": "025\nComo se indicó en el capítulo 2.2.2 hay que tener presente que con caldera de gasóleo, los emisores,",
+    "token_count": 308
+  },
+  {
+    "chunk_id": "GUIAS-SEC-158",
+    "article_id": null,
+    "article_title": "7\nBomba de",
+    "token_count": 257
+  },
+  {
+    "chunk_id": "GUIAS-SEC-159",
+    "article_id": null,
+    "article_title": "157\nGuias IDAE",
+    "token_count": 121
+  },
+  {
+    "chunk_id": "GUIAS-SEC-160-1",
+    "article_id": null,
+    "article_title": "2\nV = ((m",
+    "token_count": 721
+  },
+  {
+    "chunk_id": "GUIAS-SEC-160-2",
+    "article_id": null,
+    "article_title": "2\nV = ((m",
+    "token_count": 386
+  },
+  {
+    "chunk_id": "GUIAS-SEC-161-1",
+    "article_id": null,
+    "article_title": "159\nGuias IDAE",
+    "token_count": 379
+  },
+  {
+    "chunk_id": "GUIAS-SEC-161-2",
+    "article_id": null,
+    "article_title": "159\nGuias IDAE",
+    "token_count": 518
+  },
+  {
+    "chunk_id": "GUIAS-SEC-162-1",
+    "article_id": null,
+    "article_title": "161\nGuias IDAE",
+    "token_count": 573
+  },
+  {
+    "chunk_id": "GUIAS-SEC-162-2",
+    "article_id": null,
+    "article_title": "161\nGuias IDAE",
+    "token_count": 651
+  },
+  {
+    "chunk_id": "GUIAS-SEC-163",
+    "article_id": null,
+    "article_title": "163\nGuias IDAE",
+    "token_count": 714
+  },
+  {
+    "chunk_id": "GUIAS-SEC-164",
+    "article_id": null,
+    "article_title": "025\nPara el modelo de bomba de calor empleado en este caso tipo, de las curvas de bomba circuladora",
+    "token_count": 523
+  },
+  {
+    "chunk_id": "GUIAS-SEC-165-1",
+    "article_id": null,
+    "article_title": "165\nGuias IDAE",
+    "token_count": 314
+  },
+  {
+    "chunk_id": "GUIAS-SEC-165-2",
+    "article_id": null,
+    "article_title": "165\nGuias IDAE",
+    "token_count": 615
+  },
+  {
+    "chunk_id": "GUIAS-SEC-166",
+    "article_id": null,
+    "article_title": "167\nGuias IDAE",
+    "token_count": 220
+  },
+  {
+    "chunk_id": "GUIAS-SEC-167",
+    "article_id": null,
+    "article_title": "30\nInclinación de la",
+    "token_count": 341
+  },
+  {
+    "chunk_id": "GUIAS-SEC-168",
+    "article_id": null,
+    "article_title": "025\nSi la vivienda dispusiera de grupos de bombeo por planta sería posible realizar un control por curva",
+    "token_count": 555
+  },
+  {
+    "chunk_id": "GUIAS-SEC-169-1",
+    "article_id": null,
+    "article_title": "169\nGuias IDAE",
+    "token_count": 403
+  },
+  {
+    "chunk_id": "GUIAS-SEC-169-2",
+    "article_id": null,
+    "article_title": "169\nGuias IDAE",
+    "token_count": 476
+  },
+  {
+    "chunk_id": "GUIAS-SEC-170",
+    "article_id": null,
+    "article_title": "171\nGuias IDAE",
+    "token_count": 632
+  },
+  {
+    "chunk_id": "GUIAS-SEC-171",
+    "article_id": null,
+    "article_title": "025\nLa potencia que la bomba de calor puede aportar en ACS depende de la potencia de intercambio del",
+    "token_count": 618
+  },
+  {
+    "chunk_id": "GUIAS-SEC-172",
+    "article_id": null,
+    "article_title": "173\nGuias IDAE",
+    "token_count": 360
+  },
+  {
+    "chunk_id": "GUIAS-SEC-173",
+    "article_id": null,
+    "article_title": "025\nSin embargo, los datos reflejados en el catálogo comercial del fabricante pueden no ser suficientes para",
+    "token_count": 448
+  },
+  {
+    "chunk_id": "GUIAS-SEC-174",
+    "article_id": null,
+    "article_title": "175\nGuias IDAE",
+    "token_count": 399
+  },
+  {
+    "chunk_id": "GUIAS-SEC-175",
+    "article_id": null,
+    "article_title": "8\nMadrid. Horas acumuladas al año en cada Tª ext.",
+    "token_count": 126
+  },
+  {
+    "chunk_id": "GUIAS-SEC-178",
+    "article_id": null,
+    "article_title": "025\nAplicaciones de calefacción35 ⁰C55 ⁰C",
+    "token_count": 391
+  },
+  {
+    "chunk_id": "GUIAS-SEC-179-1",
+    "article_id": null,
+    "article_title": "177\nGuias IDAE",
+    "token_count": 397
+  },
+  {
+    "chunk_id": "GUIAS-SEC-179-2",
+    "article_id": null,
+    "article_title": "177\nGuias IDAE",
+    "token_count": 452
+  },
+  {
+    "chunk_id": "GUIAS-SEC-180",
+    "article_id": null,
+    "article_title": "179\nGuias IDAE",
+    "token_count": 146
+  },
+  {
+    "chunk_id": "GUIAS-SEC-181",
+    "article_id": null,
+    "article_title": "2\n ReferenciaGasóleo",
+    "token_count": 111
+  },
+  {
+    "chunk_id": "GUIAS-SEC-183",
+    "article_id": null,
+    "article_title": "2\nC A A",
+    "token_count": 127
+  },
+  {
+    "chunk_id": "GUIAS-SEC-184",
+    "article_id": null,
+    "article_title": "2\nG = F/q134 80,1 45",
+    "token_count": 186
+  },
+  {
+    "chunk_id": "GUIAS-SEC-185",
+    "article_id": null,
+    "article_title": "025\nLa sustitución presenta una considerable reducción en energía final consumida, así como de energía",
+    "token_count": 731
+  },
+  {
+    "chunk_id": "GUIAS-SEC-186",
+    "article_id": null,
+    "article_title": "181\nGuias IDAE",
+    "token_count": 335
+  },
+  {
+    "chunk_id": "GUIAS-SEC-187",
+    "article_id": null,
+    "article_title": "025\nEn la actualidad, la vivienda dispone de una caldera estanca de gas natural de bajo NO",
+    "token_count": 453
+  },
+  {
+    "chunk_id": "GUIAS-SEC-188",
+    "article_id": null,
+    "article_title": "183\nGuias IDAE",
+    "token_count": 506
+  },
+  {
+    "chunk_id": "GUIAS-SEC-189",
+    "article_id": null,
+    "article_title": "1629\nVista superior",
+    "token_count": 794
+  },
+  {
+    "chunk_id": "GUIAS-SEC-190",
+    "article_id": null,
+    "article_title": "025\nUnidad exterior",
+    "token_count": 586
+  },
+  {
+    "chunk_id": "GUIAS-SEC-191",
+    "article_id": null,
+    "article_title": "187\nGuias IDAE",
+    "token_count": 491
+  },
+  {
+    "chunk_id": "GUIAS-SEC-192",
+    "article_id": null,
+    "article_title": "025\nPara la selección del modelo de bomba de calor, deben considerarse las potencias que ofrece el fabri-",
+    "token_count": 457
+  },
+  {
+    "chunk_id": "GUIAS-SEC-193",
+    "article_id": null,
+    "article_title": "189\nGuias IDAE",
+    "token_count": 618
+  },
+  {
+    "chunk_id": "GUIAS-SEC-194",
+    "article_id": null,
+    "article_title": "025\nEn la tabla 4-34 se comprueba que el caudal mínimo indicado por el fabricante para este modelo se",
+    "token_count": 357
+  },
+  {
+    "chunk_id": "GUIAS-SEC-196",
+    "article_id": null,
+    "article_title": "191\nGuias IDAE",
+    "token_count": 581
+  },
+  {
+    "chunk_id": "GUIAS-SEC-197",
+    "article_id": null,
+    "article_title": "025\nEsta línea eléctrica adicional tendrá una sección de 2,5 mm",
+    "token_count": 492
+  },
+  {
+    "chunk_id": "GUIAS-SEC-198",
+    "article_id": null,
+    "article_title": "193\nGuias IDAE",
+    "token_count": 647
+  },
+  {
+    "chunk_id": "GUIAS-SEC-199",
+    "article_id": null,
+    "article_title": "025\nFicha de datos técnicos de la bomba de calor de ACS. Modelo 150L",
+    "token_count": 292
+  },
+  {
+    "chunk_id": "GUIAS-SEC-200",
+    "article_id": null,
+    "article_title": "320\nTemperatura local instalación min°C1",
+    "token_count": 75
+  },
+  {
+    "chunk_id": "GUIAS-SEC-201",
+    "article_id": null,
+    "article_title": "195\nGuias IDAE",
+    "token_count": 364
+  },
+  {
+    "chunk_id": "GUIAS-SEC-202",
+    "article_id": null,
+    "article_title": "025\nAsí, para estimar el rendimiento estacional a 45 °C de impulsión, en calefacción o cualquier otra tem-",
+    "token_count": 341
+  },
+  {
+    "chunk_id": "GUIAS-SEC-203-1",
+    "article_id": null,
+    "article_title": "197\nGuias IDAE",
+    "token_count": 583
+  },
+  {
+    "chunk_id": "GUIAS-SEC-203-2",
+    "article_id": null,
+    "article_title": "197\nGuias IDAE",
+    "token_count": 356
+  },
+  {
+    "chunk_id": "GUIAS-SEC-204-1",
+    "article_id": null,
+    "article_title": "199\nGuias IDAE",
+    "token_count": 414
+  },
+  {
+    "chunk_id": "GUIAS-SEC-204-2",
+    "article_id": null,
+    "article_title": "199\nGuias IDAE",
+    "token_count": 430
+  },
+  {
+    "chunk_id": "GUIAS-SEC-205",
+    "article_id": null,
+    "article_title": "201\nGuias IDAE",
+    "token_count": 380
+  },
+  {
+    "chunk_id": "GUIAS-SEC-206",
+    "article_id": null,
+    "article_title": "025\nNecesidades de calefacción",
+    "token_count": 674
+  },
+  {
+    "chunk_id": "GUIAS-SEC-207-1",
+    "article_id": null,
+    "article_title": "203\nGuias IDAE",
+    "token_count": 354
+  },
+  {
+    "chunk_id": "GUIAS-SEC-207-2",
+    "article_id": null,
+    "article_title": "203\nGuias IDAE",
+    "token_count": 774
+  },
+  {
+    "chunk_id": "GUIAS-SEC-208",
+    "article_id": null,
+    "article_title": "205\nGuias IDAE",
+    "token_count": 690
+  },
+  {
+    "chunk_id": "GUIAS-SEC-209",
+    "article_id": null,
+    "article_title": "025\nDonde:",
+    "token_count": 550
+  },
+  {
+    "chunk_id": "GUIAS-SEC-210",
+    "article_id": null,
+    "article_title": "207\nGuias IDAE",
+    "token_count": 469
+  },
+  {
+    "chunk_id": "GUIAS-SEC-211",
+    "article_id": null,
+    "article_title": "230717\nTabla 4‑49. Caso tipo 2. Piso en bloque. Opción 100% frigorífica. Cálculo de los conductores necesarios",
+    "token_count": 211
+  },
+  {
+    "chunk_id": "GUIAS-SEC-212",
+    "article_id": null,
+    "article_title": "025\nAl estar unida a un circuito con más consumidores, debe comprobarse que el consumo total de la",
+    "token_count": 406
+  },
+  {
+    "chunk_id": "GUIAS-SEC-213",
+    "article_id": null,
+    "article_title": "209\nGuias IDAE",
+    "token_count": 663
+  },
+  {
+    "chunk_id": "GUIAS-SEC-214",
+    "article_id": null,
+    "article_title": "211\nGuias IDAE",
+    "token_count": 678
+  },
+  {
+    "chunk_id": "GUIAS-SEC-215",
+    "article_id": null,
+    "article_title": "213\nGuias IDAE",
+    "token_count": 98
+  },
+  {
+    "chunk_id": "GUIAS-SEC-216",
+    "article_id": null,
+    "article_title": "2\n Referencia",
+    "token_count": 106
+  },
+  {
+    "chunk_id": "GUIAS-SEC-217",
+    "article_id": null,
+    "article_title": "2\nE = D/q34,0 14,0 10,4",
+    "token_count": 152
+  },
+  {
+    "chunk_id": "GUIAS-SEC-218",
+    "article_id": null,
+    "article_title": "2\nG = F/s163,9 82,5 61,1",
+    "token_count": 218
+  },
+  {
+    "chunk_id": "GUIAS-SEC-219",
+    "article_id": null,
+    "article_title": "025\nCualquiera de las dos opciones presenta una considerable reducción en energía final y energía pri-",
+    "token_count": 527
+  },
+  {
+    "chunk_id": "GUIAS-SEC-220",
+    "article_id": null,
+    "article_title": "2\nCondiciones previas que deben estudiarse/barreras",
+    "token_count": 121
+  },
+  {
+    "chunk_id": "GUIAS-SEC-221",
+    "article_id": null,
+    "article_title": "215\nGuias IDAE",
+    "token_count": 261
+  },
+  {
+    "chunk_id": "GUIAS-SEC-222",
+    "article_id": null,
+    "article_title": "341121222.591\nTabla 4‑61. Caso tipo 3. Piso en bloque. Sustitución de termo eléctrico. Resumen necesidades ACS",
+    "token_count": 273
+  },
+  {
+    "chunk_id": "GUIAS-SEC-223",
+    "article_id": null,
+    "article_title": "122120147\nTabla 4‑62. Caso tipo 3. Piso en bloque. Sustitución de termo eléctrico. Resumen demanda y selección de bomba de calor",
+    "token_count": 267
+  },
+  {
+    "chunk_id": "GUIAS-SEC-224-1",
+    "article_id": null,
+    "article_title": "217\nGuias IDAE",
+    "token_count": 734
+  },
+  {
+    "chunk_id": "GUIAS-SEC-224-2",
+    "article_id": null,
+    "article_title": "217\nGuias IDAE",
+    "token_count": 443
+  },
+  {
+    "chunk_id": "GUIAS-SEC-225",
+    "article_id": null,
+    "article_title": "219\nGuias IDAE",
+    "token_count": 485
+  },
+  {
+    "chunk_id": "GUIAS-SEC-226",
+    "article_id": null,
+    "article_title": "025\nEl control de dirección de flujo de aire expulsado de la bomba de calor se realiza mediante, por ejem-",
+    "token_count": 532
+  },
+  {
+    "chunk_id": "GUIAS-SEC-227",
+    "article_id": null,
+    "article_title": "221\nGuias IDAE",
+    "token_count": 382
+  },
+  {
+    "chunk_id": "GUIAS-SEC-228",
+    "article_id": null,
+    "article_title": "1201.5001473501.2001.550\nTabla 4‑65. Caso tipo 3. Piso en bloque. Sustitución de termo eléctrico. Potencia eléctrica máxima consumida",
+    "token_count": 561
+  },
+  {
+    "chunk_id": "GUIAS-SEC-229",
+    "article_id": null,
+    "article_title": "2\n Referencia",
+    "token_count": 111
+  },
+  {
+    "chunk_id": "GUIAS-SEC-230",
+    "article_id": null,
+    "article_title": "223\nGuias IDAE",
+    "token_count": 634
+  },
+  {
+    "chunk_id": "GUIAS-SEC-231",
+    "article_id": null,
+    "article_title": "025\nMejoras adicionales posibles en esta instalación",
+    "token_count": 412
+  },
+  {
+    "chunk_id": "GUIAS-SEC-232",
+    "article_id": null,
+    "article_title": "225\nGuias IDAE",
+    "token_count": 296
+  },
+  {
+    "chunk_id": "GUIAS-SEC-233",
+    "article_id": null,
+    "article_title": "6.000\nRatio kWh E. final/m",
+    "token_count": 435
+  },
+  {
+    "chunk_id": "GUIAS-SEC-240-1",
+    "article_id": null,
+    "article_title": "2.990\nDemanda de energíakWh/año192.214",
+    "token_count": 455
+  },
+  {
+    "chunk_id": "GUIAS-SEC-240-2",
+    "article_id": null,
+    "article_title": "2.990\nDemanda de energíakWh/año192.214",
+    "token_count": 621
+  },
+  {
+    "chunk_id": "GUIAS-SEC-241",
+    "article_id": null,
+    "article_title": "229\nGuias IDAE",
+    "token_count": 103
+  },
+  {
+    "chunk_id": "GUIAS-SEC-242",
+    "article_id": null,
+    "article_title": "30\nInclinación de la",
+    "token_count": 220
+  },
+  {
+    "chunk_id": "GUIAS-SEC-243",
+    "article_id": null,
+    "article_title": "025\nIntervalo de",
+    "token_count": 297
+  },
+  {
+    "chunk_id": "GUIAS-SEC-244",
+    "article_id": null,
+    "article_title": "231\nGuias IDAE",
+    "token_count": 234
+  },
+  {
+    "chunk_id": "GUIAS-SEC-245",
+    "article_id": null,
+    "article_title": "2 \nAño construcción1970",
+    "token_count": 305
+  },
+  {
+    "chunk_id": "GUIAS-SEC-246-1",
+    "article_id": null,
+    "article_title": "233\nGuias IDAE",
+    "token_count": 830
+  },
+  {
+    "chunk_id": "GUIAS-SEC-247",
+    "article_id": null,
+    "article_title": "025\nFrecuencias de repeticiónPotenciaEnergía térmica",
+    "token_count": 318
+  },
+  {
+    "chunk_id": "GUIAS-SEC-248",
+    "article_id": null,
+    "article_title": "235\nGuias IDAE",
+    "token_count": 100
+  },
+  {
+    "chunk_id": "GUIAS-SEC-249",
+    "article_id": null,
+    "article_title": "60\nHoras acumuladas al año, en cada intervalo de temperatura exterior",
+    "token_count": 135
+  },
+  {
+    "chunk_id": "GUIAS-SEC-252",
+    "article_id": null,
+    "article_title": "025\nGráfico 4‑39. Caso tipo 4. Residencial centralizada. Variación simplificada de la potencia necesaria en función de",
+    "token_count": 444
+  },
+  {
+    "chunk_id": "GUIAS-SEC-254",
+    "article_id": null,
+    "article_title": "237\nGuias IDAE",
+    "token_count": 447
+  },
+  {
+    "chunk_id": "GUIAS-SEC-255",
+    "article_id": null,
+    "article_title": "400\nSumatorio (en %) del acumuolado de horas de calefacción al año",
+    "token_count": 617
+  },
+  {
+    "chunk_id": "GUIAS-SEC-256",
+    "article_id": null,
+    "article_title": "123456789101112131415161718192021222324\nDemanda de ACS a 50 °C (litros)",
+    "token_count": 289
+  },
+  {
+    "chunk_id": "GUIAS-SEC-257",
+    "article_id": null,
+    "article_title": "239\nGuias IDAE",
+    "token_count": 174
+  },
+  {
+    "chunk_id": "GUIAS-SEC-258",
+    "article_id": null,
+    "article_title": "123456789101112131415161718192021222324\nDemanda de ACS a 50 °C (litros)",
+    "token_count": 542
+  },
+  {
+    "chunk_id": "GUIAS-SEC-259",
+    "article_id": null,
+    "article_title": "025\nTemperatura",
+    "token_count": 645
+  },
+  {
+    "chunk_id": "GUIAS-SEC-260-1",
+    "article_id": null,
+    "article_title": "241\nGuias IDAE",
+    "token_count": 836
+  },
+  {
+    "chunk_id": "GUIAS-SEC-261",
+    "article_id": null,
+    "article_title": "025\nA la potencia a consumir por la bomba de calor, deberá añadirse la potencia eléctrica correspondien-",
+    "token_count": 494
+  },
+  {
+    "chunk_id": "GUIAS-SEC-262",
+    "article_id": null,
+    "article_title": "243\nGuias IDAE",
+    "token_count": 490
+  },
+  {
+    "chunk_id": "GUIAS-SEC-264",
+    "article_id": null,
+    "article_title": "2\nReferenciaGas naturalGasóleo",
+    "token_count": 136
+  },
+  {
+    "chunk_id": "GUIAS-SEC-265",
+    "article_id": null,
+    "article_title": "2\nS6.000,0 6.000,0 6.000,0 6.000,0",
+    "token_count": 192
+  },
+  {
+    "chunk_id": "GUIAS-SEC-267",
+    "article_id": null,
+    "article_title": "2\nEpnr=E/S167,6 178,0 120,3 123,3",
+    "token_count": 102
+  },
+  {
+    "chunk_id": "GUIAS-SEC-268",
+    "article_id": null,
+    "article_title": "245\nGuias IDAE",
+    "token_count": 442
+  },
+  {
+    "chunk_id": "GUIAS-SEC-269",
+    "article_id": null,
+    "article_title": "2\nCondiciones previas que deben valorarse/barreras",
+    "token_count": 373
+  },
+  {
+    "chunk_id": "GUIAS-SEC-270",
+    "article_id": null,
+    "article_title": "247\nGuias IDAE",
+    "token_count": 755
+  },
+  {
+    "chunk_id": "GUIAS-SEC-271",
+    "article_id": null,
+    "article_title": "249\nGuias IDAE",
+    "token_count": 254
+  },
+  {
+    "chunk_id": "GUIAS-SEC-272",
+    "article_id": null,
+    "article_title": "025\nTipo de edificio Caudales (l/s)Coeficientes",
+    "token_count": 334
+  },
+  {
+    "chunk_id": "GUIAS-SEC-274",
+    "article_id": null,
+    "article_title": "4.9.2.2.3.1.1 Cálculo del caudal Punta (Q",
+    "token_count": 228
+  },
+  {
+    "chunk_id": "GUIAS-SEC-276",
+    "article_id": null,
+    "article_title": "4.9.2.2.3.1.3 Cálculo del rendimiento del sistema de producción",
+    "token_count": 213
+  },
+  {
+    "chunk_id": "GUIAS-SEC-277",
+    "article_id": null,
+    "article_title": "025\nPor lo que, a partir de estos datos, calculamos las pérdidas de energía diaria y mensual.",
+    "token_count": 106
+  },
+  {
+    "chunk_id": "GUIAS-SEC-278",
+    "article_id": null,
+    "article_title": "4.1851 W = 1 J ·s1h = 3.600 s4.185 J * 1h/3.600 s x 10000,0011625",
+    "token_count": 308
+  },
+  {
+    "chunk_id": "GUIAS-SEC-279",
+    "article_id": null,
+    "article_title": "253\nGuias IDAE",
+    "token_count": 545
+  },
+  {
+    "chunk_id": "GUIAS-SEC-280",
+    "article_id": null,
+    "article_title": "025\nEn cumplimiento del punto «1.2.4.1.3.3 Maquinaria frigorífica enfriada por aire» del RITE, se obtiene",
+    "token_count": 417
+  },
+  {
+    "chunk_id": "GUIAS-SEC-281",
+    "article_id": null,
+    "article_title": "255\nGuias IDAE",
+    "token_count": 753
+  },
+  {
+    "chunk_id": "GUIAS-SEC-282",
+    "article_id": null,
+    "article_title": "257\nGuias IDAE",
+    "token_count": 417
+  },
+  {
+    "chunk_id": "GUIAS-SEC-283",
+    "article_id": null,
+    "article_title": "025\nEn nuestro caso tipo existe una diferencia de altura vertical entre la cubierta y el sótano de 15 metros",
+    "token_count": 565
+  },
+  {
+    "chunk_id": "GUIAS-SEC-284",
+    "article_id": null,
+    "article_title": "259\nGuias IDAE",
+    "token_count": 93
+  },
+  {
+    "chunk_id": "GUIAS-SEC-285",
+    "article_id": null,
+    "article_title": "2\nMagneto",
+    "token_count": 265
+  },
+  {
+    "chunk_id": "GUIAS-SEC-286",
+    "article_id": null,
+    "article_title": "025\nGráfico 4‑47. Caso tipo 5. Centralizada. BdC de producción instantánea de ACS. Esquema de principio",
+    "token_count": 119
+  },
+  {
+    "chunk_id": "GUIAS-SEC-287",
+    "article_id": null,
+    "article_title": "261\nGuias IDAE",
+    "token_count": 253
+  },
+  {
+    "chunk_id": "GUIAS-SEC-289",
+    "article_id": null,
+    "article_title": "2\nCoeficiente",
+    "token_count": 130
+  },
+  {
+    "chunk_id": "GUIAS-SEC-290",
+    "article_id": null,
+    "article_title": "025\nLa implantación de la bomba de calor de CO",
+    "token_count": 353
+  },
+  {
+    "chunk_id": "GUIAS-SEC-291",
+    "article_id": null,
+    "article_title": "263\nGuias IDAE",
+    "token_count": 195
+  },
+  {
+    "chunk_id": "GUIAS-SEC-294",
+    "article_id": null,
+    "article_title": "3\nGráfico 4‑48. Caso tipo 6. Clínica de fisioterapia. Esquema de calefacción",
+    "token_count": 387
+  },
+  {
+    "chunk_id": "GUIAS-SEC-295",
+    "article_id": null,
+    "article_title": "265\nGuias IDAE",
+    "token_count": 671
+  },
+  {
+    "chunk_id": "GUIAS-SEC-297",
+    "article_id": null,
+    "article_title": "1 VWL 45/6 y VWL 55/6",
+    "token_count": 218
+  },
+  {
+    "chunk_id": "GUIAS-SEC-299",
+    "article_id": null,
+    "article_title": "025\nRelación de selección de fancoils en régimen de refrigeración",
+    "token_count": 94
+  },
+  {
+    "chunk_id": "GUIAS-SEC-300",
+    "article_id": null,
+    "article_title": "20\nTOTA L12.1008.62002.069632,7",
+    "token_count": 311
+  },
+  {
+    "chunk_id": "GUIAS-SEC-301",
+    "article_id": null,
+    "article_title": "269\nGuias IDAE",
+    "token_count": 309
+  },
+  {
+    "chunk_id": "GUIAS-SEC-303",
+    "article_id": null,
+    "article_title": "2\nCoeficiente",
+    "token_count": 171
+  },
+  {
+    "chunk_id": "GUIAS-SEC-304",
+    "article_id": null,
+    "article_title": "025\nLa implantación de la bomba de calor reduce considerablemente la energía final, energía primaria y",
+    "token_count": 448
+  },
+  {
+    "chunk_id": "GUIAS-SEC-305",
+    "article_id": null,
+    "article_title": "271\nGuias IDAE",
+    "token_count": 415
+  },
+  {
+    "chunk_id": "GUIAS-SEC-306",
+    "article_id": null,
+    "article_title": "025\nSiendo:",
+    "token_count": 325
+  },
+  {
+    "chunk_id": "GUIAS-SEC-307",
+    "article_id": null,
+    "article_title": "273\nGuias IDAE",
+    "token_count": 333
+  },
+  {
+    "chunk_id": "GUIAS-SEC-308",
+    "article_id": null,
+    "article_title": "025\nDonde Q",
+    "token_count": 225
+  },
+  {
+    "chunk_id": "GUIAS-SEC-309",
+    "article_id": null,
+    "article_title": "275\nGuias IDAE",
+    "token_count": 338
+  },
+  {
+    "chunk_id": "GUIAS-SEC-311",
+    "article_id": null,
+    "article_title": "414141414141414141414141\nACS. Demanda",
+    "token_count": 433
+  },
+  {
+    "chunk_id": "GUIAS-SEC-312",
+    "article_id": null,
+    "article_title": "277\nGuias IDAE",
+    "token_count": 567
+  },
+  {
+    "chunk_id": "GUIAS-SEC-313",
+    "article_id": null,
+    "article_title": "025\nGran acumulación, desventajas",
+    "token_count": 212
+  },
+  {
+    "chunk_id": "GUIAS-SEC-315",
+    "article_id": null,
+    "article_title": "250\nConsumo [l/h a 60",
+    "token_count": 381
+  },
+  {
+    "chunk_id": "GUIAS-SEC-316",
+    "article_id": null,
+    "article_title": "025\nDesde el punto de vista de instalación:",
+    "token_count": 561
+  },
+  {
+    "chunk_id": "GUIAS-SEC-317",
+    "article_id": null,
+    "article_title": "281\nGuias IDAE",
+    "token_count": 443
+  },
+  {
+    "chunk_id": "GUIAS-SEC-318",
+    "article_id": null,
+    "article_title": "025\nCon base en los cálculos anteriores, la potencia necesaria en el generador será de 35,6 kW, para el",
+    "token_count": 652
+  },
+  {
+    "chunk_id": "GUIAS-SEC-320",
+    "article_id": null,
+    "article_title": "657075\nTemperatura",
+    "token_count": 433
+  },
+  {
+    "chunk_id": "GUIAS-SEC-321",
+    "article_id": null,
+    "article_title": "025\nVarias premisas deben tenerse en cuenta a la hora de elegir el emplazamiento de las máquinas:",
+    "token_count": 448
+  },
+  {
+    "chunk_id": "GUIAS-SEC-322",
+    "article_id": null,
+    "article_title": "285\nGuias IDAE",
+    "token_count": 417
+  },
+  {
+    "chunk_id": "GUIAS-SEC-323",
+    "article_id": null,
+    "article_title": "025\nGráfico 4‑56. Caso tipo 7. ACS para hotel con BdC de VRF alta temperatura. Ejemplo de esquema unifilar",
+    "token_count": 164
+  },
+  {
+    "chunk_id": "GUIAS-SEC-324",
+    "article_id": null,
+    "article_title": "287\nGuias IDAE",
+    "token_count": 230
+  },
+  {
+    "chunk_id": "GUIAS-SEC-326",
+    "article_id": null,
+    "article_title": "2\nCoeficiente emisiones CO",
+    "token_count": 118
+  },
+  {
+    "chunk_id": "GUIAS-SEC-327",
+    "article_id": null,
+    "article_title": "025\nLa sustitución del sistema de producción del sistema de calentamiento de ACS existente por el de",
+    "token_count": 340
+  },
+  {
+    "chunk_id": "GUIAS-SEC-328",
+    "article_id": null,
+    "article_title": "289\nGuias IDAE",
+    "token_count": 196
+  },
+  {
+    "chunk_id": "GUIAS-SEC-329",
+    "article_id": null,
+    "article_title": "025\nSe trata de la antigua masía «Mas Sagrera» construida en el año 1790, rehabilitada para convertirla",
+    "token_count": 487
+  },
+  {
+    "chunk_id": "GUIAS-SEC-330",
+    "article_id": null,
+    "article_title": "293\nGuias IDAE",
+    "token_count": 539
+  },
+  {
+    "chunk_id": "GUIAS-SEC-331",
+    "article_id": null,
+    "article_title": "025\nPresupuesto",
+    "token_count": 239
+  },
+  {
+    "chunk_id": "GUIAS-SEC-332",
+    "article_id": null,
+    "article_title": "295\nGuias IDAE",
+    "token_count": 492
+  },
+  {
+    "chunk_id": "GUIAS-SEC-333",
+    "article_id": null,
+    "article_title": "025\nEn cuanto a la ubicación de los equipos, se dispone de un espacio reservado en cubierta. Los acumu-",
+    "token_count": 79
+  },
+  {
+    "chunk_id": "GUIAS-SEC-334",
+    "article_id": null,
+    "article_title": "2\nEnergía",
+    "token_count": 291
+  },
+  {
+    "chunk_id": "GUIAS-SEC-335",
+    "article_id": null,
+    "article_title": "297\nGuias IDAE",
+    "token_count": 256
+  },
+  {
+    "chunk_id": "GUIAS-SEC-336",
+    "article_id": null,
+    "article_title": "025\nResumen anual en",
+    "token_count": 192
+  },
+  {
+    "chunk_id": "GUIAS-SEC-337",
+    "article_id": null,
+    "article_title": "2\nPotencia",
+    "token_count": 321
+  },
+  {
+    "chunk_id": "GUIAS-SEC-339",
+    "article_id": null,
+    "article_title": "2\nCoste anual",
+    "token_count": 728
+  },
+  {
+    "chunk_id": "GUIAS-SEC-340",
+    "article_id": null,
+    "article_title": "301\nGuias IDAE",
+    "token_count": 393
+  },
+  {
+    "chunk_id": "GUIAS-SEC-342",
+    "article_id": null,
+    "article_title": "2\nEmisoresRadiadores existentes",
+    "token_count": 104
+  },
+  {
+    "chunk_id": "GUIAS-SEC-344",
+    "article_id": null,
+    "article_title": "2\nCoste",
+    "token_count": 316
+  },
+  {
+    "chunk_id": "GUIAS-SEC-345",
+    "article_id": null,
+    "article_title": "025\nEl hospital de San Roque, hospital de la Cruz u hospital de Doña Beatriz de Trejo es un edificio histó-",
+    "token_count": 373
+  },
+  {
+    "chunk_id": "GUIAS-SEC-346",
+    "article_id": null,
+    "article_title": "305\nGuias IDAE",
+    "token_count": 418
+  },
+  {
+    "chunk_id": "GUIAS-SEC-348",
+    "article_id": null,
+    "article_title": "307\nGuias IDAE",
+    "token_count": 463
+  },
+  {
+    "chunk_id": "GUIAS-SEC-350",
+    "article_id": null,
+    "article_title": "309\nGuias IDAE",
+    "token_count": 527
+  },
+  {
+    "chunk_id": "GUIAS-SEC-351",
+    "article_id": null,
+    "article_title": "311\nGuias IDAE",
+    "token_count": 419
+  },
+  {
+    "chunk_id": "GUIAS-SEC-352",
+    "article_id": null,
+    "article_title": "313\nGuias IDAE",
+    "token_count": 396
+  },
+  {
+    "chunk_id": "GUIAS-SEC-353",
+    "article_id": null,
+    "article_title": "025\nEn relación a la ubicación de los equipos, las dos unidades exteriores se instalaron al lado del edificio",
+    "token_count": 458
+  },
+  {
+    "chunk_id": "GUIAS-SEC-354",
+    "article_id": null,
+    "article_title": "315\nGuias IDAE",
+    "token_count": 304
+  },
+  {
+    "chunk_id": "GUIAS-SEC-355",
+    "article_id": null,
+    "article_title": "025\nDescripción del proyecto",
+    "token_count": 412
+  },
+  {
+    "chunk_id": "GUIAS-SEC-356",
+    "article_id": null,
+    "article_title": "317\nGuias IDAE",
+    "token_count": 342
+  },
+  {
+    "chunk_id": "GUIAS-SEC-357",
+    "article_id": null,
+    "article_title": "025\nEsquema de la instalación",
+    "token_count": 206
+  },
+  {
+    "chunk_id": "GUIAS-SEC-359",
+    "article_id": null,
+    "article_title": "2\nEnergía",
+    "token_count": 96
+  },
+  {
+    "chunk_id": "GUIAS-SEC-360",
+    "article_id": null,
+    "article_title": "2\nEnergía",
+    "token_count": 182
+  },
+  {
+    "chunk_id": "GUIAS-SEC-361",
+    "article_id": null,
+    "article_title": "025\nLa industria tiene unas necesidades de agua caliente a 60 ºC de 20.000 litros/día que se consumen de",
+    "token_count": 281
+  },
+  {
+    "chunk_id": "GUIAS-SEC-362",
+    "article_id": null,
+    "article_title": "321\nGuias IDAE",
+    "token_count": 225
+  },
+  {
+    "chunk_id": "GUIAS-SEC-363",
+    "article_id": null,
+    "article_title": "025\nEsquema de la instalación",
+    "token_count": 115
+  },
+  {
+    "chunk_id": "GUIAS-SEC-366-1",
+    "article_id": null,
+    "article_title": "325\nGuias IDAE",
+    "token_count": 488
+  },
+  {
+    "chunk_id": "GUIAS-SEC-366-2",
+    "article_id": null,
+    "article_title": "325\nGuias IDAE",
+    "token_count": 710
+  },
+  {
+    "chunk_id": "GUIAS-SEC-367-1",
+    "article_id": null,
+    "article_title": "327\nGuias IDAE",
+    "token_count": 668
+  },
+  {
+    "chunk_id": "GUIAS-SEC-367-2",
+    "article_id": null,
+    "article_title": "327\nGuias IDAE",
+    "token_count": 730
+  },
+  {
+    "chunk_id": "GUIAS-SEC-368",
+    "article_id": null,
+    "article_title": "329\nGuias IDAE",
+    "token_count": 582
+  },
+  {
+    "chunk_id": "GUIAS-SEC-369",
+    "article_id": null,
+    "article_title": "025\nUNE-EN 14511:2019. Acondicionadores de aire, enfriadoras de líquido y bombas de calor para la calefac-",
+    "token_count": 529
+  },
+  {
+    "chunk_id": "GUIAS-SEC-370",
+    "article_id": null,
+    "article_title": "331\nGuias IDAE",
+    "token_count": 453
+  },
+  {
+    "chunk_id": "GUIAS-SEC-371",
+    "article_id": null,
+    "article_title": "333\nGuias IDAE",
+    "token_count": 583
+  },
+  {
+    "chunk_id": "GUIAS-SEC-372",
+    "article_id": null,
+    "article_title": "025\nTipo de",
+    "token_count": 468
+  },
+  {
+    "chunk_id": "GUIAS-SEC-373",
+    "article_id": null,
+    "article_title": "335\nGuias IDAE",
+    "token_count": 595
+  },
+  {
+    "chunk_id": "GUIAS-SEC-374",
+    "article_id": null,
+    "article_title": "025\nTipo de",
+    "token_count": 493
+  },
+  {
+    "chunk_id": "GUIAS-SEC-375",
+    "article_id": null,
+    "article_title": "337\nGuias IDAE",
+    "token_count": 641
+  },
+  {
+    "chunk_id": "GUIAS-SEC-376",
+    "article_id": null,
+    "article_title": "025\nTipo de",
+    "token_count": 628
+  },
+  {
+    "chunk_id": "GUIAS-SEC-377",
+    "article_id": null,
+    "article_title": "339\nGuias IDAE",
+    "token_count": 637
+  },
+  {
+    "chunk_id": "GUIAS-SEC-378",
+    "article_id": null,
+    "article_title": "025\nTipo de",
+    "token_count": 491
+  },
+  {
+    "chunk_id": "GUIAS-SEC-379",
+    "article_id": null,
+    "article_title": "341\nGuias IDAE",
+    "token_count": 575
+  },
+  {
+    "chunk_id": "GUIAS-SEC-380",
+    "article_id": null,
+    "article_title": "025\nTipo de",
+    "token_count": 535
+  },
+  {
+    "chunk_id": "GUIAS-SEC-381-1",
+    "article_id": null,
+    "article_title": "343\nGuias IDAE",
+    "token_count": 494
+  },
+  {
+    "chunk_id": "GUIAS-SEC-381-2",
+    "article_id": null,
+    "article_title": "343\nGuias IDAE",
+    "token_count": 398
+  },
+  {
+    "chunk_id": "GUIAS-SEC-382-1",
+    "article_id": null,
+    "article_title": "345\nGuias IDAE",
+    "token_count": 370
+  },
+  {
+    "chunk_id": "GUIAS-SEC-382-2",
+    "article_id": null,
+    "article_title": "345\nGuias IDAE",
+    "token_count": 587
+  },
+  {
+    "chunk_id": "GUIAS-SEC-383",
+    "article_id": null,
+    "article_title": "347\nGuias IDAE",
+    "token_count": 209
+  },
+  {
+    "chunk_id": "GUIAS-SEC-385",
+    "article_id": null,
+    "article_title": "56\nDatos para aplicación a media temperatura, (55 °C) (1)",
+    "token_count": 172
+  },
+  {
+    "chunk_id": "GUIAS-SEC-387",
+    "article_id": null,
+    "article_title": "025\nExplicación de la tabla incluida en la ficha:",
+    "token_count": 468
+  },
+  {
+    "chunk_id": "GUIAS-SEC-388",
+    "article_id": null,
+    "article_title": "349\nGuias IDAE",
+    "token_count": 373
+  },
+  {
+    "chunk_id": "GUIAS-SEC-389-1",
+    "article_id": null,
+    "article_title": "025\nSiendo:",
+    "token_count": 830
+  },
+  {
+    "chunk_id": "GUIAS-SEC-390",
+    "article_id": null,
+    "article_title": "351\nGuias IDAE",
+    "token_count": 623
+  },
+  {
+    "chunk_id": "GUIAS-SEC-391",
+    "article_id": null,
+    "article_title": "025\nUn ejemplo de etiqueta energética de bombas de para ACS sería el siguiente:",
+    "token_count": 513
+  },
+  {
+    "chunk_id": "GUIAS-SEC-392",
+    "article_id": null,
+    "article_title": "353\nGuias IDAE",
+    "token_count": 504
+  },
+  {
+    "chunk_id": "GUIAS-SEC-393",
+    "article_id": null,
+    "article_title": "025\nComúnSin intervención sobre la envolvente térmica",
+    "token_count": 286
+  },
+  {
+    "chunk_id": "GUIAS-SEC-394",
+    "article_id": null,
+    "article_title": "355\nGuias IDAE",
+    "token_count": 103
+  },
+  {
+    "chunk_id": "GUIAS-SEC-395",
+    "article_id": null,
+    "article_title": "14825\nTª máxi-",
+    "token_count": 495
+  },
+  {
+    "chunk_id": "GUIAS-SEC-396",
+    "article_id": null,
+    "article_title": "025\nA partir de esta tabla se puede llegar a las siguientes conclusiones:",
+    "token_count": 476
+  },
+  {
+    "chunk_id": "GUIAS-SEC-397-1",
+    "article_id": null,
+    "article_title": "357\nGuias IDAE",
+    "token_count": 727
+  },
+  {
+    "chunk_id": "GUIAS-SEC-397-2",
+    "article_id": null,
+    "article_title": "357\nGuias IDAE",
+    "token_count": 551
+  },
+  {
+    "chunk_id": "GUIAS-SEC-398",
+    "article_id": null,
+    "article_title": "359\nGuias IDAE",
+    "token_count": 532
+  },
+  {
+    "chunk_id": "GUIAS-SEC-399",
+    "article_id": null,
+    "article_title": "025\nGráfico 7‑4. Sala de ensayo para equipos aire‑agua de hasta 100 kW",
+    "token_count": 231
+  },
+  {
+    "chunk_id": "GUIAS-SEC-400-1",
+    "article_id": null,
+    "article_title": "361\nGuias IDAE",
+    "token_count": 382
+  },
+  {
+    "chunk_id": "GUIAS-SEC-400-2",
+    "article_id": null,
+    "article_title": "361\nGuias IDAE",
+    "token_count": 458
+  },
+  {
+    "chunk_id": "GUIAS-SEC-401-1",
+    "article_id": null,
+    "article_title": "363\nGuias IDAE",
+    "token_count": 843
+  },
+  {
+    "chunk_id": "GUIAS-SEC-402",
+    "article_id": null,
+    "article_title": "025\nConsumo consideradoSCOPnetSCOPonSCOP",
+    "token_count": 338
+  },
+  {
+    "chunk_id": "GUIAS-SEC-403",
+    "article_id": null,
+    "article_title": "365\nGuias IDAE",
+    "token_count": 406
+  },
+  {
+    "chunk_id": "GUIAS-SEC-404",
+    "article_id": null,
+    "article_title": "1 La próxima revisión de los reglamentos de ecodiseño, prevé la actualización de este coeficiente que",
+    "token_count": 369
+  },
+  {
+    "chunk_id": "GUIAS-SEC-405",
+    "article_id": null,
+    "article_title": "115\nC100 ≤ η",
+    "token_count": 214
+  },
+  {
+    "chunk_id": "GUIAS-SEC-406",
+    "article_id": null,
+    "article_title": "367\nGuias IDAE",
+    "token_count": 476
+  },
+  {
+    "chunk_id": "GUIAS-SEC-407",
+    "article_id": null,
+    "article_title": "3 XSXXSXSS",
+    "token_count": 454
+  },
+  {
+    "chunk_id": "GUIAS-SEC-408",
+    "article_id": null,
+    "article_title": "369\nGuias IDAE",
+    "token_count": 619
+  },
+  {
+    "chunk_id": "GUIAS-SEC-409",
+    "article_id": null,
+    "article_title": "025\nEl reglamento de etiquetado exige al fabricante la inclusión de una etiqueta energética para bombas",
+    "token_count": 716
+  },
+  {
+    "chunk_id": "GUIAS-SEC-410",
+    "article_id": null,
+    "article_title": "371\nGuias IDAE",
+    "token_count": 468
+  },
+  {
+    "chunk_id": "GUIAS-SEC-411",
+    "article_id": null,
+    "article_title": "025\nMétodoVentajasInconvenientes",
+    "token_count": 203
+  },
+  {
+    "chunk_id": "GUIAS-SEC-412-1",
+    "article_id": null,
+    "article_title": "025\nÍndice de tablas",
+    "token_count": 1325
+  },
+  {
+    "chunk_id": "GUIAS-SEC-413-1",
+    "article_id": null,
+    "article_title": "375\nGuias IDAE",
+    "token_count": 1261
+  },
+  {
+    "chunk_id": "GUIAS-SEC-414-1",
+    "article_id": null,
+    "article_title": "025\nTabla 4-31. Caso tipo 2. Piso en bloque. Opción 100% hidráulica. Obras necesarias _________________________ 186",
+    "token_count": 1355
+  },
+  {
+    "chunk_id": "GUIAS-SEC-415-1",
+    "article_id": null,
+    "article_title": "377\nGuias IDAE",
+    "token_count": 1315
+  },
+  {
+    "chunk_id": "GUIAS-SEC-416-1",
+    "article_id": null,
+    "article_title": "025\nTabla 4-108. Caso tipo 7. ACS para hotel con BdC de VRF alta temperatura. Tiempo de calentamiento __________ 281",
+    "token_count": 1226
+  },
+  {
+    "chunk_id": "GUIAS-SEC-417",
+    "article_id": null,
+    "article_title": "379\nGuias IDAE",
+    "token_count": 338
+  },
+  {
+    "chunk_id": "GUIAS-SEC-418-1",
+    "article_id": null,
+    "article_title": "025\nÍndice de gráficos",
+    "token_count": 1280
+  },
+  {
+    "chunk_id": "GUIAS-SEC-419-1",
+    "article_id": null,
+    "article_title": "381\nGuias IDAE",
+    "token_count": 1334
+  },
+  {
+    "chunk_id": "GUIAS-SEC-420-1",
+    "article_id": null,
+    "article_title": "025\nGráfico 2-71. Recuperación de energía para varios usos (ACS y piscina) _____________________________________99",
+    "token_count": 1356
+  },
+  {
+    "chunk_id": "GUIAS-SEC-421-1",
+    "article_id": null,
+    "article_title": "383\nGuias IDAE",
+    "token_count": 1346
+  },
+  {
+    "chunk_id": "GUIAS-SEC-422-1",
+    "article_id": null,
+    "article_title": "025\nGráfico 4-47. Caso tipo 5. Centralizada. BdC de producción instantánea de ACS. Esquema de principio __________260",
+    "token_count": 1222
+  },
+  {
+    "chunk_id": "GUIAS-SEC-422-2",
+    "article_id": null,
+    "article_title": "025\nGráfico 4-47. Caso tipo 5. Centralizada. BdC de producción instantánea de ACS. Esquema de principio __________260",
+    "token_count": 181
+  }
+]

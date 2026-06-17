@@ -22,6 +22,7 @@ import RegistroView from './components/RegistroView';
 import AdminView from './components/AdminView';
 import ScreenWorkerView from './components/ScreenWorkerView';
 import DemoView from './components/demo/DemoView';
+import AsistenteTecnicoPublicView from './components/AsistenteTecnicoPublicView';
 import LoginView from './components/auth/LoginView';
 import AuthActivateView from './components/auth/AuthActivateView';
 import AuthCallbackView from './components/auth/AuthCallbackView';
@@ -243,6 +244,9 @@ export default function App() {
       // Demo interactiva
       case ActivePage.Demo:
         return <DemoView setCurrentPage={setCurrentPage} />;
+
+      case ActivePage.AsisTecnico:
+        return <AsistenteTecnicoPublicView setCurrentPage={setCurrentPage} />;
 
       // App autenticada
       case ActivePage.AppDashboard:

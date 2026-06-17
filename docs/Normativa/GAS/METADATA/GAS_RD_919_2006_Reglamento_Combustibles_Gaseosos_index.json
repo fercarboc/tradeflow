@@ -1,0 +1,680 @@
+[
+  {
+    "chunk_id": "GAS-SEC-000-1",
+    "article_id": null,
+    "article_title": null,
+    "token_count": 499
+  },
+  {
+    "chunk_id": "GAS-SEC-000-2",
+    "article_id": null,
+    "article_title": null,
+    "token_count": 383
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-08",
+    "article_id": "ITC-ICG-08",
+    "article_title": "ITC-ICG 08",
+    "token_count": 118
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 113
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-1",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 1169
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-2",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 985
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-3",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 151
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-1",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 835
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-2",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 941
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-3",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 97
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-1",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 801
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-2",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 985
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-3",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 242
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 647
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-1",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 218
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-2",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 632
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-1",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 316
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-2",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 1073
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-3",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 1001
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-4",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 335
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-08",
+    "article_id": "ITC-ICG-08",
+    "article_title": "ITC-ICG 08",
+    "token_count": 799
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 208
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 359
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-01-1",
+    "article_id": "ITC-ICG-01",
+    "article_title": "ITC-ICG 01",
+    "token_count": 140
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-01-2",
+    "article_id": "ITC-ICG-01",
+    "article_title": "ITC-ICG 01",
+    "token_count": 983
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-01-3",
+    "article_id": "ITC-ICG-01",
+    "article_title": "ITC-ICG 01",
+    "token_count": 1087
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-01-4",
+    "article_id": "ITC-ICG-01",
+    "article_title": "ITC-ICG 01",
+    "token_count": 990
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-01-5",
+    "article_id": "ITC-ICG-01",
+    "article_title": "ITC-ICG 01",
+    "token_count": 1004
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-02-1",
+    "article_id": "ITC-ICG-02",
+    "article_title": "ITC-ICG 02",
+    "token_count": 796
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-02-2",
+    "article_id": "ITC-ICG-02",
+    "article_title": "ITC-ICG 02",
+    "token_count": 957
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-02-3",
+    "article_id": "ITC-ICG-02",
+    "article_title": "ITC-ICG 02",
+    "token_count": 1012
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-02-4",
+    "article_id": "ITC-ICG-02",
+    "article_title": "ITC-ICG 02",
+    "token_count": 889
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-02-5",
+    "article_id": "ITC-ICG-02",
+    "article_title": "ITC-ICG 02",
+    "token_count": 951
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-02-6",
+    "article_id": "ITC-ICG-02",
+    "article_title": "ITC-ICG 02",
+    "token_count": 981
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-02-7",
+    "article_id": "ITC-ICG-02",
+    "article_title": "ITC-ICG 02",
+    "token_count": 949
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-02-8",
+    "article_id": "ITC-ICG-02",
+    "article_title": "ITC-ICG 02",
+    "token_count": 267
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-03-1",
+    "article_id": "ITC-ICG-03",
+    "article_title": "ITC-ICG 03",
+    "token_count": 606
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-03-2",
+    "article_id": "ITC-ICG-03",
+    "article_title": "ITC-ICG 03",
+    "token_count": 989
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-03-3",
+    "article_id": "ITC-ICG-03",
+    "article_title": "ITC-ICG 03",
+    "token_count": 1026
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-03-4",
+    "article_id": "ITC-ICG-03",
+    "article_title": "ITC-ICG 03",
+    "token_count": 1062
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-03-5",
+    "article_id": "ITC-ICG-03",
+    "article_title": "ITC-ICG 03",
+    "token_count": 382
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-07-1",
+    "article_id": "ITC-ICG-07",
+    "article_title": "ITC-ICG 07",
+    "token_count": 622
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-07-2",
+    "article_id": "ITC-ICG-07",
+    "article_title": "ITC-ICG 07",
+    "token_count": 859
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-07-3",
+    "article_id": "ITC-ICG-07",
+    "article_title": "ITC-ICG 07",
+    "token_count": 1042
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-07-4",
+    "article_id": "ITC-ICG-07",
+    "article_title": "ITC-ICG 07",
+    "token_count": 877
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-04-1",
+    "article_id": "ITC-ICG-04",
+    "article_title": "ITC-ICG 04",
+    "token_count": 868
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-04-2",
+    "article_id": "ITC-ICG-04",
+    "article_title": "ITC-ICG 04",
+    "token_count": 924
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-04-3",
+    "article_id": "ITC-ICG-04",
+    "article_title": "ITC-ICG 04",
+    "token_count": 1076
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-05-1",
+    "article_id": "ITC-ICG-05",
+    "article_title": "ITC-ICG 05",
+    "token_count": 766
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-05-2",
+    "article_id": "ITC-ICG-05",
+    "article_title": "ITC-ICG 05",
+    "token_count": 973
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-05-3",
+    "article_id": "ITC-ICG-05",
+    "article_title": "ITC-ICG 05",
+    "token_count": 488
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-06-1",
+    "article_id": "ITC-ICG-06",
+    "article_title": "ITC-ICG 06",
+    "token_count": 569
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-06-2",
+    "article_id": "ITC-ICG-06",
+    "article_title": "ITC-ICG 06",
+    "token_count": 864
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-06-3",
+    "article_id": "ITC-ICG-06",
+    "article_title": "ITC-ICG 06",
+    "token_count": 814
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-06-4",
+    "article_id": "ITC-ICG-06",
+    "article_title": "ITC-ICG 06",
+    "token_count": 939
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-07-1",
+    "article_id": "ITC-ICG-07",
+    "article_title": "ITC-ICG 07",
+    "token_count": 1056
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-07-2",
+    "article_id": "ITC-ICG-07",
+    "article_title": "ITC-ICG 07",
+    "token_count": 1062
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-07-3",
+    "article_id": "ITC-ICG-07",
+    "article_title": "ITC-ICG 07",
+    "token_count": 1012
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-07-4",
+    "article_id": "ITC-ICG-07",
+    "article_title": "ITC-ICG 07",
+    "token_count": 1118
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-07-5",
+    "article_id": "ITC-ICG-07",
+    "article_title": "ITC-ICG 07",
+    "token_count": 321
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-1",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 692
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-2",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 929
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-1",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 267
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-2",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 924
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-3",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 505
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-4",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 504
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-5",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 472
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-6",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 182
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-08-1",
+    "article_id": "ITC-ICG-08",
+    "article_title": "ITC-ICG 08",
+    "token_count": 432
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-08-2",
+    "article_id": "ITC-ICG-08",
+    "article_title": "ITC-ICG 08",
+    "token_count": 855
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-08-3",
+    "article_id": "ITC-ICG-08",
+    "article_title": "ITC-ICG 08",
+    "token_count": 843
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 141
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-1",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 714
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-2",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 944
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-3",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 814
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-4",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 731
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-5",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 934
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-6",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 878
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-7",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 984
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-8",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 718
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-1",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 801
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-09-2",
+    "article_id": "ITC-ICG-09",
+    "article_title": "ITC-ICG 09",
+    "token_count": 804
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-08-1",
+    "article_id": "ITC-ICG-08",
+    "article_title": "ITC-ICG 08",
+    "token_count": 181
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-08-2",
+    "article_id": "ITC-ICG-08",
+    "article_title": "ITC-ICG 08",
+    "token_count": 989
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-08-3",
+    "article_id": "ITC-ICG-08",
+    "article_title": "ITC-ICG 08",
+    "token_count": 1113
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-08-4",
+    "article_id": "ITC-ICG-08",
+    "article_title": "ITC-ICG 08",
+    "token_count": 1010
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-08-5",
+    "article_id": "ITC-ICG-08",
+    "article_title": "ITC-ICG 08",
+    "token_count": 792
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-08-1",
+    "article_id": "ITC-ICG-08",
+    "article_title": "ITC-ICG 08",
+    "token_count": 222
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-08-2",
+    "article_id": "ITC-ICG-08",
+    "article_title": "ITC-ICG 08",
+    "token_count": 569
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-08-3",
+    "article_id": "ITC-ICG-08",
+    "article_title": "ITC-ICG 08",
+    "token_count": 733
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-10",
+    "article_id": "ITC-ICG-10",
+    "article_title": "ITC-ICG 10",
+    "token_count": 343
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-1",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 474
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-2",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 577
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-3",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 459
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-4",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 620
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-5",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 413
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-6",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 618
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-05-1",
+    "article_id": "ITC-ICG-05",
+    "article_title": "ITC-ICG 05",
+    "token_count": 136
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-05-2",
+    "article_id": "ITC-ICG-05",
+    "article_title": "ITC-ICG 05",
+    "token_count": 616
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-05-3",
+    "article_id": "ITC-ICG-05",
+    "article_title": "ITC-ICG 05",
+    "token_count": 464
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-05-4",
+    "article_id": "ITC-ICG-05",
+    "article_title": "ITC-ICG 05",
+    "token_count": 587
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-05-5",
+    "article_id": "ITC-ICG-05",
+    "article_title": "ITC-ICG 05",
+    "token_count": 555
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-05-6",
+    "article_id": "ITC-ICG-05",
+    "article_title": "ITC-ICG 05",
+    "token_count": 259
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-1",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 278
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-2",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 562
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-3",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 712
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-10-1",
+    "article_id": "ITC-ICG-10",
+    "article_title": "ITC-ICG 10",
+    "token_count": 90
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-10-2",
+    "article_id": "ITC-ICG-10",
+    "article_title": "ITC-ICG 10",
+    "token_count": 912
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-10-3",
+    "article_id": "ITC-ICG-10",
+    "article_title": "ITC-ICG 10",
+    "token_count": 130
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-1",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 166
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-2",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 1258
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-3",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 1221
+  },
+  {
+    "chunk_id": "GAS-ITC-ICG-11-4",
+    "article_id": "ITC-ICG-11",
+    "article_title": "ITC-ICG 11",
+    "token_count": 724
+  }
+]

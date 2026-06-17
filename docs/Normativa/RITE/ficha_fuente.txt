@@ -1,0 +1,8 @@
+Categoría: RITE
+Título: Reglamento de Instalaciones Térmicas en los Edificios
+Norma base: Real Decreto 1027/2007, de 20 de julio
+Fuente: BOE
+ID BOE: BOE-A-2007-15820
+Tipo: Texto consolidado
+Uso: Indexación completa para Asistente Técnico TrabFlow
+Estado: Activo

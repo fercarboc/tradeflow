@@ -1,0 +1,7 @@
+Categoría: REBT
+Título: Reglamento Electrotécnico para Baja Tensión
+Fuente: BOE
+Código BOE: Código electrónico 326
+Tipo: Texto consolidado
+Uso: Indexación completa para Asistente Técnico TrabFlow
+Estado: Activo

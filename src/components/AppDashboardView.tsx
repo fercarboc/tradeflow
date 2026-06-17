@@ -63,6 +63,7 @@ import {
   Edit2,
   Layers,
   Building2,
+  BookOpen,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -92,6 +93,7 @@ import ScreenMantenimiento from './ScreenMantenimiento';
 import ScreenFacturas from './ScreenFacturas';
 import ScreenContratos from './ScreenContratos';
 import ScreenSubcontratas from './ScreenSubcontratas';
+import ScreenAsistenteTecnico from './ScreenAsistenteTecnico';
 import { resolveTemplate, buildTemplateVars, DEFAULT_TEMPLATES, VARIABLE_GROUPS } from '../lib/templateEngine';
 import {
   loadWorkCalendar, saveWorkCalendar, isWorkingDay,
@@ -579,7 +581,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   }, [initialMobile]);
 
   // Tabs de navegación móvil
-  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'contratos' | 'ruta'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
+  const [mobileTab, setMobileTab] = useState<'inicio' | 'presupuestos' | 'clientes' | 'facturas' | 'ajustes' | 'trabajos' | 'catalogo' | 'mantenimiento' | 'contratos' | 'ruta' | 'asistente'>(rol === 'tecnico' ? 'trabajos' : 'inicio');
   // Fix timing: session carga async, rol llega tarde — forzar tab correcto cuando cambia
   useEffect(() => {
     if (rol === 'tecnico') {
@@ -2971,6 +2973,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           {mobileTab === 'clientes' && MobileScreenClientes()}
           {mobileTab === 'facturas' && MobileScreenFacturas()}
           {mobileTab === 'ajustes' && ScreenSettings()}
+          {mobileTab === 'asistente' && (
+            <ScreenAsistenteTecnico
+              orgId={orgId ?? null}
+              plan={subscription?.plan ?? orgData?.plan ?? 'basico'}
+              session={session ?? null}
+              showToast={showToast}
+            />
+          )}
           {mobileTab === 'catalogo' && (
             <MobileCatalogScreen
               tarifas={tarifas}
@@ -3127,6 +3137,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <>
                 {MobileTabButton({ tab: 'trabajos', icon: <Briefcase className="w-5 h-5" />, label: 'Mis Trabajos' })}
                 {MobileTabButton({ tab: 'ruta', icon: <Navigation className="w-5 h-5" />, label: 'Mi Ruta' })}
+                {MobileTabButton({ tab: 'asistente', icon: <BookOpen className="w-5 h-5" />, label: 'Normativa' })}
               </>
             ) : (
               <>
@@ -3361,7 +3372,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     );
 
     // Helpers botones navegación móvil
-    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'trabajos' | 'presupuestos' | 'catalogo' | 'clientes' | 'ruta'; icon: React.ReactNode; label: string }) {
+    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'trabajos' | 'presupuestos' | 'catalogo' | 'clientes' | 'ruta' | 'asistente'; icon: React.ReactNode; label: string }) {
       const isActive = mobileTab === tab;
       return (
         <button
@@ -5079,6 +5090,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'contratos', icon: <FileText className="w-4 h-4" />, label: 'Contratos' })}
             {can('jobs.view') && orgId && SidebarBtn({ id: 'subcontratas', icon: <Layers className="w-4 h-4" />, label: 'Externalizados' })}
+            {SidebarBtn({ id: 'asistente', icon: <BookOpen className="w-4 h-4" />, label: 'Asistente Técnico' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
 
@@ -5164,6 +5176,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'equipo' && 'Equipo y Trabajadores'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
                 {activeTab === 'subcontratas' && 'Trabajos Externalizados'}
+                {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
               </h2>
@@ -5352,6 +5365,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
                 {activeTab === 'subcontratas' && orgId && (
                   <ScreenSubcontratas orgId={orgId} showToast={showToast} />
+                )}
+                {activeTab === 'asistente' && (
+                  <ScreenAsistenteTecnico
+                    orgId={orgId ?? null}
+                    plan={subscription?.plan ?? orgData?.plan ?? 'basico'}
+                    session={session ?? null}
+                    showToast={showToast}
+                  />
                 )}
                 {activeTab === 'settings' && ScreenSettings()}
                 {activeTab === 'preview' && ScreenPreview()}

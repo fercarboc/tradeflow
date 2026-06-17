@@ -764,7 +764,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [detailOrg, setDetailOrg]     = useState<AdminOrgRow | null>(null);
 
   // Sección activa
-  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'docs'>('dashboard');
+  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'ia_normativa' | 'docs'>('dashboard');
 
   // Necesidades instaladores (chatbot)
   const [needs, setNeeds]               = useState<InstallerNeed[]>([]);
@@ -776,6 +776,10 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [aiFeedbackLoading, setAiFeedbackLoading] = useState(false);
   const [aiFeedbackFilter, setAiFeedbackFilter]   = useState<'pending' | 'all'>('pending');
   const [aiFeedbackExpanded, setAiFeedbackExpanded] = useState<string | null>(null);
+
+  // IA Normativa — base de conocimiento RAG
+  const [ragDocs, setRagDocs] = useState<Array<{ category: string; title: string; status: string; chunk_count: number; plan_required: string; updated_at: string }>>([]);
+  const [ragLoading, setRagLoading] = useState(false);
 
   // Dashboard — datos de gráficos
   const [weeklyQuotes, setWeeklyQuotes] = useState<Array<{ week: string; count: number }>>([]);
@@ -875,6 +879,14 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   useEffect(() => { if (isAdmin && section === 'leads') loadLeads(); }, [isAdmin, section]);
   useEffect(() => { if (isAdmin && section === 'invoices') loadInvoices(); }, [isAdmin, section]);
   useEffect(() => { if (isAdmin && section === 'suggestions') loadSuggestions(); }, [isAdmin, section]);
+  useEffect(() => {
+    if (!isAdmin || section !== 'ia_normativa') return;
+    setRagLoading(true);
+    supabase.from('trade_norm_documents').select('category, title, status, chunk_count, plan_required, updated_at').order('category').then(({ data }) => {
+      setRagDocs((data as typeof ragDocs) ?? []);
+      setRagLoading(false);
+    });
+  }, [isAdmin, section]);
   useEffect(() => {
     if (!isAdmin || section !== 'needs') return;
     setNeedsLoading(true);
@@ -1291,7 +1303,8 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     { id: 'suggestions'   as const, label: 'Sugerencias',     Icon: Globe,       badge: pendingSuggestions },
     { id: 'needs'         as const, label: 'Necesidades',     Icon: HelpCircle },
     { id: 'ai_feedback'   as const, label: 'IA Feedback',      Icon: Brain },
-    { id: 'docs'          as const, label: 'Documentación',    Icon: BookOpen },
+    { id: 'ia_normativa'  as const, label: 'IA Normativa',     Icon: BookOpen },
+    { id: 'docs'          as const, label: 'Documentación',    Icon: ExternalLink },
   ];
 
   const handleMarkInvoicePaid = async (inv: TradePlatformInvoice) => {
@@ -1330,6 +1343,13 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     else if (section === 'suggestions') loadSuggestions();
     else if (section === 'subscriptions' || section === 'usage') loadOrgs();
     else if (section === 'exports') { loadOrgs(); loadLeads(); loadInvoices(); }
+    else if (section === 'ia_normativa') {
+      setRagLoading(true);
+      supabase.from('trade_norm_documents').select('category, title, status, chunk_count, plan_required, updated_at').order('category').then(({ data }) => {
+        setRagDocs((data as typeof ragDocs) ?? []);
+        setRagLoading(false);
+      });
+    }
     else if (section === 'automations') {
       adminLoadAutoConfig().then(cfg => { setAutoConfig(cfg); setNtfyTopicInput(cfg.ntfy_topic); }).catch(() => {});
       adminGetTrialsExpiringSoon(7).then(setExpiringTrials).catch(() => {});
@@ -3168,6 +3188,157 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
             })()}
           </div>
         )}
+
+        {/* ════════════════════════════════════════════════════════
+            SECCIÓN: IA NORMATIVA (RAG)
+        ════════════════════════════════════════════════════════ */}
+        {section === 'ia_normativa' && (() => {
+          const byCategory: Record<string, typeof ragDocs> = {};
+          for (const d of ragDocs) {
+            if (!byCategory[d.category]) byCategory[d.category] = [];
+            byCategory[d.category].push(d);
+          }
+          const totalChunks = ragDocs.reduce((s, d) => s + d.chunk_count, 0);
+          const totalDocs   = ragDocs.length;
+
+          const PLAN_COLOR: Record<string, string> = {
+            basico:       'text-slate-300 bg-slate-700/50',
+            empresa:      'text-blue-300 bg-blue-900/30',
+            empresa_plus: 'text-violet-300 bg-violet-900/30',
+          };
+
+          const CLI_COMMANDS: Array<{ category: string; file: string; plan: string; label: string }> = [
+            { category: 'REBT',  file: 'REBT_Reglamento_ITC_BOE.pdf',                     plan: 'basico',       label: 'REBT completo' },
+            { category: 'RITE',  file: 'BOE-A-2007-15820-consolidado.pdf',                 plan: 'empresa',      label: 'RITE consolidado' },
+            { category: 'CTE',   file: 'DB_HE_Ahorro_Energia.pdf',                        plan: 'empresa_plus', label: 'CTE DB-HE' },
+            { category: 'CTE',   file: 'DB_HS_Salubridad.pdf',                            plan: 'empresa_plus', label: 'CTE DB-HS' },
+            { category: 'CTE',   file: 'DB_SI_Seguridad_Incendio.pdf',                    plan: 'empresa_plus', label: 'CTE DB-SI' },
+            { category: 'CTE',   file: 'DB_SE_Seguridad_Estructural.pdf',                 plan: 'empresa_plus', label: 'CTE DB-SE (pendiente PDF)' },
+            { category: 'CTE',   file: 'DB_SUA_Seguridad_Uso_Accesibilidad.pdf',          plan: 'empresa_plus', label: 'CTE DB-SUA (pendiente PDF)' },
+            { category: 'CTE',   file: 'DB_HR_Proteccion_Ruido.pdf',                      plan: 'empresa_plus', label: 'CTE DB-HR (pendiente PDF)' },
+            { category: 'GAS',   file: 'GAS_RD_919_2006_Reglamento_Combustibles_Gaseosos.pdf', plan: 'empresa_plus', label: 'GAS RD 919/2006' },
+            { category: 'ACS',   file: 'ACS_RD_487_2022_Prevencion_Control_Legionelosis.pdf',  plan: 'empresa_plus', label: 'ACS RD 487/2022' },
+            { category: 'GUIAS', file: 'GUIAS_Bomba_de_Calor_IDAE_2023.pdf',              plan: 'empresa_plus', label: 'GUIAS Bomba de Calor IDAE' },
+            { category: 'GUIAS', file: 'GUIAS_Climatizacion_Equipos_Autonomos_IDAE.pdf',  plan: 'empresa_plus', label: 'GUIAS Climatización Autónoma (pendiente PDF)' },
+            { category: 'GUIAS', file: 'GUIAS_ACS_Central_IDAE.pdf',                     plan: 'empresa_plus', label: 'GUIAS ACS Central IDAE (pendiente PDF)' },
+          ];
+
+          const indexedFiles = new Set(ragDocs.map(d => d.title));
+
+          return (
+            <div className="space-y-6">
+              <div className="flex items-center justify-between gap-4 flex-wrap">
+                <div>
+                  <h2 className="text-base font-bold text-white">IA Normativa — Base de Conocimiento RAG</h2>
+                  <p className="text-xs text-slate-400 mt-0.5">Estado del índice vectorial de normativa técnica</p>
+                </div>
+                <button
+                  onClick={reloadCurrent}
+                  disabled={ragLoading}
+                  className="flex items-center gap-2 bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-bold px-3 py-2 rounded-lg cursor-pointer transition-colors disabled:opacity-50"
+                >
+                  <RefreshCw className={`h-3.5 w-3.5 ${ragLoading ? 'animate-spin' : ''}`} />
+                  Actualizar datos
+                </button>
+              </div>
+
+              {/* KPIs */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[
+                  { label: 'Total chunks', value: totalChunks.toLocaleString(), Icon: Brain, color: 'text-violet-400' },
+                  { label: 'Documentos indexados', value: totalDocs, Icon: BookOpen, color: 'text-blue-400' },
+                  { label: 'Categorías activas', value: Object.keys(byCategory).length, Icon: CheckCircle, color: 'text-emerald-400' },
+                  { label: 'Categorías pendientes', value: Math.max(0, 7 - Object.keys(byCategory).length), Icon: AlertTriangle, color: 'text-amber-400' },
+                ].map(({ label, value, Icon, color }) => (
+                  <div key={label} className="bg-slate-800 border border-slate-700 rounded-xl p-4">
+                    <div className={`${color} mb-1`}><Icon className="h-4 w-4" /></div>
+                    <p className="text-xl font-black text-white">{value}</p>
+                    <p className="text-xs text-slate-400 mt-0.5">{label}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Tabla por categoría */}
+              <div className="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden">
+                <div className="px-4 py-3 border-b border-slate-700 flex items-center gap-2">
+                  <BookOpen className="h-4 w-4 text-violet-400" />
+                  <span className="text-sm font-bold text-white">Documentos indexados por categoría</span>
+                </div>
+                {ragLoading ? (
+                  <div className="p-8 text-center text-slate-500 text-sm">Cargando…</div>
+                ) : (
+                  <div className="divide-y divide-slate-700/50">
+                    {Object.entries(byCategory).map(([cat, docs]) => (
+                      <div key={cat} className="px-4 py-3 space-y-2">
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs font-black text-white w-16">{cat}</span>
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${PLAN_COLOR[docs[0].plan_required] ?? 'text-slate-400 bg-slate-700'}`}>
+                            {docs[0].plan_required}
+                          </span>
+                          <span className="ml-auto text-xs font-bold text-emerald-400">
+                            {docs.reduce((s, d) => s + d.chunk_count, 0).toLocaleString()} chunks
+                          </span>
+                        </div>
+                        {docs.map((d, i) => (
+                          <div key={i} className="flex items-center gap-2 pl-4 text-xs text-slate-400">
+                            <CheckCircle className="h-3 w-3 text-emerald-500 shrink-0" />
+                            <span className="flex-1 truncate">{d.title}</span>
+                            <span className="text-slate-500">{d.chunk_count} ch.</span>
+                            <span className={`text-[10px] px-1.5 py-0.5 rounded ${d.status === 'indexed' ? 'bg-emerald-900/40 text-emerald-400' : 'bg-amber-900/40 text-amber-400'}`}>
+                              {d.status}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Comandos de ingesta */}
+              <div className="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden">
+                <div className="px-4 py-3 border-b border-slate-700 flex items-center gap-2">
+                  <Zap className="h-4 w-4 text-yellow-400" />
+                  <span className="text-sm font-bold text-white">Comandos de ingesta</span>
+                  <span className="text-xs text-slate-400 ml-1">— Ejecutar desde la raíz del proyecto cuando añadas un PDF nuevo</span>
+                </div>
+                <div className="p-4 space-y-2">
+                  {CLI_COMMANDS.map((cmd, i) => {
+                    const isPending = cmd.label.includes('pendiente PDF');
+                    return (
+                      <div key={i} className={`rounded-lg p-3 font-mono text-xs flex items-start gap-3 ${isPending ? 'bg-slate-900/40 border border-dashed border-slate-700 opacity-60' : 'bg-slate-900 border border-slate-700'}`}>
+                        <span className="text-slate-600 shrink-0 select-none">$</span>
+                        <div className="flex-1 min-w-0">
+                          <span className={isPending ? 'text-slate-500' : 'text-emerald-300'}>
+                            {`node scripts/norm-ingest/ingest-normativa.mjs ${cmd.category} "${cmd.file}" ${cmd.plan}`}
+                          </span>
+                          <span className="text-slate-600 ml-2">#{cmd.label}</span>
+                        </div>
+                        {!isPending && (
+                          <button
+                            onClick={() => navigator.clipboard.writeText(`node scripts/norm-ingest/ingest-normativa.mjs ${cmd.category} "${cmd.file}" ${cmd.plan}`)}
+                            className="text-slate-500 hover:text-slate-300 cursor-pointer shrink-0 transition-colors"
+                            title="Copiar"
+                          >
+                            <Copy className="h-3.5 w-3.5" />
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Info técnica */}
+              <div className="bg-violet-900/20 border border-violet-700/30 rounded-xl p-4 text-xs text-violet-300/80 leading-relaxed space-y-1">
+                <p><strong className="text-violet-300">Modelo embedding:</strong> Voyage AI voyage-3-lite · 512 dimensiones · HNSW index</p>
+                <p><strong className="text-violet-300">Búsqueda:</strong> Híbrida — coseno 70% + trigrama BM25 30% · umbral 0.20</p>
+                <p><strong className="text-violet-300">LLM respuesta:</strong> Claude Sonnet 4.6 · temperatura 0.1 · max 800 tokens</p>
+                <p><strong className="text-violet-300">Edge function:</strong> trade-norm-query · verify_jwt=false</p>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* ════════════════════════════════════════════════════════
             SECCIÓN: DOCUMENTACIÓN

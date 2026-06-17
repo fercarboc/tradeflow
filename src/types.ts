@@ -24,6 +24,9 @@ Registro = 'registro',
 // Demo interactiva
 Demo = 'demo',
 
+// Asistente Técnico — página pública
+AsisTecnico = 'asis-tecnico',
+
 // Internal
 Admin = 'admin',
 Worker = 'worker',

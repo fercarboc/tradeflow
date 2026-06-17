@@ -1,0 +1,2168 @@
+[
+  {
+    "chunk_id": "REBT-SEC-000",
+    "article_id": null,
+    "article_title": null,
+    "token_count": 542
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 292
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC BT-52",
+    "token_count": 85
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC-BT-02",
+    "token_count": 206
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC-BT-02",
+    "token_count": 95
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-1",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 761
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-2",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 1109
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-3",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 244
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-03",
+    "article_id": "ITC-BT-03",
+    "article_title": "ITC-BT-03",
+    "token_count": 629
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-03",
+    "article_id": "ITC-BT-03",
+    "article_title": "ITC-BT 03",
+    "token_count": 129
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-03-1",
+    "article_id": "ITC-BT-03",
+    "article_title": "ITC-BT 03",
+    "token_count": 845
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-03-2",
+    "article_id": "ITC-BT-03",
+    "article_title": "ITC-BT 03",
+    "token_count": 969
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-03-3",
+    "article_id": "ITC-BT-03",
+    "article_title": "ITC-BT 03",
+    "token_count": 818
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-03-4",
+    "article_id": "ITC-BT-03",
+    "article_title": "ITC-BT 03",
+    "token_count": 964
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-03-5",
+    "article_id": "ITC-BT-03",
+    "article_title": "ITC-BT 03",
+    "token_count": 1030
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-03-6",
+    "article_id": "ITC-BT-03",
+    "article_title": "ITC-BT 03",
+    "token_count": 995
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-04-1",
+    "article_id": "ITC-BT-04",
+    "article_title": "ITC-BT 04",
+    "token_count": 129
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-04-2",
+    "article_id": "ITC-BT-04",
+    "article_title": "ITC-BT 04",
+    "token_count": 998
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-04-3",
+    "article_id": "ITC-BT-04",
+    "article_title": "ITC-BT 04",
+    "token_count": 1085
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-04-4",
+    "article_id": "ITC-BT-04",
+    "article_title": "ITC-BT 04",
+    "token_count": 930
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-04-5",
+    "article_id": "ITC-BT-04",
+    "article_title": "ITC-BT 04",
+    "token_count": 1006
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-04-6",
+    "article_id": "ITC-BT-04",
+    "article_title": "ITC-BT 04",
+    "token_count": 169
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-01-1",
+    "article_id": "ITC-BT-01",
+    "article_title": "ITC-BT-01",
+    "token_count": 379
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-01-2",
+    "article_id": "ITC-BT-01",
+    "article_title": "ITC-BT-01",
+    "token_count": 585
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-01-3",
+    "article_id": "ITC-BT-01",
+    "article_title": "ITC-BT-01",
+    "token_count": 591
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-01-4",
+    "article_id": "ITC-BT-01",
+    "article_title": "ITC-BT-01",
+    "token_count": 590
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-01-5",
+    "article_id": "ITC-BT-01",
+    "article_title": "ITC-BT-01",
+    "token_count": 622
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-01-6",
+    "article_id": "ITC-BT-01",
+    "article_title": "ITC-BT-01",
+    "token_count": 713
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-01-7",
+    "article_id": "ITC-BT-01",
+    "article_title": "ITC-BT-01",
+    "token_count": 645
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-01-8",
+    "article_id": "ITC-BT-01",
+    "article_title": "ITC-BT-01",
+    "token_count": 810
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-01-9",
+    "article_id": "ITC-BT-01",
+    "article_title": "ITC-BT-01",
+    "token_count": 733
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-01-10",
+    "article_id": "ITC-BT-01",
+    "article_title": "ITC-BT-01",
+    "token_count": 689
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-01-11",
+    "article_id": "ITC-BT-01",
+    "article_title": "ITC-BT-01",
+    "token_count": 693
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-01-12",
+    "article_id": "ITC-BT-01",
+    "article_title": "ITC-BT-01",
+    "token_count": 737
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-01-13",
+    "article_id": "ITC-BT-01",
+    "article_title": "ITC-BT-01",
+    "token_count": 630
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-1",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 794
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-2",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 998
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-3",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 853
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-4",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 942
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-5",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 937
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-6",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 1079
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-7",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 1093
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-8",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 1041
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-9",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 1176
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-10",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 1009
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-11",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 799
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-02-12",
+    "article_id": "ITC-BT-02",
+    "article_title": "ITC BT-02",
+    "token_count": 744
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-03",
+    "article_id": "ITC-BT-03",
+    "article_title": "ITC-BT-03",
+    "token_count": 470
+  },
+  {
+    "chunk_id": "REBT-SEC-069-1",
+    "article_id": null,
+    "article_title": "Instrucción Técnica Complementaria BT-03",
+    "token_count": 819
+  },
+  {
+    "chunk_id": "REBT-SEC-069-2",
+    "article_id": null,
+    "article_title": "Instrucción Técnica Complementaria BT-03",
+    "token_count": 1190
+  },
+  {
+    "chunk_id": "REBT-SEC-069-3",
+    "article_id": null,
+    "article_title": "Instrucción Técnica Complementaria BT-03",
+    "token_count": 1134
+  },
+  {
+    "chunk_id": "REBT-SEC-069-4",
+    "article_id": null,
+    "article_title": "Instrucción Técnica Complementaria BT-03",
+    "token_count": 761
+  },
+  {
+    "chunk_id": "REBT-SEC-069-5",
+    "article_id": null,
+    "article_title": "Instrucción Técnica Complementaria BT-03",
+    "token_count": 530
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-20",
+    "article_id": "ITC-BT-20",
+    "article_title": "ITC-BT-20",
+    "token_count": 83
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-25",
+    "article_id": "ITC-BT-25",
+    "article_title": "ITC-BT-25",
+    "token_count": 203
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-28",
+    "article_id": "ITC-BT-28",
+    "article_title": "ITC-BT-28",
+    "token_count": 155
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC BT-40",
+    "token_count": 419
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-11",
+    "article_id": "ITC-BT-11",
+    "article_title": "ITC-BT-11",
+    "token_count": 252
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-38",
+    "article_id": "ITC-BT-38",
+    "article_title": "ITC-BT-38",
+    "token_count": 111
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 114
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-44",
+    "article_id": "ITC-BT-44",
+    "article_title": "ITC-BT-44",
+    "token_count": 653
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-04-1",
+    "article_id": "ITC-BT-04",
+    "article_title": "ITC-BT-04",
+    "token_count": 775
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-04-2",
+    "article_id": "ITC-BT-04",
+    "article_title": "ITC-BT-04",
+    "token_count": 575
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-44",
+    "article_id": "ITC-BT-44",
+    "article_title": "ITC-BT-44",
+    "token_count": 647
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-03",
+    "article_id": "ITC-BT-03",
+    "article_title": "ITC-BT-03",
+    "token_count": 203
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-05-1",
+    "article_id": "ITC-BT-05",
+    "article_title": "ITC-BT-05",
+    "token_count": 408
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-05-2",
+    "article_id": "ITC-BT-05",
+    "article_title": "ITC-BT-05",
+    "token_count": 826
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-05-1",
+    "article_id": "ITC-BT-05",
+    "article_title": "ITC-BT-05",
+    "token_count": 78
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-05-2",
+    "article_id": "ITC-BT-05",
+    "article_title": "ITC-BT-05",
+    "token_count": 750
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-05-3",
+    "article_id": "ITC-BT-05",
+    "article_title": "ITC-BT-05",
+    "token_count": 906
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-05-4",
+    "article_id": "ITC-BT-05",
+    "article_title": "ITC-BT-05",
+    "token_count": 394
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-1",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 158
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-2",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 709
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-3",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 907
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-4",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 688
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-5",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 860
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-6",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 750
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-7",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 137
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-8",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 568
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-1",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 363
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-2",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 818
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-3",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 971
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-4",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 981
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-5",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 854
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-6",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 576
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-7",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 545
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-1",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 202
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-2",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 674
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-3",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 980
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-4",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 941
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-5",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 865
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-6",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 380
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-1",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 510
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-2",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 931
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-3",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 177
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-1",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT 06",
+    "token_count": 609
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-2",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT 06",
+    "token_count": 410
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-3",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT 06",
+    "token_count": 444
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-4",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT 06",
+    "token_count": 716
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-5",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT 06",
+    "token_count": 456
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-6",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT 06",
+    "token_count": 496
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-7",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT 06",
+    "token_count": 568
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-8",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT 06",
+    "token_count": 591
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-9",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT 06",
+    "token_count": 144
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-1",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 506
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-2",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 559
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-3",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 592
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-4",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 226
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 160
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-09-1",
+    "article_id": "ITC-BT-09",
+    "article_title": "ITC-BT-09",
+    "token_count": 136
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-09-2",
+    "article_id": "ITC-BT-09",
+    "article_title": "ITC-BT-09",
+    "token_count": 976
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-09-3",
+    "article_id": "ITC-BT-09",
+    "article_title": "ITC-BT-09",
+    "token_count": 205
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 357
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-1",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 233
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-2",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 986
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-3",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 681
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-10",
+    "article_id": "ITC-BT-10",
+    "article_title": "ITC-BT-10",
+    "token_count": 757
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-25-1",
+    "article_id": "ITC-BT-25",
+    "article_title": "ITC-BT-25",
+    "token_count": 165
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-25-2",
+    "article_id": "ITC-BT-25",
+    "article_title": "ITC-BT-25",
+    "token_count": 562
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-25-3",
+    "article_id": "ITC-BT-25",
+    "article_title": "ITC-BT-25",
+    "token_count": 484
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-11",
+    "article_id": "ITC-BT-11",
+    "article_title": "ITC-BT-11",
+    "token_count": 747
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 216
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 273
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 351
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-10",
+    "article_id": "ITC-BT-10",
+    "article_title": "ITC-BT-10",
+    "token_count": 179
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-12-1",
+    "article_id": "ITC-BT-12",
+    "article_title": "ITC-BT-12",
+    "token_count": 518
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-12-2",
+    "article_id": "ITC-BT-12",
+    "article_title": "ITC-BT-12",
+    "token_count": 565
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-13",
+    "article_id": "ITC-BT-13",
+    "article_title": "ITC-BT-13",
+    "token_count": 524
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 80
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-1",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 454
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-2",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 460
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-14",
+    "article_id": "ITC-BT-14",
+    "article_title": "ITC-BT-14",
+    "token_count": 253
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 196
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 759
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-10",
+    "article_id": "ITC-BT-10",
+    "article_title": "ITC-BT-10",
+    "token_count": 186
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-15",
+    "article_id": "ITC-BT-15",
+    "article_title": "ITC-BT-15",
+    "token_count": 282
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-1",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 200
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-2",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 727
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 701
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 80
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-16-1",
+    "article_id": "ITC-BT-16",
+    "article_title": "ITC-BT-16",
+    "token_count": 130
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-16-2",
+    "article_id": "ITC-BT-16",
+    "article_title": "ITC-BT-16",
+    "token_count": 934
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-16-3",
+    "article_id": "ITC-BT-16",
+    "article_title": "ITC-BT-16",
+    "token_count": 932
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-16-4",
+    "article_id": "ITC-BT-16",
+    "article_title": "ITC-BT-16",
+    "token_count": 1035
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-16-5",
+    "article_id": "ITC-BT-16",
+    "article_title": "ITC-BT-16",
+    "token_count": 881
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-16-6",
+    "article_id": "ITC-BT-16",
+    "article_title": "ITC-BT-16",
+    "token_count": 107
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-17-1",
+    "article_id": "ITC-BT-17",
+    "article_title": "ITC-BT-17",
+    "token_count": 776
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-23",
+    "article_id": "ITC-BT-23",
+    "article_title": "ITC-BT-23",
+    "token_count": 352
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-18-1",
+    "article_id": "ITC-BT-18",
+    "article_title": "ITC-BT-18",
+    "token_count": 278
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-18-2",
+    "article_id": "ITC-BT-18",
+    "article_title": "ITC-BT-18",
+    "token_count": 556
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-18-3",
+    "article_id": "ITC-BT-18",
+    "article_title": "ITC-BT-18",
+    "token_count": 81
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-18-4",
+    "article_id": "ITC-BT-18",
+    "article_title": "ITC-BT-18",
+    "token_count": 823
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-18-5",
+    "article_id": "ITC-BT-18",
+    "article_title": "ITC-BT-18",
+    "token_count": 792
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-18-6",
+    "article_id": "ITC-BT-18",
+    "article_title": "ITC-BT-18",
+    "token_count": 992
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-18-7",
+    "article_id": "ITC-BT-18",
+    "article_title": "ITC-BT-18",
+    "token_count": 820
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-18-8",
+    "article_id": "ITC-BT-18",
+    "article_title": "ITC-BT-18",
+    "token_count": 829
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-18-9",
+    "article_id": "ITC-BT-18",
+    "article_title": "ITC-BT-18",
+    "token_count": 500
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-19",
+    "article_id": "ITC-BT-19",
+    "article_title": "ITC-BT-19",
+    "token_count": 387
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-20-1",
+    "article_id": "ITC-BT-20",
+    "article_title": "ITC-BT 20",
+    "token_count": 604
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-20-2",
+    "article_id": "ITC-BT-20",
+    "article_title": "ITC-BT 20",
+    "token_count": 258
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-20-3",
+    "article_id": "ITC-BT-20",
+    "article_title": "ITC-BT 20",
+    "token_count": 368
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-1",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT 21",
+    "token_count": 549
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-2",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT 21",
+    "token_count": 843
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-3",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT 21",
+    "token_count": 620
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-36-1",
+    "article_id": "ITC-BT-36",
+    "article_title": "ITC-BT-36",
+    "token_count": 169
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-36-2",
+    "article_id": "ITC-BT-36",
+    "article_title": "ITC-BT-36",
+    "token_count": 1078
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-25",
+    "article_id": "ITC-BT-25",
+    "article_title": "ITC-BT 25",
+    "token_count": 411
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-20-1",
+    "article_id": "ITC-BT-20",
+    "article_title": "ITC-BT-20",
+    "token_count": 343
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-20-2",
+    "article_id": "ITC-BT-20",
+    "article_title": "ITC-BT-20",
+    "token_count": 494
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24-1",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 384
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24-2",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 560
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-1",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 807
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-1",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 253
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-07-2",
+    "article_id": "ITC-BT-07",
+    "article_title": "ITC-BT-07",
+    "token_count": 660
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-1",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 351
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-2",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 957
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-3",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 140
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 402
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-1",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 202
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-2",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 749
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-3",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 658
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-4",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 672
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-5",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 686
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21-6",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 490
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-20-1",
+    "article_id": "ITC-BT-20",
+    "article_title": "ITC-BT-20",
+    "token_count": 197
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-20-2",
+    "article_id": "ITC-BT-20",
+    "article_title": "ITC-BT-20",
+    "token_count": 1051
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-20-3",
+    "article_id": "ITC-BT-20",
+    "article_title": "ITC-BT-20",
+    "token_count": 751
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-20-4",
+    "article_id": "ITC-BT-20",
+    "article_title": "ITC-BT-20",
+    "token_count": 523
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-01",
+    "article_id": "ITC-BT-01",
+    "article_title": "ITC-BT-01",
+    "token_count": 762
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-19",
+    "article_id": "ITC-BT-19",
+    "article_title": "ITC-BT-19",
+    "token_count": 120
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-22-1",
+    "article_id": "ITC-BT-22",
+    "article_title": "ITC-BT-22",
+    "token_count": 80
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-22-2",
+    "article_id": "ITC-BT-22",
+    "article_title": "ITC-BT-22",
+    "token_count": 709
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-22-3",
+    "article_id": "ITC-BT-22",
+    "article_title": "ITC-BT-22",
+    "token_count": 490
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-23-1",
+    "article_id": "ITC-BT-23",
+    "article_title": "ITC-BT-23",
+    "token_count": 442
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-23-2",
+    "article_id": "ITC-BT-23",
+    "article_title": "ITC-BT-23",
+    "token_count": 861
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-23-3",
+    "article_id": "ITC-BT-23",
+    "article_title": "ITC-BT-23",
+    "token_count": 682
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 559
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-36-1",
+    "article_id": "ITC-BT-36",
+    "article_title": "ITC-BT-36",
+    "token_count": 375
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-36-2",
+    "article_id": "ITC-BT-36",
+    "article_title": "ITC-BT-36",
+    "token_count": 758
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-36-3",
+    "article_id": "ITC-BT-36",
+    "article_title": "ITC-BT-36",
+    "token_count": 579
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 153
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-1",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 401
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-2",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 325
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-3",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 404
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-4",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 350
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-5",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 282
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-6",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 507
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-7",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 98
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-8",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 538
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-9",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 349
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-10",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 530
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-08-11",
+    "article_id": "ITC-BT-08",
+    "article_title": "ITC-BT-08",
+    "token_count": 360
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-25",
+    "article_id": "ITC-BT-25",
+    "article_title": "ITC-BT-25",
+    "token_count": 176
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-10",
+    "article_id": "ITC-BT-10",
+    "article_title": "ITC-BT-10",
+    "token_count": 431
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-51-1",
+    "article_id": "ITC-BT-51",
+    "article_title": "ITC-BT-51",
+    "token_count": 599
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-51-2",
+    "article_id": "ITC-BT-51",
+    "article_title": "ITC-BT-51",
+    "token_count": 857
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-51-3",
+    "article_id": "ITC-BT-51",
+    "article_title": "ITC-BT-51",
+    "token_count": 289
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-19",
+    "article_id": "ITC-BT-19",
+    "article_title": "ITC-BT-19",
+    "token_count": 258
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 652
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 224
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-19",
+    "article_id": "ITC-BT-19",
+    "article_title": "ITC-BT-19",
+    "token_count": 551
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-18",
+    "article_id": "ITC-BT-18",
+    "article_title": "ITC-BT-18",
+    "token_count": 746
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-19",
+    "article_id": "ITC-BT-19",
+    "article_title": "ITC-BT-19",
+    "token_count": 573
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-19",
+    "article_id": "ITC-BT-19",
+    "article_title": "ITC-BT-19",
+    "token_count": 388
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-20",
+    "article_id": "ITC-BT-20",
+    "article_title": "ITC-BT-20",
+    "token_count": 405
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-49-1",
+    "article_id": "ITC-BT-49",
+    "article_title": "ITC-BT 49",
+    "token_count": 383
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-49-2",
+    "article_id": "ITC-BT-49",
+    "article_title": "ITC-BT 49",
+    "token_count": 807
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-49-3",
+    "article_id": "ITC-BT-49",
+    "article_title": "ITC-BT 49",
+    "token_count": 1385
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-49-4",
+    "article_id": "ITC-BT-49",
+    "article_title": "ITC-BT 49",
+    "token_count": 577
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-49-5",
+    "article_id": "ITC-BT-49",
+    "article_title": "ITC-BT 49",
+    "token_count": 123
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-28",
+    "article_id": "ITC-BT-28",
+    "article_title": "ITC-BT-28",
+    "token_count": 616
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-38-1",
+    "article_id": "ITC-BT-38",
+    "article_title": "ITC-BT-38",
+    "token_count": 409
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-38-2",
+    "article_id": "ITC-BT-38",
+    "article_title": "ITC-BT-38",
+    "token_count": 899
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-38-3",
+    "article_id": "ITC-BT-38",
+    "article_title": "ITC-BT-38",
+    "token_count": 902
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-38-4",
+    "article_id": "ITC-BT-38",
+    "article_title": "ITC-BT-38",
+    "token_count": 877
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-38-5",
+    "article_id": "ITC-BT-38",
+    "article_title": "ITC-BT-38",
+    "token_count": 995
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-38-6",
+    "article_id": "ITC-BT-38",
+    "article_title": "ITC-BT-38",
+    "token_count": 1047
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-38-7",
+    "article_id": "ITC-BT-38",
+    "article_title": "ITC-BT-38",
+    "token_count": 910
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-38-8",
+    "article_id": "ITC-BT-38",
+    "article_title": "ITC-BT-38",
+    "token_count": 84
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-29-1",
+    "article_id": "ITC-BT-29",
+    "article_title": "ITC-BT-29",
+    "token_count": 474
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-29-2",
+    "article_id": "ITC-BT-29",
+    "article_title": "ITC-BT-29",
+    "token_count": 1074
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-29-3",
+    "article_id": "ITC-BT-29",
+    "article_title": "ITC-BT-29",
+    "token_count": 981
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-29-4",
+    "article_id": "ITC-BT-29",
+    "article_title": "ITC-BT-29",
+    "token_count": 816
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-29-5",
+    "article_id": "ITC-BT-29",
+    "article_title": "ITC-BT-29",
+    "token_count": 896
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-29-6",
+    "article_id": "ITC-BT-29",
+    "article_title": "ITC-BT-29",
+    "token_count": 719
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-29-7",
+    "article_id": "ITC-BT-29",
+    "article_title": "ITC-BT-29",
+    "token_count": 785
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-29-8",
+    "article_id": "ITC-BT-29",
+    "article_title": "ITC-BT-29",
+    "token_count": 755
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-29-9",
+    "article_id": "ITC-BT-29",
+    "article_title": "ITC-BT-29",
+    "token_count": 394
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-30",
+    "article_id": "ITC-BT-30",
+    "article_title": "ITC-BT-30",
+    "token_count": 598
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 599
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 194
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-22",
+    "article_id": "ITC-BT-22",
+    "article_title": "ITC-BT-22",
+    "token_count": 107
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-36-1",
+    "article_id": "ITC-BT-36",
+    "article_title": "ITC-BT-36",
+    "token_count": 236
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-36-2",
+    "article_id": "ITC-BT-36",
+    "article_title": "ITC-BT-36",
+    "token_count": 942
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-36-3",
+    "article_id": "ITC-BT-36",
+    "article_title": "ITC-BT-36",
+    "token_count": 1002
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-36-4",
+    "article_id": "ITC-BT-36",
+    "article_title": "ITC-BT-36",
+    "token_count": 129
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-31",
+    "article_id": "ITC-BT-31",
+    "article_title": "ITC-BT-31",
+    "token_count": 684
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-30-1",
+    "article_id": "ITC-BT-30",
+    "article_title": "ITC-BT-30",
+    "token_count": 537
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-30-2",
+    "article_id": "ITC-BT-30",
+    "article_title": "ITC-BT-30",
+    "token_count": 324
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-30-1",
+    "article_id": "ITC-BT-30",
+    "article_title": "ITC-BT-30",
+    "token_count": 562
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-30-2",
+    "article_id": "ITC-BT-30",
+    "article_title": "ITC-BT-30",
+    "token_count": 835
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-30-3",
+    "article_id": "ITC-BT-30",
+    "article_title": "ITC-BT-30",
+    "token_count": 152
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-30",
+    "article_id": "ITC-BT-30",
+    "article_title": "ITC-BT-30",
+    "token_count": 750
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-32-1",
+    "article_id": "ITC-BT-32",
+    "article_title": "ITC-BT-32",
+    "token_count": 164
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-32-2",
+    "article_id": "ITC-BT-32",
+    "article_title": "ITC-BT-32",
+    "token_count": 967
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24-1",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 97
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24-2",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 959
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24-3",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 907
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-33",
+    "article_id": "ITC-BT-33",
+    "article_title": "ITC-BT-33",
+    "token_count": 352
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 491
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 97
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 463
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-21",
+    "article_id": "ITC-BT-21",
+    "article_title": "ITC-BT-21",
+    "token_count": 469
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-34-1",
+    "article_id": "ITC-BT-34",
+    "article_title": "ITC-BT-34",
+    "token_count": 147
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-34-2",
+    "article_id": "ITC-BT-34",
+    "article_title": "ITC-BT-34",
+    "token_count": 748
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-34-3",
+    "article_id": "ITC-BT-34",
+    "article_title": "ITC-BT-34",
+    "token_count": 894
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-34-4",
+    "article_id": "ITC-BT-34",
+    "article_title": "ITC-BT-34",
+    "token_count": 554
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-35",
+    "article_id": "ITC-BT-35",
+    "article_title": "ITC-BT-35",
+    "token_count": 236
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-33",
+    "article_id": "ITC-BT-33",
+    "article_title": "ITC-BT-33",
+    "token_count": 592
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24-1",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 78
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24-2",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 772
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-1",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 119
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-06-2",
+    "article_id": "ITC-BT-06",
+    "article_title": "ITC-BT-06",
+    "token_count": 715
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-37",
+    "article_id": "ITC-BT-37",
+    "article_title": "ITC-BT-37",
+    "token_count": 198
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 276
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-38",
+    "article_id": "ITC-BT-38",
+    "article_title": "ITC-BT-38",
+    "token_count": 344
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-28",
+    "article_id": "ITC-BT-28",
+    "article_title": "ITC-BT-28",
+    "token_count": 144
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-29",
+    "article_id": "ITC-BT-29",
+    "article_title": "ITC-BT-29",
+    "token_count": 112
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-19-1",
+    "article_id": "ITC-BT-19",
+    "article_title": "ITC-BT 19",
+    "token_count": 804
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-19-2",
+    "article_id": "ITC-BT-19",
+    "article_title": "ITC-BT 19",
+    "token_count": 255
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-36",
+    "article_id": "ITC-BT-36",
+    "article_title": "ITC-BT-36",
+    "token_count": 299
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-29",
+    "article_id": "ITC-BT-29",
+    "article_title": "ITC-BT-29",
+    "token_count": 603
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-05",
+    "article_id": "ITC-BT-05",
+    "article_title": "ITC-BT 05",
+    "token_count": 464
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-39",
+    "article_id": "ITC-BT-39",
+    "article_title": "ITC-BT-39",
+    "token_count": 363
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-22",
+    "article_id": "ITC-BT-22",
+    "article_title": "ITC-BT-22",
+    "token_count": 594
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40-1",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 149
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40-2",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 863
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40-3",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 962
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 349
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40-1",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 844
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40-2",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 866
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40-3",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 851
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40-4",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 1019
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40-5",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 866
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40-6",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 440
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40-7",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 380
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40-8",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 729
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40-9",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 882
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-40-10",
+    "article_id": "ITC-BT-40",
+    "article_title": "ITC-BT-40",
+    "token_count": 548
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-41",
+    "article_id": "ITC-BT-41",
+    "article_title": "ITC-BT-41",
+    "token_count": 175
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-42",
+    "article_id": "ITC-BT-42",
+    "article_title": "ITC-BT-42",
+    "token_count": 568
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24-1",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 510
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24-2",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 548
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-43-1",
+    "article_id": "ITC-BT-43",
+    "article_title": "ITC-BT-43",
+    "token_count": 94
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-43-2",
+    "article_id": "ITC-BT-43",
+    "article_title": "ITC-BT-43",
+    "token_count": 796
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-36",
+    "article_id": "ITC-BT-36",
+    "article_title": "ITC-BT-36",
+    "token_count": 166
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 334
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-19-1",
+    "article_id": "ITC-BT-19",
+    "article_title": "ITC-BT-19",
+    "token_count": 675
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-19-2",
+    "article_id": "ITC-BT-19",
+    "article_title": "ITC-BT-19",
+    "token_count": 649
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-44",
+    "article_id": "ITC-BT-44",
+    "article_title": "ITC-BT-44",
+    "token_count": 258
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-28-1",
+    "article_id": "ITC-BT-28",
+    "article_title": "ITC-BT-28",
+    "token_count": 534
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-28-2",
+    "article_id": "ITC-BT-28",
+    "article_title": "ITC-BT-28",
+    "token_count": 271
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 526
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-24",
+    "article_id": "ITC-BT-24",
+    "article_title": "ITC-BT-24",
+    "token_count": 377
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-45-1",
+    "article_id": "ITC-BT-45",
+    "article_title": "ITC-BT-45",
+    "token_count": 587
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-45-2",
+    "article_id": "ITC-BT-45",
+    "article_title": "ITC-BT-45",
+    "token_count": 921
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-45-3",
+    "article_id": "ITC-BT-45",
+    "article_title": "ITC-BT-45",
+    "token_count": 682
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-46-1",
+    "article_id": "ITC-BT-46",
+    "article_title": "ITC-BT-46",
+    "token_count": 106
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-46-2",
+    "article_id": "ITC-BT-46",
+    "article_title": "ITC-BT-46",
+    "token_count": 768
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-46-3",
+    "article_id": "ITC-BT-46",
+    "article_title": "ITC-BT-46",
+    "token_count": 946
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-46-4",
+    "article_id": "ITC-BT-46",
+    "article_title": "ITC-BT-46",
+    "token_count": 511
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-47-1",
+    "article_id": "ITC-BT-47",
+    "article_title": "ITC-BT-47",
+    "token_count": 172
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-47-2",
+    "article_id": "ITC-BT-47",
+    "article_title": "ITC-BT-47",
+    "token_count": 875
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-47-3",
+    "article_id": "ITC-BT-47",
+    "article_title": "ITC-BT-47",
+    "token_count": 862
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-47-4",
+    "article_id": "ITC-BT-47",
+    "article_title": "ITC-BT-47",
+    "token_count": 235
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-48-1",
+    "article_id": "ITC-BT-48",
+    "article_title": "ITC-BT-48",
+    "token_count": 545
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-48-2",
+    "article_id": "ITC-BT-48",
+    "article_title": "ITC-BT-48",
+    "token_count": 703
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-49-1",
+    "article_id": "ITC-BT-49",
+    "article_title": "ITC-BT-49",
+    "token_count": 101
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-49-2",
+    "article_id": "ITC-BT-49",
+    "article_title": "ITC-BT-49",
+    "token_count": 848
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-49-3",
+    "article_id": "ITC-BT-49",
+    "article_title": "ITC-BT-49",
+    "token_count": 219
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-27",
+    "article_id": "ITC-BT-27",
+    "article_title": "ITC-BT-27",
+    "token_count": 177
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-50",
+    "article_id": "ITC-BT-50",
+    "article_title": "ITC-BT-50",
+    "token_count": 143
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-51-1",
+    "article_id": "ITC-BT-51",
+    "article_title": "ITC-BT-51",
+    "token_count": 129
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-51-2",
+    "article_id": "ITC-BT-51",
+    "article_title": "ITC-BT-51",
+    "token_count": 983
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-51-3",
+    "article_id": "ITC-BT-51",
+    "article_title": "ITC-BT-51",
+    "token_count": 513
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-04",
+    "article_id": "ITC-BT-04",
+    "article_title": "ITC-BT-04",
+    "token_count": 721
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-1",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 494
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-2",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 1016
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-3",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 979
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-4",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 599
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-5",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 416
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-6",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 893
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-7",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 1121
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-8",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 1012
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-9",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 1061
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-10",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 1074
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-11",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 702
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-12",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 1200
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-13",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 1072
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-14",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 1188
+  },
+  {
+    "chunk_id": "REBT-ITC-BT-52-15",
+    "article_id": "ITC-BT-52",
+    "article_title": "ITC-BT-52",
+    "token_count": 324
+  }
+]

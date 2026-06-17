@@ -1,0 +1,24 @@
+Categoría: GUIAS
+
+Título:
+Guía Técnica IDAE - Bomba de Calor
+
+Norma base:
+IDAE 2023
+
+Fuente:
+IDAE (Instituto para la Diversificación y Ahorro de la Energía)
+
+Tipo:
+Guía técnica orientativa
+
+Uso:
+- Bomba de calor
+- Climatización
+- ACS con bomba de calor
+- Eficiencia energética
+- COP y EER
+- Instalación y mantenimiento
+
+Estado:
+Activo

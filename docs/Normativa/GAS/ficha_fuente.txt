@@ -1,0 +1,32 @@
+Categoría: GAS
+
+Título:
+Reglamento técnico de distribución y utilización de combustibles gaseosos
+
+Norma base:
+Real Decreto 919/2006, de 28 de julio
+
+Fuente:
+BOE
+
+Tipo:
+Texto consolidado
+
+Contenido:
+- ITC-ICG 01
+- ITC-ICG 02
+- ITC-ICG 03
+- ITC-ICG 04
+- ITC-ICG 05
+- ITC-ICG 06
+- ITC-ICG 07
+- ITC-ICG 08
+- ITC-ICG 09
+- ITC-ICG 10
+- ITC-ICG 11
+
+Uso:
+Indexación para Asistente Técnico TrabFlow
+
+Estado:
+Activo

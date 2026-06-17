@@ -1,0 +1,32 @@
+Categoría: CTE
+Título: Código Técnico de la Edificación
+Fuente: Ministerio de Vivienda y Agenda Urbana
+Portal oficial: https://www.codigotecnico.org
+
+Documentos incluidos:
+
+- DB HE - Ahorro de Energía
+- DB HS - Salubridad
+- DB SI - Seguridad en caso de Incendio
+
+Tipo: Documentos Básicos Oficiales
+
+Uso:
+Indexación para Asistente Técnico TrabFlow
+
+Objetivo:
+Consultas técnicas sobre eficiencia energética,
+ventilación, salubridad, incendios y requisitos
+constructivos aplicables a instalaciones.
+
+Estado: Activo
+
+Observaciones:
+Los Documentos Básicos se almacenan y versionan
+individualmente para facilitar actualizaciones futuras.
+
+Ruta:
+docs/Normativa/CTE/PDF/
+
+Fecha incorporación:
+17/06/2026
