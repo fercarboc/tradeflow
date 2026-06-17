@@ -216,12 +216,12 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
   // Step 1
   const [empresa, setEmpresa] = useState({
     nombre:         (orgAny?.nombre as string) ?? '',
-    razon_social:   (orgAny?.razon_social as string) ?? '',
     nif:            (orgAny?.nif as string) ?? '',
     direccion:      (orgAny?.direccion as string) ?? '',
-    ciudad:         (orgAny?.ciudad as string) ?? '',
+    localidad:      ((orgAny?.localidad ?? orgAny?.ciudad) as string) ?? '',
     cp:             (orgAny?.cp as string) ?? '',
-    telefono:       (orgAny?.telefono as string) ?? '',
+    provincia:      (orgAny?.provincia as string) ?? '',
+    telefono_movil: ((orgAny?.telefono_movil ?? orgAny?.telefono) as string) ?? '',
     email:          (orgAny?.email as string) ?? '',
     iban:           (orgAny?.iban as string) ?? '',
     banco:          (orgAny?.banco as string) ?? '',
@@ -265,28 +265,31 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
 
   async function saveStep1() {
     if (!orgId) return;
-    await supabase.from('trade_organizations').update({
+    const { error } = await supabase.from('trade_organizations').update({
       nombre:         empresa.nombre,
-      razon_social:   empresa.razon_social || empresa.nombre,
       nif:            empresa.nif,
       direccion:      empresa.direccion,
-      ciudad:         empresa.ciudad,
+      localidad:      empresa.localidad,
       cp:             empresa.cp,
-      telefono:       empresa.telefono,
+      provincia:      empresa.provincia,
+      telefono_movil: empresa.telefono_movil,
+      telefono:       empresa.telefono_movil,
       email:          empresa.email,
-      iban:           empresa.iban,
-      banco:          empresa.banco,
-      titular_cuenta: empresa.titular_cuenta,
+      iban:           empresa.iban || null,
+      banco:          empresa.banco || null,
+      titular_cuenta: empresa.titular_cuenta || null,
     }).eq('id', orgId);
+    if (error) console.error('[saveStep1]', error.message);
     const stored = JSON.parse(localStorage.getItem('tf_biz_config') ?? '{}');
     localStorage.setItem('tf_biz_config', JSON.stringify({
       ...stored,
       nombre: empresa.nombre,
       nif: empresa.nif,
       direccion: empresa.direccion,
-      localidad: empresa.ciudad,
+      localidad: empresa.localidad,
       cp: empresa.cp,
-      telefonoMovil: empresa.telefono,
+      provincia: empresa.provincia,
+      telefonoMovil: empresa.telefono_movil,
       email: empresa.email,
       iban: empresa.iban,
       banco: empresa.banco,
@@ -464,36 +467,36 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Nombre comercial</label>
-                    <input type="text" value={empresa.nombre} onChange={e => setEmpresa(p => ({ ...p, nombre: e.target.value }))} placeholder="Instalaciones García" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
-                  </div>
-                  <div>
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Razón social (si difiere)</label>
-                    <input type="text" value={empresa.razon_social} onChange={e => setEmpresa(p => ({ ...p, razon_social: e.target.value }))} placeholder="García Instalaciones S.L." className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Nombre comercial / Razón social *</label>
+                    <input type="text" value={empresa.nombre} onChange={e => setEmpresa(p => ({ ...p, nombre: e.target.value }))} placeholder="Instalaciones García S.L." className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">NIF / CIF *</label>
                     <input type="text" value={empresa.nif} onChange={e => setEmpresa(p => ({ ...p, nif: e.target.value }))} placeholder="B-12345678" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Teléfono</label>
-                    <input type="text" value={empresa.telefono} onChange={e => setEmpresa(p => ({ ...p, telefono: e.target.value }))} placeholder="666 123 456" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Teléfono móvil</label>
+                    <input type="text" value={empresa.telefono_movil} onChange={e => setEmpresa(p => ({ ...p, telefono_movil: e.target.value }))} placeholder="666 123 456" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Email</label>
                     <input type="text" value={empresa.email} onChange={e => setEmpresa(p => ({ ...p, email: e.target.value }))} placeholder="info@miempresa.com" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
                   </div>
-                  <div>
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Dirección</label>
+                  <div className="col-span-2">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Dirección (calle y número)</label>
                     <input type="text" value={empresa.direccion} onChange={e => setEmpresa(p => ({ ...p, direccion: e.target.value }))} placeholder="Calle Mayor 12" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
                   </div>
                   <div>
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Ciudad</label>
-                    <input type="text" value={empresa.ciudad} onChange={e => setEmpresa(p => ({ ...p, ciudad: e.target.value }))} placeholder="Sevilla" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Localidad</label>
+                    <input type="text" value={empresa.localidad} onChange={e => setEmpresa(p => ({ ...p, localidad: e.target.value }))} placeholder="Sevilla" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
                   </div>
                   <div>
                     <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">C.P.</label>
                     <input type="text" value={empresa.cp} onChange={e => setEmpresa(p => ({ ...p, cp: e.target.value }))} placeholder="41001" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Provincia</label>
+                    <input type="text" value={empresa.provincia} onChange={e => setEmpresa(p => ({ ...p, provincia: e.target.value }))} placeholder="Sevilla" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
                   </div>
                 </div>
                 <div className="border-t border-slate-100 pt-4 space-y-3">
@@ -507,7 +510,7 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
                       <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Banco</label>
                       <input type="text" value={empresa.banco} onChange={e => setEmpresa(p => ({ ...p, banco: e.target.value }))} placeholder="CaixaBank" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
                     </div>
-                    <div>
+                    <div className="col-span-2">
                       <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Titular de la cuenta</label>
                       <input type="text" value={empresa.titular_cuenta} onChange={e => setEmpresa(p => ({ ...p, titular_cuenta: e.target.value }))} placeholder="García Instalaciones S.L." className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
                     </div>
