@@ -5532,6 +5532,29 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   // ================= DESKTOP: DASHBOARD SCREEN =================
   function ScreenDashboard() {
+    // ── Tasa de aceptación real ────────────────────────────────────────────
+    const presupuestosNoborrador = presupuestos.filter(p => p.estado !== 'Borrador');
+    const presupuestosAceptados  = presupuestos.filter(p => p.estado === 'Aceptado' || p.estado === 'Facturado');
+    const tasaAceptacion = presupuestosNoborrador.length > 0
+      ? Math.round((presupuestosAceptados.length / presupuestosNoborrador.length) * 100)
+      : null;
+
+    // ── Gráfico ingresos reales últimos 6 meses ───────────────────────────
+    const chartMeses = Array.from({ length: 6 }, (_, i) => {
+      const d = new Date();
+      d.setDate(1);
+      d.setMonth(d.getMonth() - (5 - i));
+      return { label: d.toLocaleString('es-ES', { month: 'short' }), year: d.getFullYear(), month: d.getMonth() };
+    });
+    const chartData = chartMeses.map(m => ({
+      mes: m.label,
+      total: facturas
+        .filter(f => f.estado === 'Pagada' && f.fecha)
+        .filter(f => { const d = new Date(f.fecha); return d.getFullYear() === m.year && d.getMonth() === m.month; })
+        .reduce((sum, f) => sum + (f.importe || 0), 0),
+    }));
+    const chartMax = Math.max(...chartData.map(d => d.total), 1);
+
     // ── Pasos de configuración pendientes ─────────────────────────────────
     const pendingSetup: { label: string; action: string; onClick: () => void }[] = [];
     if (isLiveMode && orgData) {
@@ -5683,10 +5706,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
           <div className="bg-white border border-slate-200 p-4 rounded-xl space-y-1">
             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Tasa de Aceptación</span>
-            <div className="text-xl sm:text-2xl font-black text-slate-905 tracking-tight">
-              82.4%
+            <div className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              {tasaAceptacion !== null ? `${tasaAceptacion}%` : '—'}
             </div>
-            <span className="text-[10px] text-slate-400 block">Optimizado por rapidez</span>
+            <span className="text-[10px] text-slate-400 block">
+              {tasaAceptacion !== null ? `${presupuestosAceptados.length} de ${presupuestosNoborrador.length} enviados` : 'Sin presupuestos enviados'}
+            </span>
           </div>
         </div>
 
@@ -5821,23 +5846,27 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </div>
 
             <div className="h-44 w-full flex items-end justify-between pt-6 gap-2">
-              {[
-                { mes: 'Ene', valor: '820€', altura: '30%' },
-                { mes: 'Feb', valor: '1,150€', altura: '45%' },
-                { mes: 'Mar', valor: '1,400€', altura: '55%' },
-                { mes: 'Abr', valor: '2,100€', altura: '75%' },
-                { mes: 'May', valor: '2,850€', altura: '100%' }
-              ].map((item, idx) => (
-                <div key={idx} className="flex flex-col items-center flex-1 h-full justify-end group">
-                  <div className="text-[9px] font-bold text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity mb-1 font-mono">{item.valor}</div>
-                  {idx === 4 ? (
-                    <div className="w-full bg-gradient-to-t from-blue-600 via-indigo-500 to-emerald-400 rounded-t-lg shadow-md" style={{ height: item.altura }} />
-                  ) : (
-                    <div className="w-full bg-slate-200 rounded-t-lg" style={{ height: item.altura }} />
-                  )}
-                  <span className="text-[9px] mt-2 font-mono text-slate-400">{item.mes}</span>
-                </div>
-              ))}
+              {chartData.map((item, idx) => {
+                const pct = chartMax > 0 ? (item.total / chartMax) * 100 : 0;
+                const isLast = idx === chartData.length - 1;
+                return (
+                  <div key={idx} className="flex flex-col items-center flex-1 h-full justify-end group">
+                    <div className="text-[9px] font-bold text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity mb-1 font-mono">
+                      {item.total > 0 ? `${item.total.toFixed(0)}€` : ''}
+                    </div>
+                    {pct > 0 ? (
+                      isLast ? (
+                        <div className="w-full bg-gradient-to-t from-blue-600 via-indigo-500 to-emerald-400 rounded-t-lg shadow-md" style={{ height: `${pct}%` }} />
+                      ) : (
+                        <div className="w-full bg-blue-200 rounded-t-lg" style={{ height: `${pct}%` }} />
+                      )
+                    ) : (
+                      <div className="w-full bg-slate-100 rounded-t-lg" style={{ height: '4px' }} />
+                    )}
+                    <span className="text-[9px] mt-2 font-mono text-slate-400">{item.mes}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
