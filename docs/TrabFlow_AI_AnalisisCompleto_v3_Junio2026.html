@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TrabFlow AI — Análisis Completo v3.0 · Junio 2026</title>
+<title>TrabFlow AI — Análisis Completo v3.1 · Junio 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -524,6 +524,43 @@
     .section { break-inside: avoid; }
     a { color: inherit; text-decoration: none; }
   }
+
+  /* ── DIAGRAMS ─────────────────────────────────────── */
+  .diagram-wrap {
+    background: var(--white);
+    border: 1px solid var(--cream-dark);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 18px;
+    overflow-x: auto;
+  }
+  .diagram-wrap svg { display: block; min-width: 680px; }
+  .diagram-caption {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--ink-muted);
+    text-align: center;
+    margin-top: 4px;
+  }
+  .dg-box       { fill: var(--white); stroke: var(--cream-dark); stroke-width: 1.5; }
+  .dg-box-hub   { fill: var(--ink);   stroke: var(--ink); }
+  .dg-box-blue  { stroke: var(--blue); stroke-width: 2; }
+  .dg-box-sage  { stroke: var(--sage); stroke-width: 2; }
+  .dg-box-gold  { stroke: var(--gold); stroke-width: 2; }
+  .dg-box-terra { stroke: var(--terracotta); stroke-width: 2; }
+  .dg-box-mid   { stroke: var(--blue-mid); stroke-width: 2; }
+  .dg-step-num  { fill: var(--blue); stroke: var(--white); stroke-width: 2; }
+  .dg-step-num-sage { fill: var(--sage); stroke: var(--white); stroke-width: 2; }
+  .dg-line      { stroke: var(--ink-muted); stroke-width: 1.5; fill: none; }
+  .dg-line-blue { stroke: var(--blue); stroke-width: 1.75; fill: none; }
+  .dg-line-dash { stroke: var(--gold); stroke-width: 1.75; fill: none; stroke-dasharray: 5,4; }
+  .dg-text-title       { font-family: var(--font-mono); font-size: 12px; fill: var(--ink); font-weight: 500; }
+  .dg-text-title-white { font-family: var(--font-mono); font-size: 12px; fill: var(--white); font-weight: 500; }
+  .dg-text-desc  { font-family: var(--font-sans); font-size: 10px; fill: var(--ink-soft); }
+  .dg-text-label { font-family: var(--font-mono); font-size: 9.5px; fill: var(--ink-muted); }
+  .dg-text-step  { font-family: var(--font-sans); font-weight: 600; font-size: 12px; fill: var(--ink); }
+  .dg-text-num   { font-family: var(--font-mono); font-size: 11px; fill: var(--white); font-weight: 600; }
+  .dg-lane-label { font-family: var(--font-mono); font-size: 11px; fill: var(--blue); text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
 </style>
 </head>
 <body>
@@ -531,7 +568,7 @@
 <nav>
   <div class="nav-brand">
     <span class="nav-brand-dot"></span>
-    TrabFlow AI — Análisis Completo v3.0
+    TrabFlow AI — Análisis Completo v3.1
   </div>
   <ul class="nav-links">
     <li><a href="#vision">Visión</a></li>
@@ -539,6 +576,8 @@
     <li><a href="#roles">Roles</a></li>
     <li><a href="#presupuestos">Presupuestos</a></li>
     <li><a href="#facturas">Facturas</a></li>
+    <li><a href="#ingresos">Ingresos</a></li>
+    <li><a href="#externalizados">Externalizados</a></li>
     <li><a href="#contratos">Contratos</a></li>
     <li><a href="#ia">IA Pipeline</a></li>
     <li><a href="#bbdd">Base de Datos</a></li>
@@ -552,11 +591,11 @@
 
 <!-- ══════════════════════════════════════════ HERO -->
 <div class="hero">
-  <p class="hero-eyebrow">Documento de referencia técnico-funcional · Versión 3.0</p>
+  <p class="hero-eyebrow">Documento de referencia técnico-funcional · Versión 3.1</p>
   <h1 class="hero-title">TrabFlow AI</h1>
   <p class="hero-subtitle">Plataforma SaaS de Gestión para Instaladores y PYMES de Servicios Técnicos</p>
   <div class="hero-meta">
-    <div class="hero-meta-item"><span class="hero-meta-label">Versión</span><span class="hero-meta-value">v3.0 · Junio 2026</span></div>
+    <div class="hero-meta-item"><span class="hero-meta-label">Versión</span><span class="hero-meta-value">v3.1 · Junio 2026</span></div>
     <div class="hero-meta-item"><span class="hero-meta-label">Web</span><span class="hero-meta-value">https://www.trabflow.com</span></div>
     <div class="hero-meta-item"><span class="hero-meta-label">Empresa</span><span class="hero-meta-value">TrabFlow Technologies SL</span></div>
     <div class="hero-meta-item"><span class="hero-meta-label">Supabase ID</span><span class="hero-meta-value">dqqjaujnulutinskmqsu</span></div>
@@ -602,7 +641,57 @@
     <h2 class="section-title">Arquitectura Técnica</h2>
   </div>
 
-  <div class="callout">Usuario (navegador) → HTTPS → Vercel (React/Vite) → Supabase JS Client → Supabase PostgreSQL + RLS + Auth → Deno Edge Functions → Anthropic Claude API / Stripe API / SendGrid</div>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 1000 460" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arch-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,0 L10,5 L0,10 z" style="fill:var(--ink-muted)"/>
+        </marker>
+      </defs>
+
+      <rect x="350" y="10" width="300" height="50" rx="4" class="dg-box dg-box-blue"/>
+      <text x="500" y="31" text-anchor="middle" class="dg-text-title">Usuario</text>
+      <text x="500" y="48" text-anchor="middle" class="dg-text-desc">Navegador · App PWA móvil</text>
+
+      <line x1="500" y1="60" x2="500" y2="98" class="dg-line" marker-end="url(#arch-arrow)"/>
+      <text x="514" y="83" class="dg-text-label">HTTPS</text>
+
+      <rect x="320" y="100" width="360" height="55" rx="4" class="dg-box dg-box-sage"/>
+      <text x="500" y="123" text-anchor="middle" class="dg-text-title">Vercel</text>
+      <text x="500" y="141" text-anchor="middle" class="dg-text-desc">React 18 + TypeScript + Vite (Frontend)</text>
+
+      <line x1="500" y1="155" x2="500" y2="193" class="dg-line" marker-end="url(#arch-arrow)"/>
+      <text x="514" y="178" class="dg-text-label">Supabase JS Client</text>
+
+      <rect x="270" y="195" width="460" height="60" rx="4" class="dg-box-hub"/>
+      <text x="500" y="220" text-anchor="middle" class="dg-text-title-white">Supabase</text>
+      <text x="500" y="238" text-anchor="middle" class="dg-text-desc" style="fill:var(--blue-light)">PostgreSQL + Row Level Security (RLS) + Auth</text>
+
+      <line x1="500" y1="255" x2="500" y2="293" class="dg-line" marker-end="url(#arch-arrow)"/>
+      <text x="514" y="278" class="dg-text-label">Triggers · RPC</text>
+
+      <rect x="350" y="295" width="300" height="50" rx="4" class="dg-box dg-box-gold"/>
+      <text x="500" y="316" text-anchor="middle" class="dg-text-title">Edge Functions</text>
+      <text x="500" y="334" text-anchor="middle" class="dg-text-desc">Deno (TypeScript) · lógica de servidor</text>
+
+      <line x1="500" y1="345" x2="200" y2="403" class="dg-line" marker-end="url(#arch-arrow)"/>
+      <line x1="500" y1="345" x2="500" y2="403" class="dg-line" marker-end="url(#arch-arrow)"/>
+      <line x1="500" y1="345" x2="800" y2="403" class="dg-line" marker-end="url(#arch-arrow)"/>
+
+      <rect x="70" y="405" width="260" height="50" rx="4" class="dg-box dg-box-terra"/>
+      <text x="200" y="426" text-anchor="middle" class="dg-text-title">Anthropic Claude API</text>
+      <text x="200" y="444" text-anchor="middle" class="dg-text-desc">Voz · Foto · Chatbot (Haiku 4.5 / Sonnet 4.6)</text>
+
+      <rect x="370" y="405" width="260" height="50" rx="4" class="dg-box dg-box-terra"/>
+      <text x="500" y="426" text-anchor="middle" class="dg-text-title">Stripe API</text>
+      <text x="500" y="444" text-anchor="middle" class="dg-text-desc">Suscripciones, checkout y portal de pago</text>
+
+      <rect x="670" y="405" width="260" height="50" rx="4" class="dg-box dg-box-terra"/>
+      <text x="800" y="426" text-anchor="middle" class="dg-text-title">Resend / SendGrid</text>
+      <text x="800" y="444" text-anchor="middle" class="dg-text-desc">Emails transaccionales</text>
+    </svg>
+    <div class="diagram-caption">Flujo de datos de extremo a extremo · capa por capa</div>
+  </div>
 
   <div class="subsection-title">Autenticación y Sesión</div>
   <div class="two-col">
@@ -844,24 +933,147 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════ 12-14 INGRESOS / EQUIPO / TRABAJADORES -->
+<!-- ══════════════════════════════════════════ 12. INGRESOS, GASTOS Y RENTABILIDAD -->
+<section class="section" id="ingresos">
+  <div class="section-header">
+    <span class="section-num">12</span>
+    <h2 class="section-title">Ingresos, Gastos y Rentabilidad</h2>
+  </div>
+  <p><code>ScreenIngresos.tsx</code> — dashboard financiero con 3 pestañas: Ingresos (todos los planes), Gastos y Resultado (Empresa y Empresa+).</p>
+
+  <div class="subsection-title">Pestaña Ingresos</div>
+  <div class="card-grid">
+    <div class="card"><div class="card-title">Ingresos mensuales</div><div class="card-body">Gráfico de barras comparativo, hasta 12 meses.</div></div>
+    <div class="card"><div class="card-title">Total facturado</div><div class="card-body">Acumulado del periodo seleccionable. Por tipo: puntual vs mantenimiento.</div></div>
+    <div class="card sage"><div class="card-title">Facturas por estado</div><div class="card-body">Pagadas vs Pendientes vs Vencidas.</div></div>
+    <div class="card gold"><div class="card-title">Tasa de cobro</div><div class="card-body">% facturas cobradas vs emitidas. Ranking de top clientes.</div></div>
+  </div>
+
+  <div class="subsection-title">Pestaña Gastos <span style="font-size:11px;color:var(--ink-muted);text-transform:none;letter-spacing:0;">(planes Empresa y Empresa+)</span></div>
+  <div class="three-col">
+    <div class="card">
+      <div class="card-title">Compras de material</div>
+      <div class="card-body">Facturas de mayoristas/distribuidores: concepto, proveedor, referencia, importe + IVA (0/10/21%), fecha, vencimiento, pagado. Vinculable a un trabajo. KPIs: total, pagadas, pendientes.</div>
+    </div>
+    <div class="card terracotta">
+      <div class="card-title">Externalizados</div>
+      <div class="card-body">Vista consolidada de facturas pagadas a proveedores colaboradores. Agrupa <code>trade_subcontratas</code> con <code>pagado=true</code>. Detalle completo en la sección siguiente.</div>
+    </div>
+    <div class="card sage">
+      <div class="card-title">Mayoristas / Distribuidores</div>
+      <div class="card-body">Directorio de proveedores de material: alta, edición y baja desde esta misma pestaña.</div>
+    </div>
+  </div>
+
+  <div class="subsection-title">Pestaña Resultado</div>
+  <div class="callout rule">Resultado neto = ingresos cobrados − (compras de material pagadas + externalizados pagados). Incluye margen bruto en % y gráfico dual de barras: ingresos (azul) vs gastos (rojo) por mes.</div>
+
+  <div class="subsection-title">Tablas fuente</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Datos</th><th>Tabla</th><th>Filtro</th></tr></thead>
+      <tbody>
+        <tr><td>Ingresos</td><td><code>trade_invoices</code></td><td>estado=Pagada</td></tr>
+        <tr><td>Pendientes / Vencidas</td><td><code>trade_invoices</code></td><td>estado=Pendiente/Emitida/Vencida</td></tr>
+        <tr><td>Top clientes</td><td><code>trade_invoices</code></td><td>GROUP BY client_id</td></tr>
+        <tr><td>Compras material</td><td><code>trade_compras</code></td><td>org_id</td></tr>
+        <tr><td>Externalizados</td><td><code>trade_subcontratas</code></td><td>pagado=true</td></tr>
+        <tr><td>Mayoristas</td><td><code>trade_mayoristas</code></td><td>org_id</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ 12b-12c. TRABAJOS EXTERNALIZADOS Y PROVEEDORES -->
+<section class="section" id="externalizados">
+  <div class="section-header">
+    <span class="section-num">12b – 12c</span>
+    <h2 class="section-title">Trabajos Externalizados y Proveedores</h2>
+  </div>
+
+  <div class="callout sage">Cuando una empresa no tiene disponibilidad o especialidad para un trabajo, lo delega a otro instalador o empresa colaboradora. El cliente <strong>nunca</strong> ve la palabra "subcontrata": en su presupuesto solo aparece como una partida de obra normal. Internamente, TrabFlow gestiona todo el ciclo desde solicitar precio al proveedor hasta pagar su factura. Módulo implementado y desplegado en producción (junio 2026).</div>
+
+  <div class="subsection-title">Máquina de estados del trabajo externalizado (10 pasos)</div>
+  <div class="state-bar">
+    <span class="state-node">pendiente</span><span class="state-arrow">→</span>
+    <span class="state-node">solicitado</span><span class="state-arrow">→</span>
+    <span class="state-node">presupuesto_recibido</span><span class="state-arrow">→</span>
+    <span class="state-node">añadido_presupuesto</span><span class="state-arrow">→</span>
+    <span class="state-node">pendiente_cliente</span>
+    <div style="width:100%;height:4px"></div>
+    <span class="state-node">en_curso</span><span class="state-arrow">→</span>
+    <span class="state-node">completado</span><span class="state-arrow">→</span>
+    <span class="state-node">factura_recibida</span><span class="state-arrow">→</span>
+    <span class="state-node final">pagado</span>
+    &nbsp;&nbsp;·&nbsp;&nbsp;
+    <span class="state-node error">cancelado</span>
+  </div>
+  <div class="callout warn">El estado <code>pagado</code> es de SOLO LECTURA: oculta los botones Editar/Eliminar y bloquea la barra de estados. Tampoco se pueden añadir trabajos externalizados a un presupuesto que ya está en estado "Facturado".</div>
+
+  <div class="two-col">
+    <div>
+      <div class="subsection-title">4 vistas del módulo</div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Vista</th><th>Contenido</th></tr></thead>
+          <tbody>
+            <tr><td>Lista</td><td>KPIs + tabla de todos los trabajos externalizados</td></tr>
+            <tr><td>Detalle</td><td>Ficha completa, barra de progreso, calculadora de margen</td></tr>
+            <tr><td>Proveedores</td><td>Directorio de proveedores colaboradores</td></tr>
+            <tr><td>Detalle proveedor</td><td>Ficha + historial de trabajos con ese proveedor</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="subsection-title">Calculadora de margen</div>
+      <p>El instalador introduce el <strong>coste del proveedor</strong> y elige el margen con botones rápidos: <span class="badge badge-blue">15%</span> <span class="badge badge-blue">20%</span> <span class="badge badge-blue">25%</span> <span class="badge badge-blue">30%</span> <span class="badge badge-blue">40%</span> — o introduce el precio al cliente manualmente.</p>
+      <div class="callout">Fórmula: <code>precio_cliente = coste / (1 - margen/100)</code></div>
+      <p style="margin-top:8px">Referencia automática: el trigger <code>set_subcontrata_referencia</code> genera <code>SUB-YYYY-NNN</code> al insertar.</p>
+    </div>
+  </div>
+
+  <div class="subsection-title">Proveedores Colaboradores — servicios (<code>trade_subcontractors</code>)</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Campo</th><th>Descripción</th></tr></thead>
+      <tbody>
+        <tr><td>nombre · telefono · email · nif</td><td>Datos básicos de contacto</td></tr>
+        <tr><td>direccion_fiscal · direccion_trabajo</td><td>Dirección fiscal y zona de trabajo habitual</td></tr>
+        <tr><td>persona_contacto · horarios · cobertura</td><td>Persona de contacto, horarios y área geográfica cubierta</td></tr>
+        <tr><td>valoracion</td><td>1 a 5 estrellas</td></tr>
+        <tr><td>estado_proveedor</td><td>activo / pendiente / bloqueado</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subsection-title">Mayoristas / Distribuidores — material (<code>trade_mayoristas</code> y <code>trade_compras</code>)</div>
+  <div class="two-col">
+    <div>
+      <p>Proveedores que venden <strong>materiales</strong> (no servicios). Ficha: nombre comercial, razón social, NIF, dirección fiscal completa, CP/ciudad/provincia, teléfono, email, persona de contacto, web, notas internas, activo/inactivo.</p>
+    </div>
+    <div>
+      <p>Cada factura de compra (<code>trade_compras</code>) registra: concepto, referencia de factura, importe base, IVA (0/10/21%), fecha, fecha de vencimiento, estado (pagada/pendiente) y vinculación opcional a un trabajo concreto (<code>trade_jobs</code>).</p>
+    </div>
+  </div>
+
+  <div class="callout rule">Disponibilidad: el módulo de Trabajos Externalizados y Gastos está incluido desde el plan Empresa (89€/mes) en adelante.</div>
+</section>
+
+<!-- ══════════════════════════════════════════ 13-14 EQUIPO / TRABAJADORES -->
 <section class="section" id="equipo">
   <div class="section-header">
-    <span class="section-num">12 – 14</span>
-    <h2 class="section-title">Ingresos · Equipo · Trabajadores</h2>
+    <span class="section-num">13 – 14</span>
+    <h2 class="section-title">Equipo · Trabajadores</h2>
   </div>
-  <div class="three-col">
-    <div class="card gold">
-      <div class="card-title">12 — Ingresos</div>
-      <div class="card-body">Dashboard analítico: gráfico de barras mensual (12 meses), total facturado acumulado, facturas por estado, trabajo puntual vs mantenimiento, top clientes, tasa de cobro.</div>
-    </div>
+  <div class="two-col">
     <div class="card">
       <div class="card-title">13 — Equipo</div>
-      <div class="card-body">Usuarios con acceso a la app. Invitar por email con rol. Básico/Profesional: 0 extra. Empresa: 5 extras. Empresa+: 15 extras. Permisos individuales override.</div>
+      <div class="card-body">Usuarios con acceso a la app. Invitar por email con rol. Límites de miembros extra por plan: Básico 0 · Profesional 0 · Empresa 5 · Empresa+ 15. Permisos individuales pueden sobreescribir el rol base.</div>
     </div>
     <div class="card sage">
       <div class="card-title">14 — Trabajadores</div>
-      <div class="card-body">Perfiles operativos de campo (<code>trade_workers</code>). Distintos de los usuarios de la app. Especialidades, disponibilidad, horario, max trabajos/día. Pueden o no tener cuenta.</div>
+      <div class="card-body">Perfiles operativos de campo (<code>trade_workers</code>). Distintos de los usuarios de la app. Especialidades, disponibilidad, horario, máx. trabajos/día. Pueden o no tener cuenta en la app.</div>
     </div>
   </div>
 </section>
@@ -919,20 +1131,21 @@
   </div>
 
   <div class="subsection-title">Planes de suscripción</div>
+  <div class="callout warn">El plan <strong>Básico (29€/mes)</strong> está oculto al público. No se ofrece en el alta ni en el portal de upgrade: se activa manualmente solo como oferta de recompra ante una baja, para retener al cliente antes de perderlo.</div>
   <div class="three-col">
     <div class="plan-card">
-      <div class="plan-name">Básico</div>
-      <div class="plan-price">Gratis <span>(Beta)</span></div>
+      <div class="plan-name">Profesional</div>
+      <div class="plan-price">49€ <span>/mes</span></div>
       <div class="plan-feat">Solo propietario<br>Sin módulo mantenimiento<br>0 miembros extra</div>
     </div>
     <div class="plan-card featured">
       <div class="plan-name">Empresa</div>
-      <div class="plan-price">49€ <span>/mes</span></div>
-      <div class="plan-feat">Hasta 5 miembros extra<br>Módulo mantenimiento<br>Contratos y facturas M-</div>
+      <div class="plan-price">89€ <span>/mes</span></div>
+      <div class="plan-feat">Hasta 5 miembros extra<br>Contratos de mantenimiento<br>Trabajos externalizados + Gastos</div>
     </div>
     <div class="plan-card">
       <div class="plan-name">Empresa+</div>
-      <div class="plan-price">89€ <span>/mes</span></div>
+      <div class="plan-price">179€ <span>/mes</span></div>
       <div class="plan-feat">Hasta 15 miembros extra<br>Todos los módulos<br>Funciones avanzadas</div>
     </div>
   </div>
@@ -1091,6 +1304,114 @@
 
   <div class="callout">Todas las tablas tienen prefijo <code>trade_</code> y RLS (Row Level Security) habilitado. Proyecto Supabase: <code>dqqjaujnulutinskmqsu</code> · Prefijo: <code>trade_</code></div>
 
+  <div class="subsection-title">Mapa de relaciones (ERD simplificado)</div>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 1180 430" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="erd-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--ink-muted)"/></marker>
+        <marker id="erd-arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--blue)"/></marker>
+        <marker id="erd-arrow-gold" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--gold)"/></marker>
+      </defs>
+
+      <!-- HUB -->
+      <rect x="460" y="15" width="260" height="50" rx="4" class="dg-box-hub"/>
+      <text x="590" y="36" text-anchor="middle" class="dg-text-title-white">trade_organizations</text>
+      <text x="590" y="52" text-anchor="middle" class="dg-text-desc" style="fill:var(--blue-light)">Tenant raíz · 1 por propietario</text>
+
+      <!-- SPINE -->
+      <line x1="590" y1="65" x2="590" y2="90" class="dg-line"/>
+      <line x1="115" y1="90" x2="1065" y2="90" class="dg-line"/>
+      <line x1="115" y1="90" x2="115" y2="128" class="dg-line" marker-end="url(#erd-arrow)"/>
+      <line x1="305" y1="90" x2="305" y2="128" class="dg-line" marker-end="url(#erd-arrow)"/>
+      <line x1="495" y1="90" x2="495" y2="128" class="dg-line" marker-end="url(#erd-arrow)"/>
+      <line x1="685" y1="90" x2="685" y2="128" class="dg-line" marker-end="url(#erd-arrow)"/>
+      <line x1="875" y1="90" x2="875" y2="128" class="dg-line" marker-end="url(#erd-arrow)"/>
+      <line x1="1065" y1="90" x2="1065" y2="128" class="dg-line" marker-end="url(#erd-arrow)"/>
+
+      <!-- ROW 1 -->
+      <rect x="30" y="130" width="170" height="48" rx="4" class="dg-box dg-box-blue"/>
+      <text x="40" y="150" class="dg-text-title">trade_clients</text>
+      <text x="40" y="166" class="dg-text-desc">Clientes del instalador</text>
+
+      <rect x="220" y="130" width="170" height="48" rx="4" class="dg-box dg-box-sage"/>
+      <text x="230" y="150" class="dg-text-title">trade_jobs</text>
+      <text x="230" y="166" class="dg-text-desc">Trabajos planificados</text>
+
+      <rect x="410" y="130" width="170" height="48" rx="4" class="dg-box dg-box-gold"/>
+      <text x="420" y="150" class="dg-text-title">trade_contracts</text>
+      <text x="420" y="166" class="dg-text-desc">Contratos de mantenim.</text>
+
+      <rect x="600" y="130" width="170" height="48" rx="4" class="dg-box dg-box-terra"/>
+      <text x="610" y="150" class="dg-text-title">trade_subcontratas</text>
+      <text x="610" y="166" class="dg-text-desc">Trabajos externalizados</text>
+
+      <rect x="790" y="130" width="170" height="48" rx="4" class="dg-box dg-box-mid"/>
+      <text x="800" y="150" class="dg-text-title">trade_compras</text>
+      <text x="800" y="166" class="dg-text-desc">Facturas de compra</text>
+
+      <rect x="980" y="130" width="170" height="48" rx="4" class="dg-box" style="stroke:var(--ink-muted);stroke-width:2"/>
+      <text x="990" y="150" class="dg-text-title">trade_org_members</text>
+      <text x="990" y="166" class="dg-text-desc">Usuarios con acceso</text>
+
+      <!-- ROW1→ROW2 -->
+      <line x1="115" y1="178" x2="115" y2="208" class="dg-line" marker-end="url(#erd-arrow)"/>
+      <line x1="305" y1="178" x2="305" y2="208" class="dg-line" marker-end="url(#erd-arrow)"/>
+      <line x1="685" y1="178" x2="685" y2="208" class="dg-line" marker-end="url(#erd-arrow)"/>
+      <line x1="875" y1="178" x2="875" y2="208" class="dg-line" marker-end="url(#erd-arrow)"/>
+      <line x1="1065" y1="178" x2="1065" y2="208" class="dg-line" marker-end="url(#erd-arrow)"/>
+
+      <!-- ROW 2 -->
+      <rect x="30" y="210" width="170" height="48" rx="4" class="dg-box dg-box-blue"/>
+      <text x="40" y="230" class="dg-text-title">trade_quotes</text>
+      <text x="40" y="246" class="dg-text-desc">Presupuestos</text>
+
+      <rect x="220" y="210" width="170" height="48" rx="4" class="dg-box dg-box-sage"/>
+      <text x="230" y="230" class="dg-text-title">trade_job_workers</text>
+      <text x="230" y="246" class="dg-text-desc">Asignación de trabajador</text>
+
+      <rect x="600" y="210" width="170" height="48" rx="4" class="dg-box dg-box-terra"/>
+      <text x="610" y="230" class="dg-text-title">trade_subcontractors</text>
+      <text x="610" y="246" class="dg-text-desc">Proveedores colaborad.</text>
+
+      <rect x="790" y="210" width="170" height="48" rx="4" class="dg-box dg-box-mid"/>
+      <text x="800" y="230" class="dg-text-title">trade_mayoristas</text>
+      <text x="800" y="246" class="dg-text-desc">Proveedores de material</text>
+
+      <rect x="980" y="210" width="170" height="48" rx="4" class="dg-box" style="stroke:var(--ink-muted);stroke-width:2"/>
+      <text x="990" y="230" class="dg-text-title">trade_subscriptions</text>
+      <text x="990" y="246" class="dg-text-desc">Plan SaaS contratado</text>
+
+      <!-- ROW2→ROW3 -->
+      <line x1="115" y1="258" x2="115" y2="288" class="dg-line" marker-end="url(#erd-arrow)"/>
+      <line x1="305" y1="258" x2="305" y2="288" class="dg-line" marker-end="url(#erd-arrow)"/>
+
+      <!-- ROW 3 -->
+      <rect x="30" y="290" width="170" height="48" rx="4" class="dg-box dg-box-blue"/>
+      <text x="40" y="310" class="dg-text-title">trade_invoices</text>
+      <text x="40" y="326" class="dg-text-desc">Facturas F- / M- / R-</text>
+
+      <rect x="220" y="290" width="170" height="48" rx="4" class="dg-box dg-box-sage"/>
+      <text x="230" y="310" class="dg-text-title">trade_workers</text>
+      <text x="230" y="326" class="dg-text-desc">Perfiles de campo</text>
+
+      <!-- CROSS-LINKS -->
+      <line x1="390" y1="170" x2="200" y2="295" class="dg-line-blue" marker-end="url(#erd-arrow-blue)"/>
+      <rect x="258" y="222" width="98" height="16" style="fill:var(--white);opacity:.85"/>
+      <text x="262" y="233" class="dg-text-label" style="fill:var(--blue)">genera factura</text>
+
+      <line x1="495" y1="178" x2="172" y2="305" class="dg-line-dash" marker-end="url(#erd-arrow-gold)"/>
+      <rect x="290" y="252" width="148" height="16" style="fill:var(--white);opacity:.85"/>
+      <text x="294" y="263" class="dg-text-label" style="fill:#6B4E0A">factura mensual (M-)</text>
+
+      <!-- LEGEND -->
+      <line x1="40" y1="375" x2="85" y2="375" class="dg-line-blue" marker-end="url(#erd-arrow-blue)"/>
+      <text x="95" y="379" class="dg-text-label">Factura generada desde un trabajo puntual</text>
+      <line x1="40" y1="397" x2="85" y2="397" class="dg-line-dash" marker-end="url(#erd-arrow-gold)"/>
+      <text x="95" y="401" class="dg-text-label">Factura generada desde un contrato de mantenimiento</text>
+    </svg>
+    <div class="diagram-caption">Relación simplificada entre las tablas principales · prefijo <code>trade_</code> en todas</div>
+  </div>
+
   <div class="table-wrap">
     <table>
       <thead><tr><th>Tabla</th><th>Descripción</th><th>Campos clave</th></tr></thead>
@@ -1109,6 +1430,10 @@
         <tr><td><code>trade_org_permissions</code></td><td>Overrides de permisos individuales.</td><td>member_id, permiso, granted (true/false)</td></tr>
         <tr><td><code>trade_contracts</code></td><td>Contratos de mantenimiento.</td><td>precio_mensual, precio_anual, materiales_incluidos, variables (jsonb)</td></tr>
         <tr><td><code>trade_tarifas</code></td><td>Catálogo de artículos/servicios.</td><td>codigo, familia, descripcion, precio_base, unidad, activo</td></tr>
+        <tr><td><code>trade_subcontractors</code></td><td>Proveedores colaboradores (servicios externos).</td><td>direccion_fiscal, persona_contacto, horarios, cobertura, valoracion (1-5), estado_proveedor</td></tr>
+        <tr><td><code>trade_subcontratas</code></td><td>Trabajos externalizados individuales. 10 estados.</td><td>referencia (SUB-YYYY-NNN), coste, margen, precio_cliente, presupuesto_id, pagado</td></tr>
+        <tr><td><code>trade_mayoristas</code></td><td>Proveedores de material (mayoristas/distribuidores).</td><td>razon_social, nif, direccion_fiscal, cp, ciudad, provincia, web, activo</td></tr>
+        <tr><td><code>trade_compras</code></td><td>Facturas de compra de material.</td><td>mayorista_id (FK), job_id (FK), iva_pct, pagado, pagado_at</td></tr>
         <tr><td><code>trade_field_actions</code></td><td>Notas de campo de técnicos.</td><td>tipo, descripcion, estado (pendiente/resuelto), resuelto_por</td></tr>
         <tr><td><code>trade_subscriptions</code></td><td>Plan SaaS contratado.</td><td>plan, status, trial_end, stripe_subscription_id</td></tr>
         <tr><td><code>trade_org_templates</code></td><td>Plantillas de comunicación.</td><td>tipo, nombre, contenido (con variables {nombre}, {total}...)</td></tr>
@@ -1180,51 +1505,193 @@
   </div>
 
   <div class="subsection-title">Flujo 1 — Del trabajo al cobro (autónomo en campo)</div>
-  <div class="flow-col">
-    <div class="flow-step"><span class="flow-step-num">1</span>Cliente llama/WhatsApp solicitando trabajo</div>
-    <div class="flow-step"><span class="flow-step-num">2</span>Instalador dicta presupuesto por voz → <code>trade-voice-to-quote</code></div>
-    <div class="flow-step"><span class="flow-step-num">3</span>Revisa partidas → envía al cliente por WhatsApp/email</div>
-    <div class="flow-step"><span class="flow-step-num">4</span>Cliente acepta → crea trabajo planificado con fecha y hora</div>
-    <div class="flow-step"><span class="flow-step-num">5</span>Día del trabajo: consulta Ruta del Día → abre Parte de Trabajo</div>
-    <div class="flow-step"><span class="flow-step-num">6</span>Añade materiales (voz/catálogo) + fotos → completa el trabajo</div>
-    <div class="flow-step"><span class="flow-step-num">7</span>Genera factura → selecciona método de cobro → factura Pagada → envía al cliente</div>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 1100 240" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="f1-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--ink-muted)"/></marker>
+      </defs>
+
+      <rect x="20" y="20" width="250" height="60" rx="4" class="dg-box dg-box-blue"/>
+      <circle cx="35" cy="20" r="13" class="dg-step-num"/><text x="35" y="24" text-anchor="middle" class="dg-text-num">1</text>
+      <text x="40" y="48" class="dg-text-step">Cliente solicita</text>
+      <text x="40" y="65" class="dg-text-desc">Llamada o WhatsApp</text>
+
+      <line x1="270" y1="50" x2="290" y2="50" class="dg-line" marker-end="url(#f1-arrow)"/>
+
+      <rect x="290" y="20" width="250" height="60" rx="4" class="dg-box dg-box-blue"/>
+      <circle cx="305" cy="20" r="13" class="dg-step-num"/><text x="305" y="24" text-anchor="middle" class="dg-text-num">2</text>
+      <text x="310" y="48" class="dg-text-step">Presupuesto con IA</text>
+      <text x="310" y="65" class="dg-text-desc">Voz, foto o manual → partidas</text>
+
+      <line x1="540" y1="50" x2="560" y2="50" class="dg-line" marker-end="url(#f1-arrow)"/>
+
+      <rect x="560" y="20" width="250" height="60" rx="4" class="dg-box dg-box-blue"/>
+      <circle cx="575" cy="20" r="13" class="dg-step-num"/><text x="575" y="24" text-anchor="middle" class="dg-text-num">3</text>
+      <text x="580" y="48" class="dg-text-step">Envío al cliente</text>
+      <text x="580" y="65" class="dg-text-desc">WhatsApp / Email</text>
+
+      <line x1="810" y1="50" x2="830" y2="50" class="dg-line" marker-end="url(#f1-arrow)"/>
+
+      <rect x="830" y="20" width="250" height="60" rx="4" class="dg-box dg-box-blue"/>
+      <circle cx="845" cy="20" r="13" class="dg-step-num"/><text x="845" y="24" text-anchor="middle" class="dg-text-num">4</text>
+      <text x="850" y="48" class="dg-text-step">Cliente acepta</text>
+      <text x="850" y="65" class="dg-text-desc">Estado → Aceptado</text>
+
+      <path d="M955,80 L955,118 L145,118 L145,158" class="dg-line" marker-end="url(#f1-arrow)" fill="none"/>
+
+      <rect x="20" y="160" width="250" height="60" rx="4" class="dg-box dg-box-sage"/>
+      <circle cx="35" cy="160" r="13" class="dg-step-num-sage"/><text x="35" y="164" text-anchor="middle" class="dg-text-num">5</text>
+      <text x="40" y="188" class="dg-text-step">Trabajo planificado</text>
+      <text x="40" y="205" class="dg-text-desc">Fecha, hora, técnico asignado</text>
+
+      <line x1="270" y1="190" x2="290" y2="190" class="dg-line" marker-end="url(#f1-arrow)"/>
+
+      <rect x="290" y="160" width="250" height="60" rx="4" class="dg-box dg-box-sage"/>
+      <circle cx="305" cy="160" r="13" class="dg-step-num-sage"/><text x="305" y="164" text-anchor="middle" class="dg-text-num">6</text>
+      <text x="310" y="188" class="dg-text-step">Parte de trabajo</text>
+      <text x="310" y="205" class="dg-text-desc">Fotos + materiales + notas</text>
+
+      <line x1="540" y1="190" x2="560" y2="190" class="dg-line" marker-end="url(#f1-arrow)"/>
+
+      <rect x="560" y="160" width="250" height="60" rx="4" class="dg-box dg-box-sage"/>
+      <circle cx="575" cy="160" r="13" class="dg-step-num-sage"/><text x="575" y="164" text-anchor="middle" class="dg-text-num">7</text>
+      <text x="580" y="188" class="dg-text-step">Factura generada</text>
+      <text x="580" y="205" class="dg-text-desc">Borrador → número al emitir</text>
+
+      <line x1="810" y1="190" x2="830" y2="190" class="dg-line" marker-end="url(#f1-arrow)"/>
+
+      <rect x="830" y="160" width="250" height="60" rx="4" class="dg-box dg-box-sage"/>
+      <circle cx="845" cy="160" r="13" class="dg-step-num-sage"/><text x="845" y="164" text-anchor="middle" class="dg-text-num">8</text>
+      <text x="850" y="188" class="dg-text-step">Cobro registrado</text>
+      <text x="850" y="205" class="dg-text-desc">Efectivo / Bizum / Tarjeta → Pagada</text>
+    </svg>
+    <div class="diagram-caption">Edge functions implicadas: <code>trade-voice-to-quote</code> · <code>trade-photo-scan</code> · <code>trade-email</code> · <code>trade-push-notify</code></div>
   </div>
 
   <div class="subsection-title">Flujo 2 — Empresa con técnicos de campo</div>
-  <div class="two-col">
-    <div>
-      <div class="card" style="border-top-color:var(--blue)">
-        <div class="card-title">Admin / Propietario</div>
-        <div class="card-body">
-          1. Crea perfil del técnico + invita a la app<br>
-          2. Crea trabajos en Planificación<br>
-          3. Asigna técnicos → push automático<br>
-          4. Ve las notas del técnico<br>
-          5. Genera la factura manualmente
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="card sage">
-        <div class="card-title">Técnico (app simplificada)</div>
-        <div class="card-body">
-          1. Recibe notificación push<br>
-          2. Ve sus trabajos en "Mis Trabajos"<br>
-          3. Consulta "Mi Ruta" del día<br>
-          4. Dicta notas + hace fotos<br>
-          5. Completa → "Pendiente de facturar"
-        </div>
-      </div>
-    </div>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 1080 340" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="f2-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--ink-muted)"/></marker>
+        <marker id="f2-arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--blue)"/></marker>
+        <marker id="f2-arrow-sage" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--sage)"/></marker>
+      </defs>
+
+      <rect x="0" y="0" width="1080" height="115" rx="4" style="fill:var(--blue-pale)"/>
+      <text x="20" y="20" class="dg-lane-label">Admin / Propietario</text>
+      <rect x="0" y="240" width="1080" height="100" rx="4" style="fill:var(--cream-dark)"/>
+      <text x="20" y="260" class="dg-lane-label" style="fill:var(--sage)">Técnico (app simplificada)</text>
+
+      <rect x="20" y="35" width="190" height="55" rx="4" class="dg-box dg-box-blue"/>
+      <text x="30" y="56" class="dg-text-step" style="font-size:11px">Crea perfil + invita</text>
+      <text x="30" y="72" class="dg-text-desc">Trade worker + cuenta app</text>
+      <line x1="210" y1="62" x2="225" y2="62" class="dg-line" marker-end="url(#f2-arrow)"/>
+
+      <rect x="225" y="35" width="190" height="55" rx="4" class="dg-box dg-box-blue"/>
+      <text x="235" y="56" class="dg-text-step" style="font-size:11px">Crea el trabajo</text>
+      <text x="235" y="72" class="dg-text-desc">Planificación</text>
+      <line x1="415" y1="62" x2="430" y2="62" class="dg-line" marker-end="url(#f2-arrow)"/>
+
+      <rect x="430" y="35" width="190" height="55" rx="4" class="dg-box dg-box-blue"/>
+      <text x="440" y="56" class="dg-text-step" style="font-size:11px">Asigna técnico</text>
+      <text x="440" y="72" class="dg-text-desc">Push automático</text>
+      <line x1="620" y1="62" x2="635" y2="62" class="dg-line" marker-end="url(#f2-arrow)"/>
+
+      <rect x="635" y="35" width="190" height="55" rx="4" class="dg-box dg-box-blue"/>
+      <text x="645" y="56" class="dg-text-step" style="font-size:11px">Ve notas de campo</text>
+      <text x="645" y="72" class="dg-text-desc">trade_field_actions</text>
+      <line x1="825" y1="62" x2="840" y2="62" class="dg-line" marker-end="url(#f2-arrow)"/>
+
+      <rect x="840" y="35" width="190" height="55" rx="4" class="dg-box dg-box-blue"/>
+      <text x="850" y="56" class="dg-text-step" style="font-size:11px">Genera factura</text>
+      <text x="850" y="72" class="dg-text-desc">Manualmente</text>
+
+      <rect x="20" y="260" width="190" height="55" rx="4" class="dg-box dg-box-sage"/>
+      <text x="30" y="281" class="dg-text-step" style="font-size:11px">Recibe push</text>
+      <text x="30" y="297" class="dg-text-desc">Notificación de trabajo</text>
+      <line x1="210" y1="287" x2="225" y2="287" class="dg-line" marker-end="url(#f2-arrow)"/>
+
+      <rect x="225" y="260" width="190" height="55" rx="4" class="dg-box dg-box-sage"/>
+      <text x="235" y="281" class="dg-text-step" style="font-size:11px">"Mis Trabajos"</text>
+      <text x="235" y="297" class="dg-text-desc">Filtrado a su worker_id</text>
+      <line x1="415" y1="287" x2="430" y2="287" class="dg-line" marker-end="url(#f2-arrow)"/>
+
+      <rect x="430" y="260" width="190" height="55" rx="4" class="dg-box dg-box-sage"/>
+      <text x="440" y="281" class="dg-text-step" style="font-size:11px">"Mi Ruta"</text>
+      <text x="440" y="297" class="dg-text-desc">Ruta del día filtrada</text>
+      <line x1="620" y1="287" x2="635" y2="287" class="dg-line" marker-end="url(#f2-arrow)"/>
+
+      <rect x="635" y="260" width="190" height="55" rx="4" class="dg-box dg-box-sage"/>
+      <text x="645" y="281" class="dg-text-step" style="font-size:11px">Dicta notas + fotos</text>
+      <text x="645" y="297" class="dg-text-desc">Sin catálogo ni cobro</text>
+      <line x1="825" y1="287" x2="840" y2="287" class="dg-line" marker-end="url(#f2-arrow)"/>
+
+      <rect x="840" y="260" width="190" height="55" rx="4" class="dg-box dg-box-sage"/>
+      <text x="850" y="281" class="dg-text-step" style="font-size:11px">Completa trabajo</text>
+      <text x="850" y="297" class="dg-text-desc">"Pendiente de facturar"</text>
+
+      <line x1="525" y1="90" x2="115" y2="260" class="dg-line-blue" marker-end="url(#f2-arrow-blue)"/>
+      <rect x="270" y="160" width="92" height="16" style="fill:var(--white);opacity:.9"/>
+      <text x="274" y="171" class="dg-text-label" style="fill:var(--blue)">push notification</text>
+
+      <line x1="730" y1="260" x2="730" y2="90" class="dg-line" style="stroke:var(--sage)" marker-end="url(#f2-arrow-sage)"/>
+      <rect x="738" y="167" width="90" height="16" style="fill:var(--white);opacity:.9"/>
+      <text x="742" y="178" class="dg-text-label" style="fill:var(--sage)">nota de campo</text>
+
+      <line x1="935" y1="260" x2="935" y2="90" class="dg-line" style="stroke:var(--sage)" marker-end="url(#f2-arrow-sage)"/>
+      <rect x="855" y="167" width="120" height="16" style="fill:var(--white);opacity:.9"/>
+      <text x="859" y="178" class="dg-text-label" style="fill:var(--sage)">trabajo completado</text>
+    </svg>
+    <div class="diagram-caption">El técnico nunca ve catálogo, método de cobro ni genera factura — eso queda en manos de oficina</div>
   </div>
 
   <div class="subsection-title">Flujo 3 — Contrato de mantenimiento</div>
-  <div class="flow-col">
-    <div class="flow-step"><span class="flow-step-num">1</span>Visita comercial → presupuesto de mantenimiento → cliente acepta → convertir a contrato</div>
-    <div class="flow-step"><span class="flow-step-num">2</span>Sistema genera visita mensual automáticamente (<code>trade-maintenance-generate</code>)</div>
-    <div class="flow-step"><span class="flow-step-num">3</span>Técnico realiza visita → parte de mantenimiento</div>
-    <div class="flow-step"><span class="flow-step-num">4</span>Si materiales no incluidos → factura suplementaria</div>
-    <div class="flow-step"><span class="flow-step-num">5</span>Facturación mensual automática serie M- + email de aviso al cliente</div>
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 820 530" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="f3-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--ink-muted)"/></marker>
+      </defs>
+
+      <rect x="150" y="10" width="300" height="55" rx="4" class="dg-box dg-box-gold"/>
+      <text x="300" y="33" text-anchor="middle" class="dg-text-step">Presupuesto de mantenimiento aceptado</text>
+      <text x="300" y="50" text-anchor="middle" class="dg-text-desc">Botón "Convertir a contrato"</text>
+
+      <line x1="300" y1="65" x2="300" y2="98" class="dg-line" marker-end="url(#f3-arrow)"/>
+
+      <rect x="150" y="100" width="300" height="55" rx="4" class="dg-box dg-box-gold"/>
+      <text x="300" y="123" text-anchor="middle" class="dg-text-step">Generación automática de visita</text>
+      <text x="300" y="140" text-anchor="middle" class="dg-text-desc"><tspan style="font-family:var(--font-mono)">trade-maintenance-generate</tspan></text>
+
+      <line x1="300" y1="155" x2="300" y2="188" class="dg-line" marker-end="url(#f3-arrow)"/>
+
+      <rect x="150" y="190" width="300" height="55" rx="4" class="dg-box dg-box-gold"/>
+      <text x="300" y="213" text-anchor="middle" class="dg-text-step">Técnico realiza la visita</text>
+      <text x="300" y="230" text-anchor="middle" class="dg-text-desc">Parte de mantenimiento</text>
+
+      <line x1="300" y1="245" x2="300" y2="270" class="dg-line" marker-end="url(#f3-arrow)"/>
+
+      <polygon points="300,272 395,317 300,362 205,317" class="dg-box" style="stroke:var(--ink-muted);stroke-width:1.5"/>
+      <text x="300" y="312" text-anchor="middle" class="dg-text-desc" style="font-size:10.5px">¿Materiales</text>
+      <text x="300" y="326" text-anchor="middle" class="dg-text-desc" style="font-size:10.5px">incluidos?</text>
+
+      <line x1="300" y1="362" x2="300" y2="440" class="dg-line" marker-end="url(#f3-arrow)"/>
+      <text x="312" y="400" class="dg-text-label">Sí</text>
+
+      <line x1="395" y1="317" x2="560" y2="317" class="dg-line" marker-end="url(#f3-arrow)"/>
+      <text x="430" y="310" class="dg-text-label">No</text>
+
+      <rect x="560" y="292" width="220" height="50" rx="4" class="dg-box dg-box-terra"/>
+      <text x="570" y="313" class="dg-text-step" style="font-size:11px">Factura suplementaria</text>
+      <text x="570" y="330" class="dg-text-desc">Material no incluido</text>
+
+      <path d="M670,342 L670,440 L450,440" class="dg-line" marker-end="url(#f3-arrow)" fill="none"/>
+
+      <rect x="150" y="442" width="300" height="60" rx="4" class="dg-box dg-box-sage"/>
+      <text x="300" y="463" text-anchor="middle" class="dg-text-step">Facturación mensual automática</text>
+      <text x="300" y="479" text-anchor="middle" class="dg-text-desc">Serie M- · <tspan style="font-family:var(--font-mono)">trade-maintenance-billing</tspan></text>
+      <text x="300" y="494" text-anchor="middle" class="dg-text-desc">+ email de aviso al cliente</text>
+    </svg>
+    <div class="diagram-caption">Ciclo recurrente: vuelve a generarse automáticamente cada periodo del contrato</div>
   </div>
 </section>
 
@@ -1312,8 +1779,16 @@
         <tr><td>Field Action</td><td>Nota de campo del técnico: presupuesto requerido, incidencia, material necesario.</td></tr>
         <tr><td>Worker Profile</td><td>Vinculación entre cuenta de usuario (<code>auth.users</code>) y perfil de campo (<code>trade_workers</code>).</td></tr>
         <tr><td>Onboarding</td><td>Wizard de configuración inicial al primer login del propietario.</td></tr>
-        <tr><td>Plan Empresa</td><td>Plan SaaS con hasta 5 miembros y módulo de mantenimiento.</td></tr>
-        <tr><td>Plan Empresa+</td><td>Plan SaaS con hasta 15 miembros y todos los módulos avanzados.</td></tr>
+        <tr><td>Plan Profesional</td><td>Plan SaaS de entrada. 49€/mes, solo propietario, sin mantenimiento ni miembros extra.</td></tr>
+        <tr><td>Plan Empresa</td><td>89€/mes. Hasta 5 miembros extra. Incluye mantenimiento, trabajos externalizados y módulo de gastos.</td></tr>
+        <tr><td>Plan Empresa+</td><td>179€/mes. Hasta 15 miembros extra y todos los módulos avanzados.</td></tr>
+        <tr><td>Plan Básico</td><td>29€/mes. Oculto al público: se activa manualmente solo como oferta de recompra en bajas.</td></tr>
+        <tr><td>Trabajo Externalizado</td><td>Trabajo delegado a un proveedor colaborador. Internamente es una "subcontrata" pero ese término nunca se muestra al cliente.</td></tr>
+        <tr><td>Proveedor Colaborador</td><td>Empresa o autónomo externo que ejecuta trabajos a nombre del instalador (<code>trade_subcontractors</code>).</td></tr>
+        <tr><td>Mayorista / Distribuidor</td><td>Proveedor de material (no de servicio). Registrado en <code>trade_mayoristas</code>.</td></tr>
+        <tr><td>Factura de Compra</td><td>Factura que emite un proveedor de material al instalador (<code>trade_compras</code>).</td></tr>
+        <tr><td>Margen Externalizado</td><td>Diferencia entre el precio al cliente y el coste del proveedor. Botones rápidos de 15% a 40%.</td></tr>
+        <tr><td>SUB-YYYY-NNN</td><td>Referencia automática de trabajo externalizado, generada por trigger de base de datos.</td></tr>
       </tbody>
     </table>
   </div>
@@ -1322,12 +1797,12 @@
 <!-- FOOTER -->
 <footer>
   <div>
-    <p><strong>TrabFlow Technologies SL</strong> · Análisis Completo v3.0 · Junio 2026</p>
+    <p><strong>TrabFlow Technologies SL</strong> · Análisis Completo v3.1 · Junio 2026</p>
     <p>Documento de referencia técnico-funcional · Uso interno · Confidencial</p>
   </div>
   <div>
     <p style="text-align:right"><strong>https://www.trabflow.com</strong></p>
-    <p style="text-align:right">Actualizado: 11 de junio de 2026</p>
+    <p style="text-align:right">Actualizado: 16 de junio de 2026</p>
   </div>
 </footer>
 
