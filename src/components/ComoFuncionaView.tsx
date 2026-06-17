@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { ActivePage, TradeType } from '../types';
-import { Mic, CheckSquare, MessageSquare, HelpCircle, ArrowRight, Play, Sparkles, AlertCircle, RefreshCw } from 'lucide-react';
+import { Mic, CheckSquare, MessageSquare, HelpCircle, ArrowRight, Play, Sparkles, AlertCircle, RefreshCw, Calendar, MapPin, Navigation, Route, ClipboardList, FileSignature, RotateCcw, Bell, UserCheck, Repeat2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface ComoFuncionaViewProps {
@@ -524,6 +524,212 @@ export default function ComoFuncionaView({ setCurrentPage, setPreselectedTrade }
                   )}
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── Planificación y Rutas ───────────────────── */}
+        <div className="space-y-8">
+          <div className="text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#00CFE8]/30 bg-[#00CFE8]/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#00CFE8] mb-4">
+              Todos los planes
+            </span>
+            <h2 className="text-3xl font-black uppercase tracking-tight text-white">
+              Planifica, asigna y llega antes
+            </h2>
+            <p className="text-white/40 text-sm mt-3 max-w-2xl mx-auto leading-relaxed">
+              Organiza todos los trabajos de tu equipo en un calendario semanal. La app optimiza el orden de las visitas por distancia y te abre la ruta en Google Maps con un toque.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            {/* Planificación */}
+            <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-7 space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="h-12 w-12 rounded-2xl bg-[#020B16] text-[#00CFE8] flex items-center justify-center shrink-0">
+                  <Calendar className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-black uppercase tracking-wide text-white">Calendario semanal de trabajos</h3>
+                  <p className="text-xs text-white/35 mt-0.5">Vista semanal con navegación por semanas</p>
+                </div>
+              </div>
+              <ul className="space-y-3">
+                {[
+                  { icon: <UserCheck className="h-4 w-4 shrink-0 text-[#00CFE8]" />, text: 'Asigna trabajos a uno o varios técnicos desde el mismo modal' },
+                  { icon: <Bell className="h-4 w-4 shrink-0 text-[#00CFE8]" />, text: 'El técnico recibe notificación push en su móvil al instante' },
+                  { icon: <RotateCcw className="h-4 w-4 shrink-0 text-[#00CFE8]" />, text: 'Auto-reprogramación: los trabajos atrasados pasan a mañana solos' },
+                  { icon: <ClipboardList className="h-4 w-4 shrink-0 text-[#00CFE8]" />, text: 'Tablero de despacho: trabajos sin asignar en espera con botón rápido' },
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-white/55 leading-snug">
+                    {item.icon}
+                    <span>{item.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Ruta del día */}
+            <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-7 space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="h-12 w-12 rounded-2xl bg-[#020B16] text-[#FFC400] flex items-center justify-center shrink-0">
+                  <Route className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-black uppercase tracking-wide text-white">Ruta del día optimizada</h3>
+                  <p className="text-xs text-white/35 mt-0.5">Un técnico, una ruta, sin vueltas innecesarias</p>
+                </div>
+              </div>
+              <ul className="space-y-3">
+                {[
+                  { icon: <Navigation className="h-4 w-4 shrink-0 text-[#FFC400]" />, text: 'Optimización automática por distancia desde tu dirección base' },
+                  { icon: <MapPin className="h-4 w-4 shrink-0 text-[#FFC400]" />, text: 'Vista multi-técnico: pestaña individual por cada técnico de campo' },
+                  { icon: <Route className="h-4 w-4 shrink-0 text-[#FFC400]" />, text: 'Botón "Abrir en Google Maps" con todas las paradas en orden' },
+                  { icon: <CheckSquare className="h-4 w-4 shrink-0 text-[#FFC400]" />, text: 'Reordena manualmente y guarda el nuevo orden con un toque' },
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-white/55 leading-snug">
+                    {item.icon}
+                    <span>{item.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Mini mockup — Ruta visual */}
+          <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-6 sm:p-8">
+            <p className="text-xs font-bold uppercase tracking-widest text-white/30 text-center mb-6">Ejemplo de ruta del día optimizada</p>
+            <div className="flex flex-col sm:flex-row items-stretch gap-3 max-w-2xl mx-auto">
+              {[
+                { hora: '08:30', dir: 'C/ Gran Vía, 14', tipo: 'Trabajo', color: 'border-[#00CFE8]/40 text-[#00CFE8]' },
+                { hora: '10:15', dir: 'Av. Libertad, 45', tipo: 'Visita', color: 'border-white/20 text-white/50' },
+                { hora: '12:00', dir: 'C/ Sol, 8', tipo: 'Trabajo', color: 'border-[#00CFE8]/40 text-[#00CFE8]' },
+                { hora: '15:30', dir: 'Paseo del Prado, 3', tipo: 'Trabajo', color: 'border-[#FFC400]/40 text-[#FFC400]' },
+              ].map((stop, i, arr) => (
+                <div key={i} className="flex sm:flex-col items-center gap-3 sm:gap-2 flex-1">
+                  <div className={`rounded-xl border ${stop.color} bg-white/[0.03] p-3 text-center w-full`}>
+                    <div className="text-[10px] font-black text-white/30 uppercase tracking-widest">{stop.hora}</div>
+                    <div className="text-xs font-bold text-white mt-1 leading-tight">{stop.dir}</div>
+                    <span className={`text-[9px] font-bold uppercase tracking-wider ${stop.color.split(' ')[1]}`}>{stop.tipo}</span>
+                  </div>
+                  {i < arr.length - 1 && (
+                    <span className="text-white/20 text-lg sm:rotate-90 shrink-0">→</span>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className="mt-5 flex justify-center">
+              <div className="inline-flex items-center gap-2 rounded-xl bg-[#00CFE8]/10 border border-[#00CFE8]/30 px-4 py-2">
+                <MapPin className="h-4 w-4 text-[#00CFE8]" />
+                <span className="text-xs font-bold text-[#00CFE8]">Abrir ruta completa en Google Maps →</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Contratos y Mantenimientos ───────────────── */}
+        <div className="space-y-8">
+          <div className="text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#FFC400]/30 bg-[#FFC400]/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#FFC400] mb-4">
+              Plan Empresa+
+            </span>
+            <h2 className="text-3xl font-black uppercase tracking-tight text-white">
+              Contratos de mantenimiento
+            </h2>
+            <p className="text-white/40 text-sm mt-3 max-w-2xl mx-auto leading-relaxed">
+              Fideliza clientes con contratos de servicio recurrente. TrabFlow genera el documento legal, programa las visitas automáticamente y emite la factura mensual sin que tengas que hacer nada.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            {/* Card 1 — Contrato legal */}
+            <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-7 space-y-4">
+              <div className="h-12 w-12 rounded-2xl bg-[#020B16] flex items-center justify-center text-2xl">📄</div>
+              <div>
+                <h3 className="text-sm font-black uppercase tracking-wide text-white mb-2">Contrato legal completo</h3>
+                <p className="text-sm text-white/50 leading-relaxed">
+                  Wizard guiado que genera un contrato de mantenimiento con 14 cláusulas legales para más de 23 sectores. Puedes editar cada cláusula con ayuda de IA. Descarga en Word (.docx) listo para firmar.
+                </p>
+              </div>
+              <ul className="space-y-1.5">
+                {['14 cláusulas editables con IA', 'Descarga Word (.docx)', '+23 sectores cubiertos', 'Variables del cliente auto-rellenadas'].map(f => (
+                  <li key={f} className="flex items-center gap-2 text-xs text-white/55">
+                    <span className="text-[#FFC400]">✓</span>{f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Card 2 — Visitas programadas */}
+            <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-7 space-y-4">
+              <div className="h-12 w-12 rounded-2xl bg-[#020B16] flex items-center justify-center text-2xl">🗓️</div>
+              <div>
+                <h3 className="text-sm font-black uppercase tracking-wide text-white mb-2">Visitas programadas automáticamente</h3>
+                <p className="text-sm text-white/50 leading-relaxed">
+                  Define la periodicidad (mensual, trimestral, semestral...) y TrabFlow genera los trabajos de visita en el calendario automáticamente. El cliente recibe aviso antes de cada visita.
+                </p>
+              </div>
+              <ul className="space-y-1.5">
+                {['Generación automática de visitas', 'Aviso al cliente por WhatsApp', 'Parte de mantenimiento digital', 'Materiales incluidos marcados'].map(f => (
+                  <li key={f} className="flex items-center gap-2 text-xs text-white/55">
+                    <span className="text-[#FFC400]">✓</span>{f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Card 3 — Facturación recurrente */}
+            <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-7 space-y-4">
+              <div className="h-12 w-12 rounded-2xl bg-[#020B16] flex items-center justify-center text-2xl">💶</div>
+              <div>
+                <h3 className="text-sm font-black uppercase tracking-wide text-white mb-2">Facturación mensual automática</h3>
+                <p className="text-sm text-white/50 leading-relaxed">
+                  La cuota mensual del contrato se factura sola en serie M- (mantenimiento). Sin escribir nada. Registra el cobro cuando llegue el pago y lleva el control de todos los contratos activos.
+                </p>
+              </div>
+              <ul className="space-y-1.5">
+                {['Serie M- separada de trabajos puntuales', 'Factura generada automáticamente', 'Estado activo / cancelado / vencido', 'Conversión presupuesto → contrato'].map(f => (
+                  <li key={f} className="flex items-center gap-2 text-xs text-white/55">
+                    <span className="text-[#FFC400]">✓</span>{f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Flujo contrato */}
+          <div className="rounded-2xl bg-[#0d1f38] border border-white/10 p-6 sm:p-8">
+            <h4 className="text-xs font-bold uppercase tracking-widest text-white/40 text-center mb-6">Del presupuesto al contrato activo</h4>
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-0">
+              {[
+                { label: 'Presupuesto aceptado', emoji: '✅' },
+                { label: 'Conviertes a contrato', emoji: '📋' },
+                { label: 'Firma y activación', emoji: '✍️' },
+                { label: 'Visitas automáticas', emoji: '🔧' },
+                { label: 'Factura mensual', emoji: '💶' },
+                { label: 'Cobro registrado', emoji: '🏦' },
+              ].map((step, i, arr) => (
+                <div key={step.label} className="flex items-center gap-2 sm:gap-0">
+                  <div className="flex flex-col items-center gap-1 px-3">
+                    <span className="text-xl">{step.emoji}</span>
+                    <span className="text-[10px] font-bold text-white/55 text-center leading-tight max-w-[80px]">{step.label}</span>
+                  </div>
+                  {i < arr.length - 1 && (
+                    <span className="text-white/20 text-lg hidden sm:block">→</span>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 text-center">
+              <button
+                onClick={handleJoinBeta}
+                className="inline-flex items-center gap-2 border border-[#FFC400]/30 bg-[#FFC400]/10 text-[#FFC400] font-bold uppercase tracking-widest text-xs py-3 px-6 rounded-xl cursor-pointer hover:bg-[#FFC400]/20 transition-all"
+              >
+                Quiero contratos de mantenimiento
+                <ArrowRight className="h-4 w-4" />
+              </button>
             </div>
           </div>
         </div>
