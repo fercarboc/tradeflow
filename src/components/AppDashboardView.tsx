@@ -5103,7 +5103,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
 
           {/* Enlaces sidebar */}
-          <nav className="flex-grow p-4 space-y-1">
+          <nav className="flex-grow p-4 space-y-1 overflow-y-auto min-h-0 scrollbar-hide">
             {!isTecnico && SidebarBtn({ id: 'dashboard', icon: <TrendingUp className="w-4 h-4" />, label: 'Panel Control' })}
             {can('quotes.create') && SidebarBtn({ id: 'quotes', icon: <FileText className="w-4 h-4" />, label: 'Presupuestos' })}
             {can('clients.manage') && SidebarBtn({ id: 'crm', icon: <Users className="w-4 h-4" />, label: 'Clientes CRM' })}
