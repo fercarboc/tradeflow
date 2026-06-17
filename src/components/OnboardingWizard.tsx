@@ -396,23 +396,6 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
     }
   }
 
-  // ── Step: Empresa ──────────────────────────────────────────────────────────
-
-  function Field({ label, k, placeholder = '' }: { label: string; k: keyof typeof empresa; placeholder?: string }) {
-    return (
-      <div>
-        <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">{label}</label>
-        <input
-          type="text"
-          value={empresa[k]}
-          onChange={e => setEmpresa(p => ({ ...p, [k]: e.target.value }))}
-          placeholder={placeholder}
-          className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500"
-        />
-      </div>
-    );
-  }
-
   // ── Render ─────────────────────────────────────────────────────────────────
 
   const isLast = step === STEPS.length;
@@ -480,21 +463,54 @@ export default function OnboardingWizard({ onComplete, showToast }: Props) {
                   <p className="text-sm text-slate-500 mt-1">Aparecerán en presupuestos y facturas. Puedes completarlos o modificarlos después en Ajustes.</p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                  <Field label="Nombre comercial" k="nombre" placeholder="Instalaciones García" />
-                  <Field label="Razón social (si difiere)" k="razon_social" placeholder="García Instalaciones S.L." />
-                  <Field label="NIF / CIF *" k="nif" placeholder="B-12345678" />
-                  <Field label="Teléfono" k="telefono" placeholder="666 123 456" />
-                  <Field label="Email" k="email" placeholder="info@miempresa.com" />
-                  <Field label="Dirección" k="direccion" placeholder="Calle Mayor 12" />
-                  <Field label="Ciudad" k="ciudad" placeholder="Sevilla" />
-                  <Field label="C.P." k="cp" placeholder="41001" />
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Nombre comercial</label>
+                    <input type="text" value={empresa.nombre} onChange={e => setEmpresa(p => ({ ...p, nombre: e.target.value }))} placeholder="Instalaciones García" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Razón social (si difiere)</label>
+                    <input type="text" value={empresa.razon_social} onChange={e => setEmpresa(p => ({ ...p, razon_social: e.target.value }))} placeholder="García Instalaciones S.L." className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">NIF / CIF *</label>
+                    <input type="text" value={empresa.nif} onChange={e => setEmpresa(p => ({ ...p, nif: e.target.value }))} placeholder="B-12345678" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Teléfono</label>
+                    <input type="text" value={empresa.telefono} onChange={e => setEmpresa(p => ({ ...p, telefono: e.target.value }))} placeholder="666 123 456" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Email</label>
+                    <input type="text" value={empresa.email} onChange={e => setEmpresa(p => ({ ...p, email: e.target.value }))} placeholder="info@miempresa.com" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Dirección</label>
+                    <input type="text" value={empresa.direccion} onChange={e => setEmpresa(p => ({ ...p, direccion: e.target.value }))} placeholder="Calle Mayor 12" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Ciudad</label>
+                    <input type="text" value={empresa.ciudad} onChange={e => setEmpresa(p => ({ ...p, ciudad: e.target.value }))} placeholder="Sevilla" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">C.P.</label>
+                    <input type="text" value={empresa.cp} onChange={e => setEmpresa(p => ({ ...p, cp: e.target.value }))} placeholder="41001" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                  </div>
                 </div>
                 <div className="border-t border-slate-100 pt-4 space-y-3">
                   <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Datos bancarios (para facturas)</p>
                   <div className="grid grid-cols-2 gap-3">
-                    <Field label="IBAN" k="iban" placeholder="ES12 3456 7890 1234 5678 9012" />
-                    <Field label="Banco" k="banco" placeholder="CaixaBank" />
-                    <Field label="Titular de la cuenta" k="titular_cuenta" placeholder="García Instalaciones S.L." />
+                    <div>
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">IBAN</label>
+                      <input type="text" value={empresa.iban} onChange={e => setEmpresa(p => ({ ...p, iban: e.target.value }))} placeholder="ES12 3456 7890 1234 5678 9012" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Banco</label>
+                      <input type="text" value={empresa.banco} onChange={e => setEmpresa(p => ({ ...p, banco: e.target.value }))} placeholder="CaixaBank" className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                    </div>
+                    <div>
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">Titular de la cuenta</label>
+                      <input type="text" value={empresa.titular_cuenta} onChange={e => setEmpresa(p => ({ ...p, titular_cuenta: e.target.value }))} placeholder="García Instalaciones S.L." className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-900 focus:outline-none focus:border-blue-500" />
+                    </div>
                   </div>
                 </div>
               </>
