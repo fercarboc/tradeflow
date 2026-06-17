@@ -2931,6 +2931,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
           {/* Derecha: nuevo presupuesto + ajustes + logout */}
           <div className="flex items-center gap-2">
+            {isTecnico && (
+              <button
+                onClick={() => setMobileTab('asistente')}
+                className="flex items-center gap-1.5 bg-violet-900/60 border border-violet-500/40 active:bg-violet-900 text-violet-300 font-bold text-[11px] px-2.5 py-2 rounded-xl cursor-pointer transition-colors"
+              >
+                <BookOpen className="w-3.5 h-3.5" />
+                Normativa
+              </button>
+            )}
             <button
               onClick={() => { setMobileTab('trabajos'); setNewJobTrigger(p => p + 1); }}
               className="flex items-center gap-1.5 bg-violet-600 active:bg-violet-700 text-white font-bold text-[11px] px-3 py-2 rounded-xl cursor-pointer transition-colors"
@@ -3140,13 +3149,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {MobileTabButton({ tab: 'asistente', icon: <BookOpen className="w-5 h-5" />, label: 'Normativa' })}
               </>
             ) : (
-              <>
-                {MobileTabButton({ tab: 'inicio', icon: <TrendingUp className="w-5 h-5" />, label: 'Inicio' })}
-                {MobileTabButton({ tab: 'trabajos', icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
-                {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presup.' })}
-                {MobileTabButton({ tab: 'catalogo', icon: <Package className="w-5 h-5" />, label: 'Catálogo' })}
-                {MobileTabButton({ tab: 'clientes', icon: <Users className="w-5 h-5" />, label: 'Clientes' })}
-              </>
+              <div className="overflow-x-auto scrollbar-hide flex flex-1" style={{ WebkitOverflowScrolling: 'touch' }}>
+                {MobileTabButton({ tab: 'inicio',        icon: <TrendingUp className="w-5 h-5" />, label: 'Inicio',     carousel: true })}
+                {MobileTabButton({ tab: 'trabajos',      icon: <Briefcase  className="w-5 h-5" />, label: 'Trabajos',  carousel: true })}
+                {MobileTabButton({ tab: 'presupuestos',  icon: <FileText   className="w-5 h-5" />, label: 'Presup.',   carousel: true })}
+                {MobileTabButton({ tab: 'asistente',     icon: <BookOpen   className="w-5 h-5" />, label: 'Normativa', carousel: true })}
+                {MobileTabButton({ tab: 'catalogo',      icon: <Package    className="w-5 h-5" />, label: 'Catálogo',  carousel: true })}
+                {MobileTabButton({ tab: 'clientes',      icon: <Users      className="w-5 h-5" />, label: 'Clientes',  carousel: true })}
+              </div>
             )}
           </div>
         </div>
@@ -3372,12 +3382,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     );
 
     // Helpers botones navegación móvil
-    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'trabajos' | 'presupuestos' | 'catalogo' | 'clientes' | 'ruta' | 'asistente'; icon: React.ReactNode; label: string }) {
+    function MobileTabButton({ tab, icon, label, carousel = false }: { tab: 'inicio' | 'trabajos' | 'presupuestos' | 'catalogo' | 'clientes' | 'ruta' | 'asistente'; icon: React.ReactNode; label: string; carousel?: boolean }) {
       const isActive = mobileTab === tab;
       return (
         <button
           onClick={() => { setMobileTab(tab); setShowFloatingMenu(false); }}
-          className="flex-1 min-w-[60px] flex flex-col items-center justify-center gap-1 py-1.5 px-1 cursor-pointer transition-all active:scale-95"
+          className={`${carousel ? 'flex-none w-[68px]' : 'flex-1 min-w-[60px]'} flex flex-col items-center justify-center gap-1 py-1.5 px-1 cursor-pointer transition-all active:scale-95`}
         >
           <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all duration-200 ${
             isActive ? 'bg-blue-600 shadow-lg shadow-blue-500/40' : ''
@@ -3712,6 +3722,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <p className="text-[10px] text-slate-400">Introduce partidas a mano</p>
               </div>
               <span className="text-slate-500 ml-auto text-lg shrink-0">›</span>
+            </button>
+
+            {/* 7 Normativa por IA */}
+            <button
+              onClick={() => setMobileTab('asistente')}
+              className="col-span-2 bg-violet-950/70 border border-violet-500/30 rounded-2xl px-4 py-3 flex items-center gap-3 cursor-pointer active:scale-95 transition-transform"
+              style={{ boxShadow: '0 2px 12px rgba(124,58,237,0.15)' }}
+            >
+              <div className="w-8 h-8 bg-violet-500/20 rounded-xl flex items-center justify-center shrink-0">
+                <BookOpen className="w-4 h-4 text-violet-300" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-xs font-black text-white">Normativa por IA</p>
+                <p className="text-[10px] text-violet-300/70">REBT · RITE · GAS · ACS y más</p>
+              </div>
+              <span className="text-violet-400 ml-auto text-lg shrink-0">›</span>
             </button>
           </div>
         </div>
