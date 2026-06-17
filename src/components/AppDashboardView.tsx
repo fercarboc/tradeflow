@@ -2739,6 +2739,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       client_id: visitaDraft.client_id || null,
                       fecha_inicio: visitaDraft.fecha,
                     } as Parameters<typeof createJob>[1]);
+                    if (trabajadores.length === 1) {
+                      await assignWorkerToJob(saved.id, trabajadores[0].id, 'responsable').catch(() => {});
+                      (saved as any).trade_job_workers = [{ worker_id: trabajadores[0].id, rol: 'responsable', trade_workers: { nombre: trabajadores[0].nombre, rol: trabajadores[0].rol } }];
+                    }
                     setJobs(prev => [...prev, saved]);
                     setShowVisitaModal(false);
                     showToast('Visita anotada ✓', 'success');
@@ -3294,6 +3298,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       client_id: visitaDraft.client_id || null,
                       fecha_inicio: visitaDraft.fecha,
                     } as Parameters<typeof createJob>[1]);
+                    if (trabajadores.length === 1) {
+                      await assignWorkerToJob(saved.id, trabajadores[0].id, 'responsable').catch(() => {});
+                      (saved as any).trade_job_workers = [{ worker_id: trabajadores[0].id, rol: 'responsable', trade_workers: { nombre: trabajadores[0].nombre, rol: trabajadores[0].rol } }];
+                    }
                     setJobs(prev => [...prev, saved]);
                     setShowVisitaModal(false);
                     setMobileTab('trabajos');
@@ -5600,6 +5608,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
               ))}
             </div>
+            <button
+              onClick={async () => {
+                if (orgId) await supabase.from('trade_organizations').update({ is_onboarded: false }).eq('id', orgId);
+                setShowOnboarding(true);
+              }}
+              className="w-full flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 rounded-xl text-sm transition-colors cursor-pointer"
+            >
+              <RotateCcw className="w-4 h-4" />
+              Configurar con el asistente paso a paso
+            </button>
           </div>
         )}
 
