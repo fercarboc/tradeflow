@@ -1,0 +1,447 @@
+Sistema de Liquidación Directa – RED Directo 
+ 
+ 
+Folleto informativo RED Directo 
+ 
+Subdirección General de Afiliación, 
+Cotización y Gestión del Sistema RED 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Septiembre 2016 
+ 
+ 
+
+ 
+ 
+ 2 
+ 
+Sistema de Liquidación Directa – 
+Folleto informativo RED Directo 
+ 
+INDICE 
+1 Sistema de Liquidación Directa – RED Directo .......................................................................................... 3 
+1.1 Qué es RED Directo ............................................................................................................................ 3 
+1.2 A quién va dirigido ............................................................................................................................. 3 
+1.3 Ventajas ............................................................................................................................................. 3 
+1.4 Infraestructura necesaria .................................................................................................................. 4 
+1.4.1 Características mínimas del Ordenador .................................................................................... 4 
+1.4.2 Máquina Virtual de Java ............................................................................................................ 4 
+1.4.3 Conexión a Internet ................................................................................................................... 4 
+1.4.4 Seguridad Transmisión .............................................................................................................. 4 
+1.4.5 Acrobat Reader .......................................................................................................................... 4 
+2 Pasos para la incorporación ....................................................................................................................... 5 
+2.1 Información ....................................................................................................................................... 5 
+2.2 Solicitud de Autorización ................................................................................................................... 5 
+2.3 Solicitud Certificado DIGITAL ............................................................................................................. 7 
+2.4 Formación .......................................................................................................................................... 7 
+2.5 Prácticas en el nuevo servicio ........................................................................................................... 7 
+3 Funcionalidades disponibles en RED Directo ............................................................................................ 8 
+3.1 Afiliación ............................................................................................................................................ 8 
+3.2 Cotización .......................................................................................................................................... 9 
+3.3 Incapacidad Temporal Online .......................................................................................................... 11 
+3.4 Buzón personal ................................................................................................................................ 11 
+4 Información a disposición del usuario ..................................................................................................... 12 
+ 
+
+ 
+ 
+ 3 
+ 
+Sistema de Liquidación Directa – 
+Folleto informativo RED Directo 
+ 
+1 Sistema de Liquidación Directa – RED Directo 
+1.1 Qué es RED Directo 
+RED Directo, es un servicio que ofrece la Tesorería General de la Seguridad Social (en adelante TGSS), a 
+pequeñas empresas, (en adelante usuarios), a través de Internet utilizando la página web de la Seguridad 
+Social. 
+El fin de RED Directo es eliminar la gestión administrativa por el procedimiento convencional en papel, 
+logrando facilitar y agilizar la relación de las empresas con la TGSS y en conclusión, hacer posible la gestión 
+desde la empresa sin tener que desplazarse a las oficinas y administraciones de este organismo. 
+1.2 A quién va dirigido 
+El uso de RED Directo requiere estar autorizado por la TGSS. Esta autorización se concede a aquellos sujetos 
+que en el ejercicio de su actividad cumplimenten y presenten documentos de cotización en nombre propio 
+o en representación de los sujetos responsables de la obligación de cotizar, siempre que gestionen CCCs 
+con un número no superior a 15 trabajadores en el momento de solicitar la autorización. 
+Si el número de trabajadores asignados a un CCC de una autorización RED Directo aumenta a lo largo de la 
+vida del CCC, se podrá seguir utilizando esta modalidad de transmisión hasta un máximo de 25 
+trabajadores. 
+1.3 Ventajas 
+Las principales ventajas que aporta la utilización de RED Directo son las siguientes: 
+• Ahorro en tiempo y costes, al no tener que llevar a cabo una gestión presencial relativa a cotización, 
+afiliación y partes médicos en las administraciones de la TGSS sino pudiendo hacerla desde el propio 
+centro de trabajo. 
+• Conexión Directa con la Tesorería General de la Seguridad Social, a través de la página web de la 
+seguridad social, www.seg-social.es. RED Directo permite establecer una conexión en tiempo real que 
+hace posible la tramitación instantánea de los documentos de Cotización, movimientos en materia de 
+Afiliación y de los Partes Médicos. Además, permite realizar consultas y obtener informes. 
+• Acceso desde cualquier lugar y Recursos informáticos mínimos, puesto que tan sólo se requiere 
+disponer de un PC con conexión a Internet y de un Certificado Digital admitido por la Tesorería General 
+de la Seguridad Social. 
+• Notificación de la publicación de normativas e información de interés (Noticias RED), que se ponen a 
+disposición del usuario a través de la página web de la seguridad social www.seg-social.es. 
+• Impresión de documentos con validez legal ante terceros, mediante el uso de sistemas de cifrado de 
+datos, de tal modo que la TGSS inserta un sello digital o huella, en los documentos que han sido 
+presentados permitiendo su impresión tantas veces como se desee. 
+
+ 
+ 
+ 4 
+ 
+Sistema de Liquidación Directa – 
+Folleto informativo RED Directo 
+ 
+• Garantía de seguridad y privacidad en todos los trámites de cotización, afiliación y partes médicos 
+realizados a través de RED Directo con el uso del Certificación Digital admitido por la Tesorería General 
+de la Seguridad Social. 
+• Herramienta sencilla, no requiere especiales conocimientos, ni informáticos ni en materia de Seguridad 
+Social. 
+• Simplifica el cumplimiento de la obligación de cotizar, utilizando formularios digitales, sencillos, 
+dinámicos y personalizados. 
+1.4 Infraestructura necesaria 
+A continuación se describen los requerimientos necesarios para utilizar RED Directo: 
+1.4.1 Características mínimas del Ordenador 
+• Procesador Pentium 166Mhz. 
+• 128 Mb de memoria RAM. 
+• 60 Mb disponibles de disco duro. 
+• Pantalla VGA o superior. 
+• Teclado estándar 101/102. 
+1.4.2 Máquina Virtual de Java 
+Se trata de un software, que es necesario instalar en el equipo para poder acceder al servicio RED Directo. 
+Este software es de distribución gratuita y se puede descargar a través de Internet. 
+1.4.3 Conexión a Internet 
+Para el correcto funcionamiento de RED Directo, se recomienda una conexión a Internet mediante línea 
+ADSL. 
+1.4.4 Seguridad Transmisión 
+• La comunicación entre los usuarios y la TGSS se realiza a través de Internet. Para garantizar la seguridad en 
+la transmisión de datos entre los usuarios y la TGSS en una red pública como Internet, es necesario utilizar 
+un certificado digital admitido en los trámites de la Seguridad Social. 
+1.4.5 Acrobat Reader 
+Herramienta necesaria para visualizar, explorar e imprimir en el mismo formato que el original, archivos 
+que se encuentren en formato *.pdf, utilizado mundialmente en la distribución de documentos 
+electrónicos. Este es un software proporcionado por ADOBE de forma gratuita, y que la TGSS distribuye en 
+su página. Este programa resulta esencial para la visualización e impresión de documentos de cotización y 
+afiliación. 
+
+ 
+ 
+ 5 
+ 
+Sistema de Liquidación Directa – 
+Folleto informativo RED Directo 
+ 
+2 Pasos para la incorporación 
+Se ha definido un proceso a seguir para la correcta incorporación de las empresas y profesionales a RED 
+Directo. Este proceso se estructura en seis etapas: 
+ 
+ 
+2.1 Información 
+El primer paso para la incorporación a RED Directo es obtener toda la información de este nuevo servicio. 
+Sería necesario conocer tanto su normativa, funcionalidades y ventajas, como los requisitos administrativos 
+y técnicos necesarios para convertirse en usuarios autorizados. 
+Existen diversos canales de información básica sobre RED Directo: 
+• Página web de la seguridad Social: www.seg-social.es. En el área del sistema RED, existe información 
+general sobre el servicio (normativa, plazos, ventajas, procedimientos, etc.), así como un área de 
+documentación de libre descarga donde se indican los formularios necesarios para la incorporación a 
+RED Directo. 
+• Información Presencial en las Unidades de Atención Técnica de las Direcciones Provinciales de la TGSS y 
+en las Administraciones de la Seguridad Social. 
+• Servicio de Atención Telefónica de la TGSS: En el número de teléfono 901 50 20 50 y bajo las opciones 
+del Sistema RED, las Unidades de Atención Técnica le informarán de todos los aspectos relacionados 
+con este nuevo servicio. 
+2.2 Solicitud de Autorización 
+El interesado que desee incorporarse a RED Directo presentará la solicitud de autorización (formulario 
+FR101). Las autorizaciones a RED Directo pueden ser de los siguientes tipos: 
+• Autorización para actuar en nombre propio: cuando únicamente se vayan a gestionar CCCs o NAFs cuyo 
+NIF coincide con el NIF de la autorización. 
+• Autorización para actuar en nombre de otros: aquellas en las que se vayan a gestionar CCCs o NAFs 
+cuyo NIF no coincide con el NIF de la autorización, distinguiéndose dos tipos: 
+o Profesional Colegiado: cuando la persona física o jurídica a la que se concede la autorización sea un 
+Profesional Colegiado ejerciente de alguno de los siguientes Colegios: Graduados Sociales, Gestores 
+Administrativos, Abogados, Economistas, Titulados Mercantiles y Empresariales, Propiedad 
+Inmobiliaria, Agentes Tributarios, Seguros, Administradores de Fincas Urbanas, Ingenieros Técnicos 
+Industriales, Procuradores y Registradores. 
+
+ 
+ 
+ 6 
+ 
+Sistema de Liquidación Directa – 
+Folleto informativo RED Directo 
+ 
+o Tercero: en aquellos casos en los que se gestionen códigos de cuenta de cotización con un NIF 
+diferente al NIF de la autorización, y que no cumplan las condiciones para solicitar la autorización 
+del Tipo Profesional Colegiado. 
+Todos estos tipos de autorización se pueden conceder tanto a una Persona Física como Jurídica. 
+Junto al formulario de solicitud de autorización (FR101) debidamente cumplimentado, se deberá presentar 
+además la siguiente documentación: 
+• Fotocopia del documento identificativo (DNI, NIE, Pasaporte) del solicitante. 
+• Documentación que acredite la representación de la Personalidad Jurídica o de la Persona Física. 
+• En el caso de que la autorización sea del tipo Profesional Colegiado se requerirá además el certificado 
+de Profesional Colegiado ejerciente. 
+Este trámite de solicitud de la autorización puede realizarse presencialmente a la Unidad de Atención al 
+Usuario existente en cada una de las Direcciones Provinciales de la TGSS, o a través del Registro Electrónico 
+de la Sede Electrónica. 
+Todos los formularios a presentar son de libre descarga en la página web de la Seguridad Social. 
+También será necesario solicitar la asignación de los CCCs o NAF a la autorización que se vayan a gestionar. 
+Este trámite podrá realizarse presencialmente en la TGSS o a través de un servicio disponible en Sistema 
+RED Online / Gestión de Autorizaciones. 
+• Solicitud presencial. Se deberá presentar la siguiente documentación, en función de si el autorizado 
+RED y el NAF o CCCs a asignar tengan igual o distinto NIF: 
+o Formulario FR104: Para aquellos casos en los que el autorizado RED y los CCCs y/o NAF a asignar o 
+rescindir tengan el mismo NIF. En estos casos no se requiere el otorgamiento de representación al 
+autorizado para que actúe en nombre del CCC o NAF ya que coincide con la identidad de ambos. 
+Este formulario sólo ha de estar firmado por el usuario principal de la autorización, al que no se le 
+solicitará que acredite la representación de la empresa autorizada, ya que la acreditó en el 
+momento de la solicitud de la autorización. 
+o Formulario FR103: Para aquellos casos en los que el Autorizado RED y el NAF a asignar tengan 
+distinto NIF. En estos casos se requiere representación al autorizado para que actúe en nombre del 
+afiliado. Deberá estar firmado siempre por el usuario principal de la autorización, así como por el 
+afiliado o por el representante de éste. 
+o Formulario FR10: Este formulario se utilizará cuando el Autorizado RED y los CCCs a asignar tienen 
+distinto NIF. 
+• Solicitud telemática: el servicio de solicitud de asignación/rescisión de CCCs/NAFs se encuentra 
+disponible en Sistema RED Online/ Gestión de Autorizaciones. Este servicio solo puede ser utilizado por 
+usuario principal de la autorización. 
+o Al solicitar la asignación de un CCC o NAF el sistema comprobara si el NIF de la autorización 
+coincide con el NIF del CCC o NAF a asignar Si coincide lo asignará automáticamente. 
+
+ 
+ 
+ 7 
+ 
+Sistema de Liquidación Directa – 
+Folleto informativo RED Directo 
+ 
+o Si no coincide, la empresa deberá confirmar la asignación a través del servicio creado a tal efecto en 
+la Sede Electrónica de la Seguridad Social. 
+o Para más información sobre este servicio consultar el manual de “Gestión de Autorizaciones”. 
+El usuario principal de la autorización podrá dar de alta/baja/ o modificar datos a usuarios secundarios a 
+través de la página WEB de la Seguridad Social, utilizando la funcionalidad “Alta/Baja/Modificación de 
+Usuarios Secundarios”, situada dentro del apartado –Gestión de Autorizaciones-Gestión de Usuarios 
+Secundarios” del Sistema RED On Line. 
+2.3 Solicitud Certificado DIGITAL 
+Las transmisiones en RED Directo se realizan a través de Internet, por lo que es necesario garantizar la 
+seguridad de las comunicaciones. Esto se consigue mediante la utilización de un Certificado Digital que 
+proporciona una entidad certificadora. 
+Los Certificados Digitales que se pueden utilizar en el ámbito de RED Directo son los indicados en la página 
+web de la Seguridad Social. 
+2.4 Formación 
+Para trabajar correctamente con RED Directo, es necesario conocer su funcionamiento así como las 
+acciones que se pueden realizar a través de él. 
+Para ello se han elaborado manuales de ayuda, que se encuentran a disposición de los usuarios en la 
+sección de “Documentación de RED Directo” del apartado Documentación Red Directo, del menú Red 
+Directo del área de Sistema RED de la página web de la Seguridad Social. 
+Asimismo, los usuarios cuentan con el apoyo de las Administraciones de la Seguridad Social para la 
+resolución de incidencias, y para responder a las dudas que surjan sobre el manejo de RED Directo, así 
+como con el Servicio de Atención Telefónica de la TGSS (901 50 20 50) y de las Unidades de Atención 
+Técnicas. 
+2.5 Prácticas en el nuevo servicio 
+Después de haber obtenido la información necesaria y de haberse formado sobre este nuevo servicio, el 
+usuario está listo para comenzar a trabajar con RED Directo. Es recomendable que antes de comenzar a 
+utilizarlo en modo real se realicen una serie de pruebas: 
+• Afiliación: Existe la posibilidad de transmitir información en modo de prácticas, es decir, sin efecto real 
+sobre las bases de datos de la TGSS. Es necesario disponer al menos de un Código de Cuenta de 
+Cotización en prácticas, tal y como se ha comentado en la fase de Solicitud de la Autorización. Sobre 
+ese CCC el usuario podrá realizar las prácticas correspondientes. Para ello, se ha de entrar por la opción 
+de “Afiliación Online Prácticas” existente en el apartado de “Afiliación Online” de la página web. 
+• Cotización: no existe la posibilidad de realizar pruebas en cotización 
+
+ 
+ 
+ 8 
+ 
+Sistema de Liquidación Directa – 
+Folleto informativo RED Directo 
+ 
+3 Funcionalidades disponibles en RED Directo 
+3.1 Afiliación 
+Las acciones que se pueden realizar en el ámbito de Afiliación son las siguientes: 
+• Trámites Trabajadores 
+o Altas sucesivas y bajas. 
+o Cambio de grupo de cotización. 
+o Modificación/Eliminación de movimientos previos. 
+o Cambio de contrato (Tipo/Coeficiente). 
+o Cambio de ocupación de A.T. 
+o Eliminación de altas y bajas consolidadas. 
+o Modificación del Sistema Especial RG.0132 (Vegetales). 
+o Anotación de Jornadas Reales. 
+o Modificación de la Fecha de Alta (REG. 0613). 
+o Cambio de categoría profesional. 
+o Situaciones adicionales de Afiliación. 
+o Cambio del coeficiente reductor de Edad de Jubilación. 
+o Trabajadores subcontratados o cedidos. 
+o Días trabajados en contratos a tiempo parcial. 
+o Anotación de convenio colectivo. 
+o Corrección de modalidad de cotización o 5JR según Convenio. 
+o Suspensiones por prestaciones de corta duración. 
+o Peculiaridades Adicionales Cuenta Ajena. 
+• Consultas 
+o Consulta situación afiliado en la empresa. 
+o Consulta de situación de la empresa. 
+o Consulta trabajadores en empresa. 
+o Consulta número de afiliación. 
+o Consulta de NAF por IPF. 
+o Consulta trabajadores en otra empresa. 
+• Informes 
+o Informe vida laboral de afiliados. 
+
+ 
+ 
+ 9 
+ 
+Sistema de Liquidación Directa – 
+Folleto informativo RED Directo 
+ 
+o Informe afiliados en alta en un CCC. 
+o Informe IT Enfermedad Común. 
+o Informe del número anual medio de trabajadores. 
+o Informe de movimientos previos de afiliados. 
+o Informe de trabajadores con movimientos previos en un CCC 
+o Duplicados de Documentos TA. 
+o Informe de Situación de un CCC. 
+o Vida laboral de un CCC. 
+o Informe de Jornadas Reales. 
+o Informe de datos de cotización- trabajadores cuenta ajena. 
+o Informe datos de cotización/Período liquidación CCC. 
+o Informe datos cotización/Período liquidación- NSS 
+o Informe Plantilla Media de Trabajadores en Alta. 
+o Informe datos cotización/ Relación laboral-NSS. 
+• Trámites CCC 
+o Anotación de Convenio Colectivo (Empresa). 
+o Inscripción CCC de Empresario Individual. 
+o Asignación CCC Secundario de Empresario Colectivo. 
+o Modificación de domicilio de CCC. 
+o Solicitud de Colaboración Económica en IT. 
+o Renuncia de Colaboración Económica en IT. 
+o Anulación Solicitud/Renuncia colaboración IT. 
+• Régimen Especial de Trabajadores Autónomos 
+o Solicitud de Alta en el RETA. 
+o Solicitud de Baja en el RETA. 
+o Solicitud de cambio de domicilio – RETA. 
+3.2 Cotización 
+RED Directo permite cumplimentar y presentar los documentos de cotización a través de Internet, y 
+obtener la Relación Nominal de Trabajadores y el Recibo de Liquidación de Cotizaciones. Las acciones que 
+se pueden realizar son las siguientes: 
+• Cumplimentación y presentación de las Relaciones Nominales de Trabajadores para las siguientes 
+liquidaciones: 
+
+ 
+ 
+ 10 
+ 
+Sistema de Liquidación Directa – 
+Folleto informativo RED Directo 
+ 
+o Liquidaciones en plazo: 
+ L00 – Liquidación ordinaria en periodo reglamentario de ingreso 
+ L02 – Liquidación complementaria por situaciones asimiladas al alta correspondientes a salarios 
+de tramitación 
+ L13 – Liquidación complementaria por situaciones asimiladas al alta correspondientes a 
+vacaciones retribuidas y no disfrutadas 
+ L03 – Liquidación complementaria por incremento de bases derivadas de abono de salarios con 
+carácter retroactivo 
+o Liquidaciones fuera de plazo: 
+ L02 – Liquidación complementaria por situaciones asimiladas al alta correspondientes a salarios 
+de tramitación 
+ L13 – Liquidación complementaria por situaciones asimiladas al alta correspondientes a 
+vacaciones retribuidas y no disfrutadas 
+ L03 – Liquidación complementaria por incremento de bases derivadas de abono de salarios con 
+carácter retroactivo 
+ L90 - Liquidación complementaria por incremento de bases 
+ L91 – Liquidación complementaria por nuevos trabajadores y/o tramos de liquidaciones 
+ordinarias 
+• Obtener el Documento de Cálculo de la Liquidación y el borrador de la Relación Nominal de 
+Trabajadores. 
+• Confirmar la liquidación y obtener el Recibo de Liquidación de Cotizaciones calculado por la TGSS para 
+su ingreso a través de las modalidades de cargo en cuenta o de pago electrónico. 
+• Realizar actuaciones sobre el recibo obtenido en la confirmación (cambiar la modalidad de pago 
+elegida, cambiar el número de cuenta bancaria), o solicitar recibos de cotización diferentes a los 
+obtenidos en la confirmación (recibos por la cuota a cargo de los trabajadores, por la cuota total o por 
+la cuota empresarial, recibos por diferencias), así como solicitar duplicados de recibos emitidos. 
+• Rectificar la liquidación confirmada. 
+• Consultar los cálculos de la liquidación. 
+• Anular liquidaciones presentadas durante el periodo de presentación en curso. 
+• Obtener Recibos de Liquidación de Cotizaciones de meses anteriores para su ingreso con recargo. 
+• Solicitud de cambio de domiciliación bancaria (RETA). 
+• Consulta de Bases y Cuotas Ingresadas (RETA). 
+• Solicitar un certificado de estar al corriente en las obligaciones de la Seguridad Social. 
+
+ 
+ 
+ 11 
+ 
+Sistema de Liquidación Directa – 
+Folleto informativo RED Directo 
+ 
+3.3 Incapacidad Temporal Online 
+De la misma forma que con la presentación de documentos de afiliación, RED Directo le permite la 
+tramitación de los Partes Médicos. En este ámbito de actuación se podrán realizar las siguientes acciones: 
+• Grabación de Partes. RED Directo Permite la tramitación de los siguientes partes de Incapacidad 
+Temporal, tanto derivados de contingencias comunes como de contingencias profesionales. 
+o Partes de alta médica (PA). 
+o Partes de baja médica (PB). 
+o Partes de confirmación (PC). 
+• Consulta de Partes. Permite consultar todos los partes de IT enviados por los usuarios a través de RED 
+Directo. 
+• Anulación de procesos de IT. Permite anular los partes de IT enviados por error a través de RED 
+Directo. 
+• Emisión de los informes. Permite obtener e imprimir informes con los datos de partes enviados a 
+través de RED Directo. 
+3.4 Buzón personal 
+La TGSS pone a disposición de los usuarios un buzón en el que se almacenan los mensajes que ésta envía a 
+los usuarios. Se trata de mensajes que los usuarios no pueden obtener de forma On Line. 
+Estos mensajes pueden ser de diferente tipo: 
+• Solicitudes de pago (Cargo en Cuenta o Pago Electrónico) aceptadas y no cobradas. 
+• Rechazos, en el momento de la consolidación, de movimientos de afiliación que previamente han sido 
+aceptados. 
+• Comunicación de nueva deuda generada en las bases de datos de la Tesorería General de la Seguridad 
+Social. 
+• Comunicación de deuda anulada en las bases de datos de la TGSS. 
+• Informe de liquidaciones no ingresadas en plazo: Se obtiene a través de las transacciones relativas a 
+“Gestión de Deuda”. 
+• Otros mensajes considerados de interés. 
+El usuario podrá consultar e imprimir estos mensajes en formato PDF. 
+ 
+ 
+
+ 
+ 
+ 12 
+ 
+Sistema de Liquidación Directa – 
+Folleto informativo RED Directo 
+ 
+4 Información a disposición del usuario 
+En todo momento los usuarios de RED Directo disponen de tres fuentes de información y resolución de 
+incidencias ajustadas a sus necesidades: 
+• Página web de la Seguridad Social. En www.seg-social.es se encuentra el área del “Sistema RED”, donde 
+aparece información relativa a este modo de transmisión. Los apartados que contienen información 
+relativa a RED Directo son los siguientes: 
+o RED Directo: Incluye información de RED Directo, contiene tres apartados: 
+ Información: Información RED Directo: información general, preguntas más frecuentes, 
+modalidades de pago, normativa, etc. 
+ Software: Software RED Directo: contiene los programas necesarios para utilizar RED Directo. 
+ Documentación: Documentación RED Directo: contiene los manuales y guías de usuario para la 
+formación, así como los formularios oficiales (FR101, TA106D, etc.) de RED Directo para su 
+descarga y cumplimentación. 
+o Noticias RED: Boletines periódicos que informan de todos los aspectos relacionados con el Sistema 
+RED y la modalidad RED Directo (nuevas funcionalidades, normativa, versiones de software, etc.). 
+o Avisos: Contiene las últimas noticias relacionadas con el Sistema RED y la modalidad RED Directo. 
+• Información en las Administraciones de la TGSS y en las Unidades de Atención Técnicas de las 
+Direcciones Provinciales. Se informará puntualmente de toda la información relativa a RED Directo, 
+existiendo a disposición de los usuarios de RED Directo y ciudadanos en general, folletos y dípticos 
+informativos de este nuevo servicio. 
+• Servicio de Atención Telefónica de la TGSS. En el número de teléfono 901 50 20 50, los usuarios de RED 
+Directo podrán resolver cualquier tipo de consulta o incidencia, ya sea relativa tanto a su 
+funcionamiento como a su gestión. Este servicio le proporcionará un asesoramiento personalizado 
+según su situación, atenderán sus consultas e incidencias.

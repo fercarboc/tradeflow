@@ -1,0 +1,25 @@
+Título: Consultas Vinculantes DGT — Instalaciones y Eficiencia Energética
+Organismo: Dirección General de Tributos (Ministerio de Hacienda)
+Tipo documento: consulta_vinculante
+Fecha publicación: 2022-2026
+Fecha derogación:
+Ámbito territorial: estatal
+Territorio:
+Versión: 2026-06-01
+Categoría: DGT
+BOE:
+Rango normativo: Doctrina administrativa (no vinculante para terceros)
+
+Descripción:
+Colección de consultas vinculantes de la DGT relevantes para instaladores:
+aerotermia, bombas de calor, fotovoltaica, autoconsumo, rehabilitación
+energética, IVA reducido, certificación energética, deducción IRPF.
+
+Capítulos prioritarios para instaladores:
+- HECHOS (descripción del caso)
+- CUESTIÓN PLANTEADA (pregunta al contribuyente)
+- CONTESTACIÓN (doctrina DGT)
+- IVA tipo reducido en rehabilitación energética
+- Aerotermia y bomba de calor: tipo aplicable
+- Autoconsumo fotovoltaico y compensación
+- Deducción IRPF por mejora de eficiencia energética

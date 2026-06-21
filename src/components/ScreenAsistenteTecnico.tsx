@@ -344,7 +344,8 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
     const SpeechRecognition = getSpeechRecognition();
     if (!SpeechRecognition) return;
 
-    finalTranscriptRef.current = input; // preservar texto ya escrito
+    const initialText = input; // captura el texto previo en closure
+    finalTranscriptRef.current = ''; // solo texto nuevo dictado
     const recognition = new SpeechRecognition();
     recognitionRef.current = recognition;
 
@@ -359,20 +360,19 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
     };
 
     recognition.onresult = (e: SpeechRecognitionEvent) => {
+      // e.results contiene TODOS los resultados desde el inicio de la sesión,
+      // así que reconstruimos desde cero en cada evento (evita duplicados).
+      let newFinal = '';
       let interim = '';
-      let final = finalTranscriptRef.current;
-
       for (let i = 0; i < e.results.length; i++) {
-        const result = e.results[i];
-        if (result.isFinal) {
-          final += (final ? ' ' : '') + result[0].transcript;
-          finalTranscriptRef.current = final;
+        if (e.results[i].isFinal) {
+          newFinal += (newFinal ? ' ' : '') + e.results[i][0].transcript;
         } else {
-          interim += result[0].transcript;
+          interim += e.results[i][0].transcript;
         }
       }
-
-      setInput(final);
+      finalTranscriptRef.current = newFinal;
+      setInput([initialText, newFinal].filter(Boolean).join(' '));
       setInterimText(interim);
     };
 
@@ -385,8 +385,7 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
     recognition.onend = () => {
       setIsRecording(false);
       setInterimText('');
-      // Asegurarse de que el input tiene el texto final acumulado
-      setInput(finalTranscriptRef.current);
+      setInput([initialText, finalTranscriptRef.current].filter(Boolean).join(' ') || initialText);
       setTimeout(() => inputRef.current?.focus(), 100);
     };
 

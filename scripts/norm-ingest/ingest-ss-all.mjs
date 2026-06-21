@@ -51,12 +51,33 @@ const SS_DOCS = [
     boeRef:           'BOE-A-1996-1579',
     prioridad:        3,
   },
+  {
+    category:         'SS_SISTEMA_RED',
+    pdf:              'Folleto_Informativo_RED_Directo_2018.pdf',
+    plan:             'empresa_plus',
+    organismoEmisor:  'Tesorería General de la Seguridad Social (TGSS)',
+    fechaPublicacion: '2018-08-01',
+    tipoDocumento:    'manual',
+    naturaleza:       'obligacion_legal',
+    boeRef:           'TGSS-RED-2018',
+    prioridad:        4,
+  },
+  {
+    category:         'SS_SISTEMA_RED',
+    pdf:              'Manual_RED_Directo_Afiliacion_2019.pdf',
+    plan:             'empresa_plus',
+    organismoEmisor:  'Tesorería General de la Seguridad Social (TGSS)',
+    fechaPublicacion: '2019-10-01',
+    tipoDocumento:    'manual',
+    naturaleza:       'obligacion_legal',
+    boeRef:           'TGSS-RED-AFIL-2019',
+    prioridad:        5,
+  },
   // Pendiente de descarga:
-  // { category: 'SS_RETA',               pdf: 'Guia_RETA_2025.pdf',                     plan: 'empresa_plus', prioridad: 4 },
-  // { category: 'SS_SISTEMA_RED',        pdf: 'Manual_Sistema_RED_2024.pdf',             plan: 'empresa_plus', prioridad: 5 },
-  // { category: 'SS_BONIFICACIONES',     pdf: 'Guia_Bonificaciones_Contratacion_2025.pdf', plan: 'empresa_plus', prioridad: 6 },
-  // { category: 'SS_AUTONOMO_COLABORADOR', pdf: 'Guia_Autonomo_Colaborador_2025.pdf',   plan: 'empresa_plus', prioridad: 7 },
-  // { category: 'SS_BOLETINES_RED',      pdf: 'Boletines_Noticias_RED_2024.pdf',         plan: 'empresa_plus', prioridad: 8 },
+  // { category: 'SS_RETA',               pdf: 'Guia_RETA_2025.pdf',                     plan: 'empresa_plus', prioridad: 6 },
+  // { category: 'SS_BONIFICACIONES',     pdf: 'Guia_Bonificaciones_Contratacion_2025.pdf', plan: 'empresa_plus', prioridad: 7 },
+  // { category: 'SS_AUTONOMO_COLABORADOR', pdf: 'Guia_Autonomo_Colaborador_2025.pdf',   plan: 'empresa_plus', prioridad: 8 },
+  // { category: 'SS_BOLETINES_RED',      pdf: 'Boletines_Noticias_RED_2024.pdf',         plan: 'empresa_plus', prioridad: 9 },
 ];
 
 // ── Palabras clave prioritarias para instaladores en SS ───────────────────────

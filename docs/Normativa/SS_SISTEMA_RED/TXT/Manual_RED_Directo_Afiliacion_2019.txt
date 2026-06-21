@@ -1,0 +1,886 @@
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+1 
+OCTUBRE 2019 
+MANUAL DE USUARIO 
+ 
+AFILIACIÓN 
+ 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+2 
+ 
+ÍNDICE 
+ 
+ 
+ 
+1. ACCIONES PERMITIDAS EN INSCRIPCIÓN/AFILIACIÓN .................................................... 3 
+2. ACCESO AL SERVICIO ............................................................................................................... 6 
+3. SERVICIOS RED DIRECTO: INSCRIPCIÓN Y AFILIACIÓN ONLINE .................................... 7 
+3.1. TRÁMITES TRABAJADORES. ALTAS SUCESIVAS Y BAJAS. .................................................. 8 
+3.2. CONSULTA DE TRABAJADORES EN ALTA EN UN CCC ................................................... 12 
+3.3. INFORMES ............................................................................................................................ 14 
+3.4. TRÁMITES DE C.C.C. ........................................................................................................... 16 
+ 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+3 
+1. ACCIONES PERMITIDAS EN INSCRIPCIÓN/AFILIACIÓN 
+ 
+En el ámbito de Inscripción/Afiliación RED Directo se permite: 
+ 
+ Trámites Trabajadores: Son las acciones que permiten la modificación de la situación 
+laboral de los trabajadores en el Fichero General de Afiliación de la Seguridad Social 
+(Altas, bajas, variaciones de datos de contrato, etc.). 
+Además, permite la realización de movimientos previos (hasta con 60 días de antelación 
+solo para altas y bajas), así como la eliminación tanto de movimientos previos como de 
+movimientos consolidados (hasta 3 días naturales desde la fecha real). 
+ Tramites CCC: Son acciones que permite modificar datos de códigos de cuenta 
+cotización. 
+ Informes: RED Directo permite la solicitud de diversos informes relativos a los CCCs de la 
+empresa, así como de los trabajadores adscritos ellos. Los informes permiten conocer la 
+situación de los afiliados en la empresa para un determinado periodo de tiempo. 
+Sólo se podrán solicitar informes para trabajadores que hayan figurado en alta en los 
+Códigos de Cuenta de Cotización de la empresa, y únicamente durante los periodos 
+que estuvieron en alta. 
+ Consultas: Permiten conocer la misma información que los informes, permitiendo su 
+visualización en tiempo real. Esta opción sólo está disponible para la modalidad On line. 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+4 
+ INFORMES 
+ Informe vida laboral de afiliados. 
+ Informe de afiliados en alta en un CCC. 
+ Informe del número anual medio de trabajadores. 
+ Informe de Movimientos previos de afiliados. 
+ Informe de Trab. Con Mov. previos en un C.C.C. 
+ Duplicados de documentos T.A. 
+ Informe de situación de un C.C.C. 
+ Vida Laboral de un C.C.C. 
+ Informe de Jornadas reales. 
+ Informe datos de cotización-Trab. Cuenta Ajena. 
+ Informe datos de cotización/Periodo liquidación-CCC. 
+ Informe datos de cotización/Periodo liquidación-NSS. 
+ Informe plantilla media de trabajadores en alta. 
+ Informe datos de cotización/Relación laboral-NSS. 
+ Duplicado de documentos de empresario. 
+ Informe cumplimiento Reserva Porcentaje Discapacitados 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+TRÁMITES TRABAJADORES: 
+Altas sucesivas y bajas. 
+Cambio de grupo de cotización. 
+Modificación / Eliminación movimientos previos. 
+Cambio de contrato (Tipo / Coeficiente). 
+Cambio de ocupación de AT. 
+Eliminación de altas y bajas consolidadas. 
+Modificación Datos Sistemas Especiales 
+Anotación de Jornadas 
+Modificación de la fecha de alta (REG.0163) 
+Cambio de categoría profesional. 
+Situaciones adicionales de afiliación. 
+Cambio del coeficiente reductor de la edad de jubilación. 
+Trabajadores subcontratados o cedidos. 
+Días trabajados en contratos a tiempo parcial y SEFH. 
+Convenios colectivos múltiples por trabajador. 
+Corrección Modalidad de cotización o 5JR semana según convenio. 
+Suspensiones por prestaciones de corta duración. 
+Peculiaridades adicionales cuenta ajena. 
+Datos Integrados de Bases Adicionales 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+5 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CONSULTAS 
+Consulta situación actual del Afiliado. 
+Consulta de situación de la empresa. 
+Consulta trabajadores en empresa. 
+Consulta número de Afiliación. 
+Consulta de NAF por IPF. 
+Consulta Alta Trabajadores en otra empresa. 
+ TRÁMITES C.C.C. 
+ Anotación de Convenio Colectivo (Empresa). 
+ Inscripción CCC de Empresario Individual. 
+ Asignación CCC Secundario de Empresario Colectivo. 
+ Modificación de domicilio de CCC. 
+ Reinicio CCC. 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+6 
+2. ACCESO AL SERVICIO 
+Para entrar en este servicio, en primer lugar se debe acceder, desde el navegador de Internet, a la 
+página web de la Seguridad Social (www.seg-social.es). 
+Una vez en esta página, pulsar sobre el icono “Acceso Sistema RED on-line” que aparece en la parte 
+inferior dentro del apartado “A un clic”. 
+ 
+ 
+A continuación se abre una nueva ventana en la que el usuario deberá seleccionar un Certificado 
+electrónico que debe estar incluido en la lista de certificados admitidos. Una vez seleccionado e 
+introducida la correspondiente contraseña el sistema procederá a autenticar al usuario 
+Una vez realizado esto el sistema abre una pantalla de 
+bienvenida donde se muestran todos los servicios RED 
+disponibles en función del perfil del usuario que esté 
+accediendo. 
+En esta pantalla será donde aparecerán los servicios 
+correspondientes a “Inscripción y Afiliación Online” 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+7 
+3. SERVICIOS RED DIRECTO: INSCRIPCIÓN Y AFILIACIÓN ONLINE 
+Dentro de la opción de Inscripción y Afiliación Online el usuario podrá seleccionar entre: 
+ 
+ Red Directo Inscripción y Afiliación Real. 
+ Red Directo Afiliación Online Prácticas: permite realizar trámites sin que estos tengan efecto 
+en la Base de Datos de la Seguridad Social. 
+ 
+El usuario debe seleccionar Afiliación Online Prácticas o Inscripción y Afiliación Online Real 
+dependiendo de si quiere trabajar en prácticas o en real. 
+ 
+Con la selección de la opción de Red Directo Inscripción y Afiliación Real aparece una pantalla con 
+varios submenús que muestra todos los servicios disponibles. 
+ 
+Esta pantalla permite seleccionar, entre todos, la opción que se desee dentro de los módulos 
+siguientes: 
+ 
+ Trámites Trabajadores: Dentro de este menú se accede a la actuación que se quiera realizar 
+(altas, bajas, modificaciones...). 
+ Trámites CCC: Permite realizar trámites respecto un CCC (solicitar la Inscripción y Asignación 
+de un CCC, modificar el domicilio de un CCC...). 
+ Consultas: Se visualiza en la pantalla en tiempo real datos de trabajadores o empresas en 
+función de la consulta seleccionada. 
+ Informes: Se solicitan informes que el usuario puede imprimir con validez jurídica (huella 
+electrónica). 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+8 
+3.1. Trámites Trabajadores. Altas sucesivas y Bajas. 
+Tal y como se ha visto, RED Directo permite enviar a través de Internet los datos que 
+actualmente se cumplimentan en el Documento TA2 de afiliación, así como realizar las distintas 
+acciones de afiliación. 
+En el menú “Trámites Trabajadores” aparecen todas las acciones que pueden llevarse a cabo. 
+A continuación, a modo de ejemplo, se muestra la realización de un alta y una baja. 
+ 
+Para realizar un Alta, tanto en Afiliación Prácticas como en Real, es necesario seleccionar 
+dentro del menú “Trámites trabajadores” la opción “Altas Sucesivas y Bajas”. 
+ 
+Aparecerá una primera pantalla en la que hay que informar la acción a realizar, en este caso 
+“Alta” y completar el resto de campos que se solicitan relativos al trabajador: Número de 
+Afiliación (NAF), Identificador de Personas Físicas (IPF), Régimen, Cuenta de Cotización, (datos 
+obligatorios); y Fecha de Nacimiento y Sexo (estos dos últimos son datos opcionales y sólo en el 
+caso de que no figuren en el FGA (Fichero General de Afiliación), Teléfono Mensajes SMS 
+(también es un campo opcional, y el trabajador recibirá un mensaje con el movimiento). 
+En caso de no conocer el NAF y disponer únicamente del IPF (DNI, pasaporte o NIE) del 
+trabajador, se puede realizar una consulta del NAF a partir del IPF y de los apellidos del 
+trabajador seleccionando esta opción dentro del menú “Consultas”. 
+ 
+Tras completar todos los campos de la primera pantalla de “Altas y bajas de trabajadores”, 
+pulsando sobre la opción “Continuar” aparecerá una segunda pantalla en la que se deben 
+informar los campos correspondientes a la acción de Alta que se quiere realizar. 
+ 
+Si se desea obtener la Resolución de Alta, en la opción “Impresión Documento” de esta 
+segunda pantalla se deberá seleccionar “SI”. 
+ 
+Para obtener un informe con los datos respecto a cotización, así como las peculiaridades de 
+cotización del trabajador en la opción impresión I.D.C. se deberá seleccionar “SI”. 
+ 
+En caso de existir dudas sobre el contenido a informar en cada campo, posicionándose sobre él 
+y pulsando el botón “Ayuda” o “F1”, se mostrará la información específica para cada campo. 
+ 
+Una vez completados todos los datos necesarios se pulsará “Continuar”. 
+ 
+ Si alguno de los datos introducidos no son correctos aparecerá un mensaje de error en la 
+parte inferior izquierda de la ventana y no se podrá continuar con la acción hasta que los 
+datos erróneos sean corregidos. 
+ Si todos los datos son correctos el alta se producirá en tiempo real, y si se ha solicitado la 
+impresión de documentos, se abrirá el Acrobat Reader mostrando el informe de resolución 
+del Alta en formato pdf, pudiéndolo imprimir posteriormente. 
+ 
+La comprobación de cualquier movimiento realizado a través de Afiliación se puede realizar a 
+través de la consulta “Consultar Situación Afiliado en la Empresa” del módulo de “Consultas”. 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+9 
+ Para realizar un Alta se debe seleccionar el movimiento a realizar (Alta) y cumplimentar los 
+diferentes campos que aparecen en la pantalla con la opción “Altas sucesivas y bajas” del 
+menú “Trámites Trabajadores”. 
+ En caso de no disponer previamente del NAF del trabajador, para poder completar el Alta, se 
+puede realizar la consulta del NAF a partir del IPF (DNI, pasaporte o NIE) y de los apellidos del 
+trabajador. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Servicios RED Directo: Altas 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+10 
+La tramitación de bajas se realiza a partir de la misma opción y de la misma forma que las altas: 
+ Se debe seleccionar el movimiento a realizar (“Baja”) y cumplimentar los diferentes 
+campos que aparecen en la pantalla de la opción “altas sucesivas y bajas” del menú 
+“Trámites Trabajadores”. 
+ Si se ha seleccionado la opción de impresión del documento se abrirá el Acrobat 
+Reader mostrando la resolución de la baja. 
+ Si se ha seleccionado la opción de impresión de I.D.C. del documento se abrirá el 
+Acrobat Reader mostrando los datos determinantes de la cotización y las 
+peculiaridades de cotización. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Servicios RED Directo: Bajas. Impresión de la Resolución. 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+11 
+ La resolución obtenida a partir de “Afiliación Prácticas” (la mostrada en la imagen) no 
+tiene validez. 
+ Cuando se solicita la impresión del documento en “Afiliación Real” la resolución lleva 
+una cadena de dígitos o Huella Electrónica que aporta la misma validez legal ante 
+terceros que los documentos selladas por la Administración. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+12 
+3.2. Consulta de trabajadores en alta en un CCC 
+Mediante las consultas ofrecidas en RED Directo es posible visualizar, en tiempo real, datos de 
+trabajadores o de la propia empresa. 
+ 
+En el menú “Consultas” se recogen todas las que se pueden realizar: 
+ 
+ Consulta Situación Afiliado en la empresa: devuelve todos los datos relativos al alta del 
+trabajador en el CCC (contrato, fecha de alta...). 
+ Consulta Situación de la Empresa: muestra todos los datos de Seguridad Social relativos al 
+CCC consultado. 
+ Consulta de Trabajadores en una empresa: muestra el listado de trabajadores de alta en 
+un CCC en el momento de realizar la consulta. Únicamente se mostrará los datos de 
+identificación de los trabajadores (Nombre, NAF e IPF). 
+ Consulta Número de Afiliación: A partir del NAF (sin Dígitos de Control) de cualquier 
+trabajador se mostrará su nombre y apellidos e IPF. 
+ Consulta de NAF por IPF: mostrará el NAF de cualquier trabajados a partir de su IPF y los 
+apellidos. 
+ Consulta Alta Trabajadores en Otra Empresa: permite consultar a las empresas que 
+contraten o subcontraten con otras la realización de obras o servicios la situación de alta 
+de los trabajadores de la empresa contratada o subcontratada a una fecha 
+determinada. La empresa subcontratada deberá autorizar previamente a la TGSS a ceder 
+dicha información para que ésta pueda consultarla. 
+ 
+Para cada una de las consultas, a través de la pantalla correspondiente, se podrá aplicar un 
+filtro de búsqueda que permitirá obtener aquél elemento que se desea consultar. 
+ 
+En el caso de la “Consulta de trabajadores en una empresa” los pasos a seguir son: 
+ 
+ Seleccionar la consulta en el menú consultas, en Afiliación. 
+ Indicar el CCC que se desea consultar 
+ Seleccionar “Altas reales”, es decir, aquellos trabajadores que, en ese momento se 
+encuentran de alta en la empresa, o movimientos previos, que son todos aquellos trámites 
+de alta o baja realizados previamente a la fecha del movimiento por lo que, aunque ya 
+han sido grabados por el usuario, aún no ha llegado la “fecha real” en la que se producen 
+y por tanto, no están consolidados en el sistema. 
+ Al pulsar continuar se mostrará el listado de trabajadores. Si el número de trabajadores 
+fuese demasiado grande se distribuirían en varias páginas. En ese caso se debe pulsar el 
+botón “Pág.Sig” para pasar a la siguiente pantalla. 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+13 
+Servicios RED Directo: Consulta de trabajadores en alta en un CCC 
+Los pasos para la obtención On Line de los trabajadores en alta en un CCC son: 
+ 
+ Selección de la opción “Consulta de Trabajadores en una Empresa” del 
+menú “Consultas”. 
+ Introducción del CCC sobre el que se quiere realizar la consulta y selección 
+de la opción “Altas Reales”. 
+ Pulsar “Continuar”. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+14 
+3.3. Informes 
+En el submenú de “Informes” aparecen todas las acciones que esta opción permite realizar. 
+ 
+Los informes disponibles en “Afiliación Online Real” son: 
+ 
+ Informe vida laboral de afiliados: muestra la vida laboral del trabajador seleccionado en 
+ese CCC. No los datos laborales del trabajador en otras empresas. 
+ Informe IT Enfermedad Común: Comunica si el trabajador ha cotizado al menos 180, en 
+cualquier empresa, en los últimos cinco años. 
+ Informe del número anual medio de trabajadores. Muestra el número medio anual de 
+trabajadores en alta en un período determinado. 
+ Informe de Mov. Previos de Afiliados. Muestra los datos sobre movimientos previos de un 
+afiliado en un C.C.C. 
+ Inf. de Trab. con Mov. Previos en un C.C.C. Muestra los relación de trabajadores que tienen 
+movimientos previos en un C.C.C. 
+ Duplicados de Documentos TA: Duplicado de la resolución de Alta, Baja o Variación de 
+datos de cualquier acción realizada anteriormente. 
+ Informe de Situación de un C.C.C. Informa todos los datos de gestión, cotización, actuales 
+de un C.C.C. 
+ Vida laboral de un CCC: Muestra los trabajadores que han estado de alta en el CCC entre 
+las dos fechas indicadas por el usuario, así como los datos más relevantes del contrato. 
+ Informe de Jornadas Reales: informa, las empresas del Sistema Especial Agrario, de las 
+Jornadas Reales realizadas por un trabajador en el mes seleccionado por el usuario. 
+ Informe datos de cotización-Trab.Cuenta Ajena: Informa de los datos de cotización así 
+como las peculiaridades de cotización de un determinado trabajador. 
+ Informe de Datos para la Cotización/Período de liquidación CCC: Permite obtener un 
+Informe de Datos de Cotización por CCC y período de liquidación. 
+ Informe de Datos para la Cotización/Período de liquidación-NSS: Permite obtener un único 
+informe por período de liquidación que contenga todas las situaciones y peculiaridades de 
+cotización de un trabajador que haya tenido más de una situación o peculiaridad en dicho 
+período. 
+ Informe Plantilla Media Trabajadores en Alta: permite obtener un informe que contiene la 
+plantilla media de trabajadores de una empresa en un período determinado. 
+ Informe datos de cotización/Relación laboral-NSS: permite obtener información de todas la 
+peculiaridades de cotización de un trabajador para un período solicitado, que podrá ser 
+mayor o menor a un período de liquidación, incluso si el trabajador ha tenido bajas y altas 
+en distintos CCC’s de la misma empresa. 
+ Duplicado de documentos de empresarios: permite obtener un duplicado de la resolución 
+de alta de un Código de Cuenta de Cotización principal o secundario, de empresario 
+individual o de empresario colectivo. 
+ Informe cumplimiento reserva porcentaje discapacitados 
+ 
+Para cada una de las acciones, a través de la pantalla correspondiente, se introducirán los 
+datos necesarios para obtener el informe deseado. 
+ 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+15 
+Para cada una de las acciones, a través de la pantalla correspondiente, se introducirán los 
+datos necesarios para obtener el informe deseado. 
+En el caso de la Vida Laboral de un afiliado, por ejemplo, se solicitará el Número de Afiliación 
+del trabajador cuya vida laboral se desee consultar. 
+Al pulsar el botón “Continuar” se mostrará, en formato PDF, el informe que ha solicitado por el 
+usuario. 
+Como ejemplo, a continuación se muestra el “Informe de Vida Laboral de Afiliados”. 
+ 
+Una vez seleccionada dicha acción, aparecerá la pantalla con los campos a cumplimentar 
+para la obtención del informe. En esta pantalla se deberá informar el número de afiliación del 
+trabajador cuya vida laboral se quiere obtener. 
+ 
+Una vez completado el campo anterior y tras pulsar en el botón de “Continuar”, aparecerá el 
+Informe solicitado que podrá ser imprimido en formato PDF. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Informes. Vida Laboral de un Afiliado. 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+16 
+3.4. Trámites de C.C.C. 
+En el submenú de “Trámites C.C.C.” aparecen todas las acciones que esta opción permite 
+realizar. 
+ 
+ Anotación de Convenio Colectivo (Empresa): Permite anotar un Convenio Colectivo en 
+un CCC. 
+ Inscripción CCC de Empresario Individual: Permite la inscripción de un CCC de 
+Empresario Individual principal y secundario. 
+ Asignación CCC Secundario de Empresario Colectivo: Permite la asignación de un CCC 
+secundario para empresario colectivo. 
+ Modificación de domicilio de CCC: Se puede modificar el domicilio de un CCC. 
+ Reinicio de un CCC: permite la reactivación de un Código de Cuenta de Cotización que 
+lleve más de una año de baja. 
+Los pasos a seguir para solicitar la inscripción de un código de cuenta principal o la asignación 
+de una cuenta de cotización secundaria de un empresario individual: 
+ 
+ En el menú de Servicios RED, pulsar la opción Red Directo Inscripción y Afiliación Real. 
+ En la pantalla de RED Directo Inscripción– Afiliación Online Real, dentro del menú de 
+Trámites CCC, pulsar sobre el servicio “Inscripción CCC de Empresario Individual”. 
+ Se muestra una primera pantalla en la que solicita el NAF del Afiliado y el Identificador de 
+Persona Física al que se pretende asignar un CCC, y se pulsa “Continuar”. 
+ Si los datos son correctos y el autorizado tiene asignado el Número de la Seguridad Social 
+de la persona para la que se solicita la inscripción, aparecerá una nueva pantalla que 
+contiene: 
+o Datos identificativos del solicitante: En la parte superior de la pantalla se muestran los 
+datos identificativos del afiliado, estos datos no podrán ser modificados. 
+o Sección para seleccionar el Tipo de Código de CCC a solicitar: Se deberá marcar si 
+solicita la asignación de código de cuenta principal o secundario. 
+ Si marca código de cuenta principal y para ese NSS hay ya asignado un 
+código de cuenta se mostrará un mensaje de información con el CCC 
+asignado. 
+ Si marca código de cuenta secundario y para ese NSS no existe un código de 
+cuenta principal se mostrará un mensaje de error. 
+o Sección para indicar el Régimen del nuevo CCC: Deberá marcar el Régimen en el 
+que desea la solicitud del alta. 
+ Si marca el régimen 0111, la solicitud de alta se formula para el Régimen 
+General sin colectivo o sistema especial. 
+ Si marca el régimen 0111 y además una “X” en el campo “Corresponde a un 
+colectivo o sistema especial del Régimen General”, se mostrará una nueva 
+pantalla en la que deberá seleccionar uno de los colectivos o sistemas 
+vigentes incluidos en el régimen General. 
+ Si marca otro Régimen diferente, la solicitud de alta del CCC se formula para 
+el Régimen seleccionado. 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+17 
+Los pasos para la obtención de un CCC de Empresario Individual son (I): 
+ 
+ Al acceder al menú de “CCC de Empresario Individual” aparece una pantalla para 
+indicar el NAF y el IPF de quien se pretende asignar un CCC, se pulsa “Continuar”. 
+ Se indica si es un CCC Principal o Secundario y el Régimen, se pulsa “Continuar” 
+ Se indican los datos de Domicilio de la Empresa y los del Domicilio de la Actividad si son 
+diferentes de los del domicilio de la empresa o si se elige otro Domicilio para 
+notificaciones, que se indicará marcando este campo. Se pulsa “Continuar”. 
+ Una vez indicados estos datos se pulsa “Continuar” y se accede a una nueva pantalla, 
+dónde se indicarán los datos relativos al Domicilio de la Empresa, los datos del Domicilio 
+de la Actividad, así como el domicilio de notificaciones deseados. 
+ 
+ 
+ 
+ 
+ 
+Inscripción CCC de Empresario Individual (I) 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+18 
+ 
+ Una vez indicados los campos anteriores, se pulsa “Continuar” y aparece una pantalla 
+con un resumen de los datos introducidos para “Confirmar” o “Cancelar”. Si se indica 
+“Confirmar” se muestra otra pantalla que solicita más información relativa a la inscripción 
+de empresa. 
+ Aquí, se indica “CNAE09”, “Fecha de Inicio de Actividad”, “Entidad Accidentes de 
+Trabajo”, “Fecha Entidad Accidente de Trabajo”, si se opta por cubrir la prestación 
+económica de incapacidad temporal derivada de contingencias comunes con la misma 
+Mutua que para proteger los accidentes de trabajo y los riesgos profesionales se marca 
+“Opción de Mutua Incapacidad Temporal por Contingencias Comunes”, una vez 
+indicados los campos se pulsa “Continuar”. 
+ Aparece una pantalla con los datos anotados en la solicitud, pudiendo el solicitante 
+confirmar los datos mediante el botón “Continuar” o modificarlos a través del botón 
+“Modificar”. 
+ Una vez confirmados los datos por parte del solicitante, aparece una pantalla indicando 
+el Código de Cuenta de Cotización recién creado. 
+ A través del botón “Continuar” se emite la Resolución de asignación del C.C.C., en 
+formato PDF que se podrá imprimir. 
+ 
+Para un mayor detalle sobre este servicio se puede consultar el Manual de Transacción Solicitud 
+CCC Empresario Individual disponible en la página web de la Seguridad Social (www.seg-social.es), 
+concretamente en la sección “RED Internet” en el menú “Documentación RED Internet” del 
+apartado “Sistema RED”. 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+Subdirección General de Inscripción, 
+Afiliación y Recaudación en 
+Período Voluntario 
+19 
+Los pasos para la obtención de un CCC de Empresario Individual son (II): 
+Continuando con el proceso de asignación de CCC Empresario Individual, una vez pulsado 
+“Continuar” en la pantalla de selección del Domicilio de la empresa, se muestra una nueva 
+pantalla. 
+ En esta pantalla se indicarán los datos del CNAE09, Fecha de Inicio de la Actividad, 
+Entidad Accidentes de Trabajo,.... Una vez completados los datos se pulsa “Continuar”. 
+ Se muestran en pantalla los datos del CCC recién creado. 
+ Finalmente, se obtiene la resolución correspondiente de asignación de CCC de 
+empresario individual en formato PDF para su impresión. 
+ 
+ 
+ 
+ 
+ 
+ 
+Inscripción CCC de Empresario Individual (II)
