@@ -1,26 +1,45 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Send, BookOpen, ChevronDown, ChevronUp, ThumbsUp, ThumbsDown, AlertCircle, Loader2, Shield, Zap, Lock, X, Mic, MicOff } from 'lucide-react';
+import { Send, BookOpen, ChevronDown, ChevronUp, ThumbsUp, ThumbsDown, AlertCircle, Loader2, Shield, Zap, Lock, X, Mic, MicOff, ExternalLink } from 'lucide-react';
 import type { Session } from '@supabase/supabase-js';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
 
 const PLAN_CATEGORIES: Record<string, string[]> = {
-  basico:       ['OFICIOS', 'REBT'],
-  profesional:  ['OFICIOS', 'REBT', 'RITE'],
-  empresa:      ['OFICIOS', 'REBT', 'RITE'],
-  empresa_plus: ['OFICIOS', 'REBT', 'RITE', 'CTE', 'GAS', 'ACS', 'GUIAS'],
+  basico:       ['OFICIOS', 'REBT', 'AEAT_VERIFACTU'],
+  profesional:  ['OFICIOS', 'REBT', 'RITE', 'AEAT_VERIFACTU', 'AEAT_IVA', 'AEAT_RENTA', 'AEAT_FACTURACION'],
+  empresa:      ['OFICIOS', 'REBT', 'RITE', 'AEAT_VERIFACTU', 'AEAT_IVA', 'AEAT_RENTA', 'AEAT_FACTURACION', 'AEAT_RENTA_CCAA', 'AEAT_SOCIEDADES'],
+  empresa_plus: ['OFICIOS', 'REBT', 'RITE', 'CTE', 'GAS', 'ACS', 'GUIAS',
+                 'AEAT_VERIFACTU', 'AEAT_IVA', 'AEAT_RENTA', 'AEAT_FACTURACION', 'AEAT_RENTA_CCAA', 'AEAT_SOCIEDADES', 'AEAT_PATRIMONIO',
+                 'SS_LGSS', 'SS_AFILIACION', 'SS_COTIZACION', 'SS_RETA', 'SS_BONIFICACIONES', 'SS_AUTONOMO_COLABORADOR', 'SS_SISTEMA_RED', 'SS_BOLETINES_RED'],
 };
 
-const ALL_CATEGORIES = ['OFICIOS', 'REBT', 'RITE', 'CTE', 'GAS', 'ACS', 'GUIAS'] as const;
+const ALL_TECH_CATEGORIES   = ['OFICIOS', 'REBT', 'RITE', 'CTE', 'GAS', 'ACS', 'GUIAS'] as const;
+const ALL_FISCAL_CATEGORIES = ['AEAT_VERIFACTU', 'AEAT_IVA', 'AEAT_RENTA', 'AEAT_FACTURACION', 'AEAT_RENTA_CCAA', 'AEAT_SOCIEDADES', 'AEAT_PATRIMONIO'] as const;
+const ALL_SS_CATEGORIES     = ['SS_LGSS', 'SS_AFILIACION', 'SS_COTIZACION', 'SS_RETA', 'SS_BONIFICACIONES', 'SS_AUTONOMO_COLABORADOR', 'SS_SISTEMA_RED', 'SS_BOLETINES_RED'] as const;
 
 const CATEGORY_LABELS: Record<string, string> = {
-  OFICIOS: 'Fichas de Oficio',
-  REBT:    'REBT',
-  RITE:    'RITE',
-  CTE:     'CTE',
-  GAS:     'GAS',
-  ACS:     'ACS',
-  GUIAS:   'Guías IDAE',
+  OFICIOS:                'Fichas de Oficio',
+  REBT:                   'REBT',
+  RITE:                   'RITE',
+  CTE:                    'CTE',
+  GAS:                    'GAS',
+  ACS:                    'ACS',
+  GUIAS:                  'Guías IDAE',
+  AEAT_VERIFACTU:         'VeriFactu',
+  AEAT_IVA:               'IVA',
+  AEAT_RENTA:             'Renta IRPF',
+  AEAT_FACTURACION:       'Facturación',
+  AEAT_RENTA_CCAA:        'Renta CCAA',
+  AEAT_SOCIEDADES:        'Sociedades',
+  AEAT_PATRIMONIO:        'Patrimonio',
+  SS_LGSS:                'LGSS',
+  SS_AFILIACION:          'Afiliación',
+  SS_COTIZACION:          'Cotización',
+  SS_RETA:                'RETA',
+  SS_BONIFICACIONES:      'Bonificaciones',
+  SS_AUTONOMO_COLABORADOR:'Autón. Colaborador',
+  SS_SISTEMA_RED:         'Sistema RED',
+  SS_BOLETINES_RED:       'Boletines RED',
 };
 
 const DAILY_LIMITS: Record<string, number> = {
@@ -28,12 +47,12 @@ const DAILY_LIMITS: Record<string, number> = {
 };
 
 const EXAMPLE_QUERIES = [
-  { q: '¿Qué sección mínima necesita un cable de 16A en instalación empotrada?',     cat: 'REBT' },
-  { q: '¿Cuál es la temperatura mínima de distribución de ACS según normativa?',     cat: 'ACS'  },
-  { q: '¿Qué distancia mínima hay entre tubos de gas y conductos eléctricos?',       cat: 'GAS'  },
-  { q: '¿Qué requiere la ITC-BT-25 para instalaciones en viviendas?',                cat: 'REBT' },
-  { q: '¿Qué mantenimiento periódico exige el RITE para instalaciones de >70kW?',   cat: 'RITE' },
-  { q: '¿Cuántos circuitos mínimos debe tener una vivienda según el REBT?',         cat: 'REBT' },
+  { q: '¿Qué sección mínima necesita un cable de 16A en instalación empotrada?',          cat: 'REBT'     },
+  { q: '¿Qué IVA aplica a la instalación de aerotermia en vivienda de más de 2 años?',    cat: 'IVA'      },
+  { q: '¿Cuántos circuitos mínimos debe tener una vivienda según el REBT?',               cat: 'REBT'     },
+  { q: '¿Cuándo es obligatorio emitir facturas rectificativas según el reglamento AEAT?', cat: 'Factura'  },
+  { q: '¿Puedo contratar a mi hijo en la empresa? ¿Cuál es su régimen en la SS?',         cat: 'SS'       },
+  { q: '¿Qué plazo tengo para comunicar la baja de un trabajador a la Seguridad Social?', cat: 'SS'       },
 ];
 
 // Tipos del Web Speech API
@@ -85,6 +104,7 @@ interface NormSource {
   article_title: string | null;
   excerpt: string;
   boe_ref: string | null;
+  comunidad_autonoma?: string | null;
 }
 
 interface NormMessage {
@@ -93,6 +113,11 @@ interface NormMessage {
   text: string;
   sources?: NormSource[];
   confidence?: 'high' | 'medium' | 'low' | 'none';
+  naturaleza?: 'obligacion_legal' | 'recomendacion_tecnica' | 'interpretacion';
+  requires_fiscal_disclaimer?: boolean;
+  needs_dgt_disclaimer?: boolean;
+  needs_importass_link?: boolean;
+  comunidad_autonoma?: string | null;
   query_id?: string | null;
   chunks_used?: number;
   rated?: 1 | -1 | null;
@@ -139,9 +164,16 @@ function SourceCard({ source, index }: { source: NormSource; index: number }) {
   );
 }
 
+const NATURALEZA_LABELS: Record<string, { label: string; cls: string }> = {
+  obligacion_legal:     { label: 'Obligación legal',    cls: 'bg-blue-500/15 text-blue-400 border-blue-500/30' },
+  recomendacion_tecnica:{ label: 'Recomendación',       cls: 'bg-teal-500/15 text-teal-400 border-teal-500/30' },
+  interpretacion:       { label: 'Interpretación DGT',  cls: 'bg-orange-500/15 text-orange-400 border-orange-500/30' },
+};
+
 function AssistantBubble({ msg, onRate }: { msg: NormMessage; onRate: (id: string, r: 1 | -1) => void }) {
   const [sourcesOpen, setSourcesOpen] = useState(false);
   const hasSources = msg.sources && msg.sources.length > 0;
+  const natCfg = msg.naturaleza ? NATURALEZA_LABELS[msg.naturaleza] : null;
   return (
     <div className="flex gap-3 items-start">
       <div className="w-7 h-7 rounded-xl bg-violet-600 flex items-center justify-center shrink-0 mt-0.5">
@@ -151,9 +183,19 @@ function AssistantBubble({ msg, onRate }: { msg: NormMessage; onRate: (id: strin
         <div className={`rounded-2xl rounded-tl-sm px-4 py-3 ${msg.error ? 'bg-red-900/30 border border-red-700/40' : 'bg-slate-800 border border-slate-700/50'}`}>
           <p className="text-sm text-slate-200 leading-relaxed whitespace-pre-wrap">{msg.text}</p>
         </div>
+        {msg.comunidad_autonoma && (
+          <div className="inline-flex items-center gap-1.5 text-[10px] text-violet-300 bg-violet-500/10 border border-violet-500/25 rounded-full px-2.5 py-0.5">
+            <span className="font-semibold">CCAA:</span> {msg.comunidad_autonoma}
+          </div>
+        )}
         {!msg.error && (
           <div className="flex flex-wrap items-center gap-2">
             {msg.confidence && <ConfidenceBadge confidence={msg.confidence} />}
+            {natCfg && (
+              <span className={`inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border ${natCfg.cls}`}>
+                {natCfg.label}
+              </span>
+            )}
             {hasSources && (
               <button onClick={() => setSourcesOpen(v => !v)} className="inline-flex items-center gap-1 text-[10px] font-semibold px-2 py-0.5 rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-400 hover:bg-violet-500/20 transition-colors cursor-pointer">
                 {msg.sources!.length} fuente{msg.sources!.length !== 1 ? 's' : ''}
@@ -172,6 +214,61 @@ function AssistantBubble({ msg, onRate }: { msg: NormMessage; onRate: (id: strin
         {sourcesOpen && hasSources && (
           <div className="space-y-1.5">{msg.sources!.map((s, i) => <SourceCard key={i} source={s} index={i} />)}</div>
         )}
+        {msg.requires_fiscal_disclaimer && (
+          <div className="flex items-start gap-2 px-3 py-2 rounded-xl bg-amber-900/20 border border-amber-700/30">
+            <AlertCircle className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+            <p className="text-[11px] text-amber-300/80 leading-relaxed">Información orientativa basada en manuales AEAT. Para decisiones fiscales con impacto económico, confirma con tu gestoría antes de actuar.</p>
+          </div>
+        )}
+
+        {msg.needs_dgt_disclaimer && (
+          <div className="rounded-xl bg-blue-950/40 border border-blue-700/30 p-3 space-y-1.5">
+            <p className="text-[11px] font-semibold text-blue-300">Posible criterio interpretativo DGT</p>
+            <p className="text-[11px] text-blue-200/70 leading-relaxed">La aplicación concreta puede depender de consultas vinculantes de la Dirección General de Tributos no indexadas en TrabFlow.</p>
+            <a href="https://petete.tributos.hacienda.gob.es/consultas/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-blue-400 hover:text-blue-300 transition-colors cursor-pointer">
+              <ExternalLink className="w-3 h-3" />
+              Buscador oficial de doctrina tributaria AEAT
+            </a>
+          </div>
+        )}
+
+        {msg.needs_importass_link && (
+          <div className="rounded-xl bg-cyan-950/40 border border-cyan-700/30 p-3 space-y-1.5">
+            <p className="text-[11px] font-semibold text-cyan-300">Trámite oficial — Portal Importass</p>
+            <p className="text-[11px] text-cyan-200/70 leading-relaxed">Se ha encontrado normativa relacionada con este trámite. Para ejecutarlo (alta, baja, cambio de base, vida laboral, certificados…) puedes acceder al portal oficial de la Seguridad Social para autónomos, empresas y trabajadores.</p>
+            <a href="https://portal.seg-social.gob.es/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-cyan-400 hover:text-cyan-300 transition-colors cursor-pointer">
+              <ExternalLink className="w-3 h-3" />
+              Acceder a Importass (Seguridad Social)
+            </a>
+          </div>
+        )}
+
+        {/* Aviso IA — siempre visible */}
+        <div className="flex items-center gap-1.5 px-2 py-1">
+          <AlertCircle className="w-3 h-3 text-slate-600 shrink-0" />
+          <p className="text-[10px] text-slate-600">La IA puede cometer fallos. Verifica siempre en las fuentes oficiales antes de tomar decisiones.</p>
+        </div>
+
+        {/* CertEnergyApp — siempre visible */}
+        <div className="rounded-xl bg-emerald-950/30 border border-emerald-800/30 p-3 space-y-2">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-lg bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center shrink-0">
+              <Zap className="w-3 h-3 text-emerald-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[11px] font-bold text-emerald-300 flex items-center gap-1.5">
+                CertEnergyApp
+                <span className="text-[9px] font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded-full">Beta</span>
+              </p>
+              <p className="text-[10px] text-slate-500">Certificación energética asistida con IA</p>
+            </div>
+          </div>
+          <p className="text-[10px] text-slate-500 leading-relaxed">Asistencia durante la visita técnica · Recogida estructurada de datos · Reducción del tiempo de elaboración</p>
+          <a href="https://certenergyapp.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 transition-colors cursor-pointer">
+            <ExternalLink className="w-3 h-3" />
+            Probar CertEnergyApp
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -191,7 +288,7 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [queriesUsed, setQueriesUsed] = useState(0);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(() => PLAN_CATEGORIES[plan] ?? ['OFICIOS', 'REBT']);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(() => PLAN_CATEGORIES[plan] ?? ['OFICIOS', 'REBT', 'AEAT_VERIFACTU']);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   // Estado de voz
@@ -247,7 +344,7 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
         return;
       }
       if (!res.ok || data.error) throw new Error(data.detail ?? data.error ?? 'Error');
-      setMessages(prev => [...prev, { id: crypto.randomUUID(), role: 'assistant', text: data.answer ?? '', sources: data.sources ?? [], confidence: data.confidence ?? 'none', query_id: data.query_id ?? null, rated: null }]);
+      setMessages(prev => [...prev, { id: crypto.randomUUID(), role: 'assistant', text: data.answer ?? '', sources: data.sources ?? [], confidence: data.confidence ?? 'none', naturaleza: data.naturaleza, requires_fiscal_disclaimer: data.requires_fiscal_disclaimer ?? false, needs_dgt_disclaimer: data.needs_dgt_disclaimer ?? false, needs_importass_link: data.needs_importass_link ?? false, comunidad_autonoma: data.comunidad_autonoma ?? null, query_id: data.query_id ?? null, rated: null }]);
       if (orgId) setQueriesUsed(p => p + 1);
     } catch (err: unknown) {
       showToast(err instanceof Error ? err.message : 'Error de conexión', 'error');
@@ -363,9 +460,9 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
             <BookOpen className="w-4 h-4 text-white" />
           </div>
           <div className="flex-1 min-w-0">
-            <span className="text-sm font-bold text-white">Asistente Técnico</span>
+            <span className="text-sm font-bold text-white">Asistente Técnico &amp; Fiscal</span>
             <span className="text-slate-500 mx-2 text-xs">·</span>
-            <span className="text-xs text-slate-400">Normativa oficial española indexada</span>
+            <span className="text-xs text-slate-400">Normativa técnica · Manuales AEAT</span>
           </div>
           {voiceSupported && (
             <div className="flex items-center gap-1.5 shrink-0">
@@ -383,10 +480,10 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
           )}
         </div>
 
-        {/* Chips de categoría */}
-        <div className="max-w-4xl mx-auto px-5 pb-2.5 flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
-          <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-wider shrink-0">Filtrar:</span>
-          {ALL_CATEGORIES.map(cat => {
+        {/* Chips de categoría — Técnico */}
+        <div className="max-w-4xl mx-auto px-5 pt-0 pb-1 flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
+          <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-wider shrink-0 w-12">Técnico</span>
+          {ALL_TECH_CATEGORIES.map(cat => {
             const locked = !allowedCats.includes(cat);
             const active = selectedCategories.includes(cat);
             return (
@@ -397,6 +494,50 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
                   locked  ? 'border-slate-700/50 bg-transparent text-slate-600 hover:border-slate-600 hover:text-slate-500'
                   : active ? 'border-violet-500 bg-violet-600/20 text-violet-300'
                            : 'border-slate-700 bg-slate-800/40 text-slate-400 hover:border-slate-600 hover:text-slate-300'
+                }`}
+              >
+                {locked && <Lock className="w-2 h-2" />}
+                {CATEGORY_LABELS[cat]}
+              </button>
+            );
+          })}
+        </div>
+        {/* Chips de categoría — Fiscal AEAT */}
+        <div className="max-w-4xl mx-auto px-5 pb-1 flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
+          <span className="text-[10px] font-semibold text-amber-600/80 uppercase tracking-wider shrink-0 w-12">Fiscal</span>
+          {ALL_FISCAL_CATEGORIES.map(cat => {
+            const locked = !allowedCats.includes(cat);
+            const active = selectedCategories.includes(cat);
+            return (
+              <button
+                key={cat}
+                onClick={() => locked ? setShowUpgradeModal(true) : toggleCategory(cat)}
+                className={`shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border transition-colors cursor-pointer ${
+                  locked  ? 'border-slate-700/50 bg-transparent text-slate-600 hover:border-slate-600 hover:text-slate-500'
+                  : active ? 'border-amber-500 bg-amber-600/20 text-amber-300'
+                           : 'border-slate-700 bg-slate-800/40 text-slate-400 hover:border-amber-600/40 hover:text-amber-300/70'
+                }`}
+              >
+                {locked && <Lock className="w-2 h-2" />}
+                {CATEGORY_LABELS[cat]}
+              </button>
+            );
+          })}
+        </div>
+        {/* Chips de categoría — Seguridad Social */}
+        <div className="max-w-4xl mx-auto px-5 pb-2.5 flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
+          <span className="text-[10px] font-semibold text-cyan-600/80 uppercase tracking-wider shrink-0 w-12">SS</span>
+          {ALL_SS_CATEGORIES.map(cat => {
+            const locked = !allowedCats.includes(cat);
+            const active = selectedCategories.includes(cat);
+            return (
+              <button
+                key={cat}
+                onClick={() => locked ? setShowUpgradeModal(true) : toggleCategory(cat)}
+                className={`shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border transition-colors cursor-pointer ${
+                  locked  ? 'border-slate-700/50 bg-transparent text-slate-600 hover:border-slate-600 hover:text-slate-500'
+                  : active ? 'border-cyan-500 bg-cyan-600/20 text-cyan-300'
+                           : 'border-slate-700 bg-slate-800/40 text-slate-400 hover:border-cyan-600/40 hover:text-cyan-300/70'
                 }`}
               >
                 {locked && <Lock className="w-2 h-2" />}
@@ -419,9 +560,9 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
                   <BookOpen className="w-5 h-5 text-violet-400" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-white">Consulta la normativa técnica</p>
+                  <p className="text-sm font-bold text-white">Normativa técnica y fiscal para instaladores</p>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    Pregunta en lenguaje natural · Respuesta con cita del artículo oficial
+                    REBT · RITE · CTE · GAS · IVA · IRPF · Facturación · VeriFactu
                     {voiceSupported && <span className="text-violet-400"> · Dicta por voz con el micrófono</span>}
                   </p>
                 </div>
@@ -522,7 +663,7 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
               placeholder={
                 isRecording ? 'Escuchando…'
                 : rateLimitReached ? 'Límite diario alcanzado'
-                : 'Escribe o dicta tu consulta sobre normativa técnica…'
+                : 'Escribe o dicta tu consulta técnica o fiscal (REBT, RITE, IVA, IRPF…)'
               }
               rows={1}
               className={`flex-1 bg-transparent text-sm placeholder-slate-500 resize-none outline-none leading-relaxed max-h-32 overflow-y-auto disabled:cursor-not-allowed ${
@@ -586,21 +727,54 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
               <h3 className="text-base font-bold text-white mb-1">Amplía tu acceso a normativa</h3>
               <p className="text-sm text-slate-400">Plan actual: <span className="font-semibold text-slate-300">{plan}</span></p>
             </div>
-            <div className="space-y-1.5">
-              {ALL_CATEGORIES.map(cat => {
-                const has = allowedCats.includes(cat);
-                return (
-                  <div key={cat} className={`flex items-center gap-2.5 text-xs ${has ? 'text-slate-200' : 'text-slate-600'}`}>
-                    {has
-                      ? <div className="w-4 h-4 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center"><div className="w-1.5 h-1.5 rounded-full bg-emerald-400" /></div>
-                      : <div className="w-4 h-4 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center"><Lock className="w-2 h-2 text-slate-600" /></div>
-                    }
-                    {CATEGORY_LABELS[cat]}
-                  </div>
-                );
-              })}
+            <div className="space-y-2.5">
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Técnico</p>
+              <div className="space-y-1.5">
+                {ALL_TECH_CATEGORIES.map(cat => {
+                  const has = allowedCats.includes(cat);
+                  return (
+                    <div key={cat} className={`flex items-center gap-2.5 text-xs ${has ? 'text-slate-200' : 'text-slate-600'}`}>
+                      {has
+                        ? <div className="w-4 h-4 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center"><div className="w-1.5 h-1.5 rounded-full bg-emerald-400" /></div>
+                        : <div className="w-4 h-4 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center"><Lock className="w-2 h-2 text-slate-600" /></div>
+                      }
+                      {CATEGORY_LABELS[cat]}
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pt-1">Fiscal AEAT</p>
+              <div className="space-y-1.5">
+                {ALL_FISCAL_CATEGORIES.map(cat => {
+                  const has = allowedCats.includes(cat);
+                  return (
+                    <div key={cat} className={`flex items-center gap-2.5 text-xs ${has ? 'text-amber-200' : 'text-slate-600'}`}>
+                      {has
+                        ? <div className="w-4 h-4 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center"><div className="w-1.5 h-1.5 rounded-full bg-amber-400" /></div>
+                        : <div className="w-4 h-4 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center"><Lock className="w-2 h-2 text-slate-600" /></div>
+                      }
+                      {CATEGORY_LABELS[cat]}
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pt-1">Seguridad Social</p>
+              <div className="space-y-1.5">
+                {ALL_SS_CATEGORIES.map(cat => {
+                  const has = allowedCats.includes(cat);
+                  return (
+                    <div key={cat} className={`flex items-center gap-2.5 text-xs ${has ? 'text-cyan-200' : 'text-slate-600'}`}>
+                      {has
+                        ? <div className="w-4 h-4 rounded-full bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center"><div className="w-1.5 h-1.5 rounded-full bg-cyan-400" /></div>
+                        : <div className="w-4 h-4 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center"><Lock className="w-2 h-2 text-slate-600" /></div>
+                      }
+                      {CATEGORY_LABELS[cat]}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            <p className="text-xs text-slate-500">Accede a CTE, GAS, ACS y Guías IDAE con el plan <strong className="text-violet-400">Empresa Plus</strong>.</p>
+            <p className="text-xs text-slate-500">Normativa técnica, fiscal y laboral completa con el plan <strong className="text-violet-400">Empresa Plus</strong>.</p>
             <button onClick={() => setShowUpgradeModal(false)} className="w-full bg-violet-600 hover:bg-violet-500 text-white font-bold text-sm py-2.5 rounded-xl transition-colors cursor-pointer">
               Ver planes y precios
             </button>

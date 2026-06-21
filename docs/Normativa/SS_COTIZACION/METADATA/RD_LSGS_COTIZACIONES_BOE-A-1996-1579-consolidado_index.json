@@ -1,0 +1,1436 @@
+[
+  {
+    "chunk_id": "SS_COTIZACION-SEC-000",
+    "article_id": null,
+    "article_title": null,
+    "token_count": 209
+  },
+  {
+    "chunk_id": "SS_COTIZACION-CAP-II",
+    "article_id": "CAP-II",
+    "article_title": "CAPITULO II. De la cotización a la Seguridad Social......................................",
+    "token_count": 76
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-067",
+    "article_id": "ART-067",
+    "article_title": "Artículo 67. Mejoras de las bases de cotización.....................................",
+    "token_count": 83
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-070",
+    "article_id": "ART-070",
+    "article_title": "Artículo 70 bis. Cotización por determinadas remuneraciones, gratificaciones e indemnizaciones por",
+    "token_count": 76
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-087",
+    "article_id": "ART-087",
+    "article_title": "Artículo 87. Contraprestaciones e indemnizaciones en los demás contratos.....................",
+    "token_count": 78
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-091-1",
+    "article_id": "ART-091",
+    "article_title": "Artículo 91. Impugnación de los actos de liquidación.....................................",
+    "token_count": 507
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-091-2",
+    "article_id": "ART-091",
+    "article_title": "Artículo 91. Impugnación de los actos de liquidación.....................................",
+    "token_count": 1174
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-091-3",
+    "article_id": "ART-091",
+    "article_title": "Artículo 91. Impugnación de los actos de liquidación.....................................",
+    "token_count": 886
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-001",
+    "article_id": "ART-001",
+    "article_title": "Artículo 1. Objeto.",
+    "token_count": 189
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-104",
+    "article_id": null,
+    "article_title": "2. Asimismo, dicha regulación será aplicable a la determinación de las deudas por cuotas",
+    "token_count": 150
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-116",
+    "article_id": null,
+    "article_title": "2. La cuota de la Seguridad Social expresa el importe de la obligación de cotizar a la",
+    "token_count": 190
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-007",
+    "article_id": "ART-007",
+    "article_title": "Artículo 7. Sujetos de la cotización.",
+    "token_count": 120
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-118",
+    "article_id": null,
+    "article_title": "2. Están sujetas a la obligación de cotizar a la Seguridad Social las personas físicas o",
+    "token_count": 158
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-119",
+    "article_id": null,
+    "article_title": "3. Será nulo todo pacto individual o colectivo por el cual uno de los sujetos obligados a",
+    "token_count": 113
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-008",
+    "article_id": "ART-008",
+    "article_title": "Artículo 8. Bases de cotización.",
+    "token_count": 223
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-121",
+    "article_id": null,
+    "article_title": "2. Dentro de los límites a que se refiere el apartado 3 del artículo siguiente de este",
+    "token_count": 104
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-124",
+    "article_id": null,
+    "article_title": "1. Las bases de cotización al sistema de la Seguridad Social no podrán ser superiores al",
+    "token_count": 441
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-125",
+    "article_id": null,
+    "article_title": "2. Las bases de cotización en los Regímenes y para las contingencias a que se refiere",
+    "token_count": 357
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-126",
+    "article_id": null,
+    "article_title": "3. Los límites relativos de las bases de cotización están constituidos por las cuantías",
+    "token_count": 110
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-127",
+    "article_id": null,
+    "article_title": "4. El Ministerio de Trabajo y Seguridad Social adecuará, en función de los días y horas",
+    "token_count": 103
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-128",
+    "article_id": null,
+    "article_title": "5. Los prorrateos indicados en los apartados 1 y 2 para los supuestos de pluriempleo se",
+    "token_count": 99
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-130",
+    "article_id": null,
+    "article_title": "1. Los tipos de cotización en cada uno de los Regímenes que integran el sistema de la",
+    "token_count": 86
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-131",
+    "article_id": null,
+    "article_title": "2. Para la determinación de la cuota por contingencias comunes, en los supuestos",
+    "token_count": 122
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-132",
+    "article_id": null,
+    "article_title": "3. Los tipos de cotización a los distintos Regímenes de la Seguridad Social y, en su caso,",
+    "token_count": 112
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-135",
+    "article_id": null,
+    "article_title": "1. La cotización por accidentes de trabajo y enfermedades profesionales por parte de los",
+    "token_count": 252
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-136",
+    "article_id": null,
+    "article_title": "2. Las primas adicionales a la cotización de accidentes de trabajo que el Gobierno pueda",
+    "token_count": 137
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-137",
+    "article_id": null,
+    "article_title": "3. La cuantía de las cuotas por accidentes de trabajo y enfermedades profesionales",
+    "token_count": 229
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-012",
+    "article_id": "ART-012",
+    "article_title": "Artículo 12. Nacimiento.",
+    "token_count": 172
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-139",
+    "article_id": null,
+    "article_title": "2. La no presentación de la solicitud de la afiliación y/o del alta no impedirá el nacimiento",
+    "token_count": 141
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-140",
+    "article_id": null,
+    "article_title": "3. Para las contingencias de accidentes de trabajo y enfermedades profesionales la",
+    "token_count": 119
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-143",
+    "article_id": null,
+    "article_title": "2. La obligación de cotizar continuará en las situaciones de incapacidad temporal,",
+    "token_count": 288
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-146",
+    "article_id": null,
+    "article_title": "2. En los casos en que no se solicite la baja o ésta se formule fuera del plazo y en",
+    "token_count": 106
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-148",
+    "article_id": null,
+    "article_title": "4. No obstante lo dispuesto en los apartados anteriores, los interesados podrán probar,",
+    "token_count": 179
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-149",
+    "article_id": null,
+    "article_title": "5. La mera solicitud de la baja y el reconocimiento de la misma no extinguirá la",
+    "token_count": 109
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-151",
+    "article_id": null,
+    "article_title": "1. La obligación de cotizar a los regímenes del sistema de la Seguridad Social implica la",
+    "token_count": 179
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-152",
+    "article_id": null,
+    "article_title": "2. La determinación de las cuotas de la Seguridad Social y por los conceptos de",
+    "token_count": 506
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-153",
+    "article_id": null,
+    "article_title": "3. Lo dispuesto en el apartado anterior se entiende sin perjuicio de las funciones de",
+    "token_count": 146
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-016",
+    "article_id": "ART-016",
+    "article_title": "Artículo 16. Período de liquidación.",
+    "token_count": 80
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-155",
+    "article_id": null,
+    "article_title": "2. Salvo que se establezcan o se autoricen expresamente liquidaciones por períodos",
+    "token_count": 476
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-017",
+    "article_id": "ART-017",
+    "article_title": "Artículo 17. Deducciones.",
+    "token_count": 318
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-157",
+    "article_id": null,
+    "article_title": "2. En el sistema de autoliquidación de cuotas, la aplicación de las correcciones de bases,",
+    "token_count": 182
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-158",
+    "article_id": null,
+    "article_title": "3. En los sistemas de liquidación directa y de liquidación simplificada de cuotas, la",
+    "token_count": 125
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-159",
+    "article_id": null,
+    "article_title": "4. La Tesorería General de la Seguridad Social podrá comprobar la correcta aplicación",
+    "token_count": 154
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-161",
+    "article_id": null,
+    "article_title": "1. En el sistema de autoliquidación, las liquidaciones de las cuotas de la Seguridad",
+    "token_count": 292
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-162-1",
+    "article_id": null,
+    "article_title": "2. En el sistema de liquidación directa, las liquidaciones de cuotas se practicarán en la",
+    "token_count": 223
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-162-2",
+    "article_id": null,
+    "article_title": "2. En el sistema de liquidación directa, las liquidaciones de cuotas se practicarán en la",
+    "token_count": 870
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-163",
+    "article_id": null,
+    "article_title": "3. En el sistema de liquidación simplificada, la Tesorería General de la Seguridad Social",
+    "token_count": 113
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-019",
+    "article_id": "ART-019",
+    "article_title": "Artículo 19. Control de las liquidaciones.",
+    "token_count": 290
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-166",
+    "article_id": null,
+    "article_title": "2. Cuando en las liquidaciones de cuotas de la Seguridad Social y por los conceptos de",
+    "token_count": 460
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-020",
+    "article_id": "ART-020",
+    "article_title": "Artículo 20. Formas de las liquidaciones administrativas de cuotas.",
+    "token_count": 248
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-021",
+    "article_id": "ART-021",
+    "article_title": "Artículo 21. Normas generales. Regímenes y supuestos especiales.",
+    "token_count": 206
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-173",
+    "article_id": null,
+    "article_title": "4. La aportación del trabajador en la cotización respecto del mismo por contingencias",
+    "token_count": 119
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-174",
+    "article_id": null,
+    "article_title": "5. El empresario que, habiendo efectuado tal descuento, no ingrese dentro de plazo las",
+    "token_count": 85
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-175",
+    "article_id": null,
+    "article_title": "6. No obstante lo dispuesto en los números anteriores, el sujeto responsable del pago o",
+    "token_count": 116
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-023-1",
+    "article_id": "ART-023",
+    "article_title": "Artículo 23. Base de cotización.",
+    "token_count": 306
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-023-2",
+    "article_id": "ART-023",
+    "article_title": "Artículo 23. Base de cotización.",
+    "token_count": 762
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-179-1",
+    "article_id": null,
+    "article_title": "2. Únicamente no se computarán en la base de cotización los siguientes conceptos:",
+    "token_count": 244
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-179-2",
+    "article_id": null,
+    "article_title": "2. Únicamente no se computarán en la base de cotización los siguientes conceptos:",
+    "token_count": 769
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-180",
+    "article_id": null,
+    "article_title": "3. Lo establecido en el apartado 2 se entiende sin perjuicio de las especialidades",
+    "token_count": 118
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-182",
+    "article_id": null,
+    "article_title": "1. La remuneración que obtengan los trabajadores en concepto de horas extraordinarias,",
+    "token_count": 101
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-183",
+    "article_id": null,
+    "article_title": "2. En la cotización adicional por horas extraordinarias motivadas por fuerza mayor se",
+    "token_count": 124
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-026",
+    "article_id": "ART-026",
+    "article_title": "Artículo 26. Bases por categorías.",
+    "token_count": 107
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-188",
+    "article_id": null,
+    "article_title": "2. Los grupos de categorías profesionales a que se refiere el número anterior son los",
+    "token_count": 154
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-190",
+    "article_id": null,
+    "article_title": "4. El Ministerio de Trabajo y Seguridad Social adaptará las cuantías de las bases",
+    "token_count": 82
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-027",
+    "article_id": "ART-027",
+    "article_title": "Artículo 27. Tipo de cotización.",
+    "token_count": 129
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-028",
+    "article_id": "ART-028",
+    "article_title": "Artículo 28. Contenido de la obligación de cotizar y circunstancias de la misma.",
+    "token_count": 202
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-029",
+    "article_id": "ART-029",
+    "article_title": "Artículo 29. Clérigos de la Iglesia Católica y demás Ministros de otras Iglesias y",
+    "token_count": 195
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-194",
+    "article_id": null,
+    "article_title": "1. La base de cotización será única y mensual para todas las contingencias y situaciones",
+    "token_count": 113
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-195",
+    "article_id": null,
+    "article_title": "2. La cuota se determinará deduciendo las fracciones correspondientes a las",
+    "token_count": 134
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-030",
+    "article_id": "ART-030",
+    "article_title": "Artículo 30. Jugadores profesionales de fútbol.",
+    "token_count": 134
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-199",
+    "article_id": null,
+    "article_title": "2. Las bases de cotización para contingencias comunes no podrán ser superiores ni",
+    "token_count": 163
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-200",
+    "article_id": null,
+    "article_title": "3. Para las contingencias de accidentes de trabajo y enfermedades profesionales y",
+    "token_count": 110
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-031",
+    "article_id": "ART-031",
+    "article_title": "Artículo 31. Cotización de los representantes de comercio.",
+    "token_count": 200
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-032",
+    "article_id": "ART-032",
+    "article_title": "Artículo 32. Artistas en espectáculos públicos.",
+    "token_count": 194
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-203",
+    "article_id": null,
+    "article_title": "2. La base de cotización para las contingencias comunes no podrá ser superior a las",
+    "token_count": 244
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-204",
+    "article_id": null,
+    "article_title": "3. A efectos de cotización por contingencias comunes, quedan incluidas en los grupos de",
+    "token_count": 637
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-205",
+    "article_id": null,
+    "article_title": "4. No obstante lo dispuesto en los números anteriores, el tope máximo de las bases de",
+    "token_count": 200
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-206-1",
+    "article_id": null,
+    "article_title": "5. Para determinar la base de cotización correspondiente a los trabajadores de cada",
+    "token_count": 335
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-206-2",
+    "article_id": null,
+    "article_title": "5. Para determinar la base de cotización correspondiente a los trabajadores de cada",
+    "token_count": 588
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-033",
+    "article_id": "ART-033",
+    "article_title": "Artículo 33. Profesionales taurinos.",
+    "token_count": 127
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-209",
+    "article_id": null,
+    "article_title": "2. La base de cotización para las contingencias comunes no podrá ser inferior ni superior",
+    "token_count": 160
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-026",
+    "article_id": "ART-026",
+    "article_title": "artículo 26, las siguientes categorías de profesionales taurinos:",
+    "token_count": 122
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-212",
+    "article_id": null,
+    "article_title": "4. No obstante lo dispuesto en los números anteriores, el tope máximo de las bases de",
+    "token_count": 195
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-213",
+    "article_id": null,
+    "article_title": "5. Para determinar la base de cotización correspondiente a cada empresa, se seguirá el",
+    "token_count": 479
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-217",
+    "article_id": null,
+    "article_title": "1. La base de cotización para todas las contingencias y situaciones amparadas por la",
+    "token_count": 213
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-035",
+    "article_id": "ART-035",
+    "article_title": "Artículo 35. Régimen jurídico.",
+    "token_count": 193
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-039",
+    "article_id": "ART-039",
+    "article_title": "Artículo 39. Contenido de la obligación de cotizar.",
+    "token_count": 404
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-040",
+    "article_id": "ART-040",
+    "article_title": "Artículo 40. Liquidación de la cuota.",
+    "token_count": 271
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-235",
+    "article_id": null,
+    "article_title": "1. La cotización por las contingencias de accidentes de trabajo y enfermedades",
+    "token_count": 176
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-237",
+    "article_id": null,
+    "article_title": "2. La base de cotización por las contingencias de accidentes de trabajo y enfermedades",
+    "token_count": 97
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-239",
+    "article_id": null,
+    "article_title": "4. El nacimiento, duración y extinción de la obligación de la empresa de cotizar por estas",
+    "token_count": 120
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-240",
+    "article_id": null,
+    "article_title": "5. La liquidación, presentación y pago de estas cuotas por contingencias profesionales",
+    "token_count": 81
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-243",
+    "article_id": null,
+    "article_title": "2. Las bases diarias de cotización por jornadas reales, correspondientes a cada uno de",
+    "token_count": 119
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-246",
+    "article_id": null,
+    "article_title": "5. El período de liquidación de las cuotas por jornadas reales será mensual, siendo la",
+    "token_count": 269
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-248",
+    "article_id": null,
+    "article_title": "2. Los sujetos de la obligación de cotizar en este régimen especial son también",
+    "token_count": 275
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-044",
+    "article_id": "ART-044",
+    "article_title": "Artículo 44. Bases y tipos de cotización.",
+    "token_count": 144
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-251",
+    "article_id": null,
+    "article_title": "2. La base de cotización de los trabajadores autónomos deberá quedar comprendida,",
+    "token_count": 355
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-308",
+    "article_id": "ART-308",
+    "article_title": "artículo 308 del texto refundido de la Ley General de la Seguridad Social o en los términos",
+    "token_count": 173
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-253",
+    "article_id": null,
+    "article_title": "3. Con independencia de lo indicado en el apartado anterior, la base de cotización o, en",
+    "token_count": 303
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-305",
+    "article_id": "ART-305",
+    "article_title": "artículo 305.2 del texto refundido de la Ley General de la Seguridad Social, no podrán elegir",
+    "token_count": 114
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-308-1",
+    "article_id": "ART-308",
+    "article_title": "artículo 308.1. del texto refundido de la Ley General de la Seguridad Social, la base de",
+    "token_count": 847
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-256",
+    "article_id": null,
+    "article_title": "4. Los trabajadores autónomos deberán elegir, en el mismo momento de solicitar su alta,",
+    "token_count": 113
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-308",
+    "article_id": "ART-308",
+    "article_title": "artículo 308 del texto refundido de la Ley General de la Seguridad Social y en este",
+    "token_count": 502
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-259",
+    "article_id": null,
+    "article_title": "6. Los tipos de cotización aplicables para la cobertura de las distintas contingencias y",
+    "token_count": 76
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-262",
+    "article_id": null,
+    "article_title": "2. Junto con la solicitud de cambio de su base de cotización mensual, los trabajadores",
+    "token_count": 162
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-264",
+    "article_id": null,
+    "article_title": "1. La cotización a este régimen especial correspondiente a cada ejercicio anual será",
+    "token_count": 744
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-265-1",
+    "article_id": null,
+    "article_title": "2. Para determinar si procede o no la regularización y, en su caso, el importe de la misma",
+    "token_count": 473
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-265-2",
+    "article_id": null,
+    "article_title": "2. Para determinar si procede o no la regularización y, en su caso, el importe de la misma",
+    "token_count": 1158
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-265-3",
+    "article_id": null,
+    "article_title": "2. Para determinar si procede o no la regularización y, en su caso, el importe de la misma",
+    "token_count": 840
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-267",
+    "article_id": null,
+    "article_title": "4. En el supuesto de trabajadores autónomos artistas que se hayan acogido a la",
+    "token_count": 562
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-268",
+    "article_id": null,
+    "article_title": "5. En el caso de los trabajadores autónomos, incluidos los socios trabajadores de las",
+    "token_count": 589
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-271",
+    "article_id": null,
+    "article_title": "1. El período de liquidación de la obligación de cotizar al Régimen Especial de los",
+    "token_count": 240
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-046",
+    "article_id": "ART-046",
+    "article_title": "artículo 46.2.a) del Reglamento general sobre inscripción de empresas y afiliación, altas,",
+    "token_count": 208
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-046",
+    "article_id": "ART-046",
+    "article_title": "artículo 46.4.a) del Reglamento general sobre inscripción de empresas y afiliación, altas,",
+    "token_count": 509
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-276",
+    "article_id": null,
+    "article_title": "4. La cotización por las prestaciones de incapacidad temporal derivada de contingencias",
+    "token_count": 251
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-048",
+    "article_id": "ART-048",
+    "article_title": "artículo 48.4 del reglamento general antes citado, el contenido de la obligación de cotizar",
+    "token_count": 301
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-278",
+    "article_id": null,
+    "article_title": "5. La cotización por las contingencias de accidentes de trabajo y enfermedades",
+    "token_count": 323
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-279",
+    "article_id": null,
+    "article_title": "6. En lo no previsto en los apartados precedentes, el contenido de la obligación de",
+    "token_count": 79
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-281",
+    "article_id": null,
+    "article_title": "1. Los trabajadores autónomos que, en razón de un trabajo por cuenta ajena",
+    "token_count": 333
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-282",
+    "article_id": null,
+    "article_title": "2. Los pensionistas de jubilación, en su modalidad contributiva, que permanezcan en alta",
+    "token_count": 345
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-283",
+    "article_id": null,
+    "article_title": "3. Las personas trabajadoras por cuenta propia o autónomas que hayan alcanzado la",
+    "token_count": 144
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-284",
+    "article_id": null,
+    "article_title": "4. Durante la percepción de la prestación económica por cese de actividad, la base de",
+    "token_count": 167
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-285",
+    "article_id": null,
+    "article_title": "5. En el supuesto de trabajadoras autónomas víctimas de violencia de género que cesen",
+    "token_count": 163
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-289",
+    "article_id": null,
+    "article_title": "2. Respecto de los trabajadores por cuenta ajena, para la cotización por contingencias",
+    "token_count": 253
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-290",
+    "article_id": null,
+    "article_title": "3. Respecto a los trabajadores por cuenta propia, la cotización a este régimen especial",
+    "token_count": 277
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-292",
+    "article_id": null,
+    "article_title": "1. La cotización para todas las contingencias y situaciones protegidas en el Régimen",
+    "token_count": 259
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-293",
+    "article_id": null,
+    "article_title": "2. La fijación de los tipos de cotización respecto a los trabajadores por cuenta ajena",
+    "token_count": 87
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-295",
+    "article_id": null,
+    "article_title": "1. Lo dispuesto en los artículos 44 a 46 de este reglamento en cuanto a la elección de",
+    "token_count": 201
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-298",
+    "article_id": null,
+    "article_title": "1. Respecto de los trabajadores por cuenta ajena incluidos en este régimen especial, el",
+    "token_count": 90
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-299",
+    "article_id": null,
+    "article_title": "2. Respecto de los trabajadores por cuenta propia incluidos en este régimen especial, el",
+    "token_count": 94
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-055",
+    "article_id": "ART-055",
+    "article_title": "Artículo 55. Supuestos especiales de cotización.",
+    "token_count": 97
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-048",
+    "article_id": "ART-048",
+    "article_title": "2. Lo previsto en el artículo 48 respecto a los supuestos especiales de cotización al",
+    "token_count": 77
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-305",
+    "article_id": null,
+    "article_title": "2. El Ministerio de Trabajo y Seguridad Social determinará las bases de cotización",
+    "token_count": 203
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-307",
+    "article_id": null,
+    "article_title": "25. Asimismo, las bases de cotización normalizadas estarán sujetas a los límites relativos de",
+    "token_count": 153
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-311",
+    "article_id": null,
+    "article_title": "2. En las situaciones de incapacidad temporal, maternidad, paternidad, riesgo durante el",
+    "token_count": 243
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-313",
+    "article_id": null,
+    "article_title": "1. Los tipos de cotización a este Régimen Especial, así como su distribución, para",
+    "token_count": 94
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-314",
+    "article_id": null,
+    "article_title": "2. En los casos en que la base normalizada no esté sujeta a la limitación de la base",
+    "token_count": 120
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-319",
+    "article_id": null,
+    "article_title": "4. La obligación de cotizar nace por el hecho de matricularse el estudiante en centro",
+    "token_count": 98
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-061",
+    "article_id": "ART-061",
+    "article_title": "Artículo 61. Remisión a otras normas.",
+    "token_count": 195
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-322",
+    "article_id": null,
+    "article_title": "1. Cuando los sujetos obligados a cotizar a alguno de los Regímenes del sistema de la",
+    "token_count": 179
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-323",
+    "article_id": null,
+    "article_title": "2. Los coeficientes a que se refiere el apartado anterior se determinarán teniendo en",
+    "token_count": 167
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-325",
+    "article_id": null,
+    "article_title": "1. La cuota que corresponde satisfacer en concepto de asistencia sanitaria, en favor de",
+    "token_count": 168
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-326",
+    "article_id": null,
+    "article_title": "2. La cuota fija por beneficiario en concepto de asistencia médico-farmacéutica y",
+    "token_count": 344
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-328",
+    "article_id": null,
+    "article_title": "1. Respecto de los aprendices que tuviere contratados, el empresario estará obligado a",
+    "token_count": 284
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-331",
+    "article_id": null,
+    "article_title": "1. Respecto de los trabajadores por cuenta ajena en virtud de contratos a tiempo parcial",
+    "token_count": 135
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-332",
+    "article_id": null,
+    "article_title": "2. La base de cotización así determinada no podrá ser inferior:",
+    "token_count": 266
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-333-1",
+    "article_id": null,
+    "article_title": "3. Respecto de los trabajadores con contrato a tiempo parcial, que hayan acordado con",
+    "token_count": 178
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-333-2",
+    "article_id": null,
+    "article_title": "3. Respecto de los trabajadores con contrato a tiempo parcial, que hayan acordado con",
+    "token_count": 633
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-334",
+    "article_id": null,
+    "article_title": "4. Durante las situaciones de incapacidad temporal, maternidad, paternidad, riesgo",
+    "token_count": 171
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-336",
+    "article_id": null,
+    "article_title": "6. Lo dispuesto en los apartados 1, 2 y 3 anteriores será de aplicación a los socios",
+    "token_count": 388
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-066",
+    "article_id": "ART-066",
+    "article_title": "Artículo 66. Cotización en supuestos de reducción de jornada de trabajo con disminución",
+    "token_count": 148
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-067",
+    "article_id": "ART-067",
+    "article_title": "Artículo 67. Mejoras de las bases de cotización.",
+    "token_count": 116
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-341",
+    "article_id": null,
+    "article_title": "1. La obligación de cotizar continuará en la situación de incapacidad temporal, cualquiera",
+    "token_count": 105
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-344",
+    "article_id": null,
+    "article_title": "4. Cuando los trabajadores por cuenta ajena o asimilados compatibilicen la percepción",
+    "token_count": 174
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-345",
+    "article_id": null,
+    "article_title": "5. A efectos de cotización por accidentes de trabajo y enfermedades profesionales",
+    "token_count": 80
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-346",
+    "article_id": null,
+    "article_title": "6. Durante las situaciones de maternidad, paternidad, riesgo durante el embarazo y",
+    "token_count": 216
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-348",
+    "article_id": null,
+    "article_title": "1. En los supuestos en que se halle establecido que el trabajador por cuenta ajena deba",
+    "token_count": 167
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-349",
+    "article_id": null,
+    "article_title": "2. En los supuestos a que se refiere el apartado anterior, salvo que en las normas",
+    "token_count": 105
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-350",
+    "article_id": null,
+    "article_title": "3. Durante las situaciones de asimilación al alta por cese anticipado de la actividad",
+    "token_count": 171
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-352",
+    "article_id": null,
+    "article_title": "1. Durante la situación legal de desempleo, la base de cotización a la Seguridad Social",
+    "token_count": 386
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-353",
+    "article_id": null,
+    "article_title": "2. Las peculiaridades de la obligación de cotizar a la Seguridad Social o las cotizaciones",
+    "token_count": 91
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-070",
+    "article_id": "ART-070",
+    "article_title": "Artículo 70 bis. Cotización por determinadas remuneraciones, gratificaciones e",
+    "token_count": 328
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-071",
+    "article_id": "ART-071",
+    "article_title": "Artículo 71. Norma general.",
+    "token_count": 296
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-072",
+    "article_id": "ART-072",
+    "article_title": "Artículo 72. Normas comunes.",
+    "token_count": 85
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-357",
+    "article_id": null,
+    "article_title": "2. La regulación de dichos sistemas especiales se ajustará a los principios siguientes:",
+    "token_count": 331
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-359",
+    "article_id": null,
+    "article_title": "1. La cotización adicional de solidaridad con relación a las retribuciones a que se refiere",
+    "token_count": 378
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-029",
+    "article_id": "ART-029",
+    "article_title": "2. En aplicación de lo dispuesto en el artículo 29.2 del texto refundido de la Ley General",
+    "token_count": 158
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-361",
+    "article_id": null,
+    "article_title": "3. Corresponde a la Inspección de Trabajo y Seguridad Social, en el ejercicio de sus",
+    "token_count": 160
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-073",
+    "article_id": "ART-073",
+    "article_title": "Artículo 73. Atribución de funciones.",
+    "token_count": 197
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-366",
+    "article_id": null,
+    "article_title": "1. Las liquidaciones de las deudas con las entidades gestoras de la Seguridad Social y",
+    "token_count": 131
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-367",
+    "article_id": null,
+    "article_title": "2. Cuando las liquidaciones de dichas deudas sean realizadas por la Tesorería General",
+    "token_count": 89
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-369",
+    "article_id": null,
+    "article_title": "3. Las comunicaciones y reclamaciones a que se refieren los apartados anteriores",
+    "token_count": 157
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-373",
+    "article_id": null,
+    "article_title": "2. Asimismo están obligadas a efectuar dichas aportaciones las empresas autorizadas",
+    "token_count": 167
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-076",
+    "article_id": "ART-076",
+    "article_title": "Artículo 76. Porcentajes.",
+    "token_count": 220
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-077",
+    "article_id": "ART-077",
+    "article_title": "Artículo 77. Determinación de las aportaciones.",
+    "token_count": 154
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-075",
+    "article_id": "ART-075",
+    "article_title": "2. Las aportaciones de las empresas a que se refiere el artículo 75.2 estarán constituidas",
+    "token_count": 245
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-378",
+    "article_id": null,
+    "article_title": "1. La determinación del valor actual del capital coste de las pensiones, así como del",
+    "token_count": 126
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-379",
+    "article_id": null,
+    "article_title": "2. Para la determinación de los capitales coste de pensiones y otras prestaciones",
+    "token_count": 108
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-069",
+    "article_id": "ART-069",
+    "article_title": "artículo 69 del Reglamento general de recaudación de la Seguridad Social, se aplicarán en el",
+    "token_count": 407
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-381",
+    "article_id": null,
+    "article_title": "3. Las tablas y tasas de interés y, en su caso, de revalorización, a que se refiere el",
+    "token_count": 116
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-382",
+    "article_id": null,
+    "article_title": "4. El importe de las cantidades a tanto alzado o prestación de cuantía fija o periódica no",
+    "token_count": 248
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-385",
+    "article_id": null,
+    "article_title": "2. La aportación que, como contraprestación a su cuota de responsabilidad por las",
+    "token_count": 215
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-387",
+    "article_id": null,
+    "article_title": "1. Cuando las Mutuas de Accidentes de Trabajo y Enfermedades Profesionales de la",
+    "token_count": 339
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-082",
+    "article_id": "ART-082",
+    "article_title": "Artículo 82. Liquidación de sanciones.",
+    "token_count": 114
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-393",
+    "article_id": null,
+    "article_title": "1. Los recargos sobre las prestaciones económicas que tengan su causa en accidente",
+    "token_count": 126
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-398",
+    "article_id": null,
+    "article_title": "2. En las demás deudas con la Seguridad Social en que deban pagarse intereses, se",
+    "token_count": 100
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-400",
+    "article_id": null,
+    "article_title": "1. La determinación del importe de los reintegros de los créditos laborales y de los",
+    "token_count": 84
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-401",
+    "article_id": null,
+    "article_title": "2. En defecto de pacto, la Tesorería General de la Seguridad Social efectuará la",
+    "token_count": 172
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-086",
+    "article_id": "ART-086",
+    "article_title": "Artículo 86. Convenios sobre premios de gestión y otras contraprestaciones.",
+    "token_count": 116
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-404",
+    "article_id": null,
+    "article_title": "1. En la liquidación de las contraprestaciones e indemnizaciones que procedan en los",
+    "token_count": 91
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-405",
+    "article_id": null,
+    "article_title": "2. La liquidación de las contraprestaciones e indemnizaciones que procedan en los",
+    "token_count": 212
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-410",
+    "article_id": null,
+    "article_title": "1. La determinación del importe de las aportaciones por la integración, en los Regímenes",
+    "token_count": 212
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-411",
+    "article_id": null,
+    "article_title": "2. En todo caso, el Ministerio de Trabajo y Seguridad Social comunicará el importe de la",
+    "token_count": 91
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-414",
+    "article_id": null,
+    "article_title": "1. Cuando, por decisión de la entidad gestora o colaboradora o por resolución judicial, se",
+    "token_count": 223
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-415",
+    "article_id": null,
+    "article_title": "2. La Tesorería General procederá, en su caso, a la totalización de los pagos de las",
+    "token_count": 124
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-418",
+    "article_id": null,
+    "article_title": "1. Los actos realizados por la Tesorería General de la Seguridad Social para la",
+    "token_count": 254
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-419",
+    "article_id": null,
+    "article_title": "2. Las administraciones públicas y las entidades y organismos de ellas dependientes no",
+    "token_count": 95
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-420",
+    "article_id": null,
+    "article_title": "3. Las demás liquidaciones de la Tesorería General u otros organismos o",
+    "token_count": 311
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-422",
+    "article_id": null,
+    "article_title": "2. Cuando la formalización de la protección de las contingencias de accidentes de",
+    "token_count": 257
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-038",
+    "article_id": "ART-038",
+    "article_title": "1. Las Administraciones públicas que, conforme a lo establecido en el artículo 38 del",
+    "token_count": 175
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-426",
+    "article_id": null,
+    "article_title": "1. La utilización de soportes, medios y aplicaciones electrónicos, informáticos y",
+    "token_count": 112
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-427",
+    "article_id": null,
+    "article_title": "2. Los datos y demás información acreditativos de estar al corriente en el cumplimiento",
+    "token_count": 330
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-428",
+    "article_id": null,
+    "article_title": "1. No obstante lo establecido en los artículos 31, 32 y 33 del presente Reglamento, las",
+    "token_count": 131
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-429",
+    "article_id": null,
+    "article_title": "2. Los representantes de comercio y profesionales taurinos que viniesen cotizando, a",
+    "token_count": 286
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-430",
+    "article_id": null,
+    "article_title": "1. Quedan derogadas las siguientes disposiciones:",
+    "token_count": 466
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-028",
+    "article_id": "ART-028",
+    "article_title": "Artículo 28. Contenido de la obligación de cotizar y circunstancias de la misma.................",
+    "token_count": 85
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-102",
+    "article_id": null,
+    "article_title": "2. La gestión liquidatoria en el ámbito de la Seguridad Social consiste en la función",
+    "token_count": 142
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-002",
+    "article_id": "ART-002",
+    "article_title": "Artículo 2. Ámbito.",
+    "token_count": 137
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-105",
+    "article_id": null,
+    "article_title": "3. Las normas establecidas en este Reglamento no serán de aplicación a los supuestos",
+    "token_count": 484
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-003",
+    "article_id": "ART-003",
+    "article_title": "Artículo 3. Competencia material y su regulación.",
+    "token_count": 130
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-107",
+    "article_id": null,
+    "article_title": "2. Con independencia de las competencias atribuidas por la legislación a la Inspección",
+    "token_count": 223
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-004",
+    "article_id": "ART-004",
+    "article_title": "Artículo 4. Competencia funcional y territorial.",
+    "token_count": 241
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-110",
+    "article_id": null,
+    "article_title": "2. Las funciones liquidatorias de las deudas con la Seguridad Social atribuidas a la",
+    "token_count": 84
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-112",
+    "article_id": null,
+    "article_title": "1. Los actos de determinación de los sujetos, objeto, cuantía y contenido de las deudas",
+    "token_count": 103
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-142",
+    "article_id": null,
+    "article_title": "1. La obligación de cotizar a la Seguridad Social se mantendrá por todo el período en",
+    "token_count": 158
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-147",
+    "article_id": null,
+    "article_title": "3. Cuando la Tesorería General de la Seguridad Social curse la baja de oficio, por",
+    "token_count": 158
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-127",
+    "article_id": "ART-127",
+    "article_title": "artículo 127 de la Ley General de la Seguridad Social, en los artículos 42 y 44 del texto",
+    "token_count": 135
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-043",
+    "article_id": "ART-043",
+    "article_title": "artículo 43 de la Ley 35/2006, de 28 de noviembre, del Impuesto sobre la Renta de las",
+    "token_count": 118
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-189",
+    "article_id": null,
+    "article_title": "3. La Dirección General de la Tesorería General de la Seguridad Social es el órgano",
+    "token_count": 156
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-197",
+    "article_id": null,
+    "article_title": "3. A los efectos previstos en los números anteriores, las Diócesis, las Iglesias, las",
+    "token_count": 93
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-003",
+    "article_id": "ART-003",
+    "article_title": "artículo 3 del Reglamento General citado en el párrafo anterior, que presten servicio a varios",
+    "token_count": 89
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-242",
+    "article_id": null,
+    "article_title": "1. Están obligados a cotizar al Régimen Especial Agrario de la Seguridad Social en",
+    "token_count": 117
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-258",
+    "article_id": null,
+    "article_title": "5. En el mismo momento de solicitar el alta en este régimen, los trabajadores deberán",
+    "token_count": 90
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-261",
+    "article_id": null,
+    "article_title": "1. Los trabajadores incluidos en el campo de aplicación de este régimen especial podrán",
+    "token_count": 231
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-266",
+    "article_id": null,
+    "article_title": "3. En el supuesto de trabajadores autónomos que, en el período anual objeto de",
+    "token_count": 235
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-051",
+    "article_id": "ART-051",
+    "article_title": "Artículo 51. Sujetos de la obligación de cotizar.",
+    "token_count": 127
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-056",
+    "article_id": "ART-056",
+    "article_title": "Artículo 56. Sujetos de la obligación de cotizar.",
+    "token_count": 99
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-364",
+    "article_id": null,
+    "article_title": "2. Las comprobaciones sobre la concurrencia de los concretos supuestos de hecho que",
+    "token_count": 121
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-068",
+    "article_id": "ART-068",
+    "article_title": "artículo 68 del texto refundido de la Ley General de la Seguridad Social, aprobado por el",
+    "token_count": 107
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-384",
+    "article_id": null,
+    "article_title": "1. Las Mutuas de Accidentes de Trabajo y Enfermedades Profesionales de la Seguridad",
+    "token_count": 130
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-388",
+    "article_id": null,
+    "article_title": "2. Cuando fueren otros los sistemas de compensación de resultados de la gestión del",
+    "token_count": 111
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-081",
+    "article_id": "ART-081",
+    "article_title": "Artículo 81. Liquidación de los descuentos de la industria farmacéutica.",
+    "token_count": 154
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-394",
+    "article_id": null,
+    "article_title": "2. El porcentaje de tales recargos será determinado en la resolución del Instituto",
+    "token_count": 91
+  },
+  {
+    "chunk_id": "SS_COTIZACION-ART-078",
+    "article_id": "ART-078",
+    "article_title": "artículo 78 de este Reglamento, para su pago conforme a lo previsto en el artículo 96 del",
+    "token_count": 102
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-397",
+    "article_id": null,
+    "article_title": "1. Las deudas cuyo objeto esté constituido por recargos de mora o de apremio, cuando",
+    "token_count": 82
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-407",
+    "article_id": null,
+    "article_title": "1. La determinación de las aportaciones por ayudas equivalentes a jubilaciones",
+    "token_count": 76
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-408",
+    "article_id": null,
+    "article_title": "2. La autoridad que hubiere concedido las ayudas citadas en el número anterior dará",
+    "token_count": 129
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-431",
+    "article_id": null,
+    "article_title": "10. Los artículos 4.º, 6.º, 7.º, 8.ºy 14 del Real Decreto 2621/1986, de 24 de diciembre,",
+    "token_count": 107
+  },
+  {
+    "chunk_id": "SS_COTIZACION-SEC-435",
+    "article_id": null,
+    "article_title": "2. Asimismo, quedan derogadas cuantas disposiciones de igual o inferior rango se",
+    "token_count": 121
+  }
+]

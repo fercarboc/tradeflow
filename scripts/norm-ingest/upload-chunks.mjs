@@ -69,15 +69,23 @@ export async function uploadChunks(chunksPath, documentMeta) {
 
   // 1. Registrar o actualizar el documento
   const docId = await upsertDocument({
-    category:         documentMeta.category,
-    title:            documentMeta.title,
-    boe_ref:          documentMeta.boeRef,
-    version:          documentMeta.version,
-    valid_from:       documentMeta.validFrom || null,
-    status:           'processing',
-    oficio_tags:      documentMeta.oficioTags || [],
-    plan_required:    documentMeta.planRequired || 'basico',
-    last_verified_at: new Date().toISOString().slice(0,10),
+    category:            documentMeta.category,
+    title:               documentMeta.title,
+    boe_ref:             documentMeta.boeRef,
+    version:             documentMeta.version,
+    valid_from:          documentMeta.validFrom || null,
+    status:              'processing',
+    oficio_tags:         documentMeta.oficioTags || [],
+    plan_required:       documentMeta.planRequired || 'basico',
+    last_verified_at:    new Date().toISOString().slice(0,10),
+    // Campos extendidos (Asistente Integral v2)
+    organismo_emisor:    documentMeta.organismoEmisor   || 'BOE',
+    fecha_publicacion:   documentMeta.fechaPublicacion  || null,
+    fecha_derogacion:    documentMeta.fechaDerogacion   || null,
+    ambito_territorial:  documentMeta.ambitoTerritorial || 'estatal',
+    territorio:          documentMeta.territorio        || null,
+    tipo_documento:      documentMeta.tipoDocumento     || 'reglamento',
+    numero_consulta:     documentMeta.numeroConsulta    || null,
   });
   console.log(`📌 Documento registrado: ${docId}`);
 
@@ -114,8 +122,10 @@ export async function uploadChunks(chunksPath, documentMeta) {
       token_count:   chunk.token_count,
       keywords:      chunk.keywords      || [],
       category:      chunk.category,
-      oficio:        chunk.oficio        || null,
-      activo:        true,
+      oficio:              chunk.oficio              || null,
+      naturaleza:          chunk.naturaleza          || 'obligacion_legal',
+      comunidad_autonoma:  chunk.comunidad_autonoma  || null,
+      activo:              true,
     }));
 
     // Subir a Supabase en sub-lotes

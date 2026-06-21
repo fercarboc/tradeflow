@@ -1,0 +1,3422 @@
+[
+  {
+    "chunk_id": "SS_LGSS-SEC-009",
+    "article_id": null,
+    "article_title": "Sección 3.ª Liquidación y recaudación de las cuotas y demás recursos del sistema...............",
+    "token_count": 98
+  },
+  {
+    "chunk_id": "SS_LGSS-SEC-023",
+    "article_id": null,
+    "article_title": "Sección 2.ª Mutuas colaboradoras con la Seguridad Social...............................",
+    "token_count": 129
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-III",
+    "article_id": "CAP-III",
+    "article_title": "CAPÍTULO III. Disposiciones comunes a las prestaciones no contributivas.......................",
+    "token_count": 164
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-082-1",
+    "article_id": "ART-082",
+    "article_title": "artículo 82 y siguientes de la Constitución Española, autorizó al Gobierno para aprobar un",
+    "token_count": 718
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-082-2",
+    "article_id": "ART-082",
+    "article_title": "artículo 82 y siguientes de la Constitución Española, autorizó al Gobierno para aprobar un",
+    "token_count": 1053
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-002",
+    "article_id": "ART-002",
+    "article_title": "Artículo 2. Principios y fines de la Seguridad Social.",
+    "token_count": 161
+  },
+  {
+    "chunk_id": "SS_LGSS-SEC-113",
+    "article_id": null,
+    "article_title": "Sección 1.ª Disposiciones generales",
+    "token_count": 782
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-011",
+    "article_id": "ART-011",
+    "article_title": "Artículo 11. Sistemas especiales.",
+    "token_count": 120
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-012",
+    "article_id": "ART-012",
+    "article_title": "Artículo 12. Familiares.",
+    "token_count": 449
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-014",
+    "article_id": "ART-014",
+    "article_title": "Artículo 14. Socios trabajadores y socios de trabajo de cooperativas.",
+    "token_count": 374
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-016-1",
+    "article_id": "ART-016",
+    "article_title": "Artículo 16. Afiliación, altas, bajas y variaciones de datos.",
+    "token_count": 829
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-017",
+    "article_id": "ART-017",
+    "article_title": "Artículo 17. Obligaciones de la Administración de la Seguridad Social y derecho a la",
+    "token_count": 467
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-018",
+    "article_id": "ART-018",
+    "article_title": "Artículo 18. Obligatoriedad.",
+    "token_count": 507
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-019",
+    "article_id": "ART-019",
+    "article_title": "Artículo 19. Bases y tipos de cotización.",
+    "token_count": 507
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-019",
+    "article_id": "ART-019",
+    "article_title": "Artículo 19 bis. Cotización adicional de solidaridad.",
+    "token_count": 275
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-020",
+    "article_id": "ART-020",
+    "article_title": "Artículo 20. Adquisición, mantenimiento, pérdida y reintegro de beneficios en la cotización.",
+    "token_count": 732
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-021",
+    "article_id": "ART-021",
+    "article_title": "Artículo 21. Competencia.",
+    "token_count": 285
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-022-1",
+    "article_id": "ART-022",
+    "article_title": "Artículo 22. Liquidación e ingreso de las cuotas y demás recursos.",
+    "token_count": 658
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-022-2",
+    "article_id": "ART-022",
+    "article_title": "Artículo 22. Liquidación e ingreso de las cuotas y demás recursos.",
+    "token_count": 163
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-023",
+    "article_id": "ART-023",
+    "article_title": "Artículo 23. Aplazamiento de pago.",
+    "token_count": 752
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-024",
+    "article_id": "ART-024",
+    "article_title": "Artículo 24. Prescripción.",
+    "token_count": 336
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-025",
+    "article_id": "ART-025",
+    "article_title": "Artículo 25. Prelación de créditos.",
+    "token_count": 265
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-026",
+    "article_id": "ART-026",
+    "article_title": "Artículo 26. Devolución de ingresos indebidos, reembolso de los costes de las garantías y",
+    "token_count": 642
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-028",
+    "article_id": "ART-028",
+    "article_title": "Artículo 28. Efectos de la falta de pago en plazo reglamentario.",
+    "token_count": 148
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-029-1",
+    "article_id": "ART-029",
+    "article_title": "Artículo 29. Cumplimiento de obligaciones en materia de liquidación de cuotas y",
+    "token_count": 568
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-029-2",
+    "article_id": "ART-029",
+    "article_title": "Artículo 29. Cumplimiento de obligaciones en materia de liquidación de cuotas y",
+    "token_count": 371
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-022",
+    "article_id": "ART-022",
+    "article_title": "artículo 22.1 no será exigible el cumplimiento de las obligaciones establecidas en los",
+    "token_count": 468
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-030",
+    "article_id": "ART-030",
+    "article_title": "Artículo 30. Recargos por ingreso fuera de plazo.",
+    "token_count": 395
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-031",
+    "article_id": "ART-031",
+    "article_title": "Artículo 31. Interés de demora.",
+    "token_count": 308
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-033-1",
+    "article_id": "ART-033",
+    "article_title": "Artículo 33. Reclamaciones de deudas.",
+    "token_count": 331
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-033-2",
+    "article_id": "ART-033",
+    "article_title": "Artículo 33. Reclamaciones de deudas.",
+    "token_count": 709
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-034-1",
+    "article_id": "ART-034",
+    "article_title": "Artículo 34. Actas de liquidación de cuotas.",
+    "token_count": 295
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-034-2",
+    "article_id": "ART-034",
+    "article_title": "Artículo 34. Actas de liquidación de cuotas.",
+    "token_count": 772
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-035",
+    "article_id": "ART-035",
+    "article_title": "Artículo 35. Determinación de las deudas por cuotas.",
+    "token_count": 465
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-022",
+    "article_id": "ART-022",
+    "article_title": "artículo 22.1 podrán ser objeto de comprobación por la Tesorería General de la Seguridad",
+    "token_count": 535
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-037",
+    "article_id": "ART-037",
+    "article_title": "Artículo 37. Medidas cautelares.",
+    "token_count": 733
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-038-1",
+    "article_id": "ART-038",
+    "article_title": "Artículo 38. Providencia de apremio, otros actos del procedimiento ejecutivo y",
+    "token_count": 595
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-038-2",
+    "article_id": "ART-038",
+    "article_title": "Artículo 38. Providencia de apremio, otros actos del procedimiento ejecutivo y",
+    "token_count": 676
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-040-2",
+    "article_id": "ART-040",
+    "article_title": "Artículo 40. Deber de información por parte de las personas y entidades sin personalidad,",
+    "token_count": 1146
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-040-3",
+    "article_id": "ART-040",
+    "article_title": "Artículo 40. Deber de información por parte de las personas y entidades sin personalidad,",
+    "token_count": 538
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-IV",
+    "article_id": "CAP-IV",
+    "article_title": "CAPÍTULO IV",
+    "token_count": 685
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-043",
+    "article_id": "ART-043",
+    "article_title": "Artículo 43. Mejoras voluntarias.",
+    "token_count": 131
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-044",
+    "article_id": "ART-044",
+    "article_title": "Artículo 44. Caracteres de las prestaciones.",
+    "token_count": 289
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-045",
+    "article_id": "ART-045",
+    "article_title": "Artículo 45. Responsabilidad en orden a las prestaciones.",
+    "token_count": 197
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-047",
+    "article_id": "ART-047",
+    "article_title": "Artículo 47. Requisito de estar al corriente en el pago de las cotizaciones.",
+    "token_count": 153
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-028",
+    "article_id": "ART-028",
+    "article_title": "artículo 28.2 del Decreto 2530/1970, de 20 de agosto, por el que se regula el Régimen",
+    "token_count": 558
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-048",
+    "article_id": "ART-048",
+    "article_title": "Artículo 48. Transformación de los plazos en días.",
+    "token_count": 93
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-049",
+    "article_id": "ART-049",
+    "article_title": "Artículo 49. Efecto de las cotizaciones superpuestas en varios regímenes en orden a las",
+    "token_count": 137
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-050",
+    "article_id": "ART-050",
+    "article_title": "Artículo 50. Cómputo de ingresos a efectos del reconocimiento o mantenimiento del",
+    "token_count": 172
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-050",
+    "article_id": "ART-050",
+    "article_title": "Artículo 50 bis. Resolución provisional de pensiones reconocidas al amparo de normas",
+    "token_count": 302
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-051",
+    "article_id": "ART-051",
+    "article_title": "Artículo 51. Residencia a efectos de prestaciones y de complementos por mínimos.",
+    "token_count": 354
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-052",
+    "article_id": "ART-052",
+    "article_title": "Artículo 52. Adopción de medidas cautelares.",
+    "token_count": 430
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-053",
+    "article_id": "ART-053",
+    "article_title": "Artículo 53. Prescripción.",
+    "token_count": 408
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-054",
+    "article_id": "ART-054",
+    "article_title": "Artículo 54. Caducidad.",
+    "token_count": 90
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-055",
+    "article_id": "ART-055",
+    "article_title": "Artículo 55. Reintegro de prestaciones indebidas.",
+    "token_count": 264
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-059-1",
+    "article_id": "ART-059",
+    "article_title": "Artículo 59. Complementos para pensiones inferiores a la mínima.",
+    "token_count": 802
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-060-1",
+    "article_id": "ART-060",
+    "article_title": "Artículo 60. Complemento de pensiones contributivas para la reducción de la brecha de",
+    "token_count": 169
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-060-2",
+    "article_id": "ART-060",
+    "article_title": "Artículo 60. Complemento de pensiones contributivas para la reducción de la brecha de",
+    "token_count": 1091
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-060-3",
+    "article_id": "ART-060",
+    "article_title": "Artículo 60. Complemento de pensiones contributivas para la reducción de la brecha de",
+    "token_count": 728
+  },
+  {
+    "chunk_id": "SS_LGSS-SEC-186",
+    "article_id": null,
+    "article_title": "Sección 5.ª Servicios sociales",
+    "token_count": 119
+  },
+  {
+    "chunk_id": "SS_LGSS-SEC-187",
+    "article_id": null,
+    "article_title": "Sección 6.ª Asistencia social",
+    "token_count": 330
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-V",
+    "article_id": "CAP-V",
+    "article_title": "CAPÍTULO V",
+    "token_count": 336
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-071-1",
+    "article_id": "ART-071",
+    "article_title": "Artículo 71. Suministro de información a la Administración de la Seguridad Social.",
+    "token_count": 268
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-071-2",
+    "article_id": "ART-071",
+    "article_title": "Artículo 71. Suministro de información a la Administración de la Seguridad Social.",
+    "token_count": 1224
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-071-3",
+    "article_id": "ART-071",
+    "article_title": "Artículo 71. Suministro de información a la Administración de la Seguridad Social.",
+    "token_count": 1167
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-071-4",
+    "article_id": "ART-071",
+    "article_title": "Artículo 71. Suministro de información a la Administración de la Seguridad Social.",
+    "token_count": 1114
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-072-1",
+    "article_id": "ART-072",
+    "article_title": "Artículo 72. Registro de Prestaciones Sociales Públicas.",
+    "token_count": 1142
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-072-2",
+    "article_id": "ART-072",
+    "article_title": "Artículo 72. Registro de Prestaciones Sociales Públicas.",
+    "token_count": 461
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-074",
+    "article_id": "ART-074",
+    "article_title": "Artículo 74 bis. Gerencia de Informática de la Seguridad Social.",
+    "token_count": 203
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-077-1",
+    "article_id": "ART-077",
+    "article_title": "Artículo 77. Reserva de datos.",
+    "token_count": 626
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-077-2",
+    "article_id": "ART-077",
+    "article_title": "Artículo 77. Reserva de datos.",
+    "token_count": 1240
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-077-3",
+    "article_id": "ART-077",
+    "article_title": "Artículo 77. Reserva de datos.",
+    "token_count": 350
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-080",
+    "article_id": "ART-080",
+    "article_title": "Artículo 80. Definición y objeto.",
+    "token_count": 660
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-081",
+    "article_id": "ART-081",
+    "article_title": "Artículo 81. Constitución de las mutuas colaboradoras con la Seguridad Social.",
+    "token_count": 449
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-082-1",
+    "article_id": "ART-082",
+    "article_title": "Artículo 82. Particularidades de las prestaciones y servicios gestionados.",
+    "token_count": 173
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-082-2",
+    "article_id": "ART-082",
+    "article_title": "Artículo 82. Particularidades de las prestaciones y servicios gestionados.",
+    "token_count": 1185
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-082-3",
+    "article_id": "ART-082",
+    "article_title": "Artículo 82. Particularidades de las prestaciones y servicios gestionados.",
+    "token_count": 1230
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-082-4",
+    "article_id": "ART-082",
+    "article_title": "Artículo 82. Particularidades de las prestaciones y servicios gestionados.",
+    "token_count": 1041
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-083-1",
+    "article_id": "ART-083",
+    "article_title": "Artículo 83. Régimen de opción de los empresarios asociados y de los trabajadores por",
+    "token_count": 134
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-083-2",
+    "article_id": "ART-083",
+    "article_title": "Artículo 83. Régimen de opción de los empresarios asociados y de los trabajadores por",
+    "token_count": 1127
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-084-1",
+    "article_id": "ART-084",
+    "article_title": "Artículo 84. Régimen económico-financiero.",
+    "token_count": 1136
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-085",
+    "article_id": "ART-085",
+    "article_title": "Artículo 85. Enumeración.",
+    "token_count": 105
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-086",
+    "article_id": "ART-086",
+    "article_title": "Artículo 86. La Junta General.",
+    "token_count": 456
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-088-1",
+    "article_id": "ART-088",
+    "article_title": "Artículo 88. El Director Gerente y el resto de personal de la mutua.",
+    "token_count": 1006
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-088-2",
+    "article_id": "ART-088",
+    "article_title": "Artículo 88. El Director Gerente y el resto de personal de la mutua.",
+    "token_count": 504
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-090",
+    "article_id": "ART-090",
+    "article_title": "Artículo 90. La Comisión de Prestaciones Especiales.",
+    "token_count": 277
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-091-1",
+    "article_id": "ART-091",
+    "article_title": "Artículo 91. Incompatibilidades y responsabilidades de los miembros de los órganos de",
+    "token_count": 1084
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-091-2",
+    "article_id": "ART-091",
+    "article_title": "Artículo 91. Incompatibilidades y responsabilidades de los miembros de los órganos de",
+    "token_count": 317
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-092",
+    "article_id": "ART-092",
+    "article_title": "Artículo 92. Patrimonio de la Seguridad Social adscrito a las mutuas.",
+    "token_count": 649
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-093",
+    "article_id": "ART-093",
+    "article_title": "Artículo 93. Patrimonio histórico.",
+    "token_count": 673
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-094",
+    "article_id": "ART-094",
+    "article_title": "Artículo 94. Contratación.",
+    "token_count": 471
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-095-1",
+    "article_id": "ART-095",
+    "article_title": "Artículo 95. Resultado económico y reservas.",
+    "token_count": 1115
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-095-2",
+    "article_id": "ART-095",
+    "article_title": "Artículo 95. Resultado económico y reservas.",
+    "token_count": 331
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-095-1",
+    "article_id": "ART-095",
+    "article_title": "artículo 95.1.a), se ingresará con anterioridad al 31 de julio de cada ejercicio en la cuenta",
+    "token_count": 711
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-097",
+    "article_id": "ART-097",
+    "article_title": "Artículo 97. Fondo de Contingencias Profesionales de la Seguridad Social.",
+    "token_count": 647
+  },
+  {
+    "chunk_id": "SS_LGSS-TIT-V",
+    "article_id": "TIT-V",
+    "article_title": "título V de la Ley 47/2003, de 26 de noviembre.",
+    "token_count": 376
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-099",
+    "article_id": "ART-099",
+    "article_title": "Artículo 99. Derecho de información, quejas y reclamaciones.",
+    "token_count": 385
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-100-2",
+    "article_id": "ART-100",
+    "article_title": "Artículo 100. Medidas cautelares y responsabilidad mancomunada.",
+    "token_count": 1072
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-100-3",
+    "article_id": "ART-100",
+    "article_title": "Artículo 100. Medidas cautelares y responsabilidad mancomunada.",
+    "token_count": 473
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-101",
+    "article_id": "ART-101",
+    "article_title": "Artículo 101. Disolución y liquidación.",
+    "token_count": 510
+  },
+  {
+    "chunk_id": "SS_LGSS-SEC-232",
+    "article_id": null,
+    "article_title": "Sección 3.ª Empresas",
+    "token_count": 600
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-VII",
+    "article_id": "CAP-VII",
+    "article_title": "CAPÍTULO VII",
+    "token_count": 366
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-105",
+    "article_id": "ART-105",
+    "article_title": "Artículo 105. Adquisición de bienes inmuebles.",
+    "token_count": 301
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-106",
+    "article_id": "ART-106",
+    "article_title": "Artículo 106. Enajenación de bienes inmuebles y de títulos valores.",
+    "token_count": 410
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-107",
+    "article_id": "ART-107",
+    "article_title": "Artículo 107. Arrendamiento y cesión de bienes inmuebles.",
+    "token_count": 365
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-109",
+    "article_id": "ART-109",
+    "article_title": "Artículo 109. Recursos generales.",
+    "token_count": 737
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-110",
+    "article_id": "ART-110",
+    "article_title": "Artículo 110. Sistema financiero.",
+    "token_count": 511
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-117",
+    "article_id": "ART-117",
+    "article_title": "Artículo 117. Constitución del Fondo de Reserva de la Seguridad Social.",
+    "token_count": 90
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-118",
+    "article_id": "ART-118",
+    "article_title": "Artículo 118. Dotación del Fondo.",
+    "token_count": 287
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-119",
+    "article_id": "ART-119",
+    "article_title": "Artículo 119. Determinación del excedente y de la cotización finalista.",
+    "token_count": 333
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-120",
+    "article_id": "ART-120",
+    "article_title": "Artículo 120. Procedimiento para la dotación del Fondo.",
+    "token_count": 237
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-123",
+    "article_id": "ART-123",
+    "article_title": "Artículo 123. Comité de Gestión del Fondo de Reserva de la Seguridad Social.",
+    "token_count": 343
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-124",
+    "article_id": "ART-124",
+    "article_title": "Artículo 124. Comisión Asesora de Inversiones del Fondo de Reserva de la Seguridad",
+    "token_count": 255
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-125",
+    "article_id": "ART-125",
+    "article_title": "Artículo 125. Comisión de Seguimiento del Fondo de Reserva de la Seguridad Social.",
+    "token_count": 366
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-127",
+    "article_id": "ART-127",
+    "article_title": "Artículo 127 bis. Mecanismo de Equidad Intergeneracional.",
+    "token_count": 472
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-128",
+    "article_id": "ART-128",
+    "article_title": "Artículo 128. Contratación.",
+    "token_count": 465
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-129-1",
+    "article_id": "ART-129",
+    "article_title": "Artículo 129. Normas de procedimiento, autenticación y firma.",
+    "token_count": 565
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-129-2",
+    "article_id": "ART-129",
+    "article_title": "Artículo 129. Normas de procedimiento, autenticación y firma.",
+    "token_count": 360
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-011",
+    "article_id": "ART-011",
+    "article_title": "artículo 11.2 de dicha ley, o en documento adjunto a los mismos, siempre que se acompañe",
+    "token_count": 298
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-130",
+    "article_id": "ART-130",
+    "article_title": "Artículo 130. Tramitación electrónica de procedimientos en materia de Seguridad Social.",
+    "token_count": 325
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-131",
+    "article_id": "ART-131",
+    "article_title": "Artículo 131. Aportaciones de datos de Seguridad Social por medios electrónicos.",
+    "token_count": 219
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-132",
+    "article_id": "ART-132",
+    "article_title": "Artículo 132. Notificaciones de actos administrativos por medios electrónicos.",
+    "token_count": 744
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-133",
+    "article_id": "ART-133",
+    "article_title": "Artículo 133. Competencias de la Inspección.",
+    "token_count": 345
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-135",
+    "article_id": "ART-135",
+    "article_title": "Artículo 135. Infracciones y sanciones.",
+    "token_count": 200
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-007",
+    "article_id": "ART-007",
+    "article_title": "artículo 7.1.a) de esta ley, salvo que por razón de su actividad deban quedar comprendidos",
+    "token_count": 484
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-305-1",
+    "article_id": "ART-305",
+    "article_title": "artículo 305.2.e).",
+    "token_count": 946
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-138",
+    "article_id": "ART-138",
+    "article_title": "Artículo 138. Inscripción de empresas.",
+    "token_count": 442
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-139",
+    "article_id": "ART-139",
+    "article_title": "Artículo 139. Afiliación, altas y bajas.",
+    "token_count": 327
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-140",
+    "article_id": "ART-140",
+    "article_title": "Artículo 140. Procedimiento y plazos.",
+    "token_count": 139
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-141",
+    "article_id": "ART-141",
+    "article_title": "Artículo 141. Sujetos obligados.",
+    "token_count": 135
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-142",
+    "article_id": "ART-142",
+    "article_title": "Artículo 142. Sujeto responsable.",
+    "token_count": 550
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-143",
+    "article_id": "ART-143",
+    "article_title": "Artículo 143. Nulidad de pactos.",
+    "token_count": 95
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-144",
+    "article_id": "ART-144",
+    "article_title": "Artículo 144. Duración de la obligación de cotizar.",
+    "token_count": 644
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-145",
+    "article_id": "ART-145",
+    "article_title": "Artículo 145. Tipo de cotización.",
+    "token_count": 183
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-146",
+    "article_id": "ART-146",
+    "article_title": "Artículo 146. Cotización por accidentes de trabajo y enfermedades profesionales.",
+    "token_count": 605
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-147-1",
+    "article_id": "ART-147",
+    "article_title": "Artículo 147. Base de cotización.",
+    "token_count": 664
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-147-2",
+    "article_id": "ART-147",
+    "article_title": "Artículo 147. Base de cotización.",
+    "token_count": 863
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-148",
+    "article_id": "ART-148",
+    "article_title": "Artículo 148. Topes máximo y mínimo de la base de cotización.",
+    "token_count": 278
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-149",
+    "article_id": "ART-149",
+    "article_title": "Artículo 149. Cotización adicional por horas extraordinarias.",
+    "token_count": 202
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-151",
+    "article_id": "ART-151",
+    "article_title": "Artículo 151. Cotización adicional en contratos de duración determinada.",
+    "token_count": 289
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-152",
+    "article_id": "ART-152",
+    "article_title": "Artículo 152. Cotización al Régimen General a partir de la edad de jubilación.",
+    "token_count": 328
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-153",
+    "article_id": "ART-153",
+    "article_title": "Artículo 153. Cotización en supuestos de compatibilidad de jubilación y trabajo.",
+    "token_count": 192
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-153",
+    "article_id": "ART-153",
+    "article_title": "Artículo 153 bis. Cotización en los supuestos de reducción de jornada o suspensión de",
+    "token_count": 201
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-273",
+    "article_id": "ART-273",
+    "article_title": "artículo 273.2 y en dicha disposición adicional, respectivamente.",
+    "token_count": 416
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-153",
+    "article_id": "ART-153",
+    "article_title": "Artículo 153 ter. Cotización de las personas pensionistas de jubilación cuando realicen",
+    "token_count": 190
+  },
+  {
+    "chunk_id": "SS_LGSS-SEC-301",
+    "article_id": null,
+    "article_title": "Sección 3.ª Recaudación",
+    "token_count": 196
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-155",
+    "article_id": "ART-155",
+    "article_title": "Artículo 155. Alcance de la acción protectora.",
+    "token_count": 112
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-161",
+    "article_id": "ART-161",
+    "article_title": "Artículo 161. Cuantía de las prestaciones.",
+    "token_count": 425
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-162",
+    "article_id": "ART-162",
+    "article_title": "Artículo 162. Caracteres de las prestaciones.",
+    "token_count": 194
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-163",
+    "article_id": "ART-163",
+    "article_title": "Artículo 163. Incompatibilidad de pensiones.",
+    "token_count": 254
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-164",
+    "article_id": "ART-164",
+    "article_title": "Artículo 164. Recargo de las prestaciones económicas derivadas de accidente de trabajo o",
+    "token_count": 297
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-165",
+    "article_id": "ART-165",
+    "article_title": "Artículo 165. Condiciones del derecho a las prestaciones.",
+    "token_count": 359
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-048",
+    "article_id": "ART-048",
+    "article_title": "artículo 48.8 del texto refundido de la Ley del Estatuto de los Trabajadores para supuestos",
+    "token_count": 224
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-166",
+    "article_id": "ART-166",
+    "article_title": "Artículo 166. Situaciones asimiladas a la de alta.",
+    "token_count": 549
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-167-1",
+    "article_id": "ART-167",
+    "article_title": "Artículo 167. Responsabilidad en orden a las prestaciones.",
+    "token_count": 165
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-167-2",
+    "article_id": "ART-167",
+    "article_title": "Artículo 167. Responsabilidad en orden a las prestaciones.",
+    "token_count": 725
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-168",
+    "article_id": "ART-168",
+    "article_title": "Artículo 168. Supuestos especiales de responsabilidad en orden a las prestaciones.",
+    "token_count": 794
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-V",
+    "article_id": "CAP-V",
+    "article_title": "CAPÍTULO V",
+    "token_count": 748
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-170-1",
+    "article_id": "ART-170",
+    "article_title": "Artículo 170. Competencias sobre los procesos de incapacidad temporal.",
+    "token_count": 1142
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-170-2",
+    "article_id": "ART-170",
+    "article_title": "Artículo 170. Competencias sobre los procesos de incapacidad temporal.",
+    "token_count": 405
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-171",
+    "article_id": "ART-171",
+    "article_title": "Artículo 171. Prestación económica.",
+    "token_count": 173
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-169",
+    "article_id": "ART-169",
+    "article_title": "artículo 169, siempre que, además de reunir la condición general exigida en el artículo 165.1,",
+    "token_count": 201
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-173",
+    "article_id": "ART-173",
+    "article_title": "Artículo 173. Nacimiento y duración del derecho al subsidio.",
+    "token_count": 563
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-174-1",
+    "article_id": "ART-174",
+    "article_title": "Artículo 174. Extinción del derecho al subsidio.",
+    "token_count": 739
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-174-2",
+    "article_id": "ART-174",
+    "article_title": "Artículo 174. Extinción del derecho al subsidio.",
+    "token_count": 865
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-175",
+    "article_id": "ART-175",
+    "article_title": "Artículo 175. Pérdida o suspensión del derecho al subsidio.",
+    "token_count": 243
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-VI",
+    "article_id": "CAP-VI",
+    "article_title": "CAPÍTULO VI",
+    "token_count": 243
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-178",
+    "article_id": "ART-178",
+    "article_title": "Artículo 178. Beneficiarios.",
+    "token_count": 629
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-049",
+    "article_id": "ART-049",
+    "article_title": "artículo 49.b) del texto refundido de la Ley del Estatuto Básico del Empleado Público, la edad",
+    "token_count": 126
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-179",
+    "article_id": "ART-179",
+    "article_title": "Artículo 179. Prestación económica.",
+    "token_count": 521
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-180",
+    "article_id": "ART-180",
+    "article_title": "Artículo 180. Pérdida o suspensión del derecho al subsidio por nacimiento y cuidado de",
+    "token_count": 100
+  },
+  {
+    "chunk_id": "SS_LGSS-SEC-334",
+    "article_id": null,
+    "article_title": "Sección 2.ª Supuesto especial",
+    "token_count": 160
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-182",
+    "article_id": "ART-182",
+    "article_title": "Artículo 182. Prestación económica.",
+    "token_count": 545
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-183",
+    "article_id": "ART-183",
+    "article_title": "Artículo 183. Situación protegida.",
+    "token_count": 233
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-184",
+    "article_id": "ART-184",
+    "article_title": "Artículo 184. Beneficiarios.",
+    "token_count": 237
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-185",
+    "article_id": "ART-185",
+    "article_title": "Artículo 185. Prestación económica.",
+    "token_count": 109
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-VIII",
+    "article_id": "CAP-VIII",
+    "article_title": "CAPÍTULO VIII",
+    "token_count": 189
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-187",
+    "article_id": "ART-187",
+    "article_title": "Artículo 187. Prestación económica.",
+    "token_count": 308
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-IX",
+    "article_id": "CAP-IX",
+    "article_title": "CAPÍTULO IX",
+    "token_count": 171
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-189",
+    "article_id": "ART-189",
+    "article_title": "Artículo 189. Prestación económica.",
+    "token_count": 132
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-190",
+    "article_id": "ART-190",
+    "article_title": "Artículo 190. Situación protegida.",
+    "token_count": 604
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-191",
+    "article_id": "ART-191",
+    "article_title": "Artículo 191. Beneficiarios.",
+    "token_count": 428
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-192",
+    "article_id": "ART-192",
+    "article_title": "Artículo 192. Prestación económica.",
+    "token_count": 293
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-XI",
+    "article_id": "CAP-XI",
+    "article_title": "CAPÍTULO XI",
+    "token_count": 583
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-195-1",
+    "article_id": "ART-195",
+    "article_title": "Artículo 195. Beneficiarios.",
+    "token_count": 495
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-195-2",
+    "article_id": "ART-195",
+    "article_title": "Artículo 195. Beneficiarios.",
+    "token_count": 371
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-196",
+    "article_id": "ART-196",
+    "article_title": "Artículo 196. Prestaciones económicas.",
+    "token_count": 738
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-197-1",
+    "article_id": "ART-197",
+    "article_title": "Artículo 197. Base reguladora de las pensiones de incapacidad permanente derivada de",
+    "token_count": 799
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-197-2",
+    "article_id": "ART-197",
+    "article_title": "Artículo 197. Base reguladora de las pensiones de incapacidad permanente derivada de",
+    "token_count": 124
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-198",
+    "article_id": "ART-198",
+    "article_title": "Artículo 198. Compatibilidades en el percibo de prestaciones económicas por incapacidad",
+    "token_count": 518
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-200",
+    "article_id": "ART-200",
+    "article_title": "Artículo 200. Calificación y revisión.",
+    "token_count": 705
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-201",
+    "article_id": "ART-201",
+    "article_title": "Artículo 201. Indemnizaciones por baremo.",
+    "token_count": 182
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-203",
+    "article_id": "ART-203",
+    "article_title": "Artículo 203. Incompatibilidad con las prestaciones por incapacidad permanente.",
+    "token_count": 130
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-204",
+    "article_id": "ART-204",
+    "article_title": "Artículo 204. Concepto.",
+    "token_count": 107
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205",
+    "article_id": "ART-205",
+    "article_title": "Artículo 205. Beneficiarios.",
+    "token_count": 564
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-206-2",
+    "article_id": "ART-206",
+    "article_title": "Artículo 206. Jubilación anticipada por razón de la actividad.",
+    "token_count": 732
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-207-1",
+    "article_id": "ART-207",
+    "article_title": "Artículo 207. Jubilación anticipada por causa no imputable al trabajador.",
+    "token_count": 1010
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-207-2",
+    "article_id": "ART-207",
+    "article_title": "Artículo 207. Jubilación anticipada por causa no imputable al trabajador.",
+    "token_count": 465
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-208-1",
+    "article_id": "ART-208",
+    "article_title": "Artículo 208. Jubilación anticipada por voluntad del interesado.",
+    "token_count": 853
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-209-1",
+    "article_id": "ART-209",
+    "article_title": "Artículo 209. Base reguladora de la pensión de jubilación.",
+    "token_count": 711
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-209-2",
+    "article_id": "ART-209",
+    "article_title": "Artículo 209. Base reguladora de la pensión de jubilación.",
+    "token_count": 352
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-210",
+    "article_id": "ART-210",
+    "article_title": "Artículo 210. Cuantía de la pensión.",
+    "token_count": 472
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-057",
+    "article_id": "ART-057",
+    "article_title": "artículo 57.",
+    "token_count": 252
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205",
+    "article_id": "ART-205",
+    "article_title": "artículo 205.1.a), siendo la fórmula de cálculo la siguiente:",
+    "token_count": 571
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-057",
+    "article_id": "ART-057",
+    "article_title": "artículo 57, los coeficientes reductores por edad se aplicarán sobre el indicado límite.",
+    "token_count": 199
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-137",
+    "article_id": "ART-137",
+    "article_title": "artículo 137.c).",
+    "token_count": 197
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-214-1",
+    "article_id": "ART-214",
+    "article_title": "Artículo 214. Pensión de jubilación activa.",
+    "token_count": 373
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-214-2",
+    "article_id": "ART-214",
+    "article_title": "Artículo 214. Pensión de jubilación activa.",
+    "token_count": 992
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-215-1",
+    "article_id": "ART-215",
+    "article_title": "Artículo 215. Jubilación parcial.",
+    "token_count": 1146
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-215-2",
+    "article_id": "ART-215",
+    "article_title": "Artículo 215. Jubilación parcial.",
+    "token_count": 485
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-XIV",
+    "article_id": "CAP-XIV",
+    "article_title": "CAPÍTULO XIV",
+    "token_count": 287
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-217",
+    "article_id": "ART-217",
+    "article_title": "Artículo 217. Sujetos causantes.",
+    "token_count": 435
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-218",
+    "article_id": "ART-218",
+    "article_title": "Artículo 218. Auxilio por defunción.",
+    "token_count": 125
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-219",
+    "article_id": "ART-219",
+    "article_title": "Artículo 219. Pensión de viudedad del cónyuge superviviente.",
+    "token_count": 489
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-220",
+    "article_id": "ART-220",
+    "article_title": "Artículo 220. Pensión de viudedad en supuestos de separación, divorcio o nulidad",
+    "token_count": 553
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-221-1",
+    "article_id": "ART-221",
+    "article_title": "Artículo 221. Pensión de viudedad de parejas de hecho.",
+    "token_count": 651
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-222",
+    "article_id": "ART-222",
+    "article_title": "Artículo 222. Prestación temporal de viudedad.",
+    "token_count": 217
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-223",
+    "article_id": "ART-223",
+    "article_title": "Artículo 223. Compatibilidad y extinción de las prestaciones de viudedad.",
+    "token_count": 179
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-224-1",
+    "article_id": "ART-224",
+    "article_title": "Artículo 224. Pensión de orfandad y prestación de orfandad.",
+    "token_count": 449
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-224-2",
+    "article_id": "ART-224",
+    "article_title": "Artículo 224. Pensión de orfandad y prestación de orfandad.",
+    "token_count": 924
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-225",
+    "article_id": "ART-225",
+    "article_title": "Artículo 225. Compatibilidad de la pensión y prestación de orfandad.",
+    "token_count": 441
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-226",
+    "article_id": "ART-226",
+    "article_title": "Artículo 226. Prestaciones en favor de familiares.",
+    "token_count": 377
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-221",
+    "article_id": "ART-221",
+    "article_title": "artículo 221 y los huérfanos tendrán derecho a una indemnización a tanto alzado, cuya",
+    "token_count": 162
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-228",
+    "article_id": "ART-228",
+    "article_title": "Artículo 228. Base reguladora de las prestaciones por muerte y supervivencia derivadas de",
+    "token_count": 162
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-161",
+    "article_id": "ART-161",
+    "article_title": "artículo 161.2, en función de las cotizaciones efectuadas por el causante. Esta limitación se",
+    "token_count": 343
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-230",
+    "article_id": "ART-230",
+    "article_title": "Artículo 230. Imprescriptibilidad.",
+    "token_count": 86
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-231",
+    "article_id": "ART-231",
+    "article_title": "Artículo 231. Impedimento para ser beneficiario de las prestaciones de muerte y",
+    "token_count": 451
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-232-1",
+    "article_id": "ART-232",
+    "article_title": "Artículo 232. Suspensión cautelar del abono de las prestaciones de muerte y",
+    "token_count": 932
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-233-1",
+    "article_id": "ART-233",
+    "article_title": "Artículo 233. Incremento de las pensiones de orfandad y en favor de familiares, en",
+    "token_count": 224
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-233-2",
+    "article_id": "ART-233",
+    "article_title": "Artículo 233. Incremento de las pensiones de orfandad y en favor de familiares, en",
+    "token_count": 609
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-234",
+    "article_id": "ART-234",
+    "article_title": "Artículo 234. Abono de las pensiones de orfandad, en determinados supuestos.",
+    "token_count": 339
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-XV",
+    "article_id": "CAP-XV",
+    "article_title": "CAPÍTULO XV",
+    "token_count": 174
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-236",
+    "article_id": "ART-236",
+    "article_title": "Artículo 236. Beneficios por cuidado de hijos o menores.",
+    "token_count": 332
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-237",
+    "article_id": "ART-237",
+    "article_title": "Artículo 237. Prestación familiar en su modalidad contributiva.",
+    "token_count": 747
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-238",
+    "article_id": "ART-238",
+    "article_title": "Artículo 238. Mejoras de la acción protectora.",
+    "token_count": 103
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-239",
+    "article_id": "ART-239",
+    "article_title": "Artículo 239. Mejora directa de las prestaciones.",
+    "token_count": 204
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-240",
+    "article_id": "ART-240",
+    "article_title": "Artículo 240. Modos de gestión de la mejora directa.",
+    "token_count": 155
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-241",
+    "article_id": "ART-241",
+    "article_title": "Artículo 241. Mejora por establecimiento de tipos de cotización adicionales.",
+    "token_count": 110
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-242",
+    "article_id": "ART-242",
+    "article_title": "Artículo 242. Incumplimientos en materia de accidentes de trabajo.",
+    "token_count": 145
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-243",
+    "article_id": "ART-243",
+    "article_title": "Artículo 243. Normas específicas para enfermedades profesionales.",
+    "token_count": 356
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-244",
+    "article_id": "ART-244",
+    "article_title": "Artículo 244. Responsabilidades por falta de reconocimientos médicos.",
+    "token_count": 496
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-245",
+    "article_id": "ART-245",
+    "article_title": "Artículo 245. Protección social.",
+    "token_count": 242
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-246",
+    "article_id": "ART-246",
+    "article_title": "Artículo 246. Cotización.",
+    "token_count": 139
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-247",
+    "article_id": "ART-247",
+    "article_title": "Artículo 247. Cómputo de los periodos de cotización.",
+    "token_count": 346
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-248-1",
+    "article_id": "ART-248",
+    "article_title": "Artículo 248. Cuantía de las prestaciones económicas.",
+    "token_count": 444
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-248-2",
+    "article_id": "ART-248",
+    "article_title": "Artículo 248. Cuantía de las prestaciones económicas.",
+    "token_count": 540
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-249",
+    "article_id": "ART-249",
+    "article_title": "Artículo 249. Acción protectora y cotización.",
+    "token_count": 88
+  },
+  {
+    "chunk_id": "SS_LGSS-SEC-425",
+    "article_id": null,
+    "article_title": "Sección 3.ª",
+    "token_count": 219
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-249-1",
+    "article_id": "ART-249",
+    "article_title": "Artículo 249 ter. Inactividad de artistas en espectáculos públicos incluidos en el Régimen",
+    "token_count": 1070
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-249-2",
+    "article_id": "ART-249",
+    "article_title": "Artículo 249 ter. Inactividad de artistas en espectáculos públicos incluidos en el Régimen",
+    "token_count": 283
+  },
+  {
+    "chunk_id": "SS_LGSS-TIT-II",
+    "article_id": "TIT-II",
+    "article_title": "título II del libro primero de la Ley de Propiedad Intelectual, aprobado por del Real Decreto",
+    "token_count": 607
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-250",
+    "article_id": "ART-250",
+    "article_title": "Artículo 250. Ámbito de aplicación.",
+    "token_count": 207
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-251",
+    "article_id": "ART-251",
+    "article_title": "Artículo 251. Acción protectora.",
+    "token_count": 261
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-253-1",
+    "article_id": "ART-253",
+    "article_title": "Artículo 253. Reglas de inclusión.",
+    "token_count": 813
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-253-2",
+    "article_id": "ART-253",
+    "article_title": "Artículo 253. Reglas de inclusión.",
+    "token_count": 1029
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-254",
+    "article_id": "ART-254",
+    "article_title": "Artículo 254. Afiliación, altas, bajas y variaciones de datos.",
+    "token_count": 203
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-255-1",
+    "article_id": "ART-255",
+    "article_title": "Artículo 255. Cotización.",
+    "token_count": 790
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-255-2",
+    "article_id": "ART-255",
+    "article_title": "Artículo 255. Cotización.",
+    "token_count": 478
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-256",
+    "article_id": "ART-256",
+    "article_title": "Artículo 256. Acción protectora.",
+    "token_count": 671
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-258",
+    "article_id": "ART-258",
+    "article_title": "Artículo 258. Conciertos para la prestación de servicios administrativos y sanitarios.",
+    "token_count": 184
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-260",
+    "article_id": "ART-260",
+    "article_title": "Artículo 260. Normas específicas en materia de accidentes de trabajo y enfermedades",
+    "token_count": 769
+  },
+  {
+    "chunk_id": "SS_LGSS-TIT-III",
+    "article_id": "TIT-III",
+    "article_title": "TÍTULO III",
+    "token_count": 460
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-263",
+    "article_id": "ART-263",
+    "article_title": "Artículo 263. Niveles de protección.",
+    "token_count": 147
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-274",
+    "article_id": "ART-274",
+    "article_title": "artículo 274.",
+    "token_count": 648
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-265",
+    "article_id": "ART-265",
+    "article_title": "Artículo 265. Acción protectora.",
+    "token_count": 437
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-264",
+    "article_id": "ART-264",
+    "article_title": "artículo 264 deberán reunir los requisitos siguientes:",
+    "token_count": 366
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-267-1",
+    "article_id": "ART-267",
+    "article_title": "Artículo 267. Situación legal de desempleo.",
+    "token_count": 165
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-267-2",
+    "article_id": "ART-267",
+    "article_title": "Artículo 267. Situación legal de desempleo.",
+    "token_count": 643
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-262-1",
+    "article_id": "ART-262",
+    "article_title": "artículo 262.2 de esta ley.",
+    "token_count": 374
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-262-2",
+    "article_id": "ART-262",
+    "article_title": "artículo 262.2 de esta ley.",
+    "token_count": 467
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-051",
+    "article_id": "ART-051",
+    "article_title": "artículo 51.4 del texto refundido de la Ley del Estatuto de los Trabajadores para los despidos",
+    "token_count": 433
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-037",
+    "article_id": "ART-037",
+    "article_title": "artículo 37 de la Ley Orgánica de garantía integral de la libertad sexual.",
+    "token_count": 135
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-268-1",
+    "article_id": "ART-268",
+    "article_title": "Artículo 268. Solicitud, nacimiento y conservación del derecho a las prestaciones.",
+    "token_count": 102
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-268-2",
+    "article_id": "ART-268",
+    "article_title": "Artículo 268. Solicitud, nacimiento y conservación del derecho a las prestaciones.",
+    "token_count": 877
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-295",
+    "article_id": "ART-295",
+    "article_title": "artículo 295.1, respecto al reintegro de prestaciones de cuyo pago sea directamente",
+    "token_count": 336
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-269-1",
+    "article_id": "ART-269",
+    "article_title": "Artículo 269. Duración de la prestación por desempleo.",
+    "token_count": 882
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-270",
+    "article_id": "ART-270",
+    "article_title": "Artículo 270. Cuantía de la prestación por desempleo.",
+    "token_count": 779
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-037",
+    "article_id": "ART-037",
+    "article_title": "artículo 37 del texto refundido de la Ley del Estatuto de los Trabajadores, para el cálculo de",
+    "token_count": 167
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-271-1",
+    "article_id": "ART-271",
+    "article_title": "Artículo 271. Suspensión del derecho.",
+    "token_count": 154
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-271-2",
+    "article_id": "ART-271",
+    "article_title": "Artículo 271. Suspensión del derecho.",
+    "token_count": 1120
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-271-3",
+    "article_id": "ART-271",
+    "article_title": "Artículo 271. Suspensión del derecho.",
+    "token_count": 615
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-272",
+    "article_id": "ART-272",
+    "article_title": "Artículo 272. Extinción del derecho.",
+    "token_count": 483
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-273",
+    "article_id": "ART-273",
+    "article_title": "Artículo 273. Cotización durante la situación de desempleo.",
+    "token_count": 82
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-270",
+    "article_id": "ART-270",
+    "article_title": "artículo 270.3, la aportación que corresponda al trabajador.",
+    "token_count": 130
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-III",
+    "article_id": "CAP-III",
+    "article_title": "CAPÍTULO III",
+    "token_count": 466
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-275-1",
+    "article_id": "ART-275",
+    "article_title": "Artículo 275. Carencia de rentas y responsabilidades familiares.",
+    "token_count": 267
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-275-2",
+    "article_id": "ART-275",
+    "article_title": "Artículo 275. Carencia de rentas y responsabilidades familiares.",
+    "token_count": 1225
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-275-3",
+    "article_id": "ART-275",
+    "article_title": "Artículo 275. Carencia de rentas y responsabilidades familiares.",
+    "token_count": 97
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-276",
+    "article_id": "ART-276",
+    "article_title": "Artículo 276. Solicitudes, nacimiento y prórroga del derecho al subsidio.",
+    "token_count": 692
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-277",
+    "article_id": "ART-277",
+    "article_title": "Artículo 277. Duración del subsidio.",
+    "token_count": 603
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-279",
+    "article_id": "ART-279",
+    "article_title": "Artículo 279. Suspensión, reanudación y extinción del derecho al subsidio.",
+    "token_count": 369
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-272",
+    "article_id": "ART-272",
+    "article_title": "artículo 272, excepto la regulada en su letra h), así como por el transcurso de seis meses",
+    "token_count": 209
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-280",
+    "article_id": "ART-280",
+    "article_title": "Artículo 280. Beneficiarios del subsidio por desempleo para mayores de cincuenta y dos",
+    "token_count": 90
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-276",
+    "article_id": "ART-276",
+    "article_title": "artículo 276.1, acrediten todos los requisitos, salvo la edad, para acceder a cualquier tipo de",
+    "token_count": 121
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-274-1",
+    "article_id": "ART-274",
+    "article_title": "artículo 274.1, cumplieran todos los requisitos establecidos en el primer párrafo de este",
+    "token_count": 826
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-274-2",
+    "article_id": "ART-274",
+    "article_title": "artículo 274.1, cumplieran todos los requisitos establecidos en el primer párrafo de este",
+    "token_count": 1169
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-274-3",
+    "article_id": "ART-274",
+    "article_title": "artículo 274.1, cumplieran todos los requisitos establecidos en el primer párrafo de este",
+    "token_count": 147
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-IV",
+    "article_id": "CAP-IV",
+    "article_title": "CAPÍTULO IV",
+    "token_count": 104
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-282-1",
+    "article_id": "ART-282",
+    "article_title": "Artículo 282. Incompatibilidades.",
+    "token_count": 692
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-282-2",
+    "article_id": "ART-282",
+    "article_title": "Artículo 282. Incompatibilidades.",
+    "token_count": 1093
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-283",
+    "article_id": "ART-283",
+    "article_title": "Artículo 283. Prestación por desempleo e incapacidad temporal.",
+    "token_count": 127
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-267-1",
+    "article_id": "ART-267",
+    "article_title": "artículo 267.1 y a percibir, si reúne los requisitos necesarios, la prestación por desempleo",
+    "token_count": 933
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-284",
+    "article_id": "ART-284",
+    "article_title": "Artículo 284. Prestación por desempleo y nacimiento y cuidado de menor.",
+    "token_count": 338
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-285",
+    "article_id": "ART-285",
+    "article_title": "Artículo 285. Subsidio por desempleo de mayores de 52 años y jubilación.",
+    "token_count": 155
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-286",
+    "article_id": "ART-286",
+    "article_title": "Artículo 286. Normas aplicables.",
+    "token_count": 233
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-287",
+    "article_id": "ART-287",
+    "article_title": "Artículo 287. Protección por desempleo de los trabajadores agrarios eventuales.",
+    "token_count": 682
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-288",
+    "article_id": "ART-288",
+    "article_title": "Artículo 288. Protección por desempleo de los trabajadores agrarios eventuales residentes",
+    "token_count": 756
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-289",
+    "article_id": "ART-289",
+    "article_title": "Artículo 289. Cotización durante la percepción de las prestaciones.",
+    "token_count": 755
+  },
+  {
+    "chunk_id": "SS_LGSS-SEC-491",
+    "article_id": null,
+    "article_title": "Sección 2.ª Otros colectivos",
+    "token_count": 172
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-291",
+    "article_id": "ART-291",
+    "article_title": "Artículo 291. Trabajadores del Régimen Especial de la Seguridad Social de los",
+    "token_count": 119
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-292",
+    "article_id": "ART-292",
+    "article_title": "Artículo 292. Militares profesionales de tropa y marinería.",
+    "token_count": 161
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-275",
+    "article_id": "ART-275",
+    "article_title": "artículo 275.2.",
+    "token_count": 89
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-293",
+    "article_id": "ART-293",
+    "article_title": "Artículo 293. Financiación.",
+    "token_count": 76
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-294",
+    "article_id": "ART-294",
+    "article_title": "Artículo 294. Entidad gestora.",
+    "token_count": 145
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-295",
+    "article_id": "ART-295",
+    "article_title": "Artículo 295. Reintegro de pagos indebidos.",
+    "token_count": 450
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-296",
+    "article_id": "ART-296",
+    "article_title": "Artículo 296. Pago de las prestaciones.",
+    "token_count": 338
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-297",
+    "article_id": "ART-297",
+    "article_title": "Artículo 297. Control de las prestaciones.",
+    "token_count": 452
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-298",
+    "article_id": "ART-298",
+    "article_title": "Artículo 298. Obligaciones de los empresarios.",
+    "token_count": 389
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-299-1",
+    "article_id": "ART-299",
+    "article_title": "Artículo 299. Obligaciones de los trabajadores, solicitantes y beneficiarios de prestaciones",
+    "token_count": 555
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-299-2",
+    "article_id": "ART-299",
+    "article_title": "Artículo 299. Obligaciones de los trabajadores, solicitantes y beneficiarios de prestaciones",
+    "token_count": 447
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-303",
+    "article_id": "ART-303",
+    "article_title": "Artículo 303. Impugnación de actos.",
+    "token_count": 367
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-I",
+    "article_id": "CAP-I",
+    "article_title": "CAPÍTULO I",
+    "token_count": 247
+  },
+  {
+    "chunk_id": "SS_LGSS-TIT-l-2",
+    "article_id": "TIT-l",
+    "article_title": "título lucrativo y de forma habitual, personal y directa, siempre que posean el control efectivo,",
+    "token_count": 610
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-II",
+    "article_id": "CAP-II",
+    "article_title": "CAPÍTULO II",
+    "token_count": 117
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-308-1",
+    "article_id": "ART-308",
+    "article_title": "Artículo 308. Cotización y recaudación.",
+    "token_count": 89
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-308-2",
+    "article_id": "ART-308",
+    "article_title": "Artículo 308. Cotización y recaudación.",
+    "token_count": 1180
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-308-3",
+    "article_id": "ART-308",
+    "article_title": "Artículo 308. Cotización y recaudación.",
+    "token_count": 917
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-305-2",
+    "article_id": "ART-305",
+    "article_title": "artículo 305.2.b), se computarán en los términos que se determinen reglamentariamente, la",
+    "token_count": 1191
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-305-3",
+    "article_id": "ART-305",
+    "article_title": "artículo 305.2.b), se computarán en los términos que se determinen reglamentariamente, la",
+    "token_count": 261
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-309",
+    "article_id": "ART-309",
+    "article_title": "Artículo 309. Cotización en los supuestos de reconocimiento de una prestación económica",
+    "token_count": 415
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-308",
+    "article_id": "ART-308",
+    "article_title": "artículo 308.1.",
+    "token_count": 87
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-310",
+    "article_id": "ART-310",
+    "article_title": "Artículo 310. Cotización en supuestos de compatibilidad de jubilación y trabajo por cuenta",
+    "token_count": 204
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-308",
+    "article_id": "ART-308",
+    "article_title": "artículo 308.1 los pensionistas de jubilación que compatibilicen la pensión con una actividad",
+    "token_count": 119
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-310",
+    "article_id": "ART-310",
+    "article_title": "Artículo 310 bis. Cotización de los perceptores de pensión de jubilación cuando realicen",
+    "token_count": 143
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-311",
+    "article_id": "ART-311",
+    "article_title": "Artículo 311. Cotización al régimen especial a partir de la edad de jubilación.",
+    "token_count": 102
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-313",
+    "article_id": "ART-313",
+    "article_title": "Artículo 313. Cotización en supuestos de pluriactividad.",
+    "token_count": 320
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-313-1",
+    "article_id": "ART-313",
+    "article_title": "Artículo 313 bis. Cotización de los artistas con bajos ingresos integrados en el Régimen",
+    "token_count": 402
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-313-2",
+    "article_id": "ART-313",
+    "article_title": "Artículo 313 bis. Cotización de los artistas con bajos ingresos integrados en el Régimen",
+    "token_count": 575
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-III",
+    "article_id": "CAP-III",
+    "article_title": "CAPÍTULO III",
+    "token_count": 391
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-316",
+    "article_id": "ART-316",
+    "article_title": "Artículo 316. Cobertura de las contingencias profesionales.",
+    "token_count": 614
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-317",
+    "article_id": "ART-317",
+    "article_title": "Artículo 317. Acción protectora de los trabajadores autónomos económicamente",
+    "token_count": 229
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-179",
+    "article_id": "ART-179",
+    "article_title": "capítulo VI del título II, excepto el artículo 179.1 y 2.",
+    "token_count": 418
+  },
+  {
+    "chunk_id": "SS_LGSS-TIT-II",
+    "article_id": "TIT-II",
+    "article_title": "título II, en los términos y condiciones que se establezcan reglamentariamente.",
+    "token_count": 343
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-319",
+    "article_id": "ART-319",
+    "article_title": "Artículo 319. Efectos de las cuotas anteriores al alta.",
+    "token_count": 197
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-320",
+    "article_id": "ART-320",
+    "article_title": "Artículo 320. Base reguladora en los supuestos de cotización reducida y de cotización con",
+    "token_count": 404
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-321",
+    "article_id": "ART-321",
+    "article_title": "Artículo 321. Nacimiento y cuantía de la prestación de incapacidad temporal.",
+    "token_count": 213
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-322",
+    "article_id": "ART-322",
+    "article_title": "Artículo 322. Cuantía de la pensión de jubilación.",
+    "token_count": 190
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-324-1",
+    "article_id": "ART-324",
+    "article_title": "Artículo 324. Reglas de inclusión.",
+    "token_count": 258
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-324-2",
+    "article_id": "ART-324",
+    "article_title": "Artículo 324. Reglas de inclusión.",
+    "token_count": 1206
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-324-3",
+    "article_id": "ART-324",
+    "article_title": "Artículo 324. Reglas de inclusión.",
+    "token_count": 149
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-325",
+    "article_id": "ART-325",
+    "article_title": "Artículo 325. Especialidades en materia de cotización.",
+    "token_count": 674
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-326",
+    "article_id": "ART-326",
+    "article_title": "Artículo 326. Cobertura de la incapacidad temporal y de las contingencias profesionales.",
+    "token_count": 173
+  },
+  {
+    "chunk_id": "SS_LGSS-TIT-V",
+    "article_id": "TIT-V",
+    "article_title": "TÍTULO V",
+    "token_count": 446
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-328",
+    "article_id": "ART-328",
+    "article_title": "Artículo 328. Régimen jurídico.",
+    "token_count": 124
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-329",
+    "article_id": "ART-329",
+    "article_title": "Artículo 329. Acción protectora.",
+    "token_count": 449
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-330",
+    "article_id": "ART-330",
+    "article_title": "Artículo 330. Requisitos para el nacimiento del derecho a la protección.",
+    "token_count": 464
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-331-2",
+    "article_id": "ART-331",
+    "article_title": "Artículo 331. Situación legal de cese de actividad.",
+    "token_count": 1085
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-331-3",
+    "article_id": "ART-331",
+    "article_title": "Artículo 331. Situación legal de cese de actividad.",
+    "token_count": 84
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-331",
+    "article_id": "ART-331",
+    "article_title": "artículo 331.1.a), la baja en el Censo tributario de empresarios, profesionales y retenedores y",
+    "token_count": 200
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-331-1",
+    "article_id": "ART-331",
+    "article_title": "artículo 331.1.a).1.º, así como mediante las declaraciones del Impuesto sobre el Valor",
+    "token_count": 672
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-331-2",
+    "article_id": "ART-331",
+    "article_title": "artículo 331.1.a).1.º, así como mediante las declaraciones del Impuesto sobre el Valor",
+    "token_count": 552
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-331-1",
+    "article_id": "ART-331",
+    "article_title": "artículo 331, cesen su actividad por extinción del contrato suscrito con el cliente del que",
+    "token_count": 354
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-331-2",
+    "article_id": "ART-331",
+    "article_title": "artículo 331, cesen su actividad por extinción del contrato suscrito con el cliente del que",
+    "token_count": 701
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-305",
+    "article_id": "ART-305",
+    "article_title": "artículo 305. 2.b), se producirá cuando cesen involuntariamente en el cargo de consejero o",
+    "token_count": 252
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-335",
+    "article_id": "ART-335",
+    "article_title": "Artículo 335. Socios trabajadores de cooperativas de trabajo asociado.",
+    "token_count": 743
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-023",
+    "article_id": "ART-023",
+    "article_title": "artículo 23 de la Ley Orgánica 1/2004, de 28 de diciembre, de Medidas de Protección",
+    "token_count": 316
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-346",
+    "article_id": "ART-346",
+    "article_title": "artículo 346, salvo lo establecido en el apartado 3 de dicho artículo y hasta el último día del",
+    "token_count": 104
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-336",
+    "article_id": "ART-336",
+    "article_title": "Artículo 336. Trabajadores autónomos que ejercen su actividad profesional conjuntamente.",
+    "token_count": 555
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-III-1",
+    "article_id": "CAP-III",
+    "article_title": "CAPÍTULO III",
+    "token_count": 439
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-III-2",
+    "article_id": "CAP-III",
+    "article_title": "CAPÍTULO III",
+    "token_count": 567
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-338",
+    "article_id": "ART-338",
+    "article_title": "Artículo 338. Duración de la prestación económica.",
+    "token_count": 522
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-339",
+    "article_id": "ART-339",
+    "article_title": "Artículo 339. Cuantía de la prestación económica por cese de la actividad.",
+    "token_count": 671
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-340",
+    "article_id": "ART-340",
+    "article_title": "Artículo 340. Suspensión del derecho a la protección.",
+    "token_count": 513
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-341",
+    "article_id": "ART-341",
+    "article_title": "Artículo 341. Extinción del derecho a la protección.",
+    "token_count": 498
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-342",
+    "article_id": "ART-342",
+    "article_title": "Artículo 342. Incompatibilidades.",
+    "token_count": 755
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-343-1",
+    "article_id": "ART-343",
+    "article_title": "Artículo 343. Cese de actividad, incapacidad temporal, maternidad y paternidad.",
+    "token_count": 685
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-343-2",
+    "article_id": "ART-343",
+    "article_title": "Artículo 343. Cese de actividad, incapacidad temporal, maternidad y paternidad.",
+    "token_count": 219
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-344-1",
+    "article_id": "ART-344",
+    "article_title": "Artículo 344. Financiación, base y tipo de cotización.",
+    "token_count": 667
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-345",
+    "article_id": "ART-345",
+    "article_title": "Artículo 345. Recaudación.",
+    "token_count": 167
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-346-1",
+    "article_id": "ART-346",
+    "article_title": "Artículo 346. Órgano gestor.",
+    "token_count": 702
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-347",
+    "article_id": "ART-347",
+    "article_title": "Artículo 347. Obligaciones de los trabajadores autónomos.",
+    "token_count": 240
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-348",
+    "article_id": "ART-348",
+    "article_title": "Artículo 348. Reintegro de prestaciones indebidamente percibidas.",
+    "token_count": 127
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-350",
+    "article_id": "ART-350",
+    "article_title": "Artículo 350. Jurisdicción competente y reclamación previa.",
+    "token_count": 637
+  },
+  {
+    "chunk_id": "SS_LGSS-SEC-579",
+    "article_id": null,
+    "article_title": "Sección 1.ª Prestaciones",
+    "token_count": 376
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-352",
+    "article_id": "ART-352",
+    "article_title": "Artículo 352. Beneficiarios.",
+    "token_count": 429
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-353",
+    "article_id": "ART-353",
+    "article_title": "Artículo 353. Cuantía de las asignaciones.",
+    "token_count": 157
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-354",
+    "article_id": "ART-354",
+    "article_title": "Artículo 354. Determinación del grado de discapacidad y de la necesidad del concurso de",
+    "token_count": 110
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-355",
+    "article_id": "ART-355",
+    "article_title": "Artículo 355. Declaración y efectos de las variaciones familiares.",
+    "token_count": 230
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-356",
+    "article_id": "ART-356",
+    "article_title": "Artículo 356. Devengo y abono.",
+    "token_count": 108
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-357",
+    "article_id": "ART-357",
+    "article_title": "Artículo 357. Prestación y beneficiarios.",
+    "token_count": 705
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-358",
+    "article_id": "ART-358",
+    "article_title": "Artículo 358. Cuantía de la prestación.",
+    "token_count": 181
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-359",
+    "article_id": "ART-359",
+    "article_title": "Artículo 359. Beneficiarios.",
+    "token_count": 120
+  },
+  {
+    "chunk_id": "SS_LGSS-SEC-592",
+    "article_id": null,
+    "article_title": "Sección 5.ª Disposiciones comunes",
+    "token_count": 250
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-II-1",
+    "article_id": "CAP-II",
+    "article_title": "CAPÍTULO II",
+    "token_count": 341
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-II-2",
+    "article_id": "CAP-II",
+    "article_title": "CAPÍTULO II",
+    "token_count": 776
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-367",
+    "article_id": "ART-367",
+    "article_title": "Artículo 367. Calificación.",
+    "token_count": 301
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-368",
+    "article_id": "ART-368",
+    "article_title": "Artículo 368. Obligaciones de los beneficiarios.",
+    "token_count": 139
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-369",
+    "article_id": "ART-369",
+    "article_title": "Artículo 369. Beneficiarios.",
+    "token_count": 196
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-373-1",
+    "article_id": "ART-373",
+    "article_title": "Artículo 373. Gestión.",
+    "token_count": 181
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-373-2",
+    "article_id": "ART-373",
+    "article_title": "Artículo 373. Gestión.",
+    "token_count": 1136
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-373-3",
+    "article_id": "ART-373",
+    "article_title": "Artículo 373. Gestión.",
+    "token_count": 1077
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-373-4",
+    "article_id": "ART-373",
+    "article_title": "Artículo 373. Gestión.",
+    "token_count": 1020
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-373-5",
+    "article_id": "ART-373",
+    "article_title": "Artículo 373. Gestión.",
+    "token_count": 1019
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-373-6",
+    "article_id": "ART-373",
+    "article_title": "Artículo 373. Gestión.",
+    "token_count": 1084
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205-1",
+    "article_id": "ART-205",
+    "article_title": "artículo 205.1.a), o hasta la fecha en que, en su caso, acceda a la pensión de jubilación",
+    "token_count": 1171
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205-2",
+    "article_id": "ART-205",
+    "article_title": "artículo 205.1.a), o hasta la fecha en que, en su caso, acceda a la pensión de jubilación",
+    "token_count": 1013
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-001-2",
+    "article_id": "ART-001",
+    "article_title": "artículo 1 del Reglamento de Entidades de Previsión Social, aprobado por el Real Decreto",
+    "token_count": 1174
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-001-3",
+    "article_id": "ART-001",
+    "article_title": "artículo 1 del Reglamento de Entidades de Previsión Social, aprobado por el Real Decreto",
+    "token_count": 82
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205-1",
+    "article_id": "ART-205",
+    "article_title": "artículo 205.1.a), se reducirá en un período equivalente al que resulte de aplicar el",
+    "token_count": 809
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205",
+    "article_id": "ART-205",
+    "article_title": "artículo 205.1.a), se reducirá en un período equivalente al que resulte de aplicar el",
+    "token_count": 726
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205-1",
+    "article_id": "ART-205",
+    "article_title": "artículo 205.1.a), se reducirá en un período equivalente al que resulte de aplicar el",
+    "token_count": 592
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205-2",
+    "article_id": "ART-205",
+    "article_title": "artículo 205.1.a), se reducirá en un período equivalente al que resulte de aplicar el",
+    "token_count": 1037
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205-3",
+    "article_id": "ART-205",
+    "article_title": "artículo 205.1.a), se reducirá en un período equivalente al que resulte de aplicar el",
+    "token_count": 988
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205-4",
+    "article_id": "ART-205",
+    "article_title": "artículo 205.1.a), se reducirá en un período equivalente al que resulte de aplicar el",
+    "token_count": 1089
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205-5",
+    "article_id": "ART-205",
+    "article_title": "artículo 205.1.a), se reducirá en un período equivalente al que resulte de aplicar el",
+    "token_count": 1014
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205-6",
+    "article_id": "ART-205",
+    "article_title": "artículo 205.1.a), se reducirá en un período equivalente al que resulte de aplicar el",
+    "token_count": 1031
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205-7",
+    "article_id": "ART-205",
+    "article_title": "artículo 205.1.a), se reducirá en un período equivalente al que resulte de aplicar el",
+    "token_count": 1085
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205-8",
+    "article_id": "ART-205",
+    "article_title": "artículo 205.1.a), se reducirá en un período equivalente al que resulte de aplicar el",
+    "token_count": 1080
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-205-9",
+    "article_id": "ART-205",
+    "article_title": "artículo 205.1.a), se reducirá en un período equivalente al que resulte de aplicar el",
+    "token_count": 277
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-011-1",
+    "article_id": "ART-011",
+    "article_title": "artículo 11.2 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por el",
+    "token_count": 805
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-011-2",
+    "article_id": "ART-011",
+    "article_title": "artículo 11.2 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por el",
+    "token_count": 1081
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-011-3",
+    "article_id": "ART-011",
+    "article_title": "artículo 11.2 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por el",
+    "token_count": 1219
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-011-4",
+    "article_id": "ART-011",
+    "article_title": "artículo 11.2 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por el",
+    "token_count": 1061
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-011-5",
+    "article_id": "ART-011",
+    "article_title": "artículo 11.2 del texto refundido de la Ley del Estatuto de los Trabajadores, aprobado por el",
+    "token_count": 491
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-020",
+    "article_id": "ART-020",
+    "article_title": "artículo 20, con excepción de lo indicado en su apartado 1.",
+    "token_count": 317
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-047-1",
+    "article_id": "ART-047",
+    "article_title": "artículo 47 bis del texto refundido de la Ley del Estatuto de los Trabajadores salvo lo",
+    "token_count": 245
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-047-2",
+    "article_id": "ART-047",
+    "article_title": "artículo 47 bis del texto refundido de la Ley del Estatuto de los Trabajadores salvo lo",
+    "token_count": 1058
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-047-3",
+    "article_id": "ART-047",
+    "article_title": "artículo 47 bis del texto refundido de la Ley del Estatuto de los Trabajadores salvo lo",
+    "token_count": 902
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-047-4",
+    "article_id": "ART-047",
+    "article_title": "artículo 47 bis del texto refundido de la Ley del Estatuto de los Trabajadores salvo lo",
+    "token_count": 1031
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-047-5",
+    "article_id": "ART-047",
+    "article_title": "artículo 47 bis del texto refundido de la Ley del Estatuto de los Trabajadores salvo lo",
+    "token_count": 1042
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-047-6",
+    "article_id": "ART-047",
+    "article_title": "artículo 47 bis del texto refundido de la Ley del Estatuto de los Trabajadores salvo lo",
+    "token_count": 717
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-047-1",
+    "article_id": "ART-047",
+    "article_title": "artículo 47 bis del texto refundido de la Ley del Estatuto de los Trabajadores salvo lo",
+    "token_count": 245
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-047-2",
+    "article_id": "ART-047",
+    "article_title": "artículo 47 bis del texto refundido de la Ley del Estatuto de los Trabajadores salvo lo",
+    "token_count": 1000
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-047-3",
+    "article_id": "ART-047",
+    "article_title": "artículo 47 bis del texto refundido de la Ley del Estatuto de los Trabajadores salvo lo",
+    "token_count": 1079
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-047-4",
+    "article_id": "ART-047",
+    "article_title": "artículo 47 bis del texto refundido de la Ley del Estatuto de los Trabajadores salvo lo",
+    "token_count": 1002
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-047-5",
+    "article_id": "ART-047",
+    "article_title": "artículo 47 bis del texto refundido de la Ley del Estatuto de los Trabajadores salvo lo",
+    "token_count": 1037
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-047-6",
+    "article_id": "ART-047",
+    "article_title": "artículo 47 bis del texto refundido de la Ley del Estatuto de los Trabajadores salvo lo",
+    "token_count": 911
+  },
+  {
+    "chunk_id": "SS_LGSS-TIT-III-1",
+    "article_id": "TIT-III",
+    "article_title": "título III y además acrediten la actividad y cotizaciones en el sector artístico previstas en los",
+    "token_count": 133
+  },
+  {
+    "chunk_id": "SS_LGSS-TIT-III-2",
+    "article_id": "TIT-III",
+    "article_title": "título III y además acrediten la actividad y cotizaciones en el sector artístico previstas en los",
+    "token_count": 1023
+  },
+  {
+    "chunk_id": "SS_LGSS-TIT-III-3",
+    "article_id": "TIT-III",
+    "article_title": "título III y además acrediten la actividad y cotizaciones en el sector artístico previstas en los",
+    "token_count": 1077
+  },
+  {
+    "chunk_id": "SS_LGSS-TIT-III-4",
+    "article_id": "TIT-III",
+    "article_title": "título III y además acrediten la actividad y cotizaciones en el sector artístico previstas en los",
+    "token_count": 225
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-020-1",
+    "article_id": "ART-020",
+    "article_title": "artículo 20 de esta ley, a excepción de lo establecido en su apartado 1.",
+    "token_count": 880
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-020-2",
+    "article_id": "ART-020",
+    "article_title": "artículo 20 de esta ley, a excepción de lo establecido en su apartado 1.",
+    "token_count": 1087
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-058-1",
+    "article_id": "ART-058",
+    "article_title": "artículo 58.2, y que servirá de cuantía de referencia, no podrá ser inferior al umbral de la",
+    "token_count": 1098
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-058-2",
+    "article_id": "ART-058",
+    "article_title": "artículo 58.2, y que servirá de cuantía de referencia, no podrá ser inferior al umbral de la",
+    "token_count": 681
+  },
+  {
+    "chunk_id": "SS_LGSS-TIT-III",
+    "article_id": "TIT-III",
+    "article_title": "título III.",
+    "token_count": 505
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-023",
+    "article_id": "ART-023",
+    "article_title": "artículo 23 de la Ley Orgánica 1/2004, de 28 de diciembre, de Medidas de Protección",
+    "token_count": 686
+  },
+  {
+    "chunk_id": "SS_LGSS-TIT-III-1",
+    "article_id": "TIT-III",
+    "article_title": "título III.",
+    "token_count": 246
+  },
+  {
+    "chunk_id": "SS_LGSS-TIT-III-2",
+    "article_id": "TIT-III",
+    "article_title": "título III.",
+    "token_count": 788
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-282-1",
+    "article_id": "ART-282",
+    "article_title": "artículo 282.3, considerándose como referencia temporal el número de meses transcurridos",
+    "token_count": 258
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-282-2",
+    "article_id": "ART-282",
+    "article_title": "artículo 282.3, considerándose como referencia temporal el número de meses transcurridos",
+    "token_count": 1069
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-282-3",
+    "article_id": "ART-282",
+    "article_title": "artículo 282.3, considerándose como referencia temporal el número de meses transcurridos",
+    "token_count": 1395
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-282-4",
+    "article_id": "ART-282",
+    "article_title": "artículo 282.3, considerándose como referencia temporal el número de meses transcurridos",
+    "token_count": 1378
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-282-5",
+    "article_id": "ART-282",
+    "article_title": "artículo 282.3, considerándose como referencia temporal el número de meses transcurridos",
+    "token_count": 1110
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-282-6",
+    "article_id": "ART-282",
+    "article_title": "artículo 282.3, considerándose como referencia temporal el número de meses transcurridos",
+    "token_count": 1021
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-282-7",
+    "article_id": "ART-282",
+    "article_title": "artículo 282.3, considerándose como referencia temporal el número de meses transcurridos",
+    "token_count": 1015
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-282-8",
+    "article_id": "ART-282",
+    "article_title": "artículo 282.3, considerándose como referencia temporal el número de meses transcurridos",
+    "token_count": 232
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-210-1",
+    "article_id": "ART-210",
+    "article_title": "artículo 210.4 de esta ley.",
+    "token_count": 943
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-210-2",
+    "article_id": "ART-210",
+    "article_title": "artículo 210.4 de esta ley.",
+    "token_count": 1160
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-209-1",
+    "article_id": "ART-209",
+    "article_title": "artículo 209.1 en su redacción vigente el día 1 de enero de 2023 cuando dicho cálculo",
+    "token_count": 1029
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-209-2",
+    "article_id": "ART-209",
+    "article_title": "artículo 209.1 en su redacción vigente el día 1 de enero de 2023 cuando dicho cálculo",
+    "token_count": 945
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-209-3",
+    "article_id": "ART-209",
+    "article_title": "artículo 209.1 en su redacción vigente el día 1 de enero de 2023 cuando dicho cálculo",
+    "token_count": 950
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-209-4",
+    "article_id": "ART-209",
+    "article_title": "artículo 209.1 en su redacción vigente el día 1 de enero de 2023 cuando dicho cálculo",
+    "token_count": 580
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-206-1",
+    "article_id": "ART-206",
+    "article_title": "artículo 206.6 de esta ley no se aplicará a los trabajadores incluidos en los diferentes",
+    "token_count": 339
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-206-2",
+    "article_id": "ART-206",
+    "article_title": "artículo 206.6 de esta ley no se aplicará a los trabajadores incluidos en los diferentes",
+    "token_count": 989
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-206-3",
+    "article_id": "ART-206",
+    "article_title": "artículo 206.6 de esta ley no se aplicará a los trabajadores incluidos en los diferentes",
+    "token_count": 864
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-206-4",
+    "article_id": "ART-206",
+    "article_title": "artículo 206.6 de esta ley no se aplicará a los trabajadores incluidos en los diferentes",
+    "token_count": 993
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-206-5",
+    "article_id": "ART-206",
+    "article_title": "artículo 206.6 de esta ley no se aplicará a los trabajadores incluidos en los diferentes",
+    "token_count": 428
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-206-6",
+    "article_id": "ART-206",
+    "article_title": "artículo 206.6 de esta ley no se aplicará a los trabajadores incluidos en los diferentes",
+    "token_count": 533
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-206-7",
+    "article_id": "ART-206",
+    "article_title": "artículo 206.6 de esta ley no se aplicará a los trabajadores incluidos en los diferentes",
+    "token_count": 1007
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-206-8",
+    "article_id": "ART-206",
+    "article_title": "artículo 206.6 de esta ley no se aplicará a los trabajadores incluidos en los diferentes",
+    "token_count": 1038
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-059-1",
+    "article_id": "ART-059",
+    "article_title": "artículo 59.1 para tener derecho al complemento para alcanzar la cuantía mínima de las",
+    "token_count": 806
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-274-1",
+    "article_id": "ART-274",
+    "article_title": "artículo 274 en el período que media entre el 1 de marzo de 2018 y la fecha de entrada en",
+    "token_count": 350
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-274-2",
+    "article_id": "ART-274",
+    "article_title": "artículo 274 en el período que media entre el 1 de marzo de 2018 y la fecha de entrada en",
+    "token_count": 1130
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-274-3",
+    "article_id": "ART-274",
+    "article_title": "artículo 274 en el período que media entre el 1 de marzo de 2018 y la fecha de entrada en",
+    "token_count": 763
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-274-5",
+    "article_id": "ART-274",
+    "article_title": "artículo 274 en el período que media entre el 1 de marzo de 2018 y la fecha de entrada en",
+    "token_count": 1073
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-274-6",
+    "article_id": "ART-274",
+    "article_title": "artículo 274 en el período que media entre el 1 de marzo de 2018 y la fecha de entrada en",
+    "token_count": 848
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-210",
+    "article_id": "ART-210",
+    "article_title": "artículo 210.2 del texto refundido de la Ley General de la Seguridad Social y en la",
+    "token_count": 493
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-058-1",
+    "article_id": "ART-058",
+    "article_title": "artículo 58.2 más un incremento adicional de 0,115 puntos porcentuales acumulativos cada",
+    "token_count": 436
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-058-2",
+    "article_id": "ART-058",
+    "article_title": "artículo 58.2 más un incremento adicional de 0,115 puntos porcentuales acumulativos cada",
+    "token_count": 1029
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-209-1",
+    "article_id": "ART-209",
+    "article_title": "artículo 209.1.b), se aplicará lo dispuesto en el párrafo anterior respecto a las mismas",
+    "token_count": 637
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-209-2",
+    "article_id": "ART-209",
+    "article_title": "artículo 209.1.b), se aplicará lo dispuesto en el párrafo anterior respecto a las mismas",
+    "token_count": 1008
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-209-3",
+    "article_id": "ART-209",
+    "article_title": "artículo 209.1.b), se aplicará lo dispuesto en el párrafo anterior respecto a las mismas",
+    "token_count": 948
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-209-4",
+    "article_id": "ART-209",
+    "article_title": "artículo 209.1.b), se aplicará lo dispuesto en el párrafo anterior respecto a las mismas",
+    "token_count": 337
+  },
+  {
+    "chunk_id": "SS_LGSS-SEC-000",
+    "article_id": null,
+    "article_title": null,
+    "token_count": 186
+  },
+  {
+    "chunk_id": "SS_LGSS-SEC-014",
+    "article_id": null,
+    "article_title": "Sección 4.ª Revalorización, importes máximos y mínimos de pensiones y complemento de maternidad por",
+    "token_count": 109
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-082-3",
+    "article_id": "ART-082",
+    "article_title": "artículo 82 y siguientes de la Constitución Española, autorizó al Gobierno para aprobar un",
+    "token_count": 233
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-004",
+    "article_id": "ART-004",
+    "article_title": "Artículo 4. Delimitación de funciones.",
+    "token_count": 146
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-005",
+    "article_id": "ART-005",
+    "article_title": "Artículo 5. Competencias del Ministerio de Empleo y Seguridad Social y de otros",
+    "token_count": 629
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-006",
+    "article_id": "ART-006",
+    "article_title": "Artículo 6. Coordinación de funciones afines.",
+    "token_count": 80
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-008",
+    "article_id": "ART-008",
+    "article_title": "Artículo 8. Prohibición de inclusión múltiple obligatoria.",
+    "token_count": 163
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-009",
+    "article_id": "ART-009",
+    "article_title": "Artículo 9. Estructura del sistema de la Seguridad Social.",
+    "token_count": 255
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-010",
+    "article_id": "ART-010",
+    "article_title": "Artículo 10. Regímenes especiales.",
+    "token_count": 621
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-013",
+    "article_id": "ART-013",
+    "article_title": "Artículo 13. Trabajadores con discapacidad.",
+    "token_count": 109
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-027",
+    "article_id": "ART-027",
+    "article_title": "Artículo 27. Transacciones sobre los derechos de la Seguridad Social.",
+    "token_count": 254
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-032",
+    "article_id": "ART-032",
+    "article_title": "Artículo 32. Imputación de pagos.",
+    "token_count": 149
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-039",
+    "article_id": "ART-039",
+    "article_title": "Artículo 39. Tercerías.",
+    "token_count": 301
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-040-1",
+    "article_id": "ART-040",
+    "article_title": "Artículo 40. Deber de información por parte de las personas y entidades sin personalidad,",
+    "token_count": 126
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-041",
+    "article_id": "ART-041",
+    "article_title": "Artículo 41. Levantamiento de bienes embargables.",
+    "token_count": 130
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-046",
+    "article_id": "ART-046",
+    "article_title": "Artículo 46. Pago de las pensiones contributivas derivadas de contingencias comunes y de",
+    "token_count": 170
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-056",
+    "article_id": "ART-056",
+    "article_title": "Artículo 56. Consideración como pensiones públicas.",
+    "token_count": 113
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-057",
+    "article_id": "ART-057",
+    "article_title": "Artículo 57. Limitación de la cuantía inicial de las pensiones.",
+    "token_count": 137
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-058",
+    "article_id": "ART-058",
+    "article_title": "artículo 58.2 y las sucesivas revalorizaciones anuales se efectuarán sobre el importe",
+    "token_count": 156
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-058",
+    "article_id": "ART-058",
+    "article_title": "Artículo 58. Revalorización y garantía de mantenimiento del poder adquisitivo de las",
+    "token_count": 194
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-057",
+    "article_id": "ART-057",
+    "article_title": "artículo 57 y la cuantía mínima de las pensiones prevista en el artículo 59.",
+    "token_count": 163
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-364",
+    "article_id": "ART-364",
+    "article_title": "artículo 364.1.a) para las unidades económicas en las que concurran dos beneficiarios con",
+    "token_count": 147
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-061",
+    "article_id": "ART-061",
+    "article_title": "Artículo 61. Pensiones extraordinarias originadas por actos de terrorismo.",
+    "token_count": 244
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-062",
+    "article_id": "ART-062",
+    "article_title": "Artículo 62. Revalorización.",
+    "token_count": 76
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-065",
+    "article_id": "ART-065",
+    "article_title": "Artículo 65. Contenido de las ayudas asistenciales.",
+    "token_count": 126
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-067",
+    "article_id": "ART-067",
+    "article_title": "Artículo 67. Estructura y competencias.",
+    "token_count": 113
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-068",
+    "article_id": "ART-068",
+    "article_title": "Artículo 68. Naturaleza jurídica.",
+    "token_count": 101
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-069",
+    "article_id": "ART-069",
+    "article_title": "Artículo 69. Participación en la gestión.",
+    "token_count": 101
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-070",
+    "article_id": "ART-070",
+    "article_title": "Artículo 70. Relaciones y servicios internacionales.",
+    "token_count": 114
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-074",
+    "article_id": "ART-074",
+    "article_title": "Artículo 74. Tesorería General de la Seguridad Social.",
+    "token_count": 172
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-075",
+    "article_id": "ART-075",
+    "article_title": "Artículo 75. Reserva de nombre.",
+    "token_count": 121
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-076",
+    "article_id": "ART-076",
+    "article_title": "Artículo 76. Exenciones tributarias y otros beneficios.",
+    "token_count": 241
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-078",
+    "article_id": "ART-078",
+    "article_title": "Artículo 78. Régimen de personal.",
+    "token_count": 125
+  },
+  {
+    "chunk_id": "SS_LGSS-SEC-205",
+    "article_id": null,
+    "article_title": "Sección 1.ª Entidades colaboradoras",
+    "token_count": 110
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-087",
+    "article_id": "ART-087",
+    "article_title": "Artículo 87. La Junta Directiva.",
+    "token_count": 561
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-089",
+    "article_id": "ART-089",
+    "article_title": "Artículo 89. La Comisión de Control y Seguimiento.",
+    "token_count": 419
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-095-2",
+    "article_id": "ART-095",
+    "article_title": "artículo 95.1.a), se ingresará con anterioridad al 31 de julio de cada ejercicio en la cuenta",
+    "token_count": 135
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-098",
+    "article_id": "ART-098",
+    "article_title": "Artículo 98. Competencias del Ministerio de Empleo y Seguridad Social.",
+    "token_count": 396
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-100-1",
+    "article_id": "ART-100",
+    "article_title": "Artículo 100. Medidas cautelares y responsabilidad mancomunada.",
+    "token_count": 214
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-104",
+    "article_id": "ART-104",
+    "article_title": "Artículo 104. Titularidad, adscripción, administración y custodia.",
+    "token_count": 666
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-108",
+    "article_id": "ART-108",
+    "article_title": "Artículo 108. Inembargabilidad.",
+    "token_count": 131
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-111",
+    "article_id": "ART-111",
+    "article_title": "Artículo 111. Inversiones.",
+    "token_count": 80
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-112",
+    "article_id": "ART-112",
+    "article_title": "Artículo 112. Disposición general y normas reguladoras de la intervención.",
+    "token_count": 346
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-113",
+    "article_id": "ART-113",
+    "article_title": "Artículo 113. Modificación de créditos, remanentes e insuficiencias presupuestarias en el",
+    "token_count": 331
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-114",
+    "article_id": "ART-114",
+    "article_title": "Artículo 114. Amortización de adquisiciones.",
+    "token_count": 93
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-115",
+    "article_id": "ART-115",
+    "article_title": "Artículo 115. Plan anual de auditorías.",
+    "token_count": 339
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-116",
+    "article_id": "ART-116",
+    "article_title": "Artículo 116. Cuentas de la Seguridad Social.",
+    "token_count": 156
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-121",
+    "article_id": "ART-121",
+    "article_title": "Artículo 121. Disposición de activos del Fondo.",
+    "token_count": 249
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-122",
+    "article_id": "ART-122",
+    "article_title": "Artículo 122. Gestión financiera del Fondo.",
+    "token_count": 104
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-126",
+    "article_id": "ART-126",
+    "article_title": "Artículo 126. Carácter de las operaciones de gestión e imputación presupuestaria.",
+    "token_count": 153
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-127",
+    "article_id": "ART-127",
+    "article_title": "Artículo 127. Informe anual.",
+    "token_count": 92
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-134",
+    "article_id": "ART-134",
+    "article_title": "Artículo 134. Colaboración con la Inspección.",
+    "token_count": 91
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-137",
+    "article_id": "ART-137",
+    "article_title": "Artículo 137. Exclusiones.",
+    "token_count": 189
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-156",
+    "article_id": "ART-156",
+    "article_title": "Artículo 156. Concepto de accidente de trabajo.",
+    "token_count": 708
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-157",
+    "article_id": "ART-157",
+    "article_title": "Artículo 157. Concepto de enfermedad profesional.",
+    "token_count": 190
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-158",
+    "article_id": "ART-158",
+    "article_title": "Artículo 158. Concepto de accidente no laboral y de enfermedad común.",
+    "token_count": 123
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-176",
+    "article_id": "ART-176",
+    "article_title": "Artículo 176. Periodos de observación y obligaciones especiales en caso de enfermedad",
+    "token_count": 173
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-194",
+    "article_id": "ART-194",
+    "article_title": "Artículo 194. Grados de incapacidad permanente.",
+    "token_count": 336
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-206-1",
+    "article_id": "ART-206",
+    "article_title": "Artículo 206. Jubilación anticipada por razón de la actividad.",
+    "token_count": 516
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-206",
+    "article_id": "ART-206",
+    "article_title": "Artículo 206 bis. Jubilación anticipada en caso de discapacidad.",
+    "token_count": 324
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-208",
+    "article_id": "ART-208",
+    "article_title": "artículo 208.",
+    "token_count": 123
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-212",
+    "article_id": "ART-212",
+    "article_title": "Artículo 212. Imprescriptibilidad.",
+    "token_count": 84
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-213",
+    "article_id": "ART-213",
+    "article_title": "Artículo 213. Incompatibilidades.",
+    "token_count": 266
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-098",
+    "article_id": "ART-098",
+    "article_title": "artículo 98 del Código Civil, siempre que no hubiera contraído nuevas nupcias o hubiera",
+    "token_count": 107
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-221-2",
+    "article_id": "ART-221",
+    "article_title": "Artículo 221. Pensión de viudedad de parejas de hecho.",
+    "token_count": 192
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-249",
+    "article_id": "ART-249",
+    "article_title": "Artículo 249 quater. Compatibilidad de la pensión de jubilación con la actividad artística.",
+    "token_count": 470
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-252",
+    "article_id": "ART-252",
+    "article_title": "Artículo 252. Ámbito de aplicación.",
+    "token_count": 159
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-136",
+    "article_id": "ART-136",
+    "article_title": "artículo 136.2.g), aunque para el mismo empresario presten servicios otros trabajadores",
+    "token_count": 147
+  },
+  {
+    "chunk_id": "SS_LGSS-CAP-XIX",
+    "article_id": "CAP-XIX",
+    "article_title": "CAPÍTULO XIX",
+    "token_count": 77
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-278",
+    "article_id": "ART-278",
+    "article_title": "Artículo 278. Cuantía del subsidio.",
+    "token_count": 97
+  },
+  {
+    "chunk_id": "SS_LGSS-TIT-l-1",
+    "article_id": "TIT-l",
+    "article_title": "título lucrativo y de forma habitual, personal y directa, siempre que posean el control efectivo,",
+    "token_count": 365
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-306",
+    "article_id": "ART-306",
+    "article_title": "Artículo 306. Exclusiones.",
+    "token_count": 151
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-305-1",
+    "article_id": "ART-305",
+    "article_title": "artículo 305.2.b), se computarán en los términos que se determinen reglamentariamente, la",
+    "token_count": 261
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-323",
+    "article_id": "ART-323",
+    "article_title": "Artículo 323. Ámbito de aplicación.",
+    "token_count": 102
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-342",
+    "article_id": "ART-342",
+    "article_title": "artículo 342.",
+    "token_count": 170
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-331-1",
+    "article_id": "ART-331",
+    "article_title": "Artículo 331. Situación legal de cese de actividad.",
+    "token_count": 276
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-332",
+    "article_id": "ART-332",
+    "article_title": "Artículo 332. Acreditación de la situación legal de cese de actividad.",
+    "token_count": 220
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-344-2",
+    "article_id": "ART-344",
+    "article_title": "Artículo 344. Financiación, base y tipo de cotización.",
+    "token_count": 165
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-346-2",
+    "article_id": "ART-346",
+    "article_title": "Artículo 346. Órgano gestor.",
+    "token_count": 140
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-364",
+    "article_id": "ART-364",
+    "article_title": "Artículo 364. Cuantía de la pensión.",
+    "token_count": 703
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-366",
+    "article_id": "ART-366",
+    "article_title": "Artículo 366. Compatibilidad de las pensiones.",
+    "token_count": 269
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-001-1",
+    "article_id": "ART-001",
+    "article_title": "artículo 1 del Reglamento de Entidades de Previsión Social, aprobado por el Real Decreto",
+    "token_count": 82
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-210-3",
+    "article_id": "ART-210",
+    "article_title": "artículo 210.4 de esta ley.",
+    "token_count": 96
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-248",
+    "article_id": "ART-248",
+    "article_title": "artículo 248.3 segundo párrafo.",
+    "token_count": 99
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-206-9",
+    "article_id": "ART-206",
+    "article_title": "artículo 206.6 de esta ley no se aplicará a los trabajadores incluidos en los diferentes",
+    "token_count": 786
+  },
+  {
+    "chunk_id": "SS_LGSS-ART-274-4",
+    "article_id": "ART-274",
+    "article_title": "artículo 274 en el período que media entre el 1 de marzo de 2018 y la fecha de entrada en",
+    "token_count": 724
+  }
+]

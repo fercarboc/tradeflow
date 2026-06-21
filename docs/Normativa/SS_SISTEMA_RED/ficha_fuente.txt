@@ -1,0 +1,22 @@
+Título: Sistema RED — Remisión Electrónica de Documentos (Manuales y Guías TGSS)
+Organismo: Tesorería General de la Seguridad Social (TGSS)
+Tipo documento: manual
+Fecha publicación: 2024-01-01
+Fecha derogación:
+Ámbito territorial: estatal
+Territorio:
+Número consulta:
+Versión: 2024-06-01
+Categoría: SS_SISTEMA_RED
+BOE:
+Rango normativo: Instrucción administrativa
+
+PDF: (pendiente descarga: Manual_Sistema_RED_2024.pdf)
+
+Capítulos prioritarios para instaladores:
+- Altas y bajas de trabajadores por RED
+- Afiliación electrónica
+- Partes de IT (incapacidad temporal)
+- Comunicación de contratos
+- Liquidación de cuotas (SLD)
+- Obtención de certificados

@@ -27,6 +27,64 @@ const SECTION_PATTERNS = {
   GUIAS: [
     /^\d+(?:\.\d+)*\s+[A-ZÁÉÍÓÚÜÑ][^\n]{5,}/gm,
   ],
+  // Categorías Asistente Integral
+  AEAT: [
+    /^Cap[íi]tulo\s+\d+[^\n]*/gim,
+    /^Art[íi]culo\s+\d+[^\n]*/gim,
+    /^\d+\.\s+[A-ZÁÉÍÓÚÜÑ][^\n]{8,}/gm,
+  ],
+  DGT: [
+    /^(?:Consulta Vinculante\s+)?V\d{4}-\d{2}[^\n]*/gim,
+    /^CONSULTA[^\n]*/gim,
+  ],
+  SOCIAL: [
+    /^Art[íi]culo\s+\d+[^\n]*/gim,
+    /^\d+(?:\.\d+)*\s+[A-ZÁÉÍÓÚÜÑ][^\n]{5,}/gm,
+  ],
+  // Seguridad Social — categorías granulares (mismos patrones que SOCIAL pero etiquetados)
+  SS_LGSS: [
+    /^Art[íi]culo\s+\d+[^\n]*/gim,
+    /^Cap[íi]tulo\s+[IVXLC\d]+[^\n]*/gim,
+    /^T[íi]tulo\s+[IVXLC\d]+[^\n]*/gim,
+    /^Secci[oó]n\s+\d+[^\n]*/gim,
+  ],
+  SS_AFILIACION: [
+    /^Art[íi]culo\s+\d+[^\n]*/gim,
+    /^Cap[íi]tulo\s+[IVXLC\d]+[^\n]*/gim,
+    /^\d+\.\s+[A-ZÁÉÍÓÚÜÑ][^\n]{5,}/gm,
+  ],
+  SS_COTIZACION: [
+    /^Art[íi]culo\s+\d+[^\n]*/gim,
+    /^Cap[íi]tulo\s+[IVXLC\d]+[^\n]*/gim,
+    /^\d+\.\s+[A-ZÁÉÍÓÚÜÑ][^\n]{5,}/gm,
+  ],
+  SS_RETA: [
+    /^Art[íi]culo\s+\d+[^\n]*/gim,
+    /^\d+\.\s+[A-ZÁÉÍÓÚÜÑ][^\n]{5,}/gm,
+  ],
+  SS_SISTEMA_RED: [
+    /^\d+(?:\.\d+)*\s+[A-ZÁÉÍÓÚÜÑ][^\n]{5,}/gm,
+    /^Cap[íi]tulo\s+\d+[^\n]*/gim,
+  ],
+  SS_BONIFICACIONES: [
+    /^\d+(?:\.\d+)*\s+[A-ZÁÉÍÓÚÜÑ][^\n]{5,}/gm,
+    /^Art[íi]culo\s+\d+[^\n]*/gim,
+  ],
+  SS_AUTONOMO_COLABORADOR: [
+    /^Art[íi]culo\s+\d+[^\n]*/gim,
+    /^\d+(?:\.\d+)*\s+[A-ZÁÉÍÓÚÜÑ][^\n]{5,}/gm,
+  ],
+  SS_BOLETINES_RED: [
+    /^\d+(?:\.\d+)*\s+[A-ZÁÉÍÓÚÜÑ][^\n]{5,}/gm,
+  ],
+  CONVENIOS: [
+    /^Art[íi]culo\s+\d+[^\n]*/gim,
+    /^Cap[íi]tulo\s+[IVXLC]+[^\n]*/gim,
+    /^CAPÍTULO\s+[IVXLC]+[^\n]*/gim,
+  ],
+  CIRCULARES: [
+    /^\d+(?:\.\d+)*\s+[A-ZÁÉÍÓÚÜÑ][^\n]{5,}/gm,
+  ],
 };
 
 // Extrae el identificador de sección de un texto de cabecera
@@ -42,6 +100,33 @@ function extractSectionId(text, category) {
   if (category === 'GAS') {
     const m = text.match(/ITC[-\s]?ICG[-\s]?(\d{2})/i);
     return m ? `ITC-ICG-${m[1].padStart(2,'0')}` : null;
+  }
+  if (category === 'AEAT') {
+    const cap = text.match(/Cap[íi]tulo\s+(\d+)/i);
+    if (cap) return `CAP-${cap[1].padStart(2,'0')}`;
+    const art = text.match(/Art[íi]culo\s+(\d+)/i);
+    if (art) return `ART-${art[1].padStart(3,'0')}`;
+    return null;
+  }
+  if (category === 'DGT') {
+    const m = text.match(/V(\d{4}-\d{2})/i);
+    return m ? `V${m[1]}` : null;
+  }
+  if (category === 'SOCIAL' || category.startsWith('SS_')) {
+    const art = text.match(/Art[íi]culo\s+(\d+)/i);
+    if (art) return `ART-${art[1].padStart(3,'0')}`;
+    const cap = text.match(/Cap[íi]tulo\s+([IVXLC\d]+)/i);
+    if (cap) return `CAP-${cap[1]}`;
+    const tit = text.match(/T[íi]tulo\s+([IVXLC\d]+)/i);
+    if (tit) return `TIT-${tit[1]}`;
+    return null;
+  }
+  if (category === 'CONVENIOS') {
+    const art = text.match(/Art[íi]culo\s+(\d+)/i);
+    if (art) return `ART-${art[1].padStart(3,'0')}`;
+    const cap = text.match(/Cap[íi]tulo\s+([IVXLC]+)/i);
+    if (cap) return `CAP-${cap[1]}`;
+    return null;
   }
   return null;
 }
@@ -65,7 +150,14 @@ function splitByParagraphs(text, maxChars) {
   return chunks;
 }
 
-export function textToChunks(text, category, documentTitle, boeRef, version) {
+// Determina la naturaleza jurídica por categoría
+function defaultNaturaleza(category) {
+  if (category === 'DGT') return 'interpretacion';
+  if (category === 'GUIAS' || category === 'CIRCULARES') return 'recomendacion_tecnica';
+  return 'obligacion_legal';
+}
+
+export function textToChunks(text, category, documentTitle, boeRef, version, extraMeta = {}) {
   const patterns = SECTION_PATTERNS[category] || SECTION_PATTERNS.GUIAS;
   const chunks   = [];
 
@@ -116,6 +208,7 @@ export function textToChunks(text, category, documentTitle, boeRef, version) {
         chunk_text:    sectionText,
         token_count:   Math.round(sectionText.length / 4),
         keywords:      [],
+        naturaleza:    extraMeta.naturaleza || defaultNaturaleza(category),
         category,
         document_title: documentTitle,
         boe_ref:        boeRef,
@@ -136,6 +229,7 @@ export function textToChunks(text, category, documentTitle, boeRef, version) {
           chunk_text:    sc,
           token_count:   Math.round(sc.length / 4),
           keywords:      [],
+          naturaleza:    extraMeta.naturaleza || defaultNaturaleza(category),
           category,
           document_title: documentTitle,
           boe_ref:        boeRef,

@@ -1,0 +1,1550 @@
+[
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-000",
+    "article_id": null,
+    "article_title": null,
+    "token_count": 758
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-001",
+    "article_id": null,
+    "article_title": "7\nÍNDICE",
+    "token_count": 80
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-026",
+    "article_id": null,
+    "article_title": "6.4 Plazo de conservación. .................................................................................45",
+    "token_count": 352
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-035",
+    "article_id": null,
+    "article_title": "10.9 Régimen especial del grupo de entidades (Artículo 61 quinquies RIVA) ......68",
+    "token_count": 574
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-036",
+    "article_id": null,
+    "article_title": "10\nÍNDICE",
+    "token_count": 694
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-037",
+    "article_id": null,
+    "article_title": "11\nÍNDICE",
+    "token_count": 586
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-038",
+    "article_id": null,
+    "article_title": "13\nNOTA PREVIA",
+    "token_count": 477
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-039",
+    "article_id": null,
+    "article_title": "15\nMODIFICACIONES PRINCIPALES 2010",
+    "token_count": 525
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-041",
+    "article_id": null,
+    "article_title": "1.1 Obligación de expedir factura por empresarios o profesionales.",
+    "token_count": 629
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-042",
+    "article_id": null,
+    "article_title": "17\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 380
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-043",
+    "article_id": null,
+    "article_title": "1.2 Supuestos de expedición obligatoria de factura.",
+    "token_count": 266
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-044",
+    "article_id": null,
+    "article_title": "18\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 457
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-045",
+    "article_id": null,
+    "article_title": "1.3 Excepciones a la obligación de facturar.",
+    "token_count": 178
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-046",
+    "article_id": null,
+    "article_title": "19\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 654
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-047-1",
+    "article_id": null,
+    "article_title": "20\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 803
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-048-1",
+    "article_id": null,
+    "article_title": "21\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 816
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-049-1",
+    "article_id": null,
+    "article_title": "22\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 956
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-050",
+    "article_id": null,
+    "article_title": "23\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 280
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-051",
+    "article_id": null,
+    "article_title": "2.1 Contenido general de las facturas.",
+    "token_count": 357
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-052",
+    "article_id": null,
+    "article_title": "24\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 708
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-053",
+    "article_id": null,
+    "article_title": "25\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 739
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-054",
+    "article_id": null,
+    "article_title": "26\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 348
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-056",
+    "article_id": null,
+    "article_title": "27\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 504
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-058",
+    "article_id": null,
+    "article_title": "28\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 723
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-059-1",
+    "article_id": null,
+    "article_title": "29\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 858
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-060",
+    "article_id": null,
+    "article_title": "30\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 246
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-061",
+    "article_id": null,
+    "article_title": "2.4 Moneda, lengua y duplicados de los documentos de facturación.",
+    "token_count": 426
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-062-1",
+    "article_id": null,
+    "article_title": "31\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 838
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-063-1",
+    "article_id": null,
+    "article_title": "32\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 821
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-065",
+    "article_id": null,
+    "article_title": "3.1 Requisitos generales para expedir tiques en lugar de facturas.",
+    "token_count": 514
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-068-1",
+    "article_id": null,
+    "article_title": "35\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 913
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-070",
+    "article_id": null,
+    "article_title": "4.1 Medios y plazos de expedición y remisión.",
+    "token_count": 608
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-071",
+    "article_id": null,
+    "article_title": "37\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 780
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-072",
+    "article_id": null,
+    "article_title": "38\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 280
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-073",
+    "article_id": null,
+    "article_title": "5.1 Supuestos de rectificación.",
+    "token_count": 375
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-074-1",
+    "article_id": null,
+    "article_title": "39\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 869
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-076",
+    "article_id": null,
+    "article_title": "5.2 Requisitos generales de las facturas de rectificación.",
+    "token_count": 489
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-077",
+    "article_id": null,
+    "article_title": "5.3 Excepciones y particularidades.",
+    "token_count": 232
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-078",
+    "article_id": null,
+    "article_title": "41\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 289
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-080",
+    "article_id": null,
+    "article_title": "5.5 Cuotas impositivas que no pueden ser objeto de rectificación. (Artículo",
+    "token_count": 202
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-082",
+    "article_id": null,
+    "article_title": "42\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 550
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-084",
+    "article_id": null,
+    "article_title": "43\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 696
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-085",
+    "article_id": null,
+    "article_title": "44\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 400
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-086",
+    "article_id": null,
+    "article_title": "6.2 Formas de conservación.",
+    "token_count": 438
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-088",
+    "article_id": null,
+    "article_title": "6.3 Lugar de conservación.",
+    "token_count": 590
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-089",
+    "article_id": null,
+    "article_title": "6.4 Plazo de conservación.",
+    "token_count": 111
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-090",
+    "article_id": null,
+    "article_title": "46\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 696
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-091-1",
+    "article_id": null,
+    "article_title": "47\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 804
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-092-1",
+    "article_id": null,
+    "article_title": "48\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 811
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-093",
+    "article_id": null,
+    "article_title": "49\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 790
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-094-1",
+    "article_id": null,
+    "article_title": "50\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 808
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-095",
+    "article_id": null,
+    "article_title": "51\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 689
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-096-1",
+    "article_id": null,
+    "article_title": "52\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 841
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-097",
+    "article_id": null,
+    "article_title": "53\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 783
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-098",
+    "article_id": null,
+    "article_title": "54\nOBLIGACIONES DE FACTURACIÓN",
+    "token_count": 512
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-099",
+    "article_id": null,
+    "article_title": "55\nLIBROS REGISTRO EN EL IMPUESTO SOBRE EL VALOR AÑADIDO",
+    "token_count": 596
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-100-1",
+    "article_id": null,
+    "article_title": "56\nLIBROS REGISTRO EN EL IMPUESTO SOBRE EL VALOR AÑADIDO",
+    "token_count": 818
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-101",
+    "article_id": null,
+    "article_title": "57\nLIBROS REGISTRO EN EL IMPUESTO SOBRE EL VALOR AÑADIDO",
+    "token_count": 740
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-102",
+    "article_id": null,
+    "article_title": "58\nLIBROS REGISTRO EN EL IMPUESTO SOBRE EL VALOR AÑADIDO",
+    "token_count": 693
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-103",
+    "article_id": null,
+    "article_title": "59\nLIBROS REGISTRO EN EL IMPUESTO SOBRE EL VALOR AÑADIDO",
+    "token_count": 708
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-105",
+    "article_id": null,
+    "article_title": "61\nLIBROS REGISTRO EN EL IMPUESTO SOBRE EL VALOR AÑADIDO",
+    "token_count": 678
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-106",
+    "article_id": null,
+    "article_title": "62\nLIBROS REGISTRO EN EL IMPUESTO SOBRE EL VALOR AÑADIDO",
+    "token_count": 545
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-107",
+    "article_id": null,
+    "article_title": "63\nLIBROS REGISTRO EN EL IMPUESTO SOBRE EL VALOR AÑADIDO",
+    "token_count": 525
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-108",
+    "article_id": null,
+    "article_title": "64\nLIBROS REGISTRO EN EL IMPUESTO SOBRE EL VALOR AÑADIDO",
+    "token_count": 699
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-110",
+    "article_id": null,
+    "article_title": "10.1 Esquema general.",
+    "token_count": 451
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-112",
+    "article_id": null,
+    "article_title": "10.2 Régimen simplificado (art. 40 RIVA).",
+    "token_count": 246
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-116",
+    "article_id": null,
+    "article_title": "10.5 Régimen especial de bienes usados, objetos de arte, antigüedades y",
+    "token_count": 380
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-119",
+    "article_id": null,
+    "article_title": "10.7 Régimen especial de oro de inversión (art. 51 quater RIVA).",
+    "token_count": 186
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-122",
+    "article_id": null,
+    "article_title": "69\nLIBROS REGISTRO EN EL IMPUESTO SOBRE EL VALOR AÑADIDO",
+    "token_count": 729
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-123",
+    "article_id": null,
+    "article_title": "70\nLIBROS REGISTRO EN EL IMPUESTO SOBRE EL VALOR AÑADIDO",
+    "token_count": 374
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-125",
+    "article_id": null,
+    "article_title": "75\nANEXO 1",
+    "token_count": 425
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-126",
+    "article_id": null,
+    "article_title": "28020 MADRID",
+    "token_count": 275
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-127",
+    "article_id": null,
+    "article_title": "77\nANEXO 2",
+    "token_count": 435
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-128",
+    "article_id": null,
+    "article_title": "28020 MADRID",
+    "token_count": 275
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-129",
+    "article_id": null,
+    "article_title": "79\nANEXO 3",
+    "token_count": 511
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-131",
+    "article_id": null,
+    "article_title": "81\nANEXO 3",
+    "token_count": 585
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-132",
+    "article_id": null,
+    "article_title": "82\nANEXO 3",
+    "token_count": 478
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-133",
+    "article_id": null,
+    "article_title": "83\nANEXO 4",
+    "token_count": 368
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-135",
+    "article_id": null,
+    "article_title": "85\nANEXO 4",
+    "token_count": 469
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-136",
+    "article_id": null,
+    "article_title": "86\nANEXO 4",
+    "token_count": 476
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-137",
+    "article_id": null,
+    "article_title": "87\nCONTENIDO DE LAS FACTURAS.",
+    "token_count": 154
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-138",
+    "article_id": null,
+    "article_title": "89\nANEXO 5",
+    "token_count": 514
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-140",
+    "article_id": null,
+    "article_title": "91\nANEXO 5",
+    "token_count": 565
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-141",
+    "article_id": null,
+    "article_title": "92\nANEXO 5",
+    "token_count": 525
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-142",
+    "article_id": null,
+    "article_title": "93\nANEXO 5",
+    "token_count": 525
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-143",
+    "article_id": null,
+    "article_title": "94\nANEXO 5",
+    "token_count": 255
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-144",
+    "article_id": null,
+    "article_title": "95\nANEXO 6",
+    "token_count": 451
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-146",
+    "article_id": null,
+    "article_title": "3\nAgencia Tributaria",
+    "token_count": 422
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-147",
+    "article_id": null,
+    "article_title": "98\nANEXO 6",
+    "token_count": 598
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-148",
+    "article_id": null,
+    "article_title": "5\nAgencia Tributaria",
+    "token_count": 595
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-149",
+    "article_id": null,
+    "article_title": "100\nANEXO 6",
+    "token_count": 635
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-150",
+    "article_id": null,
+    "article_title": "7\nAgencia Tributaria",
+    "token_count": 593
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-151",
+    "article_id": null,
+    "article_title": "102\nANEXO 6",
+    "token_count": 98
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-152",
+    "article_id": null,
+    "article_title": "103\nInfanta Mercedes, 37",
+    "token_count": 465
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-154",
+    "article_id": null,
+    "article_title": "3\nAgencia Tributaria",
+    "token_count": 500
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-156",
+    "article_id": null,
+    "article_title": "5\nAgencia Tributaria",
+    "token_count": 552
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-158",
+    "article_id": null,
+    "article_title": "109\nANEXO 8",
+    "token_count": 440
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-160",
+    "article_id": null,
+    "article_title": "3\nAgencia Tributaria",
+    "token_count": 555
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-161",
+    "article_id": null,
+    "article_title": "112\nANEXO 8",
+    "token_count": 565
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-162",
+    "article_id": null,
+    "article_title": "5\nAgencia Tributaria",
+    "token_count": 653
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-163",
+    "article_id": null,
+    "article_title": "114\nANEXO 8",
+    "token_count": 428
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-165",
+    "article_id": null,
+    "article_title": "117\nANEXO 9",
+    "token_count": 506
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-167",
+    "article_id": null,
+    "article_title": "118\nANEXO 9",
+    "token_count": 548
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-168",
+    "article_id": null,
+    "article_title": "119\nANEXO 10",
+    "token_count": 372
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-169",
+    "article_id": null,
+    "article_title": "120\nANEXO 10",
+    "token_count": 438
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-170",
+    "article_id": null,
+    "article_title": "121\nANEXO 10",
+    "token_count": 213
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-171",
+    "article_id": null,
+    "article_title": "122\nANEXO 11",
+    "token_count": 415
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-172",
+    "article_id": null,
+    "article_title": "123\nANEXO 11",
+    "token_count": 483
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-173",
+    "article_id": null,
+    "article_title": "124\nANEXO 11",
+    "token_count": 610
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-175",
+    "article_id": null,
+    "article_title": "126\nANEXO 12",
+    "token_count": 513
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-176",
+    "article_id": null,
+    "article_title": "127\nANEXO 12",
+    "token_count": 406
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-177",
+    "article_id": null,
+    "article_title": "128\nANEXO 12",
+    "token_count": 558
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-178",
+    "article_id": null,
+    "article_title": "129\nANEXO 12",
+    "token_count": 100
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-180",
+    "article_id": null,
+    "article_title": "133\nANEXO 13",
+    "token_count": 441
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-182",
+    "article_id": null,
+    "article_title": "135\nANEXO 13",
+    "token_count": 291
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-183",
+    "article_id": null,
+    "article_title": "136\nANEXO 14",
+    "token_count": 436
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-185",
+    "article_id": null,
+    "article_title": "138\nANEXO 14",
+    "token_count": 287
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-186",
+    "article_id": null,
+    "article_title": "139\nANEXO 15",
+    "token_count": 543
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-187",
+    "article_id": null,
+    "article_title": "140\nANEXO 15",
+    "token_count": 364
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-188",
+    "article_id": null,
+    "article_title": "141\nANEXO 16",
+    "token_count": 398
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-190",
+    "article_id": null,
+    "article_title": "143\nANEXO 16",
+    "token_count": 492
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-191",
+    "article_id": null,
+    "article_title": "144\nANEXO 16",
+    "token_count": 660
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-192",
+    "article_id": null,
+    "article_title": "145\nANEXO 16",
+    "token_count": 352
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-194",
+    "article_id": null,
+    "article_title": "149\nANEXO 17",
+    "token_count": 459
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-195",
+    "article_id": null,
+    "article_title": "150\nANEXO 17",
+    "token_count": 578
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-197",
+    "article_id": null,
+    "article_title": "152\nANEXO 17",
+    "token_count": 663
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-198",
+    "article_id": null,
+    "article_title": "153\nANEXO 17",
+    "token_count": 301
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-201",
+    "article_id": null,
+    "article_title": "158\nANEXO 19",
+    "token_count": 341
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-203",
+    "article_id": null,
+    "article_title": "160\nANEXO 20",
+    "token_count": 434
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-204",
+    "article_id": null,
+    "article_title": "161\nANEXO 20",
+    "token_count": 429
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-206",
+    "article_id": null,
+    "article_title": "163\nANEXO 20",
+    "token_count": 653
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-209",
+    "article_id": null,
+    "article_title": "167\nANEXO 21",
+    "token_count": 527
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-210",
+    "article_id": null,
+    "article_title": "168\nANEXO 21",
+    "token_count": 572
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-211",
+    "article_id": null,
+    "article_title": "169\nANEXO 21",
+    "token_count": 669
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-212",
+    "article_id": null,
+    "article_title": "170\nANEXO 21",
+    "token_count": 522
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-213",
+    "article_id": null,
+    "article_title": "171\nANEXO 21",
+    "token_count": 513
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-215",
+    "article_id": null,
+    "article_title": "175\nANEXO 22",
+    "token_count": 498
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-217",
+    "article_id": null,
+    "article_title": "177\nANEXO 23",
+    "token_count": 337
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-218",
+    "article_id": null,
+    "article_title": "178\nANEXO 23",
+    "token_count": 595
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-220",
+    "article_id": null,
+    "article_title": "180\nAgencia Tributaria",
+    "token_count": 600
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-221",
+    "article_id": null,
+    "article_title": "181\nANEXO 23",
+    "token_count": 604
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-222-1",
+    "article_id": null,
+    "article_title": "182\nANEXO 23",
+    "token_count": 335
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-222-2",
+    "article_id": null,
+    "article_title": "182\nANEXO 23",
+    "token_count": 530
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-223",
+    "article_id": null,
+    "article_title": "185\nAPÉNDICE NORMATIVO",
+    "token_count": 269
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-224-1",
+    "article_id": null,
+    "article_title": "187\nAPÉNDICE NORMATIVO",
+    "token_count": 1069
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-225-1",
+    "article_id": null,
+    "article_title": "188\nAPÉNDICE NORMATIVO",
+    "token_count": 1071
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-226-1",
+    "article_id": null,
+    "article_title": "189\nAPÉNDICE NORMATIVO",
+    "token_count": 1049
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-227-1",
+    "article_id": null,
+    "article_title": "190\nAPÉNDICE NORMATIVO",
+    "token_count": 1004
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-228-1",
+    "article_id": null,
+    "article_title": "191\nAPÉNDICE NORMATIVO",
+    "token_count": 868
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-229-1",
+    "article_id": null,
+    "article_title": "192\nAPÉNDICE NORMATIVO",
+    "token_count": 802
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-230",
+    "article_id": null,
+    "article_title": "193\nAPÉNDICE NORMATIVO",
+    "token_count": 691
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-231-1",
+    "article_id": null,
+    "article_title": "194\nAPÉNDICE NORMATIVO",
+    "token_count": 854
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-232-1",
+    "article_id": null,
+    "article_title": "195\nAPÉNDICE NORMATIVO",
+    "token_count": 950
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-233-1",
+    "article_id": null,
+    "article_title": "196\nAPÉNDICE NORMATIVO",
+    "token_count": 848
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-234-1",
+    "article_id": null,
+    "article_title": "197\nAPÉNDICE NORMATIVO",
+    "token_count": 927
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-235-1",
+    "article_id": null,
+    "article_title": "198\nAPÉNDICE NORMATIVO",
+    "token_count": 954
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-237-1",
+    "article_id": null,
+    "article_title": "200\nAPÉNDICE NORMATIVO",
+    "token_count": 866
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-238-1",
+    "article_id": null,
+    "article_title": "201\nAPÉNDICE NORMATIVO",
+    "token_count": 913
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-239-1",
+    "article_id": null,
+    "article_title": "202\nAPÉNDICE NORMATIVO",
+    "token_count": 1011
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-242-1",
+    "article_id": null,
+    "article_title": "205\nAPÉNDICE NORMATIVO",
+    "token_count": 897
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-243-1",
+    "article_id": null,
+    "article_title": "206\nAPÉNDICE NORMATIVO",
+    "token_count": 904
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-244-1",
+    "article_id": null,
+    "article_title": "207\nAPÉNDICE NORMATIVO",
+    "token_count": 948
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-245-1",
+    "article_id": null,
+    "article_title": "208\nAPÉNDICE NORMATIVO",
+    "token_count": 1148
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-246-1",
+    "article_id": null,
+    "article_title": "209\nAPÉNDICE NORMATIVO",
+    "token_count": 1113
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-247-1",
+    "article_id": null,
+    "article_title": "210\nAPÉNDICE NORMATIVO",
+    "token_count": 986
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-249",
+    "article_id": null,
+    "article_title": "213\nAPÉNDICE NORMATIVO",
+    "token_count": 184
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-250-1",
+    "article_id": null,
+    "article_title": "215\nAPÉNDICE NORMATIVO",
+    "token_count": 1048
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-251-1",
+    "article_id": null,
+    "article_title": "216\nAPÉNDICE NORMATIVO",
+    "token_count": 1065
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-252-1",
+    "article_id": null,
+    "article_title": "217\nAPÉNDICE NORMATIVO",
+    "token_count": 1001
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-253-1",
+    "article_id": null,
+    "article_title": "218\nAPÉNDICE NORMATIVO",
+    "token_count": 1077
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-254-1",
+    "article_id": null,
+    "article_title": "219\nAPÉNDICE NORMATIVO",
+    "token_count": 1018
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-255-1",
+    "article_id": null,
+    "article_title": "220\nAPÉNDICE NORMATIVO",
+    "token_count": 1001
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-256-1",
+    "article_id": null,
+    "article_title": "221\nAPÉNDICE NORMATIVO",
+    "token_count": 1028
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-260-1",
+    "article_id": null,
+    "article_title": "225\nAPÉNDICE NORMATIVO",
+    "token_count": 1082
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-261-1",
+    "article_id": null,
+    "article_title": "226\nAPÉNDICE NORMATIVO",
+    "token_count": 1044
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-262-1",
+    "article_id": null,
+    "article_title": "227\nAPÉNDICE NORMATIVO",
+    "token_count": 971
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-264-1",
+    "article_id": null,
+    "article_title": "229\nAPÉNDICE NORMATIVO",
+    "token_count": 1094
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-265-1",
+    "article_id": null,
+    "article_title": "230\nAPÉNDICE NORMATIVO",
+    "token_count": 1035
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-266-1",
+    "article_id": null,
+    "article_title": "231\nAPÉNDICE NORMATIVO",
+    "token_count": 1036
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-267-1",
+    "article_id": null,
+    "article_title": "232\nAPÉNDICE NORMATIVO",
+    "token_count": 661
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-272-1",
+    "article_id": null,
+    "article_title": "239\nAPÉNDICE NORMATIVO",
+    "token_count": 1064
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-273-1",
+    "article_id": null,
+    "article_title": "240\nAPÉNDICE NORMATIVO",
+    "token_count": 998
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-274-1",
+    "article_id": null,
+    "article_title": "241\nAPÉNDICE NORMATIVO",
+    "token_count": 1039
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-275-1",
+    "article_id": null,
+    "article_title": "242\nAPÉNDICE NORMATIVO",
+    "token_count": 914
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-277-1",
+    "article_id": null,
+    "article_title": "28 DE NOVIEMBRE DE 2006, RELATIVA AL",
+    "token_count": 952
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-278-1",
+    "article_id": null,
+    "article_title": "244\nDirectiva 2006/112/CE",
+    "token_count": 1058
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-279-1",
+    "article_id": null,
+    "article_title": "245\nAPÉNDICE NORMATIVO",
+    "token_count": 1061
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-280-1",
+    "article_id": null,
+    "article_title": "246\nDirectiva 2006/112/CE",
+    "token_count": 1030
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-281-1",
+    "article_id": null,
+    "article_title": "247\nAPÉNDICE NORMATIVO",
+    "token_count": 1024
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-282-1",
+    "article_id": null,
+    "article_title": "248\nDirectiva 2006/112/CE",
+    "token_count": 993
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-283",
+    "article_id": null,
+    "article_title": "249\nAPÉNDICE NORMATIVO",
+    "token_count": 747
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-284-1",
+    "article_id": null,
+    "article_title": "250\nDirectiva 2006/112/CE",
+    "token_count": 876
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-285-1",
+    "article_id": null,
+    "article_title": "251\nAPÉNDICE NORMATIVO",
+    "token_count": 923
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-287-1",
+    "article_id": null,
+    "article_title": "253\nAPÉNDICE NORMATIVO",
+    "token_count": 880
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-288",
+    "article_id": null,
+    "article_title": "254\nDirectiva 2006/112/CE",
+    "token_count": 776
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-289",
+    "article_id": null,
+    "article_title": "255\nAPÉNDICE NORMATIVO",
+    "token_count": 690
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-290-1",
+    "article_id": null,
+    "article_title": "257\nAPÉNDICE NORMATIVO",
+    "token_count": 883
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-291",
+    "article_id": null,
+    "article_title": "258\nAPÉNDICE NORMATIVO",
+    "token_count": 657
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-292-1",
+    "article_id": null,
+    "article_title": "259\nAPÉNDICE NORMATIVO",
+    "token_count": 893
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-293-1",
+    "article_id": null,
+    "article_title": "260\nAPÉNDICE NORMATIVO",
+    "token_count": 968
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-294-1",
+    "article_id": null,
+    "article_title": "261\nAPÉNDICE NORMATIVO",
+    "token_count": 977
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-295-1",
+    "article_id": null,
+    "article_title": "262\nAPÉNDICE NORMATIVO",
+    "token_count": 865
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-296",
+    "article_id": null,
+    "article_title": "263\nAPÉNDICE NORMATIVO",
+    "token_count": 308
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-299-1",
+    "article_id": null,
+    "article_title": "267\nAPÉNDICE NORMATIVO",
+    "token_count": 819
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-300-1",
+    "article_id": null,
+    "article_title": "268\nAPÉNDICE NORMATIVO",
+    "token_count": 810
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-301-1",
+    "article_id": null,
+    "article_title": "269\nAPÉNDICE NORMATIVO",
+    "token_count": 872
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-302",
+    "article_id": null,
+    "article_title": "270\nAPÉNDICE NORMATIVO",
+    "token_count": 731
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-303-1",
+    "article_id": null,
+    "article_title": "271\nAPÉNDICE NORMATIVO",
+    "token_count": 1051
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-055",
+    "article_id": null,
+    "article_title": "2.2 Excepciones al contenido general",
+    "token_count": 251
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-057",
+    "article_id": null,
+    "article_title": "2.3 Facturas con requisitos especiales.",
+    "token_count": 215
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-067",
+    "article_id": null,
+    "article_title": "3.2 Contenido de los documentos sustitutivos o tiques.",
+    "token_count": 576
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-079",
+    "article_id": null,
+    "article_title": "5.4 Plazo de rectificación.",
+    "token_count": 93
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-081",
+    "article_id": null,
+    "article_title": "5.6 Acuerdos del Departamento de Gestión Tributaria sobre rectificación de",
+    "token_count": 112
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-083",
+    "article_id": null,
+    "article_title": "6.1 Obligación de conservar los documentos.",
+    "token_count": 173
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-104",
+    "article_id": null,
+    "article_title": "60\nLIBROS REGISTRO EN EL IMPUESTO SOBRE EL VALOR AÑADIDO",
+    "token_count": 691
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-113",
+    "article_id": null,
+    "article_title": "10.3 Régimen especial de la agricultura, ganadería y pesca (art. 47 RIVA).",
+    "token_count": 248
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-114",
+    "article_id": null,
+    "article_title": "10.4 Régimen especial del recargo de equivalencia (art. 61 RIVA).",
+    "token_count": 137
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-115",
+    "article_id": null,
+    "article_title": "67\nLIBROS REGISTRO EN EL IMPUESTO SOBRE EL VALOR AÑADIDO",
+    "token_count": 126
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-117",
+    "article_id": null,
+    "article_title": "10.6 Régimen especial de las agencias de viajes (art. 53 RIVA).",
+    "token_count": 94
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-120",
+    "article_id": null,
+    "article_title": "10.8 Régimen especial aplicable a los servicios prestados por vía electrónica",
+    "token_count": 356
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-121",
+    "article_id": null,
+    "article_title": "10.9 Régimen especial del grupo de entidades (Artículo 61 quinquies RIVA)",
+    "token_count": 125
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-124",
+    "article_id": null,
+    "article_title": "73\nOBLIGACIÓN GENERAL DE EXPEDIR Y ENTREGAR FACTURAS.",
+    "token_count": 96
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-130",
+    "article_id": null,
+    "article_title": "28020 MADRID",
+    "token_count": 453
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-134",
+    "article_id": null,
+    "article_title": "84\nANEXO 4",
+    "token_count": 522
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-139",
+    "article_id": null,
+    "article_title": "90\nANEXO 5",
+    "token_count": 492
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-145",
+    "article_id": null,
+    "article_title": "96\nANEXO 6",
+    "token_count": 538
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-153",
+    "article_id": null,
+    "article_title": "104\nANEXO 7",
+    "token_count": 534
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-155",
+    "article_id": null,
+    "article_title": "106\nANEXO 7",
+    "token_count": 535
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-157",
+    "article_id": null,
+    "article_title": "108\nANEXO 7",
+    "token_count": 102
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-159",
+    "article_id": null,
+    "article_title": "110\nANEXO 8",
+    "token_count": 528
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-164",
+    "article_id": null,
+    "article_title": "115\nOTROS ACUERDOS E INFORMES RELATIVOS AL CONTENIDO DE LAS FACTURAS.",
+    "token_count": 76
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-174",
+    "article_id": null,
+    "article_title": "125\nANEXO 11",
+    "token_count": 601
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-181",
+    "article_id": null,
+    "article_title": "134\nANEXO 13",
+    "token_count": 522
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-184",
+    "article_id": null,
+    "article_title": "137\nANEXO 14",
+    "token_count": 522
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-189",
+    "article_id": null,
+    "article_title": "142\nANEXO 16",
+    "token_count": 487
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-196",
+    "article_id": null,
+    "article_title": "151\nANEXO 17",
+    "token_count": 660
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-200",
+    "article_id": null,
+    "article_title": "157\nANEXO 18",
+    "token_count": 516
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-205",
+    "article_id": null,
+    "article_title": "162\nANEXO 20",
+    "token_count": 573
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-216",
+    "article_id": null,
+    "article_title": "176\nANEXO 22",
+    "token_count": 467
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-219",
+    "article_id": null,
+    "article_title": "179\nANEXO 23",
+    "token_count": 514
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-222-3",
+    "article_id": null,
+    "article_title": "182\nANEXO 23",
+    "token_count": 128
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-236-1",
+    "article_id": null,
+    "article_title": "199\nAPÉNDICE NORMATIVO",
+    "token_count": 951
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-240-1",
+    "article_id": null,
+    "article_title": "203\nAPÉNDICE NORMATIVO",
+    "token_count": 932
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-241-1",
+    "article_id": null,
+    "article_title": "204\nAPÉNDICE NORMATIVO",
+    "token_count": 914
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-248-1",
+    "article_id": null,
+    "article_title": "211\nAPÉNDICE NORMATIVO",
+    "token_count": 1032
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-248-2",
+    "article_id": null,
+    "article_title": "211\nAPÉNDICE NORMATIVO",
+    "token_count": 360
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-257-1",
+    "article_id": null,
+    "article_title": "222\nAPÉNDICE NORMATIVO",
+    "token_count": 1034
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-258-1",
+    "article_id": null,
+    "article_title": "223\nAPÉNDICE NORMATIVO",
+    "token_count": 1042
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-259-1",
+    "article_id": null,
+    "article_title": "224\nAPÉNDICE NORMATIVO",
+    "token_count": 1050
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-263",
+    "article_id": null,
+    "article_title": "228\nAPÉNDICE NORMATIVO",
+    "token_count": 152
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-267-2",
+    "article_id": null,
+    "article_title": "232\nAPÉNDICE NORMATIVO",
+    "token_count": 438
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-268-1",
+    "article_id": null,
+    "article_title": "235\nAPÉNDICE NORMATIVO",
+    "token_count": 1021
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-269-1",
+    "article_id": null,
+    "article_title": "236\nAPÉNDICE NORMATIVO",
+    "token_count": 1074
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-270-1",
+    "article_id": null,
+    "article_title": "237\nAPÉNDICE NORMATIVO",
+    "token_count": 1050
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-271",
+    "article_id": null,
+    "article_title": "238\nAPÉNDICE NORMATIVO",
+    "token_count": 238
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-286-1",
+    "article_id": null,
+    "article_title": "252\nDirectiva 2006/112/CE",
+    "token_count": 835
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-297",
+    "article_id": null,
+    "article_title": "265\nAPÉNDICE NORMATIVO",
+    "token_count": 641
+  },
+  {
+    "chunk_id": "AEAT_FACTURACION-SEC-298",
+    "article_id": null,
+    "article_title": "266\nAPÉNDICE NORMATIVO",
+    "token_count": 765
+  }
+]

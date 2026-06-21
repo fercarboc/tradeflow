@@ -1,0 +1,477 @@
+Guía de usuario de la Aplicación gratuita de 
+facturación de la AEAT v1.0, 10/10/2025 
+La aplicación gratuita de 
+facturación de la AEAT 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 2 
+ 
+ 
+CONTENIDO 
+Contenido ..................................................................................................................................................... 2 
+Control de cambios....................................................................................................................................... 3 
+Qué es la aplicación y para qué sirve ........................................................................................................... 3 
+Ventajas del formulario web .................................................................................................................... 4 
+Requisitos técnicos ....................................................................................................................................... 4 
+Navegador web ........................................................................................................................................ 4 
+Sistemas de identificación ........................................................................................................................ 4 
+Condiciones de uso de la aplicación ............................................................................................................. 4 
+Acceso e identificación ................................................................................................................................. 5 
+Funcionalidades de la aplicación .................................................................................................................. 6 
+Ejemplo práctico completo ........................................................................................................................ 10 
+Errores frecuentes y cómo resolverlos ....................................................................................................... 16 
+Error 403 ................................................................................................................................................. 16 
+Error “Debe añadir destinatario” ........................................................................................................... 17 
+Preguntas frecuentes específicas de la aplicación y enlaces a las FAQs dinámicas de la web ................... 17 
+Canales de ayuda ........................................................................................................................................ 18 
+ 
+ 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 3 
+ 
+ 
+CONTROL DE CAMBIOS 
+Versión Fecha Cambios respecto a versión anterior 
+1.0 10/10/2025 
+ 
+ 
+QUÉ ES LA APLICACIÓN Y PARA QUÉ SIRVE 
+La AEAT pone a disposición de los contribuyentes una aplicación gratuita de 
+facturación, accesible desde la Sede de la AEAT. Este formulario permite a los 
+contribuyentes generar facturas electrónicas y enviar los registros de facturación 
+directamente a la AEAT, cumpliendo con el reglamento de VERI*FACTU, aprobado por el 
+Real Decreto 1007/2023, de 5 de diciembre, que regula los requisitos de los Sistemas 
+Informáticos de Facturación. 
+El proceso es sencillo: 
+1. Ingreso de Datos: Accede al formulario en la Sede 
+Electrónica de la AEAT e introduce la información 
+requerida para cada factura. 
+2. Generación de Factura: Una vez completados los 
+datos, el sistema genera una factura electrónica que 
+incluye un código QR que puede cotejar el destinatario 
+de la factura en la Sede electrónica de la AEAT y en 
+su APP AEAT, tal como figura en la imagen situada a 
+la derecha. 
+3. Envío de Registro: Simultáneamente, se envía el 
+registro de facturación a la AEAT, cumpliendo con los 
+registros de VERI*FACTU. 
+Dirigido a: autónomos, profesionales y empresas que emitan 
+un número reducido de facturas al año o su proceso de 
+facturación sea relativamente sencillo. 
+ 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 4 
+ 
+ 
+VENTAJAS DEL FORMULARIO WEB 
+• Simplicidad: No requiere instalación de software adicional ni conocimientos 
+técnicos avanzados. 
+• Cumplimiento Normativo: Garantiza que las facturas emitidas cumplan con 
+los estándares de seguridad y trazabilidad establecidos por la AEAT. 
+• 
+Integración con la AEAT: Facilita la comunicación directa con la Agencia 
+Tributaria, asegurando el correcto registro y almacenamiento de las facturas. 
+REQUISITOS TÉCNICOS 
+Para utilizar la aplicación necesitarás un navegador web y alguno de los sistemas 
+de identificación admitidos: 
+NAVEGADOR WEB 
+La aplicación es accesible desde los navegadores más habituales. 
+La AEAT garantiza la compatibilidad en los siguientes navegadores, siempre que 
+estén actualizados a su última versión: 
+• Microsoft Edge 
+• Google Chrome 
+• Mozilla Firefox 
+Aunque otros navegadores pueden funcionar, se recomienda utilizar uno de los 
+anteriores para evitar incidencias. 
+SISTEMAS DE IDENTIFICACIÓN 
+• Certificado electrónico admitido por la AEAT 
+• DNI electrónico (DNIe) 
+• Cl@ve Móvil 
+CONDICIONES DE USO DE LA APLICACIÓN 
+La aplicación gratuita de facturación de la AEAT tiene ciertas condiciones que 
+debes tener en cuenta antes de empezar a utilizarla. 
+Quién puede usarla: Solo puedes expedir facturas en nombre propio o a través 
+de un apoderado autorizado. 
+Facturas con destinatario: 
+• Todas las facturas deben incluir obligatoriamente un destinatario. 
+Ejemplo: si emites una factura de alquiler, deberás incluir los datos 
+completos del inquilino. 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 5 
+ 
+ 
+ 
+• La aplicación emite facturas completas, no facturas simplificadas (tickets). 
+Gestión exclusiva en la aplicación: 
+• Las facturas y los registros generados solo pueden gestionarse desde esta 
+misma aplicación. 
+• No es posible exportar registros para continuar con la facturación en otros 
+sistemas informáticos de facturación (SIF). 
+• Por otra parte, los registros de facturación generados desde la aplicación 
+se podrán consultar en la Sede electrónica. 
+ 
+ACCESO E IDENTIFICACIÓN 
+La aplicación está disponible en la Sede electrónica, apartado “Accede 
+directamente”, “Sistemas Informáticos de Facturación (SIF) y VERI*FACTU”, en 
+el enlace de gestiones Acceso a la Aplicación de facturación de la AEAT. 
+ 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 6 
+ 
+ 
+El acceso se realiza identificándonos con Cl@ve Móvil o con certificado o DNI 
+electrónico. 
+ 
+Una vez realizada la identificación, habrá que seleccionar si se actúa en 
+nombre propio o bien en nombre de un tercero (mediante apoderamiento 
+previo). 
+FUNCIONALIDADES DE LA APLICACIÓN 
+En primer lugar, tendremos acceso al menú principal de la aplicación. Si es 
+la primera vez que usamos la aplicación de facturación de la AEAT, se
+ 
+recomienda pulsar en la opción Mis datos; accederemos entonces al 
+Formulario de modificación de Emisor donde podremos cumplimentar 
+nuestra información. Con esta opción sólo es necesario rellenar estos datos 
+una vez y aparecerá de forma automática en las facturas que generemos 
+posteriormente.
+ 
+ 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 7 
+ 
+ 
+ 
+ 
+Respecto a la gestión de facturas, disponemos de tres gestiones. Por un 
+lado, la Emisión de facturas que nos permite acceder directamente a 
+la aplicación de facturación: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+A continuación, se encuentra la gestión Consulta de facturas. En este 
+apartado podremos encontrar todas las facturas que hayamos enviado 
+mediante el formulario web, usando los campos de búsqueda disponibles:
+ 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 8 
+ 
+ 
+ 
+ 
+La última de las gestiones, denominada Borradores, permite acceder a 
+facturas que hayamos dejado incompletas o guardar plantillas para poder 
+usarlas posteriormente y así generar nuestras facturas de una forma más ágil y 
+rápida: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 9 
+ 
+ 
+ Respecto a las gestiones del apartado Otros Servicios, recordamos 
+nuevamente la opción Mis Datos, con la cual accederemos al apartado 
+Formulario de modificación de Emisor donde podremos cumplimentar 
+nuestra información, la cual se incorporará automáticamente en el formulario de 
+generación de facturas. 
+ El resto de opciones del apartado Otros servicios permiten gestionar 
+carteras de clientes, productos o números de serie de forma fácil e intuitiva. De 
+esta forma, se permitirá la importación de dichos datos al formulario de alta sin 
+necesidad de cumplimentarlos manualmente: 
+Clientes: Es posible generar nuevos clientes, recuperar clientes de nuestra 
+cartera de clientes ya creada, exportar nuestro listado completo de clientes 
+para hacer una copia y posteriormente restaurarla e importar un fichero que se 
+ajuste a la estructura requerida.
+ 
+ 
+Productos: Es posible añadir nuevos productos/servicios, recuperar 
+productos/servicios ya creados, exportar un listado completo de 
+productos/servicios existentes e importar un fichero con un listado de 
+productos/servicios. 
+ 
+ 
+ 
+ 
+ 
+Números de serie: Permite la creación de números de serie de facturas para 
+agruparlas y asignarle un número de factura consecutivo automáticamente. 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 10 
+ 
+ 
+ 
+EJEMPLO PRÁCTICO COMPLETO 
+Para poder emitir una factura en la aplicación debemos acceder a la gestión 
+Emisión de Facturas: 
+ 
+El proceso de emisión de una factura se divide en tres pasos que se podrán 
+visualizar en la parte superior del formulario: 
+ 
+En el paso 1 Cumplimentar solicitud, debemos cumplimentar los datos del 
+obligado a la emisión de la factura (aparecen automáticamente si se han 
+cumplimentado en la gestión Mis datos). 
+Para introducir los datos del domicilio del obligado a la emisión e indicar si el 
+obligado es persona física o persona jurídica, debemos pulsar en Mostrar 
+detalle: 
+ 
+ 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 11 
+ 
+ 
+ 
+También es posible añadir datos de contacto adicionales: 
+ 
+A continuación, debemos cumplimentar los datos del destinatario o cliente. 
+Se permite la cumplimentación manual desde Nuevo destinatario, o bien 
+incorporar uno automáticamente que hayamos previamente almacenado en 
+Gestión de clientes pulsando en Seleccionar destinatario: 
+ 
+Si se opta por introducirlo de forma manual, los datos a cumplimentar son los 
+siguientes: 
+ 
+ 
+ 
+ 
+ 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 12 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Posteriormente, debemos cumplimentar los datos identificativos de la factura 
+y su clasificación. Se permite su cumplimentación manual, aunque es 
+recomendable generar antes una serie desde la gestión de números de serie, 
+una para facturas ordinarias y otra para facturas rectificativas, cumpliendo 
+así de forma automática con la obligación establecida en el Reglamento 
+de Obligaciones de Facturación, en lo referente a la numeración 
+correlativa de las facturas (artículos 6.1.a y 7.1.a): 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Respecto a los datos de la operación, hay que cumplimentar 
+obligatoriamente la descripción de la factura mientras que la fecha de 
+operación solo lo será en el caso de que no coincida con la fecha de 
+expedición. 
+ 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 13 
+ 
+ 
+ 
+Por último, debemos indicar los datos de los productos o servicios que se 
+incluyen en la factura. Para ello, de igual forma que en anteriores apartados, es 
+posible su cumplimentación manual o bien la importación de datos de bienes o 
+servicios registrados previamente mediante la opción "Recuperar 
+producto/servicio". 
+ 
+ La cumplimentación manual requerirá de los siguientes datos: 
+ 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 14 
+ 
+ 
+También es posible incluir operaciones bajo régimen de recargo de 
+equivalencia: 
+ 
+Adicionalmente, es posible añadir datos respecto a ajustes de la factura 
+(retención global y otros ajustes) y datos de pago: 
+ 
+Por último, la posibilidad de Validar/Generar Factura nos permite avanzar al 
+siguiente paso del proceso de emisión de la factura. También podemos pulsar 
+en Guardar borrador que nos permitiría continuar posteriormente con la 
+confección de la factura desde la gestión de borradores: 
+ 
+ 
+ 
+Al validar la factura, avanzamos al paso 2 Firmar y enviar solicitud. En 
+este paso se muestran todos los datos cumplimentados de forma que podamos 
+confirmar la información con la que se emitirá la factura. También se permite 
+previsualizar la factura antes de proceder con la emisión definitiva: 
+ 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 15 
+ 
+ 
+Revisados los datos con los que se emitirá la factura, en la parte inferior se 
+dispone de la posibilidad de Volver al paso anterior, o bien Firmar y enviar 
+para avanzar al último paso 
+ 
+En el último paso se nos abrirá una ventana de confirmación donde 
+tendremos que pulsar el botón de Conforme y, a continuación, Firmar y 
+Enviar. 
+ 
+En esta ocasión también tendremos la oportunidad de Cancelar el proceso 
+y/o volver a revisar los datos de la factura pulsando en la opción 
+Mostrar/Ocultar datos a firmar. 
+Por último, se muestra en pantalla un recibo de presentación, confirmando 
+que el proceso se ha realizado correctamente: 
+ 
+ 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 16 
+ 
+ 
+Para descargar la factura emitida, deberá pulsar en Descargar y seleccionar 
+PDF: 
+ 
+ 
+ 
+ 
+ 
+ 
+ERRORES FRECUENTES Y CÓMO RESOLVERLOS 
+ERROR 403 
+Al tratar de acceder a la aplicación y elegir identificarnos con certificado 
+electrónico podemos obtener el siguiente error: 
+ 
+Tal como indica el propio mensaje de error, no se está detectando un 
+certificado electrónico válido. Recomendamos revisar las ayudas publicadas 
+en: 
+https://sede.agenciatributaria.gob.es/Sede/ayuda/consultas-informaticas/firma- 
+digital-sistema-clave-pin-tecnica/error-403-error-conexion-ssl-pagina.html 
+O bien, puede solicitar cita con el soporte informático en Agencia Tributaria: 
+Consultas informáticas. 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 17 
+ 
+ 
+ERROR “DEBE AÑADIR DESTINATARIO” 
+Al tratar de emitir una factura sin destinatario obtenemos el siguiente error: 
+ 
+ 
+ 
+Se recuerda que la aplicación de facturación de la AEAT no emite facturas 
+simplificadas o tickets. Por tanto, se deberán consignar obligatoriamente los 
+datos del destinatario/cliente. Este es uno de los requisitos detallados en la 
+Orden HAC/1177/2024, de 18 de octubre, en su artículo 19. 
+PREGUNTAS FRECUENTES ESPECÍFICAS DE LA APLICACIÓN Y ENLACES A LAS FAQS 
+DINÁMICAS DE LA WEB 
+En la sede de la AEAT disponen de toda la información en: 
+https://sede.agenciatributaria.gob.es/Sede/iva/sistemas-informaticos-facturacion- 
+verifactu.html 
+La información general pueden encontrarla en: 
+https://sede.agenciatributaria.gob.es/Sede/iva/sistemas-informaticos-facturacion- 
+verifactu/cuestiones-generales.html 
+También dispone de las preguntas frecuentes de VERI*FACTU en: 
+https://sede.agenciatributaria.gob.es/Sede/iva/sistemas-informaticos-facturacion- 
+verifactu/preguntas-frecuentes.html 
+ 
+
+ 
+CAT - Informática Tributaria 
+ 
+Guía de usuario de la Aplicación gratuita de facturación de la AEAT 18 
+ 
+ 
+ 
+CANALES DE AYUDA 
+Los canales de ayuda de la aplicación de facturación son: 
+1. Sobre cuestiones no técnicas (cumplimentación, ámbito de 
+aplicación, relación con el reglamento de facturación) le 
+recomendamos: 
+o Revisar si su consulta está publicada en las preguntas 
+frecuentes VERI*FACTU 
+o Consultar con el Informador VERI*FACTU, que responde a 
+este tipo de cuestiones 
+Si el asistente no soluciona su consulta, le ofrecerá: 
+a. Acceder al chat con un especialista de la Administración 
+Digital Integral (siempre que haya agentes disponibles, en 
+horario de 09:00 a 19:00) 
+b. Acceder a INFORMA+ para realizar la consulta por esa vía 
+ 
+2. Mediante los servicios de asistencia y cita, se puede solicitar 
+cita con soporte informático para asistencia vía teléfono o chat. 
+Puede solicitar cita en Agencia Tributaria: Consultas informáticas y 
+solicitar la forma de contacto que le sea más conveniente. 
+ 
+3. Correo electrónico para cuestiones informáticas: 
+verifactu@correo.aeat.es. 
+ 
+4. Los vídeos que sobre la aplicación gratuita de facturación ha 
+elaborado la AEAT. 
+ 
+Tambi
+én puedes consultar con tu proveedor de software y tu gestor si en tu 
+caso concreto te puede resultar más útil la aplicación gratuita de facturación de 
+la AEAT o bien un software externo que pueda contar con más utilidades.

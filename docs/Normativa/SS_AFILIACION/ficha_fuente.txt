@@ -1,0 +1,22 @@
+Título: Reglamento General sobre Inscripción de Empresas, Afiliación, Altas, Bajas y Variaciones de Datos (RD 84/1996)
+Organismo: Ministerio de Trabajo y Seguridad Social / TGSS
+Tipo documento: reglamento
+Fecha publicación: 1996-02-26
+Fecha derogación:
+Ámbito territorial: estatal
+Territorio:
+Número consulta:
+Versión: 2024-01-01
+Categoría: SS_AFILIACION
+BOE: BOE-A-1996-4447
+Rango normativo: Real Decreto
+
+PDF: RD_LSGS_BOE-A-1996-4447-consolidado.pdf
+
+Capítulos prioritarios para instaladores:
+- Inscripción de empresas: artículos 5-15
+- Afiliación de trabajadores: artículos 23-35
+- Altas: plazos, comunicación, efectos (artículos 36-52)
+- Bajas: plazos y procedimiento (artículos 53-62)
+- Variaciones de datos
+- Familiares colaboradores / autónomos colaboradores

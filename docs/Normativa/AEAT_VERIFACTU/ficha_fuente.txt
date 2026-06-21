@@ -1,0 +1,13 @@
+Título: VERIFACTU — Sistema de Verificación de Registros de Facturación
+Organismo: Agencia Tributaria
+Tipo documento: reglamento
+Fecha publicación: 2024-12-05
+Fecha derogación:
+Ámbito territorial: estatal
+Territorio:
+Número consulta:
+Versión: 2024-12-05
+Categoría: AEAT_VERIFACTU
+
+PDF: Manual_Usuario_Verifactu_Accesible.pdf
+PDF: Manual_Tecnico_WS_Masivo_Calidad_Datos_Identificativos.pdf

@@ -1,0 +1,22 @@
+Título: Reglamento General sobre Cotización y Liquidación de otros Derechos de la Seguridad Social (RD 2064/1995)
+Organismo: Ministerio de Trabajo y Seguridad Social / TGSS
+Tipo documento: reglamento
+Fecha publicación: 1995-12-22
+Fecha derogación:
+Ámbito territorial: estatal
+Territorio:
+Número consulta:
+Versión: 2024-01-01
+Categoría: SS_COTIZACION
+BOE: BOE-A-1996-1579
+Rango normativo: Real Decreto
+
+PDF: RD_LSGS_COTIZACIONES_BOE-A-1996-1579-consolidado.pdf
+
+Capítulos prioritarios para instaladores:
+- Base de cotización Régimen General (artículos 23-30)
+- Tipos de cotización (artículos 10-22)
+- Cotización RETA / autónomos (artículos 43-54)
+- Cotización horas extra
+- Cotización contratos a tiempo parcial
+- Plazos y recargos por pago fuera de plazo

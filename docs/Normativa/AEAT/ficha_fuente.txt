@@ -1,0 +1,24 @@
+Título: Manual Práctico IVA 2025
+Organismo: Agencia Tributaria (AEAT)
+Tipo documento: manual
+Fecha publicación: 2025-10-02
+Fecha derogación:
+Ámbito territorial: estatal
+Territorio:
+Número consulta:
+URL origen: https://sede.agenciatributaria.gob.es
+Versión: 2025-10-02
+Categoría: AEAT
+
+# Capítulos prioritarios para instaladores (indexar primero)
+# 1. Tipos impositivos (10%, 21%, reducido)
+# 2. Hecho imponible y exenciones
+# 3. Sujetos pasivos e inversión del sujeto pasivo
+# 4. Deducciones y devoluciones
+# 5. Obligaciones de facturación
+# 6. Libros registro IVA
+# 7. Regímenes especiales (recargo de equivalencia, RECC)
+# 8. Fiscalidad de PYMES y autónomos
+
+# PDF: Manual_IVA_2025.pdf
+# TXT: Manual_IVA_2025.txt  (generado por pdf-to-text.mjs)

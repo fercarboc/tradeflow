@@ -1,0 +1,20 @@
+Título: Ley General de la Seguridad Social (LGSS) — Texto consolidado
+Organismo: Ministerio de Trabajo y Economía Social / TGSS
+Tipo documento: ley
+Fecha publicación: 2015-10-30
+Fecha derogación:
+Ámbito territorial: estatal
+Territorio:
+Número consulta:
+Versión: 2025-01-01
+Categoría: SS_LGSS
+BOE: BOE-A-2015-11724
+Rango normativo: Ley Orgánica equivalente (Real Decreto Legislativo 8/2015)
+
+PDF: LSGS_BOE-A-2015-11724-consolidado.pdf
+
+Capítulos prioritarios para instaladores:
+- Régimen General: afiliación, alta y baja, cotización
+- RETA: artículos 305-321 (autónomos)
+- Prestaciones: incapacidad temporal, desempleo
+- Infracciones y sanciones: Título IV

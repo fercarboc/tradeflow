@@ -27,8 +27,15 @@ if (!category || !pdfFile) {
   process.exit(1);
 }
 
-if (!['basico','empresa','empresa_plus'].includes(planRequired)) {
-  console.error(`Plan inválido: ${planRequired}. Usa: basico, empresa, empresa_plus`);
+if (!['basico','profesional','empresa','empresa_plus'].includes(planRequired)) {
+  console.error(`Plan inválido: ${planRequired}. Usa: basico, profesional, empresa, empresa_plus`);
+  process.exit(1);
+}
+
+const VALID_CATEGORIES = ['REBT','RITE','CTE','GAS','ACS','GUIAS','OFICIOS','SOCIAL','AEAT','DGT','CONVENIOS','CIRCULARES'];
+if (!VALID_CATEGORIES.includes(category)) {
+  console.error(`Categoría inválida: ${category}`);
+  console.error(`Válidas: ${VALID_CATEGORIES.join(', ')}`);
   process.exit(1);
 }
 
@@ -43,11 +50,19 @@ const get   = (key) => { const m = ficha.match(new RegExp(`${key}:\\s*(.+)`,'i')
 
 const docMeta = {
   category,
-  title:        get('Título') || category,
-  boeRef:       get('ID BOE') || get('Código BOE') || '',
-  version:      get('Norma base') || new Date().toISOString().slice(0,10),
+  title:              get('Título') || category,
+  boeRef:             get('ID BOE') || get('Código BOE') || '',
+  version:            get('Norma base') || get('Versión') || new Date().toISOString().slice(0,10),
   planRequired,
-  oficioTags:   [],  // se puede editar manualmente si aplica a oficios específicos
+  oficioTags:         [],
+  // Campos extendidos Asistente Integral
+  organismoEmisor:    get('Organismo') || 'BOE',
+  fechaPublicacion:   get('Fecha publicación') || null,
+  fechaDerogacion:    get('Fecha derogación') || null,
+  ambitoTerritorial:  get('Ámbito territorial') || 'estatal',
+  territorio:         get('Territorio') || null,
+  tipoDocumento:      get('Tipo documento') || 'reglamento',
+  numeroConsulta:     get('Número consulta') || null,
 };
 
 console.log(`\n════════════════════════════════════════`);
@@ -79,7 +94,7 @@ if (existsSync(chunksPath)) {
   chunks = JSON.parse(readFileSync(chunksPath, 'utf8'));
   console.log(`   ${chunks.length} chunks cargados`);
 } else {
-  chunks = textToChunks(text, category, docMeta.title, docMeta.boeRef, docMeta.version);
+  chunks = textToChunks(text, category, docMeta.title, docMeta.boeRef, docMeta.version, {});
   saveChunksToJson(chunks, category, baseFilename, NORMATIVA_BASE);
 }
 

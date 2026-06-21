@@ -1,0 +1,20 @@
+Título: Boletines Noticias RED — Circulares TGSS sobre Sistema RED
+Organismo: Tesorería General de la Seguridad Social (TGSS)
+Tipo documento: boletin
+Fecha publicación: 2024-01-01
+Fecha derogación:
+Ámbito territorial: estatal
+Territorio:
+Número consulta:
+Versión: 2024-12-01
+Categoría: SS_BOLETINES_RED
+BOE:
+Rango normativo: Instrucción administrativa / Circular
+
+PDF: (pendiente descarga: Boletines_Noticias_RED_2024.pdf)
+
+Capítulos prioritarios para instaladores:
+- Novedades en afiliación electrónica
+- Cambios en liquidación SLD
+- Nuevos trámites disponibles por RED
+- Actualizaciones técnicas del sistema
