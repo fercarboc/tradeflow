@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { Send, BookOpen, ChevronDown, ChevronUp, ThumbsUp, ThumbsDown, AlertCircle, Loader2, Shield, Zap, Lock, X } from 'lucide-react';
+import { Send, BookOpen, ChevronDown, ChevronUp, ThumbsUp, ThumbsDown, AlertCircle, Loader2, Shield, Zap, Lock, X, Mic, MicOff } from 'lucide-react';
 import type { Session } from '@supabase/supabase-js';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
@@ -36,6 +36,49 @@ const EXAMPLE_QUERIES = [
   { q: '¿Cuántos circuitos mínimos debe tener una vivienda según el REBT?',         cat: 'REBT' },
 ];
 
+// Tipos del Web Speech API
+interface SpeechRecognitionEvent extends Event {
+  results: SpeechRecognitionResultList;
+}
+interface SpeechRecognitionResultList {
+  readonly length: number;
+  [index: number]: SpeechRecognitionResult;
+}
+interface SpeechRecognitionResult {
+  readonly isFinal: boolean;
+  readonly length: number;
+  [index: number]: SpeechRecognitionAlternative;
+}
+interface SpeechRecognitionAlternative {
+  readonly transcript: string;
+  readonly confidence: number;
+}
+interface SpeechRecognitionInstance extends EventTarget {
+  lang: string;
+  continuous: boolean;
+  interimResults: boolean;
+  maxAlternatives: number;
+  start(): void;
+  stop(): void;
+  abort(): void;
+  onresult: ((e: SpeechRecognitionEvent) => void) | null;
+  onerror: ((e: Event) => void) | null;
+  onend: (() => void) | null;
+  onstart: (() => void) | null;
+}
+
+declare global {
+  interface Window {
+    SpeechRecognition?: new () => SpeechRecognitionInstance;
+    webkitSpeechRecognition?: new () => SpeechRecognitionInstance;
+  }
+}
+
+function getSpeechRecognition(): (new () => SpeechRecognitionInstance) | null {
+  if (typeof window === 'undefined') return null;
+  return window.SpeechRecognition ?? window.webkitSpeechRecognition ?? null;
+}
+
 interface NormSource {
   document: string;
   article_id: string | null;
@@ -56,7 +99,7 @@ interface NormMessage {
   error?: boolean;
 }
 
-// ── Sub-componentes auxiliares (definidos fuera del padre) ────────────────────
+// ── Sub-componentes (definidos fuera del padre) ───────────────────────────────
 
 function ConfidenceBadge({ confidence }: { confidence: string }) {
   const map: Record<string, { label: string; cls: string }> = {
@@ -150,6 +193,14 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
   const [queriesUsed, setQueriesUsed] = useState(0);
   const [selectedCategories, setSelectedCategories] = useState<string[]>(() => PLAN_CATEGORIES[plan] ?? ['OFICIOS', 'REBT']);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+
+  // Estado de voz
+  const [isRecording, setIsRecording] = useState(false);
+  const [interimText, setInterimText] = useState('');
+  const [voiceSupported] = useState(() => getSpeechRecognition() !== null);
+  const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
+  const finalTranscriptRef = useRef('');
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -162,6 +213,13 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  // Limpieza del reconocimiento al desmontar
+  useEffect(() => {
+    return () => {
+      recognitionRef.current?.abort();
+    };
+  }, []);
 
   const toggleCategory = useCallback((cat: string) => {
     setSelectedCategories(prev =>
@@ -198,7 +256,88 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
       setLoading(false);
       setTimeout(() => inputRef.current?.focus(), 100);
     }
-  }, [loading, rateLimitReached, session, selectedCategories, dailyLimit, plan, orgId, showToast]);
+  }, [loading, rateLimitReached, session, selectedCategories, dailyLimit, orgId, showToast]);
+
+  const stopRecording = useCallback(() => {
+    recognitionRef.current?.stop();
+    // onend se encargará de actualizar el estado
+  }, []);
+
+  const startRecording = useCallback(() => {
+    const SpeechRecognition = getSpeechRecognition();
+    if (!SpeechRecognition) return;
+
+    finalTranscriptRef.current = input; // preservar texto ya escrito
+    const recognition = new SpeechRecognition();
+    recognitionRef.current = recognition;
+
+    recognition.lang = 'es-ES';
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+      setIsRecording(true);
+      setInterimText('');
+    };
+
+    recognition.onresult = (e: SpeechRecognitionEvent) => {
+      let interim = '';
+      let final = finalTranscriptRef.current;
+
+      for (let i = 0; i < e.results.length; i++) {
+        const result = e.results[i];
+        if (result.isFinal) {
+          final += (final ? ' ' : '') + result[0].transcript;
+          finalTranscriptRef.current = final;
+        } else {
+          interim += result[0].transcript;
+        }
+      }
+
+      setInput(final);
+      setInterimText(interim);
+    };
+
+    recognition.onerror = () => {
+      setIsRecording(false);
+      setInterimText('');
+      showToast('Error en el micrófono. Comprueba los permisos.', 'error');
+    };
+
+    recognition.onend = () => {
+      setIsRecording(false);
+      setInterimText('');
+      // Asegurarse de que el input tiene el texto final acumulado
+      setInput(finalTranscriptRef.current);
+      setTimeout(() => inputRef.current?.focus(), 100);
+    };
+
+    try {
+      recognition.start();
+    } catch {
+      showToast('No se pudo iniciar el micrófono.', 'error');
+    }
+  }, [input, showToast]);
+
+  const handleMicClick = useCallback(() => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  }, [isRecording, startRecording, stopRecording]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendQuery(input); }
+  };
+
+  // Al enviar por voz: para grabación y envía
+  const handleVoiceSend = useCallback(() => {
+    if (isRecording) stopRecording();
+    const text = finalTranscriptRef.current || input;
+    if (text.trim()) sendQuery(text.trim());
+  }, [isRecording, stopRecording, input, sendQuery]);
 
   const handleRate = useCallback(async (queryId: string, rating: 1 | -1) => {
     setMessages(prev => prev.map(m => m.query_id === queryId ? { ...m, rated: rating } : m));
@@ -209,11 +348,10 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
     } catch { /* silent */ }
   }, [session]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendQuery(input); }
-  };
-
   const hasMessages = messages.length > 0;
+  const displayText = isRecording && interimText
+    ? input + (input ? ' ' : '') + interimText
+    : input;
 
   return (
     <div className="flex flex-col h-full bg-slate-950 text-slate-100 relative">
@@ -229,6 +367,12 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
             <span className="text-slate-500 mx-2 text-xs">·</span>
             <span className="text-xs text-slate-400">Normativa oficial española indexada</span>
           </div>
+          {voiceSupported && (
+            <div className="flex items-center gap-1.5 shrink-0">
+              <Mic className="w-3 h-3 text-slate-500" />
+              <span className="text-[10px] text-slate-500">Voz disponible</span>
+            </div>
+          )}
           {!isUnlimited && (
             <div className="flex items-center gap-2 shrink-0">
               <div className="w-24 h-1.5 bg-slate-800 rounded-full overflow-hidden">
@@ -270,18 +414,19 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
           {/* Estado vacío */}
           {!hasMessages && (
             <div className="flex flex-col justify-center h-full gap-6 pb-4">
-              {/* Intro compacta */}
               <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-800/40 border border-slate-700/50">
                 <div className="w-10 h-10 rounded-xl bg-violet-600/20 border border-violet-500/30 flex items-center justify-center shrink-0">
                   <BookOpen className="w-5 h-5 text-violet-400" />
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white">Consulta la normativa técnica</p>
-                  <p className="text-xs text-slate-400 mt-0.5">Pregunta en lenguaje natural · Respuesta con cita del artículo oficial</p>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    Pregunta en lenguaje natural · Respuesta con cita del artículo oficial
+                    {voiceSupported && <span className="text-violet-400"> · Dicta por voz con el micrófono</span>}
+                  </p>
                 </div>
               </div>
 
-              {/* Ejemplos en grid 2 cols */}
               <div>
                 <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest mb-3">Ejemplos de consulta</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -344,31 +489,85 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
         </div>
       )}
 
-      {/* ── Input ── */}
+      {/* ── Input + voz ── */}
       <div className="shrink-0 border-t border-slate-800 bg-slate-950/80 px-5 py-4">
-        <div className="max-w-4xl mx-auto">
-          <div className={`flex items-end gap-3 bg-slate-800 border rounded-2xl px-4 py-3 transition-colors ${rateLimitReached ? 'opacity-50' : 'border-slate-700 focus-within:border-violet-500/60'}`}>
+        <div className="max-w-4xl mx-auto space-y-2">
+
+          {/* Banner de grabación activa */}
+          {isRecording && (
+            <div className="flex items-center gap-2.5 px-4 py-2 rounded-xl bg-red-500/10 border border-red-500/30">
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shrink-0" />
+              <span className="text-xs font-semibold text-red-400 flex-1">Grabando… habla con claridad</span>
+              {interimText && (
+                <span className="text-[11px] text-slate-400 italic truncate max-w-[60%]">{interimText}</span>
+              )}
+              <button onClick={stopRecording} className="text-[10px] font-bold text-red-400 hover:text-red-300 cursor-pointer shrink-0 underline underline-offset-2">
+                Detener
+              </button>
+            </div>
+          )}
+
+          <div className={`flex items-end gap-2 bg-slate-800 border rounded-2xl px-4 py-3 transition-colors ${
+            isRecording ? 'border-red-500/50 shadow-[0_0_0_3px_rgba(239,68,68,0.08)]'
+            : rateLimitReached ? 'opacity-50 border-slate-700'
+            : 'border-slate-700 focus-within:border-violet-500/60'
+          }`}>
             <textarea
               ref={inputRef}
-              value={input}
-              onChange={e => setInput(e.target.value)}
+              value={displayText}
+              onChange={e => { if (!isRecording) setInput(e.target.value); }}
               onKeyDown={handleKeyDown}
               disabled={loading || rateLimitReached}
-              placeholder={rateLimitReached ? 'Límite diario alcanzado' : 'Escribe tu consulta sobre normativa técnica… (Enter para enviar)'}
+              readOnly={isRecording}
+              placeholder={
+                isRecording ? 'Escuchando…'
+                : rateLimitReached ? 'Límite diario alcanzado'
+                : 'Escribe o dicta tu consulta sobre normativa técnica…'
+              }
               rows={1}
-              className="flex-1 bg-transparent text-sm text-slate-100 placeholder-slate-500 resize-none outline-none leading-relaxed max-h-32 overflow-y-auto disabled:cursor-not-allowed"
+              className={`flex-1 bg-transparent text-sm placeholder-slate-500 resize-none outline-none leading-relaxed max-h-32 overflow-y-auto disabled:cursor-not-allowed ${
+                isRecording ? 'text-slate-300 cursor-default' : 'text-slate-100'
+              }`}
               style={{ scrollbarWidth: 'none' }}
             />
-            <button
-              onClick={() => sendQuery(input)}
-              disabled={!input.trim() || loading || rateLimitReached}
-              className="w-8 h-8 rounded-xl bg-violet-600 hover:bg-violet-500 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center shrink-0 transition-colors cursor-pointer"
-            >
-              <Send className="w-3.5 h-3.5 text-white" />
-            </button>
+
+            <div className="flex items-center gap-1.5 shrink-0">
+              {/* Botón micrófono */}
+              {voiceSupported && !rateLimitReached && (
+                <button
+                  onClick={handleMicClick}
+                  disabled={loading}
+                  title={isRecording ? 'Detener grabación' : 'Dictar consulta por voz'}
+                  className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed ${
+                    isRecording
+                      ? 'bg-red-500 hover:bg-red-400 shadow-[0_0_12px_rgba(239,68,68,0.4)] animate-pulse'
+                      : 'bg-slate-700 hover:bg-slate-600 text-slate-300 hover:text-white'
+                  }`}
+                >
+                  {isRecording
+                    ? <MicOff className="w-3.5 h-3.5 text-white" />
+                    : <Mic className="w-3.5 h-3.5" />
+                  }
+                </button>
+              )}
+
+              {/* Botón enviar */}
+              <button
+                onClick={isRecording ? handleVoiceSend : () => sendQuery(input)}
+                disabled={(!displayText.trim() && !isRecording) || loading || rateLimitReached}
+                title={isRecording ? 'Parar y enviar' : 'Enviar consulta'}
+                className="w-8 h-8 rounded-xl bg-violet-600 hover:bg-violet-500 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <Send className="w-3.5 h-3.5 text-white" />
+              </button>
+            </div>
           </div>
-          <p className="text-[10px] text-slate-600 mt-1.5 text-center">
-            Las respuestas se basan exclusivamente en la normativa indexada. Verifica siempre con el reglamento oficial.
+
+          <p className="text-[10px] text-slate-600 text-center">
+            {voiceSupported
+              ? 'Pulsa el micrófono para dictar · Enter para enviar · Basado en normativa oficial indexada'
+              : 'Las respuestas se basan exclusivamente en la normativa indexada. Verifica con el reglamento oficial.'
+            }
           </p>
         </div>
       </div>
@@ -411,3 +610,4 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
     </div>
   );
 }
+
