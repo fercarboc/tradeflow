@@ -249,26 +249,6 @@ function AssistantBubble({ msg, onRate }: { msg: NormMessage; onRate: (id: strin
           <p className="text-[10px] text-slate-600">La IA puede cometer fallos. Verifica siempre en las fuentes oficiales antes de tomar decisiones.</p>
         </div>
 
-        {/* CertEnergyApp — siempre visible */}
-        <div className="rounded-xl bg-emerald-950/30 border border-emerald-800/30 p-3 space-y-2">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-lg bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center shrink-0">
-              <Zap className="w-3 h-3 text-emerald-400" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-[11px] font-bold text-emerald-300 flex items-center gap-1.5">
-                CertEnergyApp
-                <span className="text-[9px] font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded-full">Beta</span>
-              </p>
-              <p className="text-[10px] text-slate-500">Certificación energética asistida con IA</p>
-            </div>
-          </div>
-          <p className="text-[10px] text-slate-500 leading-relaxed">Asistencia durante la visita técnica · Recogida estructurada de datos · Reducción del tiempo de elaboración</p>
-          <a href="https://certenergyapp.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 transition-colors cursor-pointer">
-            <ExternalLink className="w-3 h-3" />
-            Probar CertEnergyApp
-          </a>
-        </div>
       </div>
     </div>
   );

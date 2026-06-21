@@ -11,7 +11,7 @@ import {
   PaintRoller, BrickWall, PanelsTopLeft, Leaf, SquareStack,
   Blinds, RadioTower, Sun, ArrowUpDown, Car, Brush, Droplets, Camera,
   Monitor, Star, ShieldCheck, Users, Phone, Download, Share2,
-  Handshake, PackageCheck, TrendingUp, Clock, EuroIcon, Lock,
+  Handshake, PackageCheck, TrendingUp, Clock, EuroIcon, Lock, ExternalLink,
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -827,6 +827,36 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
                 <div className="text-[10px] text-slate-400 uppercase tracking-wider">100% legal España</div>
               </div>
             </div>
+          </div>
+
+          {/* CertEnergyApp — partner promo */}
+          <div className="mb-8 rounded-2xl bg-[#020B16] border border-white/10 p-6 flex flex-col sm:flex-row items-center gap-6">
+            <div className="flex items-center gap-4 shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center">
+                <Zap className="w-6 h-6 text-emerald-400" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-black text-white">CertEnergyApp</span>
+                  <span className="text-[9px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded-full uppercase tracking-wider">Certificación energética</span>
+                </div>
+                <p className="text-[11px] text-white/40 mt-0.5">Para técnicos certificadores: electricistas, instaladores de ACS/HVAC y eficiencia energética</p>
+              </div>
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs text-white/55 leading-relaxed">
+                Centraliza expedientes, visitas y fotos. Exporta datos a CE3X, HULC y CERMA con un clic. Haz tus certificados energéticos más rápido, más ordenados y sin errores.
+              </p>
+            </div>
+            <a
+              href="https://certenergyapp.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 inline-flex items-center gap-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 px-4 py-2.5 text-xs font-bold text-emerald-400 hover:bg-emerald-500/25 hover:text-emerald-300 transition-colors cursor-pointer whitespace-nowrap"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              Descubrir CertEnergyApp
+            </a>
           </div>
 
           {/* Banner invita a un colega */}
