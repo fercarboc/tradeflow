@@ -5,7 +5,7 @@
 
 import { useState } from 'react';
 import { ActivePage } from '../types';
-import { Menu, X, LogIn, Smartphone, Handshake } from 'lucide-react';
+import { Menu, X, LogIn } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface HeaderProps {
@@ -35,25 +35,13 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleScrollToProveedores = () => {
-    setMobileMenuOpen(false);
-    if (currentPage === ActivePage.Home) {
-      document.getElementById('proveedores-section')?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      setCurrentPage(ActivePage.Home);
-      setTimeout(() => {
-        document.getElementById('proveedores-section')?.scrollIntoView({ behavior: 'smooth' });
-      }, 120);
-    }
-  };
-
   const handleLogin = () => {
     setLoginOnMount?.(true);
     handleNavigate(ActivePage.AppDashboard, false);
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#020B16]/95 backdrop-blur-md" id="main-header">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/95 backdrop-blur-md shadow-sm" id="main-header">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
 
         {/* Logo */}
@@ -64,10 +52,10 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
         >
           <img src="/tradeflow.png" alt="TRABFLOW" className="h-8 w-auto" />
           <div className="flex flex-col leading-none">
-            <span className="font-display text-base font-black tracking-widest text-[#FFC400] uppercase">
+            <span className="font-display text-base font-black tracking-widest text-[#1C2535] uppercase">
               TRABFLOW
             </span>
-            <span className="text-[8px] font-semibold tracking-[0.15em] text-white/35 uppercase">
+            <span className="text-[8px] font-semibold tracking-[0.15em] text-[#1C2535]/40 uppercase">
               La herramienta que trabaja contigo
             </span>
           </div>
@@ -81,16 +69,16 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
               <button
                 key={item.page}
                 id={`nav-${item.page}`}
-                onClick={() => handleNavigate(item.page, item.page === ActivePage.AppDashboard ? false : undefined)}
+                onClick={() => handleNavigate(item.page)}
                 className={`relative text-xs font-bold uppercase tracking-widest transition-colors cursor-pointer pb-0.5 ${
-                  isActive ? 'text-[#00CFE8]' : 'text-white/60 hover:text-white'
+                  isActive ? 'text-[#1A5A96]' : 'text-[#1C2535]/55 hover:text-[#1C2535]'
                 }`}
               >
                 {item.name}
                 {isActive && (
                   <motion.div
                     layoutId="activeNavIndicator"
-                    className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-[#00CFE8]"
+                    className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-[#1A5A96]"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -103,7 +91,7 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
         <div className="hidden lg:flex items-center gap-2" id="desktop-cta">
           <button
             onClick={handleLogin}
-            className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-white/70 border border-white/15 rounded-lg hover:border-white/40 hover:text-white transition-colors cursor-pointer flex items-center gap-1.5"
+            className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#1C2535] border border-[#1C2535]/20 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer flex items-center gap-1.5"
             id="header-login-button"
           >
             <LogIn className="h-3.5 w-3.5" />
@@ -114,7 +102,7 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
         {/* Mobile toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="flex lg:hidden h-10 w-10 items-center justify-center text-white/70 hover:text-white"
+          className="flex lg:hidden h-10 w-10 items-center justify-center text-[#1C2535]/70 hover:text-[#1C2535]"
           aria-label="Toggle menu"
           id="mobile-menu-btn"
         >
@@ -129,7 +117,7 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="bg-[#020B16] border-b border-white/10 lg:hidden overflow-hidden"
+            className="bg-white border-b border-gray-100 lg:hidden overflow-hidden"
             id="mobile-nav-panel"
           >
             <div className="px-4 pb-6 pt-2 space-y-1">
@@ -139,20 +127,22 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
                   <button
                     key={item.page}
                     id={`mobile-nav-${item.page}`}
-                    onClick={() => handleNavigate(item.page, item.page === ActivePage.AppDashboard ? false : undefined)}
+                    onClick={() => handleNavigate(item.page)}
                     className={`flex w-full items-center justify-between rounded-lg px-4 py-3 text-sm font-semibold cursor-pointer transition-colors ${
-                      isActive ? 'bg-[#00CFE8]/10 text-[#00CFE8]' : 'text-white/70 hover:text-white hover:bg-white/5'
+                      isActive
+                        ? 'bg-[#1A5A96]/8 text-[#1A5A96]'
+                        : 'text-[#1C2535]/70 hover:text-[#1C2535] hover:bg-gray-50'
                     }`}
                   >
                     <span>{item.name}</span>
-                    {isActive && <div className="h-1.5 w-1.5 rounded-full bg-[#00CFE8]" />}
+                    {isActive && <div className="h-1.5 w-1.5 rounded-full bg-[#1A5A96]" />}
                   </button>
                 );
               })}
-              <div className="pt-4 mt-2 border-t border-white/10 flex flex-col gap-2">
+              <div className="pt-4 mt-2 border-t border-gray-100 flex flex-col gap-2">
                 <button
                   onClick={handleLogin}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/20 py-3 font-semibold text-sm text-white/70 cursor-pointer hover:bg-white/5"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#1C2535]/20 py-3 font-semibold text-sm text-[#1C2535] cursor-pointer hover:bg-gray-50 transition-colors"
                   id="mobile-login-btn"
                 >
                   <LogIn className="h-4 w-4" />

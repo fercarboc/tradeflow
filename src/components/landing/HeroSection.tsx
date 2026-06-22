@@ -12,87 +12,98 @@ const CHECKS = [
   'Control total de tu negocio en tiempo real',
 ];
 
-function PresupuestoMockup() {
+function PresupuestoCard() {
   return (
-    <div className="relative">
-      <div className="absolute -top-4 -right-4 w-full h-full bg-[#1A5A96]/8 rounded-2xl" />
-      <div className="relative bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden text-sm font-sans">
-        <div className="bg-[#1C2535] px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 rounded-full bg-red-400" />
-            <div className="w-2 h-2 rounded-full bg-yellow-400" />
-            <div className="w-2 h-2 rounded-full bg-green-400" />
-          </div>
-          <span className="text-xs text-white/50 font-medium">Presupuesto</span>
-          <div className="w-12" />
+    <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden text-sm w-64">
+      <div className="bg-[#1C2535] px-4 py-2.5 flex items-center justify-between">
+        <div className="flex items-center gap-1.5">
+          <div className="w-2 h-2 rounded-full bg-red-400" />
+          <div className="w-2 h-2 rounded-full bg-yellow-400" />
+          <div className="w-2 h-2 rounded-full bg-green-400" />
         </div>
+        <span className="text-[10px] text-white/40 font-medium">Presupuesto</span>
+        <div className="w-10" />
+      </div>
 
-        <div className="px-4 py-3 bg-[#F5F6F8] border-b border-gray-200">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs text-gray-400 font-medium">PRESUPUESTO</p>
-              <p className="font-black text-[#1C2535] text-base">#P-2025-0158</p>
-            </div>
-            <span className="text-xs font-bold bg-[#4A6741]/15 text-[#4A6741] px-2.5 py-1 rounded-full">
-              ✓ Enviado
-            </span>
+      <div className="px-3.5 py-2.5 bg-[#F5F6F8] border-b border-gray-200">
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-[10px] text-gray-400 font-medium">PRESUPUESTO</p>
+            <p className="font-black text-[#1C2535] text-sm">#P-2025-0158</p>
           </div>
-        </div>
-
-        <div className="px-4 py-3 border-b border-gray-100">
-          <p className="text-xs text-gray-400 mb-0.5">CLIENTE</p>
-          <p className="font-semibold text-[#1C2535]">Carlos Martínez</p>
-          <p className="text-xs text-gray-400">622 451 890 · Madrid</p>
-        </div>
-
-        <div className="px-4 py-3">
-          <div className="space-y-2">
-            <div className="flex justify-between text-xs">
-              <span className="text-gray-500 flex-1 mr-2 truncate">Caldera Junkers CerapurSmart 24kW</span>
-              <span className="font-semibold text-[#1C2535] shrink-0">1.240,00 €</span>
-            </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-gray-500">Instalación y montaje</span>
-              <span className="font-semibold text-[#1C2535]">280,00 €</span>
-            </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-gray-500">Material conexiones</span>
-              <span className="font-semibold text-[#1C2535]">85,00 €</span>
-            </div>
-            <div className="flex justify-between text-xs">
-              <span className="text-gray-500">Desplazamiento</span>
-              <span className="font-semibold text-[#1C2535]">35,00 €</span>
-            </div>
-          </div>
-
-          <div className="mt-3 pt-3 border-t border-gray-200">
-            <div className="flex justify-between text-xs text-gray-400 mb-1">
-              <span>Base imponible</span>
-              <span>1.640,00 €</span>
-            </div>
-            <div className="flex justify-between text-xs text-gray-400 mb-2">
-              <span>IVA (21%)</span>
-              <span>344,40 €</span>
-            </div>
-            <div className="flex justify-between font-black text-[#1C2535] text-sm">
-              <span>TOTAL</span>
-              <span>1.984,40 €</span>
-            </div>
-          </div>
-
-          <div className="mt-3 space-y-2">
-            <button className="w-full bg-[#25D366] text-white text-xs font-bold py-2 rounded-lg flex items-center justify-center gap-1.5">
-              <Smartphone className="w-3.5 h-3.5" />
-              Enviar por WhatsApp
-            </button>
-            <button className="w-full bg-[#1A5A96] text-white text-xs font-bold py-2 rounded-lg">
-              Descargar PDF
-            </button>
-          </div>
+          <span className="text-[10px] font-bold bg-[#4A6741]/15 text-[#4A6741] px-2 py-0.5 rounded-full">
+            ✓ Enviado
+          </span>
         </div>
       </div>
 
-      <div className="absolute -bottom-3 -left-3 bg-white rounded-xl shadow-lg border border-gray-100 px-3 py-2 flex items-center gap-2">
+      <div className="px-3.5 py-2.5 border-b border-gray-100">
+        <p className="text-[10px] text-gray-400 mb-0.5">CLIENTE</p>
+        <p className="font-semibold text-[#1C2535] text-xs">Carlos Martínez</p>
+        <p className="text-[10px] text-gray-400">622 451 890 · Madrid</p>
+      </div>
+
+      <div className="px-3.5 py-2.5">
+        <div className="space-y-1.5">
+          {[
+            { desc: 'Caldera Junkers 24kW', precio: '1.240,00 €' },
+            { desc: 'Instalación y montaje', precio: '280,00 €' },
+            { desc: 'Material conexiones', precio: '85,00 €' },
+            { desc: 'Desplazamiento', precio: '35,00 €' },
+          ].map(({ desc, precio }) => (
+            <div key={desc} className="flex justify-between text-[10px]">
+              <span className="text-gray-500 flex-1 mr-1 truncate">{desc}</span>
+              <span className="font-semibold text-[#1C2535] shrink-0">{precio}</span>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-2 pt-2 border-t border-gray-200">
+          <div className="flex justify-between text-[10px] text-gray-400 mb-1">
+            <span>IVA (21%)</span>
+            <span>344,40 €</span>
+          </div>
+          <div className="flex justify-between font-black text-[#1C2535] text-xs">
+            <span>TOTAL</span>
+            <span>1.984,40 €</span>
+          </div>
+        </div>
+
+        <div className="mt-2.5 space-y-1.5">
+          <button className="w-full bg-[#25D366] text-white text-[10px] font-bold py-1.5 rounded-lg flex items-center justify-center gap-1">
+            <Smartphone className="w-3 h-3" />
+            Enviar por WhatsApp
+          </button>
+          <button className="w-full bg-[#1A5A96] text-white text-[10px] font-bold py-1.5 rounded-lg">
+            Descargar PDF
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function HeroVisual() {
+  return (
+    <div className="relative h-[520px] lg:h-[560px] w-full max-w-md mx-auto lg:mx-0">
+      {/* Installer photo */}
+      <div className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl">
+        <img
+          src="/instaladorportada.png"
+          alt="Instalador profesional"
+          className="w-full h-full object-cover object-top"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1C2535]/50 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#1A5A96]/10" />
+      </div>
+
+      {/* Presupuesto card floating bottom-left */}
+      <div className="absolute -bottom-4 -left-4 lg:-left-8 drop-shadow-2xl z-10">
+        <PresupuestoCard />
+      </div>
+
+      {/* Accepted badge top-right */}
+      <div className="absolute top-4 right-4 bg-white rounded-xl shadow-lg border border-gray-100 px-3 py-2 flex items-center gap-2 z-10">
         <div className="w-6 h-6 rounded-full bg-[#4A6741]/15 flex items-center justify-center">
           <CheckCircle2 className="w-3.5 h-3.5 text-[#4A6741]" />
         </div>
@@ -101,15 +112,22 @@ function PresupuestoMockup() {
           <p className="text-xs font-bold text-[#1C2535]">hace 2 minutos</p>
         </div>
       </div>
+
+      {/* Stats badge bottom-right */}
+      <div className="absolute bottom-16 right-4 bg-[#1C2535] rounded-xl shadow-lg px-3 py-2 z-10">
+        <p className="text-[10px] text-white/50 mb-0.5">Este mes</p>
+        <p className="text-sm font-black text-white">8.340 €</p>
+        <p className="text-[10px] text-[#4A6741]">↑ +23% vs anterior</p>
+      </div>
     </div>
   );
 }
 
 export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
   return (
-    <section className="bg-white pt-16 pb-20 lg:pt-24 lg:pb-28 overflow-hidden">
+    <section className="bg-white pt-14 pb-20 lg:pt-20 lg:pb-28 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div>
             <div className="inline-flex items-center gap-2 bg-[#1A5A96]/8 text-[#1A5A96] text-xs font-bold px-3 py-1.5 rounded-full mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-[#1A5A96] animate-pulse" />
@@ -157,9 +175,7 @@ export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
           </div>
 
           <div className="flex justify-center lg:justify-end">
-            <div className="w-full max-w-sm">
-              <PresupuestoMockup />
-            </div>
+            <HeroVisual />
           </div>
         </div>
       </div>
