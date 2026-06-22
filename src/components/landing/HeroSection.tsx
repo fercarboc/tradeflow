@@ -101,14 +101,14 @@ function PresupuestoCard() {
 
 export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
   return (
-    <section className="bg-white pt-6 pb-10 lg:pt-8 lg:pb-12 overflow-hidden">
+    <section className="bg-white pt-6 pb-10 lg:pt-8 lg:pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Desktop: 2-column layout */}
-        <div className="hidden lg:grid lg:grid-cols-[44%_56%] gap-0 items-center">
+        <div className="hidden lg:grid lg:grid-cols-[38%_62%] gap-0 items-center">
 
           {/* Col 1: Text */}
-          <div className="pr-10 xl:pr-14">
+          <div className="pr-6 xl:pr-8">
             <div className="inline-flex items-center gap-2 bg-[#1A5A96]/8 text-[#1A5A96] text-xs font-bold px-3 py-1.5 rounded-full mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-[#1A5A96] animate-pulse" />
               Beta abierta — Únete gratis hoy
@@ -178,14 +178,14 @@ export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
               />
             </div>
 
-            {/* Presupuesto card — floats over right edge of photo */}
+            {/* Presupuesto card — floats over right edge of photo, bleeds out */}
             <div
               className="absolute z-10"
               style={{
                 top: '50%',
                 transform: 'translateY(-50%)',
-                right: '20px',
-                width: '256px',
+                right: '-32px',
+                width: '264px',
               }}
             >
               <PresupuestoCard />
