@@ -64,6 +64,8 @@ import {
   Layers,
   Building2,
   BookOpen,
+  ArrowUpDown,
+  Loader2,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -1966,6 +1968,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     () => !localStorage.getItem('tf_pricing_dismissed') && (empresaAjustes.valorHoraOperario < TARIFA_SUGERIDA)
   );
 
+  interface CompareRow {
+    catalog_key: string; supplier_name: string; product_id: string;
+    ref_proveedor: string | null; descripcion: string;
+    precio_coste: number; margen_pct: number; precio_venta: number;
+    unidad: string; score: number;
+  }
+  const [compareIdx, setCompareIdx] = useState<number | null>(null);
+  const [compareResults, setCompareResults] = useState<CompareRow[]>([]);
+  const [compareLoading, setCompareLoading] = useState(false);
+
   const [editingQuote, setEditingQuote] = useState<Presupuesto>({
     id: 'P-2026-NEW',
     nombreCliente: '',
@@ -2047,6 +2059,37 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       });
       return { ...prev, partidas, total: partidas.reduce((s, p) => s + p.total, 0) };
     });
+  };
+
+  const handleOpenCompare = async (idx: number, descripcion: string) => {
+    if (compareIdx === idx) { setCompareIdx(null); return; }
+    setCompareIdx(idx);
+    setCompareResults([]);
+    setCompareLoading(true);
+    try {
+      const { data, error } = await supabase.rpc('search_supplier_products', {
+        material_text: descripcion,
+        p_org_id: orgId,
+        limit_per_catalog: 5,
+      });
+      if (error) throw error;
+      setCompareResults((data as CompareRow[]) ?? []);
+    } catch {
+      setCompareResults([]);
+    } finally {
+      setCompareLoading(false);
+    }
+  };
+
+  const handleSelectCompare = (idx: number, opt: CompareRow) => {
+    handleUpdateItem(idx, {
+      precioUnitario: opt.precio_venta,
+      supplier_key: opt.catalog_key,
+      supplier_name: opt.supplier_name,
+      supplier_ref: opt.ref_proveedor ?? undefined,
+    });
+    setCompareIdx(null);
+    setCompareResults([]);
   };
 
   const handleUpdateWizardItem = (idx: number, updates: Partial<PartidaPresupuesto>) => {
@@ -2743,7 +2786,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       fecha_inicio: visitaDraft.fecha,
                     } as Parameters<typeof createJob>[1]);
                     if (trabajadores.length === 1) {
-                      await assignWorkerToJob(saved.id, trabajadores[0].id, 'responsable').catch(() => {});
+                      await assignWorkerToJob(saved.id, trabajadores[0].id, 'responsable', saved.titulo).catch(() => {});
                       (saved as any).trade_job_workers = [{ worker_id: trabajadores[0].id, rol: 'responsable', trade_workers: { nombre: trabajadores[0].nombre, rol: trabajadores[0].rol } }];
                     }
                     setJobs(prev => [...prev, saved]);
@@ -3051,7 +3094,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 setJobs(prev => prev.filter(j => j.id !== id));
               }}
               onAssignWorker={async (jobId, workerId, rol) => {
-                await assignWorkerToJob(jobId, workerId, rol as 'responsable' | 'asignado' | 'apoyo');
+                const titulo = jobs.find(j => j.id === jobId)?.titulo;
+                await assignWorkerToJob(jobId, workerId, rol as 'responsable' | 'asignado' | 'apoyo', titulo);
                 await loadJobs(orgId!).then(setJobs);
               }}
               onRemoveWorker={async (jobId, workerId) => {
@@ -3203,9 +3247,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {showPresupuestoIncremental && (
           <ScreenPresupuestoIncremental
             showToast={showToast}
+            orgId={orgId ?? undefined}
             onClose={() => setShowPresupuestoIncremental(false)}
             onConfirm={(q) => {
               setShowPresupuestoIncremental(false);
+              const partidasMobile = q.partidas.map(p => {
+                if (p.supplier_key && p.precioUnitario > 0) {
+                  return { descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: p.precioUnitario, total: p.precioUnitario * p.cantidad, supplier_key: p.supplier_key, supplier_name: p.supplier_name, supplier_ref: p.supplier_ref };
+                }
+                const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
+                const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : p.precioUnitario;
+                return { descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: pu, total: pu * p.cantidad };
+              });
               setWizardQuote({
                 id: '',
                 nombreCliente: '',
@@ -3214,18 +3267,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 descripcion: q.descripcion,
                 fecha: new Date().toISOString().split('T')[0],
                 estado: 'Borrador',
-                partidas: q.partidas.map(p => {
-                  const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
-                  const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : 0;
-                  return {
-                    descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion,
-                    tipo: p.tipo,
-                    cantidad: p.cantidad,
-                    precioUnitario: pu,
-                    total: pu * p.cantidad,
-                  };
-                }),
-                total: 0,
+                partidas: partidasMobile,
+                total: partidasMobile.reduce((s, p) => s + p.total, 0),
               });
               setWizardOrigin('voz');
               setWizardStep(4);
@@ -3321,7 +3364,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       fecha_inicio: visitaDraft.fecha,
                     } as Parameters<typeof createJob>[1]);
                     if (trabajadores.length === 1) {
-                      await assignWorkerToJob(saved.id, trabajadores[0].id, 'responsable').catch(() => {});
+                      await assignWorkerToJob(saved.id, trabajadores[0].id, 'responsable', saved.titulo).catch(() => {});
                       (saved as any).trade_job_workers = [{ worker_id: trabajadores[0].id, rol: 'responsable', trade_workers: { nombre: trabajadores[0].nombre, rol: trabajadores[0].rol } }];
                     }
                     setJobs(prev => [...prev, saved]);
@@ -5412,19 +5455,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {showPresupuestoIncremental && (
           <ScreenPresupuestoIncremental
             showToast={showToast}
+            orgId={orgId ?? undefined}
             onClose={() => setShowPresupuestoIncremental(false)}
             onConfirm={(q) => {
               setShowPresupuestoIncremental(false);
               const partidasDesktop = q.partidas.map(p => {
+                if (p.supplier_key && p.precioUnitario > 0) {
+                  return { descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: p.precioUnitario, total: p.precioUnitario * p.cantidad, supplier_key: p.supplier_key, supplier_name: p.supplier_name, supplier_ref: p.supplier_ref };
+                }
                 const match = catalogProducts.length > 0 ? matchProductForAI(p.descripcion, catalogProducts) : null;
-                const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : 0;
-                return {
-                  descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion,
-                  tipo: p.tipo,
-                  cantidad: p.cantidad,
-                  precioUnitario: pu,
-                  total: pu * p.cantidad,
-                };
+                const pu = match ? match.variant.precio_venta * (1 + empresaAjustes.margenMateriales / 100) : p.precioUnitario;
+                return { descripcion: match ? `${match.product.nombre_generico} (${match.variant.marca})` : p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precioUnitario: pu, total: pu * p.cantidad };
               });
               const quoteBase = {
                 id: '',
@@ -6303,14 +6344,29 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
           <div className="space-y-2">
             {editingQuote.partidas.map((item, idx) => (
-              <div key={idx} className="bg-slate-50 border border-slate-200 p-3 rounded-xl flex flex-wrap md:flex-nowrap gap-3 items-center">
-                <input
-                  type="text"
-                  value={item.descripcion}
-                  placeholder="Concepto..."
-                  onChange={(e) => handleUpdateItem(idx, { descripcion: e.target.value })}
-                  className="flex-grow bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-800"
-                />
+              <React.Fragment key={idx}>
+              <div className={`bg-slate-50 border p-3 rounded-xl flex flex-wrap md:flex-nowrap gap-3 items-center transition-colors ${compareIdx === idx ? 'border-blue-300 bg-blue-50/50' : 'border-slate-200'}`}>
+                <div className="flex-grow flex items-center gap-1.5 min-w-0">
+                  <input
+                    type="text"
+                    value={item.descripcion}
+                    placeholder="Concepto..."
+                    onChange={(e) => handleUpdateItem(idx, { descripcion: e.target.value })}
+                    className="flex-grow bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-800"
+                  />
+                  {item.supplier_key === 'obramat' && (
+                    <img src="/articuloobramat.png" alt="OBRAMAT" className="h-4 shrink-0 opacity-80" title={item.supplier_ref ?? 'OBRAMAT'} />
+                  )}
+                  {item.tipo === 'material' && orgId && (
+                    <button
+                      onClick={() => handleOpenCompare(idx, item.descripcion)}
+                      title="Comparar proveedores"
+                      className={`shrink-0 p-1 rounded-md transition-colors cursor-pointer ${compareIdx === idx ? 'bg-blue-100 text-blue-600' : 'text-slate-400 hover:text-blue-500 hover:bg-blue-50'}`}
+                    >
+                      <ArrowUpDown className="h-3.5 w-3.5" />
+                    </button>
+                  )}
+                </div>
 
                 <select
                   value={item.tipo}
@@ -6344,6 +6400,61 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <Trash2 className="w-4 h-4" />
                 </button>
               </div>
+
+              {/* Panel comparador de proveedores */}
+              {compareIdx === idx && (
+                <div className="mt-1 bg-white border border-blue-200 rounded-xl overflow-hidden shadow-sm">
+                  <div className="flex items-center justify-between px-3 py-2 bg-blue-50 border-b border-blue-100">
+                    <span className="text-[10px] font-bold text-blue-700 uppercase tracking-wider flex items-center gap-1.5">
+                      <ArrowUpDown className="h-3 w-3" /> Opciones de proveedor
+                    </span>
+                    <button onClick={() => setCompareIdx(null)} className="text-blue-400 hover:text-blue-700 cursor-pointer">
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+
+                  {compareLoading && (
+                    <div className="flex items-center justify-center gap-2 py-5 text-slate-400 text-xs">
+                      <Loader2 className="h-4 w-4 animate-spin" /> Buscando en catálogos…
+                    </div>
+                  )}
+
+                  {!compareLoading && compareResults.length === 0 && (
+                    <p className="text-center text-xs text-slate-400 py-5">
+                      No se encontraron alternativas en los catálogos activos
+                    </p>
+                  )}
+
+                  {!compareLoading && compareResults.map((opt, oi) => (
+                    <button
+                      key={oi}
+                      onClick={() => handleSelectCompare(idx, opt)}
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 text-left hover:bg-blue-50 transition-colors cursor-pointer ${oi < compareResults.length - 1 ? 'border-b border-slate-100' : ''} ${item.supplier_key === opt.catalog_key && item.supplier_ref === opt.ref_proveedor ? 'bg-blue-50' : ''}`}
+                    >
+                      <div className="shrink-0 w-6 h-6 rounded-md bg-slate-100 flex items-center justify-center">
+                        {opt.catalog_key === 'obramat'
+                          ? <img src="/logoobramat.png" alt="OB" className="h-4 object-contain" />
+                          : <Package className="h-3.5 w-3.5 text-slate-500" />
+                        }
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[11px] text-slate-700 font-medium truncate">{opt.descripcion}</p>
+                        <p className="text-[9px] text-slate-400 truncate">
+                          {opt.supplier_name}{opt.ref_proveedor ? ` · ${opt.ref_proveedor}` : ''} · {opt.unidad}
+                        </p>
+                      </div>
+                      <div className="shrink-0 text-right">
+                        <p className="text-xs font-bold font-mono text-slate-900">{opt.precio_venta.toFixed(2)} €</p>
+                        <p className="text-[9px] text-slate-400 font-mono">coste {opt.precio_coste.toFixed(2)} €</p>
+                      </div>
+                      {item.supplier_key === opt.catalog_key && item.precioUnitario === opt.precio_venta && (
+                        <Check className="h-3.5 w-3.5 text-blue-500 shrink-0" />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              )}
+              </React.Fragment>
             ))}
           </div>
         </div>

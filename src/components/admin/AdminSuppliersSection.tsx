@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import {
   Package, Upload, RefreshCw, CheckCircle, XCircle, Clock,
   ChevronRight, AlertTriangle, Truck, Building2, User, Plus,
   Download, Eye, Trash2, ToggleLeft, ToggleRight, Star, StarOff,
-  FileSpreadsheet, Info, Zap, ArrowUpDown,
+  FileSpreadsheet, Info, Zap, ArrowUpDown, Search, X,
 } from 'lucide-react';
 import { supabase } from '../../lib/supabase';
 
@@ -81,6 +81,19 @@ const PREVIEW_ROWS = [
   { codigo: 'FON-001', descripcion: 'Válvula de seguridad 1/2" 8bar', marca: 'Honeywell', precio_compra: '14.80', familia: 'Fontanería', unidad: 'ud' },
 ];
 
+interface ProductRow {
+  id: string;
+  ref_proveedor: string | null;
+  descripcion: string;
+  marca: string | null;
+  familia: string | null;
+  precio_coste: number;
+  unidad: string;
+  activo: boolean;
+}
+
+const PAGE_SIZE = 50;
+
 interface Props {
   toast: (type: 'success' | 'error' | 'info', msg: string) => void;
 }
@@ -96,6 +109,15 @@ export default function AdminSuppliersSection({ toast }: Props) {
   const [uploadPreview, setUploadPreview] = useState(false);
   const [uploadLoading, setUploadLoading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  // Modal de productos
+  const [showProducts, setShowProducts] = useState(false);
+  const [products, setProducts] = useState<ProductRow[]>([]);
+  const [productsLoading, setProductsLoading] = useState(false);
+  const [productSearch, setProductSearch] = useState('');
+  const [productPage, setProductPage] = useState(0);
+  const [productTotal, setProductTotal] = useState(0);
+  const [productCatalogId, setProductCatalogId] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadCatalogs() {
@@ -217,16 +239,126 @@ export default function AdminSuppliersSection({ toast }: Props) {
   };
 
   const handleUploadProcess = async () => {
-    if (!uploadFile) return;
+    if (!uploadFile || !selected) return;
     setUploadLoading(true);
-    await new Promise(r => setTimeout(r, 2200));
-    setUploadLoading(false);
-    setSuppliers(prev => prev.map(s => s.id === 'propio' ? { ...s, productos: 127, sync_estado: 'ok', ultima_sync: new Date().toISOString().slice(0, 10) } : s));
-    if (selected?.id === 'propio') setSelected(prev => prev ? { ...prev, productos: 127, sync_estado: 'ok' } : prev);
-    setUploadFile(null);
-    setUploadPreview(false);
-    setShowUpload(false);
-    toast('success', `127 productos importados al catálogo propio`);
+    try {
+      const text = await uploadFile.text();
+      const lines = text.split(/\r?\n/).filter(l => l.trim());
+      if (lines.length < 2) { toast('error', 'El archivo está vacío o sin datos'); setUploadLoading(false); return; }
+
+      // Detectar separador (coma o punto y coma)
+      const sep = lines[0].includes(';') ? ';' : ',';
+      const headers = lines[0].split(sep).map(h => h.trim().toLowerCase().replace(/"/g, ''));
+
+      const idx = {
+        codigo:        headers.indexOf('codigo'),
+        descripcion:   headers.indexOf('descripcion'),
+        marca:         headers.indexOf('marca'),
+        precio_compra: headers.indexOf('precio_compra'),
+        familia:       headers.indexOf('familia'),
+        unidad:        headers.indexOf('unidad'),
+      };
+
+      if (idx.descripcion === -1 || idx.precio_compra === -1) {
+        toast('error', 'Faltan columnas obligatorias: descripcion, precio_compra');
+        setUploadLoading(false);
+        return;
+      }
+
+      const rows = lines.slice(1).map(line => {
+        const cols = line.split(sep).map(c => c.trim().replace(/^"|"$/g, ''));
+        return {
+          catalog_id:    selected.id,
+          ref_proveedor: idx.codigo >= 0 ? (cols[idx.codigo] || null) : null,
+          descripcion:   cols[idx.descripcion] ?? '',
+          marca:         idx.marca >= 0 ? (cols[idx.marca] || null) : null,
+          familia:       idx.familia >= 0 ? (cols[idx.familia] || null) : null,
+          precio_coste:  parseFloat(cols[idx.precio_compra]?.replace(',', '.') ?? '0') || 0,
+          unidad:        idx.unidad >= 0 ? (cols[idx.unidad] || 'ud') : 'ud',
+          activo:        true,
+        };
+      }).filter(r => r.descripcion && r.precio_coste > 0);
+
+      if (rows.length === 0) { toast('error', 'No se encontraron filas válidas (descripción y precio > 0)'); setUploadLoading(false); return; }
+
+      // Borrar productos anteriores del catálogo y reinsertar (replace)
+      await supabase.from('trade_supplier_products').delete().eq('catalog_id', selected.id);
+
+      // Insertar en lotes de 100
+      const BATCH = 100;
+      let inserted = 0;
+      for (let i = 0; i < rows.length; i += BATCH) {
+        const { error } = await supabase.from('trade_supplier_products').insert(rows.slice(i, i + BATCH));
+        if (error) throw error;
+        inserted += Math.min(BATCH, rows.length - i);
+      }
+
+      // Refrescar recuento en la UI
+      setSuppliers(prev => prev.map(s => s.id === selected.id
+        ? { ...s, productos: inserted, sync_estado: 'ok', ultima_sync: new Date().toISOString().slice(0, 10) }
+        : s));
+      setSelected(prev => prev ? { ...prev, productos: inserted, sync_estado: 'ok', ultima_sync: new Date().toISOString().slice(0, 10) } : prev);
+      setUploadFile(null);
+      setUploadPreview(false);
+      setShowUpload(false);
+      toast('success', `${inserted} productos importados al catálogo de ${selected.nombre}`);
+    } catch (e: unknown) {
+      toast('error', `Error al importar: ${(e as Error).message}`);
+    } finally {
+      setUploadLoading(false);
+    }
+  };
+
+  const loadProducts = useCallback(async (catalogId: string, search: string, page: number) => {
+    setProductsLoading(true);
+    try {
+      let query = supabase
+        .from('trade_supplier_products')
+        .select('id, ref_proveedor, descripcion, marca, familia, precio_coste, unidad, activo', { count: 'exact' })
+        .eq('catalog_id', catalogId)
+        .order('descripcion')
+        .range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
+
+      if (search.trim()) {
+        query = query.ilike('descripcion', `%${search.trim()}%`);
+      }
+
+      const { data, count, error } = await query;
+      if (error) throw error;
+      if (page === 0) {
+        setProducts((data as ProductRow[]) ?? []);
+      } else {
+        setProducts(prev => [...prev, ...((data as ProductRow[]) ?? [])]);
+      }
+      setProductTotal(count ?? 0);
+    } catch (e) {
+      toast('error', `Error cargando productos: ${(e as Error).message}`);
+    } finally {
+      setProductsLoading(false);
+    }
+  }, [toast]);
+
+  const handleViewProducts = (sup: SupplierConfig) => {
+    setProductCatalogId(sup.id);
+    setProductSearch('');
+    setProductPage(0);
+    setProducts([]);
+    setProductTotal(0);
+    setShowProducts(true);
+    loadProducts(sup.id, '', 0);
+  };
+
+  const handleProductSearch = (val: string) => {
+    setProductSearch(val);
+    setProductPage(0);
+    setProducts([]);
+    if (productCatalogId) loadProducts(productCatalogId, val, 0);
+  };
+
+  const handleLoadMore = () => {
+    const nextPage = productPage + 1;
+    setProductPage(nextPage);
+    if (productCatalogId) loadProducts(productCatalogId, productSearch, nextPage);
   };
 
   const handleDownloadTemplate = () => {
@@ -501,7 +633,10 @@ export default function AdminSuppliersSection({ toast }: Props) {
               </div>
 
               {selected.productos > 0 && (
-                <button className="flex items-center justify-center gap-1.5 w-full text-xs text-slate-400 hover:text-slate-300 py-1.5 border border-dashed border-slate-700 rounded-lg transition-colors cursor-pointer">
+                <button
+                  onClick={() => handleViewProducts(selected)}
+                  className="flex items-center justify-center gap-1.5 w-full text-xs text-slate-400 hover:text-slate-300 py-1.5 border border-dashed border-slate-700 hover:border-slate-500 rounded-lg transition-colors cursor-pointer"
+                >
                   <Eye className="h-3.5 w-3.5" /> Ver {selected.productos.toLocaleString('es-ES')} productos
                 </button>
               )}
@@ -628,6 +763,141 @@ export default function AdminSuppliersSection({ toast }: Props) {
           )}
         </div>
       </div>
+
+      {/* Modal: Ver productos del catálogo */}
+      {showProducts && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-4xl max-h-[85vh] flex flex-col shadow-2xl">
+
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-700 shrink-0">
+              <div className="flex items-center gap-3">
+                <Package className="h-5 w-5 text-blue-400" />
+                <div>
+                  <h3 className="text-sm font-bold text-white">
+                    {suppliers.find(s => s.id === productCatalogId)?.nombre ?? 'Catálogo'} — Productos
+                  </h3>
+                  <p className="text-[10px] text-slate-400 mt-0.5">
+                    {productTotal.toLocaleString('es-ES')} productos indexados
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => { setShowProducts(false); setProducts([]); }}
+                className="text-slate-500 hover:text-white transition-colors cursor-pointer p-1"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {/* Search */}
+            <div className="px-5 py-3 border-b border-slate-800 shrink-0">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-500" />
+                <input
+                  type="text"
+                  placeholder="Buscar por descripción…"
+                  value={productSearch}
+                  onChange={e => handleProductSearch(e.target.value)}
+                  className="w-full bg-slate-800 border border-slate-600 rounded-lg pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                />
+                {productSearch && (
+                  <button
+                    onClick={() => handleProductSearch('')}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white cursor-pointer"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Table */}
+            <div className="overflow-auto flex-1">
+              <table className="w-full text-xs">
+                <thead className="sticky top-0 bg-slate-900 z-10">
+                  <tr className="border-b border-slate-700">
+                    <th className="text-left text-[10px] text-slate-500 font-semibold uppercase tracking-wider px-4 py-2.5 w-24">Ref.</th>
+                    <th className="text-left text-[10px] text-slate-500 font-semibold uppercase tracking-wider px-3 py-2.5">Descripción</th>
+                    <th className="text-left text-[10px] text-slate-500 font-semibold uppercase tracking-wider px-3 py-2.5 w-24">Marca</th>
+                    <th className="text-left text-[10px] text-slate-500 font-semibold uppercase tracking-wider px-3 py-2.5 w-24">Familia</th>
+                    <th className="text-right text-[10px] text-slate-500 font-semibold uppercase tracking-wider px-3 py-2.5 w-20">P. Coste</th>
+                    <th className="text-right text-[10px] text-slate-500 font-semibold uppercase tracking-wider px-3 py-2.5 w-20">P. Venta</th>
+                    <th className="text-center text-[10px] text-slate-500 font-semibold uppercase tracking-wider px-3 py-2.5 w-12">Ud.</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map((p, i) => {
+                    const sup = suppliers.find(s => s.id === productCatalogId);
+                    const margen = sup?.margen_pct ?? 20;
+                    const pvp = p.precio_coste * (1 + margen / 100);
+                    return (
+                      <tr
+                        key={p.id}
+                        className={`border-b border-slate-800/50 hover:bg-slate-800/40 transition-colors ${!p.activo ? 'opacity-40' : ''}`}
+                      >
+                        <td className="px-4 py-2 font-mono text-[10px] text-blue-400 truncate max-w-[80px]">
+                          {p.ref_proveedor ?? '—'}
+                        </td>
+                        <td className="px-3 py-2 text-slate-200 max-w-[260px]">
+                          <span className="line-clamp-2 leading-snug">{p.descripcion}</span>
+                        </td>
+                        <td className="px-3 py-2 text-slate-400 truncate">{p.marca ?? '—'}</td>
+                        <td className="px-3 py-2">
+                          {p.familia && (
+                            <span className="text-[9px] bg-slate-700 text-slate-300 px-1.5 py-0.5 rounded font-medium">
+                              {p.familia}
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-3 py-2 text-right text-slate-300 font-mono">
+                          {p.precio_coste.toFixed(2)} €
+                        </td>
+                        <td className="px-3 py-2 text-right text-emerald-400 font-mono font-semibold">
+                          {pvp.toFixed(2)} €
+                        </td>
+                        <td className="px-3 py-2 text-center text-slate-500">{p.unidad}</td>
+                      </tr>
+                    );
+                  })}
+
+                  {productsLoading && (
+                    <tr>
+                      <td colSpan={7} className="px-4 py-6 text-center text-slate-500">
+                        <RefreshCw className="h-4 w-4 animate-spin inline mr-2" />
+                        Cargando…
+                      </td>
+                    </tr>
+                  )}
+
+                  {!productsLoading && products.length === 0 && (
+                    <tr>
+                      <td colSpan={7} className="px-4 py-10 text-center text-slate-500 text-xs">
+                        {productSearch ? 'Sin resultados para esa búsqueda' : 'No hay productos en este catálogo'}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Footer: load more + info */}
+            <div className="px-5 py-3 border-t border-slate-700 shrink-0 flex items-center justify-between">
+              <span className="text-[10px] text-slate-500">
+                Mostrando {products.length} de {productTotal.toLocaleString('es-ES')} · P. Venta = coste × (1 + {suppliers.find(s => s.id === productCatalogId)?.margen_pct ?? 20}% margen)
+              </span>
+              {products.length < productTotal && !productsLoading && (
+                <button
+                  onClick={handleLoadMore}
+                  className="text-xs text-blue-400 hover:text-blue-300 font-semibold cursor-pointer transition-colors"
+                >
+                  Cargar {Math.min(PAGE_SIZE, productTotal - products.length)} más →
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Roadmap */}
       <div className="bg-slate-800/30 border border-slate-700 rounded-lg p-4">

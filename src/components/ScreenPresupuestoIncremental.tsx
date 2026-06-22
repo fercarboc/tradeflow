@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import {
   Mic, MicOff, X, Loader2, CheckCircle, Sparkles, ChevronLeft, Layers,
   Truck, Package, Building2, MapPin, Network, Server, Wind,
+  ArrowUpDown, Check,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
@@ -117,6 +118,7 @@ export interface ScreenPresupuestoIncrementalProps {
   onConfirm: (q: { descripcion: string; partidas: PartidaItem[] }) => void;
   onClose: () => void;
   showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
+  orgId?: string;
 }
 
 type Phase = 'categoria' | 'mudanza_detalles' | 'red_detalles' | 'clima_detalles' | 'acumulando' | 'resultado';
@@ -164,7 +166,7 @@ function buildMudanzaTexto(m: MudanzaDetalles, categoria: string): string {
   return lines.join('\n');
 }
 
-export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showToast }: ScreenPresupuestoIncrementalProps) {
+export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showToast, orgId }: ScreenPresupuestoIncrementalProps) {
   const [phase, setPhase]               = useState<Phase>('categoria');
   const [categoria, setCategoria]       = useState('');
   const [customText, setCustomText]     = useState('');
@@ -176,6 +178,50 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
   const [red, setRed]                   = useState<RedInformaticaDetalles>(DEFAULT_RED);
   const [clima, setClima]               = useState<ClimatizacionDetalles>(DEFAULT_CLIMA);
   const recognitionRef                  = useRef<unknown>(null);
+
+  interface CompareRow {
+    catalog_key: string; supplier_name: string; product_id: string;
+    ref_proveedor: string | null; descripcion: string;
+    precio_coste: number; margen_pct: number; precio_venta: number;
+    unidad: string; score: number;
+  }
+  const [compareIdx, setCompareIdx]       = useState<number | null>(null);
+  const [compareResults, setCompareResults] = useState<CompareRow[]>([]);
+  const [compareLoading, setCompareLoading] = useState(false);
+
+  const handleOpenCompare = async (idx: number, descripcion: string) => {
+    if (compareIdx === idx) { setCompareIdx(null); return; }
+    if (!orgId) return;
+    setCompareIdx(idx);
+    setCompareResults([]);
+    setCompareLoading(true);
+    try {
+      const { data, error } = await supabase.rpc('search_supplier_products', {
+        material_text: descripcion,
+        p_org_id: orgId,
+        limit_per_catalog: 5,
+      });
+      if (error) throw error;
+      setCompareResults((data as CompareRow[]) ?? []);
+    } catch {
+      setCompareResults([]);
+    } finally {
+      setCompareLoading(false);
+    }
+  };
+
+  const handleSelectCompare = (idx: number, opt: CompareRow) => {
+    setPartidas(prev => prev.map((p, i) => i !== idx ? p : {
+      ...p,
+      precioUnitario: opt.precio_venta,
+      total: (p.cantidad ?? 1) * opt.precio_venta,
+      supplier_key: opt.catalog_key,
+      supplier_name: opt.supplier_name,
+      supplier_ref: opt.ref_proveedor ?? undefined,
+    }));
+    setCompareIdx(null);
+    setCompareResults([]);
+  };
 
   const SpeechAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
   const isMudanza = categoria.toLowerCase().includes('mudanza');
@@ -967,26 +1013,98 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
 
             <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
               {partidas.map((p, i) => (
-                <div key={i} className={`px-4 py-3 flex items-center justify-between gap-3 ${i < partidas.length - 1 ? 'border-b border-slate-800' : ''}`}>
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-1.5">
-                      <p className="text-xs text-white font-medium truncate">{p.descripcion}</p>
-                      {p.supplier_key === 'obramat' && (
-                        <img src="/articuloobramat.png" alt="OBRAMAT" className="h-4 shrink-0 opacity-90" title={`OBRAMAT${p.supplier_ref ? ` · ${p.supplier_ref}` : ''}`} />
-                      )}
+                <div key={i}>
+                  <div className={`px-4 py-3 flex items-center justify-between gap-3 ${(i < partidas.length - 1 && compareIdx !== i) ? 'border-b border-slate-800' : ''} ${compareIdx === i ? 'bg-slate-800/60' : ''}`}>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-1.5">
+                        <p className="text-xs text-white font-medium truncate">{p.descripcion}</p>
+                        {p.supplier_key === 'obramat' && (
+                          <img src="/articuloobramat.png" alt="OBRAMAT" className="h-4 shrink-0 opacity-90" title={`OBRAMAT${p.supplier_ref ? ` · ${p.supplier_ref}` : ''}`} />
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full inline-block ${
+                          p.tipo === 'mano_de_obra' ? 'bg-blue-500/10 text-blue-400' : 'bg-emerald-500/10 text-emerald-400'
+                        }`}>
+                          {p.tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material'}
+                        </span>
+                        {p.supplier_key && p.supplier_key !== 'obramat' && (
+                          <span className="text-[8px] text-slate-500 font-medium">{p.supplier_name}</span>
+                        )}
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2 mt-0.5">
-                      <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full inline-block ${
-                        p.tipo === 'mano_de_obra' ? 'bg-blue-500/10 text-blue-400' : 'bg-emerald-500/10 text-emerald-400'
-                      }`}>
-                        {p.tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material'}
-                      </span>
-                      {p.supplier_key && p.supplier_key !== 'obramat' && (
-                        <span className="text-[8px] text-slate-500 font-medium">{p.supplier_name}</span>
+                    <div className="flex items-center gap-2 shrink-0">
+                      {p.precioUnitario > 0 && (
+                        <span className="text-xs font-mono font-bold text-amber-400">
+                          {(p.precioUnitario * p.cantidad).toFixed(0)} €
+                        </span>
+                      )}
+                      <p className="text-[10px] text-slate-500 font-mono">{p.cantidad} {p.unidad}</p>
+                      {p.tipo === 'material' && orgId && (
+                        <button
+                          onClick={() => handleOpenCompare(i, p.descripcion)}
+                          title="Comparar proveedores"
+                          className={`p-1 rounded-md transition-colors cursor-pointer ${compareIdx === i ? 'bg-amber-500/20 text-amber-400' : 'text-slate-600 hover:text-amber-400'}`}
+                        >
+                          <ArrowUpDown className="h-3.5 w-3.5" />
+                        </button>
                       )}
                     </div>
                   </div>
-                  <p className="text-xs text-slate-400 shrink-0 font-mono">{p.cantidad} {p.unidad}</p>
+
+                  {/* Panel comparador inline */}
+                  {compareIdx === i && (
+                    <div className={`border-b border-slate-800 ${i < partidas.length - 1 ? '' : ''}`}>
+                      <div className="flex items-center justify-between px-4 py-1.5 bg-amber-500/10 border-b border-amber-500/20">
+                        <span className="text-[9px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
+                          <ArrowUpDown className="h-2.5 w-2.5" /> Opciones de proveedor
+                        </span>
+                        <button onClick={() => setCompareIdx(null)} className="text-slate-500 hover:text-white cursor-pointer">
+                          <X className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
+
+                      {compareLoading && (
+                        <div className="flex items-center justify-center gap-2 py-4 text-slate-500 text-[11px]">
+                          <Loader2 className="h-3.5 w-3.5 animate-spin" /> Buscando en catálogos…
+                        </div>
+                      )}
+
+                      {!compareLoading && compareResults.length === 0 && (
+                        <p className="text-center text-[11px] text-slate-500 py-4">
+                          Sin alternativas en los catálogos activos
+                        </p>
+                      )}
+
+                      {!compareLoading && compareResults.map((opt, oi) => (
+                        <button
+                          key={oi}
+                          onClick={() => handleSelectCompare(i, opt)}
+                          className={`w-full flex items-center gap-2 px-4 py-2.5 text-left hover:bg-slate-700/40 transition-colors cursor-pointer ${oi < compareResults.length - 1 ? 'border-b border-slate-800/60' : ''}`}
+                        >
+                          <div className="shrink-0 w-5 h-5 rounded flex items-center justify-center bg-slate-800">
+                            {opt.catalog_key === 'obramat'
+                              ? <img src="/logoobramat.png" alt="OB" className="h-3.5 object-contain" />
+                              : <Package className="h-3 w-3 text-slate-500" />
+                            }
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-[10px] text-slate-200 truncate">{opt.descripcion}</p>
+                            <p className="text-[9px] text-slate-500">
+                              {opt.supplier_name}{opt.ref_proveedor ? ` · ${opt.ref_proveedor}` : ''}
+                            </p>
+                          </div>
+                          <div className="shrink-0 text-right">
+                            <p className="text-[11px] font-bold font-mono text-white">{opt.precio_venta.toFixed(2)} €</p>
+                            <p className="text-[9px] text-slate-500 font-mono">{opt.unidad}</p>
+                          </div>
+                          {p.supplier_key === opt.catalog_key && p.precioUnitario === opt.precio_venta && (
+                            <Check className="h-3 w-3 text-amber-400 shrink-0" />
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

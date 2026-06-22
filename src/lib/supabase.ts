@@ -1823,11 +1823,23 @@ export async function assignWorkerToJob(
   jobId: string,
   workerId: string,
   rol: TradeJobWorker['rol'] = 'asignado',
+  jobTitulo?: string,
 ): Promise<void> {
   const { error } = await supabase
     .from('trade_job_workers')
     .upsert({ job_id: jobId, worker_id: workerId, rol }, { onConflict: 'job_id,worker_id' });
   if (error) throw error;
+
+  if (jobTitulo) {
+    supabase.functions.invoke('trade-push-notify', {
+      body: {
+        worker_ids: [workerId],
+        title: 'Nuevo trabajo asignado',
+        body_text: jobTitulo,
+        url: '/',
+      },
+    }).catch(() => {});
+  }
 }
 
 export async function removeWorkerFromJob(jobId: string, workerId: string): Promise<void> {
@@ -1984,7 +1996,7 @@ export async function workerCreateJob(
   draft: Omit<TradeJob, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_clients' | 'trade_job_workers'>,
 ): Promise<TradeJob> {
   const job = await createJob(orgId, draft);
-  await assignWorkerToJob(job.id, workerId, 'responsable');
+  await assignWorkerToJob(job.id, workerId, 'responsable', job.titulo);
   return job;
 }
 

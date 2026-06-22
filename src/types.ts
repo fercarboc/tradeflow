@@ -83,6 +83,9 @@ precioUnitario: number;
 total: number;
 requiere_precio?: boolean;
 aviso?: string;
+supplier_key?: string;
+supplier_name?: string;
+supplier_ref?: string;
 }
 
 export interface Presupuesto {
