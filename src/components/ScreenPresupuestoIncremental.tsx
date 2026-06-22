@@ -23,6 +23,9 @@ interface PartidaItem {
   tipo: 'material' | 'mano_de_obra';
   precioUnitario: number;
   total: number;
+  supplier_key?: string;
+  supplier_name?: string;
+  supplier_ref?: string;
 }
 
 interface MudanzaDetalles {
@@ -240,6 +243,7 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     const raw = (data?.quote?.partidas ?? []) as Array<{
       concepto: string; cantidad: number; unidad: string;
       tipo_partida?: string; precio_unitario?: number; total?: number;
+      supplier_key?: string; supplier_name?: string; supplier_ref?: string;
     }>;
     return raw.map(p => ({
       descripcion: p.concepto ?? '',
@@ -248,6 +252,9 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
       tipo: (p.tipo_partida === 'mano_obra' ? 'mano_de_obra' : 'material') as 'material' | 'mano_de_obra',
       precioUnitario: p.precio_unitario ?? 0,
       total: p.total ?? 0,
+      supplier_key: p.supplier_key,
+      supplier_name: p.supplier_name,
+      supplier_ref: p.supplier_ref,
     }));
   }
 
@@ -871,7 +878,12 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
                   {partidas.map((p, i) => (
                     <div key={i} className={`px-3 py-2 flex items-center justify-between gap-2 ${i < partidas.length - 1 ? 'border-b border-slate-800' : ''}`}>
                       <div className="min-w-0 flex-1">
-                        <p className="text-[10px] text-white truncate">{p.descripcion}</p>
+                        <div className="flex items-center gap-1.5">
+                          <p className="text-[10px] text-white truncate">{p.descripcion}</p>
+                          {p.supplier_key === 'obramat' && (
+                            <img src="/articuloobramat.png" alt="OBRAMAT" className="h-3.5 shrink-0 opacity-80" title={p.supplier_ref ?? 'OBRAMAT'} />
+                          )}
+                        </div>
                         <span className={`text-[8px] font-bold px-1 rounded ${p.tipo === 'mano_de_obra' ? 'text-blue-400' : 'text-emerald-400'}`}>
                           {p.tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material'}
                         </span>
@@ -957,12 +969,22 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
               {partidas.map((p, i) => (
                 <div key={i} className={`px-4 py-3 flex items-center justify-between gap-3 ${i < partidas.length - 1 ? 'border-b border-slate-800' : ''}`}>
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs text-white font-medium truncate">{p.descripcion}</p>
-                    <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full mt-0.5 inline-block ${
-                      p.tipo === 'mano_de_obra' ? 'bg-blue-500/10 text-blue-400' : 'bg-emerald-500/10 text-emerald-400'
-                    }`}>
-                      {p.tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material'}
-                    </span>
+                    <div className="flex items-center gap-1.5">
+                      <p className="text-xs text-white font-medium truncate">{p.descripcion}</p>
+                      {p.supplier_key === 'obramat' && (
+                        <img src="/articuloobramat.png" alt="OBRAMAT" className="h-4 shrink-0 opacity-90" title={`OBRAMAT${p.supplier_ref ? ` · ${p.supplier_ref}` : ''}`} />
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2 mt-0.5">
+                      <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full inline-block ${
+                        p.tipo === 'mano_de_obra' ? 'bg-blue-500/10 text-blue-400' : 'bg-emerald-500/10 text-emerald-400'
+                      }`}>
+                        {p.tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material'}
+                      </span>
+                      {p.supplier_key && p.supplier_key !== 'obramat' && (
+                        <span className="text-[8px] text-slate-500 font-medium">{p.supplier_name}</span>
+                      )}
+                    </div>
                   </div>
                   <p className="text-xs text-slate-400 shrink-0 font-mono">{p.cantidad} {p.unidad}</p>
                 </div>

@@ -103,6 +103,7 @@ import {
 import PlanUpgradeModal from './PlanUpgradeModal';
 import OnboardingWizard from './OnboardingWizard';
 import ChatbotWidget from './ChatbotWidget';
+import SettingsSuppliers from './settings/SettingsSuppliers';
 import type { TradeOrganization } from '../lib/supabase';
 
 const InvoiceIcon = FileText;
@@ -9150,6 +9151,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <p className="text-[9px] text-slate-400">PNG, JPG o SVG · Max 2 MB · Fondo transparente recomendado</p>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* ── Proveedores y Catálogos ── */}
+        {isLiveMode && orgId && (
+          <div className={sec}>
+            <div className="flex items-center gap-3 pb-3 border-b border-slate-100 mb-1">
+              <div className="w-9 h-9 bg-orange-100 rounded-xl flex items-center justify-center shrink-0">
+                <Package className="h-5 w-5 text-orange-500" />
+              </div>
+              <div>
+                <h3 className="font-black uppercase text-xs text-slate-700 tracking-wide">Proveedores y Catálogos</h3>
+                <p className="text-[9px] text-slate-400 mt-0.5">Activa los proveedores que usas y ajusta tu margen sobre el precio de compra</p>
+              </div>
+            </div>
+            <SettingsSuppliers orgId={orgId} toast={(type, msg) => showToast(msg, type)} />
           </div>
         )}
 

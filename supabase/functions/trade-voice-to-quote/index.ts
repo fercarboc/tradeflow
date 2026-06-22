@@ -104,6 +104,7 @@ const EMPTY_QUOTE = {
 // Catálogo traduce partidas → artículos tarifables reales con precio del instalador
 interface Partida {
   concepto?: string;
+  descripcion?: string;
   tipo_partida?: string;
   requiere_revision?: boolean;
   precio_unitario?: number;
@@ -111,6 +112,13 @@ interface Partida {
   total?: number;
   precio_origen?: string;
   catalog_codigo?: string;
+  // Motor de Catálogos de Proveedores
+  supplier_key?: string;
+  supplier_name?: string;
+  supplier_product_id?: string;
+  supplier_ref?: string;
+  supplier_margen_pct?: number;
+  supplier_precio_coste?: number;
 }
 
 interface Calculos {
@@ -193,6 +201,69 @@ async function enrichWithCatalogPrices(
   }
 
   // Recalcular totales si alguna partida fue enriquecida
+  if (recalculated) {
+    const subtotal = partidas.reduce((s: number, p: Partida) => s + (p.total ?? 0), 0);
+    const calculos = quote.calculos as Calculos | undefined;
+    if (calculos) {
+      calculos.subtotal = Math.round(subtotal * 100) / 100;
+      calculos.iva = Math.round(subtotal * 0.21 * 100) / 100;
+      calculos.total = Math.round(subtotal * 1.21 * 100) / 100;
+    }
+  }
+}
+
+// ── Motor de Catálogos de Proveedores ─────────────────────────────────────
+// Solo actúa sobre materiales con requiere_revision=true y precio=0
+// Busca en trade_supplier_products via RPC search_supplier_products
+async function enrichWithSupplierProducts(
+  supabase: ReturnType<typeof createClient>,
+  orgId: string,
+  quote: Record<string, unknown>,
+): Promise<void> {
+  const partidas = quote.partidas as Partida[] | undefined;
+  if (!partidas || partidas.length === 0) return;
+
+  const materialesPendientes = partidas.filter(
+    p => p.tipo_partida === 'material' && p.requiere_revision === true && (p.precio_unitario ?? 0) === 0,
+  );
+  if (materialesPendientes.length === 0) return;
+
+  let recalculated = false;
+
+  for (const partida of materialesPendientes) {
+    const texto = [partida.concepto, partida.descripcion].filter(Boolean).join(' ');
+    if (!texto) continue;
+
+    const { data, error } = await supabase.rpc('search_supplier_products', {
+      material_text: texto,
+      p_org_id: orgId,
+      limit_per_catalog: 3,
+    });
+
+    if (error || !data || (data as unknown[]).length === 0) continue;
+
+    // Mejor resultado: mayor score, primera posición
+    const best = (data as Array<{
+      catalog_key: string; supplier_name: string; product_id: string;
+      ref_proveedor: string; descripcion: string; precio_coste: number;
+      margen_pct: number; precio_venta: number; unidad: string; score: number;
+    }>)[0];
+
+    if (!best || best.precio_venta <= 0) continue;
+
+    partida.precio_unitario = best.precio_venta;
+    partida.supplier_precio_coste = best.precio_coste;
+    partida.supplier_margen_pct = best.margen_pct;
+    partida.total = (partida.cantidad ?? 1) * best.precio_venta;
+    partida.precio_origen = `catalogo_proveedor_${best.catalog_key}`;
+    partida.requiere_revision = false;
+    partida.supplier_key = best.catalog_key;
+    partida.supplier_name = best.supplier_name;
+    partida.supplier_product_id = best.product_id;
+    partida.supplier_ref = best.ref_proveedor;
+    recalculated = true;
+  }
+
   if (recalculated) {
     const subtotal = partidas.reduce((s: number, p: Partida) => s + (p.total ?? 0), 0);
     const calculos = quote.calculos as Calculos | undefined;
@@ -365,6 +436,8 @@ Deno.serve(async (req: Request) => {
     // INTENCIÓN (IA) → PARTIDAS (IA genera) → ARTÍCULOS (catálogo precio) → PRESUPUESTO
     if (orgId && quote.partidas) {
       await enrichWithCatalogPrices(supabase, orgId, quote);
+      // Motor de Catálogos: materiales que quedaron sin precio → buscar en proveedores
+      await enrichWithSupplierProducts(supabase, orgId, quote);
     }
 
     // ── Registrar uso ─────────────────────────────────────────────────────────

@@ -1,10 +1,11 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   Package, Upload, RefreshCw, CheckCircle, XCircle, Clock,
   ChevronRight, AlertTriangle, Truck, Building2, User, Plus,
   Download, Eye, Trash2, ToggleLeft, ToggleRight, Star, StarOff,
   FileSpreadsheet, Info, Zap, ArrowUpDown,
 } from 'lucide-react';
+import { supabase } from '../../lib/supabase';
 
 type SupplierTipo = 'nacional' | 'fabricante' | 'propio' | 'custom';
 type AcuerdoEstado = 'activo' | 'negociando' | 'sin_acuerdo';
@@ -25,17 +26,22 @@ interface SupplierConfig {
   color: string;
 }
 
-const INITIAL_SUPPLIERS: SupplierConfig[] = [
-  { id: 'propio',   nombre: 'Catálogo propio',   tipo: 'propio',     activo: true,  margen_pct: 35, prioridad: 1, productos: 0,     sync_estado: 'nunca',    descripcion: 'Tus tarifas negociadas. CSV con precios de compra propios.', acuerdo: 'activo',       color: '#4A6741' },
-  { id: 'obramat',  nombre: 'OBRAMAT',            tipo: 'nacional',   activo: false, margen_pct: 30, prioridad: 2, productos: 15400, ultima_sync: '2026-06-15', sync_estado: 'ok',    descripcion: 'Distribución nacional materiales construcción e instalaciones.', acuerdo: 'negociando',  color: '#E87722' },
-  { id: 'saltoki',  nombre: 'Saltoki',            tipo: 'nacional',   activo: false, margen_pct: 22, prioridad: 3, productos: 8200,  sync_estado: 'nunca',    descripcion: 'Distribuidor fontanería, calefacción y climatización.', acuerdo: 'sin_acuerdo', color: '#1A5A96' },
-  { id: 'sonepar',  nombre: 'Sonepar',            tipo: 'nacional',   activo: false, margen_pct: 25, prioridad: 4, productos: 12500, sync_estado: 'nunca',    descripcion: 'Distribución eléctrica e industrial.', acuerdo: 'sin_acuerdo', color: '#6366f1' },
-  { id: 'novelec',  nombre: 'Novelec',            tipo: 'nacional',   activo: false, margen_pct: 22, prioridad: 5, productos: 6800,  sync_estado: 'nunca',    descripcion: 'Material eléctrico y automatización.', acuerdo: 'sin_acuerdo', color: '#f59e0b' },
-  { id: 'rexel',    nombre: 'Rexel',              tipo: 'nacional',   activo: false, margen_pct: 20, prioridad: 6, productos: 9300,  sync_estado: 'nunca',    descripcion: 'Distribución eléctrica global.', acuerdo: 'sin_acuerdo', color: '#ef4444' },
-  { id: 'vaillant', nombre: 'Vaillant',           tipo: 'fabricante', activo: false, margen_pct: 18, prioridad: 7, productos: 420,   sync_estado: 'nunca',    descripcion: 'Calefacción, ACS y climatización.', acuerdo: 'sin_acuerdo', color: '#10b981' },
-  { id: 'junkers',  nombre: 'Junkers / Bosch',   tipo: 'fabricante', activo: false, margen_pct: 18, prioridad: 8, productos: 380,   sync_estado: 'nunca',    descripcion: 'Calderas, calentadores y ACS.', acuerdo: 'sin_acuerdo', color: '#ec4899' },
-  { id: 'ariston',  nombre: 'Ariston',           tipo: 'fabricante', activo: false, margen_pct: 18, prioridad: 9, productos: 310,   sync_estado: 'nunca',    descripcion: 'Calentadores y acumuladores ACS.', acuerdo: 'sin_acuerdo', color: '#14b8a6' },
-];
+// Metadata estética + negocio que no se persiste en DB
+const SUPPLIER_META: Record<string, { tipo: SupplierTipo; descripcion: string; acuerdo: AcuerdoEstado; color: string }> = {
+  propio:   { tipo: 'propio',     descripcion: 'Tus tarifas negociadas. CSV con precios de compra propios.',                        acuerdo: 'activo',       color: '#4A6741' },
+  obramat:  { tipo: 'nacional',   descripcion: 'Distribución nacional materiales construcción e instalaciones.',                    acuerdo: 'negociando',   color: '#E87722' },
+  saltoki:  { tipo: 'nacional',   descripcion: 'Distribuidor fontanería, calefacción y climatización.',                             acuerdo: 'sin_acuerdo',  color: '#1A5A96' },
+  sonepar:  { tipo: 'nacional',   descripcion: 'Distribución eléctrica e industrial.',                                              acuerdo: 'sin_acuerdo',  color: '#6366f1' },
+  novelec:  { tipo: 'nacional',   descripcion: 'Material eléctrico y automatización.',                                              acuerdo: 'sin_acuerdo',  color: '#f59e0b' },
+  rexel:    { tipo: 'nacional',   descripcion: 'Distribución eléctrica global.',                                                    acuerdo: 'sin_acuerdo',  color: '#ef4444' },
+  vaillant: { tipo: 'fabricante', descripcion: 'Calefacción, ACS y climatización.',                                                 acuerdo: 'sin_acuerdo',  color: '#10b981' },
+  junkers:  { tipo: 'fabricante', descripcion: 'Calderas, calentadores y ACS.',                                                     acuerdo: 'sin_acuerdo',  color: '#ec4899' },
+  ariston:  { tipo: 'fabricante', descripcion: 'Calentadores y acumuladores ACS.',                                                  acuerdo: 'sin_acuerdo',  color: '#14b8a6' },
+  baxi:     { tipo: 'fabricante', descripcion: 'Calderas y calentadores residenciales.',                                            acuerdo: 'sin_acuerdo',  color: '#8b5cf6' },
+  ferroli:  { tipo: 'fabricante', descripcion: 'Calefacción, climatización y ACS.',                                                 acuerdo: 'sin_acuerdo',  color: '#f97316' },
+};
+
+const INITIAL_SUPPLIERS: SupplierConfig[] = [];
 
 const ACUERDO_CFG: Record<AcuerdoEstado, { label: string; cls: string }> = {
   activo:       { label: 'Acuerdo activo',  cls: 'bg-emerald-900/40 text-emerald-300 border-emerald-700' },
@@ -81,6 +87,7 @@ interface Props {
 
 export default function AdminSuppliersSection({ toast }: Props) {
   const [suppliers, setSuppliers] = useState<SupplierConfig[]>(INITIAL_SUPPLIERS);
+  const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<SupplierConfig | null>(null);
   const [editMargen, setEditMargen] = useState<string>('');
   const [syncing, setSyncing] = useState<string | null>(null);
@@ -90,16 +97,84 @@ export default function AdminSuppliersSection({ toast }: Props) {
   const [uploadLoading, setUploadLoading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    async function loadCatalogs() {
+      setLoading(true);
+      try {
+        const { data: catalogs, error } = await supabase
+          .from('trade_supplier_catalogs')
+          .select('id, supplier_key, supplier_name, is_active, margen_pct_default, prioridad, updated_at')
+          .is('org_id', null)
+          .order('prioridad');
+        if (error) throw error;
+
+        const { data: counts } = await supabase
+          .from('trade_supplier_products')
+          .select('catalog_id');
+
+        const countMap = new Map<string, number>();
+        for (const row of (counts ?? []) as Array<{ catalog_id: string }>) {
+          countMap.set(row.catalog_id, (countMap.get(row.catalog_id) ?? 0) + 1);
+        }
+
+        const mapped: SupplierConfig[] = (catalogs ?? []).map((c: {
+          id: string; supplier_key: string; supplier_name: string;
+          is_active: boolean; margen_pct_default: number; prioridad: number; updated_at: string;
+        }) => {
+          const meta = SUPPLIER_META[c.supplier_key] ?? {
+            tipo: 'nacional' as SupplierTipo, descripcion: c.supplier_name,
+            acuerdo: 'sin_acuerdo' as AcuerdoEstado, color: '#64748b',
+          };
+          const prods = countMap.get(c.id) ?? 0;
+          return {
+            id: c.id,
+            nombre: c.supplier_name,
+            tipo: meta.tipo,
+            activo: c.is_active,
+            margen_pct: Number(c.margen_pct_default),
+            prioridad: c.prioridad,
+            productos: prods,
+            ultima_sync: prods > 0 ? c.updated_at?.slice(0, 10) : undefined,
+            sync_estado: prods > 0 ? 'ok' : 'nunca',
+            descripcion: meta.descripcion,
+            acuerdo: meta.acuerdo,
+            color: meta.color,
+          } satisfies SupplierConfig;
+        });
+
+        setSuppliers(mapped);
+      } catch (e) {
+        toast('error', 'Error cargando catálogos de proveedores');
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadCatalogs();
+  }, []);
+
   const totalActivos = suppliers.filter(s => s.activo).length;
   const totalProductos = suppliers.filter(s => s.activo).reduce((a, s) => a + s.productos, 0);
   const lastSync = suppliers
     .filter(s => s.ultima_sync)
     .sort((a, b) => (b.ultima_sync ?? '').localeCompare(a.ultima_sync ?? ''))[0]?.ultima_sync;
 
-  const handleToggle = (id: string) => {
-    setSuppliers(prev => prev.map(s => s.id === id ? { ...s, activo: !s.activo } : s));
+  const handleToggle = async (id: string) => {
     const sup = suppliers.find(s => s.id === id);
-    if (sup) toast('success', `${sup.nombre} ${sup.activo ? 'desactivado' : 'activado'}`);
+    if (!sup) return;
+    const newActive = !sup.activo;
+    setSuppliers(prev => prev.map(s => s.id === id ? { ...s, activo: newActive } : s));
+    if (selected?.id === id) setSelected(prev => prev ? { ...prev, activo: newActive } : prev);
+    const { error } = await supabase
+      .from('trade_supplier_catalogs')
+      .update({ is_active: newActive })
+      .eq('id', id);
+    if (error) {
+      setSuppliers(prev => prev.map(s => s.id === id ? { ...s, activo: !newActive } : s));
+      toast('error', `Error al ${newActive ? 'activar' : 'desactivar'} ${sup.nombre}`);
+    } else {
+      toast('success', `${sup.nombre} ${newActive ? 'activado' : 'desactivado'}`);
+    }
   };
 
   const handleSelect = (s: SupplierConfig) => {
@@ -108,10 +183,15 @@ export default function AdminSuppliersSection({ toast }: Props) {
     setShowUpload(false);
   };
 
-  const handleSaveMargen = () => {
+  const handleSaveMargen = async () => {
     if (!selected) return;
     const val = parseFloat(editMargen);
     if (isNaN(val) || val < 0 || val > 200) { toast('error', 'Margen inválido (0-200%)'); return; }
+    const { error } = await supabase
+      .from('trade_supplier_catalogs')
+      .update({ margen_pct_default: val })
+      .eq('id', selected.id);
+    if (error) { toast('error', 'Error al guardar el margen'); return; }
     setSuppliers(prev => prev.map(s => s.id === selected.id ? { ...s, margen_pct: val } : s));
     setSelected(prev => prev ? { ...prev, margen_pct: val } : prev);
     toast('success', `Margen de ${selected.nombre} actualizado a ${val}%`);
@@ -158,6 +238,15 @@ export default function AdminSuppliersSection({ toast }: Props) {
     const a = document.createElement('a'); a.href = url; a.download = 'plantilla_catalogo_trabflow.csv'; a.click();
     URL.revokeObjectURL(url);
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-20 text-slate-400 text-sm gap-3">
+        <RefreshCw className="h-5 w-5 animate-spin" />
+        Cargando catálogos de proveedores…
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-5">
