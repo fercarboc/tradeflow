@@ -40,6 +40,9 @@ UpdatePassword = 'update-password',
 
 // Public quote acceptance
 QuoteAccept = 'quote-accept',
+
+// Demo interactiva para socios / partners
+PartnerDemo = 'partner-demo',
 }
 
 export type TradeType =

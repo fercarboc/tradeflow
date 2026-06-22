@@ -30,6 +30,7 @@ import AuthCallbackView from './components/auth/AuthCallbackView';
 import AuthResetPasswordView from './components/auth/AuthResetPasswordView';
 import UpdatePasswordView from './components/auth/UpdatePasswordView';
 import QuoteAcceptView from './components/QuoteAcceptView';
+import PartnerDemoView from './components/partner-demo/PartnerDemoView';
 
 const AUTH_FLOW_PAGES = new Set<ActivePage>([
   ActivePage.AuthActivate,
@@ -274,6 +275,9 @@ export default function App() {
       case ActivePage.QuoteAccept:
         return <QuoteAcceptView token={quoteToken} />;
 
+      case ActivePage.PartnerDemo:
+        return <PartnerDemoView setCurrentPage={setCurrentPage} />;
+
       default:
         return <LandingPage setCurrentPage={setCurrentPage} />;
     }
@@ -281,6 +285,7 @@ export default function App() {
 
   const isAppView =
     currentPage === ActivePage.Home ||
+    currentPage === ActivePage.PartnerDemo ||
     currentPage === ActivePage.AppDashboard ||
     currentPage === ActivePage.Demo ||
     currentPage === ActivePage.Registro ||
