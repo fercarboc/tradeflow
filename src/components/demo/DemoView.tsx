@@ -5,7 +5,7 @@ import {
   Mic, CheckCircle, AlertCircle, Loader2, Sparkles,
   X, Star, Clock, Euro, ArrowRight,
   ScrollText, Plus, ChevronDown, ChevronRight,
-  Zap, Phone, Building2, Briefcase,
+  Zap, Phone, Building2, Briefcase, Truck, ArrowUpDown, ToggleRight, ToggleLeft,
 } from 'lucide-react';
 import { ActivePage } from '../../types';
 
@@ -15,7 +15,7 @@ interface DemoViewProps {
 
 type NavId =
   | 'dashboard' | 'create_quote' | 'ai_scan'
-  | 'crm' | 'invoices' | 'catalog'
+  | 'crm' | 'invoices' | 'catalog' | 'proveedores'
   | 'planificacion' | 'ingresos' | 'equipo' | 'contratos';
 
 const NAV_ITEMS: { id: NavId; label: string; Icon: React.ElementType }[] = [
@@ -25,6 +25,7 @@ const NAV_ITEMS: { id: NavId; label: string; Icon: React.ElementType }[] = [
   { id: 'crm',           label: 'Clientes CRM',      Icon: Users },
   { id: 'invoices',      label: 'Facturación',        Icon: FileText },
   { id: 'catalog',       label: 'Catálogo',           Icon: Package },
+  { id: 'proveedores',   label: 'Motor Catálogos',    Icon: Truck },
   { id: 'planificacion', label: 'Planificación',      Icon: Calendar },
   { id: 'ingresos',      label: 'Ingresos',           Icon: BarChart2 },
   { id: 'equipo',        label: 'Equipo',             Icon: Users },
@@ -38,6 +39,7 @@ const SECTION_TITLES: Record<NavId, string> = {
   crm:           'Clientes CRM',
   invoices:      'Facturación',
   catalog:       'Catálogo de Precios',
+  proveedores:   'Motor de Catálogos de Proveedores',
   planificacion: 'Planificación de Trabajos',
   ingresos:      'Ingresos y Rentabilidad',
   equipo:        'Equipo y Permisos',
@@ -111,6 +113,23 @@ const MOCK_CONTRATOS = [
   { id: 1, cliente: 'Oficinas DEMO SL', tipo: 'Mantenimiento integral', frecuencia: 'Mensual', importe: 350, estado: 'activo', proxima: '01/06/2026' },
   { id: 2, cliente: 'Comunidad C/ Mayor 5', tipo: 'Revisión anual caldera', frecuencia: 'Anual', importe: 200, estado: 'activo', proxima: '15/09/2026' },
   { id: 3, cliente: 'Pedro Martín', tipo: 'SAT prioritario', frecuencia: 'A demanda', importe: 100, estado: 'pendiente', proxima: '—' },
+];
+
+const MOCK_OBRAMAT_PRODUCTS = [
+  { ref: 'OB-ACS-001', desc: 'Termo eléctrico 80L vertical Ariston', familia: 'ACS', coste: 189.50, pvp: 227.40 },
+  { ref: 'OB-ACS-002', desc: 'Calentador a gas instantáneo 11L Junkers', familia: 'ACS', coste: 312.00, pvp: 374.40 },
+  { ref: 'OB-FON-001', desc: 'Válvula de esfera 1" latón PN16', familia: 'Fontanería', coste: 8.20, pvp: 9.84 },
+  { ref: 'OB-FON-002', desc: 'Grifo mezclador monomando cocina Grohe', familia: 'Fontanería', coste: 64.90, pvp: 77.88 },
+  { ref: 'OB-ELE-001', desc: 'Cable manguera 2.5mm 100m H07V-K', familia: 'Electricidad', coste: 87.00, pvp: 104.40 },
+  { ref: 'OB-ELE-002', desc: 'Cuadro eléctrico 16 elementos Legrand', familia: 'Electricidad', coste: 145.00, pvp: 174.00 },
+  { ref: 'OB-CLI-001', desc: 'Split mural 2.5kW inverter Daikin', familia: 'Climatización', coste: 380.00, pvp: 456.00 },
+];
+
+const MOCK_PRESUPUESTO_COMPARAR = [
+  { id: 1, desc: 'Termo eléctrico 80L vertical', tipo: 'material', cantidad: 1, pvp: 0, supplier_key: '', comparer: true },
+  { id: 2, desc: 'Válvula de seguridad 1/2" ACS', tipo: 'material', cantidad: 2, pvp: 12.50, supplier_key: '' },
+  { id: 3, desc: 'Mano de obra instalación ACS', tipo: 'mano_de_obra', cantidad: 4, pvp: 50, supplier_key: '' },
+  { id: 4, desc: 'Tubo multicapa 16mm rollo 50m', tipo: 'material', cantidad: 1, pvp: 0, supplier_key: '', comparer: true },
 ];
 
 const EXAMPLE_TEXTS = [
@@ -570,6 +589,305 @@ function ScreenCatalogo() {
       <button className="w-full flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-200 py-3 text-sm font-semibold text-slate-400 hover:text-slate-600 hover:border-slate-300 cursor-pointer transition-colors">
         <Plus className="h-4 w-4" /> Añadir categoría
       </button>
+    </div>
+  );
+}
+
+function ScreenProveedores() {
+  const [tab, setTab] = useState<'catalogo' | 'presupuesto'>('catalogo');
+  const [obramatActive, setObramatActive] = useState(true);
+  const [margen, setMargen] = useState(20);
+  const [compareOpen, setCompareOpen] = useState<number | null>(null);
+  const [selectedPrices, setSelectedPrices] = useState<Record<number, { pvp: number; supplier: string }>>({});
+
+  const compareOptions = [
+    { supplier: 'OBRAMAT', ref: 'OB-ACS-001', desc: 'Termo eléctrico 80L vertical Ariston', coste: 189.50, pvp: 227.40, logo: true },
+    { supplier: 'Mi catálogo', ref: 'MC-ACS-080', desc: 'Termo 80L (tarifa negociada)', coste: 165.00, pvp: 198.00, logo: false },
+  ];
+  const compareOptionsTubo = [
+    { supplier: 'OBRAMAT', ref: 'OB-FON-016', desc: 'Tubo multicapa PE-RT/AL 16mm 50m', coste: 48.90, pvp: 58.68, logo: true },
+    { supplier: 'Mi catálogo', ref: null, desc: 'Sin precio asignado', coste: 0, pvp: 0, logo: false },
+  ];
+
+  return (
+    <div className="space-y-5 max-w-3xl">
+
+      {/* Hero banner */}
+      <div className="bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl p-5 text-white">
+        <div className="flex items-start gap-4">
+          <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
+            <Truck className="h-6 w-6 text-white" />
+          </div>
+          <div>
+            <h2 className="text-base font-black mb-1">Motor de Catálogos de Proveedores</h2>
+            <p className="text-sm text-orange-100">
+              La IA consulta los precios reales de tus proveedores al generar cada presupuesto.
+              Nunca más precios inventados — cada material sale con el precio que tú pagas.
+            </p>
+            <div className="flex gap-3 mt-3 text-xs font-bold">
+              <span className="bg-white/20 px-2.5 py-1 rounded-full">✓ OBRAMAT indexado</span>
+              <span className="bg-white/20 px-2.5 py-1 rounded-full">✓ Margen configurable</span>
+              <span className="bg-white/20 px-2.5 py-1 rounded-full">✓ Comparador integrado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* KPIs */}
+      <div className="grid grid-cols-3 gap-3">
+        {[
+          { label: 'Proveedores activos', value: '1', color: 'text-emerald-600', bg: 'bg-emerald-50' },
+          { label: 'Productos indexados', value: '2.847', color: 'text-orange-600', bg: 'bg-orange-50' },
+          { label: 'Ahorro medio por pres.', value: '12%', color: 'text-blue-600', bg: 'bg-blue-50' },
+        ].map(k => (
+          <Card key={k.label} className="p-3 text-center">
+            <p className={`text-2xl font-black ${k.color}`}>{k.value}</p>
+            <p className="text-[10px] text-slate-400 mt-0.5 font-medium">{k.label}</p>
+          </Card>
+        ))}
+      </div>
+
+      {/* Tabs */}
+      <div className="flex gap-1 bg-slate-100 rounded-xl p-1 w-fit">
+        {([['catalogo', 'Catálogos activos'], ['presupuesto', 'Demo en presupuesto']] as const).map(([id, label]) => (
+          <button
+            key={id}
+            onClick={() => setTab(id)}
+            className={`px-4 py-2 rounded-lg text-xs font-bold cursor-pointer transition-all ${tab === id ? 'bg-white shadow text-slate-900' : 'text-slate-500 hover:text-slate-700'}`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* TAB: Catálogos */}
+      {tab === 'catalogo' && (
+        <div className="space-y-4">
+          {/* OBRAMAT */}
+          <Card>
+            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+              <div className="flex items-center gap-3">
+                <img src="/logoobramat.png" alt="OBRAMAT" className="h-7 object-contain" onError={e => { (e.target as HTMLImageElement).style.display='none'; }} />
+                <div>
+                  <p className="text-sm font-black text-slate-800">OBRAMAT</p>
+                  <p className="text-xs text-slate-400">2.847 productos · Distribución nacional</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-[10px] bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded-full border border-amber-200">
+                  Negociando acuerdo
+                </span>
+                <button onClick={() => setObramatActive(v => !v)} className="cursor-pointer">
+                  {obramatActive
+                    ? <ToggleRight className="h-7 w-7 text-emerald-500" />
+                    : <ToggleLeft className="h-7 w-7 text-slate-400" />
+                  }
+                </button>
+              </div>
+            </div>
+
+            {/* Margen */}
+            <div className="px-5 py-3 border-b border-slate-100 flex items-center gap-4">
+              <div className="flex-1">
+                <p className="text-[11px] text-slate-500 mb-1 font-semibold">Margen sobre precio de compra</p>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="range" min={0} max={50} value={margen}
+                    onChange={e => setMargen(Number(e.target.value))}
+                    className="flex-1 accent-orange-500 cursor-pointer"
+                  />
+                  <span className="text-base font-black text-orange-600 w-12 text-right">{margen}%</span>
+                </div>
+              </div>
+              <div className="text-right text-xs text-slate-400 shrink-0">
+                <p>Compra: 189,50 €</p>
+                <p className="font-bold text-slate-700">Venta: {(189.5 * (1 + margen / 100)).toFixed(2)} €</p>
+              </div>
+            </div>
+
+            {/* Product list */}
+            <div className="divide-y divide-slate-50">
+              {MOCK_OBRAMAT_PRODUCTS.slice(0, 5).map((p, i) => (
+                <div key={i} className="flex items-center justify-between px-5 py-2.5 hover:bg-slate-50">
+                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                    <span className="text-[9px] font-mono text-slate-400 shrink-0 w-20 truncate">{p.ref}</span>
+                    <span className="text-xs text-slate-700 truncate">{p.desc}</span>
+                    <span className="text-[9px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded shrink-0">{p.familia}</span>
+                  </div>
+                  <div className="text-right shrink-0 ml-4">
+                    <p className="text-xs font-bold text-slate-900">{(p.coste * (1 + margen / 100)).toFixed(2)} €</p>
+                    <p className="text-[9px] text-slate-400">coste {p.coste} €</p>
+                  </div>
+                </div>
+              ))}
+              <div className="px-5 py-2.5 text-center">
+                <p className="text-xs text-slate-400">+ 2.842 productos más en el catálogo completo</p>
+              </div>
+            </div>
+          </Card>
+
+          {/* Other providers (coming soon) */}
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { nombre: 'Saltoki', desc: 'Fontanería y calefacción', prods: 'Próximamente' },
+              { nombre: 'Sonepar', desc: 'Material eléctrico', prods: 'Próximamente' },
+              { nombre: 'Mi catálogo', desc: 'Tus precios negociados', prods: 'Subir CSV' },
+              { nombre: 'Novelec', desc: 'Automatización industrial', prods: 'Próximamente' },
+            ].map(p => (
+              <Card key={p.nombre} className="p-4 opacity-60 hover:opacity-80 transition-opacity">
+                <div className="flex items-center justify-between mb-1">
+                  <p className="text-sm font-black text-slate-600">{p.nombre}</p>
+                  <ToggleLeft className="h-6 w-6 text-slate-300" />
+                </div>
+                <p className="text-xs text-slate-400">{p.desc}</p>
+                <p className="text-[10px] text-slate-400 mt-1 font-medium">{p.prods}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* TAB: Demo en presupuesto */}
+      {tab === 'presupuesto' && (
+        <div className="space-y-4">
+          <Card className="p-4">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-9 w-9 bg-orange-100 rounded-xl flex items-center justify-center">
+                <ArrowUpDown className="h-4 w-4 text-orange-600" />
+              </div>
+              <div>
+                <p className="text-sm font-black text-slate-800">Comparador de proveedores integrado</p>
+                <p className="text-xs text-slate-400">
+                  Pulsa <ArrowUpDown className="h-3 w-3 inline text-slate-500 mx-0.5" /> en cualquier material para ver alternativas de precio
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-slate-50 rounded-xl p-3 mb-3">
+              <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-2">Instalación ACS — Presupuesto generado por IA</p>
+              <div className="space-y-1">
+                {MOCK_PRESUPUESTO_COMPARAR.map(item => {
+                  const sel = selectedPrices[item.id];
+                  const displayPvp = sel ? sel.pvp : item.pvp;
+                  const displaySupplier = sel ? sel.supplier : item.supplier_key;
+                  const opts = item.id === 1 ? compareOptions : item.id === 4 ? compareOptionsTubo : null;
+                  return (
+                    <div key={item.id}>
+                      <div className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${compareOpen === item.id ? 'bg-orange-50 border border-orange-200' : 'bg-white border border-slate-200 hover:border-slate-300'}`}>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1.5">
+                            <p className="text-xs text-slate-700 font-medium truncate">{item.desc}</p>
+                            {(sel?.supplier === 'OBRAMAT' || displaySupplier === 'obramat') && (
+                              <img src="/articuloobramat.png" alt="OBRAMAT" className="h-3.5 shrink-0" onError={e => { (e.target as HTMLImageElement).style.display='none'; }} />
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2 mt-0.5">
+                            <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full ${item.tipo === 'mano_de_obra' ? 'bg-blue-100 text-blue-600' : 'bg-emerald-100 text-emerald-600'}`}>
+                              {item.tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material'}
+                            </span>
+                            {displaySupplier === 'OBRAMAT' && (
+                              <span className="text-[8px] text-orange-500 font-medium">OBRAMAT</span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          {displayPvp > 0
+                            ? <span className="text-xs font-bold text-slate-900 font-mono">{displayPvp.toFixed(2)} €</span>
+                            : <span className="text-xs text-red-400 font-semibold">Sin precio</span>
+                          }
+                          <span className="text-[10px] text-slate-400">{item.cantidad} ud</span>
+                          {opts && item.tipo === 'material' && (
+                            <button
+                              onClick={() => setCompareOpen(compareOpen === item.id ? null : item.id)}
+                              className={`p-1 rounded cursor-pointer transition-colors ${compareOpen === item.id ? 'bg-orange-200 text-orange-700' : 'text-slate-400 hover:text-orange-500'}`}
+                            >
+                              <ArrowUpDown className="h-3.5 w-3.5" />
+                            </button>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Panel comparador */}
+                      {compareOpen === item.id && opts && (
+                        <div className="mx-1 mb-1 border border-orange-200 rounded-b-xl overflow-hidden bg-white shadow-sm">
+                          <div className="px-3 py-1.5 bg-orange-50 border-b border-orange-100">
+                            <p className="text-[9px] font-bold text-orange-600 uppercase tracking-wider flex items-center gap-1">
+                              <ArrowUpDown className="h-2.5 w-2.5" /> Opciones de proveedor
+                            </p>
+                          </div>
+                          {opts.map((opt, oi) => (
+                            <button
+                              key={oi}
+                              onClick={() => {
+                                if (opt.pvp > 0) {
+                                  setSelectedPrices(p => ({ ...p, [item.id]: { pvp: opt.pvp, supplier: opt.supplier } }));
+                                }
+                                setCompareOpen(null);
+                              }}
+                              className={`w-full flex items-center gap-3 px-3 py-2.5 text-left hover:bg-orange-50 transition-colors cursor-pointer ${oi < opts.length - 1 ? 'border-b border-slate-100' : ''}`}
+                            >
+                              <div className="w-6 h-6 rounded bg-slate-100 flex items-center justify-center shrink-0">
+                                {opt.logo
+                                  ? <img src="/logoobramat.png" alt="OB" className="h-4 object-contain" onError={e => { (e.target as HTMLImageElement).style.display='none'; }} />
+                                  : <Package className="h-3 w-3 text-slate-400" />
+                                }
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-[11px] font-semibold text-slate-700 truncate">{opt.desc}</p>
+                                <p className="text-[9px] text-slate-400">{opt.supplier}{opt.ref ? ` · ${opt.ref}` : ''}</p>
+                              </div>
+                              <div className="text-right shrink-0">
+                                {opt.pvp > 0
+                                  ? <>
+                                      <p className="text-xs font-black text-slate-900">{opt.pvp.toFixed(2)} €</p>
+                                      <p className="text-[9px] text-slate-400">coste {opt.coste.toFixed(2)} €</p>
+                                    </>
+                                  : <p className="text-[10px] text-slate-400">Sin precio</p>
+                                }
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="bg-orange-50 border border-orange-200 rounded-xl p-3">
+              <p className="text-xs text-orange-800 font-semibold flex items-center gap-2">
+                <Sparkles className="h-3.5 w-3.5 text-orange-500 shrink-0" />
+                La IA asigna automáticamente el mejor precio de tu catálogo de proveedores.
+                Tú decides si cambias la opción con un clic.
+              </p>
+            </div>
+          </Card>
+
+          {/* How it works */}
+          <Card className="p-5">
+            <SectionTitle>Cómo funciona</SectionTitle>
+            <div className="space-y-3">
+              {[
+                { n: '1', title: 'Hablas o escribes el trabajo', desc: 'La IA genera las partidas de materiales y mano de obra' },
+                { n: '2', title: 'Motor busca en tus catálogos', desc: 'Compara descripción de cada material con los productos de OBRAMAT, tu catálogo propio, etc.' },
+                { n: '3', title: 'Asigna el precio real', desc: 'Cada material aparece con el precio de coste + tu margen. Badge del proveedor visible solo para ti.' },
+                { n: '4', title: 'Tú eliges o cambias', desc: 'Pulsa ⇅ en cualquier línea para comparar alternativas entre proveedores con un clic.' },
+              ].map(step => (
+                <div key={step.n} className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-orange-500 text-white text-xs font-black flex items-center justify-center shrink-0">
+                    {step.n}
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-slate-800">{step.title}</p>
+                    <p className="text-xs text-slate-400">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }
@@ -1256,6 +1574,7 @@ export default function DemoView({ setCurrentPage }: DemoViewProps) {
       case 'crm':           return <ScreenClientes />;
       case 'invoices':      return <ScreenFacturacion />;
       case 'catalog':       return <ScreenCatalogo />;
+      case 'proveedores':   return <ScreenProveedores />;
       case 'planificacion': return <ScreenPlanificacion />;
       case 'ingresos':      return <ScreenIngresos />;
       case 'equipo':        return <ScreenEquipo />;
