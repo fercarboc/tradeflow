@@ -105,23 +105,23 @@ export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
       <div className="max-w-[1480px] mx-auto px-6 lg:px-10 xl:px-14">
 
         {/* Desktop: 2-column layout */}
-        <div className="hidden lg:grid lg:grid-cols-[42%_58%] gap-0 items-center">
+        <div className="hidden lg:grid lg:grid-cols-[34%_66%] gap-0 items-center">
 
           {/* Col 1: Text */}
-          <div className="pr-8 xl:pr-12">
-            <div className="inline-flex items-center gap-2 bg-[#1A5A96]/8 text-[#1A5A96] text-xs font-bold px-3 py-1.5 rounded-full mb-6">
+          <div className="pr-4 xl:pr-6">
+            <div className="inline-flex items-center gap-2 bg-[#1A5A96]/8 text-[#1A5A96] text-xs font-bold px-3 py-1.5 rounded-full mb-5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#1A5A96] animate-pulse" />
               Beta abierta — Únete gratis hoy
             </div>
 
-            <h1 className="text-5xl xl:text-6xl font-black text-[#1C2535] leading-[1.0] mb-5 tracking-tight">
+            <h1 className="text-4xl xl:text-5xl font-black text-[#1C2535] leading-[1.05] mb-4 tracking-tight">
               La app que necesita{' '}
               <span className="text-[#1A5A96]">tu negocio</span>{' '}
               de instalaciones
             </h1>
 
-            <p className="text-base xl:text-lg text-[#1C2535]/55 leading-relaxed mb-7">
-              Presupuestos profesionales, planificación de rutas y normativa técnica con IA. Todo en una app, sin papeles, sin complicaciones.
+            <p className="text-sm xl:text-base text-[#1C2535]/55 leading-relaxed mb-6">
+              Dicta el trabajo a realizar y la IA genera tu presupuesto profesional en segundos. Sin papeles, sin complicaciones.
             </p>
 
             <ul className="space-y-2.5 mb-8">
@@ -165,7 +165,7 @@ export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
                 style={{
                   height: '630px',
                   objectFit: 'cover',
-                  objectPosition: 'center 12%',
+                  objectPosition: '60% 12%',
                 }}
               />
               {/* Gradient: transparent left → dark right, for card readability */}
@@ -184,8 +184,8 @@ export default function HeroSection({ setCurrentPage }: HeroSectionProps) {
               style={{
                 top: '50%',
                 transform: 'translateY(-50%)',
-                right: '-52px',
-                width: '284px',
+                right: '-64px',
+                width: '290px',
               }}
             >
               <PresupuestoCard />
