@@ -23,7 +23,6 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
     { name: 'Funciones', page: ActivePage.ComoFunciona },
     { name: 'Asistente IA', page: ActivePage.AsisTecnico },
     { name: 'Precios', page: ActivePage.Precios },
-    { name: 'Demo', page: ActivePage.Demo },
     { name: 'Contacto', page: ActivePage.Contacto },
   ];
 
@@ -103,27 +102,12 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
         {/* Desktop CTA */}
         <div className="hidden lg:flex items-center gap-2" id="desktop-cta">
           <button
-            onClick={handleScrollToProveedores}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#FFC400]/40 bg-[#FFC400]/10 text-[10px] font-bold uppercase tracking-widest text-[#FFC400] hover:bg-[#FFC400]/20 transition-all cursor-pointer"
-          >
-            <Handshake className="h-3 w-3" />
-            Proveedores
-          </button>
-          <button
             onClick={handleLogin}
             className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-white/70 border border-white/15 rounded-lg hover:border-white/40 hover:text-white transition-colors cursor-pointer flex items-center gap-1.5"
             id="header-login-button"
           >
             <LogIn className="h-3.5 w-3.5" />
             Iniciar sesión
-          </button>
-          <button
-            onClick={() => setCurrentPage(ActivePage.Demo)}
-            className="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#020B16] bg-[#00CFE8] rounded-lg hover:brightness-110 transition-all cursor-pointer flex items-center gap-1.5 shadow-lg shadow-[#00CFE8]/20"
-            id="header-demo-button"
-          >
-            <Smartphone className="h-3.5 w-3.5" />
-            Acceso a demo móvil
           </button>
         </div>
 
@@ -166,21 +150,6 @@ export default function Header({ currentPage, setCurrentPage, setInitialMobile, 
                 );
               })}
               <div className="pt-4 mt-2 border-t border-white/10 flex flex-col gap-2">
-                <button
-                  onClick={handleScrollToProveedores}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#FFC400]/40 bg-[#FFC400]/10 py-3 font-bold text-sm text-[#FFC400] cursor-pointer hover:bg-[#FFC400]/20"
-                >
-                  <Handshake className="h-4 w-4" />
-                  Gestión de Proveedores
-                </button>
-                <button
-                  onClick={() => { setCurrentPage(ActivePage.Demo); setMobileMenuOpen(false); }}
-                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#00CFE8] py-3 font-bold text-sm text-[#020B16] cursor-pointer"
-                  id="mobile-demo-btn"
-                >
-                  <Smartphone className="h-4 w-4" />
-                  Acceso a demo móvil
-                </button>
                 <button
                   onClick={handleLogin}
                   className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/20 py-3 font-semibold text-sm text-white/70 cursor-pointer hover:bg-white/5"

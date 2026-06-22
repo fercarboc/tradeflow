@@ -197,14 +197,6 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
                   Prueba gratis 15 días
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </button>
-                <button
-                  onClick={() => go(ActivePage.Demo)}
-                  className="flex items-center justify-center gap-2 rounded-lg border border-white/25 px-6 py-3.5 text-sm font-bold uppercase tracking-widest text-white/80 hover:border-white/60 hover:text-white transition-colors cursor-pointer"
-                  id="hero-cta-demo"
-                >
-                  <Monitor className="h-4 w-4" />
-                  Ver Demo
-                </button>
               </div>
 
               {/* PWA install buttons */}
@@ -400,99 +392,13 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
       </section>
 
       {/* ══════════════════════════════════════════════════════
-          3. DEMO SECTION  (dark)
+          3. RESULTADOS
       ══════════════════════════════════════════════════════ */}
-      <section id="demo-section" className="bg-[#020B16] py-20 px-4 sm:px-6 lg:px-8">
+      <section className="bg-[#020B16] py-20 px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl space-y-8">
+          <div className="grid grid-cols-1 gap-4">
 
-          {/* Section header */}
-          <div className="text-center">
-            <span className="inline-block rounded-full border border-white/15 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-white/45 mb-4">
-              Pruébalo ahora
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
-              Disponible en móvil y PC
-            </h2>
-          </div>
-
-          {/* 3-card grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-
-            {/* ── Card 1: Móvil ─────────────────── */}
-            <div className="rounded-2xl border border-[#00CFE8]/35 bg-[#020B16] flex flex-col overflow-hidden">
-              <div className="px-6 pt-6 pb-4">
-                <div className="text-[10px] font-black uppercase tracking-widest text-[#00CFE8] mb-1.5">Demo móvil</div>
-                <h3 className="text-base font-black uppercase tracking-tight text-white leading-tight">
-                  Lleva TRABFLOW<br />en el bolsillo
-                </h3>
-                <p className="text-xs text-white/40 mt-2 leading-relaxed">
-                  Presupuestos, clientes y facturas desde el móvil. Sin papeles.
-                </p>
-              </div>
-
-              {/* image flush to bottom */}
-              <div className="flex-1 flex items-end justify-center overflow-hidden px-6">
-                <img
-                  src="/movil_torcido.png"
-                  alt="TRABFLOW app móvil"
-                  className="w-36 object-contain object-bottom"
-                />
-              </div>
-
-              <div className="px-4 pb-4 pt-3 space-y-2">
-                <button
-                  onClick={() => go(ActivePage.Demo)}
-                  className="w-full rounded-xl bg-[#00CFE8] py-2.5 text-xs font-black uppercase tracking-widest text-[#020B16] hover:brightness-110 transition-all cursor-pointer"
-                >
-                  Acceder a demo móvil
-                </button>
-                {installPrompt ? (
-                  <button
-                    onClick={handleInstallAndroid}
-                    className="w-full flex items-center justify-center gap-2 rounded-xl border border-[#00CFE8]/30 bg-[#00CFE8]/10 py-2 hover:bg-[#00CFE8]/20 transition-all cursor-pointer"
-                  >
-                    <Download className="h-3.5 w-3.5 text-[#00CFE8]" />
-                    <span className="text-[10px] font-bold text-[#00CFE8]">Instalar app en Android</span>
-                  </button>
-                ) : (
-                  <p className="text-center text-[9px] text-white/30 leading-relaxed">
-                    Android: Chrome → menú ⋮ → "Instalar app" · iOS: Safari → <Share2 className="inline h-2.5 w-2.5" /> → "Añadir a pantalla"
-                  </p>
-                )}
-              </div>
-            </div>
-
-            {/* ── Card 2: PC ────────────────────── */}
-            <div className="rounded-2xl border border-white/20 bg-[#020B16] flex flex-col overflow-hidden">
-              <div className="px-6 pt-6 pb-4">
-                <div className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-1.5">Demo escritorio</div>
-                <h3 className="text-base font-black uppercase tracking-tight text-white leading-tight">
-                  Panel completo<br />desde el ordenador
-                </h3>
-                <p className="text-xs text-white/40 mt-2 leading-relaxed">
-                  Gestión de obras, clientes, facturación y estadísticas en un solo lugar.
-                </p>
-              </div>
-
-              <div className="flex-1 flex items-end justify-center overflow-hidden px-4">
-                <img
-                  src="/ORDENADOR.png"
-                  alt="TRABFLOW escritorio"
-                  className="w-full object-contain object-bottom"
-                />
-              </div>
-
-              <div className="px-4 pb-4 pt-3">
-                <button
-                  onClick={() => go(ActivePage.Demo)}
-                  className="w-full rounded-xl border border-white/25 py-2.5 text-xs font-black uppercase tracking-widest text-white/65 hover:border-white/50 hover:text-white transition-colors cursor-pointer"
-                >
-                  Ver demo en PC
-                </button>
-              </div>
-            </div>
-
-            {/* ── Card 3: Resultados ────────────── */}
+            {/* ── Card: Resultados ────────────── */}
             <div className="rounded-2xl border border-[#FFC400]/30 bg-[#020B16] flex flex-col overflow-hidden">
               <div className="px-6 pt-6 pb-4">
                 <div className="text-[10px] font-black uppercase tracking-widest text-[#FFC400] mb-1.5">Resultados reales</div>

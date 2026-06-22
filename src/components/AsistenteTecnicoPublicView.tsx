@@ -91,7 +91,8 @@ export default function AsistenteTecnicoPublicView({ setCurrentPage }: Props) {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed"
           >
-            Pregunta en lenguaje natural sobre REBT, RITE, CTE, Gas o Legionella.
+            Pregunta en lenguaje natural sobre normativa técnica (REBT, RITE, CTE, Gas),
+            fiscal (IVA, IRPF, Renta) o laboral (Seguridad Social, RETA, cotización).
             Obtén la respuesta exacta con la cita del artículo oficial en segundos —
             sin buscar manualmente en cientos de páginas de PDF.
           </motion.p>
@@ -105,12 +106,6 @@ export default function AsistenteTecnicoPublicView({ setCurrentPage }: Props) {
               className="flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-bold px-7 py-3.5 rounded-xl cursor-pointer transition-all text-sm shadow-lg shadow-violet-900/40"
             >
               Empezar gratis <ArrowRight className="w-4 h-4" />
-            </button>
-            <button
-              onClick={() => setCurrentPage(ActivePage.Demo)}
-              className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold px-7 py-3.5 rounded-xl cursor-pointer transition-all text-sm"
-            >
-              Ver demo
             </button>
           </motion.div>
         </div>
