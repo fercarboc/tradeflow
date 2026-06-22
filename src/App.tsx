@@ -12,6 +12,7 @@ import type { Session } from '@supabase/supabase-js';
 import { ADMIN_EMAIL } from './lib/constants';
 import Header from './components/Header';
 import HomeView from './components/HomeView';
+import LandingPage from './pages/LandingPage';
 import ComoFuncionaView from './components/ComoFuncionaView';
 import PreciosView from './components/PreciosView';
 import ContactoView from './components/ContactoView';
@@ -200,13 +201,7 @@ export default function App() {
 
       // Páginas públicas
       case ActivePage.Home:
-        return (
-          <HomeView
-            setCurrentPage={setCurrentPage}
-            setPreselectedTrade={setPreselectedTrade}
-            setInitialMobile={setInitialMobile}
-          />
-        );
+        return <LandingPage setCurrentPage={setCurrentPage} />;
 
       case ActivePage.ComoFunciona:
         return (
@@ -280,17 +275,12 @@ export default function App() {
         return <QuoteAcceptView token={quoteToken} />;
 
       default:
-        return (
-          <HomeView
-            setCurrentPage={setCurrentPage}
-            setPreselectedTrade={setPreselectedTrade}
-            setInitialMobile={setInitialMobile}
-          />
-        );
+        return <LandingPage setCurrentPage={setCurrentPage} />;
     }
   };
 
   const isAppView =
+    currentPage === ActivePage.Home ||
     currentPage === ActivePage.AppDashboard ||
     currentPage === ActivePage.Demo ||
     currentPage === ActivePage.Registro ||
