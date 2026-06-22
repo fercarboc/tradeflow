@@ -35,8 +35,9 @@ import {
   Inbox, Filter, LogOut, Download, WifiOff, Globe, ThumbsUp, ThumbsDown,
   X, StickyNote, Activity, Repeat, BarChart2, PackageOpen,
   Zap, Bell, BellOff, PlayCircle, Send, HelpCircle, Eye, EyeOff as EyeOffIcon,
-  Brain, ChevronRight, BookOpen, ExternalLink,
+  Brain, ChevronRight, BookOpen, ExternalLink, Truck,
 } from 'lucide-react';
+import AdminSuppliersSection from './admin/AdminSuppliersSection';
 
 const PLAN_PRICES: Record<string, { monthly: number; yearly: number }> = {
   basico: { monthly: 29, yearly: 23 },
@@ -764,7 +765,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [detailOrg, setDetailOrg]     = useState<AdminOrgRow | null>(null);
 
   // Sección activa
-  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'ia_normativa' | 'docs'>('dashboard');
+  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'ia_normativa' | 'docs' | 'suppliers'>('dashboard');
 
   // Necesidades instaladores (chatbot)
   const [needs, setNeeds]               = useState<InstallerNeed[]>([]);
@@ -1305,6 +1306,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     { id: 'ai_feedback'   as const, label: 'IA Feedback',      Icon: Brain },
     { id: 'ia_normativa'  as const, label: 'IA Normativa',     Icon: BookOpen },
     { id: 'docs'          as const, label: 'Documentación',    Icon: ExternalLink },
+    { id: 'suppliers'     as const, label: 'Proveedores',       Icon: Truck },
   ];
 
   const handleMarkInvoicePaid = async (inv: TradePlatformInvoice) => {
@@ -3439,6 +3441,13 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
               <strong className="text-amber-300">💡 Para actualizar el documento:</strong> Subir el archivo <code>TrabFlow_AnalisisCompleto_v3_Junio2026.md</code> de la carpeta <code>docs/</code> a Claude y solicitar la versión actualizada en HTML. El nuevo HTML reemplaza el fichero en <code>public/</code> y <code>docs/</code>.
             </div>
           </div>
+        )}
+
+        {/* ════════════════════════════════════════════════════════
+            SECCIÓN: PROVEEDORES & CATÁLOGOS
+        ════════════════════════════════════════════════════════ */}
+        {section === 'suppliers' && (
+          <AdminSuppliersSection toast={toast} />
         )}
 
         </div>{/* max-w-6xl */}
