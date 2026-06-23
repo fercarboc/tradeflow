@@ -378,77 +378,100 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     onClose();
   }
 
+  const STEP_LABELS: Partial<Record<Phase, string>> = {
+    categoria: 'Tipo de trabajo',
+    mudanza_detalles: 'Detalles mudanza',
+    red_detalles: 'Detalles red',
+    clima_detalles: 'Detalles climatización',
+    acumulando: 'Describir trabajo',
+    resultado: 'Revisar partidas',
+  };
+  const allSteps = (['categoria', isMudanza ? 'mudanza_detalles' : isRed ? 'red_detalles' : isClima ? 'clima_detalles' : null, 'acumulando', 'resultado'] as (Phase | null)[]).filter(Boolean) as Phase[];
+  const currentStepIdx = allSteps.indexOf(phase);
+
   return (
-    <div className="fixed inset-0 bg-[#0B0F14] z-[60] flex flex-col">
+    <div className="fixed inset-0 bg-[#080C10] z-[60] flex flex-col">
 
       {/* Header */}
-      <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-white/8 shrink-0">
+      <div className="flex items-center justify-between px-4 pt-5 pb-4 shrink-0">
         <button
           onClick={phase === 'categoria' ? onClose : handleBack}
-          className="flex items-center gap-1.5 text-slate-400 text-sm cursor-pointer"
+          className="w-9 h-9 flex items-center justify-center rounded-full bg-white/8 text-white/60 hover:text-white hover:bg-white/12 cursor-pointer transition-colors"
         >
-          {phase === 'categoria' ? <X className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+          {phase === 'categoria' ? <X className="w-4.5 h-4.5" /> : <ChevronLeft className="w-4.5 h-4.5" />}
         </button>
-        <div className="flex items-center gap-2">
-          <Layers className="w-4 h-4 text-amber-400" />
-          <span className="text-sm font-bold text-white">Presupuesto por pasos</span>
+        <div className="text-center">
+          <div className="flex items-center gap-1.5 justify-center mb-0.5">
+            <Layers className="w-3.5 h-3.5 text-amber-400" />
+            <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Nuevo presupuesto</span>
+          </div>
+          <p className="text-xs text-white/40">Paso {currentStepIdx + 1} de {allSteps.length}</p>
         </div>
-        <div className="w-8" />
+        <div className="w-9" />
       </div>
 
-      {/* Step indicators */}
-      <div className="flex items-center justify-center gap-2 py-2.5 border-b border-white/8 shrink-0">
-        {(['categoria', isMudanza ? 'mudanza_detalles' : isRed ? 'red_detalles' : isClima ? 'clima_detalles' : null, 'acumulando', 'resultado'] as (Phase | null)[])
-          .filter(Boolean)
-          .map((p, i, arr) => (
-          <div key={p!} className="flex items-center gap-1">
-            <div className={`w-2 h-2 rounded-full transition-all ${
-              phase === p ? 'bg-amber-400 scale-125'
-                : arr.indexOf(phase) > i ? 'bg-amber-700' : 'bg-white/10'
-            }`} />
-          </div>
-        ))}
+      {/* Progress bar */}
+      <div className="px-5 pb-4 shrink-0">
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-sm font-bold text-white">{STEP_LABELS[phase] ?? ''}</span>
+        </div>
+        <div className="h-1 bg-white/8 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-amber-500 rounded-full transition-all duration-500"
+            style={{ width: `${((currentStepIdx + 1) / allSteps.length) * 100}%` }}
+          />
+        </div>
+        <div className="flex justify-between mt-1.5">
+          {allSteps.map((s, i) => (
+            <span key={s} className={`text-[9px] font-medium transition-colors ${i <= currentStepIdx ? 'text-amber-400' : 'text-white/20'}`}>
+              {i + 1}
+            </span>
+          ))}
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto overscroll-contain">
 
         {/* ── FASE: CATEGORÍA ── */}
         {phase === 'categoria' && (
-          <div className="px-4 py-5 space-y-4">
-            <div className="text-center space-y-1.5">
-              <h2 className="text-lg font-bold text-white">¿Qué tipo de trabajo?</h2>
-              <p className="text-slate-400 text-sm">Selecciona la categoría para ir añadiendo partidas paso a paso</p>
+          <div className="px-5 py-2 space-y-5 pb-10">
+            <div className="text-center space-y-2">
+              <h2 className="text-2xl font-black text-white">¿Qué tipo de trabajo?</h2>
+              <p className="text-white/40 text-sm">Selecciona la categoría — añadiremos partidas paso a paso</p>
             </div>
 
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-3">
               {CATEGORIAS.map(cat => (
                 <button
                   key={cat.label}
                   onClick={() => pickCategoria(cat.label)}
-                  className="bg-slate-900 border border-slate-700 hover:border-amber-500/40 rounded-2xl p-3.5 flex flex-col items-center gap-2 cursor-pointer active:opacity-70 text-center transition-colors"
+                  className="bg-[#111827] border border-white/8 hover:border-amber-500/50 hover:bg-[#1a2235] rounded-2xl p-4 flex flex-col items-center gap-3 cursor-pointer active:scale-95 text-center transition-all"
                 >
-                  <span className="text-2xl">{cat.icon}</span>
-                  <span className="text-xs font-bold text-slate-200 leading-tight">{cat.label}</span>
+                  <span className="text-3xl">{cat.icon}</span>
+                  <span className="text-sm font-bold text-white/85 leading-tight">{cat.label}</span>
                 </button>
               ))}
             </div>
 
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={customText}
-                onChange={e => setCustomText(e.target.value)}
-                onKeyDown={e => e.key === 'Enter' && handleCustom()}
-                placeholder="Otro tipo de trabajo..."
-                className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500"
-              />
-              <button
-                onClick={handleCustom}
-                disabled={!customText.trim()}
-                className="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl text-sm cursor-pointer disabled:opacity-40"
-              >
-                OK
-              </button>
+            <div className="space-y-2">
+              <p className="text-xs text-white/30 text-center">¿Otro tipo de trabajo?</p>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={customText}
+                  onChange={e => setCustomText(e.target.value)}
+                  onKeyDown={e => e.key === 'Enter' && handleCustom()}
+                  placeholder="Ej: Instalación solar, Reparación tejado..."
+                  className="flex-1 bg-[#111827] border border-white/10 rounded-2xl px-4 py-3.5 text-sm text-white placeholder-white/25 focus:outline-none focus:border-amber-500/70 transition-colors"
+                />
+                <button
+                  onClick={handleCustom}
+                  disabled={!customText.trim()}
+                  className="px-5 py-3.5 bg-amber-500 hover:bg-amber-400 text-white font-bold rounded-2xl text-sm cursor-pointer disabled:opacity-40 transition-colors"
+                >
+                  OK
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -911,91 +934,104 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
         {/* ── FASE: ACUMULANDO ── */}
         {phase === 'acumulando' && (
           <div className="flex flex-col">
-            <div className="px-4 py-3 bg-amber-600/10 border-b border-amber-500/20">
-              <p className="text-[9px] text-amber-400 font-bold uppercase tracking-widest mb-0.5">Categoría activa</p>
-              <p className="text-sm font-bold text-white">{categoria}</p>
-              <p className="text-[10px] text-slate-400">{partidas.length} partida{partidas.length !== 1 ? 's' : ''} acumulada{partidas.length !== 1 ? 's' : ''}</p>
+
+            {/* Categoría activa */}
+            <div className="mx-5 mb-4 px-4 py-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-between">
+              <div>
+                <p className="text-[10px] text-amber-400 font-bold uppercase tracking-widest mb-0.5">Categoría activa</p>
+                <p className="text-base font-black text-white">{categoria}</p>
+              </div>
+              {partidas.length > 0 && (
+                <div className="text-right">
+                  <p className="text-2xl font-black text-amber-400">{partidas.length}</p>
+                  <p className="text-[10px] text-white/40">partida{partidas.length !== 1 ? 's' : ''}</p>
+                </div>
+              )}
             </div>
 
+            {/* Partidas acumuladas */}
             {partidas.length > 0 && (
-              <div className="px-4 py-3 border-b border-white/8">
-                <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-2">Partidas hasta ahora</p>
-                <div className="bg-slate-900 rounded-xl overflow-hidden max-h-44 overflow-y-auto">
+              <div className="mx-5 mb-4">
+                <p className="text-[10px] font-bold text-white/30 uppercase tracking-widest mb-2">Añadidas hasta ahora</p>
+                <div className="bg-[#111827] border border-white/6 rounded-2xl overflow-hidden max-h-48 overflow-y-auto">
                   {partidas.map((p, i) => (
-                    <div key={i} className={`px-3 py-2 flex items-center justify-between gap-2 ${i < partidas.length - 1 ? 'border-b border-slate-800' : ''}`}>
+                    <div key={i} className={`px-4 py-2.5 flex items-center justify-between gap-3 ${i < partidas.length - 1 ? 'border-b border-white/5' : ''}`}>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-1.5">
-                          <p className="text-[10px] text-white truncate">{p.descripcion}</p>
+                          <p className="text-xs text-white/80 truncate">{p.descripcion}</p>
                           {p.supplier_key === 'obramat' && (
-                            <img src="/articuloobramat.png" alt="OBRAMAT" className="h-3.5 shrink-0 opacity-80" title={p.supplier_ref ?? 'OBRAMAT'} />
+                            <img src="/articuloobramat.png" alt="OBRAMAT" className="h-3.5 shrink-0 opacity-70" />
                           )}
                         </div>
-                        <span className={`text-[8px] font-bold px-1 rounded ${p.tipo === 'mano_de_obra' ? 'text-blue-400' : 'text-emerald-400'}`}>
+                        <span className={`text-[9px] font-semibold ${p.tipo === 'mano_de_obra' ? 'text-blue-400' : 'text-emerald-400'}`}>
                           {p.tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material'}
                         </span>
                       </div>
-                      <p className="text-[10px] text-slate-400 shrink-0 font-mono">{p.cantidad} {p.unidad}</p>
+                      <p className="text-xs text-white/30 shrink-0 font-mono">{p.cantidad} {p.unidad}</p>
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            <div className="flex flex-col items-center px-6 py-6 space-y-4">
-              <div className="text-center space-y-1">
-                <h3 className="text-base font-bold text-white">
+            {/* Input de voz / texto */}
+            <div className="flex flex-col items-center px-5 py-4 space-y-5">
+              <div className="text-center space-y-2">
+                <h3 className="text-xl font-black text-white">
                   {isMudanza
-                    ? (partidas.length === 0 ? 'Añade los enseres por estancia' : '¿Qué más hay?')
-                    : (partidas.length === 0 ? '¿Qué hay que incluir?' : '¿Qué añadimos?')
+                    ? (partidas.length === 0 ? 'Añade los enseres por estancia' : '¿Qué más hay en la mudanza?')
+                    : (partidas.length === 0 ? '¿Qué hay que presupuestar?' : '¿Qué añadimos?')
                   }
                 </h3>
-                <p className="text-slate-400 text-xs">
+                <p className="text-sm text-white/40">
                   {isMudanza
-                    ? 'Describe la estancia y los muebles/enseres'
-                    : (partidas.length === 0 ? 'Describe la primera zona o los primeros elementos' : 'Siguiente zona o elementos a presupuestar')
+                    ? 'Describe la estancia y los muebles a trasladar'
+                    : (partidas.length === 0 ? 'Describe los primeros elementos o zona' : 'Siguiente zona o elementos del trabajo')
                   }
                 </p>
               </div>
 
+              {/* Mic button */}
               <button
                 onClick={recording ? stopRecording : startRecording}
-                className={`w-20 h-20 rounded-full flex items-center justify-center cursor-pointer transition-all select-none ${
+                className={`w-24 h-24 rounded-full flex items-center justify-center cursor-pointer transition-all select-none ${
                   recording
-                    ? 'bg-red-500 shadow-[0_0_0_12px_rgba(239,68,68,0.2)] scale-110'
-                    : 'bg-amber-500 shadow-[0_4px_32px_rgba(245,158,11,0.4)]'
+                    ? 'bg-red-500 shadow-[0_0_0_16px_rgba(239,68,68,0.15)] scale-110'
+                    : 'bg-amber-500 shadow-[0_8px_40px_rgba(245,158,11,0.5)]'
                 }`}
               >
-                {recording ? <MicOff className="w-9 h-9 text-white" /> : <Mic className="w-9 h-9 text-white" />}
+                {recording ? <MicOff className="w-10 h-10 text-white" /> : <Mic className="w-10 h-10 text-white" />}
               </button>
 
               {recording
-                ? <p className="text-red-400 text-xs font-bold animate-pulse flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-red-400 inline-block" />
+                ? <p className="text-red-400 text-sm font-bold animate-pulse flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-red-400 inline-block" />
                     Escuchando…
                   </p>
-                : <p className="text-[11px] text-slate-500">Toca para hablar o escribe abajo</p>
+                : <p className="text-sm text-white/30">Pulsa el micro para hablar</p>
               }
 
-              <div className="w-full space-y-2">
+              <div className="w-full space-y-3">
                 <textarea
                   value={textInput}
                   onChange={e => setTextInput(e.target.value)}
                   placeholder={
                     isMudanza
-                      ? 'Ej: Salón – sofá 3 plazas, 2 sillones, TV 65", mesa comedor grande con 6 sillas'
-                      : 'Describe los elementos o zona a añadir...'
+                      ? 'Ej: Salón — sofá 3 plazas, 2 sillones, TV 65", mesa comedor con 6 sillas...'
+                      : 'Ej: Cambio de tubería de cobre en cocina, 4 metros...'
                   }
-                  rows={3}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 resize-none"
+                  rows={4}
+                  className="w-full bg-[#111827] border border-white/10 rounded-2xl px-4 py-4 text-sm text-white placeholder-white/25 focus:outline-none focus:border-amber-500/70 resize-none transition-colors leading-relaxed"
                 />
                 <button
                   onClick={addPartidas}
                   disabled={!textInput.trim() || processing}
-                  className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 text-sm cursor-pointer disabled:opacity-40"
+                  className="w-full bg-amber-500 hover:bg-amber-400 text-white font-black py-4 rounded-2xl flex items-center justify-center gap-2.5 text-base cursor-pointer disabled:opacity-40 transition-colors"
+                  style={{ boxShadow: textInput.trim() ? '0 4px 24px rgba(245,158,11,0.4)' : 'none' }}
                 >
                   {processing
-                    ? <><Loader2 className="w-4 h-4 animate-spin" /> Procesando con IA…</>
-                    : <><Sparkles className="w-4 h-4" /> Añadir partidas al presupuesto</>}
+                    ? <><Loader2 className="w-5 h-5 animate-spin" /> Procesando con IA…</>
+                    : <><Sparkles className="w-5 h-5" /> Añadir al presupuesto</>}
                 </button>
               </div>
             </div>
@@ -1003,48 +1039,61 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
         )}
 
         {/* ── FASE: RESULTADO ── */}
-        {phase === 'resultado' && (
-          <div className="px-4 py-4 space-y-4 pb-32">
-            <div className="text-center space-y-1.5">
-              <CheckCircle className="w-10 h-10 text-amber-400 mx-auto" />
-              <h2 className="text-lg font-bold text-white">{categoria}</h2>
-              <p className="text-slate-400 text-sm">{partidas.length} partidas listas para presupuestar</p>
+        {phase === 'resultado' && (() => {
+          const total = partidas.reduce((s, p) => s + (p.precioUnitario > 0 ? p.precioUnitario * p.cantidad : 0), 0);
+          return (
+          <div className="px-5 py-4 space-y-4 pb-36">
+            {/* Cabecera con total */}
+            <div className="bg-gradient-to-br from-amber-500/15 to-amber-600/5 border border-amber-500/20 rounded-2xl p-5 text-center">
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <CheckCircle className="w-5 h-5 text-amber-400" />
+                <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Presupuesto listo</span>
+              </div>
+              <p className="text-xl font-black text-white mb-1">{categoria}</p>
+              <p className="text-sm text-white/40 mb-4">{partidas.length} partidas generadas por IA</p>
+              {total > 0 && (
+                <div className="bg-black/30 rounded-xl px-4 py-3 inline-block">
+                  <p className="text-[10px] text-white/40 mb-0.5">Precio estimado</p>
+                  <p className="text-3xl font-black text-white">{total.toLocaleString('es-ES', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} €</p>
+                </div>
+              )}
             </div>
 
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+            {/* Lista de partidas */}
+            <div className="bg-[#111827] border border-white/6 rounded-2xl overflow-hidden">
               {partidas.map((p, i) => (
                 <div key={i}>
-                  <div className={`px-4 py-3 flex items-center justify-between gap-3 ${(i < partidas.length - 1 && compareIdx !== i) ? 'border-b border-slate-800' : ''} ${compareIdx === i ? 'bg-slate-800/60' : ''}`}>
+                  <div className={`px-4 py-3.5 flex items-center justify-between gap-3 ${(i < partidas.length - 1 && compareIdx !== i) ? 'border-b border-white/5' : ''} ${compareIdx === i ? 'bg-white/5' : ''}`}>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5">
-                        <p className="text-xs text-white font-medium truncate">{p.descripcion}</p>
+                        <p className="text-sm text-white font-medium leading-tight">{p.descripcion}</p>
                         {p.supplier_key === 'obramat' && (
                           <img src="/articuloobramat.png" alt="OBRAMAT" className="h-4 shrink-0 opacity-90" title={`OBRAMAT${p.supplier_ref ? ` · ${p.supplier_ref}` : ''}`} />
                         )}
                       </div>
-                      <div className="flex items-center gap-2 mt-0.5">
-                        <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full inline-block ${
-                          p.tipo === 'mano_de_obra' ? 'bg-blue-500/10 text-blue-400' : 'bg-emerald-500/10 text-emerald-400'
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${
+                          p.tipo === 'mano_de_obra' ? 'bg-blue-500/15 text-blue-400' : 'bg-emerald-500/15 text-emerald-400'
                         }`}>
                           {p.tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material'}
                         </span>
                         {p.supplier_key && p.supplier_key !== 'obramat' && (
-                          <span className="text-[8px] text-slate-500 font-medium">{p.supplier_name}</span>
+                          <span className="text-[9px] text-white/30">{p.supplier_name}</span>
                         )}
                       </div>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                       {p.precioUnitario > 0 && (
-                        <span className="text-xs font-mono font-bold text-amber-400">
+                        <span className="text-sm font-black text-amber-400">
                           {(p.precioUnitario * p.cantidad).toFixed(0)} €
                         </span>
                       )}
-                      <p className="text-[10px] text-slate-500 font-mono">{p.cantidad} {p.unidad}</p>
+                      <p className="text-xs text-white/30 font-mono">{p.cantidad} {p.unidad}</p>
                       {p.tipo === 'material' && orgId && (
                         <button
                           onClick={() => handleOpenCompare(i, p.descripcion)}
-                          title="Comparar proveedores"
-                          className={`p-1 rounded-md transition-colors cursor-pointer ${compareIdx === i ? 'bg-amber-500/20 text-amber-400' : 'text-slate-600 hover:text-amber-400'}`}
+                          title="Cambiar proveedor"
+                          className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer ${compareIdx === i ? 'bg-amber-500/20 text-amber-400' : 'bg-white/5 text-white/30 hover:text-amber-400 hover:bg-amber-500/10'}`}
                         >
                           <ArrowUpDown className="h-3.5 w-3.5" />
                         </button>
@@ -1054,24 +1103,24 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
 
                   {/* Panel comparador inline */}
                   {compareIdx === i && (
-                    <div className={`border-b border-slate-800 ${i < partidas.length - 1 ? '' : ''}`}>
-                      <div className="flex items-center justify-between px-4 py-1.5 bg-amber-500/10 border-b border-amber-500/20">
-                        <span className="text-[9px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
-                          <ArrowUpDown className="h-2.5 w-2.5" /> Opciones de proveedor
+                    <div className="border-b border-white/5">
+                      <div className="flex items-center justify-between px-4 py-2 bg-amber-500/10 border-b border-amber-500/15">
+                        <span className="text-[10px] font-bold text-amber-400 flex items-center gap-1.5">
+                          <ArrowUpDown className="h-3 w-3" /> Cambiar proveedor
                         </span>
-                        <button onClick={() => setCompareIdx(null)} className="text-slate-500 hover:text-white cursor-pointer">
+                        <button onClick={() => setCompareIdx(null)} className="text-white/30 hover:text-white cursor-pointer">
                           <X className="h-3.5 w-3.5" />
                         </button>
                       </div>
 
                       {compareLoading && (
-                        <div className="flex items-center justify-center gap-2 py-4 text-slate-500 text-[11px]">
-                          <Loader2 className="h-3.5 w-3.5 animate-spin" /> Buscando en catálogos…
+                        <div className="flex items-center justify-center gap-2 py-5 text-white/40 text-sm">
+                          <Loader2 className="h-4 w-4 animate-spin" /> Buscando en catálogos…
                         </div>
                       )}
 
                       {!compareLoading && compareResults.length === 0 && (
-                        <p className="text-center text-[11px] text-slate-500 py-4">
+                        <p className="text-center text-sm text-white/30 py-5">
                           Sin alternativas en los catálogos activos
                         </p>
                       )}
@@ -1080,26 +1129,26 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
                         <button
                           key={oi}
                           onClick={() => handleSelectCompare(i, opt)}
-                          className={`w-full flex items-center gap-2 px-4 py-2.5 text-left hover:bg-slate-700/40 transition-colors cursor-pointer ${oi < compareResults.length - 1 ? 'border-b border-slate-800/60' : ''}`}
+                          className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-white/5 transition-colors cursor-pointer ${oi < compareResults.length - 1 ? 'border-b border-white/5' : ''}`}
                         >
-                          <div className="shrink-0 w-5 h-5 rounded flex items-center justify-center bg-slate-800">
+                          <div className="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center bg-white/5">
                             {opt.catalog_key === 'obramat'
-                              ? <img src="/logoobramat.png" alt="OB" className="h-3.5 object-contain" />
-                              : <Package className="h-3 w-3 text-slate-500" />
+                              ? <img src="/logoobramat.png" alt="OB" className="h-5 object-contain" />
+                              : <Package className="h-4 w-4 text-white/30" />
                             }
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-[10px] text-slate-200 truncate">{opt.descripcion}</p>
-                            <p className="text-[9px] text-slate-500">
+                            <p className="text-sm text-white/80 truncate">{opt.descripcion}</p>
+                            <p className="text-xs text-white/30">
                               {opt.supplier_name}{opt.ref_proveedor ? ` · ${opt.ref_proveedor}` : ''}
                             </p>
                           </div>
                           <div className="shrink-0 text-right">
-                            <p className="text-[11px] font-bold font-mono text-white">{opt.precio_venta.toFixed(2)} €</p>
-                            <p className="text-[9px] text-slate-500 font-mono">{opt.unidad}</p>
+                            <p className="text-sm font-black text-white">{opt.precio_venta.toFixed(2)} €</p>
+                            <p className="text-[10px] text-white/30 font-mono">{opt.unidad}</p>
                           </div>
                           {p.supplier_key === opt.catalog_key && p.precioUnitario === opt.precio_venta && (
-                            <Check className="h-3 w-3 text-amber-400 shrink-0" />
+                            <Check className="h-4 w-4 text-amber-400 shrink-0" />
                           )}
                         </button>
                       ))}
@@ -1111,60 +1160,27 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
 
             <button
               onClick={() => setPhase('acumulando')}
-              className="w-full py-3 rounded-2xl text-xs font-bold text-amber-400 border border-amber-500/30 cursor-pointer"
+              className="w-full py-4 rounded-2xl text-sm font-bold text-amber-400 border border-amber-500/30 hover:bg-amber-500/10 cursor-pointer transition-colors"
             >
               + Añadir más partidas
             </button>
           </div>
-        )}
+          );
+        })()}
       </div>
 
-      {/* Footer: generar partidas base (red detalles) */}
-      {phase === 'red_detalles' && (
-        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
+      {/* Footer: generar partidas base (red / clima / mudanza) */}
+      {(phase === 'red_detalles' || phase === 'clima_detalles' || phase === 'mudanza_detalles') && (
+        <div className="absolute bottom-0 left-0 right-0 px-5 pb-8 pt-4 bg-gradient-to-t from-[#080C10] via-[#080C10]/90 to-transparent">
           <button
-            onClick={addPartidasFromRedDetalles}
+            onClick={phase === 'red_detalles' ? addPartidasFromRedDetalles : phase === 'clima_detalles' ? addPartidasFromClimaDetalles : addPartidasFromMudanzaDetalles}
             disabled={processing}
-            className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer disabled:opacity-40"
-            style={{ boxShadow: '0 4px 24px rgba(245,158,11,0.4)' }}
+            className="w-full bg-amber-500 hover:bg-amber-400 text-white font-black py-5 rounded-2xl flex items-center justify-center gap-2.5 text-base cursor-pointer disabled:opacity-40 transition-colors"
+            style={{ boxShadow: '0 8px 32px rgba(245,158,11,0.5)' }}
           >
             {processing
-              ? <><Loader2 className="w-4 h-4 animate-spin" /> Generando partidas base…</>
-              : <><Sparkles className="w-4 h-4" /> Generar partidas y continuar</>
-            }
-          </button>
-        </div>
-      )}
-
-      {/* Footer: generar partidas base (climatización) */}
-      {phase === 'clima_detalles' && (
-        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
-          <button
-            onClick={addPartidasFromClimaDetalles}
-            disabled={processing}
-            className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer disabled:opacity-40"
-            style={{ boxShadow: '0 4px 24px rgba(245,158,11,0.4)' }}
-          >
-            {processing
-              ? <><Loader2 className="w-4 h-4 animate-spin" /> Generando partidas base…</>
-              : <><Sparkles className="w-4 h-4" /> Generar partidas y continuar</>
-            }
-          </button>
-        </div>
-      )}
-
-      {/* Footer: generar partidas base (mudanza detalles) */}
-      {phase === 'mudanza_detalles' && (
-        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
-          <button
-            onClick={addPartidasFromMudanzaDetalles}
-            disabled={processing}
-            className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer disabled:opacity-40"
-            style={{ boxShadow: '0 4px 24px rgba(245,158,11,0.4)' }}
-          >
-            {processing
-              ? <><Loader2 className="w-4 h-4 animate-spin" /> Generando partidas base…</>
-              : <><Sparkles className="w-4 h-4" /> Generar partidas y continuar</>
+              ? <><Loader2 className="w-5 h-5 animate-spin" /> Generando con IA…</>
+              : <><Sparkles className="w-5 h-5" /> Generar partidas y continuar</>
             }
           </button>
         </div>
@@ -1172,29 +1188,32 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
 
       {/* Footer: finalizar (acumulando con partidas) */}
       {phase === 'acumulando' && partidas.length > 0 && (
-        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
+        <div className="absolute bottom-0 left-0 right-0 px-5 pb-8 pt-4 bg-gradient-to-t from-[#080C10] via-[#080C10]/90 to-transparent">
           <button
             onClick={() => setPhase('resultado')}
-            className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer"
-            style={{ boxShadow: '0 4px 24px rgba(245,158,11,0.4)' }}
+            className="w-full bg-amber-500 hover:bg-amber-400 text-white font-black py-5 rounded-2xl flex items-center justify-center gap-2.5 text-base cursor-pointer transition-colors"
+            style={{ boxShadow: '0 8px_32px rgba(245,158,11,0.5)' }}
           >
-            <CheckCircle className="w-4 h-4" />
-            Finalizar — {partidas.length} partida{partidas.length !== 1 ? 's' : ''}
+            <CheckCircle className="w-5 h-5" />
+            Ver presupuesto — {partidas.length} partida{partidas.length !== 1 ? 's' : ''}
           </button>
         </div>
       )}
 
       {/* Footer: confirmar (resultado) */}
       {phase === 'resultado' && (
-        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
+        <div className="absolute bottom-0 left-0 right-0 px-5 pb-8 pt-4 bg-gradient-to-t from-[#080C10] via-[#080C10]/90 to-transparent space-y-2">
           <button
             onClick={() => onConfirm({ descripcion: categoria, partidas })}
-            className="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-2xl flex items-center justify-center gap-2 text-sm cursor-pointer"
-            style={{ boxShadow: '0 4px 24px rgba(245,158,11,0.4)' }}
+            className="w-full bg-amber-500 hover:bg-amber-400 text-white font-black py-5 rounded-2xl flex items-center justify-center gap-2.5 text-base cursor-pointer transition-colors"
+            style={{ boxShadow: '0 8px 32px rgba(245,158,11,0.5)' }}
           >
-            <CheckCircle className="w-4 h-4" />
-            Confirmar y asignar precios
+            <CheckCircle className="w-5 h-5" />
+            Continuar — Enviar o cobrar
           </button>
+          <p className="text-center text-xs text-white/25">
+            Podrás editar precios, enviar por WhatsApp o crear trabajos
+          </p>
         </div>
       )}
     </div>

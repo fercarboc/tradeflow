@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Truck, Package, TrendingUp, Search, ChevronDown, ToggleLeft, ToggleRight, RefreshCw, Eye } from 'lucide-react';
+import { Truck, Package, TrendingUp, Search, ChevronDown, ToggleLeft, ToggleRight, RefreshCw, Eye, Star } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 interface CatalogRow {
@@ -15,7 +15,15 @@ interface OrgSetting {
   catalog_id: string;
   enabled: boolean;
   margen_override: number | null;
+  preferido_categorias?: string[] | null;
 }
+
+const TRADE_CATEGORIAS = [
+  'Fontanería', 'Electricidad', 'Climatización', 'Gas y calefacción',
+  'Carpintería', 'Pintura', 'Albañilería', 'Reformas baño',
+  'Reformas cocina', 'Reforma integral', 'Telecomunicaciones', 'Solar / fotovoltaica',
+  'Mudanzas', 'Reformas interiores',
+];
 
 interface ProductRow {
   id: string;
@@ -53,6 +61,7 @@ export default function ScreenProveedoresCliente({ orgId, showToast }: Props) {
   const [saving, setSaving] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<string | null>(null);
   const [editMargen, setEditMargen] = useState<Record<string, string>>({});
+  const [savingPreferido, setSavingPreferido] = useState<string | null>(null);
 
   // Modal de productos
   const [showProducts, setShowProducts] = useState(false);
@@ -77,7 +86,7 @@ export default function ScreenProveedoresCliente({ orgId, showToast }: Props) {
             .order('prioridad'),
           supabase
             .from('trade_org_suppliers')
-            .select('catalog_id, enabled, margen_override')
+            .select('catalog_id, enabled, margen_override, preferido_categorias')
             .eq('org_id', orgId),
           supabase
             .from('trade_supplier_products')
@@ -158,6 +167,29 @@ export default function ScreenProveedoresCliente({ orgId, showToast }: Props) {
       showToast('Error al guardar el margen', 'error');
     }
     setSaving(null);
+  };
+
+  const handleTogglePreferidoCat = async (cat: CatalogRow, categoria: string) => {
+    const current: string[] = settings[cat.id]?.preferido_categorias ?? [];
+    const next = current.includes(categoria)
+      ? current.filter(c => c !== categoria)
+      : [...current, categoria];
+    setSettings(prev => ({
+      ...prev,
+      [cat.id]: { ...prev[cat.id], catalog_id: cat.id, enabled: isEnabled(cat.id), margen_override: prev[cat.id]?.margen_override ?? null, preferido_categorias: next },
+    }));
+    setSavingPreferido(cat.id);
+    const { error } = await supabase
+      .from('trade_org_suppliers')
+      .upsert(
+        { org_id: orgId, catalog_id: cat.id, enabled: isEnabled(cat.id), margen_override: settings[cat.id]?.margen_override ?? null, preferido_categorias: next },
+        { onConflict: 'org_id,catalog_id' },
+      );
+    if (error) {
+      setSettings(prev => ({ ...prev, [cat.id]: { ...prev[cat.id], preferido_categorias: current } }));
+      showToast('Error al guardar preferencia', 'error');
+    }
+    setSavingPreferido(null);
   };
 
   const loadProducts = async (catId: string, page: number, search: string) => {
@@ -282,6 +314,12 @@ export default function ScreenProveedoresCliente({ orgId, showToast }: Props) {
                         {cat.productos.toLocaleString('es-ES')} prods
                       </span>
                     )}
+                    {(settings[cat.id]?.preferido_categorias?.length ?? 0) > 0 && (
+                      <span className="flex items-center gap-0.5 text-[9px] bg-amber-50 border border-amber-200 text-amber-600 px-1.5 py-0.5 rounded-full font-semibold">
+                        <Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500" />
+                        Preferido · {settings[cat.id]!.preferido_categorias!.length} categ.
+                      </span>
+                    )}
                   </div>
                   <p className="text-[10px] text-slate-400 truncate">{meta?.descripcion ?? ''}</p>
                 </div>
@@ -325,14 +363,16 @@ export default function ScreenProveedoresCliente({ orgId, showToast }: Props) {
                 </button>
               </div>
 
-              {/* Panel expandible — margen */}
+              {/* Panel expandible — margen + preferido */}
               {isOpen && (
-                <div className="px-4 pb-4 border-t border-slate-100 pt-3 space-y-3">
+                <div className="px-4 pb-4 border-t border-slate-100 pt-3 space-y-4">
+
+                  {/* Margen */}
                   <div>
                     <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-2">
                       Mi margen sobre precio de compra (%)
                     </p>
-                    <div className="flex gap-2 items-center">
+                    <div className="flex gap-2 items-center flex-wrap">
                       <input
                         type="number"
                         min={0} max={200} step={0.5}
@@ -361,6 +401,41 @@ export default function ScreenProveedoresCliente({ orgId, showToast }: Props) {
                       </p>
                     )}
                   </div>
+
+                  {/* Preferido para categorías */}
+                  <div>
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <Star className="w-3.5 h-3.5 text-amber-500" />
+                      <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">
+                        Proveedor preferido para
+                      </p>
+                      {savingPreferido === cat.id && <RefreshCw className="w-3 h-3 text-slate-400 animate-spin" />}
+                    </div>
+                    <p className="text-[10px] text-slate-400 mb-2">
+                      La IA priorizará este proveedor al buscar productos en estas categorías de trabajo
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {TRADE_CATEGORIAS.map(tc => {
+                        const active = (settings[cat.id]?.preferido_categorias ?? []).includes(tc);
+                        return (
+                          <button
+                            key={tc}
+                            onClick={() => handleTogglePreferidoCat(cat, tc)}
+                            disabled={savingPreferido === cat.id}
+                            className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold border transition-colors cursor-pointer disabled:opacity-50 ${
+                              active
+                                ? 'bg-amber-50 border-amber-300 text-amber-700'
+                                : 'bg-slate-50 border-slate-200 text-slate-500 hover:border-slate-300'
+                            }`}
+                          >
+                            {active && <Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500" />}
+                            {tc}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
                   {cat.productos > 0 && (
                     <button
                       onClick={() => handleViewProducts(cat)}
