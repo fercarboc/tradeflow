@@ -1902,6 +1902,24 @@ export async function workerSetJobStatus(
   }
   const { error } = await supabase.from('trade_jobs').update(updates).eq('id', jobId);
   if (error) throw error;
+
+  if (estado === 'completado') {
+    const { data: job } = await supabase
+      .from('trade_jobs')
+      .select('org_id, titulo')
+      .eq('id', jobId)
+      .single();
+    if (job) {
+      supabase.functions.invoke('trade-push-notify', {
+        body: {
+          org_id: job.org_id,
+          title: '✅ Trabajo completado',
+          body_text: job.titulo ?? 'Un trabajo ha sido completado',
+          url: '/',
+        },
+      }).catch(() => {});
+    }
+  }
 }
 
 // ── Job Photos (trade_job_photos) ─────────────────────────────────────────────
@@ -3157,6 +3175,16 @@ export async function saveMaintenanceIncidencia(
     .select()
     .single();
   if (error) throw error;
+
+  supabase.functions.invoke('trade-push-notify', {
+    body: {
+      org_id: orgId,
+      title: '🔧 Nueva incidencia registrada',
+      body_text: payload.titulo ?? 'Se ha registrado una nueva incidencia de mantenimiento',
+      url: '/',
+    },
+  }).catch(() => {});
+
   return data as MaintenanceIncidencia;
 }
 
@@ -3169,6 +3197,25 @@ export async function updateMaintenanceIncidencia(
     .update({ ...updates, updated_at: new Date().toISOString() })
     .eq('id', id);
   if (error) throw error;
+
+  if (updates.tecnico_email) {
+    const { data: worker } = await supabase
+      .from('trade_workers')
+      .select('id')
+      .eq('email', updates.tecnico_email)
+      .eq('activo', true)
+      .maybeSingle();
+    if (worker) {
+      supabase.functions.invoke('trade-push-notify', {
+        body: {
+          worker_ids: [worker.id],
+          title: '🔧 Incidencia asignada',
+          body_text: updates.titulo ?? 'Se te ha asignado una incidencia de mantenimiento',
+          url: '/',
+        },
+      }).catch(() => {});
+    }
+  }
 }
 
 export async function sendParteTrabajo(incidenciaId: string): Promise<void> {
