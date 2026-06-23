@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import {
   Mic, MicOff, X, Loader2, CheckCircle, Sparkles, ChevronLeft, Layers,
   Truck, Package, Building2, MapPin, Network, Server, Wind,
-  ArrowUpDown, Check,
+  ArrowUpDown, Check, RefreshCw,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
@@ -188,6 +188,8 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
   const [compareIdx, setCompareIdx]       = useState<number | null>(null);
   const [compareResults, setCompareResults] = useState<CompareRow[]>([]);
   const [compareLoading, setCompareLoading] = useState(false);
+  const [manualPrice, setManualPrice]     = useState<Record<number, string>>({});
+  const [savingManualPrice, setSavingManualPrice] = useState(false);
 
   const handleOpenCompare = async (idx: number, descripcion: string) => {
     if (compareIdx === idx) { setCompareIdx(null); return; }
@@ -221,6 +223,60 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
     }));
     setCompareIdx(null);
     setCompareResults([]);
+  };
+
+  const handleUseManualPrice = async (idx: number, p: PartidaItem) => {
+    const price = parseFloat((manualPrice[idx] ?? '').replace(',', '.'));
+    if (isNaN(price) || price <= 0) { showToast('Precio inválido', 'error'); return; }
+
+    setPartidas(prev => prev.map((item, i) => i !== idx ? item : {
+      ...item,
+      precioUnitario: price,
+      total: (item.cantidad ?? 1) * price,
+      supplier_key: 'propio',
+      supplier_name: 'Mi precio',
+      supplier_ref: undefined,
+    }));
+    setCompareIdx(null);
+    setCompareResults([]);
+
+    if (!orgId) return;
+    setSavingManualPrice(true);
+    try {
+      let catalogId: string | null = null;
+      const { data: existing } = await supabase
+        .from('trade_supplier_catalogs')
+        .select('id')
+        .eq('org_id', orgId)
+        .eq('supplier_key', 'propio')
+        .eq('is_active', true)
+        .maybeSingle();
+
+      if (existing) {
+        catalogId = existing.id;
+      } else {
+        const { data: created } = await supabase
+          .from('trade_supplier_catalogs')
+          .insert({ org_id: orgId, supplier_key: 'propio', supplier_name: 'Mi Catálogo', is_active: true, margen_pct_default: 0, prioridad: 0, is_custom: true })
+          .select('id')
+          .single();
+        catalogId = created?.id ?? null;
+      }
+
+      if (catalogId) {
+        await supabase.from('trade_supplier_products').insert({
+          catalog_id: catalogId,
+          descripcion: p.descripcion,
+          precio_coste: price,
+          unidad: p.unidad || 'ud',
+          activo: true,
+        });
+      }
+    } catch {
+      // best-effort — no bloquear al usuario
+    } finally {
+      setSavingManualPrice(false);
+    }
   };
 
   const SpeechAPI = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -1120,9 +1176,37 @@ export default function ScreenPresupuestoIncremental({ onConfirm, onClose, showT
                       )}
 
                       {!compareLoading && compareResults.length === 0 && (
-                        <p className="text-center text-sm text-white/30 py-5">
-                          Sin alternativas en los catálogos activos
-                        </p>
+                        <div className="px-4 py-4 space-y-3">
+                          <p className="text-center text-sm text-white/30">Sin alternativas en los catálogos activos</p>
+                          <p className="text-[11px] text-white/35 text-center">
+                            Introduce el precio — se guardará en tu catálogo para futuras búsquedas de la IA
+                          </p>
+                          <div className="flex gap-2 items-center">
+                            <div className="relative flex-1">
+                              <input
+                                type="number"
+                                min={0}
+                                step={0.01}
+                                placeholder="Precio unitario…"
+                                value={manualPrice[i] ?? ''}
+                                onChange={e => setManualPrice(prev => ({ ...prev, [i]: e.target.value }))}
+                                className="w-full bg-white/8 border border-white/15 rounded-xl px-4 py-2.5 text-white text-sm placeholder-white/25 focus:outline-none focus:border-amber-400/60 pr-10"
+                              />
+                              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 text-xs font-bold">€</span>
+                            </div>
+                            <button
+                              onClick={() => handleUseManualPrice(i, p)}
+                              disabled={!manualPrice[i] || savingManualPrice}
+                              className="flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 disabled:opacity-40 text-black text-xs font-bold px-3.5 py-2.5 rounded-xl transition-colors cursor-pointer shrink-0"
+                            >
+                              {savingManualPrice
+                                ? <RefreshCw className="h-3.5 w-3.5 animate-spin" />
+                                : <Check className="h-3.5 w-3.5" />
+                              }
+                              Usar
+                            </button>
+                          </div>
+                        </div>
                       )}
 
                       {!compareLoading && compareResults.map((opt, oi) => (

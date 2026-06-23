@@ -134,7 +134,7 @@ export default function AdminSuppliersSection({ toast }: Props) {
       try {
         const { data: catalogs, error } = await supabase
           .from('trade_supplier_catalogs')
-          .select('id, supplier_key, supplier_name, is_active, margen_pct_default, prioridad, updated_at, acuerdo_estado, admin_notes, contact_name, contact_email')
+          .select('id, supplier_key, supplier_name, is_active, margen_pct_default, prioridad, created_at, acuerdo_estado, admin_notes, contact_name, contact_email')
           .is('org_id', null)
           .order('prioridad');
         if (error) throw error;
@@ -150,7 +150,7 @@ export default function AdminSuppliersSection({ toast }: Props) {
 
         const mapped: SupplierConfig[] = (catalogs ?? []).map((c: {
           id: string; supplier_key: string; supplier_name: string;
-          is_active: boolean; margen_pct_default: number; prioridad: number; updated_at: string;
+          is_active: boolean; margen_pct_default: number; prioridad: number; created_at: string;
           acuerdo_estado?: string; admin_notes?: string; contact_name?: string; contact_email?: string;
         }) => {
           const meta = SUPPLIER_META[c.supplier_key] ?? {
@@ -166,7 +166,7 @@ export default function AdminSuppliersSection({ toast }: Props) {
             margen_pct: Number(c.margen_pct_default),
             prioridad: c.prioridad,
             productos: prods,
-            ultima_sync: prods > 0 ? c.updated_at?.slice(0, 10) : undefined,
+            ultima_sync: prods > 0 ? c.created_at?.slice(0, 10) : undefined,
             sync_estado: prods > 0 ? 'ok' : 'nunca',
             descripcion: meta.descripcion,
             acuerdo: (c.acuerdo_estado as AcuerdoEstado) || meta.acuerdo,

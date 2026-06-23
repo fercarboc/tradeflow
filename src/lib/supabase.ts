@@ -4314,3 +4314,101 @@ export async function marcarCompraPagada(id: string, pagado: boolean): Promise<v
     .eq('id', id);
   if (error) throw error;
 }
+
+// ── Pedidos de material a proveedores ─────────────────────────────────────────
+
+export interface SupplierOrderLine {
+  id: string;
+  order_id: string;
+  descripcion: string;
+  referencia?: string | null;
+  cantidad: number;
+  unidad: string;
+  precio_unitario?: number | null;
+  created_at: string;
+}
+
+export interface SupplierOrder {
+  id: string;
+  org_id: string;
+  catalog_id: string;
+  quote_id?: string | null;
+  job_id?: string | null;
+  estado: 'borrador' | 'enviado' | 'confirmado' | 'recibido' | 'cancelado';
+  notas?: string | null;
+  total?: number | null;
+  created_at: string;
+  updated_at: string;
+  trade_supplier_catalogs?: { supplier_name: string; supplier_key: string; contact_email?: string | null } | null;
+  trade_supplier_order_lines?: SupplierOrderLine[];
+  trade_quotes?: { numero: string; descripcion?: string | null } | null;
+}
+
+export async function loadSupplierOrders(orgId: string): Promise<SupplierOrder[]> {
+  const { data, error } = await supabase
+    .from('trade_supplier_orders')
+    .select('*, trade_supplier_catalogs(supplier_name, supplier_key, contact_email), trade_supplier_order_lines(*), trade_quotes(numero, descripcion)')
+    .eq('org_id', orgId)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as SupplierOrder[];
+}
+
+export async function createSupplierOrder(
+  orgId: string,
+  catalogId: string,
+  lines: Omit<SupplierOrderLine, 'id' | 'order_id' | 'created_at'>[],
+  opts?: { quoteId?: string; jobId?: string; notas?: string },
+): Promise<SupplierOrder> {
+  const total = lines.reduce((sum, l) => sum + l.cantidad * (l.precio_unitario ?? 0), 0);
+  const { data: order, error: oErr } = await supabase
+    .from('trade_supplier_orders')
+    .insert({ org_id: orgId, catalog_id: catalogId, quote_id: opts?.quoteId ?? null, job_id: opts?.jobId ?? null, notas: opts?.notas ?? null, total })
+    .select()
+    .single();
+  if (oErr) throw oErr;
+
+  if (lines.length > 0) {
+    const { error: lErr } = await supabase
+      .from('trade_supplier_order_lines')
+      .insert(lines.map(l => ({ ...l, order_id: order.id })));
+    if (lErr) throw lErr;
+  }
+  return order as SupplierOrder;
+}
+
+export async function updateSupplierOrderEstado(
+  id: string,
+  estado: SupplierOrder['estado'],
+): Promise<void> {
+  const { error } = await supabase
+    .from('trade_supplier_orders')
+    .update({ estado, updated_at: new Date().toISOString() })
+    .eq('id', id);
+  if (error) throw error;
+}
+
+export async function deleteSupplierOrder(id: string): Promise<void> {
+  const { error } = await supabase.from('trade_supplier_orders').delete().eq('id', id);
+  if (error) throw error;
+}
+
+export async function loadSupplierCatalogs(orgId: string): Promise<{
+  id: string; supplier_key: string; supplier_name: string; contact_email?: string | null; margen_pct_default: number;
+}[]> {
+  const { data, error } = await supabase
+    .from('trade_supplier_catalogs')
+    .select('id, supplier_key, supplier_name, contact_email, margen_pct_default')
+    .eq('is_active', true)
+    .order('prioridad');
+  if (error) throw error;
+  // Filter to only catalogs the org has enabled
+  const { data: orgSettings } = await supabase
+    .from('trade_org_suppliers')
+    .select('catalog_id')
+    .eq('org_id', orgId)
+    .eq('enabled', true);
+  const enabledIds = new Set((orgSettings ?? []).map((s: { catalog_id: string }) => s.catalog_id));
+  return ((data ?? []) as { id: string; supplier_key: string; supplier_name: string; contact_email?: string | null; margen_pct_default: number }[])
+    .filter(c => enabledIds.has(c.id));
+}

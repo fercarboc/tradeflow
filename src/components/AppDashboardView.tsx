@@ -67,6 +67,7 @@ import {
   ArrowUpDown,
   Loader2,
   Truck,
+  ShoppingCart,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -107,7 +108,9 @@ import PlanUpgradeModal from './PlanUpgradeModal';
 import OnboardingWizard from './OnboardingWizard';
 import ChatbotWidget from './ChatbotWidget';
 import ScreenProveedoresCliente from './ScreenProveedoresCliente';
-import type { TradeOrganization } from '../lib/supabase';
+import ScreenPedidosMaterial from './ScreenPedidosMaterial';
+import ScreenPostConfirm from './ScreenPostConfirm';
+import type { TradeOrganization, TradeQuote } from '../lib/supabase';
 
 const InvoiceIcon = FileText;
 
@@ -1626,12 +1629,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       setJobs(prev => prev.map(j => j.id === jid ? { ...j, quote_id: savedQuote.id } : j));
     }
 
-    setTargetQuoteForWhatsApp(savedQuote);
-    setWhatsAppStep('confirm');
-    setShowWhatsAppModal(true);
     setWizardActive(false);
     setShowQuickClientModal(false);
-    setMobileTab('presupuestos');
+    if (isNativeDevice) {
+      setPostConfirmQuote(savedQuote);
+    } else {
+      setTargetQuoteForWhatsApp(savedQuote);
+      setWhatsAppStep('confirm');
+      setShowWhatsAppModal(true);
+      setMobileTab('presupuestos');
+    }
   };
 
   const handleTextToAI = async (overrideText?: string) => {
@@ -1919,6 +1926,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   } | null>(null);
   const [savedActuacion, setSavedActuacion] = useState<boolean>(false);
   const [selectedQuoteForPreview, setSelectedQuoteForPreview] = useState<Presupuesto | null>(null);
+  const [pedirMaterialQuote, setPedirMaterialQuote] = useState<TradeQuote | null>(null);
+  const [postConfirmQuote, setPostConfirmQuote] = useState<Presupuesto | null>(null);
   const [editingQuoteId, setEditingQuoteId] = useState<string | null>(null); // null = crear nuevo, string = editar existente
   // Subcontratas vinculadas al presupuesto en preview
   const [previewSubcontratas, setPreviewSubcontratas] = useState<TradeSubcontrata[]>([]);
@@ -3274,6 +3283,49 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               setWizardOrigin('voz');
               setWizardStep(4);
               setWizardActive(true);
+            }}
+          />
+        )}
+
+        {/* Post-confirm actions overlay (mobile) */}
+        {postConfirmQuote && (
+          <ScreenPostConfirm
+            quote={postConfirmQuote}
+            onClose={() => { setPostConfirmQuote(null); setMobileTab('presupuestos'); }}
+            onWhatsApp={() => {
+              setTargetQuoteForWhatsApp(postConfirmQuote);
+              setWhatsAppStep('confirm');
+              setShowWhatsAppModal(true);
+              setPostConfirmQuote(null);
+            }}
+            onCobrar={() => {
+              handleQuickConvertInvoice(postConfirmQuote);
+              setPostConfirmQuote(null);
+              setMobileTab('facturas');
+            }}
+            onCrearTrabajo={() => {
+              setPostConfirmQuote(null);
+              setMobileTab('trabajos');
+              setNewJobTrigger(t => t + 1);
+            }}
+            onPedirMaterial={() => {
+              if (postConfirmQuote.dbId) {
+                supabase
+                  .from('trade_quotes')
+                  .select('*, trade_quote_items(*)')
+                  .eq('id', postConfirmQuote.dbId)
+                  .single()
+                  .then(({ data }) => {
+                    if (data) setPedirMaterialQuote(data as TradeQuote);
+                  });
+              }
+              setPostConfirmQuote(null);
+              setMobileTab('presupuestos');
+            }}
+            onVerPresupuesto={() => {
+              setSelectedQuoteForPreview(postConfirmQuote);
+              setPostConfirmQuote(null);
+              setMobileTab('presupuestos');
             }}
           />
         )}
@@ -5162,6 +5214,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'contratos', icon: <FileText className="w-4 h-4" />, label: 'Contratos' })}
             {can('jobs.view') && orgId && SidebarBtn({ id: 'subcontratas', icon: <Layers className="w-4 h-4" />, label: 'Externalizados' })}
             {can('catalog.manage') && orgId && SidebarBtn({ id: 'suppliers', icon: <Truck className="w-4 h-4" />, label: 'Proveedores' })}
+            {can('catalog.manage') && orgId && SidebarBtn({ id: 'pedidos_material', icon: <ShoppingCart className="w-4 h-4" />, label: 'Pedidos Material' })}
             {SidebarBtn({ id: 'asistente', icon: <BookOpen className="w-4 h-4" />, label: 'Asistente Técnico' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
@@ -5249,6 +5302,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
                 {activeTab === 'subcontratas' && 'Trabajos Externalizados'}
                 {activeTab === 'suppliers' && 'Catálogos de Proveedores'}
+                {activeTab === 'pedidos_material' && 'Pedidos de Material'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
@@ -5301,13 +5355,32 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 </div>
               )}
               {activeTab === 'preview' && selectedQuoteForPreview && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   <button
                     onClick={() => setActiveTab('quotes')}
                     className="text-slate-500 hover:text-slate-700 font-bold text-[10px] uppercase tracking-wider px-3 py-2.5 rounded-xl border border-slate-200 hover:border-slate-300 cursor-pointer"
                   >
                     ← Presupuestos
                   </button>
+                  {isLiveMode && selectedQuoteForPreview.dbId && (
+                    <button
+                      onClick={async () => {
+                        const { data } = await supabase
+                          .from('trade_quotes')
+                          .select('*, trade_quote_items(*)')
+                          .eq('id', selectedQuoteForPreview.dbId)
+                          .single();
+                        if (data) {
+                          setPedirMaterialQuote(data as TradeQuote);
+                          setActiveTab('pedidos_material');
+                        }
+                      }}
+                      className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <ShoppingCart className="w-3.5 h-3.5" />
+                      <span>Pedir material</span>
+                    </button>
+                  )}
                   {selectedQuoteForPreview.estado !== 'Facturado' ? (
                     <button
                       onClick={() => convertQuoteToInvoice(selectedQuoteForPreview)}
@@ -5441,6 +5514,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 )}
                 {activeTab === 'suppliers' && orgId && (
                   <ScreenProveedoresCliente orgId={orgId} showToast={showToast} />
+                )}
+                {activeTab === 'pedidos_material' && orgId && (
+                  <ScreenPedidosMaterial
+                    orgId={orgId}
+                    showToast={showToast}
+                    initialQuote={pedirMaterialQuote}
+                    onClose={() => setPedirMaterialQuote(null)}
+                  />
                 )}
                 {activeTab === 'asistente' && (
                   <ScreenAsistenteTecnico
