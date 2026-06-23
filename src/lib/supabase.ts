@@ -3137,6 +3137,16 @@ export async function loadMaintenanceIncidencias(orgId: string): Promise<Mainten
   return (data ?? []) as MaintenanceIncidencia[];
 }
 
+export async function loadWorkerIncidencias(userId: string): Promise<MaintenanceIncidencia[]> {
+  const { data, error } = await supabase
+    .from('trade_maintenance_incidencias')
+    .select('*, trade_maintenance_contratos(nombre_cliente, oficio, sector)')
+    .eq('tecnico_user_id', userId)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return (data ?? []) as MaintenanceIncidencia[];
+}
+
 export async function saveMaintenanceIncidencia(
   orgId: string,
   payload: Omit<MaintenanceIncidencia, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_maintenance_contratos'>,

@@ -3,15 +3,16 @@ import {
   MapPin, Clock, User, Navigation, CheckCircle, Play,
   LogOut, RefreshCw, AlertTriangle, Phone, ChevronDown, ChevronUp, X, Check,
   Plus, Camera, Loader2, CalendarDays, Edit2, Route, Users, Trash2,
-  ChevronLeft, ChevronRight, List, Bell, BellOff,
+  ChevronLeft, ChevronRight, List, Bell, BellOff, Wrench, AlertCircle, FileText,
 } from 'lucide-react';
 import {
   supabase, loadWorkerJobs, workerSetJobStatus,
   loadJobPhotos, uploadJobPhoto, workerCreateJob, loadOrgClients,
   loadJobs, updateJob, loadOrgWorkers, assignWorkerToJob, removeWorkerFromJob,
   deleteJob, subscribePush, unsubscribePush, isPushSubscribed,
+  loadWorkerIncidencias, updateMaintenanceIncidencia, sendParteTrabajo,
 } from '../lib/supabase';
-import type { WorkerProfile, TradeJob, TradeJobPhoto, TradeClient, TradeJobWorker } from '../lib/supabase';
+import type { WorkerProfile, TradeJob, TradeJobPhoto, TradeClient, TradeJobWorker, MaintenanceIncidencia } from '../lib/supabase';
 import type { Session } from '@supabase/supabase-js';
 import { ActivePage } from '../types';
 
@@ -46,6 +47,19 @@ const ESTADO_LABEL: Record<TradeJob['estado'], string> = {
 const FILTER_OPTIONS: Array<'todos' | TradeJob['estado']> = [
   'todos', 'planificado', 'en_curso', 'pendiente_material', 'completado', 'cancelado',
 ];
+
+const INC_PRIORIDAD_LABEL: Record<MaintenanceIncidencia['prioridad'], string> = {
+  critica: 'Crítica', urgente: 'Urgente', normal: 'Normal', baja: 'Baja',
+};
+const INC_PRIORIDAD_DOT: Record<MaintenanceIncidencia['prioridad'], string> = {
+  critica: 'bg-red-500', urgente: 'bg-orange-500', normal: 'bg-blue-500', baja: 'bg-slate-500',
+};
+const INC_ESTADO_LABEL: Record<MaintenanceIncidencia['estado'], string> = {
+  abierta: 'Abierta', en_curso: 'En curso', resuelta: 'Resuelta', cerrada: 'Cerrada',
+};
+const INC_ESTADO_DOT: Record<MaintenanceIncidencia['estado'], string> = {
+  abierta: 'bg-red-500', en_curso: 'bg-amber-500', resuelta: 'bg-emerald-500', cerrada: 'bg-slate-500',
+};
 
 function fmtDate(dateStr: string): string {
   const today = new Date().toISOString().split('T')[0];
@@ -467,6 +481,53 @@ function EditJobModal({ job, onSave, onClose }: EditJobModalProps) {
   );
 }
 
+// ── ResolveIncModal ───────────────────────────────────────────────────────────
+
+interface ResolveIncModalProps {
+  inc: MaintenanceIncidencia;
+  onResolve: (notes: string) => Promise<void>;
+  onClose: () => void;
+}
+
+function ResolveIncModal({ inc, onResolve, onClose }: ResolveIncModalProps) {
+  const [notes, setNotes]   = useState('');
+  const [saving, setSaving] = useState(false);
+
+  const handleSubmit = async () => {
+    setSaving(true);
+    try { await onResolve(notes); }
+    catch { setSaving(false); }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-black/70 z-50 flex items-end justify-center">
+      <div className="bg-slate-900 border border-slate-700 rounded-t-2xl w-full max-w-md p-5 shadow-2xl">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="font-bold text-sm text-white">Resolver incidencia</h3>
+          <button onClick={onClose} className="text-slate-400 hover:text-white cursor-pointer"><X className="w-4 h-4" /></button>
+        </div>
+        <p className="text-xs text-slate-400 mb-3 line-clamp-2">{inc.titulo}</p>
+        <div className="mb-4">
+          <label className="text-[9px] font-mono uppercase text-slate-400 block mb-1.5">Notas de resolución (opcional)</label>
+          <textarea
+            rows={3}
+            value={notes}
+            onChange={e => setNotes(e.target.value)}
+            placeholder="Ej: Solucionado. Sustituida la válvula de expansión..."
+            className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 resize-none"
+          />
+        </div>
+        <div className="flex gap-3">
+          <button onClick={onClose} className="flex-1 py-3 border border-slate-700 rounded-xl text-xs font-bold text-slate-400 cursor-pointer hover:border-slate-500">Cancelar</button>
+          <button onClick={handleSubmit} disabled={saving} className="flex-1 py-3 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 rounded-xl text-xs font-bold text-white cursor-pointer flex items-center justify-center gap-1.5">
+            {saving ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <><Check className="w-3.5 h-3.5" /> Confirmar resolución</>}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 
 export default function ScreenWorkerView({ workerProfile, session, setCurrentPage }: Props) {
@@ -495,6 +556,13 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
   const [pushLoading, setPushLoading] = useState(false);
   const photoInputRef                 = useRef<HTMLInputElement>(null);
   const activePhotoJobId              = useRef<string | null>(null);
+
+  const [mainTab, setMainTab]             = useState<'trabajos' | 'mantenimiento'>('trabajos');
+  const [incidencias, setIncidencias]     = useState<MaintenanceIncidencia[]>([]);
+  const [incLoading, setIncLoading]       = useState(false);
+  const [expandedIncId, setExpandedIncId] = useState<string | null>(null);
+  const [resolveModal, setResolveModal]   = useState<MaintenanceIncidencia | null>(null);
+  const [incSending, setIncSending]       = useState<string | null>(null);
 
   const isAdmin = workerProfile?.rol === 'admin';
 
@@ -535,6 +603,49 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
   useEffect(() => {
     isPushSubscribed().then(setPushEnabled).catch(() => {});
   }, []);
+
+  useEffect(() => {
+    if (!session) return;
+    setIncLoading(true);
+    loadWorkerIncidencias(session.user.id)
+      .then(setIncidencias)
+      .catch(() => {})
+      .finally(() => setIncLoading(false));
+  }, [session]);
+
+  const handleStartInc = async (inc: MaintenanceIncidencia) => {
+    try {
+      const now = new Date().toISOString();
+      await updateMaintenanceIncidencia(inc.id, { estado: 'en_curso', fecha_inicio_intervencion: now });
+      setIncidencias(prev => prev.map(i => i.id === inc.id ? { ...i, estado: 'en_curso' as const, fecha_inicio_intervencion: now } : i));
+      showToast('Intervención iniciada ✓');
+    } catch (e: unknown) {
+      showToast('Error: ' + (e as Error).message, 'error');
+    }
+  };
+
+  const handleResolveInc = async (inc: MaintenanceIncidencia, notes: string) => {
+    const now = new Date().toISOString();
+    await updateMaintenanceIncidencia(inc.id, {
+      estado: 'resuelta',
+      fecha_resolucion: now,
+      notas_resolucion: notes || null,
+    });
+    setIncidencias(prev => prev.map(i => i.id === inc.id ? { ...i, estado: 'resuelta' as const, fecha_resolucion: now, notas_resolucion: notes || null } : i));
+    setResolveModal(null);
+    showToast('Incidencia resuelta ✓');
+  };
+
+  const handleSendParte = async (inc: MaintenanceIncidencia) => {
+    setIncSending(inc.id);
+    try {
+      await sendParteTrabajo(inc.id);
+      showToast('Parte de intervención enviado ✓');
+    } catch (e: unknown) {
+      showToast('Error al enviar: ' + (e as Error).message, 'error');
+    }
+    setIncSending(null);
+  };
 
   const handleSetViewMode = (mode: 'mis' | 'todos') => {
     setViewMode(mode);
@@ -787,9 +898,37 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
         </div>
       </div>
 
-      {/* Admin tabs */}
-      {isAdmin && (
-        <div className="flex gap-1 px-4 pt-3 pb-1 bg-slate-950">
+      {/* Main tabs */}
+      {(() => {
+        const pendingInc = incidencias.filter(i => i.estado === 'abierta' || i.estado === 'en_curso').length;
+        return (
+          <div className="flex gap-1 px-4 pt-3 pb-1 bg-slate-950 border-b border-slate-800/60">
+            <button
+              onClick={() => setMainTab('trabajos')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-colors cursor-pointer ${
+                mainTab === 'trabajos' ? 'bg-blue-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'
+              }`}
+            >
+              <Route className="w-3 h-3" /> Trabajos
+            </button>
+            <button
+              onClick={() => setMainTab('mantenimiento')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-colors cursor-pointer ${
+                mainTab === 'mantenimiento' ? 'bg-amber-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'
+              }`}
+            >
+              <Wrench className="w-3 h-3" /> Mantenimiento
+              {pendingInc > 0 && (
+                <span className={`text-[9px] font-black rounded-full px-1.5 ${mainTab === 'mantenimiento' ? 'bg-white/25' : 'bg-red-600 text-white'}`}>{pendingInc}</span>
+              )}
+            </button>
+          </div>
+        );
+      })()}
+
+      {/* Admin sub-tabs (within trabajos) */}
+      {mainTab === 'trabajos' && isAdmin && (
+        <div className="flex gap-1 px-4 pt-2 pb-1 bg-slate-950">
           <button
             onClick={() => handleSetViewMode('mis')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-colors cursor-pointer ${
@@ -810,7 +949,7 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
       )}
 
       {/* Week strip */}
-      {calView === 'semana' && (
+      {mainTab === 'trabajos' && calView === 'semana' && (
         <WeekStrip
           jobs={displayJobs}
           selectedDate={weekDay}
@@ -821,7 +960,7 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
       )}
 
       {/* Filter pills */}
-      {displayJobs.length > 0 && (
+      {mainTab === 'trabajos' && displayJobs.length > 0 && (
         <div className="flex gap-1.5 px-4 py-2 overflow-x-auto bg-slate-950" style={{ scrollbarWidth: 'none' }}>
           {FILTER_OPTIONS.map(e => {
             const count = e === 'todos' ? displayJobs.length : displayJobs.filter(j => j.estado === e).length;
@@ -843,8 +982,8 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
         </div>
       )}
 
-      {/* Content */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-24">
+      {/* Content — jobs */}
+      {mainTab === 'trabajos' && <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-24">
         {loading ? (
           <div className="flex items-center justify-center py-20">
             <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
@@ -1103,13 +1242,13 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
             Cerrar sesión
           </button>
         </div>
-      </div>
+      </div>}
 
       {/* Hidden file input */}
-      <input ref={photoInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handlePhotoChange} />
+      {mainTab === 'trabajos' && <input ref={photoInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handlePhotoChange} />}
 
       {/* FAB */}
-      {viewMode === 'mis' && (
+      {mainTab === 'trabajos' && viewMode === 'mis' && (
         <button
           onClick={() => setNewJobOpen(true)}
           className="fixed bottom-6 right-6 w-14 h-14 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white rounded-full shadow-xl shadow-blue-900/40 flex items-center justify-center cursor-pointer transition-all z-20"
@@ -1117,6 +1256,160 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
         >
           <Plus className="w-6 h-6" />
         </button>
+      )}
+
+      {/* Content — mantenimiento incidencias */}
+      {mainTab === 'mantenimiento' && (
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 pb-24">
+          {incLoading ? (
+            <div className="flex items-center justify-center py-20">
+              <div className="w-6 h-6 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
+            </div>
+          ) : incidencias.length === 0 ? (
+            <div className="text-center py-20">
+              <Wrench className="w-12 h-12 text-slate-700 mx-auto mb-3" />
+              <p className="text-white font-bold">Sin incidencias asignadas</p>
+              <p className="text-slate-400 text-sm mt-1">Cuando te asignen una incidencia de mantenimiento aparecerá aquí.</p>
+            </div>
+          ) : (
+            <>
+              {(['abierta', 'en_curso', 'resuelta', 'cerrada'] as MaintenanceIncidencia['estado'][]).map(estado => {
+                const group = incidencias.filter(i => i.estado === estado);
+                if (group.length === 0) return null;
+                return (
+                  <div key={estado}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className={`w-2 h-2 rounded-full shrink-0 ${INC_ESTADO_DOT[estado]}`} />
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">{INC_ESTADO_LABEL[estado]}</span>
+                      <span className="text-[10px] text-slate-600 font-mono">({group.length})</span>
+                    </div>
+                    <div className="space-y-2">
+                      {group.map(inc => {
+                        const isExpanded = expandedIncId === inc.id;
+                        const cliente = inc.trade_maintenance_contratos?.nombre_cliente ?? null;
+                        return (
+                          <div key={inc.id} className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+                            {/* Card header */}
+                            <button
+                              onClick={() => setExpandedIncId(isExpanded ? null : inc.id)}
+                              className="w-full flex items-start gap-3 p-3 text-left cursor-pointer hover:bg-slate-800/50 transition-colors"
+                            >
+                              <span className={`w-1.5 h-full min-h-[2.5rem] rounded-full shrink-0 ${INC_PRIORIDAD_DOT[inc.prioridad]}`} />
+                              <div className="flex-1 min-w-0">
+                                <p className="text-xs font-bold text-white leading-snug truncate">{inc.titulo}</p>
+                                {cliente && <p className="text-[10px] text-slate-400 mt-0.5 truncate">{cliente}</p>}
+                                <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
+                                  <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded-full ${INC_PRIORIDAD_DOT[inc.prioridad]} bg-opacity-20 text-white`} style={{ backgroundColor: undefined }}>
+                                    <span className={`inline-block w-1.5 h-1.5 rounded-full mr-1 align-middle ${INC_PRIORIDAD_DOT[inc.prioridad]}`} />
+                                    {INC_PRIORIDAD_LABEL[inc.prioridad]}
+                                  </span>
+                                  <span className="text-[9px] text-slate-500 font-mono">
+                                    {new Date(inc.fecha_reporte).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })}
+                                  </span>
+                                </div>
+                              </div>
+                              <div className="shrink-0 text-slate-500 mt-0.5">
+                                {isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                              </div>
+                            </button>
+
+                            {/* Expanded detail */}
+                            {isExpanded && (
+                              <div className="px-3 pb-3 border-t border-slate-800/60 space-y-2.5">
+                                {inc.descripcion && (
+                                  <div className="pt-2.5">
+                                    <p className="text-[9px] font-mono uppercase text-slate-500 mb-1">Descripción</p>
+                                    <p className="text-xs text-slate-300 leading-relaxed">{inc.descripcion}</p>
+                                  </div>
+                                )}
+
+                                {inc.notas_resolucion && (
+                                  <div>
+                                    <p className="text-[9px] font-mono uppercase text-slate-500 mb-1">Notas de resolución</p>
+                                    <p className="text-xs text-emerald-300 leading-relaxed">{inc.notas_resolucion}</p>
+                                  </div>
+                                )}
+
+                                {inc.fecha_inicio_intervencion && (
+                                  <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
+                                    <Clock className="w-3 h-3" />
+                                    Inicio: {new Date(inc.fecha_inicio_intervencion).toLocaleString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                                  </div>
+                                )}
+                                {inc.fecha_resolucion && (
+                                  <div className="flex items-center gap-1.5 text-[10px] text-slate-500">
+                                    <CheckCircle className="w-3 h-3 text-emerald-500" />
+                                    Resuelta: {new Date(inc.fecha_resolucion).toLocaleString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                                  </div>
+                                )}
+
+                                {/* Action buttons */}
+                                <div className="flex gap-2 pt-1">
+                                  {inc.estado === 'abierta' && (
+                                    <button
+                                      onClick={() => handleStartInc(inc)}
+                                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors"
+                                    >
+                                      <Play className="w-3.5 h-3.5" /> Iniciar intervención
+                                    </button>
+                                  )}
+                                  {inc.estado === 'en_curso' && (
+                                    <button
+                                      onClick={() => setResolveModal(inc)}
+                                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors"
+                                    >
+                                      <Check className="w-3.5 h-3.5" /> Resolver
+                                    </button>
+                                  )}
+                                  {(inc.estado === 'resuelta' || inc.estado === 'cerrada') && (
+                                    <button
+                                      onClick={() => handleSendParte(inc)}
+                                      disabled={incSending === inc.id}
+                                      className="flex-1 flex items-center justify-center gap-1.5 py-2.5 bg-slate-700 hover:bg-slate-600 disabled:opacity-50 text-white rounded-xl text-xs font-bold cursor-pointer transition-colors"
+                                    >
+                                      {incSending === inc.id
+                                        ? <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                        : <><FileText className="w-3.5 h-3.5" /> Enviar parte</>
+                                      }
+                                    </button>
+                                  )}
+                                  {inc.estado === 'en_curso' && (
+                                    <button
+                                      onClick={() => handleSendParte(inc)}
+                                      disabled={incSending === inc.id}
+                                      className="flex items-center justify-center gap-1 py-2.5 px-3 bg-slate-700 hover:bg-slate-600 disabled:opacity-50 text-slate-300 rounded-xl text-[10px] font-bold cursor-pointer transition-colors"
+                                      title="Enviar parte provisional"
+                                    >
+                                      {incSending === inc.id
+                                        ? <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                        : <FileText className="w-3.5 h-3.5" />
+                                      }
+                                    </button>
+                                  )}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* Logout */}
+              <div className="pt-4 mt-2">
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold text-slate-600 hover:text-red-400 hover:bg-red-950/20 transition-colors cursor-pointer border border-slate-800/40"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                  Cerrar sesión
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       )}
 
       {/* Complete modal */}
@@ -1147,6 +1440,14 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
       {editModal && <EditJobModal job={editModal} onSave={handleEditJob} onClose={() => setEditModal(null)} />}
 
       {newJobOpen && <NewJobModal clientes={clientes} onSave={handleCreateJob} onClose={() => setNewJobOpen(false)} />}
+
+      {resolveModal && (
+        <ResolveIncModal
+          inc={resolveModal}
+          onResolve={notes => handleResolveInc(resolveModal, notes)}
+          onClose={() => setResolveModal(null)}
+        />
+      )}
 
       {assigningJob && (
         <WorkerPickerModal
