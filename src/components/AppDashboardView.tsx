@@ -66,6 +66,7 @@ import {
   BookOpen,
   ArrowUpDown,
   Loader2,
+  Truck,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -105,7 +106,7 @@ import {
 import PlanUpgradeModal from './PlanUpgradeModal';
 import OnboardingWizard from './OnboardingWizard';
 import ChatbotWidget from './ChatbotWidget';
-import SettingsSuppliers from './settings/SettingsSuppliers';
+import ScreenProveedoresCliente from './ScreenProveedoresCliente';
 import type { TradeOrganization } from '../lib/supabase';
 
 const InvoiceIcon = FileText;
@@ -5160,6 +5161,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'contratos', icon: <FileText className="w-4 h-4" />, label: 'Contratos' })}
             {can('jobs.view') && orgId && SidebarBtn({ id: 'subcontratas', icon: <Layers className="w-4 h-4" />, label: 'Externalizados' })}
+            {can('catalog.manage') && orgId && SidebarBtn({ id: 'suppliers', icon: <Truck className="w-4 h-4" />, label: 'Proveedores' })}
             {SidebarBtn({ id: 'asistente', icon: <BookOpen className="w-4 h-4" />, label: 'Asistente Técnico' })}
             {can('settings.manage') && SidebarBtn({ id: 'settings', icon: <SettingsIcon className="w-4 h-4" />, label: 'Ajustes y Tarifas' })}
           </nav>
@@ -5246,6 +5248,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'equipo' && 'Equipo y Trabajadores'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
                 {activeTab === 'subcontratas' && 'Trabajos Externalizados'}
+                {activeTab === 'suppliers' && 'Catálogos de Proveedores'}
                 {activeTab === 'asistente' && 'Asistente Técnico de Normativa'}
                 {activeTab === 'settings' && 'Ajustes y Tarifas'}
                 {activeTab === 'preview' && 'Ficha de Presupuesto'}
@@ -5436,6 +5439,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'subcontratas' && orgId && (
                   <ScreenSubcontratas orgId={orgId} showToast={showToast} />
                 )}
+                {activeTab === 'suppliers' && orgId && (
+                  <ScreenProveedoresCliente orgId={orgId} showToast={showToast} />
+                )}
                 {activeTab === 'asistente' && (
                   <ScreenAsistenteTecnico
                     orgId={orgId ?? null}
@@ -5611,7 +5617,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       return (
         <button
           onClick={() => setActiveTab(id)}
-          className={`w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer relative ${
+          className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-semibold transition-all cursor-pointer relative ${
             isActive 
               ? 'bg-blue-600 text-white shadow-md shadow-blue-500/10' 
               : 'text-slate-455 hover:text-white hover:bg-slate-800/40'
@@ -9010,6 +9016,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               : null;
             const isUpgradeable = subscription.status !== 'active' || subscription.plan !== 'empresa_plus';
             const PLAN_LABEL_MAP: Record<string, string> = { basico: 'Básico', pro: 'Profesional', profesional: 'Profesional', empresa: 'Empresa', empresa_plus: 'Empresa+' };
+            const scheduledPlanLabel = subscription.scheduled_plan ? (PLAN_LABEL_MAP[subscription.scheduled_plan] ?? subscription.scheduled_plan) : null;
+            const scheduledAtDate = subscription.scheduled_at
+              ? new Date(subscription.scheduled_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
+              : null;
 
             return (
               <div className={`rounded-xl border ${meta.colorBorder} ${meta.colorBg} p-4 space-y-3`}>
@@ -9064,6 +9074,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <div className="px-3 py-2"><p className="text-[11px] text-red-500 font-semibold">Acceso expirado — reactiva tu plan para continuar</p></div>
                   )}
                 </div>
+
+                {/* Cambio de plan programado */}
+                {scheduledPlanLabel && scheduledAtDate && (
+                  <div className="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+                    <span className="text-amber-500 text-base leading-none mt-0.5">⏳</span>
+                    <p className="text-[11px] text-amber-700 leading-snug">
+                      <span className="font-semibold">Cambio programado:</span> el {scheduledAtDate} pasarás al plan <span className="font-semibold">{scheduledPlanLabel}</span>.
+                      Hasta entonces conservas tu acceso actual.
+                    </p>
+                  </div>
+                )}
 
                 {/* Últimos pagos inline */}
                 {isLiveMode && platformInvoices.length > 0 && (
@@ -9265,21 +9286,6 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </div>
         )}
 
-        {/* ── Proveedores y Catálogos ── */}
-        {isLiveMode && orgId && (
-          <div className={sec}>
-            <div className="flex items-center gap-3 pb-3 border-b border-slate-100 mb-1">
-              <div className="w-9 h-9 bg-orange-100 rounded-xl flex items-center justify-center shrink-0">
-                <Package className="h-5 w-5 text-orange-500" />
-              </div>
-              <div>
-                <h3 className="font-black uppercase text-xs text-slate-700 tracking-wide">Proveedores y Catálogos</h3>
-                <p className="text-[9px] text-slate-400 mt-0.5">Activa los proveedores que usas y ajusta tu margen sobre el precio de compra</p>
-              </div>
-            </div>
-            <SettingsSuppliers orgId={orgId} toast={(type, msg) => showToast(msg, type)} />
-          </div>
-        )}
 
         {/* ── Plantillas ── */}
         {isLiveMode && orgId && (() => {

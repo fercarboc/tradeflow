@@ -51,11 +51,12 @@ const colorMap = {
   amber:  { border: 'border-amber-500/50',  bg: 'bg-amber-500/5',   btn: 'bg-amber-600 hover:bg-amber-500',   badge: 'bg-amber-500/20 text-amber-400 border-amber-500/30',   check: 'text-amber-400'  },
 };
 
-type ModalView = 'plans' | 'confirm-downgrade' | 'success';
+type ModalView = 'plans' | 'confirm-downgrade' | 'success' | 'scheduled';
 
 export default function PlanUpgradeModal({ orgId, subscription, onClose, onUpgraded }: Props) {
   const [cycle, setCycle] = useState<'monthly' | 'yearly'>('monthly');
   const [loading, setLoading] = useState<string | null>(null);
+  const [scheduledDate, setScheduledDate] = useState<string | null>(null);
   const [view, setView] = useState<ModalView>('plans');
   const [pendingPlan, setPendingPlan] = useState<PlanId | null>(null);
 
@@ -78,8 +79,6 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose, onUpgra
 
   async function confirmDowngrade() {
     if (!pendingPlan) return;
-    // Bloquear todos los técnicos de la org antes de bajar de plan
-    await supabase.from('trade_workers').update({ activo: false }).eq('org_id', orgId);
     await executePlanChange(pendingPlan);
   }
 
@@ -91,6 +90,13 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose, onUpgra
         setView('success');
         onUpgraded?.(result.plan ?? planId, result.billing_cycle ?? cycle);
         setTimeout(onClose, 2500);
+      } else if (result.scheduled) {
+        const dateStr = result.scheduled_at
+          ? new Date(result.scheduled_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })
+          : null;
+        setScheduledDate(dateStr);
+        setView('scheduled');
+        setTimeout(onClose, 4000);
       } else if (result.url) {
         window.open(result.url, '_blank', 'noopener');
         onClose();
@@ -118,6 +124,8 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose, onUpgra
             </div>
           ) : view === 'success' ? (
             <h2 className="text-white font-bold text-lg">¡Plan actualizado!</h2>
+          ) : view === 'scheduled' ? (
+            <h2 className="text-white font-bold text-lg">Cambio programado</h2>
           ) : (
             <div>
               <h2 className="text-white font-bold text-lg">Elige tu plan</h2>
@@ -137,6 +145,21 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose, onUpgra
             </div>
             <h3 className="text-white font-bold text-lg mb-1">¡Plan actualizado!</h3>
             <p className="text-slate-400 text-sm">Tu suscripción ha sido cambiada. Los cambios ya están activos.</p>
+          </div>
+        )}
+
+        {/* ── Vista cambio programado ── */}
+        {view === 'scheduled' && (
+          <div className="flex flex-col items-center justify-center py-14 px-6 text-center">
+            <div className="w-16 h-16 rounded-full bg-amber-500/20 border border-amber-500/30 flex items-center justify-center mb-4">
+              <Check className="w-8 h-8 text-amber-400" />
+            </div>
+            <h3 className="text-white font-bold text-lg mb-1">Cambio programado</h3>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Tu plan se reducirá automáticamente
+              {scheduledDate ? <><br /><span className="text-amber-400 font-semibold">el {scheduledDate}</span></> : ' al final del período actual'}.
+              <br />Hasta entonces, sigues con acceso completo.
+            </p>
           </div>
         )}
 
@@ -162,22 +185,22 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose, onUpgra
               </div>
               <ul className="space-y-2 text-xs text-slate-400 leading-relaxed">
                 <li className="flex items-start gap-2">
-                  <span className="text-orange-400 shrink-0 mt-0.5">•</span>
-                  Todos tus técnicos quedarán <strong className="text-slate-300">bloqueados</strong> de inmediato. No podrán acceder a la app.
+                  <span className="text-amber-400 shrink-0 mt-0.5">•</span>
+                  El cambio <strong className="text-slate-300">no es inmediato</strong>: tu equipo sigue con acceso hasta el fin del período actual.
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-slate-500 shrink-0 mt-0.5">•</span>
-                  Solo tú (el administrador) seguirás con acceso completo.
+                  <span className="text-orange-400 shrink-0 mt-0.5">•</span>
+                  Al renovar, los técnicos quedarán <strong className="text-slate-300">sin acceso</strong> al no estar incluidos en el nuevo plan.
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-emerald-500 shrink-0 mt-0.5">•</span>
-                  Si en el futuro vuelves al Plan Empresa, podrás reactivarlos desde <strong className="text-slate-300">Equipo</strong> sin perder sus datos.
+                  Si cambias de opinión antes de que acabe el período, sube de plan y el cambio se cancelará automáticamente.
                 </li>
               </ul>
             </div>
 
             <p className="text-xs text-slate-500 text-center">
-              ¿Seguro que quieres continuar? Esta acción bloqueará a tus técnicos.
+              El cambio se aplicará al final del período de facturación actual.
             </p>
 
             <div className="flex gap-3">
@@ -200,7 +223,7 @@ export default function PlanUpgradeModal({ orgId, subscription, onClose, onUpgra
                     </svg>
                     Procesando...
                   </>
-                ) : `Sí, entiendo. Reducir a ${targetPlanData.label}`}
+                ) : `Sí, programar cambio a ${targetPlanData.label}`}
               </button>
             </div>
           </div>

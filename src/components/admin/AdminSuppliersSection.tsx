@@ -24,6 +24,9 @@ interface SupplierConfig {
   descripcion: string;
   acuerdo: AcuerdoEstado;
   color: string;
+  admin_notes?: string;
+  contact_name?: string;
+  contact_email?: string;
 }
 
 // Metadata estética + negocio que no se persiste en DB
@@ -109,6 +112,12 @@ export default function AdminSuppliersSection({ toast }: Props) {
   const [uploadPreview, setUploadPreview] = useState(false);
   const [uploadLoading, setUploadLoading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const [rightTab, setRightTab] = useState<'catalogo' | 'acuerdo'>('catalogo');
+  const [editAcuerdo, setEditAcuerdo] = useState<AcuerdoEstado>('sin_acuerdo');
+  const [editNotes, setEditNotes] = useState('');
+  const [editContactName, setEditContactName] = useState('');
+  const [editContactEmail, setEditContactEmail] = useState('');
+  const [savingAcuerdo, setSavingAcuerdo] = useState(false);
 
   // Modal de productos
   const [showProducts, setShowProducts] = useState(false);
@@ -125,7 +134,7 @@ export default function AdminSuppliersSection({ toast }: Props) {
       try {
         const { data: catalogs, error } = await supabase
           .from('trade_supplier_catalogs')
-          .select('id, supplier_key, supplier_name, is_active, margen_pct_default, prioridad, updated_at')
+          .select('id, supplier_key, supplier_name, is_active, margen_pct_default, prioridad, updated_at, acuerdo_estado, admin_notes, contact_name, contact_email')
           .is('org_id', null)
           .order('prioridad');
         if (error) throw error;
@@ -142,6 +151,7 @@ export default function AdminSuppliersSection({ toast }: Props) {
         const mapped: SupplierConfig[] = (catalogs ?? []).map((c: {
           id: string; supplier_key: string; supplier_name: string;
           is_active: boolean; margen_pct_default: number; prioridad: number; updated_at: string;
+          acuerdo_estado?: string; admin_notes?: string; contact_name?: string; contact_email?: string;
         }) => {
           const meta = SUPPLIER_META[c.supplier_key] ?? {
             tipo: 'nacional' as SupplierTipo, descripcion: c.supplier_name,
@@ -159,8 +169,11 @@ export default function AdminSuppliersSection({ toast }: Props) {
             ultima_sync: prods > 0 ? c.updated_at?.slice(0, 10) : undefined,
             sync_estado: prods > 0 ? 'ok' : 'nunca',
             descripcion: meta.descripcion,
-            acuerdo: meta.acuerdo,
+            acuerdo: (c.acuerdo_estado as AcuerdoEstado) || meta.acuerdo,
             color: meta.color,
+            admin_notes: c.admin_notes ?? '',
+            contact_name: c.contact_name ?? '',
+            contact_email: c.contact_email ?? '',
           } satisfies SupplierConfig;
         });
 
@@ -202,6 +215,10 @@ export default function AdminSuppliersSection({ toast }: Props) {
   const handleSelect = (s: SupplierConfig) => {
     setSelected(s);
     setEditMargen(String(s.margen_pct));
+    setEditAcuerdo(s.acuerdo);
+    setEditNotes(s.admin_notes ?? '');
+    setEditContactName(s.contact_name ?? '');
+    setEditContactEmail(s.contact_email ?? '');
     setShowUpload(false);
   };
 
@@ -217,6 +234,29 @@ export default function AdminSuppliersSection({ toast }: Props) {
     setSuppliers(prev => prev.map(s => s.id === selected.id ? { ...s, margen_pct: val } : s));
     setSelected(prev => prev ? { ...prev, margen_pct: val } : prev);
     toast('success', `Margen de ${selected.nombre} actualizado a ${val}%`);
+  };
+
+  const handleSaveAcuerdo = async () => {
+    if (!selected) return;
+    setSavingAcuerdo(true);
+    const { error } = await supabase
+      .from('trade_supplier_catalogs')
+      .update({
+        acuerdo_estado:  editAcuerdo,
+        admin_notes:     editNotes || null,
+        contact_name:    editContactName || null,
+        contact_email:   editContactEmail || null,
+      })
+      .eq('id', selected.id);
+    if (error) {
+      toast('error', 'Error al guardar el acuerdo');
+    } else {
+      const updated = { ...selected, acuerdo: editAcuerdo, admin_notes: editNotes, contact_name: editContactName, contact_email: editContactEmail };
+      setSuppliers(prev => prev.map(s => s.id === selected.id ? updated : s));
+      setSelected(updated);
+      toast('success', `Acuerdo con ${selected.nombre} guardado`);
+    }
+    setSavingAcuerdo(false);
   };
 
   const handleSync = async (id: string) => {
@@ -522,8 +562,9 @@ export default function AdminSuppliersSection({ toast }: Props) {
 
           {/* Selected supplier config */}
           {selected && !showUpload && (
-            <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-4 space-y-4">
-              <div className="flex items-center justify-between">
+            <div className="bg-slate-800/50 border border-slate-700 rounded-lg overflow-hidden">
+              {/* Header */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-700">
                 <div className="flex items-center gap-2">
                   <div
                     className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-black"
@@ -535,111 +576,161 @@ export default function AdminSuppliersSection({ toast }: Props) {
                 </div>
                 <button
                   onClick={() => handleToggle(selected.id)}
-                  className={`text-xs font-bold px-2.5 py-1 rounded-lg border cursor-pointer transition-colors ${
+                  className={`text-[10px] font-bold px-2 py-1 rounded-lg border cursor-pointer transition-colors ${
                     selected.activo
-                      ? 'bg-emerald-900/30 text-emerald-400 border-emerald-700 hover:bg-red-900/30 hover:text-red-400 hover:border-red-700'
-                      : 'bg-slate-700 text-slate-400 border-slate-600 hover:bg-emerald-900/30 hover:text-emerald-400 hover:border-emerald-700'
+                      ? 'bg-emerald-900/30 text-emerald-400 border-emerald-700'
+                      : 'bg-slate-700 text-slate-400 border-slate-600'
                   }`}
                 >
-                  {selected.activo ? 'Activo ✓' : 'Inactivo'}
+                  {selected.activo ? 'Disponible ✓' : 'Oculto'}
                 </button>
               </div>
 
-              <p className="text-xs text-slate-400">{selected.descripcion}</p>
-
-              {/* Margen */}
-              <div>
-                <label className="block text-[10px] text-slate-400 uppercase tracking-wider mb-1.5">
-                  Margen sobre precio de compra (%)
-                </label>
-                <div className="flex gap-2">
-                  <input
-                    type="number"
-                    min={0} max={200} step={0.5}
-                    value={editMargen}
-                    onChange={e => setEditMargen(e.target.value)}
-                    className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
-                  />
+              {/* Tabs */}
+              <div className="flex border-b border-slate-700">
+                {(['catalogo', 'acuerdo'] as const).map(tab => (
                   <button
-                    onClick={handleSaveMargen}
-                    className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors cursor-pointer"
+                    key={tab}
+                    onClick={() => setRightTab(tab)}
+                    className={`flex-1 py-2 text-[11px] font-semibold transition-colors cursor-pointer ${
+                      rightTab === tab
+                        ? 'bg-slate-700/60 text-white border-b-2 border-blue-500'
+                        : 'text-slate-500 hover:text-slate-300'
+                    }`}
                   >
-                    Guardar
+                    {tab === 'catalogo' ? '📦 Catálogo' : '🤝 Acuerdo'}
                   </button>
-                </div>
-                <div className="mt-2 bg-slate-900/60 rounded-lg p-3 text-xs">
-                  <div className="flex justify-between text-slate-400 mb-1">
-                    <span>Ejemplo: precio compra</span>
-                    <span>100,00 €</span>
-                  </div>
-                  <div className="flex justify-between text-slate-400 mb-1">
-                    <span>Margen ({editMargen || 0}%)</span>
-                    <span>+ {((parseFloat(editMargen) || 0)).toFixed(2)} €</span>
-                  </div>
-                  <div className="flex justify-between font-bold text-white border-t border-slate-700 pt-1">
-                    <span>Precio venta al cliente</span>
-                    <span>{(100 * (1 + (parseFloat(editMargen) || 0) / 100)).toFixed(2)} €</span>
-                  </div>
-                </div>
+                ))}
               </div>
 
-              {/* Acuerdo */}
-              <div>
-                <label className="block text-[10px] text-slate-400 uppercase tracking-wider mb-1.5">Estado del acuerdo</label>
-                <div className="flex gap-1.5">
-                  {(['activo', 'negociando', 'sin_acuerdo'] as AcuerdoEstado[]).map(est => (
+              <div className="p-4 space-y-4">
+                {rightTab === 'catalogo' && (
+                  <>
+                    <p className="text-xs text-slate-400">{selected.descripcion}</p>
+
+                    {/* Margen por defecto */}
+                    <div>
+                      <label className="block text-[10px] text-slate-400 uppercase tracking-wider mb-1.5">
+                        Margen por defecto para nuevos clientes (%)
+                      </label>
+                      <div className="flex gap-2">
+                        <input
+                          type="number"
+                          min={0} max={200} step={0.5}
+                          value={editMargen}
+                          onChange={e => setEditMargen(e.target.value)}
+                          className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500"
+                        />
+                        <button
+                          onClick={handleSaveMargen}
+                          className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors cursor-pointer"
+                        >
+                          Guardar
+                        </button>
+                      </div>
+                      <p className="text-[9px] text-slate-500 mt-1">Los clientes pueden sobrescribir este margen para su organización</p>
+                    </div>
+
+                    {/* Sync */}
+                    <div className="border-t border-slate-700 pt-3">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[10px] text-slate-400 uppercase tracking-wider">Sincronización</span>
+                        {selected.ultima_sync && (
+                          <span className="text-[10px] text-slate-500">Último: {selected.ultima_sync}</span>
+                        )}
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          onClick={() => handleSync(selected.id)}
+                          disabled={syncing === selected.id}
+                          className="flex items-center justify-center gap-1.5 bg-slate-700 hover:bg-slate-600 text-slate-300 text-xs font-semibold py-2 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
+                        >
+                          {syncing === selected.id
+                            ? <><RefreshCw className="h-3 w-3 animate-spin" /> Sincronizando…</>
+                            : <><RefreshCw className="h-3 w-3" /> Sync manual</>
+                          }
+                        </button>
+                        <button
+                          onClick={() => setShowUpload(true)}
+                          className="flex items-center justify-center gap-1.5 bg-blue-900/40 hover:bg-blue-900/60 text-blue-300 text-xs font-semibold py-2 rounded-lg border border-blue-800 transition-colors cursor-pointer"
+                        >
+                          <Upload className="h-3 w-3" /> Subir CSV
+                        </button>
+                      </div>
+                    </div>
+
+                    {selected.productos > 0 && (
+                      <button
+                        onClick={() => handleViewProducts(selected)}
+                        className="flex items-center justify-center gap-1.5 w-full text-xs text-slate-400 hover:text-slate-300 py-1.5 border border-dashed border-slate-700 hover:border-slate-500 rounded-lg transition-colors cursor-pointer"
+                      >
+                        <Eye className="h-3.5 w-3.5" /> Ver {selected.productos.toLocaleString('es-ES')} productos
+                      </button>
+                    )}
+                  </>
+                )}
+
+                {rightTab === 'acuerdo' && (
+                  <>
+                    {/* Estado */}
+                    <div>
+                      <label className="block text-[10px] text-slate-400 uppercase tracking-wider mb-1.5">Estado del acuerdo</label>
+                      <div className="flex gap-1.5">
+                        {(['activo', 'negociando', 'sin_acuerdo'] as AcuerdoEstado[]).map(est => (
+                          <button
+                            key={est}
+                            onClick={() => setEditAcuerdo(est)}
+                            className={`flex-1 text-[10px] font-bold py-1.5 rounded-lg border cursor-pointer transition-all ${
+                              editAcuerdo === est ? ACUERDO_CFG[est].cls : 'bg-slate-800 text-slate-500 border-slate-700 hover:border-slate-500'
+                            }`}
+                          >
+                            {est === 'activo' ? '✓ Activo' : est === 'negociando' ? '⏳ Negociando' : '— Sin acuerdo'}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Contacto */}
+                    <div className="space-y-2">
+                      <label className="block text-[10px] text-slate-400 uppercase tracking-wider">Contacto comercial</label>
+                      <input
+                        type="text"
+                        placeholder="Nombre del contacto"
+                        value={editContactName}
+                        onChange={e => setEditContactName(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+                      />
+                      <input
+                        type="email"
+                        placeholder="email@proveedor.com"
+                        value={editContactEmail}
+                        onChange={e => setEditContactEmail(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+                      />
+                    </div>
+
+                    {/* Notas */}
+                    <div>
+                      <label className="block text-[10px] text-slate-400 uppercase tracking-wider mb-1.5">Notas del acuerdo</label>
+                      <textarea
+                        rows={4}
+                        placeholder="Condiciones negociadas, descuentos especiales, próxima revisión…"
+                        value={editNotes}
+                        onChange={e => setEditNotes(e.target.value)}
+                        className="w-full bg-slate-900 border border-slate-600 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 resize-none"
+                      />
+                    </div>
+
                     <button
-                      key={est}
-                      onClick={() => {
-                        setSuppliers(prev => prev.map(s => s.id === selected.id ? { ...s, acuerdo: est } : s));
-                        setSelected(prev => prev ? { ...prev, acuerdo: est } : prev);
-                      }}
-                      className={`flex-1 text-[10px] font-bold py-1.5 rounded-lg border cursor-pointer transition-all ${
-                        selected.acuerdo === est ? ACUERDO_CFG[est].cls : 'bg-slate-800 text-slate-500 border-slate-700 hover:border-slate-500'
-                      }`}
+                      onClick={handleSaveAcuerdo}
+                      disabled={savingAcuerdo}
+                      className="w-full flex items-center justify-center gap-2 bg-emerald-700 hover:bg-emerald-600 disabled:opacity-50 text-white text-xs font-bold py-2.5 rounded-lg transition-colors cursor-pointer"
                     >
-                      {est === 'activo' ? '✓ Activo' : est === 'negociando' ? '⏳ Negociando' : '— Sin acuerdo'}
+                      {savingAcuerdo ? <><RefreshCw className="h-3.5 w-3.5 animate-spin" /> Guardando…</> : 'Guardar acuerdo'}
                     </button>
-                  ))}
-                </div>
+                  </>
+                )}
               </div>
-
-              {/* Sync */}
-              <div className="border-t border-slate-700 pt-3">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] text-slate-400 uppercase tracking-wider">Sincronización</span>
-                  {selected.ultima_sync && (
-                    <span className="text-[10px] text-slate-500">Último: {selected.ultima_sync}</span>
-                  )}
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    onClick={() => handleSync(selected.id)}
-                    disabled={syncing === selected.id}
-                    className="flex items-center justify-center gap-1.5 bg-slate-700 hover:bg-slate-600 text-slate-300 text-xs font-semibold py-2 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
-                  >
-                    {syncing === selected.id
-                      ? <><RefreshCw className="h-3 w-3 animate-spin" /> Sincronizando…</>
-                      : <><RefreshCw className="h-3 w-3" /> Sync manual</>
-                    }
-                  </button>
-                  <button
-                    onClick={() => setShowUpload(true)}
-                    className="flex items-center justify-center gap-1.5 bg-blue-900/40 hover:bg-blue-900/60 text-blue-300 text-xs font-semibold py-2 rounded-lg border border-blue-800 transition-colors cursor-pointer"
-                  >
-                    <Upload className="h-3 w-3" /> Subir CSV
-                  </button>
-                </div>
-              </div>
-
-              {selected.productos > 0 && (
-                <button
-                  onClick={() => handleViewProducts(selected)}
-                  className="flex items-center justify-center gap-1.5 w-full text-xs text-slate-400 hover:text-slate-300 py-1.5 border border-dashed border-slate-700 hover:border-slate-500 rounded-lg transition-colors cursor-pointer"
-                >
-                  <Eye className="h-3.5 w-3.5" /> Ver {selected.productos.toLocaleString('es-ES')} productos
-                </button>
-              )}
             </div>
           )}
 

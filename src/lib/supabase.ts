@@ -182,6 +182,8 @@ export interface TradeSubscription {
   current_period_start?: string;
   current_period_end?: string;
   cancelled_at?: string;
+  scheduled_plan?: string | null;
+  scheduled_at?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -2055,6 +2057,9 @@ export async function loadOrgById(orgId: string): Promise<TradeOrganization | nu
 }
 
 export async function loadOrgSubscription(orgId: string): Promise<TradeSubscription | null> {
+  // Aplica cambios de plan programados que ya hayan vencido (downgrade al fin de período)
+  try { await supabase.rpc('apply_scheduled_plan_if_due', { p_org_id: orgId }); } catch { /* no-op */ }
+
   const { data } = await supabase
     .from('trade_subscriptions')
     .select('*')
@@ -2249,7 +2254,7 @@ export async function initiateStripeUpgrade(
   orgId: string,
   plan: string,
   billingCycle: string,
-): Promise<{ url?: string; upgraded?: boolean; plan?: string; billing_cycle?: string }> {
+): Promise<{ url?: string; upgraded?: boolean; scheduled?: boolean; plan?: string; billing_cycle?: string; scheduled_plan?: string; scheduled_at?: string }> {
   const res = await supabase.functions.invoke('trade-stripe-checkout', {
     body: {
       org_id:        orgId,
@@ -2260,7 +2265,7 @@ export async function initiateStripeUpgrade(
     },
   });
   if (res.error) throw new Error(res.error.message ?? 'Error checkout Stripe');
-  const data = res.data as { url?: string; upgraded?: boolean; plan?: string; billing_cycle?: string; error?: string };
+  const data = res.data as { url?: string; upgraded?: boolean; scheduled?: boolean; plan?: string; billing_cycle?: string; scheduled_plan?: string; scheduled_at?: string; error?: string };
   if (data.error) throw new Error(data.error);
   return data;
 }

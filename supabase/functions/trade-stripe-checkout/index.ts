@@ -57,6 +57,11 @@ Deno.serve(async (req: Request) => {
   const plan  = body.plan          ?? sub?.plan          ?? 'profesional';
   const cycle = body.billing_cycle ?? sub?.billing_cycle ?? 'monthly';
 
+  const PLAN_TIER: Record<string, number> = { basico: 0, profesional: 1, empresa: 2, empresa_plus: 3 };
+  const currentTier = PLAN_TIER[sub?.plan ?? 'basico'] ?? 0;
+  const targetTier  = PLAN_TIER[plan] ?? 0;
+  const isDowngrade = targetTier < currentTier;
+
   // Leer price ID desde BD
   const { data: priceRow } = await supabase
     .from('trade_stripe_prices')
@@ -122,7 +127,9 @@ Deno.serve(async (req: Request) => {
     const up = new URLSearchParams();
     up.set(`items[0][id]`,    itemId);
     up.set(`items[0][price]`, priceRow.stripe_price_id);
-    up.set('proration_behavior',         'create_prorations');
+    // Downgrade: sin prorrateo (el usuario paga lo que ya pagó y conserva features hasta fin de período)
+    // Upgrade: prorrateo inmediato (cobra la diferencia y da acceso ya)
+    up.set('proration_behavior',         isDowngrade ? 'none' : 'create_prorations');
     up.set('metadata[org_id]',           org_id);
     up.set('metadata[plan]',             plan);
     up.set('metadata[billing_cycle]',    cycle);
@@ -141,20 +148,50 @@ Deno.serve(async (req: Request) => {
       });
     }
 
-    // Actualizar BD inmediatamente (el webhook también lo hará, pero esto da feedback instantáneo)
+    const periodEnd = upJson.current_period_end
+      ? new Date(upJson.current_period_end * 1000).toISOString()
+      : undefined;
+
+    if (isDowngrade) {
+      // Downgrade: guardar plan programado, NO cambiar el plan activo todavía
+      await supabase.from('trade_subscriptions').update({
+        billing_cycle:        cycle,
+        scheduled_plan:       plan,
+        scheduled_at:         periodEnd,
+        current_period_start: upJson.current_period_start
+          ? new Date(upJson.current_period_start * 1000).toISOString()
+          : undefined,
+        current_period_end:   periodEnd,
+        updated_at:           new Date().toISOString(),
+      }).eq('org_id', org_id);
+
+      return new Response(JSON.stringify({
+        ok: true,
+        upgraded: false,
+        scheduled: true,
+        plan:           sub?.plan ?? plan,   // plan actual (no cambia todavía)
+        scheduled_plan: plan,
+        scheduled_at:   periodEnd,
+        billing_cycle:  cycle,
+      }), {
+        headers: { ...CORS, 'Content-Type': 'application/json' },
+      });
+    }
+
+    // Upgrade: aplicar inmediatamente
     await supabase.from('trade_subscriptions').update({
       plan,
       billing_cycle:        cycle,
+      scheduled_plan:       null,
+      scheduled_at:         null,
       current_period_start: upJson.current_period_start
         ? new Date(upJson.current_period_start * 1000).toISOString()
         : undefined,
-      current_period_end:   upJson.current_period_end
-        ? new Date(upJson.current_period_end * 1000).toISOString()
-        : undefined,
-      updated_at: new Date().toISOString(),
+      current_period_end:   periodEnd,
+      updated_at:           new Date().toISOString(),
     }).eq('org_id', org_id);
 
-    // También actualizar plan en trade_organizations para consistencia
+    // Sincronizar plan en trade_organizations
     await supabase.from('trade_organizations').update({ plan }).eq('id', org_id);
 
     return new Response(JSON.stringify({ ok: true, upgraded: true, plan, billing_cycle: cycle }), {
