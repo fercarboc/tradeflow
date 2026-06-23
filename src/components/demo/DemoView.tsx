@@ -6,6 +6,7 @@ import {
   X, Star, Clock, Euro, ArrowRight,
   ScrollText, Plus, ChevronDown, ChevronRight,
   Zap, Phone, Building2, Briefcase, Truck, ArrowUpDown, ToggleRight, ToggleLeft,
+  Layers, CreditCard, Send, Eye,
 } from 'lucide-react';
 import { ActivePage } from '../../types';
 
@@ -16,7 +17,8 @@ interface DemoViewProps {
 type NavId =
   | 'dashboard' | 'create_quote' | 'ai_scan'
   | 'crm' | 'invoices' | 'catalog' | 'proveedores'
-  | 'planificacion' | 'ingresos' | 'equipo' | 'contratos';
+  | 'planificacion' | 'ingresos' | 'equipo' | 'contratos'
+  | 'subcontratas';
 
 const NAV_ITEMS: { id: NavId; label: string; Icon: React.ElementType }[] = [
   { id: 'dashboard',     label: 'Panel Control',     Icon: TrendingUp },
@@ -26,6 +28,7 @@ const NAV_ITEMS: { id: NavId; label: string; Icon: React.ElementType }[] = [
   { id: 'invoices',      label: 'Facturación',        Icon: FileText },
   { id: 'catalog',       label: 'Catálogo',           Icon: Package },
   { id: 'proveedores',   label: 'Motor Catálogos',    Icon: Truck },
+  { id: 'subcontratas',  label: 'Externalizados',     Icon: Layers },
   { id: 'planificacion', label: 'Planificación',      Icon: Calendar },
   { id: 'ingresos',      label: 'Ingresos',           Icon: BarChart2 },
   { id: 'equipo',        label: 'Equipo',             Icon: Users },
@@ -40,6 +43,7 @@ const SECTION_TITLES: Record<NavId, string> = {
   invoices:      'Facturación',
   catalog:       'Catálogo de Precios',
   proveedores:   'Motor de Catálogos de Proveedores',
+  subcontratas:  'Trabajos Externalizados',
   planificacion: 'Planificación de Trabajos',
   ingresos:      'Ingresos y Rentabilidad',
   equipo:        'Equipo y Permisos',
@@ -593,10 +597,18 @@ function ScreenCatalogo() {
   );
 }
 
+const DEMO_SUPPLIERS = [
+  { key: 'obramat', nombre: 'OBRAMAT',     color: '#E87722', tipo: 'Nacional',   desc: 'Materiales de construcción e instalaciones',  prods: 2847, activo: true,  margen: 20, cats: ['Fontanería', 'Climatización'] },
+  { key: 'propio',  nombre: 'Mi Catálogo', color: '#059669', tipo: 'Propio',     desc: 'Tus precios negociados y tarifas propias',     prods: 48,   activo: true,  margen: 0,  cats: ['Gas y calefacción', 'Fontanería'] },
+  { key: 'saltoki', nombre: 'Saltoki',     color: '#1A5A96', tipo: 'Nacional',   desc: 'Fontanería, calefacción y climatización',      prods: 0,    activo: false, margen: 18, cats: [] },
+  { key: 'sonepar', nombre: 'Sonepar',     color: '#6366f1', tipo: 'Nacional',   desc: 'Distribución eléctrica e industrial',          prods: 0,    activo: false, margen: 15, cats: [] },
+  { key: 'vaillant',nombre: 'Vaillant',    color: '#10b981', tipo: 'Fabricante', desc: 'Calefacción, ACS y climatización',             prods: 0,    activo: false, margen: 22, cats: [] },
+  { key: 'junkers', nombre: 'Junkers',     color: '#db2777', tipo: 'Fabricante', desc: 'Calderas, calentadores y ACS',                 prods: 0,    activo: false, margen: 22, cats: [] },
+];
+
 function ScreenProveedores() {
-  const [tab, setTab] = useState<'catalogo' | 'presupuesto'>('catalogo');
-  const [obramatActive, setObramatActive] = useState(true);
-  const [margen, setMargen] = useState(20);
+  const [selected, setSelected] = useState(DEMO_SUPPLIERS[0]);
+  const [margenEdit, setMargenEdit] = useState('20');
   const [compareOpen, setCompareOpen] = useState<number | null>(null);
   const [selectedPrices, setSelectedPrices] = useState<Record<number, { pvp: number; supplier: string }>>({});
 
@@ -608,229 +620,213 @@ function ScreenProveedores() {
     { supplier: 'OBRAMAT', ref: 'OB-FON-016', desc: 'Tubo multicapa PE-RT/AL 16mm 50m', coste: 48.90, pvp: 58.68, logo: true },
     { supplier: 'Mi catálogo', ref: null, desc: 'Sin precio asignado', coste: 0, pvp: 0, logo: false },
   ];
+  const CATS_TRADE = ['Fontanería','Electricidad','Climatización','Gas y calefacción','Carpintería','Pintura','Albañilería','Reformas baño','Reformas cocina'];
+  const margenNum = parseFloat(margenEdit) || 0;
 
   return (
-    <div className="space-y-5 max-w-3xl">
+    <div className="space-y-5 max-w-4xl">
 
-      {/* Hero banner */}
-      <div className="bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl p-5 text-white">
-        <div className="flex items-start gap-4">
-          <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
-            <Truck className="h-6 w-6 text-white" />
+      {/* Header azul */}
+      <div className="bg-gradient-to-r from-blue-700 to-blue-900 rounded-2xl p-5 text-white">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center shrink-0">
+            <Truck className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h2 className="text-base font-black mb-1">Motor de Catálogos de Proveedores</h2>
-            <p className="text-sm text-orange-100">
-              La IA consulta los precios reales de tus proveedores al generar cada presupuesto.
-              Nunca más precios inventados — cada material sale con el precio que tú pagas.
-            </p>
-            <div className="flex gap-3 mt-3 text-xs font-bold">
-              <span className="bg-white/20 px-2.5 py-1 rounded-full">✓ OBRAMAT indexado</span>
-              <span className="bg-white/20 px-2.5 py-1 rounded-full">✓ Margen configurable</span>
-              <span className="bg-white/20 px-2.5 py-1 rounded-full">✓ Comparador integrado</span>
-            </div>
+            <h2 className="font-black text-base">Motor de Catálogos</h2>
+            <p className="text-blue-200 text-[11px]">La IA usa los precios reales de tus proveedores al generar presupuestos.</p>
           </div>
+        </div>
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            { label: 'Activos', value: '2', color: 'text-emerald-300' },
+            { label: 'Productos', value: '2.895', color: 'text-blue-200' },
+            { label: 'Ahorro est.', value: '~12%', color: 'text-orange-300' },
+          ].map(({ label, value, color }) => (
+            <div key={label} className="bg-white/10 rounded-xl p-3 text-center">
+              <div className={`text-lg font-black leading-none ${color}`}>{value}</div>
+              <div className="text-blue-300 text-[9px] mt-0.5 uppercase tracking-wide">{label}</div>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* KPIs */}
-      <div className="grid grid-cols-3 gap-3">
-        {[
-          { label: 'Proveedores activos', value: '1', color: 'text-emerald-600', bg: 'bg-emerald-50' },
-          { label: 'Productos indexados', value: '2.847', color: 'text-orange-600', bg: 'bg-orange-50' },
-          { label: 'Ahorro medio por pres.', value: '12%', color: 'text-blue-600', bg: 'bg-blue-50' },
-        ].map(k => (
-          <Card key={k.label} className="p-3 text-center">
-            <p className={`text-2xl font-black ${k.color}`}>{k.value}</p>
-            <p className="text-[10px] text-slate-400 mt-0.5 font-medium">{k.label}</p>
-          </Card>
-        ))}
-      </div>
+      {/* Split panel */}
+      <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-4">
 
-      {/* Tabs */}
-      <div className="flex gap-1 bg-slate-100 rounded-xl p-1 w-fit">
-        {([['catalogo', 'Catálogos activos'], ['presupuesto', 'Demo en presupuesto']] as const).map(([id, label]) => (
-          <button
-            key={id}
-            onClick={() => setTab(id)}
-            className={`px-4 py-2 rounded-lg text-xs font-bold cursor-pointer transition-all ${tab === id ? 'bg-white shadow text-slate-900' : 'text-slate-500 hover:text-slate-700'}`}
-          >
-            {label}
-          </button>
-        ))}
-      </div>
+        {/* Left: supplier list */}
+        <div className="space-y-1.5">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1 mb-2">Proveedores</p>
+          {DEMO_SUPPLIERS.map(sup => {
+            const isSelected = selected.key === sup.key;
+            return (
+              <button
+                key={sup.key}
+                onClick={() => { setSelected(sup); setMargenEdit(String(sup.margen)); }}
+                className={`w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl border transition-all text-left cursor-pointer ${
+                  isSelected ? 'border-blue-400 bg-blue-50 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
+                }`}
+              >
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 text-[9px] font-black"
+                  style={{ backgroundColor: sup.color + '22', border: `1.5px solid ${sup.color}55` }}
+                >
+                  <span style={{ color: sup.color }}>{sup.nombre.slice(0, 2).toUpperCase()}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs font-bold text-slate-800 truncate">{sup.nombre}</span>
+                    {sup.key === 'propio' && <span className="text-[8px] bg-emerald-100 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded-full font-bold">MÍO</span>}
+                  </div>
+                  <div className="flex items-center gap-2 mt-0.5">
+                    {sup.prods > 0 && <span className="text-[9px] text-slate-400">{sup.prods.toLocaleString('es-ES')} prods</span>}
+                    {sup.cats.length > 0 && <span className="flex items-center gap-0.5 text-[9px] text-amber-600"><Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500" />{sup.cats.length}</span>}
+                    {!sup.activo && <span className="text-[8px] text-slate-400 bg-slate-100 px-1.5 rounded-full">inactivo</span>}
+                  </div>
+                </div>
+                {sup.activo
+                  ? <ToggleRight className="h-6 w-6 text-emerald-500 shrink-0" />
+                  : <ToggleLeft className="h-6 w-6 text-slate-300 shrink-0" />
+                }
+              </button>
+            );
+          })}
+        </div>
 
-      {/* TAB: Catálogos */}
-      {tab === 'catalogo' && (
-        <div className="space-y-4">
-          {/* OBRAMAT */}
-          <Card>
-            <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+        {/* Right: detail panel */}
+        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+          <div className="border-t-4 border-b border-slate-100 px-5 py-4" style={{ borderTopColor: selected.color }}>
+            <div className="flex items-center justify-between gap-3">
               <div className="flex items-center gap-3">
-                <img src="/logoobramat.png" alt="OBRAMAT" className="h-7 object-contain" onError={e => { (e.target as HTMLImageElement).style.display='none'; }} />
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-xs font-black shrink-0" style={{ backgroundColor: selected.color + '22', border: `2px solid ${selected.color}55` }}>
+                  <span style={{ color: selected.color }}>{selected.nombre.slice(0, 2).toUpperCase()}</span>
+                </div>
                 <div>
-                  <p className="text-sm font-black text-slate-800">OBRAMAT</p>
-                  <p className="text-xs text-slate-400">2.847 productos · Distribución nacional</p>
+                  <h3 className="font-black text-slate-800 text-sm">{selected.nombre}</h3>
+                  <p className="text-[10px] text-slate-400">{selected.tipo}{selected.key === 'propio' ? ' · Catálogo personalizado' : ''}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <span className="text-[10px] bg-amber-100 text-amber-700 font-bold px-2 py-0.5 rounded-full border border-amber-200">
-                  Negociando acuerdo
-                </span>
-                <button onClick={() => setObramatActive(v => !v)} className="cursor-pointer">
-                  {obramatActive
-                    ? <ToggleRight className="h-7 w-7 text-emerald-500" />
-                    : <ToggleLeft className="h-7 w-7 text-slate-400" />
-                  }
-                </button>
-              </div>
+              <span className={`flex items-center gap-1.5 text-[10px] font-bold px-2.5 py-1.5 rounded-lg border ${selected.activo ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-slate-100 text-slate-500 border-slate-200'}`}>
+                {selected.activo ? <ToggleRight className="h-3.5 w-3.5" /> : <ToggleLeft className="h-3.5 w-3.5" />}
+                {selected.activo ? 'Activo' : 'Inactivo'}
+              </span>
             </div>
-
-            {/* Margen */}
-            <div className="px-5 py-3 border-b border-slate-100 flex items-center gap-4">
-              <div className="flex-1">
-                <p className="text-[11px] text-slate-500 mb-1 font-semibold">Margen sobre precio de compra</p>
-                <div className="flex items-center gap-3">
-                  <input
-                    type="range" min={0} max={50} value={margen}
-                    onChange={e => setMargen(Number(e.target.value))}
-                    className="flex-1 accent-orange-500 cursor-pointer"
-                  />
-                  <span className="text-base font-black text-orange-600 w-12 text-right">{margen}%</span>
-                </div>
-              </div>
-              <div className="text-right text-xs text-slate-400 shrink-0">
-                <p>Compra: 189,50 €</p>
-                <p className="font-bold text-slate-700">Venta: {(189.5 * (1 + margen / 100)).toFixed(2)} €</p>
-              </div>
-            </div>
-
-            {/* Product list */}
-            <div className="divide-y divide-slate-50">
-              {MOCK_OBRAMAT_PRODUCTS.slice(0, 5).map((p, i) => (
-                <div key={i} className="flex items-center justify-between px-5 py-2.5 hover:bg-slate-50">
-                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                    <span className="text-[9px] font-mono text-slate-400 shrink-0 w-20 truncate">{p.ref}</span>
-                    <span className="text-xs text-slate-700 truncate">{p.desc}</span>
-                    <span className="text-[9px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded shrink-0">{p.familia}</span>
-                  </div>
-                  <div className="text-right shrink-0 ml-4">
-                    <p className="text-xs font-bold text-slate-900">{(p.coste * (1 + margen / 100)).toFixed(2)} €</p>
-                    <p className="text-[9px] text-slate-400">coste {p.coste} €</p>
-                  </div>
-                </div>
-              ))}
-              <div className="px-5 py-2.5 text-center">
-                <p className="text-xs text-slate-400">+ 2.842 productos más en el catálogo completo</p>
-              </div>
-            </div>
-          </Card>
-
-          {/* Other providers (coming soon) */}
-          <div className="grid grid-cols-2 gap-3">
-            {[
-              { nombre: 'Saltoki', desc: 'Fontanería y calefacción', prods: 'Próximamente' },
-              { nombre: 'Sonepar', desc: 'Material eléctrico', prods: 'Próximamente' },
-              { nombre: 'Mi catálogo', desc: 'Tus precios negociados', prods: 'Subir CSV' },
-              { nombre: 'Novelec', desc: 'Automatización industrial', prods: 'Próximamente' },
-            ].map(p => (
-              <Card key={p.nombre} className="p-4 opacity-60 hover:opacity-80 transition-opacity">
-                <div className="flex items-center justify-between mb-1">
-                  <p className="text-sm font-black text-slate-600">{p.nombre}</p>
-                  <ToggleLeft className="h-6 w-6 text-slate-300" />
-                </div>
-                <p className="text-xs text-slate-400">{p.desc}</p>
-                <p className="text-[10px] text-slate-400 mt-1 font-medium">{p.prods}</p>
-              </Card>
-            ))}
+            <p className="text-[11px] text-slate-500 mt-2">{selected.desc}</p>
           </div>
-        </div>
-      )}
 
-      {/* TAB: Demo en presupuesto */}
-      {tab === 'presupuesto' && (
-        <div className="space-y-4">
-          <Card className="p-4">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-9 w-9 bg-orange-100 rounded-xl flex items-center justify-center">
-                <ArrowUpDown className="h-4 w-4 text-orange-600" />
-              </div>
-              <div>
-                <p className="text-sm font-black text-slate-800">Comparador de proveedores integrado</p>
-                <p className="text-xs text-slate-400">
-                  Pulsa <ArrowUpDown className="h-3 w-3 inline text-slate-500 mx-0.5" /> en cualquier material para ver alternativas de precio
-                </p>
+          <div className="p-5 space-y-5">
+            {/* Margen */}
+            <div>
+              <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold mb-2.5">Mi margen sobre precio de compra</p>
+              <div className="flex gap-2 items-center flex-wrap">
+                <div className="relative">
+                  <input
+                    type="number" min={0} max={200} step={0.5}
+                    value={margenEdit}
+                    onChange={e => setMargenEdit(e.target.value)}
+                    className="w-24 bg-white border-2 border-slate-200 focus:border-blue-400 rounded-lg pl-3 pr-7 py-2 text-sm font-bold text-slate-800 focus:outline-none text-center"
+                  />
+                  <span className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-bold">%</span>
+                </div>
+                <button className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3.5 py-2 rounded-lg transition-colors cursor-pointer">Guardar</button>
+                <span className="text-[10px] text-slate-400">
+                  Coste 100€ → <strong className="text-slate-700">{(100 * (1 + margenNum / 100)).toFixed(0)}€</strong> venta
+                </span>
               </div>
             </div>
 
-            <div className="bg-slate-50 rounded-xl p-3 mb-3">
-              <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-2">Instalación ACS — Presupuesto generado por IA</p>
-              <div className="space-y-1">
-                {MOCK_PRESUPUESTO_COMPARAR.map(item => {
+            {/* Preferido */}
+            <div className="border-t border-slate-100 pt-4">
+              <div className="flex items-center gap-1.5 mb-2">
+                <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Proveedor preferido para</p>
+              </div>
+              <p className="text-[10px] text-slate-400 mb-2.5">La IA priorizará este proveedor en las categorías marcadas</p>
+              <div className="flex flex-wrap gap-1.5">
+                {CATS_TRADE.map(tc => {
+                  const active = selected.cats.includes(tc);
+                  return (
+                    <span
+                      key={tc}
+                      className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold border ${
+                        active ? 'bg-amber-50 border-amber-300 text-amber-700 shadow-sm' : 'bg-slate-50 border-slate-200 text-slate-500'
+                      }`}
+                    >
+                      {active && <Star className="w-2.5 h-2.5 fill-amber-500 text-amber-500 shrink-0" />}
+                      {tc}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Productos */}
+            {selected.prods > 0 && (
+              <div className="border-t border-slate-100 pt-4">
+                <div
+                  className="flex items-center justify-between rounded-xl px-4 py-3 cursor-pointer hover:opacity-80 transition-opacity border"
+                  style={{ backgroundColor: selected.color + '10', borderColor: selected.color + '30' }}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: selected.color + '22' }}>
+                      <Package className="w-4 h-4" style={{ color: selected.color }} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-slate-700">{selected.prods.toLocaleString('es-ES')} referencias</p>
+                      <p className="text-[9px] text-slate-400">Precios de coste · con tu margen aplicado</p>
+                    </div>
+                  </div>
+                  <Eye className="w-4 h-4 text-slate-400" />
+                </div>
+              </div>
+            )}
+
+            {/* Comparador demo */}
+            <div className="border-t border-slate-100 pt-4">
+              <div className="flex items-center gap-2 mb-3">
+                <ArrowUpDown className="h-3.5 w-3.5 text-slate-400" />
+                <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">Comparador en presupuesto</p>
+              </div>
+              <div className="bg-slate-50 rounded-xl p-3 space-y-1">
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-2">Instalación ACS — demo IA</p>
+                {MOCK_PRESUPUESTO_COMPARAR.slice(0, 4).map(item => {
                   const sel = selectedPrices[item.id];
                   const displayPvp = sel ? sel.pvp : item.pvp;
-                  const displaySupplier = sel ? sel.supplier : item.supplier_key;
                   const opts = item.id === 1 ? compareOptions : item.id === 4 ? compareOptionsTubo : null;
                   return (
                     <div key={item.id}>
-                      <div className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${compareOpen === item.id ? 'bg-orange-50 border border-orange-200' : 'bg-white border border-slate-200 hover:border-slate-300'}`}>
+                      <div className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${compareOpen === item.id ? 'bg-amber-50 border border-amber-200' : 'bg-white border border-slate-200'}`}>
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-1.5">
-                            <p className="text-xs text-slate-700 font-medium truncate">{item.desc}</p>
-                            {(sel?.supplier === 'OBRAMAT' || displaySupplier === 'obramat') && (
-                              <img src="/articuloobramat.png" alt="OBRAMAT" className="h-3.5 shrink-0" onError={e => { (e.target as HTMLImageElement).style.display='none'; }} />
-                            )}
-                          </div>
-                          <div className="flex items-center gap-2 mt-0.5">
-                            <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full ${item.tipo === 'mano_de_obra' ? 'bg-blue-100 text-blue-600' : 'bg-emerald-100 text-emerald-600'}`}>
-                              {item.tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material'}
-                            </span>
-                            {displaySupplier === 'OBRAMAT' && (
-                              <span className="text-[8px] text-orange-500 font-medium">OBRAMAT</span>
-                            )}
-                          </div>
+                          <p className="text-[11px] text-slate-700 font-medium truncate">{item.desc}</p>
+                          <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full ${item.tipo === 'mano_de_obra' ? 'bg-blue-100 text-blue-600' : 'bg-emerald-100 text-emerald-600'}`}>
+                            {item.tipo === 'mano_de_obra' ? 'Mano de obra' : 'Material'}
+                          </span>
                         </div>
-                        <div className="flex items-center gap-2 shrink-0">
+                        <div className="flex items-center gap-1.5 shrink-0">
                           {displayPvp > 0
                             ? <span className="text-xs font-bold text-slate-900 font-mono">{displayPvp.toFixed(2)} €</span>
                             : <span className="text-xs text-red-400 font-semibold">Sin precio</span>
                           }
-                          <span className="text-[10px] text-slate-400">{item.cantidad} ud</span>
                           {opts && item.tipo === 'material' && (
                             <button
                               onClick={() => setCompareOpen(compareOpen === item.id ? null : item.id)}
-                              className={`p-1 rounded cursor-pointer transition-colors ${compareOpen === item.id ? 'bg-orange-200 text-orange-700' : 'text-slate-400 hover:text-orange-500'}`}
+                              className={`p-1 rounded cursor-pointer transition-colors ${compareOpen === item.id ? 'bg-amber-200 text-amber-700' : 'text-slate-400 hover:text-amber-500'}`}
                             >
-                              <ArrowUpDown className="h-3.5 w-3.5" />
+                              <ArrowUpDown className="h-3 w-3" />
                             </button>
                           )}
                         </div>
                       </div>
-
-                      {/* Panel comparador */}
                       {compareOpen === item.id && opts && (
-                        <div className="mx-1 mb-1 border border-orange-200 rounded-b-xl overflow-hidden bg-white shadow-sm">
-                          <div className="px-3 py-1.5 bg-orange-50 border-b border-orange-100">
-                            <p className="text-[9px] font-bold text-orange-600 uppercase tracking-wider flex items-center gap-1">
-                              <ArrowUpDown className="h-2.5 w-2.5" /> Opciones de proveedor
-                            </p>
-                          </div>
+                        <div className="mx-1 mb-1 border border-amber-200 rounded-b-xl overflow-hidden bg-white shadow-sm">
                           {opts.map((opt, oi) => (
                             <button
                               key={oi}
-                              onClick={() => {
-                                if (opt.pvp > 0) {
-                                  setSelectedPrices(p => ({ ...p, [item.id]: { pvp: opt.pvp, supplier: opt.supplier } }));
-                                }
-                                setCompareOpen(null);
-                              }}
-                              className={`w-full flex items-center gap-3 px-3 py-2.5 text-left hover:bg-orange-50 transition-colors cursor-pointer ${oi < opts.length - 1 ? 'border-b border-slate-100' : ''}`}
+                              onClick={() => { if (opt.pvp > 0) setSelectedPrices(p => ({ ...p, [item.id]: { pvp: opt.pvp, supplier: opt.supplier } })); setCompareOpen(null); }}
+                              className={`w-full flex items-center gap-3 px-3 py-2.5 text-left hover:bg-amber-50 transition-colors cursor-pointer ${oi < opts.length - 1 ? 'border-b border-slate-100' : ''}`}
                             >
                               <div className="w-6 h-6 rounded bg-slate-100 flex items-center justify-center shrink-0">
-                                {opt.logo
-                                  ? <img src="/logoobramat.png" alt="OB" className="h-4 object-contain" onError={e => { (e.target as HTMLImageElement).style.display='none'; }} />
-                                  : <Package className="h-3 w-3 text-slate-400" />
-                                }
+                                {opt.logo ? <img src="/logoobramat.png" alt="OB" className="h-4 object-contain" onError={e => { (e.target as HTMLImageElement).style.display='none'; }} /> : <Package className="h-3 w-3 text-slate-400" />}
                               </div>
                               <div className="flex-1 min-w-0">
                                 <p className="text-[11px] font-semibold text-slate-700 truncate">{opt.desc}</p>
@@ -838,10 +834,7 @@ function ScreenProveedores() {
                               </div>
                               <div className="text-right shrink-0">
                                 {opt.pvp > 0
-                                  ? <>
-                                      <p className="text-xs font-black text-slate-900">{opt.pvp.toFixed(2)} €</p>
-                                      <p className="text-[9px] text-slate-400">coste {opt.coste.toFixed(2)} €</p>
-                                    </>
+                                  ? <><p className="text-xs font-black text-slate-900">{opt.pvp.toFixed(2)} €</p><p className="text-[9px] text-slate-400">coste {opt.coste.toFixed(2)} €</p></>
                                   : <p className="text-[10px] text-slate-400">Sin precio</p>
                                 }
                               </div>
@@ -854,40 +847,225 @@ function ScreenProveedores() {
                 })}
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-            <div className="bg-orange-50 border border-orange-200 rounded-xl p-3">
-              <p className="text-xs text-orange-800 font-semibold flex items-center gap-2">
-                <Sparkles className="h-3.5 w-3.5 text-orange-500 shrink-0" />
-                La IA asigna automáticamente el mejor precio de tu catálogo de proveedores.
-                Tú decides si cambias la opción con un clic.
-              </p>
+const MOCK_EXTERNALIZADOS = [
+  {
+    id: 1, descripcion: 'Instalación fontanería baño principal',
+    empresa: 'Pedro García Fontanería S.L.', telefono: '612 345 678',
+    estado: 'en_curso', coste: 850, precio: 1100,
+    trabajo: 'Reforma baño completo — Calle Mayor 12',
+    fecha: '2026-06-18',
+  },
+  {
+    id: 2, descripcion: 'Trabajo eléctrico cuadro trifásico',
+    empresa: 'ElectroSuárez', telefono: '654 321 987',
+    estado: 'completado', coste: 620, precio: 780,
+    trabajo: 'Instalación industrial — Polígono Cerro',
+    fecha: '2026-06-10',
+  },
+  {
+    id: 3, descripcion: 'Pintura interior salón y habitaciones',
+    empresa: 'Pinturas Díaz Hermanos', telefono: '691 234 567',
+    estado: 'presupuesto_recibido', coste: 480, precio: 630,
+    trabajo: 'Reforma integral piso 3B',
+    fecha: '2026-06-22',
+  },
+  {
+    id: 4, descripcion: 'Carpintería armarios empotrados',
+    empresa: 'Muebles Carpintería Norte', telefono: '666 789 012',
+    estado: 'pendiente', coste: 1200, precio: 0,
+    trabajo: 'Reforma cocina completa',
+    fecha: '2026-06-25',
+  },
+];
+
+const ESTADO_EXT: Record<string, { label: string; cls: string }> = {
+  pendiente:            { label: 'Borrador',          cls: 'bg-slate-100 text-slate-600 border-slate-200' },
+  solicitado:           { label: 'Solicitado',         cls: 'bg-amber-50 text-amber-700 border-amber-200' },
+  presupuesto_recibido: { label: 'Ppto. recibido',    cls: 'bg-blue-50 text-blue-700 border-blue-200' },
+  en_curso:             { label: 'En curso',           cls: 'bg-sky-50 text-sky-700 border-sky-200' },
+  completado:           { label: 'Finalizado',         cls: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+  pagado:               { label: 'Pagado',             cls: 'bg-green-50 text-green-700 border-green-200' },
+};
+
+function ScreenExternalizados() {
+  const [selected, setSelected] = useState<typeof MOCK_EXTERNALIZADOS[0] | null>(null);
+
+  const totalCoste = MOCK_EXTERNALIZADOS.reduce((a, e) => a + e.coste, 0);
+  const totalPrecio = MOCK_EXTERNALIZADOS.filter(e => e.precio > 0).reduce((a, e) => a + e.precio, 0);
+  const margenTotal = totalPrecio > 0 ? ((totalPrecio - MOCK_EXTERNALIZADOS.filter(e => e.precio > 0).reduce((a, e) => a + e.coste, 0)) / totalPrecio * 100).toFixed(0) : 0;
+
+  return (
+    <div className="space-y-5 max-w-4xl">
+
+      {/* Header */}
+      <div className="bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl p-5 text-white">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
+            <Layers className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h2 className="font-black text-base">Trabajos Externalizados</h2>
+            <p className="text-slate-300 text-[11px]">
+              Gestiona los trabajos que subcontratas a otros profesionales. Controla costes, márgenes y estados sin que el cliente lo vea.
+            </p>
+          </div>
+        </div>
+        <div className="grid grid-cols-3 gap-3">
+          {[
+            { label: 'Activos', value: '2', color: 'text-blue-300' },
+            { label: 'Coste total', value: `${totalCoste.toLocaleString('es-ES')} €`, color: 'text-slate-300' },
+            { label: 'Margen medio', value: `${margenTotal}%`, color: 'text-emerald-300' },
+          ].map(({ label, value, color }) => (
+            <div key={label} className="bg-white/8 rounded-xl p-3 text-center">
+              <div className={`text-base font-black leading-none ${color}`}>{value}</div>
+              <div className="text-slate-400 text-[9px] mt-0.5 uppercase tracking-wide">{label}</div>
             </div>
-          </Card>
+          ))}
+        </div>
+      </div>
 
-          {/* How it works */}
-          <Card className="p-5">
-            <SectionTitle>Cómo funciona</SectionTitle>
-            <div className="space-y-3">
-              {[
-                { n: '1', title: 'Hablas o escribes el trabajo', desc: 'La IA genera las partidas de materiales y mano de obra' },
-                { n: '2', title: 'Motor busca en tus catálogos', desc: 'Compara descripción de cada material con los productos de OBRAMAT, tu catálogo propio, etc.' },
-                { n: '3', title: 'Asigna el precio real', desc: 'Cada material aparece con el precio de coste + tu margen. Badge del proveedor visible solo para ti.' },
-                { n: '4', title: 'Tú eliges o cambias', desc: 'Pulsa ⇅ en cualquier línea para comparar alternativas entre proveedores con un clic.' },
-              ].map(step => (
-                <div key={step.n} className="flex items-start gap-3">
-                  <div className="w-6 h-6 rounded-full bg-orange-500 text-white text-xs font-black flex items-center justify-center shrink-0">
-                    {step.n}
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-slate-800">{step.title}</p>
-                    <p className="text-xs text-slate-400">{step.desc}</p>
+      {/* Nota importante */}
+      <div className="bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 flex items-start gap-2.5">
+        <AlertCircle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+        <p className="text-xs text-amber-800">
+          <strong>Privado:</strong> el cliente solo ve "partida de obra" en su presupuesto. Nunca aparece el nombre del proveedor ni el coste real.
+        </p>
+      </div>
+
+      {/* Split panel */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-4">
+
+        {/* List */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between mb-1">
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Trabajos externalizados</p>
+            <button className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg cursor-pointer transition-colors">
+              <Plus className="h-3 w-3" /> Añadir
+            </button>
+          </div>
+          {MOCK_EXTERNALIZADOS.map(ext => {
+            const est = ESTADO_EXT[ext.estado] ?? { label: ext.estado, cls: 'bg-slate-100 text-slate-600 border-slate-200' };
+            const isSelected = selected?.id === ext.id;
+            const margenExt = ext.precio > 0 ? ((ext.precio - ext.coste) / ext.precio * 100).toFixed(0) : null;
+            return (
+              <button
+                key={ext.id}
+                onClick={() => setSelected(isSelected ? null : ext)}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border text-left cursor-pointer transition-all ${
+                  isSelected ? 'border-slate-400 bg-slate-50 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
+                }`}
+              >
+                <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
+                  <Briefcase className="w-4 h-4 text-slate-500" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-slate-800 truncate">{ext.descripcion}</p>
+                  <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                    <span className="text-[9px] text-slate-400 truncate">{ext.empresa}</span>
+                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full border ${est.cls}`}>{est.label}</span>
                   </div>
                 </div>
-              ))}
-            </div>
-          </Card>
+                <div className="text-right shrink-0">
+                  <p className="text-sm font-black text-slate-800">{ext.coste.toLocaleString('es-ES')} €</p>
+                  {margenExt && (
+                    <p className="text-[9px] text-emerald-600 font-semibold">+{margenExt}% margen</p>
+                  )}
+                </div>
+              </button>
+            );
+          })}
         </div>
-      )}
+
+        {/* Detail */}
+        <div>
+          {!selected ? (
+            <div className="flex items-center justify-center border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center min-h-[300px]">
+              <div>
+                <Layers className="h-10 w-10 text-slate-300 mx-auto mb-3" />
+                <p className="text-sm font-semibold text-slate-400">Selecciona un trabajo</p>
+                <p className="text-xs text-slate-300 mt-1">para ver su detalle y acciones</p>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+              <div className="border-t-4 border-slate-800 border-b border-slate-100 px-5 py-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h3 className="font-black text-slate-800 text-sm">{selected.descripcion}</h3>
+                    <p className="text-[10px] text-slate-400 mt-0.5">{selected.trabajo}</p>
+                  </div>
+                  <span className={`text-[9px] font-bold px-2 py-1 rounded-lg border shrink-0 ${(ESTADO_EXT[selected.estado] ?? { cls: '' }).cls}`}>
+                    {(ESTADO_EXT[selected.estado] ?? { label: selected.estado }).label}
+                  </span>
+                </div>
+              </div>
+              <div className="p-5 space-y-4">
+
+                {/* Proveedor */}
+                <div>
+                  <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold mb-2">Proveedor externo</p>
+                  <div className="flex items-center gap-3 bg-slate-50 rounded-xl px-4 py-3">
+                    <Building2 className="w-4 h-4 text-slate-400 shrink-0" />
+                    <div>
+                      <p className="text-sm font-bold text-slate-800">{selected.empresa}</p>
+                      <p className="text-xs text-slate-400 flex items-center gap-1 mt-0.5">
+                        <Phone className="w-3 h-3" /> {selected.telefono}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Costes */}
+                <div className="border-t border-slate-100 pt-4">
+                  <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold mb-2">Costes e ingresos</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="bg-slate-50 rounded-xl p-3 text-center">
+                      <p className="text-[9px] text-slate-400 uppercase font-bold mb-1">Mi coste</p>
+                      <p className="text-lg font-black text-red-500">{selected.coste.toLocaleString('es-ES')} €</p>
+                      <p className="text-[9px] text-slate-400">Lo que pago al proveedor</p>
+                    </div>
+                    <div className="bg-slate-50 rounded-xl p-3 text-center">
+                      <p className="text-[9px] text-slate-400 uppercase font-bold mb-1">Al cliente</p>
+                      {selected.precio > 0 ? (
+                        <>
+                          <p className="text-lg font-black text-emerald-600">{selected.precio.toLocaleString('es-ES')} €</p>
+                          <p className="text-[9px] text-emerald-500 font-semibold">
+                            +{((selected.precio - selected.coste) / selected.precio * 100).toFixed(0)}% margen
+                          </p>
+                        </>
+                      ) : (
+                        <p className="text-sm font-bold text-slate-400 mt-2">Pte. presupuesto</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Acciones */}
+                <div className="border-t border-slate-100 pt-4 space-y-2">
+                  <button className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2.5 rounded-xl transition-colors cursor-pointer">
+                    <ChevronRight className="h-3.5 w-3.5" /> Avanzar estado
+                  </button>
+                  <div className="grid grid-cols-2 gap-2">
+                    <button className="flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold py-2 rounded-xl cursor-pointer transition-colors">
+                      <Send className="h-3 w-3" /> WhatsApp
+                    </button>
+                    <button className="flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold py-2 rounded-xl cursor-pointer transition-colors">
+                      <CreditCard className="h-3 w-3" /> Registrar pago
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
@@ -1575,6 +1753,7 @@ export default function DemoView({ setCurrentPage }: DemoViewProps) {
       case 'invoices':      return <ScreenFacturacion />;
       case 'catalog':       return <ScreenCatalogo />;
       case 'proveedores':   return <ScreenProveedores />;
+      case 'subcontratas':  return <ScreenExternalizados />;
       case 'planificacion': return <ScreenPlanificacion />;
       case 'ingresos':      return <ScreenIngresos />;
       case 'equipo':        return <ScreenEquipo />;
