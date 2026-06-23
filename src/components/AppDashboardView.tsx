@@ -2866,6 +2866,96 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         )}
       </AnimatePresence>
 
+      {/* ================= MODAL: AÑADIR PRODUCTO AL CATÁLOGO ================= */}
+      {showAddProductModal && (
+        <div className="fixed inset-0 bg-black/50 z-[200] flex items-center justify-center p-4" onClick={() => setShowAddProductModal(false)}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-4" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-bold text-slate-800">Nuevo producto</h3>
+              <button onClick={() => setShowAddProductModal(false)} className="text-slate-400 hover:text-slate-600 cursor-pointer"><X className="w-4 h-4" /></button>
+            </div>
+            <div className="space-y-1">
+              <label className="text-[10px] font-bold text-slate-500 uppercase">Descripción *</label>
+              <input
+                type="text"
+                value={addProductDraft.descripcion}
+                onChange={e => setAddProductDraft(p => ({ ...p, descripcion: e.target.value }))}
+                placeholder="Ej: Pintura plástica interior blanca 15L"
+                className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
+                autoFocus
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <label className="text-[10px] font-bold text-slate-500 uppercase">Familia *</label>
+                <input
+                  type="text"
+                  list="familias-list-root"
+                  value={addProductDraft.familia}
+                  onChange={e => setAddProductDraft(p => ({ ...p, familia: e.target.value }))}
+                  placeholder="Ej: Pinturas"
+                  className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
+                />
+                <datalist id="familias-list-root">
+                  {[...new Set(tarifas.map(t => t.familia))].sort().map(f => (
+                    <option key={f} value={f} />
+                  ))}
+                </datalist>
+              </div>
+              <div className="space-y-1">
+                <label className="text-[10px] font-bold text-slate-500 uppercase">Unidad</label>
+                <select
+                  value={addProductDraft.unidad}
+                  onChange={e => setAddProductDraft(p => ({ ...p, unidad: e.target.value }))}
+                  className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500 bg-white"
+                >
+                  {['ud', 'm', 'm²', 'm³', 'ml', 'kg', 'l', 'h', 'día', 'paq', 'jgo', 'par'].map(u => (
+                    <option key={u} value={u}>{u}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <label className="text-[10px] font-bold text-slate-500 uppercase">Precio (€)</label>
+                <input
+                  type="number" min="0" step="0.01"
+                  value={addProductDraft.precio}
+                  onChange={e => setAddProductDraft(p => ({ ...p, precio: e.target.value }))}
+                  placeholder="0.00"
+                  className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[10px] font-bold text-slate-500 uppercase">Código (opcional)</label>
+                <input
+                  type="text"
+                  value={addProductDraft.codigo}
+                  onChange={e => setAddProductDraft(p => ({ ...p, codigo: e.target.value }))}
+                  placeholder="Ej: PIN-001"
+                  className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
+                />
+              </div>
+            </div>
+            <div className="flex gap-2 pt-1">
+              <button
+                onClick={() => setShowAddProductModal(false)}
+                className="flex-1 px-4 py-2.5 text-[11px] font-bold text-slate-500 bg-slate-100 hover:bg-slate-200 rounded-xl cursor-pointer transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleSaveNewProduct}
+                disabled={savingAddProduct}
+                className="flex-1 px-4 py-2.5 text-[11px] font-bold text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 rounded-xl cursor-pointer transition-colors"
+              >
+                {savingAddProduct ? 'Guardando…' : 'Guardar producto'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ================= CHATBOT WIDGET ================= */}
       {isLiveMode && (
         <ChatbotWidget
@@ -3318,9 +3408,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   .then(({ data }) => {
                     if (data) setPedirMaterialQuote(data as TradeQuote);
                   });
+              } else {
+                setPedirMaterialQuote({} as TradeQuote);
               }
               setPostConfirmQuote(null);
-              setMobileTab('presupuestos');
             }}
             onVerPresupuesto={() => {
               setSelectedQuoteForPreview(postConfirmQuote);
@@ -3328,6 +3419,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               setMobileTab('presupuestos');
             }}
           />
+        )}
+
+        {/* Pedir material overlay (mobile) */}
+        {pedirMaterialQuote && orgId && (
+          <div className="fixed inset-0 z-50 overflow-y-auto bg-white">
+            <ScreenPedidosMaterial
+              orgId={orgId}
+              showToast={showToast}
+              initialQuote={pedirMaterialQuote}
+              onClose={() => setPedirMaterialQuote(null)}
+            />
+          </div>
         )}
 
         {/* Mantenimiento Wizard overlay (mobile) */}
@@ -5590,117 +5693,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           />
         )}
 
-        {/* Modal: añadir producto al catálogo */}
-        {showAddProductModal && (
-          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setShowAddProductModal(false)}>
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-4" onClick={e => e.stopPropagation()}>
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-bold text-slate-800">Nuevo producto</h3>
-                <button onClick={() => setShowAddProductModal(false)} className="text-slate-400 hover:text-slate-600 cursor-pointer"><X className="w-4 h-4" /></button>
-              </div>
-
-              {/* Descripción */}
-              <div className="space-y-1">
-                <label className="text-[10px] font-bold text-slate-500 uppercase">Descripción *</label>
-                <input
-                  type="text"
-                  value={addProductDraft.descripcion}
-                  onChange={e => setAddProductDraft(p => ({ ...p, descripcion: e.target.value }))}
-                  placeholder="Ej: Pintura plástica interior blanca 15L"
-                  className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
-                  autoFocus
-                />
-              </div>
-
-              {/* Familia + Unidad en grid */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase">Familia *</label>
-                  <input
-                    type="text"
-                    list="familias-list"
-                    value={addProductDraft.familia}
-                    onChange={e => setAddProductDraft(p => ({ ...p, familia: e.target.value }))}
-                    placeholder="Ej: Pinturas"
-                    className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
-                  />
-                  <datalist id="familias-list">
-                    {[...new Set(tarifas.map(t => t.familia))].sort().map(f => (
-                      <option key={f} value={f} />
-                    ))}
-                  </datalist>
-                </div>
-                <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase">Unidad</label>
-                  <select
-                    value={addProductDraft.unidad}
-                    onChange={e => setAddProductDraft(p => ({ ...p, unidad: e.target.value }))}
-                    className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500 bg-white"
-                  >
-                    {['ud', 'm', 'm²', 'm³', 'ml', 'kg', 'l', 'h', 'día', 'paq', 'jgo', 'par'].map(u => (
-                      <option key={u} value={u}>{u}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              {/* Precio + Código en grid */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase">Precio (€)</label>
-                  <input
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value={addProductDraft.precio}
-                    onChange={e => setAddProductDraft(p => ({ ...p, precio: e.target.value }))}
-                    placeholder="0.00"
-                    className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-[10px] font-bold text-slate-500 uppercase">Código (opcional)</label>
-                  <input
-                    type="text"
-                    value={addProductDraft.codigo}
-                    onChange={e => setAddProductDraft(p => ({ ...p, codigo: e.target.value }))}
-                    placeholder="Ej: PIN-001"
-                    className="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-2 pt-1">
-                <button
-                  onClick={() => setShowAddProductModal(false)}
-                  className="flex-1 px-4 py-2.5 text-[11px] font-bold text-slate-500 bg-slate-100 hover:bg-slate-200 rounded-xl cursor-pointer transition-colors"
-                >
-                  Cancelar
-                </button>
-                <button
-                  onClick={handleSaveNewProduct}
-                  disabled={savingAddProduct}
-                  className="flex-1 px-4 py-2.5 text-[11px] font-bold text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 rounded-xl cursor-pointer transition-colors"
-                >
-                  {savingAddProduct ? 'Guardando…' : 'Guardar producto'}
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
       </React.Fragment>
     );
 
-    // Helpers botones navegación escritorio
     function SidebarBtn({ id, icon, label }: { id: string; icon: React.ReactNode; label: string }) {
       const isActive = activeTab === id || (id === 'quotes' && (activeTab === 'create_quote' || activeTab === 'preview'));
       return (
         <button
           onClick={() => setActiveTab(id)}
           className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-semibold transition-all cursor-pointer relative ${
-            isActive 
-              ? 'bg-blue-600 text-white shadow-md shadow-blue-500/10' 
+            isActive
+              ? 'bg-blue-600 text-white shadow-md shadow-blue-500/10'
               : 'text-slate-455 hover:text-white hover:bg-slate-800/40'
           }`}
         >
@@ -7982,7 +7985,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     );
   }
 
-  const handleSaveNewProduct = async () => {
+  async function handleSaveNewProduct() {
     if (!addProductDraft.descripcion.trim() || !addProductDraft.familia.trim()) {
       showToast('Descripción y familia son obligatorias', 'error');
       return;
@@ -8015,7 +8018,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       showToast('Error al guardar: ' + (e as Error).message, 'error');
     }
     setSavingAddProduct(false);
-  };
+  }
 
   // ================= DESKTOP: CATALOG SCREEN =================
   function ScreenCatalog() {

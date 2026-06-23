@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import {
   ShoppingCart, Plus, Trash2, Send, ChevronDown, ChevronUp,
-  CheckCircle, Package, Truck, FileText, X, AlertCircle,
+  CheckCircle, Package, Truck, FileText, X, AlertCircle, Download,
 } from 'lucide-react';
+import { Document, Packer, Paragraph, Table, TableRow, TableCell, TextRun, AlignmentType, WidthType, BorderStyle } from 'docx';
 import {
   loadSupplierOrders, loadSupplierCatalogs, createSupplierOrder,
   updateSupplierOrderEstado, deleteSupplierOrder,
@@ -47,7 +48,7 @@ function OrderLineRow({
       />
       <input
         disabled={!editable}
-        type="number" min="0" step="0.001"
+        type="number" min="1" step="1"
         value={line.cantidad}
         onChange={e => onChange('cantidad', e.target.value)}
         className="text-sm text-center bg-slate-50 border border-slate-200 rounded px-1 py-0.5 focus:outline-none focus:border-blue-400 disabled:bg-transparent disabled:border-transparent"
@@ -116,7 +117,7 @@ function NewOrderModal({
   const changeLine = (key: string, field: keyof SupplierOrderLine, val: string) => {
     setLines(prev => prev.map(l => {
       if (l._key !== key) return l;
-      if (field === 'cantidad') return { ...l, cantidad: parseFloat(val) || 0 };
+      if (field === 'cantidad') return { ...l, cantidad: Math.max(1, parseInt(val, 10) || 1) };
       if (field === 'precio_unitario') return { ...l, precio_unitario: val === '' ? null : parseFloat(val) };
       return { ...l, [field]: val };
     }));
@@ -217,6 +218,70 @@ function NewOrderModal({
       </div>
     </div>
   );
+}
+
+async function downloadOrderDocx(order: SupplierOrder) {
+  const supplier = order.trade_supplier_catalogs?.supplier_name ?? 'Proveedor';
+  const fecha = new Date(order.created_at).toLocaleDateString('es-ES');
+  const lines = order.trade_supplier_order_lines ?? [];
+  const quoteRef = order.trade_quotes ? `Presupuesto: ${order.trade_quotes.numero} — ${order.trade_quotes.descripcion ?? ''}` : '';
+
+  const NO_BORDER = {
+    top: { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' },
+    bottom: { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' },
+    left: { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' },
+    right: { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' },
+  };
+
+  const headerRow = new TableRow({
+    children: [
+      new TableCell({ width: { size: 50, type: WidthType.PERCENTAGE }, children: [new Paragraph({ children: [new TextRun({ text: 'ARTÍCULO', bold: true, size: 18, color: '475569' })] })], borders: NO_BORDER }),
+      new TableCell({ width: { size: 15, type: WidthType.PERCENTAGE }, children: [new Paragraph({ children: [new TextRun({ text: 'CANT.', bold: true, size: 18, color: '475569' })], alignment: AlignmentType.CENTER })], borders: NO_BORDER }),
+      new TableCell({ width: { size: 15, type: WidthType.PERCENTAGE }, children: [new Paragraph({ children: [new TextRun({ text: 'UD.', bold: true, size: 18, color: '475569' })], alignment: AlignmentType.CENTER })], borders: NO_BORDER }),
+      new TableCell({ width: { size: 20, type: WidthType.PERCENTAGE }, children: [new Paragraph({ children: [new TextRun({ text: '€/UD', bold: true, size: 18, color: '475569' })], alignment: AlignmentType.RIGHT })], borders: NO_BORDER }),
+    ],
+    tableHeader: true,
+  });
+
+  const dataRows = lines.map(l => new TableRow({
+    children: [
+      new TableCell({ width: { size: 50, type: WidthType.PERCENTAGE }, children: [new Paragraph({ children: [new TextRun({ text: l.descripcion, size: 20 })] })], borders: NO_BORDER }),
+      new TableCell({ width: { size: 15, type: WidthType.PERCENTAGE }, children: [new Paragraph({ children: [new TextRun({ text: String(l.cantidad), size: 20 })], alignment: AlignmentType.CENTER })], borders: NO_BORDER }),
+      new TableCell({ width: { size: 15, type: WidthType.PERCENTAGE }, children: [new Paragraph({ children: [new TextRun({ text: l.unidad, size: 20 })], alignment: AlignmentType.CENTER })], borders: NO_BORDER }),
+      new TableCell({ width: { size: 20, type: WidthType.PERCENTAGE }, children: [new Paragraph({ children: [new TextRun({ text: l.precio_unitario ? `${l.precio_unitario} €` : '—', size: 20 })], alignment: AlignmentType.RIGHT })], borders: NO_BORDER }),
+    ],
+  }));
+
+  const doc = new Document({
+    sections: [{
+      children: [
+        new Paragraph({ children: [new TextRun({ text: 'PEDIDO DE MATERIAL', bold: true, size: 32, color: '2563EB' })] }),
+        new Paragraph({ children: [new TextRun({ text: ' ', size: 10 })] }),
+        new Paragraph({ children: [new TextRun({ text: `Proveedor: `, bold: true, size: 22 }), new TextRun({ text: supplier, size: 22 })] }),
+        new Paragraph({ children: [new TextRun({ text: `Fecha: `, bold: true, size: 22 }), new TextRun({ text: fecha, size: 22 })] }),
+        ...(quoteRef ? [new Paragraph({ children: [new TextRun({ text: quoteRef, size: 20, color: '475569' })] })] : []),
+        new Paragraph({ children: [new TextRun({ text: ' ', size: 10 })] }),
+        new Table({
+          width: { size: 100, type: WidthType.PERCENTAGE },
+          rows: [headerRow, ...dataRows],
+        }),
+        ...(order.notas ? [
+          new Paragraph({ children: [new TextRun({ text: ' ', size: 10 })] }),
+          new Paragraph({ children: [new TextRun({ text: 'Notas: ', bold: true, size: 20 }), new TextRun({ text: order.notas, size: 20 })] }),
+        ] : []),
+      ],
+    }],
+  });
+
+  const blob = await Packer.toBlob(doc);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `pedido-${supplier.replace(/\s+/g, '-').toLowerCase()}-${fecha.replace(/\//g, '-')}.docx`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 function OrderCard({
@@ -354,6 +419,12 @@ function OrderCard({
           )}
 
           <div className="flex flex-wrap gap-2 pt-1">
+            <button
+              onClick={() => downloadOrderDocx(order)}
+              className="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-3 py-2 rounded-xl transition-colors"
+            >
+              <Download className="w-3.5 h-3.5" /> Descargar DOCX
+            </button>
             {order.estado === 'borrador' && (
               <>
                 <button
