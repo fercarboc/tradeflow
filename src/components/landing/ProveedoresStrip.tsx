@@ -6,11 +6,11 @@ interface Props {
 }
 
 const SUPPLIERS = [
-  { name: 'OBRAMAT', sector: 'Material construcción' },
-  { name: 'Saltoki', sector: 'Instalaciones' },
-  { name: 'Rexel', sector: 'Material eléctrico' },
-  { name: 'Sonepar', sector: 'Material eléctrico' },
-  { name: 'Climahorro', sector: 'Climatización' },
+  { name: 'Material Eléctrico', sector: 'Electricidad e iluminación' },
+  { name: 'Fontanería y Agua', sector: 'Sanitarios, tuberías, griferías' },
+  { name: 'Climatización', sector: 'HVAC, frío, calefacción' },
+  { name: 'Reformas y Obra', sector: 'Construcción en general' },
+  { name: 'Gas e Industrial', sector: 'Gas natural, propano, calefacción' },
 ];
 
 export default function ProveedoresStrip({ setCurrentPage }: Props) {
@@ -76,7 +76,7 @@ export default function ProveedoresStrip({ setCurrentPage }: Props) {
                   className="flex items-center gap-3 bg-white/5 border border-white/8 hover:border-[#1A5A96]/50 hover:bg-white/8 rounded-xl px-4 py-3.5 transition-all group"
                 >
                   <div className="w-9 h-9 rounded-lg bg-[#1A5A96]/20 flex items-center justify-center shrink-0 group-hover:bg-[#1A5A96]/30 transition-colors">
-                    <span className="text-[10px] font-black text-[#5B9BD5]">{s.name.slice(0, 2).toUpperCase()}</span>
+                    <span className="text-[10px] font-black text-[#5B9BD5]">{s.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()}</span>
                   </div>
                   <div>
                     <p className="text-sm font-bold text-white">{s.name}</p>
