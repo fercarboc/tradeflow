@@ -190,14 +190,18 @@ function NewOrderModal({
         .map((i, idx) => ({
           _key: String(idx),
           descripcion: i.descripcion,
-          referencia: null,
+          referencia: i.supplier_ref ?? null,
           cantidad: i.cantidad,
           unidad: 'ud',
-          precio_unitario: null,
+          precio_unitario: i.precio_unitario > 0 ? i.precio_unitario : null,
         }));
     }
     return [{ _key: '0', descripcion: '', referencia: null, cantidad: 1, unidad: 'ud', precio_unitario: null }];
   });
+
+  useEffect(() => {
+    if (!catalogId && catalogs.length > 0) setCatalogId(catalogs[0].id);
+  }, [catalogs, catalogId]);
 
   const addLine = () => setLines(prev => [
     ...prev,
@@ -593,6 +597,10 @@ function FromQuoteSection({
   const [catalogId, setCatalogId] = useState(catalogs[0]?.id ?? '');
   const [creating, setCreating] = useState(false);
 
+  useEffect(() => {
+    if (!catalogId && catalogs.length > 0) setCatalogId(catalogs[0].id);
+  }, [catalogs, catalogId]);
+
   const toggleItem = (id: string) => {
     setSelectedItems(prev => {
       const next = new Set(prev);
@@ -617,7 +625,7 @@ function FromQuoteSection({
         referencia: null,
         cantidad: i.cantidad,
         unidad: 'ud',
-        precio_unitario: null,
+        precio_unitario: i.precio_unitario > 0 ? i.precio_unitario : null,
       }));
       const order = await createSupplierOrder(orgId, catalogId, lines, {});
       await markQuoteItemsOrdered(items.map(i => i.id));
