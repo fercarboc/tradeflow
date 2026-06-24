@@ -2303,7 +2303,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       return;
     }
     try {
-      const { error } = await supabase.from('trade_quotes').update({ estado: newEstado.toLowerCase() }).eq('numero', quote.id);
+      const { error } = await supabase.from('trade_quotes').update({ estado: newEstado }).eq('numero', quote.id);
       if (error) throw error;
       setPresupuestos(prev => prev.map(p => p.id === quote.id ? { ...p, estado: newEstado as Presupuesto['estado'] } : p));
       if (selectedQuoteForPreview?.id === quote.id) setSelectedQuoteForPreview(prev => prev ? { ...prev, estado: newEstado as Presupuesto['estado'] } : null);

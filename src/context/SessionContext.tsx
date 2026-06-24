@@ -5,7 +5,7 @@ import { supabase, getOwnOrg, loadOrgById, loadOrgSubscription, loadMyWorkerProf
 import type { TradeOrganization, TradeSubscription, TradeWorker } from '../lib/supabase';
 
 export type Rol = 'owner' | 'admin' | 'oficina' | 'comercial' | 'tecnico' | 'visualizador';
-export type Plan = 'basico' | 'pro' | 'empresa';
+export type Plan = 'basico' | 'pro' | 'profesional' | 'empresa' | 'empresa_plus';
 
 export const ROL_PERMISOS: Record<Rol, string[]> = {
   // Propietario: acceso total
