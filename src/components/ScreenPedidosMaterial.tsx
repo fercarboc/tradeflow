@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import {
   ShoppingCart, Plus, Trash2, Send, ChevronDown, ChevronUp,
   CheckCircle, Package, Truck, FileText, X, AlertCircle, Download,
@@ -6,9 +6,9 @@ import {
 import { Document, Packer, Paragraph, Table, TableRow, TableCell, TextRun, AlignmentType, WidthType, BorderStyle } from 'docx';
 import {
   loadSupplierOrders, loadSupplierCatalogs, createSupplierOrder,
-  updateSupplierOrderEstado, deleteSupplierOrder,
+  updateSupplierOrderEstado, deleteSupplierOrder, loadCatalogProducts,
 } from '../lib/supabase';
-import type { SupplierOrder, SupplierOrderLine, TradeQuote } from '../lib/supabase';
+import type { SupplierOrder, SupplierOrderLine, TradeQuote, TradeCatalogProduct } from '../lib/supabase';
 
 interface Props {
   orgId: string;
@@ -29,16 +29,105 @@ const ESTADO_COLOR: Record<SupplierOrder['estado'], string> = {
   cancelado: 'bg-red-100 text-red-600',
 };
 
+function ArticleSearchInput({
+  value, onChange, onProductSelect, catalogProducts, disabled,
+}: {
+  value: string;
+  onChange: (val: string) => void;
+  onProductSelect: (descripcion: string, unidad: string, precio: number | null) => void;
+  catalogProducts: TradeCatalogProduct[];
+  disabled?: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  const filtered = useMemo(() => {
+    if (!value.trim() || value.length < 2) return [];
+    const q = value.toLowerCase();
+    return catalogProducts
+      .filter(p =>
+        p.nombre_generico.toLowerCase().includes(q) ||
+        p.familia.toLowerCase().includes(q) ||
+        (p.subfamilia?.toLowerCase().includes(q) ?? false),
+      )
+      .slice(0, 8);
+  }, [value, catalogProducts]);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
+  const handleSelect = (product: TradeCatalogProduct) => {
+    const preferred = product.trade_catalog_variants?.find(v => v.is_preferred && v.activo)
+      ?? product.trade_catalog_variants?.find(v => v.activo);
+    onProductSelect(product.nombre_generico, product.unidad, preferred?.precio_material ?? null);
+    setOpen(false);
+  };
+
+  return (
+    <div ref={wrapRef} className="relative w-full">
+      <input
+        disabled={disabled}
+        value={value}
+        onChange={e => { onChange(e.target.value); setOpen(true); }}
+        onFocus={() => { if (value.length >= 2) setOpen(true); }}
+        placeholder="Descripción del material"
+        className="text-sm text-slate-800 bg-transparent focus:outline-none w-full disabled:text-slate-500"
+      />
+      {open && filtered.length > 0 && (
+        <div className="absolute left-0 top-full mt-1 w-72 bg-white border border-slate-200 rounded-xl shadow-xl z-50 max-h-52 overflow-y-auto">
+          {filtered.map(p => {
+            const pref = p.trade_catalog_variants?.find(v => v.is_preferred && v.activo)
+              ?? p.trade_catalog_variants?.find(v => v.activo);
+            return (
+              <button
+                key={p.id}
+                type="button"
+                onMouseDown={e => { e.preventDefault(); handleSelect(p); }}
+                className="w-full text-left px-3 py-2 hover:bg-slate-50 flex flex-col gap-0.5 border-b border-slate-50 last:border-0"
+              >
+                <span className="text-sm font-semibold text-slate-800 truncate">{p.nombre_generico}</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] text-slate-400 truncate">{p.familia}{p.subfamilia ? ` · ${p.subfamilia}` : ''}</span>
+                  {pref && (
+                    <span className="text-[10px] font-bold text-blue-600 shrink-0">
+                      {pref.precio_material.toFixed(2)} € / {p.unidad}
+                    </span>
+                  )}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function OrderLineRow({
-  line, onDelete, onChange, editable,
+  line, onDelete, onChange, onProductSelect, editable, catalogProducts,
 }: {
   line: SupplierOrderLine & { _key?: string };
   onDelete: () => void;
   onChange: (field: keyof SupplierOrderLine, val: string) => void;
+  onProductSelect?: (descripcion: string, unidad: string, precio: number | null) => void;
   editable: boolean;
+  catalogProducts?: TradeCatalogProduct[];
 }) {
   return (
     <div className="grid grid-cols-[1fr_80px_80px_80px_32px] gap-2 items-center py-1.5 border-b border-slate-100 last:border-0">
+      {editable && catalogProducts && onProductSelect ? (
+        <ArticleSearchInput
+          value={line.descripcion}
+          onChange={val => onChange('descripcion', val)}
+          onProductSelect={onProductSelect}
+          catalogProducts={catalogProducts}
+        />
+      ) : (
       <input
         disabled={!editable}
         value={line.descripcion}
@@ -46,6 +135,7 @@ function OrderLineRow({
         placeholder="Descripción del material"
         className="text-sm text-slate-800 bg-transparent focus:outline-none w-full disabled:text-slate-500"
       />
+      )}
       <input
         disabled={!editable}
         type="number" min="1" step="1"
@@ -79,10 +169,11 @@ function OrderLineRow({
 type DraftLine = Omit<SupplierOrderLine, 'id' | 'order_id' | 'created_at'> & { _key: string };
 
 function NewOrderModal({
-  orgId, catalogs, initialQuote, onCreated, onClose, showToast,
+  orgId, catalogs, catalogProducts, initialQuote, onCreated, onClose, showToast,
 }: {
   orgId: string;
   catalogs: { id: string; supplier_name: string; supplier_key: string; contact_email?: string | null }[];
+  catalogProducts: TradeCatalogProduct[];
   initialQuote?: TradeQuote | null;
   onCreated: (order: SupplierOrder) => void;
   onClose: () => void;
@@ -121,6 +212,12 @@ function NewOrderModal({
       if (field === 'precio_unitario') return { ...l, precio_unitario: val === '' ? null : parseFloat(val) };
       return { ...l, [field]: val };
     }));
+  };
+
+  const selectProduct = (key: string, descripcion: string, unidad: string, precio: number | null) => {
+    setLines(prev => prev.map(l =>
+      l._key !== key ? l : { ...l, descripcion, unidad, precio_unitario: precio },
+    ));
   };
 
   const handleCreate = async () => {
@@ -185,8 +282,10 @@ function NewOrderModal({
                 key={line._key}
                 line={line as unknown as SupplierOrderLine & { _key: string }}
                 editable
+                catalogProducts={catalogProducts}
                 onDelete={() => deleteLine(line._key)}
                 onChange={(field, val) => changeLine(line._key, field, val)}
+                onProductSelect={(desc, unid, precio) => selectProduct(line._key, desc, unid, precio)}
               />
             ))}
             <button onClick={addLine} className="mt-2 flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700">
@@ -481,15 +580,21 @@ function OrderCard({
 export default function ScreenPedidosMaterial({ orgId, showToast, initialQuote, onClose }: Props) {
   const [orders, setOrders] = useState<SupplierOrder[]>([]);
   const [catalogs, setCatalogs] = useState<{ id: string; supplier_name: string; supplier_key: string; contact_email?: string | null }[]>([]);
+  const [catalogProducts, setCatalogProducts] = useState<TradeCatalogProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [showNew, setShowNew] = useState(!!initialQuote);
 
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const [ords, cats] = await Promise.all([loadSupplierOrders(orgId), loadSupplierCatalogs(orgId)]);
+      const [ords, cats, prods] = await Promise.all([
+        loadSupplierOrders(orgId),
+        loadSupplierCatalogs(orgId),
+        loadCatalogProducts(orgId),
+      ]);
       setOrders(ords);
       setCatalogs(cats);
+      setCatalogProducts(prods);
     } catch (e: unknown) {
       showToast((e as Error).message ?? 'Error cargando pedidos', 'error');
     } finally { setLoading(false); }
@@ -591,6 +696,7 @@ export default function ScreenPedidosMaterial({ orgId, showToast, initialQuote, 
         <NewOrderModal
           orgId={orgId}
           catalogs={catalogs}
+          catalogProducts={catalogProducts}
           initialQuote={initialQuote ?? null}
           onCreated={handleCreated}
           onClose={() => { setShowNew(false); onClose?.(); }}
