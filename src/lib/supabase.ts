@@ -4347,13 +4347,13 @@ export interface SupplierOrder {
   updated_at: string;
   trade_supplier_catalogs?: { supplier_name: string; supplier_key: string; contact_email?: string | null } | null;
   trade_supplier_order_lines?: SupplierOrderLine[];
-  trade_quotes?: { numero: string; descripcion?: string | null } | null;
+  trade_quotes?: { numero: string; descripcion?: string | null; trade_clients?: { nombre: string; telefono?: string | null } | null } | null;
 }
 
 export async function loadSupplierOrders(orgId: string): Promise<SupplierOrder[]> {
   const { data, error } = await supabase
     .from('trade_supplier_orders')
-    .select('*, trade_supplier_catalogs(supplier_name, supplier_key, contact_email), trade_supplier_order_lines(*), trade_quotes(numero, descripcion)')
+    .select('*, trade_supplier_catalogs(supplier_name, supplier_key, contact_email), trade_supplier_order_lines(*), trade_quotes(numero, descripcion, trade_clients(nombre, telefono))')
     .eq('org_id', orgId)
     .order('created_at', { ascending: false });
   if (error) throw error;

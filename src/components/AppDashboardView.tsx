@@ -3549,6 +3549,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               showToast={showToast}
               initialQuote={pedirMaterialQuote}
               onClose={() => setPedirMaterialQuote(null)}
+              orgData={orgData}
             />
           </div>
         )}
@@ -5745,6 +5746,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     showToast={showToast}
                     initialQuote={pedirMaterialQuote}
                     onClose={() => setPedirMaterialQuote(null)}
+                    orgData={orgData}
                   />
                 )}
                 {activeTab === 'asistente' && (
