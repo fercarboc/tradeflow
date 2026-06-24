@@ -2180,7 +2180,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         limit_per_catalog: 5,
       });
       if (error) throw error;
-      setCompareResults((data as CompareRow[]) ?? []);
+      const rows = ((data ?? []) as Record<string, unknown>[]).map(r => ({
+        catalog_key: r._catalog_key as string,
+        supplier_name: r._supplier_name as string,
+        product_id: r._product_id as string,
+        ref_proveedor: (r._ref as string | null) ?? null,
+        descripcion: r._desc as string,
+        precio_coste: parseFloat(r._coste as string) || 0,
+        margen_pct: parseFloat(r._margen as string) || 0,
+        precio_venta: parseFloat(r._venta as string) || 0,
+        unidad: r._unidad as string,
+        score: r._score as number,
+      }));
+      setCompareResults(rows);
     } catch {
       setCompareResults([]);
     } finally {
