@@ -5389,7 +5389,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         <aside className="hidden md:flex flex-col w-64 bg-slate-900 border-r border-slate-850 text-slate-300 shrink-0 select-none">
           <div className="p-5 border-b border-slate-850 flex items-center gap-3">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white shadow-md shrink-0 ${isTecnico ? 'bg-gradient-to-tr from-emerald-600 to-teal-500 shadow-emerald-500/10' : 'bg-gradient-to-tr from-blue-600 to-indigo-500 shadow-blue-500/10'}`}>
-              {isTecnico ? (workerProfile?.nombre?.[0] ?? 'T').toUpperCase() : 'SI'}
+              {isTecnico ? (workerProfile?.nombre?.[0] ?? 'T').toUpperCase() : (empresaAjustes.nombre?.[0] ?? orgData?.nombre?.[0] ?? 'T').toUpperCase()}
             </div>
             <div className="overflow-hidden">
               {isTecnico ? (
@@ -5436,10 +5436,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </button>
             ) : (() => {
               const sub = subscription;
-              // Use orgData.plan as immediate fallback while subscription loads async
-              const effectivePlan = sub?.plan ?? orgData?.plan ?? 'basico';
+              const effectivePlan = sub?.plan ?? orgData?.plan ?? null;
               const planNames: Record<string, string> = { basico: 'Básico', profesional: 'Profesional', empresa: 'Empresa', empresa_plus: 'Empresa+' };
-              const planLabel = planNames[effectivePlan] ?? 'Básico';
+              const planLabel = effectivePlan ? (planNames[effectivePlan] ?? effectivePlan) : null;
               const isTrialing = sub?.status === 'trial';
               const daysLeft = isTrialing && sub?.trial_end
                 ? Math.max(0, Math.ceil((new Date(sub.trial_end).getTime() - Date.now()) / 86400000))
@@ -5448,14 +5447,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               return (
                 <>
                   <div className="flex items-center justify-between">
-                    <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full ${
-                      effectivePlan === 'empresa_plus' ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30' :
-                      effectivePlan === 'empresa'      ? 'bg-purple-500/15 text-purple-400 border border-purple-500/30' :
-                      effectivePlan === 'profesional'  ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30' :
-                                                         'bg-slate-700 text-slate-400 border border-slate-600'
-                    }`}>
-                      {planLabel}
-                    </span>
+                    {planLabel && (
+                      <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full ${
+                        effectivePlan === 'empresa_plus' ? 'bg-amber-500/15 text-amber-400 border border-amber-500/30' :
+                        effectivePlan === 'empresa'      ? 'bg-purple-500/15 text-purple-400 border border-purple-500/30' :
+                        effectivePlan === 'profesional'  ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30' :
+                                                           'bg-slate-700 text-slate-400 border border-slate-600'
+                      }`}>
+                        {planLabel}
+                      </span>
+                    )}
                     {isTrialing && daysLeft !== null && (
                       <span className="text-[9px] text-amber-400 font-bold">{daysLeft}d trial</span>
                     )}
