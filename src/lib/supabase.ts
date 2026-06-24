@@ -4418,6 +4418,68 @@ export async function loadSupplierCatalogs(orgId: string): Promise<{
     .filter(c => enabledIds.has(c.id));
 }
 
+export interface ActiveSupplierProduct {
+  id: string;
+  ref_proveedor: string | null;
+  descripcion: string;
+  marca: string | null;
+  familia: string | null;
+  precio_coste: number;
+  unidad: string;
+}
+
+export interface ActiveSupplierCatalog {
+  catalog_id: string;
+  supplier_name: string;
+  supplier_key: string;
+  margen_pct: number;
+  products: ActiveSupplierProduct[];
+}
+
+export async function loadActiveSupplierCatalogs(orgId: string): Promise<ActiveSupplierCatalog[]> {
+  const { data: orgSup, error: e1 } = await supabase
+    .from('trade_org_suppliers')
+    .select('catalog_id, margen_override')
+    .eq('org_id', orgId)
+    .eq('enabled', true);
+  if (e1 || !orgSup?.length) return [];
+
+  const catalogIds = (orgSup as { catalog_id: string; margen_override: number | null }[]).map(s => s.catalog_id);
+
+  const [catRes, prodRes] = await Promise.all([
+    supabase
+      .from('trade_supplier_catalogs')
+      .select('id, supplier_name, supplier_key, margen_pct_default')
+      .in('id', catalogIds),
+    supabase
+      .from('trade_supplier_products')
+      .select('id, catalog_id, ref_proveedor, descripcion, marca, familia, precio_coste, unidad')
+      .in('catalog_id', catalogIds)
+      .eq('activo', true)
+      .order('familia')
+      .order('descripcion'),
+  ]);
+
+  if (catRes.error || prodRes.error) return [];
+
+  const catalogMap = new Map(
+    ((catRes.data ?? []) as { id: string; supplier_name: string; supplier_key: string; margen_pct_default: number }[])
+      .map(c => [c.id, c])
+  );
+
+  return (orgSup as { catalog_id: string; margen_override: number | null }[]).map(s => {
+    const cat = catalogMap.get(s.catalog_id);
+    return {
+      catalog_id: s.catalog_id,
+      supplier_name: cat?.supplier_name ?? '',
+      supplier_key: cat?.supplier_key ?? '',
+      margen_pct: s.margen_override ?? cat?.margen_pct_default ?? 0,
+      products: ((prodRes.data ?? []) as (ActiveSupplierProduct & { catalog_id: string })[])
+        .filter(p => p.catalog_id === s.catalog_id),
+    };
+  });
+}
+
 export interface QuoteWithPendingMaterial {
   id: string;
   numero: string;

@@ -72,8 +72,8 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
 import { ActivePage, Presupuesto, PartidaPresupuesto, Factura, Cliente } from '../types';
-import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote } from '../lib/supabase';
-import type { TradeSubcontractor, TradeSubcontrata } from '../lib/supabase';
+import { supabase, loadDashboard, getOrCreateOrg, getOwnOrg, loadOrgById, loadWorkers, loadTarifas, addWorker, addTarifa, deleteWorker, deleteTarifa, updateTarifaPrice, saveFiscalData, saveQuote, updateQuote, addClient, markInvoicePaid, markInvoiceDevuelta, convertToInvoice, loadCatalogProducts, matchProductForAI, updateCatalogVariant, setPreferredVariant, exportCatalog, loadJobs, createJob, updateJob, deleteJob, assignWorkerToJob, removeWorkerFromJob, loadOrgSubscription, getStripePortalUrl, getStripeCheckoutUrl, learnPriceToCatalog, submitContactMessage, sendTrabflowEmail, sendClientEmail, subscribePush, unsubscribePush, isPushSubscribed, applyReferralCode, createQuoteToken, getQuoteByToken, uploadOrgLogo, loadOrgTemplates, saveOrgTemplate, checkClientMaintenanceContract, loadInvoicesByJobId, saveAIFeedback, applyActuacionLearning, createActuacionFromLearning, updateOrgGeocoords, loadSubcontractors, createSubcontrataFromQuote, loadSubcontratasByQuote, loadActiveSupplierCatalogs } from '../lib/supabase';
+import type { TradeSubcontractor, TradeSubcontrata, ActiveSupplierCatalog } from '../lib/supabase';
 import { printTradeInvoice } from '../lib/printTradeInvoice';
 import { geocodeAddress } from '../lib/geocoder';
 import type { GeoLocation } from '../lib/routeOptimizer';
@@ -616,6 +616,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         setTrabajadores(workersRes.map((w: TradeWorker) => ({ id: w.id, nombre: w.nombre, telefono: w.telefono ?? '', email: w.email ?? '', rol: w.rol as TrabajadorItem['rol'], activo: w.activo })));
         setTarifas(tarifasRes.map((t: TradeTarifa) => ({ id: t.id, codigo: t.codigo ?? '', familia: t.familia, descripcion: t.descripcion, precioBase: t.precio_base, unidad: t.unidad, activo: t.activo })));
         setCatalogProducts(catalogRes);
+        loadActiveSupplierCatalogs(org.id).then(setActiveSupplierCatalogs).catch(() => {});
         setJobs(jobsRes);
         loadOrgTemplates(org.id).then(templates => {
           const map: Partial<Record<TemplateType, string>> = {};
@@ -994,6 +995,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     { id: '5', codigo: 'REF-001', familia: 'Reformas', descripcion: 'Alicatado porcelánico', precioBase: 28, unidad: 'm²', activo: true },
   ]);
   const [catalogProducts, setCatalogProducts] = useState<TradeCatalogProduct[]>([]);
+  const [activeSupplierCatalogs, setActiveSupplierCatalogs] = useState<ActiveSupplierCatalog[]>([]);
   const [jobs, setJobs] = useState<TradeJob[]>([]);
   const [orgBaseGeo, setOrgBaseGeo] = useState<GeoLocation | null>(null);
 
@@ -8651,8 +8653,77 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </details>
         )}
 
+        {/* Catálogos de proveedores activados (trade_supplier_products) */}
+        {activeSupplierCatalogs.filter(sc => sc.products.length > 0).map(sc => {
+          const filtered = sc.products.filter(p =>
+            !catalogFilter ||
+            p.descripcion.toLowerCase().includes(catalogFilter.toLowerCase()) ||
+            (p.familia ?? '').toLowerCase().includes(catalogFilter.toLowerCase()) ||
+            (p.ref_proveedor ?? '').toLowerCase().includes(catalogFilter.toLowerCase()) ||
+            (p.marca ?? '').toLowerCase().includes(catalogFilter.toLowerCase())
+          );
+          if (filtered.length === 0) return null;
+          const byFam = filtered.reduce<Record<string, typeof filtered>>((acc, p) => {
+            const key = p.familia ?? 'Sin familia';
+            (acc[key] = acc[key] ?? []).push(p);
+            return acc;
+          }, {});
+          return (
+            <details key={sc.catalog_id} className="group" open>
+              <summary className="cursor-pointer list-none flex items-center gap-2 py-2 select-none hover:opacity-80">
+                <div className="flex items-center gap-2 flex-1">
+                  <Truck className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 font-mono">
+                    {sc.supplier_name}
+                  </span>
+                  <span className="bg-emerald-100 text-emerald-700 text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wide">
+                    Activo
+                  </span>
+                  <span className="text-[9px] text-slate-400 font-mono">
+                    +{sc.margen_pct}% margen
+                  </span>
+                  <span className="ml-auto text-[9px] text-slate-400 font-mono">{filtered.length} referencias</span>
+                  <ChevronDown className="h-3 w-3 text-slate-400 transition-transform group-open:rotate-180 shrink-0" />
+                </div>
+              </summary>
+              <div className="space-y-3 mt-2">
+                {Object.entries(byFam).map(([fam, items]) => (
+                  <div key={fam} className="bg-white border border-slate-200 rounded-xl overflow-hidden">
+                    <div className="bg-slate-50 px-4 py-2.5 flex items-center gap-2 border-b border-slate-200">
+                      <Tag className="h-3.5 w-3.5 text-slate-400" />
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">{fam}</span>
+                      <span className="ml-auto text-[9px] text-slate-400 font-mono">{items.length} referencias</span>
+                    </div>
+                    <div className="divide-y divide-slate-100">
+                      {items.map(p => {
+                        const precioVenta = p.precio_coste * (1 + sc.margen_pct / 100);
+                        return (
+                          <div key={p.id} className="px-4 py-2.5 flex items-center gap-3 hover:bg-slate-50/50 transition-colors">
+                            {p.ref_proveedor && (
+                              <span className="text-[9px] font-mono text-slate-400 w-20 shrink-0 truncate">{p.ref_proveedor}</span>
+                            )}
+                            <span className="flex-1 text-xs text-slate-800 truncate">{p.descripcion}</span>
+                            {p.marca && (
+                              <span className="text-[9px] text-slate-400 shrink-0">{p.marca}</span>
+                            )}
+                            <div className="flex flex-col items-end shrink-0">
+                              <span className="font-bold font-mono text-sm text-slate-900 whitespace-nowrap">{precioVenta.toFixed(2)} €</span>
+                              <span className="text-[9px] text-slate-400 font-mono">coste {p.precio_coste.toFixed(2)} €</span>
+                            </div>
+                            <span className="text-[9px] text-slate-400 w-8 text-right shrink-0">{p.unidad}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </details>
+          );
+        })}
+
         {/* Estado vacío */}
-        {!hasTarifas && catalogProducts.length === 0 && (
+        {!hasTarifas && catalogProducts.length === 0 && activeSupplierCatalogs.length === 0 && (
           <div className="text-center py-12">
             <Package className="h-10 w-10 text-slate-300 mx-auto mb-3" />
             <p className="text-slate-400 text-xs">No hay productos en el catálogo todavía.</p>
