@@ -2206,6 +2206,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       supplier_key: opt.catalog_key,
       supplier_name: opt.supplier_name,
       supplier_ref: opt.ref_proveedor ?? undefined,
+      precioCoste: opt.precio_coste,
     });
     setCompareIdx(null);
     setCompareResults([]);
@@ -2260,6 +2261,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       tipo: p.tipo,
       cantidad: p.cantidad,
       precio_unitario: p.precioUnitario,
+      precio_material: p.precioCoste ?? null,
       supplier_key: p.supplier_key ?? null,
       supplier_name: p.supplier_name ?? null,
       supplier_ref: p.supplier_ref ?? null,

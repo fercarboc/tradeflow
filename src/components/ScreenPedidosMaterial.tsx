@@ -193,7 +193,7 @@ function NewOrderModal({
           referencia: i.supplier_ref ?? null,
           cantidad: i.cantidad,
           unidad: 'ud',
-          precio_unitario: i.precio_unitario > 0 ? i.precio_unitario : null,
+          precio_unitario: i.precio_material != null && i.precio_material > 0 ? i.precio_material : (i.precio_unitario > 0 ? i.precio_unitario : null),
         }));
     }
     return [{ _key: '0', descripcion: '', referencia: null, cantidad: 1, unidad: 'ud', precio_unitario: null }];
