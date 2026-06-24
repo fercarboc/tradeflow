@@ -427,6 +427,101 @@ function SendEmailModal({ cliente, empresa, orgTemplates, onClose, onSent }: Sen
   );
 }
 
+function QuoteItemDescInput({
+  value, onChange, onVariantSelect, catalogProducts,
+}: {
+  value: string;
+  onChange: (val: string) => void;
+  onVariantSelect: (descripcion: string, precioVenta: number, supplierKey: string, supplierName: string, variantId: string) => void;
+  catalogProducts: TradeCatalogProduct[];
+}) {
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  const filtered = React.useMemo(() => {
+    if (!value.trim() || value.length < 2) return [] as Array<{ product: TradeCatalogProduct; variant: TradeCatalogVariant }>;
+    const q = value.toLowerCase();
+    const results: Array<{ product: TradeCatalogProduct; variant: TradeCatalogVariant }> = [];
+    for (const p of catalogProducts) {
+      if (
+        p.nombre_generico.toLowerCase().includes(q) ||
+        p.familia.toLowerCase().includes(q) ||
+        (p.subfamilia?.toLowerCase().includes(q) ?? false)
+      ) {
+        const variants = (p.trade_catalog_variants ?? []).filter(v => v.activo);
+        if (variants.length === 0) {
+          results.push({ product: p, variant: { id: '', marca: '', precio_material: 0, precio_mano_obra: 0, margen_pct: 0, precio_venta: 0, calidad: 'medio', is_preferred: false, activo: true } as TradeCatalogVariant });
+        } else {
+          for (const v of variants) results.push({ product: p, variant: v });
+        }
+      }
+    }
+    return results.slice(0, 10);
+  }, [value, catalogProducts]);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) setOpen(false);
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
+  const handleSelect = (product: TradeCatalogProduct, variant: TradeCatalogVariant) => {
+    const desc = variant.marca ? `${product.nombre_generico} (${variant.marca})` : product.nombre_generico;
+    const supplierKey = variant.proveedor?.toLowerCase().replace(/\s+/g, '_') ?? 'propio';
+    const supplierName = variant.proveedor ?? variant.marca ?? 'Catálogo propio';
+    onVariantSelect(desc, variant.precio_venta, supplierKey, supplierName, variant.id);
+    setOpen(false);
+  };
+
+  return (
+    <div ref={wrapRef} className="relative flex-grow min-w-0">
+      <input
+        type="text"
+        value={value}
+        placeholder="Concepto..."
+        onChange={e => { onChange(e.target.value); setOpen(true); }}
+        onFocus={() => { if (value.length >= 2) setOpen(true); }}
+        className="w-full bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-800"
+      />
+      {open && filtered.length > 0 && (
+        <div className="absolute left-0 top-full mt-1 w-80 bg-white border border-slate-200 rounded-xl shadow-xl z-50 max-h-56 overflow-y-auto">
+          {filtered.map(({ product, variant }, i) => (
+            <button
+              key={`${product.id}-${variant.id || i}`}
+              type="button"
+              onMouseDown={e => { e.preventDefault(); handleSelect(product, variant); }}
+              className="w-full text-left px-3 py-2 hover:bg-slate-50 flex items-center gap-2 border-b border-slate-50 last:border-0"
+            >
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold text-slate-800 truncate">{product.nombre_generico}</p>
+                <div className="flex items-center gap-1.5 mt-0.5">
+                  {variant.marca && <span className="text-[10px] text-slate-500 truncate">{variant.marca}</span>}
+                  {variant.proveedor && (
+                    <span className="text-[9px] font-bold bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded-full shrink-0">
+                      {variant.proveedor}
+                    </span>
+                  )}
+                  <span className="text-[9px] text-slate-400 shrink-0">{product.familia}</span>
+                </div>
+              </div>
+              {variant.precio_venta > 0 && (
+                <div className="shrink-0 text-right">
+                  <p className="text-xs font-bold font-mono text-slate-900">{variant.precio_venta.toFixed(2)} €</p>
+                  {variant.precio_material > 0 && (
+                    <p className="text-[9px] text-slate-400 font-mono">coste {variant.precio_material.toFixed(2)} €</p>
+                  )}
+                </div>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AppDashboardView({ setCurrentPage, initialMobile = true, session, loginOnMount = false, workerOrgId, checkoutSuccess = false }: AppDashboardViewProps) {
   const { can, rol } = usePermissions();
   const { workerProfile } = useSession();
@@ -2146,7 +2241,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
     const isEditing = !!editingQuoteId;
     let saved: Presupuesto;
-    const partidasPayload = editingQuote.partidas.map(p => ({ descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precio_unitario: p.precioUnitario }));
+    const partidasPayload = editingQuote.partidas.map(p => ({
+      descripcion: p.descripcion,
+      tipo: p.tipo,
+      cantidad: p.cantidad,
+      precio_unitario: p.precioUnitario,
+      supplier_key: p.supplier_key ?? null,
+      supplier_name: p.supplier_name ?? null,
+      supplier_ref: p.supplier_ref ?? null,
+      catalog_variant_id: p.catalog_variant_id ?? null,
+    }));
 
     if (isLiveMode && orgId) {
       const client = clientes.find(c => c.nombre === editingQuote.nombreCliente);
@@ -6437,15 +6541,21 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <React.Fragment key={idx}>
               <div className={`bg-slate-50 border p-3 rounded-xl flex flex-wrap md:flex-nowrap gap-3 items-center transition-colors ${compareIdx === idx ? 'border-blue-300 bg-blue-50/50' : 'border-slate-200'}`}>
                 <div className="flex-grow flex items-center gap-1.5 min-w-0">
-                  <input
-                    type="text"
+                  <QuoteItemDescInput
                     value={item.descripcion}
-                    placeholder="Concepto..."
-                    onChange={(e) => handleUpdateItem(idx, { descripcion: e.target.value })}
-                    className="flex-grow bg-white border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-800"
+                    onChange={val => handleUpdateItem(idx, { descripcion: val })}
+                    onVariantSelect={(desc, precio, sKey, sName, variantId) =>
+                      handleUpdateItem(idx, { descripcion: desc, precioUnitario: precio, total: precio * item.cantidad, supplier_key: sKey, supplier_name: sName, catalog_variant_id: variantId })
+                    }
+                    catalogProducts={catalogProducts}
                   />
                   {item.supplier_key === 'obramat' && (
                     <img src="/articuloobramat.png" alt="OBRAMAT" className="h-4 shrink-0 opacity-80" title={item.supplier_ref ?? 'OBRAMAT'} />
+                  )}
+                  {item.supplier_key && item.supplier_key !== 'obramat' && item.supplier_name && (
+                    <span className="text-[9px] font-bold bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded-full shrink-0 whitespace-nowrap">
+                      {item.supplier_name}
+                    </span>
                   )}
                   {item.tipo === 'material' && orgId && (
                     <button

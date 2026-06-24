@@ -84,6 +84,11 @@ export interface TradeQuoteItem {
   precio_unitario: number;
   total: number;
   posicion: number;
+  supplier_key?: string | null;
+  supplier_name?: string | null;
+  supplier_ref?: string | null;
+  catalog_variant_id?: string | null;
+  material_order_placed?: boolean;
   created_at: string;
 }
 
@@ -565,7 +570,7 @@ export async function saveQuote(
   orgId: string,
   clientId: string,
   descripcion: string,
-  items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario'>[],
+  items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario' | 'supplier_key' | 'supplier_name' | 'supplier_ref' | 'catalog_variant_id'>[],
 ): Promise<TradeQuote> {
   const { count } = await supabase
     .from('trade_quotes')
@@ -1392,7 +1397,7 @@ export async function updateQuote(
   quoteId: string,
   clientId: string,
   descripcion: string,
-  items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario'>[],
+  items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario' | 'supplier_key' | 'supplier_name' | 'supplier_ref' | 'catalog_variant_id'>[],
 ): Promise<TradeQuote> {
   const totalNeto = items.reduce((s, i) => s + i.cantidad * i.precio_unitario, 0);
   const { data: quote, error: qErr } = await supabase
@@ -4411,4 +4416,69 @@ export async function loadSupplierCatalogs(orgId: string): Promise<{
   const enabledIds = new Set((orgSettings ?? []).map((s: { catalog_id: string }) => s.catalog_id));
   return ((data ?? []) as { id: string; supplier_key: string; supplier_name: string; contact_email?: string | null; margen_pct_default: number }[])
     .filter(c => enabledIds.has(c.id));
+}
+
+export interface QuoteWithPendingMaterial {
+  id: string;
+  numero: string;
+  descripcion: string | null;
+  cliente_nombre: string | null;
+  fecha: string;
+  pendingItems: {
+    id: string;
+    descripcion: string;
+    cantidad: number;
+    precio_unitario: number;
+    supplier_key: string | null;
+    supplier_name: string | null;
+    catalog_variant_id: string | null;
+  }[];
+}
+
+export async function loadAcceptedQuotesWithPendingMaterial(orgId: string): Promise<QuoteWithPendingMaterial[]> {
+  const { data, error } = await supabase
+    .from('trade_quotes')
+    .select(`
+      id, numero, descripcion, fecha,
+      trade_clients(nombre),
+      trade_quote_items(id, descripcion, tipo, cantidad, precio_unitario, supplier_key, supplier_name, catalog_variant_id, material_order_placed)
+    `)
+    .eq('org_id', orgId)
+    .eq('estado', 'Aceptado')
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+
+  return ((data ?? []) as unknown as {
+    id: string; numero: string; descripcion: string | null; fecha: string;
+    trade_clients: { nombre: string } | null;
+    trade_quote_items: TradeQuoteItem[];
+  }[])
+    .map(q => ({
+      id: q.id,
+      numero: q.numero,
+      descripcion: q.descripcion,
+      cliente_nombre: q.trade_clients?.nombre ?? null,
+      fecha: q.fecha,
+      pendingItems: (q.trade_quote_items ?? [])
+        .filter(i => i.tipo === 'material' && !i.material_order_placed)
+        .map(i => ({
+          id: i.id,
+          descripcion: i.descripcion,
+          cantidad: i.cantidad,
+          precio_unitario: i.precio_unitario,
+          supplier_key: i.supplier_key ?? null,
+          supplier_name: i.supplier_name ?? null,
+          catalog_variant_id: i.catalog_variant_id ?? null,
+        })),
+    }))
+    .filter(q => q.pendingItems.length > 0);
+}
+
+export async function markQuoteItemsOrdered(itemIds: string[]): Promise<void> {
+  if (!itemIds.length) return;
+  const { error } = await supabase
+    .from('trade_quote_items')
+    .update({ material_order_placed: true })
+    .in('id', itemIds);
+  if (error) throw error;
 }

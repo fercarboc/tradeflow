@@ -86,6 +86,9 @@ aviso?: string;
 supplier_key?: string;
 supplier_name?: string;
 supplier_ref?: string;
+catalog_variant_id?: string;
+dbItemId?: string;
+material_order_placed?: boolean;
 }
 
 export interface Presupuesto {

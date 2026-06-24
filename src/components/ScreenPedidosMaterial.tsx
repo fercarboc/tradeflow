@@ -7,8 +7,9 @@ import { Document, Packer, Paragraph, Table, TableRow, TableCell, TextRun, Align
 import {
   loadSupplierOrders, loadSupplierCatalogs, createSupplierOrder,
   updateSupplierOrderEstado, deleteSupplierOrder, loadCatalogProducts,
+  loadAcceptedQuotesWithPendingMaterial, markQuoteItemsOrdered,
 } from '../lib/supabase';
-import type { SupplierOrder, SupplierOrderLine, TradeQuote, TradeCatalogProduct } from '../lib/supabase';
+import type { SupplierOrder, SupplierOrderLine, TradeQuote, TradeCatalogProduct, QuoteWithPendingMaterial } from '../lib/supabase';
 
 interface Props {
   orgId: string;
@@ -577,24 +578,183 @@ function OrderCard({
   );
 }
 
+function FromQuoteSection({
+  orgId, catalogs, acceptedQuotes, onOrderCreated, showToast, onQuotesRefresh,
+}: {
+  orgId: string;
+  catalogs: { id: string; supplier_name: string; supplier_key: string; contact_email?: string | null }[];
+  acceptedQuotes: QuoteWithPendingMaterial[];
+  onOrderCreated: (order: SupplierOrder) => void;
+  showToast: (msg: string, type?: 'success' | 'error' | 'info') => void;
+  onQuotesRefresh: () => void;
+}) {
+  const [expandedQuote, setExpandedQuote] = useState<string | null>(null);
+  const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
+  const [catalogId, setCatalogId] = useState(catalogs[0]?.id ?? '');
+  const [creating, setCreating] = useState(false);
+
+  const toggleItem = (id: string) => {
+    setSelectedItems(prev => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  };
+
+  const handleExpand = (quoteId: string) => {
+    setExpandedQuote(prev => prev === quoteId ? null : quoteId);
+    setSelectedItems(new Set());
+  };
+
+  const handleCreateOrder = async (quote: QuoteWithPendingMaterial) => {
+    if (!catalogId) { showToast('Selecciona un proveedor', 'error'); return; }
+    const items = quote.pendingItems.filter(i => selectedItems.has(i.id));
+    if (!items.length) { showToast('Selecciona al menos un artículo', 'error'); return; }
+    setCreating(true);
+    try {
+      const lines = items.map(i => ({
+        descripcion: i.descripcion,
+        referencia: null,
+        cantidad: i.cantidad,
+        unidad: 'ud',
+        precio_unitario: null,
+      }));
+      const order = await createSupplierOrder(orgId, catalogId, lines, {});
+      await markQuoteItemsOrdered(items.map(i => i.id));
+      showToast('Pedido creado ✓', 'success');
+      onOrderCreated(order);
+      setExpandedQuote(null);
+      setSelectedItems(new Set());
+      onQuotesRefresh();
+    } catch (e: unknown) {
+      showToast((e as Error).message ?? 'Error', 'error');
+    } finally { setCreating(false); }
+  };
+
+  if (acceptedQuotes.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-10 text-slate-400 gap-2">
+        <FileText className="w-10 h-10 opacity-30" />
+        <p className="text-sm font-semibold">No hay presupuestos aceptados con material pendiente</p>
+        <p className="text-xs text-center max-w-xs">Cuando un cliente acepte un presupuesto, podrás crear pedidos de material directamente desde aquí.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-2">
+      {acceptedQuotes.map(quote => {
+        const isExpanded = expandedQuote === quote.id;
+        const allSelected = quote.pendingItems.every(i => selectedItems.has(i.id));
+        return (
+          <div key={quote.id} className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+            <button
+              className="w-full flex items-center gap-3 px-4 py-3.5 text-left"
+              onClick={() => handleExpand(quote.id)}
+            >
+              <div className="w-9 h-9 bg-emerald-50 rounded-xl flex items-center justify-center shrink-0">
+                <FileText className="w-4 h-4 text-emerald-600" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="font-black text-slate-900 text-sm">{quote.numero}</span>
+                  <span className="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Aceptado</span>
+                </div>
+                <div className="flex items-center gap-2 mt-0.5">
+                  {quote.cliente_nombre && <span className="text-xs text-slate-500">{quote.cliente_nombre}</span>}
+                  <span className="text-xs text-slate-400">{quote.pendingItems.length} artículo{quote.pendingItems.length !== 1 ? 's' : ''} pendiente{quote.pendingItems.length !== 1 ? 's' : ''}</span>
+                </div>
+              </div>
+              {isExpanded ? <ChevronUp className="w-4 h-4 text-slate-400 shrink-0" /> : <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />}
+            </button>
+
+            {isExpanded && (
+              <div className="border-t border-slate-100 px-4 py-3 space-y-3">
+                <div className="flex items-center justify-between">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedItems(allSelected ? new Set() : new Set(quote.pendingItems.map(i => i.id)))}
+                    className="text-xs font-bold text-blue-600 hover:text-blue-700"
+                  >
+                    {allSelected ? 'Deseleccionar todo' : 'Seleccionar todo'}
+                  </button>
+                  <span className="text-xs text-slate-400">{selectedItems.size} seleccionados</span>
+                </div>
+
+                <div className="space-y-1">
+                  {quote.pendingItems.map(item => (
+                    <label key={item.id} className="flex items-center gap-3 py-1.5 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={selectedItems.has(item.id)}
+                        onChange={() => toggleItem(item.id)}
+                        className="accent-blue-600 w-4 h-4 shrink-0"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <span className="text-sm text-slate-800 font-medium">{item.descripcion}</span>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <span className="text-xs text-slate-400">{item.cantidad} ud</span>
+                          {item.supplier_name && (
+                            <span className="text-[10px] font-bold bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded-full">{item.supplier_name}</span>
+                          )}
+                        </div>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+
+                {catalogs.length > 0 && (
+                  <div>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wide mb-1.5 block">Proveedor del pedido</label>
+                    <select
+                      value={catalogId}
+                      onChange={e => setCatalogId(e.target.value)}
+                      className="w-full border border-slate-200 rounded-xl px-3 py-2 text-sm font-semibold text-slate-800 focus:outline-none focus:border-blue-400"
+                    >
+                      {catalogs.map(c => <option key={c.id} value={c.id}>{c.supplier_name}</option>)}
+                    </select>
+                  </div>
+                )}
+
+                <button
+                  onClick={() => handleCreateOrder(quote)}
+                  disabled={creating || selectedItems.size === 0 || !catalogId}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-2xl text-sm transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  <ShoppingCart className="w-4 h-4" />
+                  {creating ? 'Creando pedido...' : `Crear pedido (${selectedItems.size} artículo${selectedItems.size !== 1 ? 's' : ''})`}
+                </button>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function ScreenPedidosMaterial({ orgId, showToast, initialQuote, onClose }: Props) {
   const [orders, setOrders] = useState<SupplierOrder[]>([]);
   const [catalogs, setCatalogs] = useState<{ id: string; supplier_name: string; supplier_key: string; contact_email?: string | null }[]>([]);
   const [catalogProducts, setCatalogProducts] = useState<TradeCatalogProduct[]>([]);
+  const [acceptedQuotes, setAcceptedQuotes] = useState<QuoteWithPendingMaterial[]>([]);
+  const [activeTab, setActiveTab] = useState<'pedidos' | 'presupuestos'>('pedidos');
   const [loading, setLoading] = useState(true);
   const [showNew, setShowNew] = useState(!!initialQuote);
 
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const [ords, cats, prods] = await Promise.all([
+      const [ords, cats, prods, quotes] = await Promise.all([
         loadSupplierOrders(orgId),
         loadSupplierCatalogs(orgId),
         loadCatalogProducts(orgId),
+        loadAcceptedQuotesWithPendingMaterial(orgId),
       ]);
       setOrders(ords);
       setCatalogs(cats);
       setCatalogProducts(prods);
+      setAcceptedQuotes(quotes);
     } catch (e: unknown) {
       showToast((e as Error).message ?? 'Error cargando pedidos', 'error');
     } finally { setLoading(false); }
@@ -628,6 +788,38 @@ export default function ScreenPedidosMaterial({ orgId, showToast, initialQuote, 
         </button>
       </div>
 
+      {/* Tabs */}
+      <div className="flex gap-1 bg-slate-100 rounded-2xl p-1">
+        <button
+          onClick={() => setActiveTab('pedidos')}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all ${activeTab === 'pedidos' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+        >
+          <ShoppingCart className="w-3.5 h-3.5" /> Mis pedidos
+        </button>
+        <button
+          onClick={() => setActiveTab('presupuestos')}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-bold transition-all ${activeTab === 'presupuestos' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+        >
+          <FileText className="w-3.5 h-3.5" />
+          Desde presupuestos
+          {acceptedQuotes.length > 0 && (
+            <span className="bg-blue-600 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full">{acceptedQuotes.length}</span>
+          )}
+        </button>
+      </div>
+
+      {activeTab === 'presupuestos' && (
+        <FromQuoteSection
+          orgId={orgId}
+          catalogs={catalogs}
+          acceptedQuotes={acceptedQuotes}
+          onOrderCreated={order => setOrders(prev => [order, ...prev])}
+          showToast={showToast}
+          onQuotesRefresh={load}
+        />
+      )}
+
+      {activeTab === 'pedidos' && <>
       {/* KPI strip */}
       <div className="grid grid-cols-3 gap-3">
         {[
@@ -703,6 +895,7 @@ export default function ScreenPedidosMaterial({ orgId, showToast, initialQuote, 
           showToast={showToast}
         />
       )}
+      </>}
     </div>
   );
 }
