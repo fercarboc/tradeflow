@@ -4,6 +4,7 @@ import HeroSection from '../components/landing/HeroSection';
 import PlanificacionSection from '../components/landing/PlanificacionSection';
 import FuncionesSection from '../components/landing/FuncionesSection';
 import DashboardSection from '../components/landing/DashboardSection';
+import ProveedoresStrip from '../components/landing/ProveedoresStrip';
 import PartnerDemoStrip from '../components/landing/PartnerDemoStrip';
 import PartnersSection from '../components/landing/PartnersSection';
 import BetaSection from '../components/landing/BetaSection';
@@ -20,6 +21,7 @@ export default function LandingPage({ setCurrentPage }: LandingPageProps) {
       <HeroSection setCurrentPage={setCurrentPage} />
       <PlanificacionSection />
       <FuncionesSection />
+      <ProveedoresStrip setCurrentPage={setCurrentPage} />
       <DashboardSection />
       <PartnerDemoStrip setCurrentPage={setCurrentPage} />
       <PartnersSection setCurrentPage={setCurrentPage} />

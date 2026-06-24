@@ -5,6 +5,7 @@ import {
   Receipt,
   PenLine,
   Users,
+  ShoppingCart,
 } from 'lucide-react';
 
 const CARDS = [
@@ -43,6 +44,12 @@ const CARDS = [
     color: '#C8922A',
     title: 'Gestión de equipo',
     description: 'Asigna trabajos a tus técnicos, consulta su ubicación y estado en tiempo real desde el panel de control.',
+  },
+  {
+    icon: ShoppingCart,
+    color: '#1A7A5A',
+    title: 'Pedidos a proveedores',
+    description: 'Genera presupuestos y convierte automáticamente los materiales en pedidos para tus proveedores habituales.',
   },
 ];
 
