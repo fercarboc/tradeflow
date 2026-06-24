@@ -4217,6 +4217,7 @@ export interface TradeCompra {
   id: string;
   org_id: string;
   mayorista_id?: string | null;
+  subcontrata_id?: string | null;
   referencia_factura?: string | null;
   concepto: string;
   importe: number;
@@ -4231,6 +4232,7 @@ export interface TradeCompra {
   updated_at: string;
   // joined
   trade_mayoristas?: { nombre: string } | null;
+  trade_subcontractors?: { nombre: string } | null;
   trade_jobs?: { titulo: string } | null;
 }
 
@@ -4277,7 +4279,7 @@ export async function deleteMayorista(id: string): Promise<void> {
 export async function loadCompras(orgId: string): Promise<TradeCompra[]> {
   const { data, error } = await supabase
     .from('trade_compras')
-    .select('*, trade_mayoristas(nombre), trade_jobs(titulo)')
+    .select('*, trade_mayoristas(nombre), trade_subcontractors(nombre), trade_jobs(titulo)')
     .eq('org_id', orgId)
     .order('fecha', { ascending: false });
   if (error) throw error;
@@ -4286,7 +4288,7 @@ export async function loadCompras(orgId: string): Promise<TradeCompra[]> {
 
 export async function saveCompra(
   orgId: string,
-  payload: Omit<TradeCompra, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_mayoristas' | 'trade_jobs'>,
+  payload: Omit<TradeCompra, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_mayoristas' | 'trade_subcontractors' | 'trade_jobs'>,
   id?: string,
 ): Promise<TradeCompra> {
   if (id) {
@@ -4294,7 +4296,7 @@ export async function saveCompra(
       .from('trade_compras')
       .update({ ...payload, updated_at: new Date().toISOString() })
       .eq('id', id)
-      .select('*, trade_mayoristas(nombre), trade_jobs(titulo)')
+      .select('*, trade_mayoristas(nombre), trade_subcontractors(nombre), trade_jobs(titulo)')
       .single();
     if (error) throw error;
     return data as TradeCompra;
@@ -4302,7 +4304,7 @@ export async function saveCompra(
   const { data, error } = await supabase
     .from('trade_compras')
     .insert({ ...payload, org_id: orgId })
-    .select('*, trade_mayoristas(nombre), trade_jobs(titulo)')
+    .select('*, trade_mayoristas(nombre), trade_subcontractors(nombre), trade_jobs(titulo)')
     .single();
   if (error) throw error;
   return data as TradeCompra;

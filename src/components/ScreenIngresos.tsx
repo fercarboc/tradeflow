@@ -9,9 +9,9 @@ import type { TradeClient, TradeQuote } from '../lib/supabase';
 import {
   loadMayoristas, saveMayorista, deleteMayorista,
   loadCompras, saveCompra, deleteCompra, marcarCompraPagada,
-  loadSubcontratas,
+  loadSubcontratas, loadSubcontractors,
 } from '../lib/supabase';
-import type { TradeMayorista, TradeCompra, TradeSubcontrata } from '../lib/supabase';
+import type { TradeMayorista, TradeCompra, TradeSubcontrata, TradeSubcontractor } from '../lib/supabase';
 import { useSession } from '../context/SessionContext';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -53,6 +53,7 @@ function fmtDate(d?: string | null) {
 
 const EMPTY_COMPRA = {
   mayorista_id: null as string | null,
+  subcontrata_id: null as string | null,
   referencia_factura: '',
   concepto: '',
   importe: 0,
@@ -92,9 +93,10 @@ export default function ScreenIngresos({ showToast }: Props) {
   const [clientes, setClientes]   = useState<Pick<TradeClient, 'id' | 'nombre' | 'total_facturado'>[]>([]);
 
   // Gastos data
-  const [compras, setCompras]       = useState<TradeCompra[]>([]);
-  const [mayoristas, setMayoristas] = useState<TradeMayorista[]>([]);
-  const [externas, setExternas]     = useState<TradeSubcontrata[]>([]);
+  const [compras, setCompras]           = useState<TradeCompra[]>([]);
+  const [mayoristas, setMayoristas]     = useState<TradeMayorista[]>([]);
+  const [externas, setExternas]         = useState<TradeSubcontrata[]>([]);
+  const [subcontractors, setSubcontractors] = useState<TradeSubcontractor[]>([]);
 
   // Modal compra
   const [showCompraModal, setShowCompraModal] = useState(false);
@@ -112,13 +114,14 @@ export default function ScreenIngresos({ showToast }: Props) {
     if (!org) return;
     setLoading(true);
     try {
-      const [invRes, qRes, cliRes, cpRes, myRes, extRes] = await Promise.all([
+      const [invRes, qRes, cliRes, cpRes, myRes, extRes, subRes] = await Promise.all([
         supabase.from('trade_invoices').select('*, trade_clients(nombre)').eq('org_id', org.id).order('fecha', { ascending: false }),
         supabase.from('trade_quotes').select('id, total_con_iva, estado, fecha, client_id').eq('org_id', org.id).eq('estado', 'Aceptado'),
         supabase.from('trade_clients').select('id, nombre, total_facturado').eq('org_id', org.id).order('total_facturado', { ascending: false }).limit(8),
         loadCompras(org.id),
         loadMayoristas(org.id),
         loadSubcontratas(org.id),
+        loadSubcontractors(org.id),
       ]);
       setInvoices((invRes.data ?? []) as InvoiceRow[]);
       setPipeline((qRes.data ?? []) as typeof pipeline);
@@ -126,6 +129,7 @@ export default function ScreenIngresos({ showToast }: Props) {
       setCompras(cpRes);
       setMayoristas(myRes);
       setExternas(extRes);
+      setSubcontractors(subRes);
     } catch { showToast('Error cargando datos', 'error'); }
     setLoading(false);
   }, [org, showToast]);
@@ -191,6 +195,7 @@ export default function ScreenIngresos({ showToast }: Props) {
     setEditingCompraId(c.id);
     setDraftCompra({
       mayorista_id: c.mayorista_id ?? null,
+      subcontrata_id: c.subcontrata_id ?? null,
       referencia_factura: c.referencia_factura ?? '',
       concepto: c.concepto,
       importe: c.importe,
@@ -477,6 +482,7 @@ export default function ScreenIngresos({ showToast }: Props) {
                             <td className="px-4 py-3">
                               <p className="font-bold text-slate-800 truncate max-w-[180px]">{c.concepto}</p>
                               {c.trade_mayoristas?.nombre && <p className="text-slate-400 flex items-center gap-1 mt-0.5"><Building2 className="w-2.5 h-2.5" />{c.trade_mayoristas.nombre}</p>}
+                              {!c.trade_mayoristas?.nombre && c.trade_subcontractors?.nombre && <p className="text-violet-500 flex items-center gap-1 mt-0.5"><Building2 className="w-2.5 h-2.5" />{c.trade_subcontractors.nombre} <span className="text-[9px] text-violet-400">(servicio)</span></p>}
                             </td>
                             <td className="px-4 py-3 text-slate-500 font-mono hidden md:table-cell">{c.referencia_factura || '—'}</td>
                             <td className="px-4 py-3 text-slate-500 hidden sm:table-cell">{fmtDate(c.fecha)}</td>
@@ -685,13 +691,38 @@ export default function ScreenIngresos({ showToast }: Props) {
                 <input type="text" value={draftCompra.concepto} onChange={e => setDraftCompra(d => ({ ...d, concepto: e.target.value }))} placeholder="Ej: Material eléctrico instalación nave industrial" className={inputCls + ' mt-1'} autoFocus />
               </div>
               <div>
-                <label className={labelCls}>Proveedor / Mayorista</label>
+                <label className={labelCls}>Proveedor</label>
                 <div className="flex gap-2 mt-1">
-                  <select value={draftCompra.mayorista_id ?? ''} onChange={e => setDraftCompra(d => ({ ...d, mayorista_id: e.target.value || null }))} className={inputCls}>
+                  <select
+                    value={
+                      draftCompra.subcontrata_id ? `s:${draftCompra.subcontrata_id}` :
+                      draftCompra.mayorista_id ? `m:${draftCompra.mayorista_id}` : ''
+                    }
+                    onChange={e => {
+                      const val = e.target.value;
+                      if (!val) {
+                        setDraftCompra(d => ({ ...d, mayorista_id: null, subcontrata_id: null }));
+                      } else if (val.startsWith('m:')) {
+                        setDraftCompra(d => ({ ...d, mayorista_id: val.slice(2), subcontrata_id: null }));
+                      } else if (val.startsWith('s:')) {
+                        setDraftCompra(d => ({ ...d, subcontrata_id: val.slice(2), mayorista_id: null }));
+                      }
+                    }}
+                    className={inputCls}
+                  >
                     <option value="">— Sin proveedor / Proveedor puntual —</option>
-                    {mayoristas.map(m => <option key={m.id} value={m.id}>{m.nombre}{m.nif ? ` (${m.nif})` : ''}</option>)}
+                    {mayoristas.length > 0 && (
+                      <optgroup label="Proveedores de material">
+                        {mayoristas.map(m => <option key={m.id} value={`m:${m.id}`}>{m.nombre}{m.nif ? ` (${m.nif})` : ''}</option>)}
+                      </optgroup>
+                    )}
+                    {subcontractors.length > 0 && (
+                      <optgroup label="Proveedores de servicio (subcontratas)">
+                        {subcontractors.map(s => <option key={s.id} value={`s:${s.id}`}>{s.nombre}{s.especialidad ? ` — ${s.especialidad}` : ''}</option>)}
+                      </optgroup>
+                    )}
                   </select>
-                  <button type="button" onClick={openNewMayor} title="Añadir proveedor" className="px-3 py-2 border border-slate-200 rounded-xl text-slate-500 hover:border-slate-400 cursor-pointer shrink-0">
+                  <button type="button" onClick={openNewMayor} title="Añadir proveedor de material" className="px-3 py-2 border border-slate-200 rounded-xl text-slate-500 hover:border-slate-400 cursor-pointer shrink-0">
                     <Plus className="w-4 h-4" />
                   </button>
                 </div>

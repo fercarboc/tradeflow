@@ -5432,7 +5432,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             {can('catalog.manage') && SidebarBtn({ id: 'catalog', icon: <Package className="w-4 h-4" />, label: 'Catálogo' })}
             {can('jobs.view') && SidebarBtn({ id: 'planificacion', icon: <Calendar className="w-4 h-4" />, label: 'Planificación' })}
             {can('jobs.view') && SidebarBtn({ id: 'ruta_dia', icon: <Navigation className="w-4 h-4" />, label: 'Ruta del Día' })}
-            {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos' })}
+            {can('ingresos.view') && SidebarBtn({ id: 'ingresos', icon: <BarChart2 className="w-4 h-4" />, label: 'Ingresos/Gastos' })}
             {can('team.manage') && SidebarBtn({ id: 'equipo', icon: <Users className="w-4 h-4" />, label: 'Equipo' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'mantenimiento', icon: <Wrench className="w-4 h-4" />, label: 'Mantenimientos' })}
             {can('mantenimiento.view') && (['empresa', 'empresa_plus'].includes(subscription?.plan ?? orgData?.plan ?? '') || subscription?.status === 'trial') && SidebarBtn({ id: 'contratos', icon: <FileText className="w-4 h-4" />, label: 'Contratos' })}
@@ -5521,7 +5521,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 {activeTab === 'catalog' && 'Catálogo de Productos'}
                 {activeTab === 'planificacion' && 'Planificación de Trabajos'}
                 {activeTab === 'ruta_dia' && 'Ruta del Día'}
-                {activeTab === 'ingresos' && 'Ingresos y Rentabilidad'}
+                {activeTab === 'ingresos' && 'Ingresos, Gastos y Rentabilidad'}
                 {activeTab === 'facturas' && 'Gestión de Facturas'}
                 {activeTab === 'equipo' && 'Equipo y Trabajadores'}
                 {activeTab === 'mantenimiento' && 'Contratos de Mantenimiento'}
