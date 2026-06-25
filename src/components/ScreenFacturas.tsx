@@ -273,8 +273,9 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
   function handleWhatsApp(inv: InvoiceWithClient) {
     const telefono = inv.trade_clients?.telefono?.replace(/\D/g, '');
     if (!telefono) { showToast('El cliente no tiene teléfono registrado', 'error'); return; }
+    const enlace = inv.view_token ? `\n\nPuede ver y descargar la factura aquí:\nhttps://www.trabflow.com/factura/${inv.view_token}` : '';
     const texto = encodeURIComponent(
-      `Hola, le enviamos la factura ${inv.numero} por importe de ${fmt(inv.total ?? 0)}. ¿Podría confirmar la recepción? Muchas gracias.`
+      `Hola, le enviamos la factura ${inv.numero} por importe de ${fmt(inv.total ?? 0)}.${enlace}\n\n¿Podría confirmar la recepción? Muchas gracias.`
     );
     window.open(`https://wa.me/${telefono}?text=${texto}`, '_blank');
   }

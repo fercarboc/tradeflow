@@ -30,6 +30,7 @@ import AuthCallbackView from './components/auth/AuthCallbackView';
 import AuthResetPasswordView from './components/auth/AuthResetPasswordView';
 import UpdatePasswordView from './components/auth/UpdatePasswordView';
 import QuoteAcceptView from './components/QuoteAcceptView';
+import InvoicePublicView from './components/InvoicePublicView';
 import PartnerDemoView from './components/partner-demo/PartnerDemoView';
 
 const AUTH_FLOW_PAGES = new Set<ActivePage>([
@@ -69,6 +70,7 @@ function detectAuthRoute(): ActivePage | null {
   if (path === '/update-password') return ActivePage.UpdatePassword;
   if (path === '/login') return ActivePage.Login;
   if (path.startsWith('/p/')) return ActivePage.QuoteAccept;
+  if (path.startsWith('/factura/')) return ActivePage.InvoiceView;
 
   return null;
 }
@@ -82,6 +84,11 @@ export default function App() {
   const pwa = isPWAMode();
   const [checkoutSuccess] = useState(() => detectAndClearCheckoutSuccess());
   const [quoteToken] = useState(() => extractQuoteToken());
+  const [invoiceToken] = useState(() => {
+    const path = window.location.pathname;
+    if (path.startsWith('/factura/')) return path.split('/')[2] ?? '';
+    return '';
+  });
 
   const initialAuthRoute = detectAuthRoute();
 
@@ -274,6 +281,9 @@ export default function App() {
 
       case ActivePage.QuoteAccept:
         return <QuoteAcceptView token={quoteToken} />;
+
+      case ActivePage.InvoiceView:
+        return <InvoicePublicView token={invoiceToken} />;
 
       case ActivePage.PartnerDemo:
         return <PartnerDemoView setCurrentPage={setCurrentPage} />;

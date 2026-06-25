@@ -41,6 +41,9 @@ UpdatePassword = 'update-password',
 // Public quote acceptance
 QuoteAccept = 'quote-accept',
 
+// Public invoice view
+InvoiceView = 'invoice-view',
+
 // Demo interactiva para socios / partners
 PartnerDemo = 'partner-demo',
 }

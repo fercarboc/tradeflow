@@ -129,6 +129,7 @@ export interface TradeInvoice {
   // VeriFactu (RD 1007/2023)
   verifactu_hash?: string | null;
   verifactu_hash_anterior?: string | null;
+  view_token?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -3603,6 +3604,29 @@ export async function createQuoteToken(
     .single();
   if (error) throw error;
   return data as QuoteToken;
+}
+
+export interface InvoicePublicData {
+  invoice: TradeInvoice & {
+    trade_clients?: { nombre: string; nif?: string | null; telefono?: string | null; direccion?: string | null; ciudad?: string | null } | null;
+    trade_invoice_lines?: TradeInvoiceLine[];
+  };
+  org: {
+    nombre?: string; razon_social?: string; nif?: string;
+    direccion?: string; ciudad?: string; telefono?: string; email?: string; logo_url?: string;
+  };
+}
+
+export async function getInvoiceByViewToken(token: string): Promise<InvoicePublicData | null> {
+  const res = await fetch(`${SUPABASE_URL}/functions/v1/trade-invoice-public`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY },
+    body: JSON.stringify({ token }),
+  });
+  if (!res.ok) return null;
+  const json = await res.json();
+  if (json.error || !json.invoice) return null;
+  return json as InvoicePublicData;
 }
 
 export async function getQuoteByToken(token: string): Promise<QuoteToken | null> {

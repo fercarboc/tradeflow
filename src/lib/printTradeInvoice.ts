@@ -13,11 +13,11 @@ interface OrgInfo {
   iva_default?: number;
 }
 
-export function printTradeInvoice(
+export function buildInvoiceHtml(
   inv: TradeInvoice & { trade_clients?: { nombre: string } | null },
   lines: TradeInvoiceLine[],
   org: OrgInfo,
-) {
+): string {
   const esRectificativa = inv.tipo_factura === 'rectificativa';
   const accentColor = esRectificativa ? '#dc2626' : inv.serie === 'M' ? '#7c3aed' : '#2563eb';
   const tipoLabel = esRectificativa ? 'Factura Rectificativa' : 'Factura';
@@ -212,6 +212,15 @@ export function printTradeInvoice(
     `}
   </body></html>`;
 
+  return html;
+}
+
+export function printTradeInvoice(
+  inv: TradeInvoice & { trade_clients?: { nombre: string } | null },
+  lines: TradeInvoiceLine[],
+  org: OrgInfo,
+) {
+  const html = buildInvoiceHtml(inv, lines, org);
   const win = window.open('', '_blank', 'width=900,height=700');
   if (!win) return;
   win.document.write(html);
