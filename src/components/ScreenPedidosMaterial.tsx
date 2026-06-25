@@ -553,37 +553,49 @@ function OrderCard({
     const nextEstado = next[order.estado];
     if (!nextEstado) return;
     setActing(true);
+    let ok = false;
     try {
       await updateSupplierOrderEstado(order.id, nextEstado);
-      onUpdated({ ...order, estado: nextEstado });
+      ok = true;
       showToast(`Estado actualizado a ${ESTADO_LABEL[nextEstado]}`, 'success');
     } catch (e: unknown) {
       showToast((e as Error).message ?? 'Error', 'error');
-    } finally { setActing(false); }
+    } finally {
+      setActing(false);
+      if (ok) onUpdated({ ...order, estado: nextEstado });
+    }
   };
 
   const cancel = async () => {
     if (!confirm('¿Cancelar este pedido?')) return;
     setActing(true);
+    let ok = false;
     try {
       await updateSupplierOrderEstado(order.id, 'cancelado');
-      onUpdated({ ...order, estado: 'cancelado' });
+      ok = true;
       showToast('Pedido cancelado', 'info');
     } catch (e: unknown) {
       showToast((e as Error).message ?? 'Error', 'error');
-    } finally { setActing(false); }
+    } finally {
+      setActing(false);
+      if (ok) onUpdated({ ...order, estado: 'cancelado' });
+    }
   };
 
   const remove = async () => {
     if (!confirm('¿Eliminar este pedido?')) return;
     setActing(true);
+    let ok = false;
     try {
       await deleteSupplierOrder(order.id);
-      onDeleted(order.id);
+      ok = true;
       showToast('Pedido eliminado');
     } catch (e: unknown) {
       showToast((e as Error).message ?? 'Error', 'error');
-    } finally { setActing(false); }
+    } finally {
+      setActing(false);
+      if (ok) onDeleted(order.id);
+    }
   };
 
   const sendWhatsApp = () => {

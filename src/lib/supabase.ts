@@ -4218,6 +4218,7 @@ export interface TradeCompra {
   org_id: string;
   mayorista_id?: string | null;
   subcontrata_id?: string | null;
+  catalog_supplier_id?: string | null;
   referencia_factura?: string | null;
   concepto: string;
   importe: number;
@@ -4233,6 +4234,7 @@ export interface TradeCompra {
   // joined
   trade_mayoristas?: { nombre: string } | null;
   trade_subcontractors?: { nombre: string } | null;
+  trade_supplier_catalogs?: { supplier_name: string } | null;
   trade_jobs?: { titulo: string } | null;
 }
 
@@ -4279,7 +4281,7 @@ export async function deleteMayorista(id: string): Promise<void> {
 export async function loadCompras(orgId: string): Promise<TradeCompra[]> {
   const { data, error } = await supabase
     .from('trade_compras')
-    .select('*, trade_mayoristas(nombre), trade_subcontractors(nombre), trade_jobs(titulo)')
+    .select('*, trade_mayoristas(nombre), trade_subcontractors(nombre), trade_supplier_catalogs(supplier_name), trade_jobs(titulo)')
     .eq('org_id', orgId)
     .order('fecha', { ascending: false });
   if (error) throw error;
@@ -4288,7 +4290,7 @@ export async function loadCompras(orgId: string): Promise<TradeCompra[]> {
 
 export async function saveCompra(
   orgId: string,
-  payload: Omit<TradeCompra, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_mayoristas' | 'trade_subcontractors' | 'trade_jobs'>,
+  payload: Omit<TradeCompra, 'id' | 'org_id' | 'created_at' | 'updated_at' | 'trade_mayoristas' | 'trade_subcontractors' | 'trade_supplier_catalogs' | 'trade_jobs'>,
   id?: string,
 ): Promise<TradeCompra> {
   if (id) {
@@ -4296,7 +4298,7 @@ export async function saveCompra(
       .from('trade_compras')
       .update({ ...payload, updated_at: new Date().toISOString() })
       .eq('id', id)
-      .select('*, trade_mayoristas(nombre), trade_subcontractors(nombre), trade_jobs(titulo)')
+      .select('*, trade_mayoristas(nombre), trade_subcontractors(nombre), trade_supplier_catalogs(supplier_name), trade_jobs(titulo)')
       .single();
     if (error) throw error;
     return data as TradeCompra;
@@ -4304,7 +4306,7 @@ export async function saveCompra(
   const { data, error } = await supabase
     .from('trade_compras')
     .insert({ ...payload, org_id: orgId })
-    .select('*, trade_mayoristas(nombre), trade_subcontractors(nombre), trade_jobs(titulo)')
+    .select('*, trade_mayoristas(nombre), trade_subcontractors(nombre), trade_supplier_catalogs(supplier_name), trade_jobs(titulo)')
     .single();
   if (error) throw error;
   return data as TradeCompra;
@@ -4481,6 +4483,33 @@ export async function loadActiveSupplierCatalogs(orgId: string): Promise<ActiveS
         .filter(p => p.catalog_id === s.catalog_id),
     };
   });
+}
+
+export interface OrgCatalogSupplierName {
+  catalog_id: string;
+  supplier_name: string;
+}
+
+export async function loadOrgCatalogSupplierNames(orgId: string): Promise<OrgCatalogSupplierName[]> {
+  const { data: orgSup, error: e1 } = await supabase
+    .from('trade_org_suppliers')
+    .select('catalog_id')
+    .eq('org_id', orgId)
+    .eq('enabled', true);
+  if (e1 || !orgSup?.length) return [];
+
+  const catalogIds = (orgSup as { catalog_id: string }[]).map(s => s.catalog_id);
+  const { data, error } = await supabase
+    .from('trade_supplier_catalogs')
+    .select('id, supplier_name')
+    .in('id', catalogIds)
+    .eq('is_active', true)
+    .order('supplier_name');
+  if (error) return [];
+  return ((data ?? []) as { id: string; supplier_name: string }[]).map(c => ({
+    catalog_id: c.id,
+    supplier_name: c.supplier_name,
+  }));
 }
 
 export interface QuoteWithPendingMaterial {

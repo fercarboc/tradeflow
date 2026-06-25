@@ -10,8 +10,9 @@ import {
   loadMayoristas, saveMayorista, deleteMayorista,
   loadCompras, saveCompra, deleteCompra, marcarCompraPagada,
   loadSubcontratas, loadSubcontractors,
+  loadOrgCatalogSupplierNames,
 } from '../lib/supabase';
-import type { TradeMayorista, TradeCompra, TradeSubcontrata, TradeSubcontractor } from '../lib/supabase';
+import type { TradeMayorista, TradeCompra, TradeSubcontrata, TradeSubcontractor, OrgCatalogSupplierName } from '../lib/supabase';
 import { useSession } from '../context/SessionContext';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
@@ -54,6 +55,7 @@ function fmtDate(d?: string | null) {
 const EMPTY_COMPRA = {
   mayorista_id: null as string | null,
   subcontrata_id: null as string | null,
+  catalog_supplier_id: null as string | null,
   referencia_factura: '',
   concepto: '',
   importe: 0,
@@ -97,6 +99,7 @@ export default function ScreenIngresos({ showToast }: Props) {
   const [mayoristas, setMayoristas]     = useState<TradeMayorista[]>([]);
   const [externas, setExternas]         = useState<TradeSubcontrata[]>([]);
   const [subcontractors, setSubcontractors] = useState<TradeSubcontractor[]>([]);
+  const [catalogSuppliers, setCatalogSuppliers] = useState<OrgCatalogSupplierName[]>([]);
 
   // Modal compra
   const [showCompraModal, setShowCompraModal] = useState(false);
@@ -114,7 +117,7 @@ export default function ScreenIngresos({ showToast }: Props) {
     if (!org) return;
     setLoading(true);
     try {
-      const [invRes, qRes, cliRes, cpRes, myRes, extRes, subRes] = await Promise.all([
+      const [invRes, qRes, cliRes, cpRes, myRes, extRes, subRes, catRes] = await Promise.all([
         supabase.from('trade_invoices').select('*, trade_clients(nombre)').eq('org_id', org.id).order('fecha', { ascending: false }),
         supabase.from('trade_quotes').select('id, total_con_iva, estado, fecha, client_id').eq('org_id', org.id).eq('estado', 'Aceptado'),
         supabase.from('trade_clients').select('id, nombre, total_facturado').eq('org_id', org.id).order('total_facturado', { ascending: false }).limit(8),
@@ -122,6 +125,7 @@ export default function ScreenIngresos({ showToast }: Props) {
         loadMayoristas(org.id),
         loadSubcontratas(org.id),
         loadSubcontractors(org.id),
+        loadOrgCatalogSupplierNames(org.id),
       ]);
       setInvoices((invRes.data ?? []) as InvoiceRow[]);
       setPipeline((qRes.data ?? []) as typeof pipeline);
@@ -130,6 +134,7 @@ export default function ScreenIngresos({ showToast }: Props) {
       setMayoristas(myRes);
       setExternas(extRes);
       setSubcontractors(subRes);
+      setCatalogSuppliers(catRes);
     } catch { showToast('Error cargando datos', 'error'); }
     setLoading(false);
   }, [org, showToast]);
@@ -196,6 +201,7 @@ export default function ScreenIngresos({ showToast }: Props) {
     setDraftCompra({
       mayorista_id: c.mayorista_id ?? null,
       subcontrata_id: c.subcontrata_id ?? null,
+      catalog_supplier_id: c.catalog_supplier_id ?? null,
       referencia_factura: c.referencia_factura ?? '',
       concepto: c.concepto,
       importe: c.importe,
@@ -483,6 +489,7 @@ export default function ScreenIngresos({ showToast }: Props) {
                               <p className="font-bold text-slate-800 truncate max-w-[180px]">{c.concepto}</p>
                               {c.trade_mayoristas?.nombre && <p className="text-slate-400 flex items-center gap-1 mt-0.5"><Building2 className="w-2.5 h-2.5" />{c.trade_mayoristas.nombre}</p>}
                               {!c.trade_mayoristas?.nombre && c.trade_subcontractors?.nombre && <p className="text-violet-500 flex items-center gap-1 mt-0.5"><Building2 className="w-2.5 h-2.5" />{c.trade_subcontractors.nombre} <span className="text-[9px] text-violet-400">(servicio)</span></p>}
+                              {!c.trade_mayoristas?.nombre && !c.trade_subcontractors?.nombre && c.trade_supplier_catalogs?.supplier_name && <p className="text-blue-600 flex items-center gap-1 mt-0.5"><Building2 className="w-2.5 h-2.5" />{c.trade_supplier_catalogs.supplier_name} <span className="text-[9px] text-blue-400">(catálogo)</span></p>}
                             </td>
                             <td className="px-4 py-3 text-slate-500 font-mono hidden md:table-cell">{c.referencia_factura || '—'}</td>
                             <td className="px-4 py-3 text-slate-500 hidden sm:table-cell">{fmtDate(c.fecha)}</td>
@@ -695,22 +702,30 @@ export default function ScreenIngresos({ showToast }: Props) {
                 <div className="flex gap-2 mt-1">
                   <select
                     value={
+                      draftCompra.catalog_supplier_id ? `cat:${draftCompra.catalog_supplier_id}` :
                       draftCompra.subcontrata_id ? `s:${draftCompra.subcontrata_id}` :
                       draftCompra.mayorista_id ? `m:${draftCompra.mayorista_id}` : ''
                     }
                     onChange={e => {
                       const val = e.target.value;
                       if (!val) {
-                        setDraftCompra(d => ({ ...d, mayorista_id: null, subcontrata_id: null }));
+                        setDraftCompra(d => ({ ...d, mayorista_id: null, subcontrata_id: null, catalog_supplier_id: null }));
                       } else if (val.startsWith('m:')) {
-                        setDraftCompra(d => ({ ...d, mayorista_id: val.slice(2), subcontrata_id: null }));
+                        setDraftCompra(d => ({ ...d, mayorista_id: val.slice(2), subcontrata_id: null, catalog_supplier_id: null }));
                       } else if (val.startsWith('s:')) {
-                        setDraftCompra(d => ({ ...d, subcontrata_id: val.slice(2), mayorista_id: null }));
+                        setDraftCompra(d => ({ ...d, subcontrata_id: val.slice(2), mayorista_id: null, catalog_supplier_id: null }));
+                      } else if (val.startsWith('cat:')) {
+                        setDraftCompra(d => ({ ...d, catalog_supplier_id: val.slice(4), mayorista_id: null, subcontrata_id: null }));
                       }
                     }}
                     className={inputCls}
                   >
                     <option value="">— Sin proveedor / Proveedor puntual —</option>
+                    {catalogSuppliers.length > 0 && (
+                      <optgroup label="Proveedores con catálogo">
+                        {catalogSuppliers.map(c => <option key={c.catalog_id} value={`cat:${c.catalog_id}`}>{c.supplier_name}</option>)}
+                      </optgroup>
+                    )}
                     {mayoristas.length > 0 && (
                       <optgroup label="Proveedores de material">
                         {mayoristas.map(m => <option key={m.id} value={`m:${m.id}`}>{m.nombre}{m.nif ? ` (${m.nif})` : ''}</option>)}
