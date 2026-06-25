@@ -92,7 +92,7 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
   });
 
   const fetchInvoices = useCallback(async () => {
-    if (!org) return;
+    if (!org) { setLoading(false); return; }
     setLoading(true);
     try {
       const data = await loadAllInvoices(org.id);

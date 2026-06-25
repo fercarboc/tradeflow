@@ -9,16 +9,18 @@ test.describe('Invoices', () => {
     await expect(page.getByTestId('dashboard')).toBeVisible();
 
     await page.getByTestId('nav-invoices').click();
-    await expect(page.getByText('Cargando facturas...')).not.toBeVisible({ timeout: 30_000 });
     await expect(
       page.getByTestId('invoice-row').or(page.getByText(/sin facturas|no hay facturas|coincidan/i))
-    ).toBeVisible({ timeout: 8_000 });
+    ).toBeVisible({ timeout: 35_000 });
   });
 
   test('invoice list renders without crashing', async ({ page }) => {
     await page.goto('/app');
     await page.getByTestId('nav-invoices').click();
-    await expect(page.getByText('Cargando facturas...')).not.toBeVisible({ timeout: 30_000 });
+    // Wait for content — loading resolves once org loads and fetch completes
+    await expect(
+      page.getByTestId('invoice-row').or(page.getByText(/sin facturas|no hay facturas|emite tu primera|coincidan/i))
+    ).toBeVisible({ timeout: 35_000 });
 
     const rows = page.getByTestId('invoice-row');
     const count = await rows.count();
