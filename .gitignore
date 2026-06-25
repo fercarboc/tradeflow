@@ -12,8 +12,6 @@ mobile/node_modules/
 mobile/.expo/
 mobile/dist/
 
-
-.vercel
 .vercel/
-docs/Normativa/**/*.pdf 
-docs/nuevas\ descargas/*.pdf 
+docs/Normativa/**/*.pdf
+docs/nuevas descargas/*.pdf
