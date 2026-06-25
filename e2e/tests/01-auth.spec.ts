@@ -6,14 +6,18 @@ test.describe('Auth flow', () => {
     await expect(page.getByTestId('dashboard')).toBeVisible();
   });
 
-  test('logout returns to login/home page', async ({ page }) => {
+  test('logout returns to login/home page', async ({ browser }) => {
+    // Contexto propio para que el signOut no invalide la sesión de los tests siguientes
+    const ctx = await browser.newContext({ storageState: 'e2e/.auth/owner.json' });
+    const page = await ctx.newPage();
     await page.goto('/app');
-    await expect(page.getByTestId('dashboard')).toBeVisible();
+    await expect(page.getByTestId('dashboard')).toBeVisible({ timeout: 15_000 });
 
     await page.getByTestId('btn-logout').click();
 
     await page.waitForURL(/\/(login|)$/, { timeout: 10_000 });
     await expect(page.getByTestId('dashboard')).not.toBeVisible({ timeout: 5_000 });
+    await ctx.close();
   });
 
   test('wrong credentials shows error message', async ({ browser }) => {

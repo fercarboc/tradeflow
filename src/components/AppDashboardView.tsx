@@ -652,7 +652,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    await supabase.auth.signOut({ scope: 'local' });
     setIsLiveMode(false);
     if (isNativeDevice) {
       setIsSessionClosed(true);
