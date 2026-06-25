@@ -49,8 +49,10 @@ export default function AuthCallbackView({ setCurrentPage }: AuthCallbackViewPro
     }
 
     // Flujo implícito: Supabase procesa el hash de forma asíncrona.
-    // onAuthStateChange garantiza que recibimos INITIAL_SESSION tras ese procesado.
+    // Primero comprobamos si ya hay sesión activa (el hash pudo haberse procesado
+    // antes de que este componente montase — común al hacer clic desde cliente de email).
     let routed = false;
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, sess) => {
       if (routed) return;
       if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && sess) {
@@ -63,6 +65,17 @@ export default function AuthCallbackView({ setCurrentPage }: AuthCallbackViewPro
         routed = true;
         subscription.unsubscribe();
         setTimeout(() => setCurrentPage(ActivePage.Login), 500);
+      }
+    });
+
+    // Comprobación inmediata: si ya existe sesión en este momento (hash ya procesado),
+    // onAuthStateChange puede no disparar SIGNED_IN de nuevo.
+    supabase.auth.getSession().then(({ data }) => {
+      if (routed) return;
+      if (data.session) {
+        routed = true;
+        subscription.unsubscribe();
+        routeAfterSession(type, data.session.user?.user_metadata, setCurrentPage);
       }
     });
 

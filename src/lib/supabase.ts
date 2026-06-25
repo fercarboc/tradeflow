@@ -274,8 +274,8 @@ export async function getOrCreateOrg(): Promise<TradeOrganization | null> {
 
   // Create from user metadata written during self-registration wizard
   const meta = user.user_metadata ?? {};
-  const trialEnd = new Date();
-  trialEnd.setDate(trialEnd.getDate() + 15);
+  // Beta: all new users get empresa_plus access until end of beta (2026-12-31)
+  const betaTrialEnd = '2026-12-31T23:59:59.000Z';
 
   const { data: created, error } = await supabase
     .from('trade_organizations')
@@ -285,7 +285,7 @@ export async function getOrCreateOrg(): Promise<TradeOrganization | null> {
       oficio: meta.trade_types || 'Otros',
       email: user.email,
       telefono: meta.phone,
-      plan: meta.plan || 'pro',
+      plan: 'empresa_plus',
       is_onboarded: false,
       force_password_change: false,
     })
@@ -307,11 +307,11 @@ export async function getOrCreateOrg(): Promise<TradeOrganization | null> {
 
   await supabase.from('trade_subscriptions').insert({
     org_id: created.id,
-    plan: meta.plan || 'pro',
-    billing_cycle: meta.billing_cycle || 'monthly',
+    plan: 'empresa_plus',
+    billing_cycle: 'monthly',
     status: 'trial',
     trial_start: new Date().toISOString(),
-    trial_end: trialEnd.toISOString(),
+    trial_end: betaTrialEnd,
   });
 
   await supabase.rpc('seed_org_catalog', { new_org_id: created.id });
@@ -347,10 +347,23 @@ export async function registerUser(params: {
 
   if (error) return { error: error.message, needsConfirmation: false };
 
+  // Registrar en waitlist para que aparezca en Admin → Leads beta
+  supabase.from('trade_waitlist').insert({
+    nombre: params.fullName,
+    email: params.email,
+    telefono: params.phone ?? '',
+    oficio: params.tradeTypes[0] ?? 'Otros',
+    ciudad: '',
+    presupuestos_al_mes: 'Menos de 10',
+    notas: `Beta registration. Plan solicitado: ${params.plan}`,
+    prioridad: 'alta',
+    estado: 'beta_activa',
+  }).then(() => {}, () => {}); // silencioso — no bloquea el registro
+
   // If session is available (email confirmation disabled), create org immediately
   if (data.session && data.user) {
-    const trialEnd = new Date();
-    trialEnd.setDate(trialEnd.getDate() + 15);
+    // Beta: all new users get empresa_plus access until end of beta
+    const betaTrialEnd = '2026-12-31T23:59:59.000Z';
 
     const { data: org } = await supabase
       .from('trade_organizations')
@@ -360,7 +373,7 @@ export async function registerUser(params: {
         oficio: params.tradeTypes.join(','),
         email: params.email,
         telefono: params.phone,
-        plan: params.plan,
+        plan: 'empresa_plus',
         is_onboarded: false,
         force_password_change: false,
       })
@@ -370,11 +383,11 @@ export async function registerUser(params: {
     if (org) {
       await supabase.from('trade_subscriptions').insert({
         org_id: org.id,
-        plan: params.plan,
-        billing_cycle: params.billingCycle,
+        plan: 'empresa_plus',
+        billing_cycle: 'monthly',
         status: 'trial',
         trial_start: new Date().toISOString(),
-        trial_end: trialEnd.toISOString(),
+        trial_end: betaTrialEnd,
       });
       await supabase.rpc('seed_org_catalog', { new_org_id: org.id });
     }
@@ -403,8 +416,8 @@ export async function createOrgForExistingUser(params: {
   plan: 'basico' | 'profesional' | 'empresa' | 'empresa_plus';
   billingCycle: 'monthly' | 'yearly';
 }): Promise<{ error: string | null }> {
-  const trialEnd = new Date();
-  trialEnd.setDate(trialEnd.getDate() + 15);
+  // Beta: all new users get empresa_plus access until end of beta
+  const betaTrialEnd = '2026-12-31T23:59:59.000Z';
 
   const { data: org, error: orgErr } = await supabase
     .from('trade_organizations')
@@ -414,7 +427,7 @@ export async function createOrgForExistingUser(params: {
       oficio: params.tradeTypes.join(','),
       email: params.email,
       telefono: params.phone,
-      plan: params.plan,
+      plan: 'empresa_plus',
       is_onboarded: false,
       force_password_change: false,
     })
@@ -425,11 +438,11 @@ export async function createOrgForExistingUser(params: {
 
   await supabase.from('trade_subscriptions').insert({
     org_id: org.id,
-    plan: params.plan,
-    billing_cycle: params.billingCycle,
+    plan: 'empresa_plus',
+    billing_cycle: 'monthly',
     status: 'trial',
     trial_start: new Date().toISOString(),
-    trial_end: trialEnd.toISOString(),
+    trial_end: betaTrialEnd,
   });
   await supabase.rpc('seed_org_catalog', { new_org_id: org.id });
 
@@ -758,7 +771,7 @@ export async function submitContactMessage(data: {
     ciudad: '',
     presupuestos_al_mes: 'Menos de 10',
     notas: data.mensaje ?? '',
-    prioridad: 'normal',
+    prioridad: 'baja',
     estado: 'nuevo',
   });
   if (error) throw error;
