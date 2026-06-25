@@ -10,7 +10,7 @@ test.describe('Invoices', () => {
 
     await page.getByTestId('nav-invoices').click();
     await expect(
-      page.getByTestId('invoice-row').or(page.getByText(/sin facturas|no hay facturas|coincidan/i))
+      page.getByTestId('invoice-row').or(page.getByText(/sin facturas|no hay facturas|coincidan/i)).first()
     ).toBeVisible({ timeout: 35_000 });
   });
 
@@ -19,7 +19,7 @@ test.describe('Invoices', () => {
     await page.getByTestId('nav-invoices').click();
     // Wait for content — loading resolves once org loads and fetch completes
     await expect(
-      page.getByTestId('invoice-row').or(page.getByText(/sin facturas|no hay facturas|emite tu primera|coincidan/i))
+      page.getByTestId('invoice-row').or(page.getByText(/sin facturas|no hay facturas|emite tu primera|coincidan/i)).first()
     ).toBeVisible({ timeout: 35_000 });
 
     const rows = page.getByTestId('invoice-row');
