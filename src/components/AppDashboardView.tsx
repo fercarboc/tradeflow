@@ -2024,6 +2024,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [savedActuacion, setSavedActuacion] = useState<boolean>(false);
   const [selectedQuoteForPreview, setSelectedQuoteForPreview] = useState<Presupuesto | null>(null);
   const [pedirMaterialQuote, setPedirMaterialQuote] = useState<TradeQuote | null>(null);
+  const [pedirMaterialLoading, setPedirMaterialLoading] = useState(false);
   const [postConfirmQuote, setPostConfirmQuote] = useState<Presupuesto | null>(null);
   const [editingQuoteId, setEditingQuoteId] = useState<string | null>(null); // null = crear nuevo, string = editar existente
   // Subcontratas vinculadas al presupuesto en preview
@@ -3518,18 +3519,21 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               setMobileTab('trabajos');
               setNewJobTrigger(t => t + 1);
             }}
-            onPedirMaterial={() => {
+            onPedirMaterial={async () => {
               if (postConfirmQuote.dbId) {
-                supabase
+                const { data } = await supabase
                   .from('trade_quotes')
                   .select('*, trade_quote_items(*)')
                   .eq('id', postConfirmQuote.dbId)
-                  .single()
-                  .then(({ data }) => {
-                    if (data) setPedirMaterialQuote(data as TradeQuote);
-                  });
-              } else {
-                setPedirMaterialQuote({} as TradeQuote);
+                  .single();
+                if (data) {
+                  const quote = data as TradeQuote;
+                  const pendientes = (quote.trade_quote_items ?? []).filter(
+                    i => i.tipo === 'material' && !i.material_order_placed,
+                  );
+                  if (pendientes.length > 0) setPedirMaterialQuote(quote);
+                  else showToast('Todo el material de este presupuesto ya fue pedido', 'info');
+                }
               }
               setPostConfirmQuote(null);
             }}
@@ -5589,21 +5593,35 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   </button>
                   {isLiveMode && selectedQuoteForPreview.dbId && (
                     <button
+                      disabled={pedirMaterialLoading}
                       onClick={async () => {
-                        const { data } = await supabase
-                          .from('trade_quotes')
-                          .select('*, trade_quote_items(*)')
-                          .eq('id', selectedQuoteForPreview.dbId)
-                          .single();
-                        if (data) {
-                          setPedirMaterialQuote(data as TradeQuote);
-                          setActiveTab('pedidos_material');
+                        setPedirMaterialLoading(true);
+                        try {
+                          const { data } = await supabase
+                            .from('trade_quotes')
+                            .select('*, trade_quote_items(*)')
+                            .eq('id', selectedQuoteForPreview.dbId)
+                            .single();
+                          if (data) {
+                            const quote = data as TradeQuote;
+                            const pendientes = (quote.trade_quote_items ?? []).filter(
+                              i => i.tipo === 'material' && !i.material_order_placed,
+                            );
+                            if (pendientes.length === 0) {
+                              showToast('Todo el material de este presupuesto ya fue pedido', 'info');
+                            } else {
+                              setPedirMaterialQuote(quote);
+                              setActiveTab('pedidos_material');
+                            }
+                          }
+                        } finally {
+                          setPedirMaterialLoading(false);
                         }
                       }}
-                      className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl flex items-center gap-1.5 cursor-pointer"
+                      className="bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white font-bold uppercase tracking-wider text-[10px] px-4 py-2.5 rounded-xl flex items-center gap-1.5 cursor-pointer"
                     >
-                      <ShoppingCart className="w-3.5 h-3.5" />
-                      <span>Pedir material</span>
+                      <ShoppingCart className={`w-3.5 h-3.5 ${pedirMaterialLoading ? 'animate-spin' : ''}`} />
+                      <span>{pedirMaterialLoading ? 'Cargando...' : 'Pedir material'}</span>
                     </button>
                   )}
                   {selectedQuoteForPreview.estado !== 'Facturado' ? (

@@ -187,7 +187,7 @@ function NewOrderModal({
   const [lines, setLines] = useState<DraftLine[]>(() => {
     if (initialQuote?.trade_quote_items?.length) {
       return initialQuote.trade_quote_items
-        .filter(i => i.tipo === 'material')
+        .filter(i => i.tipo === 'material' && !i.material_order_placed)
         .map((i, idx) => ({
           _key: String(idx),
           descripcion: i.descripcion,
@@ -238,6 +238,12 @@ function NewOrderModal({
         validLines.map(({ _key: _k, ...l }) => l),
         { quoteId: initialQuote?.id, notas: notas.trim() || undefined },
       );
+      if (initialQuote?.trade_quote_items) {
+        const materialIds = initialQuote.trade_quote_items
+          .filter(i => i.tipo === 'material' && !i.material_order_placed)
+          .map(i => i.id);
+        if (materialIds.length) await markQuoteItemsOrdered(materialIds);
+      }
       showToast('Pedido creado ✓', 'success');
       onCreated(order);
     } catch (e: unknown) {
