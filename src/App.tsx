@@ -134,6 +134,27 @@ const AUTH_FLOW_PAGES = new Set<ActivePage>([
   ActivePage.QuoteAccept,
 ]);
 
+// Pages where null-session must NOT redirect to Home/AppDashboard
+const PUBLIC_OR_AUTH_PAGES = new Set<ActivePage>([
+  ...AUTH_FLOW_PAGES,
+  ActivePage.Login,
+  ActivePage.AuthResetPassword,
+  ActivePage.Registro,
+  ActivePage.Home,
+  ActivePage.ComoFunciona,
+  ActivePage.Precios,
+  ActivePage.Contacto,
+  ActivePage.AvisoLegal,
+  ActivePage.Privacidad,
+  ActivePage.Cookies,
+  ActivePage.Terminos,
+  ActivePage.Beta,
+  ActivePage.IADisclaimer,
+  ActivePage.Demo,
+  ActivePage.AsisTecnico,
+  ActivePage.PartnerDemo,
+]);
+
 function isPWAMode(): boolean {
   if (typeof window === 'undefined') return false;
 
@@ -302,7 +323,7 @@ export default function App() {
         setSession(null);
         setWorkerProfile(null);
 
-        if (!AUTH_FLOW_PAGES.has(currentPageRef.current)) {
+        if (!PUBLIC_OR_AUTH_PAGES.has(currentPageRef.current)) {
           setCurrentPage(pwa ? ActivePage.AppDashboard : ActivePage.Home);
 
           if (pwa) {
