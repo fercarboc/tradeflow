@@ -9,25 +9,26 @@ test.describe('Invoices', () => {
     await expect(page.getByTestId('dashboard')).toBeVisible();
 
     await page.getByTestId('nav-invoices').click();
+    await expect(page.getByText('Cargando facturas...')).not.toBeVisible({ timeout: 30_000 });
     await expect(
-      page.getByTestId('invoice-row').or(page.getByText(/sin facturas|no hay facturas|0 facturas/i))
-    ).toBeVisible({ timeout: 10_000 });
+      page.getByTestId('invoice-row').or(page.getByText(/sin facturas|no hay facturas|coincidan/i))
+    ).toBeVisible({ timeout: 8_000 });
   });
 
   test('invoice list renders without crashing', async ({ page }) => {
     await page.goto('/app');
     await page.getByTestId('nav-invoices').click();
+    await expect(page.getByText('Cargando facturas...')).not.toBeVisible({ timeout: 30_000 });
 
     const rows = page.getByTestId('invoice-row');
     const count = await rows.count();
 
     if (count > 0) {
       await expect(rows.first()).toBeVisible();
-      // Each invoice row must show a number or "Borrador"
       const firstText = await rows.first().textContent();
       expect(firstText).toBeTruthy();
     } else {
-      await expect(page.getByText(/sin facturas|no hay facturas|emite tu primera/i)).toBeVisible({ timeout: 5_000 });
+      await expect(page.getByText(/sin facturas|no hay facturas|emite tu primera|coincidan/i)).toBeVisible({ timeout: 5_000 });
     }
   });
 

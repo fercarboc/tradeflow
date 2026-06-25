@@ -9,7 +9,7 @@ test.describe('Quote lifecycle', () => {
     await expect(page.getByTestId('dashboard')).toBeVisible();
 
     await page.getByTestId('nav-quotes').click();
-    await expect(page.getByTestId('quote-row').or(page.getByText(/nuevo presupuesto|sin presupuestos/i))).toBeVisible({ timeout: 8_000 });
+    await expect(page.getByTestId('quote-row').or(page.getByText(/nuevo presupuesto|sin presupuestos/i)).first()).toBeVisible({ timeout: 8_000 });
   });
 
   test('quote list renders existing quotes', async ({ page }) => {
@@ -34,7 +34,7 @@ test.describe('Quote lifecycle', () => {
     await page.goto('/p/test-token-invalid-e2e');
     // Should NOT crash — must show an error state, not a blank page
     await expect(page.locator('body')).not.toBeEmpty();
-    await expect(page.getByText(/no encontrado|expirado|inválido|not found|error/i)).toBeVisible({ timeout: 10_000 });
+    await expect(page.getByText(/no se pudo|no encontrado|expirado|inválido|not found|error/i)).toBeVisible({ timeout: 10_000 });
 
     await ctx.close();
   });
