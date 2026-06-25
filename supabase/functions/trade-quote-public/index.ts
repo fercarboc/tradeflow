@@ -8,11 +8,16 @@ const adminClient = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 });
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization, apikey, x-client-info',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, apikey, x-client-info',
+    'Vary': 'Origin',
+  };
+}
 
 async function notifyOrgQuoteAccepted(orgId: string, quoteNumero: string, clientName: string | null) {
   try {
@@ -35,11 +40,12 @@ async function notifyOrgQuoteAccepted(orgId: string, quoteNumero: string, client
 }
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response(null, { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response(null, { headers: cors(req) });
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), {
       status: 405,
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -49,7 +55,7 @@ Deno.serve(async (req: Request) => {
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
       status: 400,
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -58,7 +64,7 @@ Deno.serve(async (req: Request) => {
   if (!token || typeof token !== 'string') {
     return new Response(JSON.stringify({ error: 'Missing token' }), {
       status: 400,
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -72,12 +78,12 @@ Deno.serve(async (req: Request) => {
     if (error) {
       return new Response(JSON.stringify({ error: error.message }), {
         status: 500,
-        headers: { ...CORS, 'Content-Type': 'application/json' },
+        headers: { ...cors(req), 'Content-Type': 'application/json' },
       });
     }
 
     return new Response(JSON.stringify({ data }), {
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -102,7 +108,7 @@ Deno.serve(async (req: Request) => {
     if (error) {
       return new Response(JSON.stringify({ error: error.message }), {
         status: 500,
-        headers: { ...CORS, 'Content-Type': 'application/json' },
+        headers: { ...cors(req), 'Content-Type': 'application/json' },
       });
     }
 
@@ -112,12 +118,15 @@ Deno.serve(async (req: Request) => {
     }
 
     return new Response(JSON.stringify({ ok: true }), {
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
   return new Response(JSON.stringify({ error: 'Unknown action' }), {
     status: 400,
-    headers: { ...CORS, 'Content-Type': 'application/json' },
+    headers: { ...cors(req), 'Content-Type': 'application/json' },
   });
 });
+
+
+

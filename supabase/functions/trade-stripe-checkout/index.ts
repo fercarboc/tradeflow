@@ -5,10 +5,15 @@ const STRIPE_SECRET_KEY    = Deno.env.get('STRIPE_TRABFLOW_SECRET_KEY') ?? '';
 const SUPABASE_URL         = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Vary': 'Origin',
+  };
+}
 
 const stripe = (path: string, method: string, params?: URLSearchParams) =>
   fetch(`https://api.stripe.com/v1${path}`, {
@@ -21,10 +26,11 @@ const stripe = (path: string, method: string, params?: URLSearchParams) =>
   });
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   if (!req.headers.get('Authorization')) {
-    return new Response('Unauthorized', { status: 401, headers: CORS });
+    return new Response('Unauthorized', { status: 401, headers: cors(req) });
   }
 
   const body = await req.json() as {
@@ -38,7 +44,7 @@ Deno.serve(async (req: Request) => {
 
   if (!org_id) {
     return new Response(JSON.stringify({ error: 'org_id requerido' }), {
-      status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 400, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -73,7 +79,7 @@ Deno.serve(async (req: Request) => {
 
   if (!priceRow?.stripe_price_id) {
     return new Response(JSON.stringify({ error: `Price ID no encontrado para ${plan}/${cycle}. Revisar tabla trade_stripe_prices.` }), {
-      status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 400, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -112,14 +118,14 @@ Deno.serve(async (req: Request) => {
 
     if (!getRes.ok) {
       return new Response(JSON.stringify({ error: getJson.error?.message ?? 'Error obteniendo suscripción Stripe' }), {
-        status: 502, headers: { ...CORS, 'Content-Type': 'application/json' },
+        status: 502, headers: { ...cors(req), 'Content-Type': 'application/json' },
       });
     }
 
     const itemId = getJson.items?.data?.[0]?.id;
     if (!itemId) {
       return new Response(JSON.stringify({ error: 'No se encontró el item de la suscripción' }), {
-        status: 502, headers: { ...CORS, 'Content-Type': 'application/json' },
+        status: 502, headers: { ...cors(req), 'Content-Type': 'application/json' },
       });
     }
 
@@ -144,7 +150,7 @@ Deno.serve(async (req: Request) => {
 
     if (!upRes.ok) {
       return new Response(JSON.stringify({ error: upJson.error?.message ?? 'Error actualizando suscripción' }), {
-        status: 502, headers: { ...CORS, 'Content-Type': 'application/json' },
+        status: 502, headers: { ...cors(req), 'Content-Type': 'application/json' },
       });
     }
 
@@ -174,7 +180,7 @@ Deno.serve(async (req: Request) => {
         scheduled_at:   periodEnd,
         billing_cycle:  cycle,
       }), {
-        headers: { ...CORS, 'Content-Type': 'application/json' },
+        headers: { ...cors(req), 'Content-Type': 'application/json' },
       });
     }
 
@@ -195,7 +201,7 @@ Deno.serve(async (req: Request) => {
     await supabase.from('trade_organizations').update({ plan }).eq('id', org_id);
 
     return new Response(JSON.stringify({ ok: true, upgraded: true, plan, billing_cycle: cycle }), {
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -212,7 +218,7 @@ Deno.serve(async (req: Request) => {
     const cust = await cr.json() as { id?: string; error?: { message: string } };
     if (!cr.ok) {
       return new Response(JSON.stringify({ error: cust.error?.message ?? 'Error creando cliente Stripe' }), {
-        status: 500, headers: { ...CORS, 'Content-Type': 'application/json' },
+        status: 500, headers: { ...cors(req), 'Content-Type': 'application/json' },
       });
     }
     customerId = cust.id ?? null;
@@ -248,11 +254,13 @@ Deno.serve(async (req: Request) => {
 
   if (!sr.ok) {
     return new Response(JSON.stringify({ error: session.error?.message ?? 'Error Stripe Checkout' }), {
-      status: 500, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 500, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
   return new Response(JSON.stringify({ url: session.url }), {
-    headers: { ...CORS, 'Content-Type': 'application/json' },
+    headers: { ...cors(req), 'Content-Type': 'application/json' },
   });
 });
+
+

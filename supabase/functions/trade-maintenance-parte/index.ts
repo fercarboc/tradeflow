@@ -6,10 +6,15 @@ const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 const RESEND_API_KEY       = Deno.env.get('RESEND_API_KEY') ?? '';
 const FROM                 = 'TRABFLOW <contacto@trabflow.com>';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Vary': 'Origin',
+  };
+}
 
 const fmtDate = (s: string | null) =>
   s ? new Date(s).toLocaleString('es-ES', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
@@ -36,22 +41,23 @@ async function resolveOrg(sb: ReturnType<typeof createClient>, userId: string) {
 }
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   try {
     const authHeader = req.headers.get('Authorization') ?? '';
     const sb = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
     const { data: { user }, error: authErr } = await sb.auth.getUser(authHeader.replace('Bearer ', ''));
-    if (authErr || !user) return new Response(JSON.stringify({ error: 'No autenticado' }), { status: 401, headers: CORS });
+    if (authErr || !user) return new Response(JSON.stringify({ error: 'No autenticado' }), { status: 401, headers: cors(req) });
 
     if (!RESEND_API_KEY) {
       return new Response(JSON.stringify({ ok: true, skipped: 'no_resend_key' }), {
-        headers: { ...CORS, 'Content-Type': 'application/json' },
+        headers: { ...cors(req), 'Content-Type': 'application/json' },
       });
     }
 
     const { incidencia_id, to_email } = await req.json() as { incidencia_id: string; to_email?: string };
-    if (!incidencia_id) return new Response(JSON.stringify({ error: 'incidencia_id requerido' }), { status: 400, headers: CORS });
+    if (!incidencia_id) return new Response(JSON.stringify({ error: 'incidencia_id requerido' }), { status: 400, headers: cors(req) });
 
     const [{ data: inc }, org] = await Promise.all([
       sb.from('trade_maintenance_incidencias')
@@ -61,12 +67,12 @@ Deno.serve(async (req: Request) => {
       resolveOrg(sb, user.id),
     ]);
 
-    if (!inc) return new Response(JSON.stringify({ error: 'Incidencia no encontrada' }), { status: 404, headers: CORS });
+    if (!inc) return new Response(JSON.stringify({ error: 'Incidencia no encontrada' }), { status: 404, headers: cors(req) });
 
     const contrato = inc.trade_maintenance_contratos as Record<string, unknown> | null;
     const orgNombre = (org?.nombre as string) ?? 'Empresa instaladora';
     const orgEmail  = to_email ?? (org?.email as string);
-    if (!orgEmail) return new Response(JSON.stringify({ ok: false, error: 'Sin email de destino' }), { status: 400, headers: CORS });
+    if (!orgEmail) return new Response(JSON.stringify({ ok: false, error: 'Sin email de destino' }), { status: 400, headers: cors(req) });
 
     const PRIORIDAD_COLOR: Record<string, string> = {
       critica: '#dc2626', urgente: '#ea580c', normal: '#2563eb', baja: '#64748b',
@@ -165,14 +171,16 @@ Deno.serve(async (req: Request) => {
 
     if (!emailRes.ok) {
       const errTxt = await emailRes.text();
-      return new Response(JSON.stringify({ error: 'Error Resend', detail: errTxt }), { status: 502, headers: CORS });
+      return new Response(JSON.stringify({ error: 'Error Resend', detail: errTxt }), { status: 502, headers: cors(req) });
     }
 
     return new Response(JSON.stringify({ ok: true, parte_num: parteNum }), {
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
 
   } catch (err) {
-    return new Response(JSON.stringify({ error: String(err) }), { status: 500, headers: CORS });
+    return new Response(JSON.stringify({ error: String(err) }), { status: 500, headers: cors(req) });
   }
 });
+
+

@@ -5,22 +5,28 @@ const SUPABASE_URL      = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 const APP_URL           = Deno.env.get('APP_URL') ?? 'https://tradeflow.es';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Vary': 'Origin',
+  };
+}
 
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { ...CORS, 'Content-Type': 'application/json' },
+    headers: { ...cors(req), 'Content-Type': 'application/json' },
   });
 }
 
 const VALID_ROLES = new Set(['admin', 'oficina', 'comercial', 'tecnico', 'visualizador']);
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   const authHeader = req.headers.get('Authorization');
   if (!authHeader) return json({ error: 'Sin autorizacion' }, 401);
@@ -146,3 +152,5 @@ serve(async (req) => {
     return json({ error: msg }, 500);
   }
 });
+
+

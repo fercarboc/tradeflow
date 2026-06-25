@@ -5,10 +5,15 @@ const ANTHROPIC_API_KEY   = Deno.env.get('ANTHROPIC_API_KEY') ?? '';
 const SUPABASE_URL         = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Vary': 'Origin',
+  };
+}
 
 const SYSTEM_PROMPT = `Eres un redactor experto en contratos de mantenimiento para empresas instaladoras en España.
 A partir de los datos estructurados de un presupuesto, genera el texto completo y profesional del contrato de mantenimiento.
@@ -82,19 +87,20 @@ async function resolveOrg(supabase: ReturnType<typeof createClient>, userId: str
 }
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   try {
     const authHeader = req.headers.get('Authorization') ?? '';
     const sb = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
     const { data: { user }, error: authErr } = await sb.auth.getUser(authHeader.replace('Bearer ', ''));
     if (authErr || !user) {
-      return new Response(JSON.stringify({ error: 'No autenticado' }), { status: 401, headers: CORS });
+      return new Response(JSON.stringify({ error: 'No autenticado' }), { status: 401, headers: cors(req) });
     }
 
     const { orgId, plan, orgNombre } = await resolveOrg(sb, user.id);
-    if (!orgId) return new Response(JSON.stringify({ error: 'Organización no encontrada' }), { status: 404, headers: CORS });
-    if (plan !== 'empresa_plus') return new Response(JSON.stringify({ error: 'Requiere Plan Empresa+' }), { status: 403, headers: CORS });
+    if (!orgId) return new Response(JSON.stringify({ error: 'Organización no encontrada' }), { status: 404, headers: cors(req) });
+    if (plan !== 'empresa_plus') return new Response(JSON.stringify({ error: 'Requiere Plan Empresa+' }), { status: 403, headers: cors(req) });
 
     const body = await req.json() as { presupuesto_id?: string; datos?: Record<string, unknown> };
 
@@ -107,12 +113,12 @@ Deno.serve(async (req: Request) => {
         .eq('id', body.presupuesto_id)
         .eq('org_id', orgId)
         .single();
-      if (presupErr || !presup) return new Response(JSON.stringify({ error: 'Presupuesto no encontrado' }), { status: 404, headers: CORS });
+      if (presupErr || !presup) return new Response(JSON.stringify({ error: 'Presupuesto no encontrado' }), { status: 404, headers: cors(req) });
       datos = presup as Record<string, unknown>;
     } else if (body.datos) {
       datos = body.datos;
     } else {
-      return new Response(JSON.stringify({ error: 'Se requiere presupuesto_id o datos' }), { status: 400, headers: CORS });
+      return new Response(JSON.stringify({ error: 'Se requiere presupuesto_id o datos' }), { status: 400, headers: cors(req) });
     }
 
     // Load SLA details for context
@@ -165,7 +171,7 @@ Genera el contrato completo y profesional en JSON.`;
 
     if (!aiRes.ok) {
       const errText = await aiRes.text();
-      return new Response(JSON.stringify({ error: 'Error IA', detail: errText }), { status: 502, headers: CORS });
+      return new Response(JSON.stringify({ error: 'Error IA', detail: errText }), { status: 502, headers: cors(req) });
     }
 
     const aiData = await aiRes.json() as { content: Array<{ text: string }> };
@@ -176,7 +182,7 @@ Genera el contrato completo y profesional en JSON.`;
       const jsonMatch = rawText.match(/\{[\s\S]*\}/);
       parsed = JSON.parse(jsonMatch?.[0] ?? '{}');
     } catch {
-      return new Response(JSON.stringify({ error: 'JSON inválido de la IA', raw: rawText }), { status: 502, headers: CORS });
+      return new Response(JSON.stringify({ error: 'JSON inválido de la IA', raw: rawText }), { status: 502, headers: cors(req) });
     }
 
     // If presupuesto_id, save generated doc back to the record
@@ -188,10 +194,12 @@ Genera el contrato completo y profesional en JSON.`;
     }
 
     return new Response(JSON.stringify({ ok: true, documento: parsed }), {
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
 
   } catch (err) {
-    return new Response(JSON.stringify({ error: String(err) }), { status: 500, headers: CORS });
+    return new Response(JSON.stringify({ error: String(err) }), { status: 500, headers: cors(req) });
   }
 });
+
+

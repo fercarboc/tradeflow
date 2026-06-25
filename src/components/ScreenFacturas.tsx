@@ -522,6 +522,7 @@ export default function ScreenFacturas({ showToast, isLiveMode }: Props) {
                 return (
                   <tr
                     key={inv.id}
+                    data-testid="invoice-row"
                     className={`hover:bg-slate-50 cursor-pointer transition-colors ${isBorrador ? 'bg-slate-50/50' : ''}`}
                     onClick={() => openDetail(inv)}
                   >

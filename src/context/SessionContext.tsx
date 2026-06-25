@@ -85,7 +85,15 @@ const DEFAULT_STATE: SessionState = {
 
 const SessionContext = createContext<SessionState>(DEFAULT_STATE);
 
-export function SessionProvider({ children }: { children: ReactNode }) {
+export function SessionProvider({
+  children,
+  user,
+  sessionChecked,
+}: {
+  children: ReactNode;
+  user: User | null;
+  sessionChecked: boolean;
+}) {
   const [state, setState] = useState<SessionState>(DEFAULT_STATE);
   const cancelledRef = useRef(false);
   const orgIdRef = useRef<string | null>(null);
@@ -98,10 +106,13 @@ export function SessionProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    // No arrancar hasta que App.tsx haya resuelto la sesión inicial
+    if (!sessionChecked) return;
+
     cancelledRef.current = false;
 
-    async function load(user: User | null) {
-      if (!user) {
+    async function load(u: User | null) {
+      if (!u) {
         if (!cancelledRef.current) {
           orgIdRef.current = null;
           setState({ ...DEFAULT_STATE, isLoading: false, refreshSubscription });
@@ -113,7 +124,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       await supabase
         .from('trade_org_members')
         .update({ activo: true })
-        .eq('user_id', user.id)
+        .eq('user_id', u.id)
         .eq('activo', false);
 
       // Cargar org propia y membresía en paralelo
@@ -122,7 +133,7 @@ export function SessionProvider({ children }: { children: ReactNode }) {
         supabase
           .from('trade_org_members')
           .select('id, rol, org_id')
-          .eq('user_id', user.id)
+          .eq('user_id', u.id)
           .eq('activo', true)
           .maybeSingle(),
       ]);
@@ -169,29 +180,22 @@ export function SessionProvider({ children }: { children: ReactNode }) {
       // Cargar perfil de trabajador de campo si el usuario es técnico
       let workerProfile: TradeWorker | null = null;
       if (rol === 'tecnico' && org) {
-        workerProfile = await loadMyWorkerProfile(user.id, org.id).catch(() => null);
+        workerProfile = await loadMyWorkerProfile(u.id, org.id).catch(() => null);
       }
 
       orgIdRef.current = org?.id ?? null;
 
       if (!cancelledRef.current) {
-        setState({ user, org, subscription, plan, rol, permisos, workerProfile, isLoading: false, refreshSubscription });
+        setState({ user: u, org, subscription, plan, rol, permisos, workerProfile, isLoading: false, refreshSubscription });
       }
     }
 
-    supabase.auth.getSession().then(({ data }) => {
-      load(data.session?.user ?? null);
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      load(session?.user ?? null);
-    });
+    load(user);
 
     return () => {
       cancelledRef.current = true;
-      subscription.unsubscribe();
     };
-  }, [refreshSubscription]);
+  }, [user?.id, sessionChecked, refreshSubscription]);
 
   return (
     <SessionContext.Provider value={state}>

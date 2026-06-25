@@ -410,10 +410,10 @@ export default function ScreenSubcontratas({ orgId, showToast }: Props) {
               <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-xs">
                 {selectedProv.telefono && <div><p className={labelCls}>Teléfono</p><a href={`tel:${selectedProv.telefono}`} className="flex items-center gap-1 text-blue-600 hover:underline mt-1"><Phone className="w-3 h-3" />{selectedProv.telefono}</a></div>}
                 {selectedProv.email && <div><p className={labelCls}>Email</p><a href={`mailto:${selectedProv.email}`} className="flex items-center gap-1 text-blue-600 hover:underline mt-1"><Mail className="w-3 h-3" />{selectedProv.email}</a></div>}
-                {extra.persona_contacto && <div><p className={labelCls}>Contacto</p><p className="text-slate-700 mt-1">{extra.persona_contacto as string}</p></div>}
-                {extra.horarios && <div><p className={labelCls}>Horarios</p><p className="text-slate-700 mt-1">{extra.horarios as string}</p></div>}
-                {extra.direccion_fiscal && <div><p className={labelCls}>Dirección fiscal</p><p className="flex items-center gap-1 text-slate-700 mt-1"><MapPin className="w-3 h-3 text-slate-400 shrink-0" />{extra.direccion_fiscal as string}</p></div>}
-                {extra.cobertura && <div><p className={labelCls}>Cobertura geográfica</p><p className="text-slate-700 mt-1">{extra.cobertura as string}</p></div>}
+                {!!extra.persona_contacto && <div><p className={labelCls}>Contacto</p><p className="text-slate-700 mt-1">{String(extra.persona_contacto)}</p></div>}
+                {!!extra.horarios && <div><p className={labelCls}>Horarios</p><p className="text-slate-700 mt-1">{String(extra.horarios)}</p></div>}
+                {!!extra.direccion_fiscal && <div><p className={labelCls}>Dirección fiscal</p><p className="flex items-center gap-1 text-slate-700 mt-1"><MapPin className="w-3 h-3 text-slate-400 shrink-0" />{String(extra.direccion_fiscal)}</p></div>}
+                {!!extra.cobertura && <div><p className={labelCls}>Cobertura geográfica</p><p className="text-slate-700 mt-1">{String(extra.cobertura)}</p></div>}
               </div>
               {selectedProv.notas && <div><p className={labelCls}>Observaciones</p><p className="text-xs text-slate-600 mt-1 bg-slate-50 rounded-xl p-3">{selectedProv.notas}</p></div>}
             </div>
@@ -1169,3 +1169,4 @@ function ProveedorModal({ draft, setDraft, saving, isEdit, onSave, onClose, inpu
     </div>
   );
 }
+

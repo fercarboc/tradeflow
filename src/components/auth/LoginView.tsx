@@ -65,6 +65,7 @@ export default function LoginView({ setCurrentPage }: LoginViewProps) {
             <div>
               <label className="block text-sm font-medium text-white/60 mb-1.5">Email</label>
               <input
+                data-testid="input-email"
                 type="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
@@ -79,6 +80,7 @@ export default function LoginView({ setCurrentPage }: LoginViewProps) {
               <label className="block text-sm font-medium text-white/60 mb-1.5">Contraseña</label>
               <div className="relative">
                 <input
+                  data-testid="input-password"
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={e => setPassword(e.target.value)}
@@ -116,6 +118,7 @@ export default function LoginView({ setCurrentPage }: LoginViewProps) {
             )}
 
             <button
+              data-testid="btn-login"
               type="submit"
               disabled={loading}
               className="w-full py-3 px-4 bg-[#00CFE8] hover:brightness-110 disabled:opacity-50 disabled:cursor-not-allowed text-[#020B16] font-bold rounded-xl transition flex items-center justify-center gap-2"

@@ -6,10 +6,15 @@ const SUPABASE_URL         = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 const SUPABASE_ANON_KEY    = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Vary': 'Origin',
+  };
+}
 
 const PHOTO_VIZ_LIMITS: Record<string, number> = {
   basico:       3,
@@ -184,12 +189,13 @@ async function generateVisualization(prompt: string): Promise<{ url: string | nu
 
 // ── Handler ───────────────────────────────────────────────────────────────────
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   const authHeader = req.headers.get('Authorization');
   if (!authHeader) {
     return new Response(JSON.stringify({ error: 'Sin autorización' }), {
-      status: 401, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 401, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
   const token = authHeader.replace('Bearer ', '');
@@ -204,7 +210,7 @@ Deno.serve(async (req: Request) => {
     const { data: { user }, error: authErr } = await supabase.auth.getUser(token);
     if (authErr || !user) {
       return new Response(JSON.stringify({ error: 'Token inválido' }), {
-        status: 401, headers: { ...CORS, 'Content-Type': 'application/json' },
+        status: 401, headers: { ...cors(req), 'Content-Type': 'application/json' },
       });
     }
     ({ orgId, plan } = await resolveOrgAndPlan(supabase, user.id));
@@ -221,7 +227,7 @@ Deno.serve(async (req: Request) => {
         plan,
         used,
         limit,
-      }), { status: 403, headers: { ...CORS, 'Content-Type': 'application/json' } });
+      }), { status: 403, headers: { ...cors(req), 'Content-Type': 'application/json' } });
     }
   }
 
@@ -237,7 +243,7 @@ Deno.serve(async (req: Request) => {
     if (!body.photo) {
       return new Response(
         JSON.stringify({ error: 'Falta la foto' }),
-        { status: 400, headers: { ...CORS, 'Content-Type': 'application/json' } },
+        { status: 400, headers: { ...cors(req), 'Content-Type': 'application/json' } },
       );
     }
 
@@ -269,14 +275,16 @@ Deno.serve(async (req: Request) => {
         visualizacionB64: null,
         visualizacionError: viz.error,
       }),
-      { headers: { ...CORS, 'Content-Type': 'application/json' } },
+      { headers: { ...cors(req), 'Content-Type': 'application/json' } },
     );
   } catch (err) {
     const msg = (err as Error).message ?? String(err);
     console.error('[trade-presupuesto-foto]', msg);
     return new Response(
       JSON.stringify({ error: msg }),
-      { status: 500, headers: { ...CORS, 'Content-Type': 'application/json' } },
+      { status: 500, headers: { ...cors(req), 'Content-Type': 'application/json' } },
     );
   }
 });
+
+

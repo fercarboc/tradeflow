@@ -13,5 +13,8 @@ mobile/.expo/
 mobile/dist/
 
 .vercel/
+playwright-report/
+test-results/
+e2e/.auth/
 docs/Normativa/**/*.pdf
 docs/nuevas descargas/*.pdf

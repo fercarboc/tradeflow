@@ -6,10 +6,15 @@ const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 const RESEND_API_KEY       = Deno.env.get('RESEND_API_KEY') ?? '';
 const FROM                 = 'TRABFLOW <contacto@trabflow.com>';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Vary': 'Origin',
+  };
+}
 
 const fmtEur  = (n: number) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(n);
 const fmtDate = (s: string) => new Date(s).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -28,19 +33,20 @@ async function resolveOrg(sb: ReturnType<typeof createClient>, userId: string) {
 }
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   try {
     const authHeader = req.headers.get('Authorization') ?? '';
     const sb = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
     const { data: { user }, error: authErr } = await sb.auth.getUser(authHeader.replace('Bearer ', ''));
     if (authErr || !user) {
-      return new Response(JSON.stringify({ error: 'No autenticado' }), { status: 401, headers: CORS });
+      return new Response(JSON.stringify({ error: 'No autenticado' }), { status: 401, headers: cors(req) });
     }
 
     if (!RESEND_API_KEY) {
       return new Response(JSON.stringify({ ok: true, skipped: 'no_resend_key' }), {
-        headers: { ...CORS, 'Content-Type': 'application/json' },
+        headers: { ...cors(req), 'Content-Type': 'application/json' },
       });
     }
 
@@ -58,7 +64,7 @@ Deno.serve(async (req: Request) => {
 
     if (!toEmail) {
       return new Response(JSON.stringify({ ok: false, error: 'Sin email de destino' }), {
-        status: 400, headers: CORS,
+        status: 400, headers: cors(req),
       });
     }
 
@@ -72,7 +78,7 @@ Deno.serve(async (req: Request) => {
         .select('*')
         .eq('id', body.presupuesto_id!)
         .single();
-      if (!p) return new Response(JSON.stringify({ error: 'Presupuesto no encontrado' }), { status: 404, headers: CORS });
+      if (!p) return new Response(JSON.stringify({ error: 'Presupuesto no encontrado' }), { status: 404, headers: cors(req) });
 
       subject = `Presupuesto de mantenimiento — ${(p.nombre_cliente as string) ?? 'Cliente'} — ${p.oficio as string}`;
       const cuota    = Number(p.cuota_mensual);
@@ -107,7 +113,7 @@ Deno.serve(async (req: Request) => {
         .select('*')
         .eq('id', body.contrato_id!)
         .single();
-      if (!c) return new Response(JSON.stringify({ error: 'Contrato no encontrado' }), { status: 404, headers: CORS });
+      if (!c) return new Response(JSON.stringify({ error: 'Contrato no encontrado' }), { status: 404, headers: cors(req) });
 
       const cuota  = Number(c.cuota_mensual);
       const ivaPct = Number(c.iva_pct ?? 21);
@@ -143,7 +149,7 @@ Deno.serve(async (req: Request) => {
         .select('*, trade_maintenance_contratos(nombre_cliente, oficio)')
         .eq('id', body.factura_id!)
         .single();
-      if (!f) return new Response(JSON.stringify({ error: 'Factura no encontrada' }), { status: 404, headers: CORS });
+      if (!f) return new Response(JSON.stringify({ error: 'Factura no encontrada' }), { status: 404, headers: cors(req) });
 
       const contrato = f.trade_maintenance_contratos as { nombre_cliente: string | null; oficio: string } | null;
       const cliente  = contrato?.nombre_cliente ?? '—';
@@ -170,7 +176,7 @@ Deno.serve(async (req: Request) => {
   <div style="background:#f8fafc;padding:16px 32px;font-size:12px;color:#94a3b8;border-top:1px solid #e2e8f0">TradeFlow · trabflow.com</div>
 </body></html>`;
     } else {
-      return new Response(JSON.stringify({ error: 'Tipo desconocido' }), { status: 400, headers: CORS });
+      return new Response(JSON.stringify({ error: 'Tipo desconocido' }), { status: 400, headers: cors(req) });
     }
 
     const emailRes = await fetch('https://api.resend.com/emails', {
@@ -183,15 +189,17 @@ Deno.serve(async (req: Request) => {
       const errTxt = await emailRes.text();
       console.error('[trade-maintenance-email] Resend error:', errTxt);
       return new Response(JSON.stringify({ ok: true, skipped: 'resend_error', detail: errTxt }), {
-        headers: { ...CORS, 'Content-Type': 'application/json' },
+        headers: { ...cors(req), 'Content-Type': 'application/json' },
       });
     }
 
     return new Response(JSON.stringify({ ok: true }), {
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
 
   } catch (err) {
-    return new Response(JSON.stringify({ error: String(err) }), { status: 500, headers: CORS });
+    return new Response(JSON.stringify({ error: String(err) }), { status: 500, headers: cors(req) });
   }
 });
+
+

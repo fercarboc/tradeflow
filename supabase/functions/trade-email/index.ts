@@ -7,10 +7,15 @@ const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 const FROM              = 'TRABFLOW <contacto@trabflow.com>';
 const ADMIN_EMAIL       = 'contacto@trabflow.com';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Vary': 'Origin',
+  };
+}
 
 interface EmailPayload {
   type: 'waitlist_admin' | 'waitlist_confirm' | 'welcome' | 'contact_admin' | 'support_admin' | 'auth_confirm';
@@ -61,20 +66,21 @@ function emailWrap(title: string, body: string) {
 }
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   let payload: EmailPayload;
   try {
     payload = await req.json();
   } catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
-      status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 400, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
   if (!RESEND_API_KEY) {
     return new Response(JSON.stringify({ error: 'RESEND_API_KEY not set' }), {
-      status: 500, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 500, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -86,12 +92,12 @@ Deno.serve(async (req: Request) => {
       case 'auth_confirm': {
         if (!payload.email) {
           return new Response(JSON.stringify({ error: 'email requerido' }), {
-            status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+            status: 400, headers: { ...cors(req), 'Content-Type': 'application/json' },
           });
         }
         if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
           return new Response(JSON.stringify({ error: 'Supabase service key not set' }), {
-            status: 500, headers: { ...CORS, 'Content-Type': 'application/json' },
+            status: 500, headers: { ...cors(req), 'Content-Type': 'application/json' },
           });
         }
 
@@ -109,7 +115,7 @@ Deno.serve(async (req: Request) => {
           const msg = linkErr?.message ?? 'No se pudo generar el enlace';
           console.error('[trade-email] generateLink error:', msg);
           return new Response(JSON.stringify({ error: msg }), {
-            status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+            status: 400, headers: { ...cors(req), 'Content-Type': 'application/json' },
           });
         }
 
@@ -235,19 +241,21 @@ Deno.serve(async (req: Request) => {
 
       default:
         return new Response(JSON.stringify({ error: `Unknown type: ${(payload as { type: string }).type}` }), {
-          status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+          status: 400, headers: { ...cors(req), 'Content-Type': 'application/json' },
         });
     }
 
     return new Response(JSON.stringify({ ok: true }), {
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
 
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     console.error('[trade-email] unhandled error:', msg);
     return new Response(JSON.stringify({ error: msg }), {
-      status: 500, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 500, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 });
+
+

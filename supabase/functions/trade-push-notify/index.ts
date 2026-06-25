@@ -10,16 +10,22 @@ const VAPID_PRIVATE = Deno.env.get('VAPID_PRIVATE_KEY') ?? '';
 
 webpush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC, VAPID_PRIVATE);
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Vary': 'Origin',
+  };
+}
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   if (!req.headers.get('Authorization')) {
-    return new Response('Unauthorized', { status: 401, headers: CORS });
+    return new Response('Unauthorized', { status: 401, headers: cors(req) });
   }
 
   const body = await req.json() as {
@@ -32,7 +38,7 @@ Deno.serve(async (req: Request) => {
 
   if (!body.title) {
     return new Response(JSON.stringify({ error: 'title requerido' }), {
-      status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 400, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -45,14 +51,14 @@ Deno.serve(async (req: Request) => {
     query = query.eq('org_id', body.org_id);
   } else {
     return new Response(JSON.stringify({ error: 'Indica worker_ids u org_id' }), {
-      status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 400, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
   const { data: subs } = await query;
   if (!subs?.length) {
     return new Response(JSON.stringify({ sent: 0 }), {
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -86,6 +92,8 @@ Deno.serve(async (req: Request) => {
   const failed = results.filter(r => r.status === 'rejected').length;
 
   return new Response(JSON.stringify({ sent, failed }), {
-    headers: { ...CORS, 'Content-Type': 'application/json' },
+    headers: { ...cors(req), 'Content-Type': 'application/json' },
   });
 });
+
+

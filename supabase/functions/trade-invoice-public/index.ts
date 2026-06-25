@@ -8,17 +8,23 @@ const adminClient = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
 });
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization, apikey, x-client-info',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, apikey, x-client-info',
+    'Vary': 'Origin',
+  };
+}
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response(null, { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response(null, { headers: cors(req) });
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-      status: 405, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 405, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -26,14 +32,14 @@ Deno.serve(async (req: Request) => {
   try { body = await req.json(); }
   catch {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), {
-      status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 400, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
   const { token } = body;
   if (!token || typeof token !== 'string') {
     return new Response(JSON.stringify({ error: 'Missing token' }), {
-      status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 400, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -45,12 +51,12 @@ Deno.serve(async (req: Request) => {
 
   if (invErr) {
     return new Response(JSON.stringify({ error: invErr.message }), {
-      status: 500, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 500, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
   if (!inv) {
     return new Response(JSON.stringify({ error: 'Not found' }), {
-      status: 404, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 404, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -61,6 +67,9 @@ Deno.serve(async (req: Request) => {
     .maybeSingle();
 
   return new Response(JSON.stringify({ invoice: inv, org: org ?? {} }), {
-    headers: { ...CORS, 'Content-Type': 'application/json' },
+    headers: { ...cors(req), 'Content-Type': 'application/json' },
   });
 });
+
+
+

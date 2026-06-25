@@ -2,10 +2,15 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import Anthropic from 'https://esm.sh/@anthropic-ai/sdk@0.27.0';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Vary': 'Origin',
+  };
+}
 
 const SYSTEM_PROMPT = `Eres el asistente de ayuda de TrabFlow AI, la aplicación de gestión para instaladores autónomos y PYMES. Tu nombre es TrabFlow Asistente.
 
@@ -277,7 +282,8 @@ Si el usuario menciona alguna funcionalidad que NO existe en TrabFlow, o un sect
 `;
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   try {
     const supabase = createClient(
@@ -303,7 +309,7 @@ serve(async (req) => {
     };
 
     const { message, history = [], org_id, oficio } = body;
-    if (!message?.trim()) return new Response(JSON.stringify({ error: 'Mensaje vacío' }), { status: 400, headers: CORS });
+    if (!message?.trim()) return new Response(JSON.stringify({ error: 'Mensaje vacío' }), { status: 400, headers: cors(req) });
 
     const anthropic = new Anthropic({ apiKey: Deno.env.get('ANTHROPIC_API_KEY') ?? '' });
 
@@ -341,12 +347,14 @@ serve(async (req) => {
     }
 
     return new Response(JSON.stringify({ reply, captured_need: isNeed }), {
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
 
   } catch (e: unknown) {
     const msg = (e as Error).message ?? 'Error desconocido';
     console.error('[trade-chatbot]', msg);
-    return new Response(JSON.stringify({ error: msg }), { status: 500, headers: CORS });
+    return new Response(JSON.stringify({ error: msg }), { status: 500, headers: cors(req) });
   }
 });
+
+

@@ -2256,7 +2256,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   };
 
   return (
-    <div className={`font-sans ${
+    <div data-testid="dashboard" className={`font-sans ${
       isNativeDevice
         ? `fixed inset-0 overflow-hidden bg-white`
         : `w-full h-screen flex flex-col bg-white overflow-hidden`
@@ -2284,6 +2284,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </button>
             )}
             <button
+              data-testid="btn-logout"
               onClick={handleLogout}
               className="flex items-center gap-1.5 border border-slate-200 hover:border-red-200 hover:bg-red-50 px-3 py-1.5 rounded-lg text-[11px] font-bold text-slate-500 hover:text-red-600 transition-colors cursor-pointer"
             >
@@ -4079,6 +4080,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           return (
             <div
               key={p.id}
+              data-testid="quote-row"
               onClick={() => {
                 setSelectedQuoteForPreview(p);
                 setWizardQuote(p);
@@ -5333,6 +5335,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           <div className="p-4 border-t border-slate-800 bg-slate-950/20 space-y-2">
             {isTecnico ? (
               <button
+                data-testid="btn-logout"
                 onClick={handleLogout}
                 className="w-full flex items-center justify-center gap-2 text-[10px] font-bold uppercase tracking-wider text-red-400 hover:text-red-300 border border-red-900/40 hover:border-red-500/50 rounded-lg py-1.5 cursor-pointer transition-colors"
               >
@@ -5370,6 +5373,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   </div>
                   {showUpgradeBtn && (
                     <button
+                      data-testid="btn-upgrade"
                       onClick={() => setShowUpgradeModal(true)}
                       className="w-full text-[10px] font-bold bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white rounded-lg py-1.5 cursor-pointer transition-all"
                     >
@@ -5724,6 +5728,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       const isActive = activeTab === id || (id === 'quotes' && (activeTab === 'create_quote' || activeTab === 'preview'));
       return (
         <button
+          data-testid={`nav-${id}`}
           onClick={() => setActiveTab(id)}
           className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[11px] font-semibold transition-all cursor-pointer relative ${
             isActive
@@ -6287,6 +6292,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 }).map(p => (
                   <tr
                     key={p.id}
+                    data-testid="quote-row"
                     onClick={() => { setSelectedQuoteForPreview(p); setActiveTab('preview'); }}
                     className={`cursor-pointer transition-colors hover:brightness-95 ${rowBg[p.estado] ?? ''}`}
                   >

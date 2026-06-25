@@ -5,17 +5,23 @@ const SUPABASE_URL  = Deno.env.get('SUPABASE_URL') ?? '';
 const SERVICE_KEY   = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 const CRON_SECRET   = Deno.env.get('CRON_INVOICE_SECRET') ?? '';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-cron-secret',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-cron-secret',
+    'Vary': 'Origin',
+  };
+}
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   const secret = req.headers.get('x-cron-secret');
   if (!secret || secret !== CRON_SECRET) {
-    return new Response('Unauthorized', { status: 401, headers: CORS });
+    return new Response('Unauthorized', { status: 401, headers: cors(req) });
   }
 
   const db = createClient(SUPABASE_URL, SERVICE_KEY);
@@ -31,7 +37,7 @@ Deno.serve(async (req: Request) => {
 
   if (error) {
     return new Response(JSON.stringify({ error: error.message }), {
-      status: 500, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 500, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -66,6 +72,9 @@ Deno.serve(async (req: Request) => {
   const pushed = pushResults.filter(r => r.status === 'fulfilled').length;
 
   return new Response(JSON.stringify({ updated, orgs_notified: pushed }), {
-    headers: { ...CORS, 'Content-Type': 'application/json' },
+    headers: { ...cors(req), 'Content-Type': 'application/json' },
   });
 });
+
+
+

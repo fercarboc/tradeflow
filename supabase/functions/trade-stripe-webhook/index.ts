@@ -6,10 +6,15 @@ const STRIPE_WEBHOOK_SECRET = Deno.env.get('STRIPE_WEBHOOK_TRABFLOW_SECRET') ?? 
 const SUPABASE_URL           = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY   = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, stripe-signature',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, stripe-signature',
+    'Vary': 'Origin',
+  };
+}
 
 async function verifyStripeSignature(payload: string, sigHeader: string, secret: string): Promise<boolean> {
   if (!secret) return false;
@@ -46,13 +51,14 @@ async function cancelStripeSubscription(subscriptionId: string): Promise<void> {
 }
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   if (!STRIPE_WEBHOOK_SECRET) {
     console.error('[webhook] CRÍTICO: STRIPE_WEBHOOK_TRABFLOW_SECRET no está configurado en los secrets de Supabase');
     return new Response(JSON.stringify({ error: 'Webhook secret not configured. Set STRIPE_WEBHOOK_TRABFLOW_SECRET via: supabase secrets set STRIPE_WEBHOOK_TRABFLOW_SECRET=whsec_...' }), {
       status: 500,
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
@@ -294,11 +300,14 @@ Deno.serve(async (req: Request) => {
     // Retornar 200 igualmente para que Stripe no reintente indefinidamente
     // (el error está logueado y será visible en los logs de la función)
     return new Response(JSON.stringify({ received: true, warning: msg }), {
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 
   return new Response(JSON.stringify({ received: true }), {
-    headers: { ...CORS, 'Content-Type': 'application/json' },
+    headers: { ...cors(req), 'Content-Type': 'application/json' },
   });
 });
+
+
+

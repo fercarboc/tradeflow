@@ -7,10 +7,15 @@ const SUPABASE_URL         = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 const SUPABASE_ANON_KEY    = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Vary': 'Origin',
+  };
+}
 
 // ── Límites diarios por plan ──────────────────────────────────────────────────
 const DAILY_LIMITS: Record<string, number> = {
@@ -208,7 +213,8 @@ async function resolveOrgContext(supabase: ReturnType<typeof createClient>, user
 
 // ── Handler ───────────────────────────────────────────────────────────────────
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   try {
     const body                      = await req.json();
@@ -223,12 +229,12 @@ Deno.serve(async (req: Request) => {
     if (query_id_for_rating && rating !== null) {
       const sb = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
       await sb.from('trade_rag_logs').update({ user_rating: rating }).eq('id', query_id_for_rating);
-      return new Response(JSON.stringify({ ok: true }), { headers: { ...CORS, 'Content-Type': 'application/json' } });
+      return new Response(JSON.stringify({ ok: true }), { headers: { ...cors(req), 'Content-Type': 'application/json' } });
     }
 
     if (!query || query.length < 3) {
       return new Response(JSON.stringify({ error: 'La consulta debe tener al menos 3 caracteres' }), {
-        status: 400, headers: { ...CORS, 'Content-Type': 'application/json' },
+        status: 400, headers: { ...cors(req), 'Content-Type': 'application/json' },
       });
     }
 
@@ -264,7 +270,7 @@ Deno.serve(async (req: Request) => {
           error: 'RATE_LIMIT_EXCEEDED',
           message: `Has alcanzado el límite de ${dailyLimit} consultas diarias (plan ${plan}).`,
           limit: dailyLimit, plan,
-        }), { status: 429, headers: { ...CORS, 'Content-Type': 'application/json' } });
+        }), { status: 429, headers: { ...cors(req), 'Content-Type': 'application/json' } });
       }
     }
 
@@ -434,12 +440,14 @@ Deno.serve(async (req: Request) => {
       chunks_used:               topChunks.length,
       latency_ms:                latencyMs,
       comunidad_autonoma:        isCCAAQuery ? comunidadAutonoma : null,
-    }), { headers: { ...CORS, 'Content-Type': 'application/json' } });
+    }), { headers: { ...cors(req), 'Content-Type': 'application/json' } });
 
   } catch (err: any) {
     console.error('[trade-norm-query]', err?.message);
     return new Response(JSON.stringify({ error: 'Error interno', detail: err?.message }), {
-      status: 500, headers: { ...CORS, 'Content-Type': 'application/json' },
+      status: 500, headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
   }
 });
+
+

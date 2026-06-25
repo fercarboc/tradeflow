@@ -1,9 +1,14 @@
 import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Vary': 'Origin',
+  };
+}
 
 // API key de Google Geocoding opcional. Si no existe, usa Nominatim (OpenStreetMap, gratuito).
 const GOOGLE_KEY = Deno.env.get('GOOGLE_GEOCODING_API_KEY') ?? '';
@@ -91,12 +96,13 @@ async function geocodeNominatim(query: string): Promise<GeocodeResult | null> {
 // ── Handler principal ─────────────────────────────────────────────────────────
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   const respond = (body: unknown, status = 200) =>
     new Response(JSON.stringify(body), {
       status,
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
 
   try {
@@ -137,3 +143,5 @@ Deno.serve(async (req: Request) => {
     return respond({ error: String(err), status: 'error' }, 500);
   }
 });
+
+

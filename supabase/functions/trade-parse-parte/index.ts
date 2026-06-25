@@ -3,10 +3,15 @@ import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
 const OPENAI_API_KEY    = Deno.env.get('OPENAI_API_KEY') ?? '';
 const ANTHROPIC_API_KEY = Deno.env.get('ANTHROPIC_API_KEY') ?? '';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Vary': 'Origin',
+  };
+}
 
 interface CatalogItem {
   id: string;
@@ -118,7 +123,8 @@ Reglas:
 
 // ── Handler ───────────────────────────────────────────────────────────────────
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   try {
     const body = await req.json() as {
@@ -138,14 +144,14 @@ Deno.serve(async (req: Request) => {
     if (!transcripcion.trim()) {
       return new Response(
         JSON.stringify({ error: 'No hay texto para procesar' }),
-        { status: 400, headers: { ...CORS, 'Content-Type': 'application/json' } },
+        { status: 400, headers: { ...cors(req), 'Content-Type': 'application/json' } },
       );
     }
 
     if (!ANTHROPIC_API_KEY) {
       return new Response(
         JSON.stringify({ transcripcion, materiales: [], notas: transcripcion }),
-        { headers: { ...CORS, 'Content-Type': 'application/json' } },
+        { headers: { ...cors(req), 'Content-Type': 'application/json' } },
       );
     }
 
@@ -153,12 +159,14 @@ Deno.serve(async (req: Request) => {
 
     return new Response(
       JSON.stringify({ transcripcion, materiales, notas }),
-      { headers: { ...CORS, 'Content-Type': 'application/json' } },
+      { headers: { ...cors(req), 'Content-Type': 'application/json' } },
     );
   } catch (err) {
     return new Response(
       JSON.stringify({ error: String(err) }),
-      { status: 500, headers: { ...CORS, 'Content-Type': 'application/json' } },
+      { status: 500, headers: { ...cors(req), 'Content-Type': 'application/json' } },
     );
   }
 });
+
+

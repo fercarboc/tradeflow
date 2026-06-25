@@ -5,10 +5,15 @@ const ANTHROPIC_API_KEY  = Deno.env.get('ANTHROPIC_API_KEY') ?? '';
 const SUPABASE_URL        = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
+function cors(req: Request): Record<string, string> {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0],
+    'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+    'Vary': 'Origin',
+  };
+}
 
 const SYSTEM_PROMPT = `Eres un experto en contratos de mantenimiento para instaladores y empresas técnicas en España.
 Tu misión es analizar texto libre (dictado o escrito) y extraer toda la información relevante para generar un presupuesto de contrato de mantenimiento.
@@ -71,27 +76,28 @@ async function resolveOrg(supabase: ReturnType<typeof createClient>, userId: str
 }
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
+  const requestId = crypto.randomUUID();
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors(req) });
 
   try {
     const authHeader = req.headers.get('Authorization') ?? '';
     const supabaseUser = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
     const { data: { user }, error: authErr } = await supabaseUser.auth.getUser(authHeader.replace('Bearer ', ''));
     if (authErr || !user) {
-      return new Response(JSON.stringify({ error: 'No autenticado' }), { status: 401, headers: CORS });
+      return new Response(JSON.stringify({ error: 'No autenticado' }), { status: 401, headers: cors(req) });
     }
 
     const { orgId, plan } = await resolveOrg(supabaseUser, user.id);
     if (!orgId) {
-      return new Response(JSON.stringify({ error: 'Organización no encontrada' }), { status: 404, headers: CORS });
+      return new Response(JSON.stringify({ error: 'Organización no encontrada' }), { status: 404, headers: cors(req) });
     }
     if (!['empresa', 'empresa_plus'].includes(plan)) {
-      return new Response(JSON.stringify({ error: 'El módulo de contratos requiere Plan Empresa o Empresa+' }), { status: 403, headers: CORS });
+      return new Response(JSON.stringify({ error: 'El módulo de contratos requiere Plan Empresa o Empresa+' }), { status: 403, headers: cors(req) });
     }
 
     const body = await req.json() as { texto: string };
     if (!body.texto?.trim()) {
-      return new Response(JSON.stringify({ error: 'texto requerido' }), { status: 400, headers: CORS });
+      return new Response(JSON.stringify({ error: 'texto requerido' }), { status: 400, headers: cors(req) });
     }
 
     // Load available plantillas for context
@@ -123,7 +129,7 @@ Deno.serve(async (req: Request) => {
 
     if (!aiRes.ok) {
       const errText = await aiRes.text();
-      return new Response(JSON.stringify({ error: 'Error IA', detail: errText }), { status: 502, headers: CORS });
+      return new Response(JSON.stringify({ error: 'Error IA', detail: errText }), { status: 502, headers: cors(req) });
     }
 
     const aiData = await aiRes.json() as { content: Array<{ text: string }> };
@@ -134,7 +140,7 @@ Deno.serve(async (req: Request) => {
       const jsonMatch = rawText.match(/\{[\s\S]*\}/);
       parsed = JSON.parse(jsonMatch?.[0] ?? '{}');
     } catch {
-      return new Response(JSON.stringify({ error: 'La IA no devolvió JSON válido', raw: rawText }), { status: 502, headers: CORS });
+      return new Response(JSON.stringify({ error: 'La IA no devolvió JSON válido', raw: rawText }), { status: 502, headers: cors(req) });
     }
 
     // Guardar trazabilidad en trade_ai_usage con el texto original
@@ -145,10 +151,12 @@ Deno.serve(async (req: Request) => {
     }).then(() => {/* fire-and-forget */});
 
     return new Response(JSON.stringify({ ok: true, data: parsed }), {
-      headers: { ...CORS, 'Content-Type': 'application/json' },
+      headers: { ...cors(req), 'Content-Type': 'application/json' },
     });
 
   } catch (err) {
-    return new Response(JSON.stringify({ error: String(err) }), { status: 500, headers: CORS });
+    return new Response(JSON.stringify({ error: String(err) }), { status: 500, headers: cors(req) });
   }
 });
+
+

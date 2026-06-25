@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, lazy, Suspense } from 'react';
 import { ActivePage, TradeType } from './types';
 import { supabase, loadWorkerByEmail } from './lib/supabase';
 import { SessionProvider } from './context/SessionContext';
@@ -18,12 +18,13 @@ import PreciosView from './components/PreciosView';
 import ContactoView from './components/ContactoView';
 import LegalViews from './components/LegalViews';
 import Footer from './components/Footer';
-import AppDashboardView from './components/AppDashboardView';
-import RegistroView from './components/RegistroView';
-import AdminView from './components/AdminView';
-import ScreenWorkerView from './components/ScreenWorkerView';
-import DemoView from './components/demo/DemoView';
-import AsistenteTecnicoPublicView from './components/AsistenteTecnicoPublicView';
+import { logError, setupGlobalErrorHandlers } from './lib/errorLogger';
+const AppDashboardView = lazy(() => import('./components/AppDashboardView'));
+const RegistroView = lazy(() => import('./components/RegistroView'));
+const AdminView = lazy(() => import('./components/AdminView'));
+const ScreenWorkerView = lazy(() => import('./components/ScreenWorkerView'));
+const DemoView = lazy(() => import('./components/demo/DemoView'));
+const AsistenteTecnicoPublicView = lazy(() => import('./components/AsistenteTecnicoPublicView'));
 import LoginView from './components/auth/LoginView';
 import AuthActivateView from './components/auth/AuthActivateView';
 import AuthCallbackView from './components/auth/AuthCallbackView';
@@ -31,7 +32,100 @@ import AuthResetPasswordView from './components/auth/AuthResetPasswordView';
 import UpdatePasswordView from './components/auth/UpdatePasswordView';
 import QuoteAcceptView from './components/QuoteAcceptView';
 import InvoicePublicView from './components/InvoicePublicView';
-import PartnerDemoView from './components/partner-demo/PartnerDemoView';
+const PartnerDemoView = lazy(() => import('./components/partner-demo/PartnerDemoView'));
+
+class ErrorBoundary extends React.Component<
+  { children: React.ReactNode },
+  { hasError: boolean; message: string }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.state = { hasError: false, message: '' };
+  }
+
+  static getDerivedStateFromError(error: unknown) {
+    const message = error instanceof Error ? error.message : 'Error desconocido';
+    logError(error, { page: window.location.pathname }).catch(() => {});
+    return { hasError: true, message };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen bg-[#020B16] flex items-center justify-center px-4">
+          <div className="w-full max-w-md text-center">
+            <img src="/tradeflow.png" alt="TrabFlow" className="h-10 mx-auto mb-8" />
+            <div className="bg-[#0d1f38] rounded-2xl border border-white/10 p-10 shadow-2xl">
+              <div className="flex justify-center mb-5">
+                <div className="h-16 w-16 rounded-full bg-red-500/10 flex items-center justify-center">
+                  <svg className="h-8 w-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                  </svg>
+                </div>
+              </div>
+              <h2 className="text-xl font-display font-bold text-white mb-2">Algo salió mal</h2>
+              <p className="text-white/40 text-sm mb-6">{this.state.message || 'Hubo un error inesperado. Por favor, recarga la página.'}</p>
+              <button
+                onClick={() => window.location.reload()}
+                className="px-6 py-2.5 bg-[#00CFE8] hover:bg-[#00b8cf] text-[#020B16] font-semibold rounded-xl text-sm transition"
+              >
+                Recargar aplicación
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function AppLoadingSpinner() {
+  return (
+    <div className="min-h-screen bg-[#020B16] flex items-center justify-center">
+      <svg className="animate-spin h-10 w-10 text-[#00CFE8]" fill="none" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+      </svg>
+    </div>
+  );
+}
+
+const PAGE_PATHS: Partial<Record<ActivePage, string>> = {
+  [ActivePage.Home]:              '/',
+  [ActivePage.ComoFunciona]:      '/como-funciona',
+  [ActivePage.Precios]:           '/precios',
+  [ActivePage.Contacto]:          '/contacto',
+  [ActivePage.AvisoLegal]:        '/aviso-legal',
+  [ActivePage.Privacidad]:        '/privacidad',
+  [ActivePage.Cookies]:           '/cookies',
+  [ActivePage.Terminos]:          '/terminos',
+  [ActivePage.Beta]:              '/beta',
+  [ActivePage.IADisclaimer]:      '/ia-disclaimer',
+  [ActivePage.AppDashboard]:      '/app',
+  [ActivePage.Registro]:          '/registro',
+  [ActivePage.Demo]:              '/demo',
+  [ActivePage.AsisTecnico]:       '/asistente-tecnico',
+  [ActivePage.Admin]:             '/admin',
+  [ActivePage.Worker]:            '/worker',
+  [ActivePage.Login]:             '/login',
+  [ActivePage.AuthActivate]:      '/auth/activate',
+  [ActivePage.AuthCallback]:      '/auth/callback',
+  [ActivePage.AuthResetPassword]: '/auth/reset-password',
+  [ActivePage.UpdatePassword]:    '/update-password',
+  [ActivePage.PartnerDemo]:       '/demo-socios',
+};
+
+function pageToPath(page: ActivePage): string {
+  return PAGE_PATHS[page] ?? '/';
+}
+
+function pathToPage(path: string): ActivePage | null {
+  for (const [page, p] of Object.entries(PAGE_PATHS) as [ActivePage, string][]) {
+    if (p === path) return page;
+  }
+  return null;
+}
 
 const AUTH_FLOW_PAGES = new Set<ActivePage>([
   ActivePage.AuthActivate,
@@ -92,7 +186,7 @@ export default function App() {
 
   const initialAuthRoute = detectAuthRoute();
 
-  const [currentPage, setCurrentPage] = useState<ActivePage>(
+  const [currentPage, _setCurrentPage] = useState<ActivePage>(
     // Si vuelve de Stripe checkout, ir directo al dashboard (evita flash de Home)
     checkoutSuccess ? ActivePage.AppDashboard :
     (initialAuthRoute ?? (pwa ? ActivePage.AppDashboard : ActivePage.Home)),
@@ -109,7 +203,36 @@ export default function App() {
   );
 
   const [session, setSession] = useState<Session | null>(null);
+  const [sessionChecked, setSessionChecked] = useState(false);
   const [workerProfile, setWorkerProfile] = useState<WorkerProfile | null>(null);
+
+  const setCurrentPage = useCallback((page: ActivePage) => {
+    _setCurrentPage(page);
+    const path = pageToPath(page);
+    if (window.location.pathname !== path) {
+      window.history.pushState({ page }, '', path);
+    }
+  }, []);
+
+  // Sync browser back/forward to app state
+  useEffect(() => {
+    const handler = (e: PopStateEvent) => {
+      const page = (e.state?.page as ActivePage | undefined) ?? pathToPage(window.location.pathname);
+      _setCurrentPage(page ?? (pwa ? ActivePage.AppDashboard : ActivePage.Home));
+    };
+    window.addEventListener('popstate', handler);
+    return () => window.removeEventListener('popstate', handler);
+  }, [pwa]);
+
+  // Wire global unhandled error → Supabase logger
+  useEffect(() => {
+    return setupGlobalErrorHandlers(() => ({
+      userId: session?.user?.id,
+      orgId: undefined,
+      page: currentPageRef.current,
+    }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session?.user?.id]);
 
   const currentPageRef = useRef(currentPage);
   currentPageRef.current = currentPage;
@@ -156,6 +279,7 @@ export default function App() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
+      setSessionChecked(true);
       if (data.session) {
         routeSession(data.session);
       }
@@ -164,6 +288,8 @@ export default function App() {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, s) => {
+      if (event === 'INITIAL_SESSION') setSessionChecked(true);
+
       if (event === 'PASSWORD_RECOVERY') {
         setSession(s);
         setCurrentPage(ActivePage.UpdatePassword);
@@ -311,7 +437,8 @@ export default function App() {
     currentPage === ActivePage.QuoteAccept;
 
   return (
-    <SessionProvider>
+    <ErrorBoundary>
+      <SessionProvider user={session?.user ?? null} sessionChecked={sessionChecked}>
       <div className="min-h-screen flex flex-col bg-[#020B16]">
         {!isAppView && !isAuthView && (
           <Header
@@ -322,12 +449,24 @@ export default function App() {
           />
         )}
 
-        <main className="flex-grow">{renderActiveView()}</main>
+        <main className="flex-grow">
+          <Suspense fallback={<AppLoadingSpinner />}>
+            {renderActiveView()}
+          </Suspense>
+        </main>
 
         {!isAppView && !isAuthView && (
           <Footer setCurrentPage={setCurrentPage} />
         )}
       </div>
     </SessionProvider>
+    </ErrorBoundary>
   );
 }
+
+
+
+
+
+
+
