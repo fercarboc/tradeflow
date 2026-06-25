@@ -19,7 +19,7 @@ const ALL_OFICIOS = [
   'Albañilería', 'Reformas', 'Carpintería / Ventanas', 'Cerrajería',
   'Pintura', 'Suelos y Tarimas', 'Pladur / Escayola', 'Jardinería',
   'Cristalería', 'Persianas / Cierres', 'Telecomunicaciones',
-  'Energía Solar', 'CCTV / Seguridad', 'Ascensores',
+  'Energía Solar', 'Vehículo Eléctrico', 'CCTV / Seguridad', 'Ascensores',
   'Taller Mecánico', 'Limpieza Industrial',
 ];
 

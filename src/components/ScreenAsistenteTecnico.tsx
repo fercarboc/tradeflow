@@ -6,16 +6,17 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
 
 const PLAN_CATEGORIES: Record<string, string[]> = {
   basico:       ['OFICIOS', 'REBT', 'AEAT_VERIFACTU'],
-  profesional:  ['OFICIOS', 'REBT', 'RITE', 'AEAT_VERIFACTU', 'AEAT_IVA', 'AEAT_RENTA', 'AEAT_FACTURACION'],
-  empresa:      ['OFICIOS', 'REBT', 'RITE', 'AEAT_VERIFACTU', 'AEAT_IVA', 'AEAT_RENTA', 'AEAT_FACTURACION', 'AEAT_RENTA_CCAA', 'AEAT_SOCIEDADES'],
-  empresa_plus: ['OFICIOS', 'REBT', 'RITE', 'CTE', 'GAS', 'ACS', 'GUIAS',
+  profesional:  ['OFICIOS', 'REBT', 'RITE', 'VE', 'AEAT_VERIFACTU', 'AEAT_IVA', 'AEAT_RENTA', 'AEAT_FACTURACION'],
+  empresa:      ['OFICIOS', 'REBT', 'RITE', 'VE', 'FV', 'AEAT_VERIFACTU', 'AEAT_IVA', 'AEAT_RENTA', 'AEAT_FACTURACION', 'AEAT_RENTA_CCAA', 'AEAT_SOCIEDADES'],
+  empresa_plus: ['OFICIOS', 'REBT', 'RITE', 'CTE', 'GAS', 'ACS', 'GUIAS', 'VE', 'FV',
                  'AEAT_VERIFACTU', 'AEAT_IVA', 'AEAT_RENTA', 'AEAT_FACTURACION', 'AEAT_RENTA_CCAA', 'AEAT_SOCIEDADES', 'AEAT_PATRIMONIO',
                  'SS_LGSS', 'SS_AFILIACION', 'SS_COTIZACION', 'SS_RETA', 'SS_BONIFICACIONES', 'SS_AUTONOMO_COLABORADOR', 'SS_SISTEMA_RED', 'SS_BOLETINES_RED'],
 };
 
-const ALL_TECH_CATEGORIES   = ['OFICIOS', 'REBT', 'RITE', 'CTE', 'GAS', 'ACS', 'GUIAS'] as const;
-const ALL_FISCAL_CATEGORIES = ['AEAT_VERIFACTU', 'AEAT_IVA', 'AEAT_RENTA', 'AEAT_FACTURACION', 'AEAT_RENTA_CCAA', 'AEAT_SOCIEDADES', 'AEAT_PATRIMONIO'] as const;
-const ALL_SS_CATEGORIES     = ['SS_LGSS', 'SS_AFILIACION', 'SS_COTIZACION', 'SS_RETA', 'SS_BONIFICACIONES', 'SS_AUTONOMO_COLABORADOR', 'SS_SISTEMA_RED', 'SS_BOLETINES_RED'] as const;
+const ALL_TECH_CATEGORIES    = ['OFICIOS', 'REBT', 'RITE', 'CTE', 'GAS', 'ACS', 'GUIAS'] as const;
+const ALL_ENERGIA_CATEGORIES = ['VE', 'FV'] as const;
+const ALL_FISCAL_CATEGORIES  = ['AEAT_VERIFACTU', 'AEAT_IVA', 'AEAT_RENTA', 'AEAT_FACTURACION', 'AEAT_RENTA_CCAA', 'AEAT_SOCIEDADES', 'AEAT_PATRIMONIO'] as const;
+const ALL_SS_CATEGORIES      = ['SS_LGSS', 'SS_AFILIACION', 'SS_COTIZACION', 'SS_RETA', 'SS_BONIFICACIONES', 'SS_AUTONOMO_COLABORADOR', 'SS_SISTEMA_RED', 'SS_BOLETINES_RED'] as const;
 
 const CATEGORY_LABELS: Record<string, string> = {
   OFICIOS:                'Fichas de Oficio',
@@ -25,6 +26,8 @@ const CATEGORY_LABELS: Record<string, string> = {
   GAS:                    'GAS',
   ACS:                    'ACS',
   GUIAS:                  'Guías IDAE',
+  VE:                     'Cargadores VE',
+  FV:                     'Fotovoltaica',
   AEAT_VERIFACTU:         'VeriFactu',
   AEAT_IVA:               'IVA',
   AEAT_RENTA:             'Renta IRPF',
@@ -47,12 +50,14 @@ const DAILY_LIMITS: Record<string, number> = {
 };
 
 const EXAMPLE_QUERIES = [
-  { q: '¿Qué sección mínima necesita un cable de 16A en instalación empotrada?',          cat: 'REBT'     },
-  { q: '¿Qué IVA aplica a la instalación de aerotermia en vivienda de más de 2 años?',    cat: 'IVA'      },
-  { q: '¿Cuántos circuitos mínimos debe tener una vivienda según el REBT?',               cat: 'REBT'     },
-  { q: '¿Cuándo es obligatorio emitir facturas rectificativas según el reglamento AEAT?', cat: 'Factura'  },
-  { q: '¿Puedo contratar a mi hijo en la empresa? ¿Cuál es su régimen en la SS?',         cat: 'SS'       },
-  { q: '¿Qué plazo tengo para comunicar la baja de un trabajador a la Seguridad Social?', cat: 'SS'       },
+  { q: '¿Qué sección mínima necesita un cable de 16A en instalación empotrada?',          cat: 'REBT'  },
+  { q: '¿Qué IVA aplica a la instalación de aerotermia en vivienda de más de 2 años?',    cat: 'IVA'   },
+  { q: '¿Cuántos circuitos mínimos debe tener una vivienda según el REBT?',               cat: 'REBT'  },
+  { q: '¿Cuándo es obligatorio emitir facturas rectificativas según el reglamento AEAT?', cat: 'AEAT'  },
+  { q: '¿Qué protecciones son obligatorias en un punto de recarga modo 3 para comunidad?', cat: 'VE'   },
+  { q: '¿Cuántos votos necesito en la comunidad de propietarios para instalar un wallbox?', cat: 'VE'  },
+  { q: '¿Qué modalidades de autoconsumo fotovoltaico recoge el RD 244/2019?',              cat: 'FV'   },
+  { q: '¿Qué documentación hay que entregar al cliente al comisionar una instalación FV?', cat: 'FV'   },
 ];
 
 // Tipos del Web Speech API
@@ -117,6 +122,7 @@ interface NormMessage {
   requires_fiscal_disclaimer?: boolean;
   needs_dgt_disclaimer?: boolean;
   needs_importass_link?: boolean;
+  needs_moves_disclaimer?: boolean;
   comunidad_autonoma?: string | null;
   query_id?: string | null;
   chunks_used?: number;
@@ -243,6 +249,17 @@ function AssistantBubble({ msg, onRate }: { msg: NormMessage; onRate: (id: strin
           </div>
         )}
 
+        {msg.needs_moves_disclaimer && (
+          <div className="rounded-xl bg-emerald-950/40 border border-emerald-700/30 p-3 space-y-1.5">
+            <p className="text-[11px] font-semibold text-emerald-300">Subvenciones MOVES III — convocatoria variable</p>
+            <p className="text-[11px] text-emerald-200/70 leading-relaxed">Las convocatorias MOVES tienen presupuesto limitado y plazos distintos por comunidad autónoma. Verifica si hay convocatoria abierta en tu CCAA antes de comprometerte con el cliente.</p>
+            <a href="https://www.idae.es/ayudas-y-financiacion/para-movilidad-y-vehiculos/moves-iii" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 transition-colors cursor-pointer">
+              <ExternalLink className="w-3 h-3" />
+              MOVES III — IDAE (convocatoria oficial)
+            </a>
+          </div>
+        )}
+
         {/* Aviso IA — siempre visible */}
         <div className="flex items-center gap-1.5 px-2 py-1">
           <AlertCircle className="w-3 h-3 text-slate-600 shrink-0" />
@@ -324,7 +341,7 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
         return;
       }
       if (!res.ok || data.error) throw new Error(data.detail ?? data.error ?? 'Error');
-      setMessages(prev => [...prev, { id: crypto.randomUUID(), role: 'assistant', text: data.answer ?? '', sources: data.sources ?? [], confidence: data.confidence ?? 'none', naturaleza: data.naturaleza, requires_fiscal_disclaimer: data.requires_fiscal_disclaimer ?? false, needs_dgt_disclaimer: data.needs_dgt_disclaimer ?? false, needs_importass_link: data.needs_importass_link ?? false, comunidad_autonoma: data.comunidad_autonoma ?? null, query_id: data.query_id ?? null, rated: null }]);
+      setMessages(prev => [...prev, { id: crypto.randomUUID(), role: 'assistant', text: data.answer ?? '', sources: data.sources ?? [], confidence: data.confidence ?? 'none', naturaleza: data.naturaleza, requires_fiscal_disclaimer: data.requires_fiscal_disclaimer ?? false, needs_dgt_disclaimer: data.needs_dgt_disclaimer ?? false, needs_importass_link: data.needs_importass_link ?? false, needs_moves_disclaimer: data.needs_moves_disclaimer ?? false, comunidad_autonoma: data.comunidad_autonoma ?? null, query_id: data.query_id ?? null, rated: null }]);
       if (orgId) setQueriesUsed(p => p + 1);
     } catch (err: unknown) {
       showToast(err instanceof Error ? err.message : 'Error de conexión', 'error');
@@ -441,7 +458,7 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
           <div className="flex-1 min-w-0">
             <span className="text-sm font-bold text-white">Asistente Técnico &amp; Fiscal</span>
             <span className="text-slate-500 mx-2 text-xs">·</span>
-            <span className="text-xs text-slate-400">Normativa técnica · Manuales AEAT</span>
+            <span className="text-xs text-slate-400">Normativa técnica · VE · FV · Manuales AEAT</span>
           </div>
           {voiceSupported && (
             <div className="flex items-center gap-1.5 shrink-0">
@@ -459,8 +476,30 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
           )}
         </div>
 
-        {/* Chips de categoría — Técnico */}
+        {/* Chips de categoría — Energía (VE / FV) */}
         <div className="max-w-4xl mx-auto px-5 pt-0 pb-1 flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
+          <span className="text-[10px] font-semibold text-emerald-600/80 uppercase tracking-wider shrink-0 w-12">Energía</span>
+          {ALL_ENERGIA_CATEGORIES.map(cat => {
+            const locked = !allowedCats.includes(cat);
+            const active = selectedCategories.includes(cat);
+            return (
+              <button
+                key={cat}
+                onClick={() => locked ? setShowUpgradeModal(true) : toggleCategory(cat)}
+                className={`shrink-0 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium border transition-colors cursor-pointer ${
+                  locked  ? 'border-slate-700/50 bg-transparent text-slate-600 hover:border-slate-600 hover:text-slate-500'
+                  : active ? 'border-emerald-500 bg-emerald-600/20 text-emerald-300'
+                           : 'border-slate-700 bg-slate-800/40 text-slate-400 hover:border-emerald-600/40 hover:text-emerald-300/70'
+                }`}
+              >
+                {locked && <Lock className="w-2 h-2" />}
+                {CATEGORY_LABELS[cat]}
+              </button>
+            );
+          })}
+        </div>
+        {/* Chips de categoría — Técnico */}
+        <div className="max-w-4xl mx-auto px-5 pb-1 flex items-center gap-1.5 overflow-x-auto scrollbar-hide">
           <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-wider shrink-0 w-12">Técnico</span>
           {ALL_TECH_CATEGORIES.map(cat => {
             const locked = !allowedCats.includes(cat);
@@ -541,7 +580,7 @@ export default function ScreenAsistenteTecnico({ orgId, plan, session, showToast
                 <div>
                   <p className="text-sm font-bold text-white">Normativa técnica y fiscal para instaladores</p>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    REBT · RITE · CTE · GAS · IVA · IRPF · Facturación · VeriFactu
+                    REBT · Cargadores VE · Fotovoltaica · RITE · CTE · IVA · IRPF · SS
                     {voiceSupported && <span className="text-violet-400"> · Dicta por voz con el micrófono</span>}
                   </p>
                 </div>

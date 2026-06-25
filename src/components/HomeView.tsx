@@ -9,7 +9,7 @@ import {
   Mic, FileText, Send, CheckCircle, ArrowRight,
   Zap, Wrench, Snowflake, Home as HomeIcon, Hammer, KeyRound,
   PaintRoller, BrickWall, PanelsTopLeft, Leaf, SquareStack,
-  Blinds, RadioTower, Sun, ArrowUpDown, Car, Brush, Droplets, Camera,
+  Blinds, RadioTower, Sun, ArrowUpDown, Car, Brush, Droplets, Camera, BatteryCharging,
   Monitor, Star, ShieldCheck, Users, Phone, Download, Share2,
   Handshake, PackageCheck, TrendingUp, Clock, EuroIcon, Lock, ExternalLink,
 } from 'lucide-react';
@@ -98,6 +98,7 @@ export default function HomeView({ setCurrentPage, setPreselectedTrade: _sp, set
     { label: 'Persianas / Cierres',  icon: Blinds },
     { label: 'Telecomunicaciones',   icon: RadioTower },
     { label: 'Energía Solar',        icon: Sun },
+    { label: 'Vehículo Eléctrico',   icon: BatteryCharging },
     { label: 'Ascensores',           icon: ArrowUpDown },
     { label: 'Taller Mecánico',      icon: Car },
     { label: 'Limpieza Industrial',  icon: Brush },

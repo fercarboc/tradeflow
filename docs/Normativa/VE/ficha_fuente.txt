@@ -1,0 +1,14 @@
+Categoría: VE
+Título: Normativa Cargadores Vehículo Eléctrico
+Fuente: BOE / EUR-Lex / IDAE
+Tipo documento: norma_tecnica
+Ámbito territorial: estatal
+Organismo: Ministerio de Industria / IDAE / UE
+Uso: Indexación RAG para consultas sobre instalación de wallbox, puntos de recarga VE, MOVES III
+Estado: Activo
+
+--- DOCUMENTOS ---
+1. RD_266_2021_MOVES_III.pdf         → BOE-A-2021-4522 (RD 266/2021 MOVES III)
+2. AFIR_2023_1804_EUR_Lex.pdf        → EUR-Lex AFIR Reglamento 2023/1804 infraestructura recarga
+3. ITC_BT_52_Instalaciones_VE.pdf   → Suplemento ITC-BT-52 REBT instalaciones para recarga VE
+4. Ley_49_1960_Propiedad_Horizontal.pdf → BOE-A-1960-10906 Ley 49/1960 (art. recarga comunidades)

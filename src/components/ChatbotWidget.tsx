@@ -8,7 +8,7 @@ const KNOWN_OFICIOS = [
   'Fontanería','Electricidad','Climatización / HVAC','Calefacción','Reformas',
   'Albañilería','Carpintería / Ventanas','Cerrajería','Pintura','Suelos y Tarimas',
   'Pladur / Escayola','Jardinería','Cristalería','Persianas / Cierres',
-  'Telecomunicaciones','CCTV / Seguridad','Energía Solar','Ascensores',
+  'Telecomunicaciones','CCTV / Seguridad','Energía Solar','Vehículo Eléctrico','Ascensores',
   'Taller Mecánico','Limpieza Industrial',
 ];
 

@@ -11,7 +11,7 @@ import {
   Droplets, Zap, Hammer, Wind, TreeDeciduous, KeyRound, Paintbrush,
   Layers, Wrench, Building2, ChevronRight, ChevronLeft, Check,
   ArrowRight, Eye, EyeOff, User, Mail, Phone, Lock, Building, Gift, Shield,
-  Thermometer, Camera, Sun, Leaf, Wifi, Car, Sparkles, ArrowUpDown,
+  Thermometer, Camera, Sun, Leaf, Wifi, Car, Sparkles, ArrowUpDown, BatteryCharging,
 } from 'lucide-react';
 
 interface RegistroViewProps {
@@ -36,6 +36,7 @@ const TRADE_OPTIONS = [
   { id: 'Telecomunicaciones', label: 'Telecom', Icon: Wifi },
   { id: 'CCTV / Seguridad', label: 'CCTV / Seguridad', Icon: Camera },
   { id: 'Energía Solar', label: 'Energía Solar', Icon: Sun },
+  { id: 'Vehículo Eléctrico', label: 'Vehículo Eléctrico', Icon: BatteryCharging },
   { id: 'Ascensores', label: 'Ascensores', Icon: ArrowUpDown },
   { id: 'Taller Mecánico', label: 'Taller Mecánico', Icon: Car },
   { id: 'Limpieza Industrial', label: 'Limpieza Industrial', Icon: Wrench },

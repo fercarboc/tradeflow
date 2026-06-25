@@ -24,6 +24,8 @@ const DAILY_LIMITS: Record<string, number> = {
 const CAT_TECNICAS_BASE  = ['OFICIOS', 'REBT'];
 const CAT_TECNICAS_PRO   = ['RITE'];
 const CAT_TECNICAS_PLUS  = ['CTE', 'GAS', 'ACS', 'GUIAS'];
+const CAT_TECNICAS_VE    = ['VE'];
+const CAT_TECNICAS_FV    = ['FV'];
 const CAT_FISCAL_BASICO  = ['AEAT_VERIFACTU'];
 const CAT_FISCAL_PRO     = ['AEAT_IVA', 'AEAT_RENTA', 'AEAT_FACTURACION'];
 const CAT_FISCAL_EMPRESA = ['AEAT_RENTA_CCAA', 'AEAT_SOCIEDADES'];
@@ -33,9 +35,10 @@ const CAT_SS             = ['SS_LGSS', 'SS_AFILIACION', 'SS_COTIZACION', 'SS_RET
 
 const PLAN_CATEGORIES: Record<string, string[]> = {
   basico:      [...CAT_TECNICAS_BASE, ...CAT_FISCAL_BASICO],
-  profesional: [...CAT_TECNICAS_BASE, ...CAT_TECNICAS_PRO, ...CAT_FISCAL_BASICO, ...CAT_FISCAL_PRO],
-  empresa:     [...CAT_TECNICAS_BASE, ...CAT_TECNICAS_PRO, ...CAT_FISCAL_BASICO, ...CAT_FISCAL_PRO, ...CAT_FISCAL_EMPRESA],
-  empresa_plus:[...CAT_TECNICAS_BASE, ...CAT_TECNICAS_PRO, ...CAT_TECNICAS_PLUS,
+  profesional: [...CAT_TECNICAS_BASE, ...CAT_TECNICAS_PRO, ...CAT_TECNICAS_VE, ...CAT_FISCAL_BASICO, ...CAT_FISCAL_PRO],
+  empresa:     [...CAT_TECNICAS_BASE, ...CAT_TECNICAS_PRO, ...CAT_TECNICAS_VE, ...CAT_TECNICAS_FV,
+                ...CAT_FISCAL_BASICO, ...CAT_FISCAL_PRO, ...CAT_FISCAL_EMPRESA],
+  empresa_plus:[...CAT_TECNICAS_BASE, ...CAT_TECNICAS_PRO, ...CAT_TECNICAS_PLUS, ...CAT_TECNICAS_VE, ...CAT_TECNICAS_FV,
                 ...CAT_FISCAL_BASICO, ...CAT_FISCAL_PRO, ...CAT_FISCAL_EMPRESA, ...CAT_FISCAL_PLUS,
                 ...CAT_SS],
 };
@@ -121,23 +124,30 @@ REGLAS ABSOLUTAS (incumplirlas invalida tu respuesta):
     informe de bases, certificado de estar al corriente, autónomo colaborador, consulta de expedientes,
     Sistema RED, alta/baja de trabajadores en empresa, afiliación real.
 
+14. SUBVENCIONES MOVES III — REGLA DE SEGURIDAD
+    Si el contexto incluye "ALERTA MOVES":
+    a) Responde con la normativa del corpus (si hay fragmentos de RD 266/2021)
+    b) Añade "needs_moves_disclaimer": true en tu JSON
+    c) Las convocatorias MOVES tienen presupuesto limitado y plazos variables por CCAA. NUNCA afirmes que una convocatoria está abierta si no tienes fecha exacta en los fragmentos.
+
 FORMATO — JSON puro, sin texto exterior:
 {
   "answer": "Respuesta directa y práctica...",
   "naturaleza": "obligacion_legal",
   "needs_dgt_disclaimer": false,
   "needs_importass_link": false,
+  "needs_moves_disclaimer": false,
   "sources": [
     {
-      "document": "Manual Práctico IVA 2025",
-      "article_id": "CAP-05",
-      "article_title": "Tipos impositivos — Tipo reducido",
+      "document": "RD 266/2021 MOVES III",
+      "article_id": "ART-05",
+      "article_title": "Actuaciones subvencionables",
       "excerpt": "Frase literal del fragmento que respalda la respuesta",
-      "boe_ref": "AEAT 2025"
+      "boe_ref": "BOE-A-2021-4522"
     }
   ],
   "confidence": "high",
-  "requires_fiscal_disclaimer": true
+  "requires_fiscal_disclaimer": false
 }`;
 
 // ── Mapeo provincia → CCAA ────────────────────────────────────────────────────
@@ -269,6 +279,24 @@ Deno.serve(async (req: Request) => {
     const isFiscalQuery = isSocialQuery || allowedCategories.some(c => FISCAL_CATS.has(c)) ||
       /iva|irpf|renta|fiscal|factura|verifactu|deduci|impuesto|tribut|aeat|patrimonio|sociedad/i.test(query);
 
+    // VE / FV auto-detección
+    const VE_REGEX = /wallbox|cargador.*v[eé]hicul|v[eé]hicul.*el[eé]ctric|punto\s+de\s+recarga|recarga.*coche|moves\s*iii|itc[- .]?bt[- .]?52|modo\s+[34]\b|ocpp|afir|infraestructura.*recarga|recarga.*comunidad|ev\s+charger|cargador\s+ve\b|instalaci[oó]n.*wallbox|wallbox.*instala/i;
+    const FV_REGEX  = /fotovoltai|autoconsumo|panel.*solar|solar.*panel|inversor.*solar|kw[ph]\b|kilovatios\s+pico|planta\s+solar|instalaci[oó]n.*solar|rd\s*244|rd\s*1183|raipre|atr.*solar|performance\s+ratio\b|iec\s*624|iec\s*617|string.*fotovolt|microinversor|monitor.*solar|produccion.*solar/i;
+    const isVEQuery = VE_REGEX.test(query);
+    const isFVQuery = FV_REGEX.test(query);
+
+    const MOVES_TRIGGER = /moves\s*iii|subvenci[oó]n.*cargador|cargador.*subvenci[oó]n|ayuda.*recarga|recarga.*ayuda|bono.*cargador|moves.*recarga/i;
+    const needsMovesDisclaimer = isVEQuery && MOVES_TRIGGER.test(query);
+
+    // Inyectar categorías VE/FV cuando se detectan en la query y el plan lo permite
+    const planAllowed = PLAN_CATEGORIES[plan] ?? [];
+    if (isVEQuery && planAllowed.includes('VE') && !allowedCategories.includes('VE')) {
+      allowedCategories.push('VE');
+    }
+    if (isFVQuery && planAllowed.includes('FV') && !allowedCategories.includes('FV')) {
+      allowedCategories.push('FV');
+    }
+
     // Enriquecer query para CCAA
     const queryEnriched = isCCAAQuery && comunidadAutonoma
       ? `${query} [Comunidad Autónoma: ${comunidadAutonoma}]`
@@ -333,6 +361,7 @@ Deno.serve(async (req: Request) => {
       queryType,
       needsDGTDisclaimer   ? 'ALERTA DGT: Esta consulta puede requerir doctrina DGT no indexada. Aplica regla 12. Incluye needs_dgt_disclaimer: true en el JSON.' : '',
       needsImportassLink   ? 'ALERTA SS TRÁMITE: Esta consulta implica un trámite real ante la TGSS. Aplica regla 13. Incluye needs_importass_link: true en el JSON.' : '',
+      needsMovesDisclaimer ? 'ALERTA MOVES: Consulta sobre subvenciones MOVES III. Aplica regla 14. Incluye needs_moves_disclaimer: true en el JSON. Las convocatorias tienen presupuesto limitado y plazos variables por CCAA — no confirmes que hay convocatoria abierta sin fecha en los fragmentos.' : '',
       isCCAAQuery && comunidadAutonoma ? `CCAA DEL USUARIO: ${comunidadAutonoma}` : '',
       `\nNORMATIVA:\n${contextText}`,
       `\nPREGUNTA:\n${query}`,
@@ -400,6 +429,7 @@ Deno.serve(async (req: Request) => {
       requires_fiscal_disclaimer: parsed.requires_fiscal_disclaimer ?? isFiscalQuery,
       needs_dgt_disclaimer:      parsed.needs_dgt_disclaimer  ?? needsDGTDisclaimer,
       needs_importass_link:      parsed.needs_importass_link ?? needsImportassLink,
+      needs_moves_disclaimer:    parsed.needs_moves_disclaimer ?? needsMovesDisclaimer,
       query_id:                  queryLogId,
       chunks_used:               topChunks.length,
       latency_ms:                latencyMs,

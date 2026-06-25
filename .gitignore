@@ -15,3 +15,5 @@ mobile/dist/
 
 .vercel
 .vercel/
+docs/Normativa/**/*.pdf 
+docs/nuevas\ descargas/*.pdf 

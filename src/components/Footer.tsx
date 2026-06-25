@@ -28,6 +28,7 @@ import {
   Brush,
   Droplets,
   Camera,
+  BatteryCharging,
 } from 'lucide-react';
 
 interface FooterProps {
@@ -57,6 +58,7 @@ export default function Footer({ setCurrentPage }: FooterProps) {
     { label: 'Persianas / Cierres', icon: Blinds },
     { label: 'Telecomunicaciones', icon: RadioTower },
     { label: 'Energía Solar', icon: Sun },
+    { label: 'Vehículo Eléctrico', icon: BatteryCharging },
     { label: 'Ascensores', icon: ArrowUpDown },
     { label: 'Taller Mecánico', icon: Car },
     { label: 'Limpieza Industrial', icon: Brush },

@@ -32,7 +32,7 @@ if (!['basico','profesional','empresa','empresa_plus'].includes(planRequired)) {
   process.exit(1);
 }
 
-const VALID_CATEGORIES = ['REBT','RITE','CTE','GAS','ACS','GUIAS','OFICIOS','SOCIAL','AEAT','DGT','CONVENIOS','CIRCULARES'];
+const VALID_CATEGORIES = ['REBT','RITE','CTE','GAS','ACS','GUIAS','OFICIOS','SOCIAL','AEAT','DGT','CONVENIOS','CIRCULARES','VE','FV'];
 if (!VALID_CATEGORIES.includes(category)) {
   console.error(`Categoría inválida: ${category}`);
   console.error(`Válidas: ${VALID_CATEGORIES.join(', ')}`);

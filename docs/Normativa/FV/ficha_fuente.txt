@@ -1,0 +1,13 @@
+Categoría: FV
+Título: Normativa Fotovoltaica Industrial y Autoconsumo
+Fuente: BOE / IDAE
+Tipo documento: norma_tecnica
+Ámbito territorial: estatal
+Organismo: Ministerio para la Transición Ecológica / IDAE
+Uso: Indexación RAG para consultas sobre autoconsumo fotovoltaico, RD 244/2019, RD 1183/2020, RAIPRE
+Estado: Activo
+
+--- DOCUMENTOS ---
+1. RD_244_2019_Autoconsumo.pdf       → BOE-A-2019-5089 (RD 244/2019 autoconsumo eléctrico)
+2. RD_1183_2020_Acceso_Red.pdf       → BOE-A-2020-14973 (RD 1183/2020 acceso y conexión red)
+3. Guia_IDAE_Autoconsumo_FV.pdf      → Guía IDAE instalaciones autoconsumo fotovoltaico (uso/mantenimiento)
