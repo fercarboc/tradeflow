@@ -219,15 +219,20 @@ export default function ScreenIngresos({ showToast }: Props) {
   async function handleSaveCompra() {
     if (!org || !draftCompra.concepto.trim()) { showToast('Añade un concepto', 'error'); return; }
     setSavingCompra(true);
+    let saved: TradeCompra | null = null;
     try {
       const payload = { ...draftCompra, referencia_factura: draftCompra.referencia_factura || null, fecha_vencimiento: draftCompra.fecha_vencimiento || null, notas: draftCompra.notas || null };
-      const saved = await saveCompra(org.id, payload, editingCompraId ?? undefined);
-      if (editingCompraId) setCompras(prev => prev.map(c => c.id === saved.id ? saved : c));
-      else setCompras(prev => [saved, ...prev]);
-      setShowCompraModal(false);
-      showToast(editingCompraId ? 'Factura actualizada' : 'Factura registrada');
+      saved = await saveCompra(org.id, payload, editingCompraId ?? undefined);
     } catch (e: unknown) { showToast('Error: ' + (e as Error).message, 'error'); }
-    setSavingCompra(false);
+    finally {
+      setSavingCompra(false);
+      if (saved) {
+        if (editingCompraId) setCompras(prev => prev.map(c => c.id === saved!.id ? saved! : c));
+        else setCompras(prev => [saved!, ...prev]);
+        setShowCompraModal(false);
+        showToast(editingCompraId ? 'Factura actualizada' : 'Factura registrada');
+      }
+    }
   }
 
   async function handleDeleteCompra(c: TradeCompra) {
@@ -258,14 +263,19 @@ export default function ScreenIngresos({ showToast }: Props) {
   async function handleSaveMayor() {
     if (!org || !draftMayor.nombre.trim()) { showToast('El nombre es obligatorio', 'error'); return; }
     setSavingMayor(true);
+    let saved: TradeMayorista | null = null;
     try {
-      const saved = await saveMayorista(org.id, draftMayor as Parameters<typeof saveMayorista>[1], editingMayorId ?? undefined);
-      if (editingMayorId) setMayoristas(prev => prev.map(m => m.id === saved.id ? saved : m));
-      else setMayoristas(prev => [...prev, saved]);
-      setShowMayorModal(false);
-      showToast(editingMayorId ? 'Proveedor actualizado' : 'Proveedor añadido');
+      saved = await saveMayorista(org.id, draftMayor as Parameters<typeof saveMayorista>[1], editingMayorId ?? undefined);
     } catch (e: unknown) { showToast('Error: ' + (e as Error).message, 'error'); }
-    setSavingMayor(false);
+    finally {
+      setSavingMayor(false);
+      if (saved) {
+        if (editingMayorId) setMayoristas(prev => prev.map(m => m.id === saved!.id ? saved! : m));
+        else setMayoristas(prev => [...prev, saved!]);
+        setShowMayorModal(false);
+        showToast(editingMayorId ? 'Proveedor actualizado' : 'Proveedor añadido');
+      }
+    }
   }
 
   async function handleDeleteMayor(m: TradeMayorista) {
