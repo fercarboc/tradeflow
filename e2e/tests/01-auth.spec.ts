@@ -7,11 +7,17 @@ test.describe('Auth flow', () => {
   });
 
   test('logout returns to login/home page', async ({ browser }) => {
-    // Contexto propio para que el signOut no invalide la sesión de los tests siguientes
-    const ctx = await browser.newContext({ storageState: 'e2e/.auth/owner.json' });
+    // Login fresco con tokens nuevos para no invalidar los de owner.json
+    const ctx = await browser.newContext({ storageState: undefined });
     const page = await ctx.newPage();
-    await page.goto('/app');
-    await expect(page.getByTestId('dashboard')).toBeVisible({ timeout: 15_000 });
+
+    await page.goto('/login');
+    await expect(page.getByTestId('input-email')).toBeVisible({ timeout: 15_000 });
+    await page.getByTestId('input-email').fill(process.env.E2E_OWNER_EMAIL!);
+    await page.getByTestId('input-password').fill(process.env.E2E_OWNER_PASSWORD!);
+    await page.getByTestId('btn-login').click();
+    await page.waitForURL(/\/app/, { timeout: 20_000 });
+    await expect(page.getByTestId('dashboard')).toBeVisible({ timeout: 10_000 });
 
     await page.getByTestId('btn-logout').click();
 
