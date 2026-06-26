@@ -3723,34 +3723,55 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
     return (
       <div className="space-y-3">
+        {/* Stats row */}
+        <div className="grid grid-cols-3 gap-2">
+          <div className="bg-white border border-gray-100 rounded-2xl p-3 text-center shadow-sm">
+            <p className="text-lg font-black text-gray-900 leading-none">{presupuestos.length}</p>
+            <p className="text-[10px] text-gray-400 mt-0.5">total</p>
+          </div>
+          <div className="bg-white border border-gray-100 rounded-2xl p-3 text-center shadow-sm">
+            <p className="text-lg font-black text-emerald-600 leading-none">{presupuestos.filter(p => p.estado === 'Aceptado').length}</p>
+            <p className="text-[10px] text-gray-400 mt-0.5">aceptados</p>
+          </div>
+          <div className="bg-white border border-gray-100 rounded-2xl p-3 text-center shadow-sm">
+            <p className="text-lg font-black text-blue-600 leading-none">{presupuestos.filter(p => p.estado === 'Enviado').length}</p>
+            <p className="text-[10px] text-gray-400 mt-0.5">enviados</p>
+          </div>
+        </div>
+
         {/* Filtros */}
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-gray-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Filtrar por cliente..."
               value={presupuestoClientFilter}
               onChange={e => setPresupuestoClientFilter(e.target.value)}
-              className="w-full bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 rounded-2xl pl-8 pr-3 py-2 text-[11px] text-slate-800 dark:text-white focus:outline-none"
+              className="w-full bg-white border border-gray-200 rounded-2xl pl-8 pr-3 py-2 text-[11px] text-gray-800 focus:outline-none focus:border-blue-300"
             />
           </div>
           <button
             onClick={() => setPresupuestoFilter(f => f === 'month' ? 'all' : 'month')}
-            className={`px-3 py-2 rounded-2xl text-[10px] font-bold uppercase border cursor-pointer shrink-0 ${presupuestoFilter === 'month' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white dark:bg-slate-900 text-slate-500 border-slate-200 dark:border-slate-850'}`}
+            className={`px-3 py-2 rounded-2xl text-[10px] font-bold uppercase border cursor-pointer shrink-0 ${presupuestoFilter === 'month' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-500 border-gray-200'}`}
           >
             {presupuestoFilter === 'month' ? 'Este mes' : 'Todos'}
           </button>
         </div>
 
-        <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">{filtered.length} presupuesto{filtered.length !== 1 ? 's' : ''}:</span>
+        <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest font-mono block">{filtered.length} presupuesto{filtered.length !== 1 ? 's' : ''}</span>
 
         {filtered.map(p => {
-          const estadoBadge =
-            p.estado === 'Facturado' ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20' :
-            p.estado === 'Aceptado'  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
-            p.estado === 'Enviado'   ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
-                                       'bg-slate-500/10 text-slate-400 border-slate-500/20';
+          const borderColor =
+            p.estado === 'Facturado' ? 'border-l-indigo-400' :
+            p.estado === 'Aceptado'  ? 'border-l-emerald-400' :
+            p.estado === 'Enviado'   ? 'border-l-blue-400' :
+                                       'border-l-gray-300';
+          const badgeClass =
+            p.estado === 'Facturado' ? 'bg-indigo-50 text-indigo-600 border-indigo-200' :
+            p.estado === 'Aceptado'  ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
+            p.estado === 'Enviado'   ? 'bg-blue-50 text-blue-600 border-blue-200' :
+                                       'bg-gray-50 text-gray-500 border-gray-200';
           return (
             <div
               key={p.id}
@@ -3761,33 +3782,33 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 setWizardStep(5);
                 setWizardActive(true);
               }}
-              className="bg-white dark:bg-slate-900 border border-slate-150 dark:border-slate-800 p-5 rounded-2xl space-y-3.5 cursor-pointer active:scale-99 transition-transform shadow-sm"
+              className={`bg-white border border-gray-100 border-l-4 ${borderColor} p-4 rounded-2xl space-y-3 cursor-pointer active:scale-[0.99] transition-transform shadow-sm`}
             >
               <div className="flex justify-between items-start gap-3">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="font-bold text-sm text-slate-900 dark:text-white truncate leading-tight">{p.nombreCliente || 'Sin cliente'}</span>
+                    <span className="font-bold text-sm text-gray-900 truncate leading-tight">{p.nombreCliente || 'Sin cliente'}</span>
                     {p.kbActuaciones && p.kbActuaciones.length > 0 && (
                       <span
                         title={`Generado con IA voz — ${p.kbActuaciones.length} actuación${p.kbActuaciones.length > 1 ? 'es' : ''} de la Base Maestra: ${p.kbActuaciones.join(', ')}`}
-                        className="shrink-0 text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-violet-500/15 border border-violet-500/30 text-violet-400 leading-none cursor-help"
+                        className="shrink-0 text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-violet-100 border border-violet-200 text-violet-600 leading-none cursor-help"
                       >
                         IA voz
                       </span>
                     )}
                   </div>
-                  <span className="text-xs text-slate-500 block truncate mt-0.5">{p.descripcion}</span>
+                  <span className="text-xs text-gray-400 block truncate mt-0.5">{p.descripcion}</span>
                 </div>
-                <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border whitespace-nowrap shrink-0 ${estadoBadge}`}>
+                <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border whitespace-nowrap shrink-0 ${badgeClass}`}>
                   {p.estado}
                 </span>
               </div>
-              <div className="flex justify-between items-center pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex justify-between items-center pt-3 border-t border-gray-100">
                 <div>
-                  <span className="text-[10px] text-slate-400 uppercase tracking-wide block">Total c/IVA</span>
-                  <span className="text-lg font-black font-mono text-slate-900 dark:text-white">{(p.total * 1.21).toFixed(0)}€</span>
+                  <span className="text-[10px] text-gray-400 uppercase tracking-wide block">Total c/IVA</span>
+                  <span className="text-lg font-black font-mono text-gray-900">{(p.total * 1.21).toFixed(0)}€</span>
                 </div>
-                <span className="text-xs text-slate-400">{p.fecha}</span>
+                <span className="text-xs text-gray-400">{p.fecha}</span>
               </div>
 
               {/* Botones envío rápido */}
@@ -3796,14 +3817,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <a
                     href={`https://wa.me/${(p.telefonoCliente ?? '').replace(/\D/g, '')}?text=${encodeURIComponent(`Hola ${p.nombreCliente ?? ''}, adjunto tu presupuesto TradeFlow:\n${p.descripcion ?? ''}\nTotal: ${(p.total * 1.21).toFixed(0)}€`)}`}
                     target="_blank" rel="noreferrer"
-                    className="flex flex-col items-center gap-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-xl py-2 text-emerald-400 active:bg-emerald-500/20 cursor-pointer"
+                    className="flex flex-col items-center gap-0.5 bg-emerald-50 border border-emerald-200 rounded-xl py-2 text-emerald-600 active:bg-emerald-100 cursor-pointer"
                   >
                     <MessageSquare className="w-3.5 h-3.5" />
                     <span className="text-[9px] font-bold">WhatsApp</span>
                   </a>
                   <a
                     href={`mailto:${p.emailCliente ?? ''}?subject=Presupuesto ${p.id}&body=${encodeURIComponent(`Hola ${p.nombreCliente ?? ''},\n\nAdjunto tu presupuesto.\n\nTotal: ${(p.total * 1.21).toFixed(0)}€\n\nGracias.`)}`}
-                    className="flex flex-col items-center gap-0.5 bg-blue-500/10 border border-blue-500/20 rounded-xl py-2 text-blue-400 active:bg-blue-500/20 cursor-pointer"
+                    className="flex flex-col items-center gap-0.5 bg-blue-50 border border-blue-200 rounded-xl py-2 text-blue-600 active:bg-blue-100 cursor-pointer"
                   >
                     <Mail className="w-3.5 h-3.5" />
                     <span className="text-[9px] font-bold">Email</span>
@@ -3821,7 +3842,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                           showToast('Error al generar enlace', 'error');
                         }
                       }}
-                      className="flex flex-col items-center gap-0.5 bg-slate-500/10 border border-slate-500/20 rounded-xl py-2 text-slate-400 active:bg-slate-500/20 cursor-pointer"
+                      className="flex flex-col items-center gap-0.5 bg-gray-50 border border-gray-200 rounded-xl py-2 text-gray-500 active:bg-gray-100 cursor-pointer"
                     >
                       <Globe className="w-3.5 h-3.5" />
                       <span className="text-[9px] font-bold">Enlace</span>
@@ -3833,7 +3854,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           );
         })}
         {filtered.length === 0 && (
-          <div className="text-center py-8 text-slate-400 text-[11px]">
+          <div className="text-center py-8 text-gray-400 text-[11px]">
             {presupuestoFilter === 'month' ? 'No hay presupuestos este mes' : 'No hay presupuestos'}
           </div>
         )}
@@ -3844,6 +3865,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // ================= MÓVIL: CLIENTES CRM SCREEN =================
   function MobileScreenClientes() {
     const selectedCliente = mobileClienteId ? clientes.find(c => c.id === mobileClienteId) : null;
+
+    const avatarColors = [
+      'bg-blue-100 text-blue-700',
+      'bg-violet-100 text-violet-700',
+      'bg-emerald-100 text-emerald-700',
+      'bg-amber-100 text-amber-700',
+      'bg-rose-100 text-rose-700',
+      'bg-teal-100 text-teal-700',
+      'bg-indigo-100 text-indigo-700',
+      'bg-orange-100 text-orange-700',
+    ];
+    const getAvatarColor = (name: string) => avatarColors[name.charCodeAt(0) % avatarColors.length];
 
     // ── DETALLE DE CLIENTE ────────────────────────────────────────────────────
     if (selectedCliente) {
@@ -3857,58 +3890,63 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
       const estadoBadge = (estado: string) => {
         const map: Record<string, string> = {
-          Facturado: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30',
-          Aceptado:  'bg-blue-500/10 text-blue-500 border-blue-500/30',
-          Enviado:   'bg-amber-500/10 text-amber-500 border-amber-500/30',
-          Borrador:  'bg-slate-500/10 text-slate-400 border-slate-500/30',
+          Facturado: 'bg-indigo-50 text-indigo-600 border-indigo-200',
+          Aceptado:  'bg-emerald-50 text-emerald-700 border-emerald-200',
+          Enviado:   'bg-blue-50 text-blue-600 border-blue-200',
+          Borrador:  'bg-gray-50 text-gray-500 border-gray-200',
         };
         return `text-[8px] font-bold uppercase px-1.5 py-0.5 rounded-full border ${map[estado] ?? map.Borrador}`;
       };
 
+      const initial = selectedCliente.nombre.charAt(0).toUpperCase();
+      const avatarColor = getAvatarColor(selectedCliente.nombre);
+
       return (
-        <div className="space-y-3">
-          {/* Cabecera + botón volver */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setMobileClienteId(null)}
-              className="flex items-center gap-1.5 text-blue-500 text-xs font-bold cursor-pointer"
-            >
-              <ArrowLeft className="w-4 h-4" /> Clientes
-            </button>
-          </div>
+        <div className="space-y-4">
+          {/* Back button */}
+          <button
+            onClick={() => setMobileClienteId(null)}
+            className="flex items-center gap-1.5 text-blue-600 text-sm font-bold cursor-pointer"
+          >
+            <ArrowLeft className="w-4 h-4" /> Clientes
+          </button>
 
-          {/* Tarjeta del cliente */}
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-4 space-y-3">
-            <div>
-              <h2 className="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wide">{selectedCliente.nombre}</h2>
-              <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-1 space-y-0.5">
-                {selectedCliente.telefono && <p>📞 {selectedCliente.telefono}</p>}
-                {selectedCliente.email && <p>✉️ {selectedCliente.email}</p>}
-                {selectedCliente.direccion && <p>📍 {selectedCliente.direccion}</p>}
+          {/* Client header card */}
+          <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm space-y-4">
+            {/* Avatar + name */}
+            <div className="flex items-center gap-4">
+              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${avatarColor}`}>
+                <span className="text-2xl font-black">{initial}</span>
+              </div>
+              <div className="min-w-0">
+                <h2 className="font-black text-base text-gray-900 leading-tight">{selectedCliente.nombre}</h2>
+                {selectedCliente.telefono && <p className="text-sm text-gray-500 mt-0.5 font-mono">{selectedCliente.telefono}</p>}
+                {selectedCliente.email && <p className="text-xs text-gray-400 truncate mt-0.5">{selectedCliente.email}</p>}
+                {selectedCliente.direccion && <p className="text-xs text-gray-400 truncate mt-0.5">📍 {selectedCliente.direccion}</p>}
               </div>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-2 pt-2 border-t border-slate-100 dark:border-slate-850">
-              <div className="text-center">
-                <span className="text-[8px] font-mono uppercase text-slate-400 block">Facturado</span>
-                <span className="text-xs font-bold font-mono text-emerald-500">{totalFacturado.toFixed(0)}€</span>
+            {/* Stat cards */}
+            <div className="grid grid-cols-3 gap-2">
+              <div className="bg-emerald-50 rounded-xl p-2.5 text-center">
+                <p className="text-sm font-black text-emerald-700 leading-none">{totalFacturado.toFixed(0)}€</p>
+                <p className="text-[9px] text-emerald-600 mt-1">facturado</p>
               </div>
-              <div className="text-center">
-                <span className="text-[8px] font-mono uppercase text-slate-400 block">Presupuestos</span>
-                <span className="text-xs font-bold text-slate-900 dark:text-white">{clientQuotes.length}</span>
+              <div className="bg-blue-50 rounded-xl p-2.5 text-center">
+                <p className="text-sm font-black text-blue-700 leading-none">{clientQuotes.length}</p>
+                <p className="text-[9px] text-blue-600 mt-1">presupuestos</p>
               </div>
-              <div className="text-center">
-                <span className="text-[8px] font-mono uppercase text-slate-400 block">Trabajos</span>
-                <span className="text-xs font-bold text-slate-900 dark:text-white">{clientJobs.length}</span>
+              <div className="bg-violet-50 rounded-xl p-2.5 text-center">
+                <p className="text-sm font-black text-violet-700 leading-none">{clientJobs.length}</p>
+                <p className="text-[9px] text-violet-600 mt-1">trabajos</p>
               </div>
             </div>
 
-            {/* Botones contacto */}
+            {/* Action buttons */}
             <div className="grid grid-cols-3 gap-2">
               <a
                 href={`tel:${selectedCliente.telefono}`}
-                className="bg-slate-900 dark:bg-slate-800 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[10px] uppercase"
+                className="bg-gray-900 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[10px] uppercase"
               >
                 <Phone className="w-3.5 h-3.5" /> Llamar
               </a>
@@ -3917,7 +3955,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 target="_blank" rel="noreferrer"
                 className="bg-emerald-600 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1.5 text-[10px] uppercase"
               >
-                <MessageSquare className="w-3.5 h-3.5" /> WhatsApp
+                <MessageSquare className="w-3.5 h-3.5" /> WA
               </a>
               <button
                 onClick={() => setEmailModalCliente(selectedCliente)}
@@ -3933,71 +3971,73 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             const invoices = crmClientInvoices[selectedCliente.id];
             if (invoices === undefined) return null;
             return (
-              <>
-                <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">
-                  Facturas ({invoices.length}):
+              <div className="space-y-2">
+                <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest font-mono block">
+                  Facturas ({invoices.length})
                 </span>
                 {invoices.length === 0 ? (
-                  <div className="text-center py-4 text-slate-400 text-xs">Sin facturas</div>
+                  <div className="text-center py-4 text-gray-400 text-xs">Sin facturas</div>
                 ) : (
-                  <div className="space-y-2">
-                    {invoices.map((inv, idx) => (
-                      <div key={idx} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-3 flex items-center justify-between gap-2">
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-2 mb-0.5">
-                            <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded-full border ${
-                              inv.estado === 'Pagada'  ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30' :
-                              inv.estado === 'Vencida' ? 'bg-red-500/10 text-red-500 border-red-500/30' :
-                                                         'bg-amber-500/10 text-amber-500 border-amber-500/30'
-                            }`}>{inv.estado}</span>
-                            <span className="text-[9px] text-slate-400 font-mono">{inv.fecha}</span>
-                          </div>
-                          <span className="text-[11px] text-slate-800 dark:text-slate-200 font-bold block">{inv.numero}</span>
-                          {inv.concepto && <span className="text-[10px] text-slate-500 block truncate">{inv.concepto}</span>}
+                  invoices.map((inv, idx) => (
+                    <div key={idx} className="bg-white border border-gray-100 rounded-2xl p-3 flex items-center justify-between gap-2 shadow-sm">
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-2 mb-0.5">
+                          <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded-full border ${
+                            inv.estado === 'Pagada'  ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
+                            inv.estado === 'Vencida' ? 'bg-red-50 text-red-600 border-red-200' :
+                                                       'bg-amber-50 text-amber-700 border-amber-200'
+                          }`}>{inv.estado}</span>
+                          <span className="text-[9px] text-gray-400 font-mono">{inv.fecha}</span>
                         </div>
-                        <span className="text-sm font-mono font-bold text-slate-900 dark:text-white shrink-0">{inv.total.toFixed(0)}€</span>
+                        <span className="text-[11px] text-gray-800 font-bold block">{inv.numero}</span>
+                        {inv.concepto && <span className="text-[10px] text-gray-400 block truncate">{inv.concepto}</span>}
                       </div>
-                    ))}
-                  </div>
+                      <span className="text-sm font-mono font-bold text-gray-900 shrink-0">{inv.total.toFixed(0)}€</span>
+                    </div>
+                  ))
                 )}
-              </>
+              </div>
             );
           })()}
 
           {/* Presupuestos */}
-          <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">
-            Presupuestos ({clientQuotes.length}):
-          </span>
-
-          {clientQuotes.length === 0 && (
-            <div className="text-center py-8 text-slate-400 text-xs">Sin presupuestos</div>
-          )}
-
           <div className="space-y-2">
-            {clientQuotes.map(q => {
-              const isFacturado = q.estado === 'Facturado';
-              return (
-                <div
-                  key={q.id}
-                  onClick={!isFacturado ? () => { setWizardQuote(q); setWizardStep(5); setWizardActive(true); } : undefined}
-                  className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-3 flex items-center justify-between gap-2 ${isFacturado ? 'opacity-60' : 'cursor-pointer active:scale-[0.98]'}`}
-                >
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <span className={estadoBadge(q.estado)}>{q.estado}</span>
-                      <span className="text-[9px] text-slate-400 font-mono">{q.fecha}</span>
+            <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest font-mono block">
+              Presupuestos ({clientQuotes.length})
+            </span>
+            {clientQuotes.length === 0 ? (
+              <div className="text-center py-8 text-gray-400 text-xs">Sin presupuestos</div>
+            ) : (
+              clientQuotes.map(q => {
+                const isFacturado = q.estado === 'Facturado';
+                const borderColor =
+                  q.estado === 'Facturado' ? 'border-l-indigo-400' :
+                  q.estado === 'Aceptado'  ? 'border-l-emerald-400' :
+                  q.estado === 'Enviado'   ? 'border-l-blue-400' :
+                                             'border-l-gray-300';
+                return (
+                  <div
+                    key={q.id}
+                    onClick={!isFacturado ? () => { setWizardQuote(q); setWizardStep(5); setWizardActive(true); } : undefined}
+                    className={`bg-white border border-gray-100 border-l-4 ${borderColor} rounded-2xl p-3 flex items-center justify-between gap-2 shadow-sm ${isFacturado ? 'opacity-60' : 'cursor-pointer active:scale-[0.98] transition-transform'}`}
+                  >
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span className={estadoBadge(q.estado)}>{q.estado}</span>
+                        <span className="text-[9px] text-gray-400 font-mono">{q.fecha}</span>
+                      </div>
+                      <span className="text-[11px] text-gray-700 font-medium block truncate">
+                        {q.descripcion || 'Sin descripción'}
+                      </span>
                     </div>
-                    <span className="text-[11px] text-slate-800 dark:text-slate-200 font-medium block truncate">
-                      {q.descripcion || 'Sin descripción'}
-                    </span>
+                    <div className="text-right shrink-0">
+                      <span className="text-xs font-mono font-bold text-gray-900 block">{(q.total * 1.21).toFixed(0)}€</span>
+                      {!isFacturado && <span className="text-[8px] text-blue-600 font-bold uppercase">Ver →</span>}
+                    </div>
                   </div>
-                  <div className="text-right shrink-0">
-                    <span className="text-xs font-mono font-bold text-slate-900 dark:text-white block">{(q.total * 1.21).toFixed(0)}€</span>
-                    {!isFacturado && <span className="text-[8px] text-blue-500 font-bold uppercase">Ver →</span>}
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
         </div>
       );
@@ -4009,13 +4049,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {/* Buscador + botón nuevo cliente */}
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Nombre, teléfono, dirección..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 rounded-2xl pl-9 pr-4 py-2.5 text-xs text-slate-800 dark:text-white focus:outline-none"
+              className="w-full bg-white border border-gray-200 rounded-2xl pl-9 pr-4 py-2.5 text-xs text-gray-800 focus:outline-none focus:border-blue-300"
             />
           </div>
           <button
@@ -4026,8 +4066,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           </button>
         </div>
 
-        <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">
-          {filteredClientes.length} cliente{filteredClientes.length !== 1 ? 's' : ''}:
+        <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest font-mono block">
+          {filteredClientes.length} cliente{filteredClientes.length !== 1 ? 's' : ''}
         </span>
 
         <div className="space-y-2.5">
@@ -4036,7 +4076,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             const hasFacturado = presupuestos.some(p => p.nombreCliente === c.nombre && p.estado === 'Facturado');
             const pendingClientJobs = jobs.filter(j => j.client_id === c.id && j.estado !== 'completado' && j.estado !== 'cancelado');
             const hasVisitaPendiente = pendingClientJobs.some(j => j.tipo === 'visita');
-            const hasTrabajoPendiente = pendingClientJobs.some(j => !j.tipo || j.tipo === 'trabajo');
+            const initial = c.nombre.charAt(0).toUpperCase();
+            const avatarColor = getAvatarColor(c.nombre);
             return (
               <div
                 key={c.id}
@@ -4053,47 +4094,47 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       .then(({ data }) => setCrmClientInvoices(prev => ({ ...prev, [c.id]: data ?? [] })));
                   }
                 }}
-                className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 rounded-2xl p-4 flex items-center justify-between cursor-pointer active:scale-[0.98] transition-transform"
+                className="bg-white border border-gray-100 rounded-2xl p-4 flex items-center gap-3 cursor-pointer active:scale-[0.98] transition-transform shadow-sm"
               >
+                {/* Avatar */}
+                <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 ${avatarColor}`}>
+                  <span className="text-base font-black">{initial}</span>
+                </div>
+
+                {/* Info */}
                 <div className="min-w-0 flex-1">
-                  {/* Nombre + dots de estado */}
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wide truncate">{c.nombre}</span>
-                    {hasVisitaPendiente && <span className="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0" title="Visita pendiente" />}
-                    {hasTrabajoPendiente && !hasVisitaPendiente && <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0" title="Trabajo pendiente" />}
-                  </div>
-                  {/* Teléfono */}
+                  <span className="font-bold text-sm text-gray-900 block truncate">{c.nombre}</span>
                   {c.telefono && (
-                    <span className="text-[11px] text-slate-500 dark:text-slate-400 block font-mono">{c.telefono}</span>
+                    <span className="text-[11px] text-gray-400 font-mono block">{c.telefono}</span>
                   )}
-                  {/* Dirección — muy útil para clientes con nombre común */}
-                  {c.direccion && (
-                    <span className="text-[11px] text-slate-400 dark:text-slate-500 block truncate mt-0.5">📍 {c.direccion}</span>
+                  {c.direccion && !c.telefono && (
+                    <span className="text-[11px] text-gray-400 block truncate">📍 {c.direccion}</span>
                   )}
-                  {/* Estado pendiente */}
                   {pendingClientJobs.length > 0 && (
-                    <span className={`text-[10px] font-medium mt-1 block ${hasVisitaPendiente ? 'text-amber-400' : 'text-blue-400'}`}>
-                      {hasVisitaPendiente ? `👁 Visita pendiente` : `🔧 ${pendingClientJobs.length} trabajo${pendingClientJobs.length > 1 ? 's' : ''} pendiente${pendingClientJobs.length > 1 ? 's' : ''}`}
+                    <span className={`text-[10px] font-bold mt-0.5 block ${hasVisitaPendiente ? 'text-amber-600' : 'text-blue-600'}`}>
+                      {hasVisitaPendiente ? '👁 Visita pendiente' : `🔧 ${pendingClientJobs.length} trabajo${pendingClientJobs.length > 1 ? 's' : ''}`}
                     </span>
                   )}
                   {c.totalFacturado > 0 && pendingClientJobs.length === 0 && (
-                    <span className="text-[10px] font-mono text-emerald-500 font-bold mt-0.5 block">{c.totalFacturado.toFixed(0)}€ facturados</span>
+                    <span className="text-[10px] font-mono text-emerald-600 font-bold mt-0.5 block">{c.totalFacturado.toFixed(0)}€ facturados</span>
                   )}
                 </div>
-                <div className="flex flex-col items-end gap-1.5 shrink-0 ml-3">
+
+                {/* Right */}
+                <div className="flex flex-col items-end gap-1.5 shrink-0">
                   {nQuotes > 0 && (
-                    <span className="text-[9px] font-mono text-slate-400">{nQuotes} pres.</span>
+                    <span className="text-[9px] font-mono text-gray-400">{nQuotes} pres.</span>
                   )}
                   {hasFacturado && (
-                    <span className="text-[8px] bg-emerald-500/10 text-emerald-500 border border-emerald-500/30 rounded-full px-1.5 py-0.5 font-bold uppercase">Fact.</span>
+                    <span className="text-[8px] bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full px-1.5 py-0.5 font-bold uppercase">Fact.</span>
                   )}
-                  <ArrowRight className="w-4 h-4 text-slate-400" />
+                  <ChevronRight className="w-4 h-4 text-gray-300" />
                 </div>
               </div>
             );
           })}
           {filteredClientes.length === 0 && (
-            <div className="text-center py-10 text-slate-400 text-xs">No hay clientes que coincidan</div>
+            <div className="text-center py-10 text-gray-400 text-xs">No hay clientes que coincidan</div>
           )}
         </div>
       </div>
@@ -4141,50 +4182,67 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       });
 
     const pendiente = sorted.filter(f => f.estado === 'Pendiente' || f.estado === 'Vencida').reduce((s, f) => s + f.importe * 1.21, 0);
+    const pagadas = sorted.filter(f => f.estado === 'Pagada');
 
     return (
       <div className="space-y-3">
+        {/* Stats row */}
+        <div className="grid grid-cols-3 gap-2">
+          <div className="bg-white border border-gray-100 rounded-2xl p-3 text-center shadow-sm">
+            <p className="text-lg font-black text-gray-900 leading-none">{sorted.length}</p>
+            <p className="text-[10px] text-gray-400 mt-0.5">total</p>
+          </div>
+          <div className="bg-white border border-gray-100 rounded-2xl p-3 text-center shadow-sm">
+            <p className="text-lg font-black text-amber-600 leading-none">{sorted.filter(f => f.estado === 'Pendiente' || f.estado === 'Vencida').length}</p>
+            <p className="text-[10px] text-gray-400 mt-0.5">pendientes</p>
+          </div>
+          <div className="bg-white border border-gray-100 rounded-2xl p-3 text-center shadow-sm">
+            <p className="text-lg font-black text-emerald-600 leading-none">{pagadas.length}</p>
+            <p className="text-[10px] text-gray-400 mt-0.5">cobradas</p>
+          </div>
+        </div>
+
         {/* Filtros */}
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+            <Search className="w-3.5 h-3.5 text-gray-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Filtrar por cliente..."
               value={facturaClientFilter}
               onChange={e => setFacturaClientFilter(e.target.value)}
-              className="w-full bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 rounded-2xl pl-8 pr-3 py-2 text-[11px] text-slate-800 dark:text-white focus:outline-none"
+              className="w-full bg-white border border-gray-200 rounded-2xl pl-8 pr-3 py-2 text-[11px] text-gray-800 focus:outline-none focus:border-blue-300"
             />
           </div>
           <button
             onClick={() => setFacturaFilter(f => f === 'month' ? 'all' : 'month')}
-            className={`px-3 py-2 rounded-2xl text-[10px] font-bold uppercase border cursor-pointer shrink-0 ${facturaFilter === 'month' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white dark:bg-slate-900 text-slate-500 border-slate-200 dark:border-slate-850'}`}
+            className={`px-3 py-2 rounded-2xl text-[10px] font-bold uppercase border cursor-pointer shrink-0 ${facturaFilter === 'month' ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-gray-500 border-gray-200'}`}
           >
             {facturaFilter === 'month' ? 'Este mes' : 'Todas'}
           </button>
         </div>
 
         {pendiente > 0 && (
-          <div className="bg-amber-500/10 border border-amber-500/20 rounded-2xl px-4 py-2.5 flex justify-between items-center">
-            <span className="text-[10px] font-bold uppercase text-amber-600 dark:text-amber-400">Pendiente de cobro:</span>
-            <span className="font-mono font-bold text-amber-600 dark:text-amber-400 text-sm">{pendiente.toFixed(0)}€</span>
+          <div className="bg-amber-50 border border-amber-200 rounded-2xl px-4 py-2.5 flex justify-between items-center">
+            <span className="text-[10px] font-bold uppercase text-amber-700">Pendiente de cobro:</span>
+            <span className="font-mono font-bold text-amber-700 text-sm">{pendiente.toFixed(0)}€</span>
           </div>
         )}
 
         {/* Próximas a cobrar */}
         {proximas.length > 0 && (
-          <div className="bg-amber-500/8 border border-amber-500/25 rounded-2xl px-3 py-3 space-y-2">
+          <div className="bg-amber-50 border border-amber-200 rounded-2xl px-3 py-3 space-y-2">
             <div className="flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-amber-500" />
-              <span className="text-[10px] font-bold uppercase text-amber-600 dark:text-amber-400">Próximas a cobrar — {proximas.length} en 15 días</span>
+              <Clock className="w-3.5 h-3.5 text-amber-600" />
+              <span className="text-[10px] font-bold uppercase text-amber-700">Próximas — {proximas.length} en 15 días</span>
             </div>
             {proximas.map(f => (
-              <div key={f.id} className="flex items-center gap-2 bg-white dark:bg-slate-900 rounded-xl px-3 py-1.5 border border-amber-100 dark:border-amber-900/30">
-                <span className="font-mono text-[9px] font-bold text-slate-700 dark:text-slate-300 flex-1 truncate">{f.numeroFactura} · {f.nombreCliente}</span>
+              <div key={f.id} className="flex items-center gap-2 bg-white rounded-xl px-3 py-1.5 border border-amber-100">
+                <span className="font-mono text-[9px] font-bold text-gray-700 flex-1 truncate">{f.numeroFactura} · {f.nombreCliente}</span>
                 <span className="text-[9px] text-amber-600 font-semibold shrink-0">
                   {Math.ceil((new Date(f.fechaVencimiento).getTime() - now.getTime()) / 86400000)}d
                 </span>
-                <span className="font-mono text-[9px] font-bold text-slate-800 dark:text-white shrink-0">{(f.importe * 1.21).toFixed(0)}€</span>
+                <span className="font-mono text-[9px] font-bold text-gray-900 shrink-0">{(f.importe * 1.21).toFixed(0)}€</span>
               </div>
             ))}
           </div>
@@ -4192,112 +4250,119 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         {/* Devueltas */}
         {devueltas.length > 0 && (
-          <div className="bg-orange-500/8 border border-orange-500/25 rounded-2xl px-3 py-3 space-y-2">
+          <div className="bg-orange-50 border border-orange-200 rounded-2xl px-3 py-3 space-y-2">
             <div className="flex items-center gap-1.5">
-              <AlertTriangle className="w-3.5 h-3.5 text-orange-500" />
-              <span className="text-[10px] font-bold uppercase text-orange-600 dark:text-orange-400">Facturas devueltas — {devueltas.length}</span>
+              <AlertTriangle className="w-3.5 h-3.5 text-orange-600" />
+              <span className="text-[10px] font-bold uppercase text-orange-700">Facturas devueltas — {devueltas.length}</span>
             </div>
             {devueltas.map(f => (
-              <div key={f.id} className="flex items-center gap-2 bg-white dark:bg-slate-900 rounded-xl px-3 py-1.5 border border-orange-100 dark:border-orange-900/30">
-                <span className="font-mono text-[9px] font-bold text-slate-700 dark:text-slate-300 flex-1 truncate">{f.numeroFactura} · {f.nombreCliente}</span>
+              <div key={f.id} className="flex items-center gap-2 bg-white rounded-xl px-3 py-1.5 border border-orange-100">
+                <span className="font-mono text-[9px] font-bold text-gray-700 flex-1 truncate">{f.numeroFactura} · {f.nombreCliente}</span>
                 <span className="font-mono text-[9px] font-bold text-orange-600 shrink-0">{(f.importe * 1.21).toFixed(0)}€</span>
-                <button onClick={() => handleRemindInvoice(f)} className="text-[8px] px-1.5 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded font-bold cursor-pointer">💬</button>
+                <button onClick={() => handleRemindInvoice(f)} className="text-[8px] px-1.5 py-1 bg-green-100 text-green-700 rounded font-bold cursor-pointer">💬</button>
               </div>
             ))}
           </div>
         )}
 
-        <span className="text-[9px] font-bold text-slate-450 uppercase tracking-widest font-mono block">{sorted.length} factura{sorted.length !== 1 ? 's' : ''}:</span>
+        <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest font-mono block">{sorted.length} factura{sorted.length !== 1 ? 's' : ''}</span>
 
-        {sorted.map(f => (
-          <div key={f.id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 p-4 rounded-2xl space-y-3 shadow-xs">
-            <div className="flex justify-between items-start gap-2">
-              <div>
-                <div className="flex items-center gap-1.5">
-                  <span className="font-mono font-bold text-xs text-slate-900 dark:text-white">{f.numeroFactura}</span>
-                  <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded-full ${
-                    f.estado === 'Pagada' ? 'bg-emerald-500/10 text-emerald-450 border border-emerald-500/20' :
-                    f.estado === 'Pendiente' ? 'bg-amber-500/10 text-amber-450 border border-amber-500/20' :
-                    f.estado === 'Devuelta' ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20' :
-                    'bg-red-500/10 text-red-400 border border-red-500/20'
-                  }`}>
-                    {f.estado}
-                  </span>
+        {sorted.map(f => {
+          const borderColor =
+            f.estado === 'Vencida'   ? 'border-l-red-400' :
+            f.estado === 'Pendiente' ? 'border-l-amber-400' :
+            f.estado === 'Devuelta'  ? 'border-l-orange-400' :
+                                       'border-l-emerald-400';
+          const badgeClass =
+            f.estado === 'Pagada'    ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
+            f.estado === 'Pendiente' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+            f.estado === 'Devuelta'  ? 'bg-orange-50 text-orange-600 border-orange-200' :
+                                       'bg-red-50 text-red-600 border-red-200';
+          return (
+            <div key={f.id} className={`bg-white border border-gray-100 border-l-4 ${borderColor} p-4 rounded-2xl space-y-3 shadow-sm`}>
+              <div className="flex justify-between items-start gap-2">
+                <div>
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-mono font-bold text-xs text-gray-900">{f.numeroFactura}</span>
+                    <span className={`text-[8px] font-bold uppercase px-1.5 py-0.5 rounded-full border ${badgeClass}`}>
+                      {f.estado}
+                    </span>
+                  </div>
+                  <span className="font-semibold text-xs text-gray-700 block mt-1">{f.nombreCliente}</span>
                 </div>
-                <span className="font-semibold text-xs text-slate-800 dark:text-slate-350 block mt-1">{f.nombreCliente}</span>
+                <div className="text-right">
+                  <span className="text-[8px] font-mono text-gray-400 block uppercase">Total cobro:</span>
+                  <span className="text-sm font-mono font-bold text-gray-900">{(f.importe * 1.21).toFixed(0)}€</span>
+                </div>
               </div>
-              <div className="text-right">
-                <span className="text-[8px] font-mono text-slate-400 block uppercase">Total cobro:</span>
-                <span className="text-xs font-mono font-bold text-slate-900 dark:text-white">{(f.importe * 1.21).toFixed(0)}€</span>
-              </div>
-            </div>
 
-            <div className={`pt-2 border-t border-slate-100 dark:border-slate-850 ${f.estado !== 'Pagada' && f.estado !== 'Devuelta' ? 'grid grid-cols-3 gap-2' : 'flex justify-between items-center'}`}>
-              {f.estado !== 'Pagada' && f.estado !== 'Devuelta' ? (
-                <>
-                  <button
-                    onClick={() => setPayMethodInvoiceId(f.id)}
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[9.5px] uppercase cursor-pointer"
-                  >
-                    💰 Cobrar
-                  </button>
-                  <button
-                    onClick={() => handleRemindInvoice(f)}
-                    className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold p-2.5 rounded-xl flex items-center justify-center text-[9.5px] uppercase cursor-pointer"
-                  >
-                    💬 WA
-                  </button>
-                  <button
-                    onClick={() => printInvoice(f)}
-                    className="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[9.5px] uppercase cursor-pointer"
-                  >
-                    <FileText className="w-3.5 h-3.5" />PDF
-                  </button>
-                </>
-              ) : f.estado === 'Devuelta' ? (
-                <>
-                  <span className="text-[9.5px] font-mono text-orange-500 uppercase flex items-center gap-1">↩ Devuelta</span>
-                  <button
-                    onClick={() => handleRemindInvoice(f)}
-                    className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold p-2 rounded-xl text-[9px] uppercase cursor-pointer"
-                  >
-                    💬 WA
-                  </button>
-                </>
-              ) : (
-                <>
-                  <span className="text-[9.5px] font-mono text-slate-450 uppercase flex items-center gap-1">
-                    <Check className="w-3.5 h-3.5 text-emerald-500" />
-                    Cobrada · {f.fecha}
-                  </span>
-                  <div className="flex gap-1.5">
+              <div className={`pt-2 border-t border-gray-100 ${f.estado !== 'Pagada' && f.estado !== 'Devuelta' ? 'grid grid-cols-3 gap-2' : 'flex justify-between items-center'}`}>
+                {f.estado !== 'Pagada' && f.estado !== 'Devuelta' ? (
+                  <>
                     <button
-                      onClick={() => handleMarkDevuelta(f.id)}
-                      className="bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 font-bold p-2 rounded-xl text-[9px] uppercase cursor-pointer"
+                      onClick={() => setPayMethodInvoiceId(f.id)}
+                      className="bg-emerald-600 text-white font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[9.5px] uppercase cursor-pointer active:opacity-80"
                     >
-                      ↩ Dev
+                      💰 Cobrar
                     </button>
                     <button
                       onClick={() => handleRemindInvoice(f)}
-                      className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold p-2 rounded-xl flex items-center gap-1 text-[9px] uppercase cursor-pointer"
+                      className="bg-gray-100 text-gray-700 font-bold p-2.5 rounded-xl flex items-center justify-center text-[9.5px] uppercase cursor-pointer active:bg-gray-200"
                     >
                       💬 WA
                     </button>
                     <button
                       onClick={() => printInvoice(f)}
-                      className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold p-2 rounded-xl flex items-center gap-1 text-[9px] uppercase cursor-pointer"
+                      className="bg-gray-100 text-gray-700 font-bold p-2.5 rounded-xl flex items-center justify-center gap-1 text-[9.5px] uppercase cursor-pointer active:bg-gray-200"
                     >
-                      <FileText className="w-3 h-3" />PDF
+                      <FileText className="w-3.5 h-3.5" />PDF
                     </button>
-                  </div>
-                </>
-              )}
+                  </>
+                ) : f.estado === 'Devuelta' ? (
+                  <>
+                    <span className="text-[9.5px] font-mono text-orange-500 uppercase flex items-center gap-1">↩ Devuelta</span>
+                    <button
+                      onClick={() => handleRemindInvoice(f)}
+                      className="bg-gray-100 text-gray-600 font-bold p-2 rounded-xl text-[9px] uppercase cursor-pointer active:bg-gray-200"
+                    >
+                      💬 WA
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-[9.5px] font-mono text-gray-400 uppercase flex items-center gap-1">
+                      <Check className="w-3.5 h-3.5 text-emerald-500" />
+                      Cobrada · {f.fecha}
+                    </span>
+                    <div className="flex gap-1.5">
+                      <button
+                        onClick={() => handleMarkDevuelta(f.id)}
+                        className="bg-orange-100 text-orange-600 font-bold p-2 rounded-xl text-[9px] uppercase cursor-pointer active:bg-orange-200"
+                      >
+                        ↩ Dev
+                      </button>
+                      <button
+                        onClick={() => handleRemindInvoice(f)}
+                        className="bg-gray-100 text-gray-600 font-bold p-2 rounded-xl flex items-center gap-1 text-[9px] uppercase cursor-pointer active:bg-gray-200"
+                      >
+                        💬 WA
+                      </button>
+                      <button
+                        onClick={() => printInvoice(f)}
+                        className="bg-gray-100 text-gray-600 font-bold p-2 rounded-xl flex items-center gap-1 text-[9px] uppercase cursor-pointer active:bg-gray-200"
+                      >
+                        <FileText className="w-3 h-3" />PDF
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         {sorted.length === 0 && (
-          <div className="text-center py-8 text-slate-400 text-[11px]">
+          <div className="text-center py-8 text-gray-400 text-[11px]">
             {facturaFilter === 'month' ? 'No hay facturas este mes' : 'No hay facturas'}
           </div>
         )}
@@ -4305,8 +4370,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {/* Bottom sheet: método de cobro */}
         {payMethodInvoiceId && (
           <div className="fixed inset-0 bg-black/60 z-50 flex items-end justify-center" onClick={() => setPayMethodInvoiceId(null)}>
-            <div className="bg-white dark:bg-slate-900 rounded-t-3xl w-full max-w-md p-6 space-y-4" onClick={e => e.stopPropagation()}>
-              <h3 className="font-bold text-sm uppercase tracking-wider text-slate-900 dark:text-white text-center">¿Cómo se ha cobrado?</h3>
+            <div className="bg-white rounded-t-3xl w-full max-w-md p-6 space-y-4" onClick={e => e.stopPropagation()}>
+              <h3 className="font-bold text-sm uppercase tracking-wider text-gray-900 text-center">¿Cómo se ha cobrado?</h3>
               {(['Efectivo', 'Bizum', 'Transferencia'] as const).map(method => (
                 <button
                   key={method}
@@ -4315,12 +4380,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     showToast(`Factura cobrada por ${method} ✓`, 'success');
                     setPayMethodInvoiceId(null);
                   }}
-                  className="w-full py-4 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 border border-slate-200 dark:border-slate-700 rounded-2xl text-sm font-bold text-slate-800 dark:text-white cursor-pointer transition-colors"
+                  className="w-full py-4 bg-gray-50 active:bg-gray-100 border border-gray-200 rounded-2xl text-sm font-bold text-gray-800 cursor-pointer transition-colors"
                 >
                   {method === 'Efectivo' ? '💵' : method === 'Bizum' ? '📱' : '🏦'} {method}
                 </button>
               ))}
-              <button onClick={() => setPayMethodInvoiceId(null)} className="w-full py-3 text-slate-400 text-sm cursor-pointer">Cancelar</button>
+              <button onClick={() => setPayMethodInvoiceId(null)} className="w-full py-3 text-gray-400 text-sm cursor-pointer">Cancelar</button>
             </div>
           </div>
         )}
