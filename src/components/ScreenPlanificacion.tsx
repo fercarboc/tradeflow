@@ -1358,8 +1358,8 @@ export default function ScreenPlanificacion({
                 onClick={() => setFilterEstado(f)}
                 className={`shrink-0 text-[9px] font-bold uppercase px-2.5 py-1 rounded-full border cursor-pointer transition-all ${
                   filterEstado === f
-                    ? 'bg-slate-900 text-white border-transparent'
-                    : 'border-slate-200 text-slate-500 hover:border-slate-400'
+                    ? 'bg-blue-600 text-white border-transparent'
+                    : 'border-gray-200 text-gray-500 hover:border-gray-400'
                 }`}
               >
                 {f === 'todos' ? 'Todos' : ESTADO_CFG[f as TradeJob['estado']].label}

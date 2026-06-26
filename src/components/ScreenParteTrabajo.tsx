@@ -67,8 +67,8 @@ function fmtEur(n: number) {
 
 function StatusBadge({ inv }: { inv: TradeInvoice }) {
   const cls = inv.es_suplementaria
-    ? 'bg-amber-500/10 text-amber-400 border-amber-500/20'
-    : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+    ? 'bg-amber-100 text-amber-700 border-amber-200'
+    : 'bg-emerald-100 text-emerald-700 border-emerald-200';
   return (
     <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full border ${cls}`}>
       {inv.es_suplementaria ? 'SUPL' : 'FAC'}
@@ -438,35 +438,35 @@ export default function ScreenParteTrabajo({
   // ══════════════════════════════════════════════════════════════════════════
   if (isTecnico && (phase === 'facturar' || phase === 'generating' || phase === 'done')) {
     return (
-      <div className="fixed inset-0 z-50 bg-[#0B0F14] flex flex-col overflow-hidden">
-        <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-white/8 shrink-0">
+      <div className="fixed inset-0 z-50 bg-gray-50 flex flex-col overflow-hidden">
+        <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-gray-200 shrink-0">
           <div className="flex-1 min-w-0 pr-3">
             <div className="flex items-center gap-2 mb-0.5">
-              <CheckCircle className="w-4 h-4 text-emerald-400" />
-              <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Completado · {horaFin}</p>
+              <CheckCircle className="w-4 h-4 text-emerald-600" />
+              <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Completado · {horaFin}</p>
             </div>
-            <h2 className="text-base font-black text-white truncate">{job.titulo}</h2>
+            <h2 className="text-base font-black text-gray-900 truncate">{job.titulo}</h2>
           </div>
-          <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-white/8 active:bg-white/15 text-slate-400 shrink-0 cursor-pointer">
+          <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 active:bg-gray-200 text-gray-500 shrink-0 cursor-pointer">
             <X className="w-4 h-4" />
           </button>
         </div>
         <div className="flex-1 flex flex-col items-center justify-center px-5 gap-6">
-          <div className="w-20 h-20 rounded-full bg-emerald-500/15 flex items-center justify-center">
-            <CheckCircle className="w-10 h-10 text-emerald-400" />
+          <div className="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center">
+            <CheckCircle className="w-10 h-10 text-emerald-600" />
           </div>
           <div className="text-center">
-            <p className="text-xl font-black text-white">Trabajo completado</p>
-            <p className="text-sm text-slate-400 mt-1.5">Queda pendiente de facturar por oficina</p>
+            <p className="text-xl font-black text-gray-900">Trabajo completado</p>
+            <p className="text-sm text-gray-400 mt-1.5">Queda pendiente de facturar por oficina</p>
           </div>
           {notas ? (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl px-4 py-3 w-full">
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Tus notas</p>
-              <p className="text-sm text-slate-300 leading-relaxed">{notas}</p>
+            <div className="bg-white border border-gray-100 shadow-sm rounded-2xl px-4 py-3 w-full">
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Tus notas</p>
+              <p className="text-sm text-gray-600 leading-relaxed">{notas}</p>
             </div>
           ) : null}
         </div>
-        <div className="px-5 py-4 border-t border-white/8 shrink-0 bg-[#0B0F14]">
+        <div className="px-5 py-4 border-t border-gray-200 shrink-0 bg-gray-50">
           <button onClick={onClose}
             className="w-full flex items-center justify-center gap-2 bg-emerald-600 active:bg-emerald-700 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
             style={{ boxShadow: '0 4px 24px rgba(16,185,129,0.35)' }}>
@@ -483,16 +483,16 @@ export default function ScreenParteTrabajo({
   if (phase === 'facturar' || phase === 'generating' || (phase === 'done' && !isReadonly)) {
     const isMantCovered = mantenimiento?.activo && mantenimiento?.materialesIncluidos;
     return (
-      <div className="fixed inset-0 z-50 bg-[#0B0F14] flex flex-col overflow-hidden">
-        <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-white/8 shrink-0">
+      <div className="fixed inset-0 z-50 bg-gray-50 flex flex-col overflow-hidden">
+        <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-gray-200 shrink-0">
           <div className="flex-1 min-w-0 pr-3">
             <div className="flex items-center gap-2 mb-0.5">
-              <CheckCircle className="w-4 h-4 text-emerald-400" />
-              <p className="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Completado · {horaFin}</p>
+              <CheckCircle className="w-4 h-4 text-emerald-600" />
+              <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Completado · {horaFin}</p>
             </div>
-            <h2 className="text-base font-black text-white truncate">{job.titulo}</h2>
+            <h2 className="text-base font-black text-gray-900 truncate">{job.titulo}</h2>
           </div>
-          <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-white/8 active:bg-white/15 text-slate-400 shrink-0 cursor-pointer">
+          <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 active:bg-gray-200 text-gray-500 shrink-0 cursor-pointer">
             <X className="w-4 h-4" />
           </button>
         </div>
@@ -501,36 +501,36 @@ export default function ScreenParteTrabajo({
 
           {/* Mantenimiento cubierto */}
           {isMantCovered && phase === 'done' && !newInvoice && (
-            <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 space-y-2">
-              <div className="flex items-center gap-2.5"><Wrench className="w-5 h-5 text-blue-400 shrink-0" />
-                <p className="text-sm font-bold text-blue-300">Trabajo de mantenimiento — cubierto</p>
+            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-5 space-y-2">
+              <div className="flex items-center gap-2.5"><Wrench className="w-5 h-5 text-blue-600 shrink-0" />
+                <p className="text-sm font-bold text-blue-700">Trabajo de mantenimiento — cubierto</p>
               </div>
-              <p className="text-xs text-blue-400/70">
+              <p className="text-xs text-blue-600/70">
                 Materiales incluidos en el contrato{mantenimiento?.nombre ? ` de ${mantenimiento.nombre}` : ''}.
               </p>
-              {notas && <p className="text-xs text-slate-400 border-t border-blue-500/20 pt-2">{notas}</p>}
+              {notas && <p className="text-xs text-gray-400 border-t border-blue-200 pt-2">{notas}</p>}
             </div>
           )}
 
           {/* Factura generada */}
           {newInvoice && (
-            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-5 space-y-1.5">
+            <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-5 space-y-1.5">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-emerald-400" />
-                  <p className="text-sm font-bold text-emerald-300">{newInvoice.numero}</p>
-                  {newInvoice.es_suplementaria && <span className="text-[9px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded-full font-bold">SUPL</span>}
+                  <FileText className="w-4 h-4 text-emerald-600" />
+                  <p className="text-sm font-bold text-emerald-700">{newInvoice.numero}</p>
+                  {newInvoice.es_suplementaria && <span className="text-[9px] bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded-full font-bold">SUPL</span>}
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-slate-400">{newInvoice.fecha}</span>
-                  {invoicePaid === true && <span className="text-[9px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full font-bold">COBRADA</span>}
-                  {invoicePaid === false && <span className="text-[9px] bg-amber-500/20 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded-full font-bold">PENDIENTE</span>}
+                  <span className="text-xs text-gray-400">{newInvoice.fecha}</span>
+                  {invoicePaid === true && <span className="text-[9px] bg-emerald-100 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">COBRADA</span>}
+                  {invoicePaid === false && <span className="text-[9px] bg-amber-100 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-full font-bold">PENDIENTE</span>}
                 </div>
               </div>
-              {newInvoice.concepto && <p className="text-[11px] text-slate-500">{newInvoice.concepto}</p>}
+              {newInvoice.concepto && <p className="text-[11px] text-gray-400">{newInvoice.concepto}</p>}
               <div className="flex justify-between items-baseline pt-0.5">
-                <span className="text-[10px] text-slate-500 uppercase tracking-wider">Total</span>
-                <span className="text-xl font-black text-white font-mono">{fmtEur(newInvoice.total)}</span>
+                <span className="text-[10px] text-gray-400 uppercase tracking-wider">Total</span>
+                <span className="text-xl font-black text-gray-900 font-mono">{fmtEur(newInvoice.total)}</span>
               </div>
             </div>
           )}
@@ -538,38 +538,38 @@ export default function ScreenParteTrabajo({
           {/* Resumen materiales a facturar */}
           {!isMantCovered && materialesNormales.length > 0 && (
             <div className="space-y-2">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                 {newInvoice ? 'Detalle facturado' : 'Resumen a facturar'}
               </p>
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+              <div className="bg-white border border-gray-100 shadow-sm rounded-2xl overflow-hidden">
                 {materialesNormales.map((m, i) => (
-                  <div key={i} className={`flex items-center justify-between px-4 py-3 ${i < materialesNormales.length - 1 ? 'border-b border-slate-800' : ''}`}>
+                  <div key={i} className={`flex items-center justify-between px-4 py-3 ${i < materialesNormales.length - 1 ? 'border-b border-gray-100' : ''}`}>
                     <div className="min-w-0 flex-1 pr-3">
-                      <p className="text-sm text-white truncate">{m.descripcion}</p>
-                      <p className="text-[10px] text-slate-500">{m.precioBase.toFixed(2)} € × {m.cantidad}</p>
+                      <p className="text-sm text-gray-900 truncate">{m.descripcion}</p>
+                      <p className="text-[10px] text-gray-400">{m.precioBase.toFixed(2)} € × {m.cantidad}</p>
                     </div>
-                    <span className="text-sm font-bold text-white font-mono">{fmtEur(m.precioBase * m.cantidad)}</span>
+                    <span className="text-sm font-bold text-gray-900 font-mono">{fmtEur(m.precioBase * m.cantidad)}</span>
                   </div>
                 ))}
-                <div className="border-t border-slate-700 px-4 py-3 space-y-1">
-                  <div className="flex justify-between text-xs text-slate-400"><span>Subtotal</span><span className="font-mono">{fmtEur(subtotalFact)}</span></div>
-                  <div className="flex justify-between text-xs text-slate-400"><span>IVA 21%</span><span className="font-mono">{fmtEur(ivaFact)}</span></div>
-                  <div className="flex justify-between text-sm font-black text-white pt-1 border-t border-slate-700"><span>Total</span><span className="font-mono">{fmtEur(totalFact)}</span></div>
+                <div className="border-t border-gray-200 px-4 py-3 space-y-1">
+                  <div className="flex justify-between text-xs text-gray-400"><span>Subtotal</span><span className="font-mono">{fmtEur(subtotalFact)}</span></div>
+                  <div className="flex justify-between text-xs text-gray-400"><span>IVA 21%</span><span className="font-mono">{fmtEur(ivaFact)}</span></div>
+                  <div className="flex justify-between text-sm font-black text-gray-900 pt-1 border-t border-gray-200"><span>Total</span><span className="font-mono">{fmtEur(totalFact)}</span></div>
                 </div>
               </div>
             </div>
           )}
 
           {/* Notas */}
-          {notas && <div className="bg-slate-900 border border-slate-800 rounded-xl px-4 py-3">
-            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Notas</p>
-            <p className="text-sm text-slate-300 leading-relaxed">{notas}</p>
+          {notas && <div className="bg-white border border-gray-100 shadow-sm rounded-xl px-4 py-3">
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Notas</p>
+            <p className="text-sm text-gray-600 leading-relaxed">{notas}</p>
           </div>}
 
           {/* Envío */}
           {phase === 'done' && (waUrl || mailUrl) && (
             <div className="space-y-2">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Enviar al cliente</p>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Enviar al cliente</p>
               <div className="grid grid-cols-2 gap-2.5">
                 {waUrl && <a href={waUrl} target="_blank" rel="noreferrer"
                   className="flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold text-sm text-white cursor-pointer active:opacity-80"
@@ -586,7 +586,7 @@ export default function ScreenParteTrabajo({
           <div className="h-4" />
         </div>
 
-        <div className="px-5 py-4 border-t border-white/8 shrink-0 bg-[#0B0F14]">
+        <div className="px-5 py-4 border-t border-gray-200 shrink-0 bg-gray-50">
           {phase === 'facturar' && materialesNormales.length > 0 && (
             <button onClick={() => handleGenerarFactura(materialesNormales)}
               className="w-full flex items-center justify-center gap-2 bg-blue-600 active:bg-blue-700 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
@@ -595,25 +595,25 @@ export default function ScreenParteTrabajo({
             </button>
           )}
           {phase === 'facturar' && materialesNormales.length === 0 && (
-            <button onClick={onClose} className="w-full py-4 rounded-2xl text-sm font-bold text-slate-300 bg-slate-800 active:bg-slate-700 cursor-pointer">Cerrar sin facturar</button>
+            <button onClick={onClose} className="w-full py-4 rounded-2xl text-sm font-bold text-gray-600 bg-gray-100 active:bg-gray-200 cursor-pointer">Cerrar sin facturar</button>
           )}
           {phase === 'generating' && (
-            <div className="w-full flex items-center justify-center gap-3 py-4 text-slate-300">
-              <Loader2 className="w-5 h-5 animate-spin text-blue-400" /><span className="text-sm font-semibold">Generando factura…</span>
+            <div className="w-full flex items-center justify-center gap-3 py-4 text-gray-600">
+              <Loader2 className="w-5 h-5 animate-spin text-blue-600" /><span className="text-sm font-semibold">Generando factura…</span>
             </div>
           )}
           {phase === 'done' && newInvoice && invoicePaid === null && (
             <div className="space-y-2.5">
-              <p className="text-[10px] text-center text-slate-500 leading-relaxed">
+              <p className="text-[10px] text-center text-gray-400 leading-relaxed">
                 ¿Cómo se cobra?
               </p>
               {/* Método selector when paying now */}
-              <div className="flex bg-slate-800 rounded-xl p-0.5 gap-0.5 mb-1">
+              <div className="flex bg-gray-100 rounded-xl p-0.5 gap-0.5 mb-1">
                 {(['efectivo','bizum','tarjeta'] as const).map(m => (
                   <button
                     key={m}
                     onClick={() => setMetodoPago(m)}
-                    className={`flex-1 text-[10px] font-bold py-1.5 rounded-lg transition-colors cursor-pointer capitalize ${metodoPago === m ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-slate-200'}`}
+                    className={`flex-1 text-[10px] font-bold py-1.5 rounded-lg transition-colors cursor-pointer capitalize ${metodoPago === m ? 'bg-emerald-600 text-white' : 'text-gray-400 hover:text-gray-700'}`}
                   >{m}</button>
                 ))}
               </div>
@@ -625,7 +625,7 @@ export default function ScreenParteTrabajo({
                   <span className="text-[10px] opacity-70 font-normal capitalize">{metodoPago}</span>
                 </button>
                 <button onClick={() => handlePendiente()}
-                  className="flex flex-col items-center justify-center gap-0.5 bg-slate-700 active:bg-slate-600 text-slate-200 font-bold text-sm py-3.5 rounded-2xl cursor-pointer">
+                  className="flex flex-col items-center justify-center gap-0.5 bg-gray-200 active:bg-gray-300 text-gray-700 font-bold text-sm py-3.5 rounded-2xl cursor-pointer">
                   <span>Pendiente</span>
                   <span className="text-[10px] opacity-60 font-normal">transferencia / banco</span>
                 </button>
@@ -633,7 +633,7 @@ export default function ScreenParteTrabajo({
             </div>
           )}
           {phase === 'done' && (!newInvoice || invoicePaid !== null) && (
-            <button onClick={onClose} className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl text-sm font-bold text-slate-300 bg-slate-800 active:bg-slate-700 cursor-pointer">
+            <button onClick={onClose} className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl text-sm font-bold text-gray-600 bg-gray-100 active:bg-gray-200 cursor-pointer">
               <ChevronRight className="w-4 h-4" />Cerrar
             </button>
           )}
@@ -646,20 +646,20 @@ export default function ScreenParteTrabajo({
   // MAIN PANEL (edit / view / supplement)
   // ══════════════════════════════════════════════════════════════════════════
   const headerTag = mode === 'supplement'
-    ? { label: 'Material olvidado', color: 'text-amber-400' }
+    ? { label: 'Material olvidado', color: 'text-amber-600' }
     : mode === 'view' && isCompleted
-    ? { label: 'Parte completado', color: 'text-emerald-400' }
-    : { label: 'Parte de trabajo', color: 'text-blue-400' };
+    ? { label: 'Parte completado', color: 'text-emerald-600' }
+    : { label: 'Parte de trabajo', color: 'text-blue-600' };
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#0B0F14] flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-50 bg-gray-50 flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-white/8 shrink-0">
+      <div className="flex items-center justify-between px-5 pt-5 pb-4 border-b border-gray-200 shrink-0">
         <div className="flex-1 min-w-0 pr-3">
           <p className={`text-[10px] font-bold uppercase tracking-widest mb-0.5 ${headerTag.color}`}>{headerTag.label}</p>
-          <h2 className="text-base font-black text-white leading-tight truncate">{job.titulo}</h2>
+          <h2 className="text-base font-black text-gray-900 leading-tight truncate">{job.titulo}</h2>
         </div>
-        <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-white/8 active:bg-white/15 text-slate-400 shrink-0 cursor-pointer">
+        <button onClick={onClose} className="w-9 h-9 flex items-center justify-center rounded-full bg-gray-100 active:bg-gray-200 text-gray-500 shrink-0 cursor-pointer">
           <X className="w-4 h-4" />
         </button>
       </div>
@@ -667,22 +667,22 @@ export default function ScreenParteTrabajo({
       <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-4 space-y-5">
 
         {/* Job info */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-2">
-          {clienteNombre && <div className="flex items-center gap-2.5 text-sm text-slate-300"><User className="w-4 h-4 text-slate-500 shrink-0" /><span className="font-semibold">{clienteNombre}</span></div>}
-          {(job.direccion || job.localidad) && <div className="flex items-center gap-2.5 text-sm text-slate-400"><MapPin className="w-4 h-4 text-slate-500 shrink-0" /><span>{[job.direccion, job.localidad].filter(Boolean).join(', ')}</span></div>}
-          {job.hora_inicio && <div className="flex items-center gap-2.5 text-sm text-slate-400">
-            <Clock className="w-4 h-4 text-slate-500 shrink-0" />
+        <div className="bg-white border border-gray-100 shadow-sm rounded-2xl p-4 space-y-2">
+          {clienteNombre && <div className="flex items-center gap-2.5 text-sm text-gray-600"><User className="w-4 h-4 text-gray-400 shrink-0" /><span className="font-semibold">{clienteNombre}</span></div>}
+          {(job.direccion || job.localidad) && <div className="flex items-center gap-2.5 text-sm text-gray-400"><MapPin className="w-4 h-4 text-gray-400 shrink-0" /><span>{[job.direccion, job.localidad].filter(Boolean).join(', ')}</span></div>}
+          {job.hora_inicio && <div className="flex items-center gap-2.5 text-sm text-gray-400">
+            <Clock className="w-4 h-4 text-gray-400 shrink-0" />
             <span>{job.hora_inicio}{job.hora_fin ? ` → ${job.hora_fin}` : ''}</span>
           </div>}
         </div>
 
         {/* Banner mantenimiento */}
         {mantenimiento?.activo && (
-          <div className="flex items-start gap-3 bg-blue-500/8 border border-blue-500/20 rounded-2xl px-4 py-3">
-            <Wrench className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
+          <div className="flex items-start gap-3 bg-blue-50 border border-blue-200 rounded-2xl px-4 py-3">
+            <Wrench className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" />
             <div>
-              <p className="text-xs font-bold text-blue-300">Trabajo de mantenimiento</p>
-              <p className="text-[11px] text-blue-400/70 mt-0.5">
+              <p className="text-xs font-bold text-blue-700">Trabajo de mantenimiento</p>
+              <p className="text-[11px] text-blue-600/70 mt-0.5">
                 {mantenimiento.materialesIncluidos ? 'Materiales incluidos en el contrato.' : 'Los materiales se facturarán al cliente.'}
               </p>
             </div>
@@ -692,22 +692,22 @@ export default function ScreenParteTrabajo({
         {/* Facturas existentes */}
         {existingInvoices.length > 0 && (
           <div className="space-y-2">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Facturación de este trabajo</p>
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Facturación de este trabajo</p>
             {existingInvoices.map(inv => (
-              <div key={inv.id} className="bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 flex items-center justify-between gap-3">
+              <div key={inv.id} className="bg-white border border-gray-200 rounded-xl px-4 py-3 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2 min-w-0">
-                  <ReceiptText className="w-4 h-4 text-slate-500 shrink-0" />
+                  <ReceiptText className="w-4 h-4 text-gray-400 shrink-0" />
                   <div className="min-w-0">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-sm font-bold text-white">{inv.numero}</span>
+                      <span className="text-sm font-bold text-gray-900">{inv.numero}</span>
                       <StatusBadge inv={inv} />
                     </div>
-                    {inv.concepto && <p className="text-[10px] text-slate-500 truncate">{inv.concepto}</p>}
+                    {inv.concepto && <p className="text-[10px] text-gray-400 truncate">{inv.concepto}</p>}
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="text-sm font-bold text-white font-mono">{fmtEur(inv.total)}</p>
-                  <p className="text-[10px] text-slate-500">{inv.estado}</p>
+                  <p className="text-sm font-bold text-gray-900 font-mono">{fmtEur(inv.total)}</p>
+                  <p className="text-[10px] text-gray-400">{inv.estado}</p>
                 </div>
               </div>
             ))}
@@ -716,11 +716,11 @@ export default function ScreenParteTrabajo({
 
         {/* Locked notice for supplement mode */}
         {mode === 'supplement' && (
-          <div className="flex items-start gap-3 bg-amber-500/8 border border-amber-500/20 rounded-2xl px-4 py-3">
-            <Lock className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
+          <div className="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3">
+            <Lock className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
             <div>
-              <p className="text-xs font-bold text-amber-300">Parte cerrado y facturado</p>
-              <p className="text-[11px] text-amber-400/70 mt-0.5">
+              <p className="text-xs font-bold text-amber-700">Parte cerrado y facturado</p>
+              <p className="text-[11px] text-amber-600/70 mt-0.5">
                 Añade el material que faltó. Se generará una factura suplementaria con referencia al trabajo original.
               </p>
             </div>
@@ -730,7 +730,7 @@ export default function ScreenParteTrabajo({
         {/* IA Voice — solo en edit y supplement */}
         {(mode === 'edit' || mode === 'supplement') && (
           <div className="space-y-3">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
               {isTecnico ? 'Nota de campo por voz' : mode === 'supplement' ? 'Dictar material olvidado' : 'Dictar parte con IA'}
             </p>
 
@@ -753,15 +753,15 @@ export default function ScreenParteTrabajo({
               </button>
             )}
             {recording === 'processing' && (
-              <div className="w-full flex items-center justify-center gap-3 bg-slate-800 text-slate-300 font-semibold text-sm py-4 rounded-2xl">
-                <Loader2 className="w-5 h-5 animate-spin text-blue-400" />
+              <div className="w-full flex items-center justify-center gap-3 bg-gray-100 text-gray-600 font-semibold text-sm py-4 rounded-2xl">
+                <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
                 <span>Procesando con IA…</span>
               </div>
             )}
             {!isTecnico && transcripcion && recording === 'idle' && (
-              <div className="bg-slate-900 border border-blue-500/20 rounded-xl px-4 py-3">
-                <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-1">Transcripción</p>
-                <p className="text-sm text-slate-300 leading-relaxed">{transcripcion}</p>
+              <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3">
+                <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-1">Transcripción</p>
+                <p className="text-sm text-gray-600 leading-relaxed">{transcripcion}</p>
               </div>
             )}
           </div>
@@ -771,8 +771,8 @@ export default function ScreenParteTrabajo({
         {isTecnico && mode === 'edit' && (
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <StickyNote className="w-3.5 h-3.5 text-amber-400" />
-              <p className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Nota para oficina</p>
+              <StickyNote className="w-3.5 h-3.5 text-amber-600" />
+              <p className="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Nota para oficina</p>
             </div>
             {/* Tipo selector */}
             <div className="flex gap-1.5 flex-wrap">
@@ -786,7 +786,7 @@ export default function ScreenParteTrabajo({
                 <button
                   key={key}
                   onClick={() => setFieldNoteTipo(key)}
-                  className={`text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors cursor-pointer ${fieldNoteTipo === key ? 'bg-amber-600 text-white' : 'bg-slate-800 text-slate-400'}`}
+                  className={`text-[10px] font-bold px-3 py-1.5 rounded-full transition-colors cursor-pointer ${fieldNoteTipo === key ? 'bg-amber-600 text-white' : 'bg-gray-100 text-gray-400'}`}
                 >{label}</button>
               ))}
             </div>
@@ -795,7 +795,7 @@ export default function ScreenParteTrabajo({
               value={fieldNoteText}
               onChange={e => setFieldNoteText(e.target.value)}
               placeholder="Describe la incidencia, material necesario o presupuesto requerido…"
-              className="w-full bg-slate-900 border border-amber-700/40 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-amber-500 resize-none"
+              className="w-full bg-gray-50 border border-amber-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-amber-500 resize-none"
             />
             <button
               onClick={handleSaveFieldNote}
@@ -812,12 +812,12 @@ export default function ScreenParteTrabajo({
         {mode !== 'supplement' && (
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Fotos del trabajo</p>
-              <span className="text-[10px] text-slate-600">{photos.length} foto{photos.length !== 1 ? 's' : ''}</span>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Fotos del trabajo</p>
+              <span className="text-[10px] text-gray-400">{photos.length} foto{photos.length !== 1 ? 's' : ''}</span>
             </div>
             <div className="grid grid-cols-3 gap-2">
               {photos.map(p => (
-                <div key={p.id} className="relative aspect-square rounded-xl overflow-hidden bg-slate-900 border border-slate-800 group">
+                <div key={p.id} className="relative aspect-square rounded-xl overflow-hidden bg-white border border-gray-100 shadow-sm group">
                   <img src={p.photo_url} alt="" className="w-full h-full object-cover" />
                   {mode === 'edit' && (
                     <button onClick={() => deletePhoto(p)} className="absolute top-1 right-1 w-6 h-6 bg-red-600/80 rounded-full flex items-center justify-center opacity-0 group-active:opacity-100 cursor-pointer">
@@ -828,8 +828,8 @@ export default function ScreenParteTrabajo({
               ))}
               {mode === 'edit' && (
                 <button onClick={() => fileInputRef.current?.click()} disabled={uploading}
-                  className="aspect-square rounded-xl border-2 border-dashed border-slate-700 flex flex-col items-center justify-center gap-1 active:border-blue-500 cursor-pointer">
-                  {uploading ? <Loader2 className="w-5 h-5 text-slate-500 animate-spin" /> : <><Camera className="w-5 h-5 text-slate-500" /><span className="text-[9px] text-slate-600 font-semibold">Foto</span></>}
+                  className="aspect-square rounded-xl border-2 border-dashed border-gray-300 flex flex-col items-center justify-center gap-1 active:border-blue-500 cursor-pointer">
+                  {uploading ? <Loader2 className="w-5 h-5 text-gray-400 animate-spin" /> : <><Camera className="w-5 h-5 text-gray-400" /><span className="text-[9px] text-gray-400 font-semibold">Foto</span></>}
                 </button>
               )}
             </div>
@@ -841,31 +841,31 @@ export default function ScreenParteTrabajo({
         {mode !== 'supplement' && !isTecnico && (
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Materiales</p>
-              {materialesNormales.length > 0 && <span className="text-[10px] font-bold text-blue-400">{fmtEur(subtotalNormal)}</span>}
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Materiales</p>
+              {materialesNormales.length > 0 && <span className="text-[10px] font-bold text-blue-600">{fmtEur(subtotalNormal)}</span>}
             </div>
 
             {/* Add from catalog (edit or view+maintenance+not invoiced) */}
             {(mode === 'edit' || (mode === 'view' && mantenimiento?.activo && existingInvoices.length === 0)) && (
               <>
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
                   <input value={materialSearch}
                     onChange={e => { setMaterialSearch(e.target.value); setShowMaterialPicker(true); }}
                     onFocus={() => setShowMaterialPicker(true)}
                     placeholder="Añadir material del catálogo…"
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl pl-8 pr-3 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500" />
+                    className="w-full bg-white border border-gray-200 rounded-xl pl-8 pr-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500" />
                 </div>
                 {showMaterialPicker && filteredTarifas.length > 0 && (
-                  <div className="bg-slate-900 border border-slate-700 rounded-xl overflow-hidden">
+                  <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
                     {filteredTarifas.map((t, i) => (
                       <button key={t.id} onClick={() => addMaterial(t, mode === 'view')}
-                        className={`w-full flex items-center justify-between px-4 py-3 text-left active:bg-slate-800 cursor-pointer ${i < filteredTarifas.length - 1 ? 'border-b border-slate-800' : ''}`}>
+                        className={`w-full flex items-center justify-between px-4 py-3 text-left active:bg-gray-100 cursor-pointer ${i < filteredTarifas.length - 1 ? 'border-b border-gray-100' : ''}`}>
                         <div className="min-w-0 pr-2">
-                          <p className="text-sm font-semibold text-white truncate">{t.descripcion}</p>
-                          <p className="text-[10px] text-slate-500 font-mono">{t.codigo}</p>
+                          <p className="text-sm font-semibold text-gray-900 truncate">{t.descripcion}</p>
+                          <p className="text-[10px] text-gray-400 font-mono">{t.codigo}</p>
                         </div>
-                        <span className="text-sm font-bold text-blue-400 shrink-0">{t.precioBase.toFixed(0)} €</span>
+                        <span className="text-sm font-bold text-blue-600 shrink-0">{t.precioBase.toFixed(0)} €</span>
                       </button>
                     ))}
                   </div>
@@ -875,11 +875,11 @@ export default function ScreenParteTrabajo({
 
             {/* Lista materiales normales */}
             {materialesNormales.length > 0 && (
-              <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+              <div className="bg-white border border-gray-100 shadow-sm rounded-xl overflow-hidden">
                 {materialesNormales.map((m, i) => (
-                  <div key={i} className={`flex items-center gap-3 px-4 py-3 ${i < materialesNormales.length - 1 ? 'border-b border-slate-800' : ''}`}>
+                  <div key={i} className={`flex items-center gap-3 px-4 py-3 ${i < materialesNormales.length - 1 ? 'border-b border-gray-100' : ''}`}>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-white truncate">{m.descripcion}</p>
+                      <p className="text-sm font-semibold text-gray-900 truncate">{m.descripcion}</p>
                       <div className="flex items-center gap-1 flex-wrap">
                         {mode === 'edit' && editingPriceId === m.id ? (
                           <input
@@ -890,28 +890,28 @@ export default function ScreenParteTrabajo({
                             onBlur={() => commitEditPrice(m.id)}
                             onKeyDown={e => e.key === 'Enter' && commitEditPrice(m.id)}
                             autoFocus
-                            className="w-20 bg-slate-800 border border-blue-500 rounded px-2 py-0.5 text-xs text-white"
+                            className="w-20 bg-white border border-blue-500 rounded px-2 py-0.5 text-xs text-gray-900"
                           />
                         ) : (
                           <button
                             onClick={mode === 'edit' ? () => startEditPrice(m) : undefined}
-                            className={`text-[10px] ${mode === 'edit' ? 'text-blue-400 underline decoration-dotted cursor-pointer' : 'text-slate-500'}`}
+                            className={`text-[10px] ${mode === 'edit' ? 'text-blue-600 underline decoration-dotted cursor-pointer' : 'text-gray-400'}`}
                           >
                             {m.precioBase.toFixed(2)} €
                           </button>
                         )}
-                        <span className="text-[10px] text-slate-500">× {m.cantidad} = </span>
-                        <span className="text-[10px] text-blue-400 font-bold">{fmtEur(m.precioBase * m.cantidad)}</span>
+                        <span className="text-[10px] text-gray-400">× {m.cantidad} = </span>
+                        <span className="text-[10px] text-blue-600 font-bold">{fmtEur(m.precioBase * m.cantidad)}</span>
                       </div>
                     </div>
                     {mode === 'edit' && (
                       <div className="flex items-center gap-2 shrink-0">
-                        <button onClick={() => changeCantidad(m.id, false, -1)} className="w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center cursor-pointer"><Minus className="w-3 h-3 text-slate-300" /></button>
-                        <span className="text-sm font-bold text-white w-5 text-center">{m.cantidad}</span>
+                        <button onClick={() => changeCantidad(m.id, false, -1)} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer"><Minus className="w-3 h-3 text-gray-600" /></button>
+                        <span className="text-sm font-bold text-gray-900 w-5 text-center">{m.cantidad}</span>
                         <button onClick={() => changeCantidad(m.id, false, 1)} className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center cursor-pointer"><Plus className="w-3 h-3 text-white" /></button>
                       </div>
                     )}
-                    {mode === 'view' && <span className="text-sm font-bold text-white shrink-0 font-mono">{fmtEur(m.precioBase * m.cantidad)}</span>}
+                    {mode === 'view' && <span className="text-sm font-bold text-gray-900 shrink-0 font-mono">{fmtEur(m.precioBase * m.cantidad)}</span>}
                   </div>
                 ))}
               </div>
@@ -920,13 +920,13 @@ export default function ScreenParteTrabajo({
             {/* Añadir línea personalizada (mano de obra, desplazamiento…) */}
             {mode === 'edit' && (
               showCustomLine ? (
-                <div className="bg-slate-900 border border-blue-500/30 rounded-xl px-4 py-3 space-y-2.5">
-                  <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Línea personalizada</p>
+                <div className="bg-blue-50 border border-blue-200 rounded-xl px-4 py-3 space-y-2.5">
+                  <p className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Línea personalizada</p>
                   <input
                     placeholder="Descripción (mano de obra, desplazamiento…)"
                     value={customLineDesc}
                     onChange={e => setCustomLineDesc(e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
                   />
                   <div className="flex gap-2">
                     <input
@@ -936,7 +936,7 @@ export default function ScreenParteTrabajo({
                       placeholder="Precio unit. (€)"
                       value={customLinePrice}
                       onChange={e => setCustomLinePrice(e.target.value)}
-                      className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+                      className="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
                     />
                     <input
                       type="number"
@@ -944,7 +944,7 @@ export default function ScreenParteTrabajo({
                       placeholder="Cant."
                       value={customLineCant}
                       onChange={e => setCustomLineCant(e.target.value)}
-                      className="w-20 bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500"
+                      className="w-20 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
                     />
                   </div>
                   <div className="flex gap-2">
@@ -957,7 +957,7 @@ export default function ScreenParteTrabajo({
                     </button>
                     <button
                       onClick={() => setShowCustomLine(false)}
-                      className="px-5 bg-slate-800 active:bg-slate-700 text-slate-300 font-bold text-sm py-2.5 rounded-xl cursor-pointer"
+                      className="px-5 bg-gray-100 active:bg-gray-200 text-gray-600 font-bold text-sm py-2.5 rounded-xl cursor-pointer"
                     >
                       Cancelar
                     </button>
@@ -966,7 +966,7 @@ export default function ScreenParteTrabajo({
               ) : (
                 <button
                   onClick={() => setShowCustomLine(true)}
-                  className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-slate-700 active:border-blue-500 text-slate-500 active:text-blue-400 text-sm font-semibold py-3 rounded-xl cursor-pointer transition-colors"
+                  className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-gray-300 active:border-blue-500 text-gray-400 active:text-blue-600 text-sm font-semibold py-3 rounded-xl cursor-pointer transition-colors"
                 >
                   <Plus className="w-4 h-4" />
                   Mano de obra / línea personalizada
@@ -978,19 +978,19 @@ export default function ScreenParteTrabajo({
             {materialesPostCierre.length > 0 && (
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <PlusCircle className="w-3.5 h-3.5 text-amber-400" />
-                  <p className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Añadidos tras el cierre</p>
+                  <PlusCircle className="w-3.5 h-3.5 text-amber-600" />
+                  <p className="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Añadidos tras el cierre</p>
                 </div>
-                <div className="bg-slate-900 border border-amber-500/20 rounded-xl overflow-hidden">
+                <div className="bg-amber-50 border border-amber-200 rounded-xl overflow-hidden">
                   {materialesPostCierre.map((m, i) => (
-                    <div key={i} className={`flex items-center gap-3 px-4 py-3 ${i < materialesPostCierre.length - 1 ? 'border-b border-slate-800' : ''}`}>
+                    <div key={i} className={`flex items-center gap-3 px-4 py-3 ${i < materialesPostCierre.length - 1 ? 'border-b border-gray-100' : ''}`}>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-white truncate">{m.descripcion}</p>
-                        <p className="text-[10px] text-slate-500">{m.precioBase.toFixed(0)} € × {m.cantidad}</p>
+                        <p className="text-sm font-semibold text-gray-900 truncate">{m.descripcion}</p>
+                        <p className="text-[10px] text-gray-400">{m.precioBase.toFixed(0)} € × {m.cantidad}</p>
                       </div>
                       <div className="flex items-center gap-2 shrink-0">
-                        <button onClick={() => changeCantidad(m.id, true, -1)} className="w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center cursor-pointer"><Minus className="w-3 h-3 text-slate-300" /></button>
-                        <span className="text-sm font-bold text-white w-5 text-center">{m.cantidad}</span>
+                        <button onClick={() => changeCantidad(m.id, true, -1)} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer"><Minus className="w-3 h-3 text-gray-600" /></button>
+                        <span className="text-sm font-bold text-gray-900 w-5 text-center">{m.cantidad}</span>
                         <button onClick={() => changeCantidad(m.id, true, 1)} className="w-7 h-7 rounded-full bg-amber-600 flex items-center justify-center cursor-pointer"><Plus className="w-3 h-3 text-white" /></button>
                       </div>
                     </div>
@@ -1005,56 +1005,56 @@ export default function ScreenParteTrabajo({
         {mode === 'supplement' && (
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Material a facturar</p>
-              {supplementMateriales.length > 0 && <span className="text-[10px] font-bold text-amber-400">{fmtEur(totalSupp)}</span>}
+              <p className="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Material a facturar</p>
+              {supplementMateriales.length > 0 && <span className="text-[10px] font-bold text-amber-600">{fmtEur(totalSupp)}</span>}
             </div>
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
               <input value={materialSearch}
                 onChange={e => { setMaterialSearch(e.target.value); setShowMaterialPicker(true); }}
                 onFocus={() => setShowMaterialPicker(true)}
                 placeholder="Buscar material olvidado…"
-                className="w-full bg-slate-900 border border-amber-700/40 rounded-xl pl-8 pr-3 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-amber-500" />
+                className="w-full bg-gray-50 border border-amber-200 rounded-xl pl-8 pr-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-amber-500" />
             </div>
             {showMaterialPicker && filteredTarifas.length > 0 && (
-              <div className="bg-slate-900 border border-slate-700 rounded-xl overflow-hidden">
+              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
                 {filteredTarifas.map((t, i) => (
                   <button key={t.id} onClick={() => addMaterial(t, false)}
-                    className={`w-full flex items-center justify-between px-4 py-3 text-left active:bg-slate-800 cursor-pointer ${i < filteredTarifas.length - 1 ? 'border-b border-slate-800' : ''}`}>
-                    <p className="text-sm font-semibold text-white truncate">{t.descripcion}</p>
-                    <span className="text-sm font-bold text-amber-400 shrink-0">{t.precioBase.toFixed(0)} €</span>
+                    className={`w-full flex items-center justify-between px-4 py-3 text-left active:bg-gray-100 cursor-pointer ${i < filteredTarifas.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                    <p className="text-sm font-semibold text-gray-900 truncate">{t.descripcion}</p>
+                    <span className="text-sm font-bold text-amber-600 shrink-0">{t.precioBase.toFixed(0)} €</span>
                   </button>
                 ))}
               </div>
             )}
             {supplementMateriales.length > 0 && (
-              <div className="bg-slate-900 border border-amber-500/20 rounded-xl overflow-hidden">
+              <div className="bg-amber-50 border border-amber-200 rounded-xl overflow-hidden">
                 {supplementMateriales.map((m, i) => (
-                  <div key={i} className={`flex items-center gap-3 px-4 py-3 ${i < supplementMateriales.length - 1 ? 'border-b border-slate-800' : ''}`}>
+                  <div key={i} className={`flex items-center gap-3 px-4 py-3 ${i < supplementMateriales.length - 1 ? 'border-b border-gray-100' : ''}`}>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-white truncate">{m.descripcion}</p>
-                      <p className="text-[10px] text-slate-500">{m.precioBase.toFixed(0)} € × {m.cantidad} = <span className="text-amber-400 font-bold">{fmtEur(m.precioBase * m.cantidad)}</span></p>
+                      <p className="text-sm font-semibold text-gray-900 truncate">{m.descripcion}</p>
+                      <p className="text-[10px] text-gray-400">{m.precioBase.toFixed(0)} € × {m.cantidad} = <span className="text-amber-600 font-bold">{fmtEur(m.precioBase * m.cantidad)}</span></p>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
-                      <button onClick={() => changeCantidad(m.id, false, -1)} className="w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center cursor-pointer"><Minus className="w-3 h-3 text-slate-300" /></button>
-                      <span className="text-sm font-bold text-white w-5 text-center">{m.cantidad}</span>
+                      <button onClick={() => changeCantidad(m.id, false, -1)} className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer"><Minus className="w-3 h-3 text-gray-600" /></button>
+                      <span className="text-sm font-bold text-gray-900 w-5 text-center">{m.cantidad}</span>
                       <button onClick={() => changeCantidad(m.id, false, 1)} className="w-7 h-7 rounded-full bg-amber-600 flex items-center justify-center cursor-pointer"><Plus className="w-3 h-3 text-white" /></button>
                     </div>
                   </div>
                 ))}
-                <div className="border-t border-slate-700 px-4 py-3 space-y-1">
-                  <div className="flex justify-between text-xs text-slate-400"><span>Subtotal</span><span className="font-mono">{fmtEur(subtotalSupp)}</span></div>
-                  <div className="flex justify-between text-xs text-slate-400"><span>IVA 21%</span><span className="font-mono">{fmtEur(ivaSupp)}</span></div>
-                  <div className="flex justify-between text-sm font-black text-white pt-1 border-t border-slate-700"><span>Total</span><span className="font-mono">{fmtEur(totalSupp)}</span></div>
+                <div className="border-t border-gray-200 px-4 py-3 space-y-1">
+                  <div className="flex justify-between text-xs text-gray-400"><span>Subtotal</span><span className="font-mono">{fmtEur(subtotalSupp)}</span></div>
+                  <div className="flex justify-between text-xs text-gray-400"><span>IVA 21%</span><span className="font-mono">{fmtEur(ivaSupp)}</span></div>
+                  <div className="flex justify-between text-sm font-black text-gray-900 pt-1 border-t border-gray-200"><span>Total</span><span className="font-mono">{fmtEur(totalSupp)}</span></div>
                 </div>
               </div>
             )}
             {/* Motivo del olvido */}
             <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Motivo (opcional)</p>
+              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Motivo (opcional)</p>
               <input value={supplementReason} onChange={e => setSupplementReason(e.target.value)}
                 placeholder="Ej: No se incluyó en el presupuesto inicial"
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-amber-500" />
+                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-amber-500" />
             </div>
           </div>
         )}
@@ -1062,23 +1062,23 @@ export default function ScreenParteTrabajo({
         {/* Notas — solo en edit y view */}
         {mode !== 'supplement' && (
           <div className="space-y-2">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Notas del trabajo</p>
+            <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Notas del trabajo</p>
             {mode === 'edit' ? (
               <textarea rows={3} value={notas} onChange={e => setNotas(e.target.value)}
                 placeholder="La IA completará esto al dictar…"
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-blue-500 resize-none" />
+                className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 resize-none" />
             ) : (
-              notas ? <div className="bg-slate-900 border border-slate-800 rounded-xl px-4 py-3"><p className="text-sm text-slate-300 leading-relaxed">{notas}</p></div>
-                    : <p className="text-xs text-slate-600">Sin notas registradas</p>
+              notas ? <div className="bg-white border border-gray-100 shadow-sm rounded-xl px-4 py-3"><p className="text-sm text-gray-600 leading-relaxed">{notas}</p></div>
+                    : <p className="text-xs text-gray-400">Sin notas registradas</p>
             )}
           </div>
         )}
 
         {/* Aviso facturación en edit mode */}
         {mode === 'edit' && !isTecnico && !mantenimiento?.activo && materialesNormales.length > 0 && (
-          <div className="flex items-start gap-2.5 bg-amber-500/8 border border-amber-500/20 rounded-xl px-4 py-3">
-            <AlertCircle className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
-            <p className="text-xs text-amber-300/80">Al completar se generará una factura por <span className="font-bold">{fmtEur((subtotalNormal) * 1.21)}</span></p>
+          <div className="flex items-start gap-2.5 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
+            <AlertCircle className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+            <p className="text-xs text-amber-700/80">Al completar se generará una factura por <span className="font-bold">{fmtEur((subtotalNormal) * 1.21)}</span></p>
           </div>
         )}
 
@@ -1086,7 +1086,7 @@ export default function ScreenParteTrabajo({
       </div>
 
       {/* Footer */}
-      <div className="px-5 py-4 border-t border-white/8 shrink-0 bg-[#0B0F14]">
+      <div className="px-5 py-4 border-t border-gray-200 shrink-0 bg-gray-50">
         {canComplete && phase !== 'completing' && (
           <button onClick={handleComplete} disabled={recording !== 'idle'}
             className="w-full flex items-center justify-center gap-2 bg-emerald-600 active:bg-emerald-700 disabled:opacity-50 text-white font-bold text-sm py-4 rounded-2xl cursor-pointer"
@@ -1095,12 +1095,12 @@ export default function ScreenParteTrabajo({
           </button>
         )}
         {phase === 'completing' && (
-          <div className="w-full flex items-center justify-center gap-3 py-4 text-slate-300">
-            <Loader2 className="w-5 h-5 animate-spin text-emerald-400" /><span className="text-sm font-semibold">Guardando…</span>
+          <div className="w-full flex items-center justify-center gap-3 py-4 text-gray-600">
+            <Loader2 className="w-5 h-5 animate-spin text-emerald-600" /><span className="text-sm font-semibold">Guardando…</span>
           </div>
         )}
         {mode === 'view' && !canComplete && (
-          <button onClick={onClose} className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl text-sm font-bold text-slate-300 bg-slate-800 active:bg-slate-700 cursor-pointer">
+          <button onClick={onClose} className="w-full flex items-center justify-center gap-2 py-4 rounded-2xl text-sm font-bold text-gray-600 bg-gray-100 active:bg-gray-200 cursor-pointer">
             <ChevronRight className="w-4 h-4" />Cerrar
           </button>
         )}
