@@ -107,6 +107,7 @@ fecha: string;
 estado: 'Borrador' | 'Enviado' | 'Aceptado' | 'Facturado';
 telefonoCliente?: string;
 emailCliente?: string;
+kbActuaciones?: string[];
 }
 
 export interface Factura {

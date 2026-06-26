@@ -741,7 +741,8 @@ export default function ScreenWorkerView({ workerProfile, session, setCurrentPag
       );
       setAllJobs(u);
     } else {
-      await assignWorkerToJob(jobId, workerId, 'asignado');
+      const jobTitulo = allJobs.find(j => j.id === jobId)?.titulo;
+      await assignWorkerToJob(jobId, workerId, 'asignado', jobTitulo);
       const worker = orgWorkers.find(w => w.id === workerId);
       const newJw: TradeJobWorker = {
         id: `tmp-${Date.now()}`,

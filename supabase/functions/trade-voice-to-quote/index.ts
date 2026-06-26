@@ -6,6 +6,7 @@ const ANTHROPIC_API_KEY   = Deno.env.get('ANTHROPIC_API_KEY') ?? '';
 const SUPABASE_URL         = Deno.env.get('SUPABASE_URL') ?? '';
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '';
 const SUPABASE_ANON_KEY    = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
+const BRAVE_SEARCH_KEY     = Deno.env.get('BRAVE_SEARCH_API_KEY') ?? '';
 
 const ALLOWED_ORIGINS = ['https://trabflow.com', 'https://www.trabflow.com', 'http://localhost:5173', 'http://localhost:4173'];
 function cors(req: Request): Record<string, string> {
@@ -280,6 +281,53 @@ async function enrichWithSupplierProducts(
   }
 }
 
+// ── Búsqueda web de precios cuando la Base Maestra no tiene matches ───────────
+// Usa Brave Search API. Si no hay clave devuelve '' (degradación elegante).
+async function searchWebForWork(transcript: string): Promise<string> {
+  if (!BRAVE_SEARCH_KEY) return '';
+  try {
+    // Extraer keywords significativas del transcript (4+ letras, max 8)
+    const keywords = transcript
+      .toLowerCase()
+      .split(/[\s,;.]+/)
+      .filter(w => w.length >= 4)
+      .slice(0, 6)
+      .join(' ');
+    const query = `precio coste presupuesto ${keywords} instalador España`;
+
+    const res = await fetch(
+      `https://api.search.brave.com/res/v1/web/search?q=${encodeURIComponent(query)}&count=4&country=es&search_lang=es`,
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Accept-Encoding': 'gzip',
+          'X-Subscription-Token': BRAVE_SEARCH_KEY,
+        },
+      },
+    );
+    if (!res.ok) {
+      console.warn('[web] Brave search error', res.status);
+      return '';
+    }
+    const data = await res.json() as {
+      web?: { results?: Array<{ title: string; description: string; url: string }> };
+    };
+    const results = (data.web?.results ?? []).slice(0, 3);
+    if (results.length === 0) return '';
+
+    let ctx = '\n\nREFERENCIA WEB (precios de mercado España — contexto adicional, no es normativa):\n';
+    for (const r of results) {
+      const snippet = r.description?.slice(0, 180).trim() ?? '';
+      if (snippet) ctx += `- ${r.title}: ${snippet}\n`;
+    }
+    ctx += '\nUsa esta referencia solo como orientación de precio. Marca requiere_revision=true en todos los materiales.';
+    return ctx;
+  } catch (err) {
+    console.warn('[web] searchWebForWork failed:', err);
+    return '';
+  }
+}
+
 Deno.serve(async (req: Request) => {
   const requestId = crypto.randomUUID();
   if (req.method === 'OPTIONS') {
@@ -398,9 +446,66 @@ Deno.serve(async (req: Request) => {
       }), { status: 403, headers: { ...cors(req), 'Content-Type': 'application/json' } });
     }
 
+    // ── Base Maestra IA: buscar actuaciones relevantes ────────────────────────
+    // search_actuaciones_scored puntúa por coincidencia de palabras + usage_count
+    interface ActuacionScored {
+      actuacion_id: string;
+      oficio: string;
+      partidas_obligatorias: string[];
+      partidas_auxiliares: string[];
+      reglas_calculo: string;
+      unidad: string;
+      observaciones: string;
+      precio_min: number | null;
+      precio_max: number | null;
+      score: number;
+    }
+    let kbActuaciones: ActuacionScored[] = [];
+    let kbScore = 0;
+
+    try {
+      const { data: kbRows } = await supabase.rpc('search_actuaciones_scored', {
+        p_transcript: transcript,
+        p_limit: 5,
+      });
+      kbActuaciones = (kbRows ?? []) as ActuacionScored[];
+      if (kbActuaciones.length > 0) {
+        kbScore = kbActuaciones.reduce((s, a) => s + Number(a.score), 0) / kbActuaciones.length;
+      }
+    } catch (kbErr) {
+      console.warn('[kb] search_actuaciones_scored error:', kbErr);
+    }
+
+    // ── Construir contexto KB para inyectar en el prompt ──────────────────────
+    let kbContext = '';
+    if (kbActuaciones.length > 0) {
+      kbContext = '\n\nBASE MAESTRA (actuaciones validadas — referencia prioritaria para partidas y precios):\n';
+      for (const a of kbActuaciones) {
+        kbContext += `\n[${a.actuacion_id}] oficio=${a.oficio} unidad=${a.unidad}`;
+        if (a.precio_min != null && a.precio_max != null) {
+          kbContext += ` precio=${a.precio_min}-${a.precio_max}€/${a.unidad.split(',')[0].trim()}`;
+        }
+        kbContext += '\n';
+        kbContext += `  partidas_obligatorias: ${a.partidas_obligatorias.join(', ')}\n`;
+        if (a.partidas_auxiliares.length > 0) {
+          kbContext += `  partidas_auxiliares: ${a.partidas_auxiliares.join(', ')}\n`;
+        }
+        if (a.reglas_calculo && a.reglas_calculo !== 'aprendido_automaticamente') {
+          kbContext += `  reglas: ${a.reglas_calculo}\n`;
+        }
+      }
+      kbContext += '\nIncorpora las partidas_obligatorias. Usa los rangos de precio como referencia para precio_unitario de mano de obra cuando no hay tarifa en catálogo.';
+    }
+
+    // ── Web search: fallback cuando la Base Maestra no tiene matches ──────────
+    let webContext = '';
+    let webSearchUsed = false;
+    if (kbActuaciones.length === 0) {
+      webContext = await searchWebForWork(transcript);
+      webSearchUsed = webContext.length > 0;
+    }
+
     // ── Generar presupuesto con IA (Haiku — velocidad máxima ~3-5s) ───────────
-    // Arquitectura: la IA ya sabe qué necesita cada trabajo (piscina, reforma, etc.)
-    // No depende del KB (trade_actuaciones). El catálogo enriquece precios DESPUÉS.
     const claudeRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -411,7 +516,7 @@ Deno.serve(async (req: Request) => {
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
         max_tokens: 4096,
-        system: AI_SYSTEM_PROMPT,
+        system: AI_SYSTEM_PROMPT + kbContext + webContext,
         messages: [{ role: 'user', content: `El profesional dice: "${transcript}"` }],
       }),
     });
@@ -453,14 +558,24 @@ Deno.serve(async (req: Request) => {
         feature: 'voice',
         metadata: {
           model: 'haiku',
+          kb_actuaciones: kbActuaciones.length,
+          kb_score: kbScore,
+          web_search_used: webSearchUsed,
           catalog_enriched: true,
           partidas_count: ((quote as Record<string, unknown[]>).partidas ?? []).length,
         },
       }).then(() => {/* fire-and-forget */});
     }
 
+    // El frontend guarda trade_ai_feedback al confirmar el presupuesto (con final_partidas reales)
     return new Response(
-      JSON.stringify({ transcript, quote }),
+      JSON.stringify({
+        transcript,
+        quote,
+        actuacion_ids_matched: kbActuaciones.map(a => a.actuacion_id),
+        kb_score: kbScore,
+        web_search_used: webSearchUsed,
+      }),
       { headers: { ...cors(req), 'Content-Type': 'application/json' } },
     );
 

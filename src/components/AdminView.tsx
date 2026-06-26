@@ -14,10 +14,12 @@ import {
   adminLoadWeeklyQuotes,
   adminLoadCatalogSuggestions, adminUpdateCatalogSuggestion, adminApproveSuggestionToGlobal,
   adminLoadNotes, adminAddNote, adminDeleteNote, adminLogAction, adminLoadActivityLog, adminSetOrgFlag,
+  adminLoadOrgRecentQuotes, AdminOrgRecentQuote,
   adminMarkInvoicePaid,
   adminLoadAutoConfig, adminSaveAutoConfig, adminGetTrialsExpiringSoon, adminRunChurnRiskNow,
   loadInstallerNeeds, markNeedReviewed,
   adminLoadAIFeedback, adminMarkFeedbackApplied,
+  applyActuacionLearning,
   AdminOrgRow, TradeSubscription, TradePlatformInvoice, TradeWaitlistLead,
   WaitlistEstado, WaitlistPrioridad, TradeCatalogSuggestion, AdminSupportNote, AdminActivityLog,
   AdminAutoConfig, TrialExpiringSoon, InstallerNeed, AIFeedbackRow,
@@ -38,6 +40,12 @@ import {
   Brain, ChevronRight, BookOpen, ExternalLink, Truck,
 } from 'lucide-react';
 import AdminSuppliersSection from './admin/AdminSuppliersSection';
+import {
+  adminLoadActuaciones, adminToggleActuacionActivo,
+  adminUpdateActuacionPrecios, adminUpdateActuacionObservaciones,
+  adminGetActuacionesStats,
+  type ActuacionAdminRow,
+} from '../lib/api/actuaciones';
 
 const PLAN_PRICES: Record<string, { monthly: number; yearly: number }> = {
   basico: { monthly: 29, yearly: 23 },
@@ -88,6 +96,7 @@ function PlanSelect({ org, onUpdate }: { org: AdminOrgRow; onUpdate: () => void 
   const handleChange = async (plan: TradeSubscription['plan']) => {
     setUpdating(true);
     await adminUpdateOrgPlan(org.id, plan, currentCycle);
+    adminLogAction('change_plan', org.id, { from: currentPlan, to: plan }).catch(() => {});
     onUpdate();
     setUpdating(false);
   };
@@ -545,14 +554,16 @@ interface OrgDetailPanelProps {
 }
 
 function OrgDetailPanel({ org, adminEmail, onClose, onFlagChanged, toast }: OrgDetailPanelProps) {
-  const [notes, setNotes]               = useState<AdminSupportNote[]>([]);
-  const [actLog, setActLog]             = useState<AdminActivityLog[]>([]);
-  const [newNote, setNewNote]           = useState('');
-  const [loadingNotes, setLoadingNotes] = useState(true);
-  const [loadingLog, setLoadingLog]     = useState(true);
-  const [savingNote, setSavingNote]     = useState(false);
-  const [deletingNote, setDeletingNote] = useState<string | null>(null);
-  const [flagLoading, setFlagLoading]   = useState<string | null>(null);
+  const [notes, setNotes]                   = useState<AdminSupportNote[]>([]);
+  const [actLog, setActLog]                 = useState<AdminActivityLog[]>([]);
+  const [recentQuotes, setRecentQuotes]     = useState<AdminOrgRecentQuote[]>([]);
+  const [newNote, setNewNote]               = useState('');
+  const [loadingNotes, setLoadingNotes]     = useState(true);
+  const [loadingLog, setLoadingLog]         = useState(true);
+  const [loadingQuotes, setLoadingQuotes]   = useState(true);
+  const [savingNote, setSavingNote]         = useState(false);
+  const [deletingNote, setDeletingNote]     = useState<string | null>(null);
+  const [flagLoading, setFlagLoading]       = useState<string | null>(null);
 
   useEffect(() => {
     setLoadingNotes(true);
@@ -563,6 +574,10 @@ function OrgDetailPanel({ org, adminEmail, onClose, onFlagChanged, toast }: OrgD
     adminLoadActivityLog(org.id)
       .then(setActLog).catch(() => setActLog([]))
       .finally(() => setLoadingLog(false));
+    setLoadingQuotes(true);
+    adminLoadOrgRecentQuotes(org.id)
+      .then(setRecentQuotes).catch(() => setRecentQuotes([]))
+      .finally(() => setLoadingQuotes(false));
   }, [org.id]);
 
   const handleAddNote = async () => {
@@ -671,6 +686,35 @@ function OrgDetailPanel({ org, adminEmail, onClose, onFlagChanged, toast }: OrgD
           </div>
         </div>
 
+        {/* Últimos presupuestos */}
+        <div className="px-5 py-3 border-b border-slate-800 shrink-0">
+          <div className="flex items-center gap-2 mb-2">
+            <FileText className="h-3.5 w-3.5 text-slate-400" />
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Últimos presupuestos</span>
+          </div>
+          {loadingQuotes ? (
+            <div className="text-center py-2"><RefreshCw className="h-3 w-3 animate-spin text-slate-500 inline-block" /></div>
+          ) : recentQuotes.length === 0 ? (
+            <p className="text-slate-600 text-xs italic">Sin presupuestos</p>
+          ) : (
+            <div className="space-y-1">
+              {recentQuotes.map(q => (
+                <div key={q.id} className="flex items-center justify-between text-xs gap-2">
+                  <span className="text-slate-400 font-mono shrink-0">{q.numero}</span>
+                  <span className="text-slate-400 shrink-0">{new Date(q.fecha).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' })}</span>
+                  <span className={`shrink-0 px-1.5 py-0.5 rounded text-[10px] font-semibold ${
+                    q.estado === 'Aceptado' ? 'bg-green-900/40 text-green-300' :
+                    q.estado === 'Facturado' ? 'bg-blue-900/40 text-blue-300' :
+                    q.estado === 'Enviado' ? 'bg-yellow-900/40 text-yellow-300' :
+                    'bg-slate-700 text-slate-400'
+                  }`}>{q.estado}</span>
+                  <span className="text-slate-300 font-semibold text-right">{q.total_con_iva.toLocaleString('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
         {/* Notes */}
         <div className="px-5 py-3 border-b border-slate-800 flex-1 overflow-y-auto">
           <div className="flex items-center gap-2 mb-3">
@@ -765,12 +809,24 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
   const [detailOrg, setDetailOrg]     = useState<AdminOrgRow | null>(null);
 
   // Sección activa
-  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'ia_normativa' | 'docs' | 'suppliers'>('dashboard');
+  const [section, setSection] = useState<'dashboard' | 'orgs' | 'leads' | 'subscriptions' | 'invoices' | 'usage' | 'exports' | 'automations' | 'suggestions' | 'needs' | 'ai_feedback' | 'ia_normativa' | 'docs' | 'suppliers' | 'base_maestra'>('dashboard');
 
   // Necesidades instaladores (chatbot)
   const [needs, setNeeds]               = useState<InstallerNeed[]>([]);
   const [needsLoading, setNeedsLoading] = useState(false);
   const [needsFilter, setNeedsFilter]   = useState<string>('all');
+
+  // Base Maestra IA
+  const [bmActuaciones, setBmActuaciones]               = useState<ActuacionAdminRow[]>([]);
+  const [bmLoading, setBmLoading]                       = useState(false);
+  const [bmOficioFilter, setBmOficioFilter]             = useState('all');
+  const [bmSearch, setBmSearch]                         = useState('');
+  const [bmStats, setBmStats]                           = useState<{ oficio: string; total: number; activas: number; con_precio: number }[]>([]);
+  const [bmExpanded, setBmExpanded]                     = useState<string | null>(null);
+  const [bmEditPrecio, setBmEditPrecio]                 = useState<ActuacionAdminRow | null>(null);
+  const [bmPrecioMin, setBmPrecioMin]                   = useState('');
+  const [bmPrecioMax, setBmPrecioMax]                   = useState('');
+  const [bmSavingPrecio, setBmSavingPrecio]             = useState(false);
 
   // AI Feedback (aprendizaje automático)
   const [aiFeedback, setAiFeedback]               = useState<AIFeedbackRow[]>([]);
@@ -895,6 +951,18 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
       .then(setNeeds)
       .catch(() => setNeeds([]))
       .finally(() => setNeedsLoading(false));
+  }, [isAdmin, section]);
+  useEffect(() => {
+    if (!isAdmin || section !== 'base_maestra') return;
+    setBmLoading(true);
+    Promise.all([
+      adminLoadActuaciones(bmOficioFilter === 'all' ? undefined : bmOficioFilter, bmSearch || undefined),
+      adminGetActuacionesStats(),
+    ])
+      .then(([rows, stats]) => { setBmActuaciones(rows); setBmStats(stats); })
+      .catch(() => {})
+      .finally(() => setBmLoading(false));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAdmin, section]);
   useEffect(() => {
     if (!isAdmin || section !== 'ai_feedback') return;
@@ -1303,6 +1371,7 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     { id: 'automations'   as const, label: 'Automaciones',    Icon: Zap },
     { id: 'suggestions'   as const, label: 'Sugerencias',     Icon: Globe,       badge: pendingSuggestions },
     { id: 'needs'         as const, label: 'Necesidades',     Icon: HelpCircle },
+    { id: 'base_maestra'  as const, label: 'Base Maestra',     Icon: Brain },
     { id: 'ai_feedback'   as const, label: 'IA Feedback',      Icon: Brain },
     { id: 'ia_normativa'  as const, label: 'IA Normativa',     Icon: BookOpen },
     { id: 'docs'          as const, label: 'Documentación',    Icon: ExternalLink },
@@ -1355,6 +1424,16 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
     else if (section === 'automations') {
       adminLoadAutoConfig().then(cfg => { setAutoConfig(cfg); setNtfyTopicInput(cfg.ntfy_topic); }).catch(() => {});
       adminGetTrialsExpiringSoon(7).then(setExpiringTrials).catch(() => {});
+    }
+    else if (section === 'base_maestra') {
+      setBmLoading(true);
+      Promise.all([
+        adminLoadActuaciones(bmOficioFilter === 'all' ? undefined : bmOficioFilter, bmSearch || undefined),
+        adminGetActuacionesStats(),
+      ])
+        .then(([rows, stats]) => { setBmActuaciones(rows); setBmStats(stats); })
+        .catch(() => {})
+        .finally(() => setBmLoading(false));
     }
     else { loadOrgs(); loadWeeklyQuotes(); }
   };
@@ -3122,13 +3201,31 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                               <button
                                 onClick={async () => {
                                   try {
+                                    // Extraer keywords del transcript (palabras ≥4 chars)
+                                    const words = (row.transcript ?? '')
+                                      .toLowerCase()
+                                      .split(/[\s,;.!?()]+/)
+                                      .filter((w: string) => w.length >= 4);
+                                    const newKeywords = [...new Set(words)];
+
+                                    // Reforzar cada actuación KB con las keywords del transcript
+                                    const actuacionIds: string[] = row.actuacion_ids ?? [];
+                                    if (actuacionIds.length > 0) {
+                                      await Promise.all(
+                                        actuacionIds.map(id =>
+                                          applyActuacionLearning(id, [], newKeywords),
+                                        ),
+                                      );
+                                    }
+
                                     await adminMarkFeedbackApplied(row.id);
                                     setAiFeedback(prev => prev.map(x => x.id === row.id ? { ...x, applied: true } : x));
-                                  } catch { toast('error', 'Error al marcar como aplicado'); }
+                                    toast('success', `Aprendizaje aplicado a ${actuacionIds.length} actuación(es)`);
+                                  } catch { toast('error', 'Error al aplicar aprendizaje'); }
                                 }}
                                 className="flex items-center gap-1 px-2 py-1 rounded text-[10px] font-bold cursor-pointer bg-slate-700 border border-slate-600 text-slate-300 hover:bg-emerald-900/40 hover:border-emerald-700 hover:text-emerald-300 transition-colors"
                               >
-                                <CheckCircle className="h-3 w-3" /> Aplicado
+                                <CheckCircle className="h-3 w-3" /> Aplicar
                               </button>
                             )}
                           </div>
@@ -3176,7 +3273,11 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
                               {row.actuacion_ids?.length > 0 && (
                                 <div className="mt-3">
                                   <p className="text-[10px] font-bold text-yellow-400 mb-1 uppercase tracking-wider">Actuaciones KB usadas</p>
-                                  <p className="text-[11px] text-slate-400">{row.actuacion_ids.length} actuación(es)</p>
+                                  <div className="flex flex-wrap gap-1 mt-1">
+                                    {row.actuacion_ids.map((id: string) => (
+                                      <span key={id} className="text-[9px] font-mono bg-yellow-900/30 border border-yellow-700/40 text-yellow-300 px-1.5 py-0.5 rounded">{id}</span>
+                                    ))}
+                                  </div>
                                 </div>
                               )}
                             </div>
@@ -3449,6 +3550,246 @@ export default function AdminView({ setCurrentPage, session }: AdminViewProps) {
         {section === 'suppliers' && (
           <AdminSuppliersSection toast={toast} />
         )}
+
+        {/* ════════════════════════════════════════════════════════
+            SECCIÓN: BASE MAESTRA IA
+        ════════════════════════════════════════════════════════ */}
+        {section === 'base_maestra' && (() => {
+          const oficios = ['all', ...Array.from(new Set(bmStats.map(s => s.oficio))).sort()];
+          const filtered = bmActuaciones.filter(a => {
+            if (bmOficioFilter !== 'all' && a.oficio !== bmOficioFilter) return false;
+            if (bmSearch && !a.actuacion_id.toLowerCase().includes(bmSearch.toLowerCase()) &&
+                !a.observaciones.toLowerCase().includes(bmSearch.toLowerCase())) return false;
+            return true;
+          });
+
+          const totalActuaciones = bmStats.reduce((s, r) => s + r.total, 0);
+          const totalActivas     = bmStats.reduce((s, r) => s + r.activas, 0);
+          const totalConPrecio   = bmStats.reduce((s, r) => s + r.con_precio, 0);
+
+          const handleToggleActivo = async (a: ActuacionAdminRow) => {
+            try {
+              await adminToggleActuacionActivo(a.id, !a.activo);
+              setBmActuaciones(prev => prev.map(r => r.id === a.id ? { ...r, activo: !a.activo } : r));
+              toast('success', a.activo ? 'Actuación desactivada' : 'Actuación activada');
+            } catch { toast('error', 'Error al actualizar'); }
+          };
+
+          const handleSavePrecio = async () => {
+            if (!bmEditPrecio) return;
+            setBmSavingPrecio(true);
+            try {
+              const min = bmPrecioMin ? parseFloat(bmPrecioMin) : null;
+              const max = bmPrecioMax ? parseFloat(bmPrecioMax) : null;
+              await adminUpdateActuacionPrecios(bmEditPrecio.id, min, max);
+              setBmActuaciones(prev => prev.map(r => r.id === bmEditPrecio.id ? { ...r, precio_min: min, precio_max: max } : r));
+              toast('success', 'Precios actualizados');
+              setBmEditPrecio(null);
+            } catch { toast('error', 'Error al guardar precios'); }
+            finally { setBmSavingPrecio(false); }
+          };
+
+          return (
+            <div className="space-y-5">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-bold text-white">Base Maestra IA</h2>
+                <button
+                  onClick={() => reloadCurrent()}
+                  className="flex items-center gap-1.5 text-xs bg-slate-800 border border-slate-700 text-slate-300 hover:text-white px-3 py-1.5 rounded-lg"
+                >
+                  <RefreshCw className={`h-3.5 w-3.5 ${bmLoading ? 'animate-spin' : ''}`} /> Actualizar
+                </button>
+              </div>
+
+              {/* KPIs */}
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { label: 'Total actuaciones', value: totalActuaciones, color: 'text-blue-400' },
+                  { label: 'Activas',            value: totalActivas,     color: 'text-green-400' },
+                  { label: 'Con precio ref.',    value: totalConPrecio,   color: 'text-yellow-400' },
+                ].map(k => (
+                  <div key={k.label} className="bg-slate-800 border border-slate-700 rounded-xl p-4 text-center">
+                    <div className={`text-2xl font-bold ${k.color}`}>{k.value}</div>
+                    <div className="text-xs text-slate-400 mt-1">{k.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Filtros */}
+              <div className="flex gap-2 flex-wrap">
+                <select
+                  value={bmOficioFilter}
+                  onChange={e => setBmOficioFilter(e.target.value)}
+                  className="bg-slate-800 border border-slate-700 text-slate-300 text-xs rounded-lg px-3 py-1.5 focus:outline-none"
+                >
+                  {oficios.map(o => (
+                    <option key={o} value={o}>{o === 'all' ? 'Todos los oficios' : o}</option>
+                  ))}
+                </select>
+                <input
+                  value={bmSearch}
+                  onChange={e => setBmSearch(e.target.value)}
+                  placeholder="Buscar actuacion_id u observaciones…"
+                  className="flex-1 min-w-[200px] bg-slate-800 border border-slate-700 text-slate-300 text-xs rounded-lg px-3 py-1.5 focus:outline-none placeholder-slate-500"
+                />
+                <button
+                  onClick={() => reloadCurrent()}
+                  className="text-xs bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg"
+                >Filtrar</button>
+              </div>
+
+              {/* Tabla */}
+              {bmLoading ? (
+                <div className="text-center py-12 text-slate-500 text-sm">Cargando…</div>
+              ) : filtered.length === 0 ? (
+                <div className="text-center py-12 text-slate-500 text-sm">Sin resultados</div>
+              ) : (
+                <div className="space-y-1.5">
+                  {filtered.map(a => {
+                    const isOpen = bmExpanded === a.id;
+                    return (
+                      <div key={a.id} className={`border rounded-xl overflow-hidden ${a.activo ? 'border-slate-700 bg-slate-800/60' : 'border-slate-700/40 bg-slate-900/40 opacity-60'}`}>
+                        <div className="flex items-center gap-3 px-4 py-2.5">
+                          {/* Toggle activo */}
+                          <button
+                            onClick={() => handleToggleActivo(a)}
+                            title={a.activo ? 'Desactivar' : 'Activar'}
+                            className={`w-4 h-4 rounded-full flex-shrink-0 border-2 ${a.activo ? 'bg-green-500 border-green-500' : 'bg-transparent border-slate-500'}`}
+                          />
+                          {/* ID + oficio */}
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-mono text-white truncate">{a.actuacion_id}</p>
+                            <p className="text-[10px] text-slate-500">{a.oficio} · {a.unidad}</p>
+                          </div>
+                          {/* Precio */}
+                          <button
+                            onClick={() => { setBmEditPrecio(a); setBmPrecioMin(a.precio_min?.toString() ?? ''); setBmPrecioMax(a.precio_max?.toString() ?? ''); }}
+                            className={`text-[10px] px-2 py-0.5 rounded border ${a.precio_min != null ? 'border-yellow-600/50 text-yellow-400 bg-yellow-900/20' : 'border-slate-600 text-slate-500'} hover:opacity-80`}
+                          >
+                            {a.precio_min != null ? `${a.precio_min}–${a.precio_max ?? '?'} €` : '+ precio'}
+                          </button>
+                          {/* Usos */}
+                          {a.usage_count ? (
+                            <span className="text-[10px] text-blue-400 bg-blue-900/30 border border-blue-700/30 px-1.5 py-0.5 rounded">
+                              {a.usage_count} usos
+                            </span>
+                          ) : null}
+                          {/* Expand */}
+                          <button
+                            onClick={() => setBmExpanded(isOpen ? null : a.id)}
+                            className="text-slate-500 hover:text-white"
+                          >
+                            <ChevronRight className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-90' : ''}`} />
+                          </button>
+                        </div>
+
+                        {isOpen && (
+                          <div className="border-t border-slate-700 px-4 py-3 space-y-2">
+                            <p className="text-[11px] text-slate-300">{a.observaciones}</p>
+                            <div className="grid grid-cols-2 gap-3">
+                              <div>
+                                <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Partidas oblig.</p>
+                                <div className="flex flex-wrap gap-1">
+                                  {a.partidas_obligatorias.map(p => (
+                                    <span key={p} className="text-[9px] bg-blue-900/40 border border-blue-700/30 text-blue-300 px-1.5 py-0.5 rounded font-mono">{p}</span>
+                                  ))}
+                                </div>
+                              </div>
+                              <div>
+                                <p className="text-[10px] font-bold text-slate-400 uppercase mb-1">Keywords ({a.palabras_clave.length})</p>
+                                <div className="flex flex-wrap gap-1">
+                                  {a.palabras_clave.slice(0, 8).map(k => (
+                                    <span key={k} className="text-[9px] bg-slate-700 text-slate-400 px-1.5 py-0.5 rounded">{k}</span>
+                                  ))}
+                                  {a.palabras_clave.length > 8 && <span className="text-[9px] text-slate-500">+{a.palabras_clave.length - 8}</span>}
+                                </div>
+                              </div>
+                            </div>
+                            {a.reglas_calculo && a.reglas_calculo !== 'aprendido_automaticamente' && (
+                              <p className="text-[10px] text-slate-500 italic">{a.reglas_calculo}</p>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Stats por oficio */}
+              {bmStats.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-300 mb-2">Por oficio</h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs">
+                      <thead>
+                        <tr className="text-slate-500 border-b border-slate-800">
+                          <th className="text-left py-1 pr-4">Oficio</th>
+                          <th className="text-right pr-4">Total</th>
+                          <th className="text-right pr-4">Activas</th>
+                          <th className="text-right">Con precio</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {bmStats.map(s => (
+                          <tr key={s.oficio} className="border-b border-slate-800/50 hover:bg-slate-800/30">
+                            <td className="py-1 pr-4 text-slate-300 font-mono">{s.oficio}</td>
+                            <td className="text-right pr-4 text-slate-400">{s.total}</td>
+                            <td className="text-right pr-4 text-green-400">{s.activas}</td>
+                            <td className="text-right text-yellow-400">{s.con_precio}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+
+              {/* Modal editar precio */}
+              {bmEditPrecio && (
+                <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
+                  <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-sm space-y-4">
+                    <h3 className="text-sm font-bold text-white">Precio referencia</h3>
+                    <p className="text-xs text-slate-400 font-mono">{bmEditPrecio.actuacion_id}</p>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="text-[10px] text-slate-400 block mb-1">Precio mín (€/{bmEditPrecio.unidad})</label>
+                        <input
+                          type="number" min="0" step="0.01"
+                          value={bmPrecioMin}
+                          onChange={e => setBmPrecioMin(e.target.value)}
+                          className="w-full bg-slate-800 border border-slate-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none"
+                          placeholder="0.00"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-slate-400 block mb-1">Precio máx (€/{bmEditPrecio.unidad})</label>
+                        <input
+                          type="number" min="0" step="0.01"
+                          value={bmPrecioMax}
+                          onChange={e => setBmPrecioMax(e.target.value)}
+                          className="w-full bg-slate-800 border border-slate-700 text-white text-sm rounded-lg px-3 py-2 focus:outline-none"
+                          placeholder="0.00"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => setBmEditPrecio(null)}
+                        className="flex-1 bg-slate-800 border border-slate-700 text-slate-300 text-sm rounded-lg py-2"
+                      >Cancelar</button>
+                      <button
+                        onClick={handleSavePrecio}
+                        disabled={bmSavingPrecio}
+                        className="flex-1 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold rounded-lg py-2 disabled:opacity-50"
+                      >{bmSavingPrecio ? 'Guardando…' : 'Guardar'}</button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })()}
 
         </div>{/* max-w-6xl */}
         </main>

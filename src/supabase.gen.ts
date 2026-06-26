@@ -7356,6 +7356,7 @@ export type Database = {
       }
       trade_actuaciones: {
         Row: {
+          activo: boolean
           actuacion_id: string
           created_at: string | null
           id: string
@@ -7365,12 +7366,15 @@ export type Database = {
           palabras_clave: string[]
           partidas_auxiliares: string[]
           partidas_obligatorias: string[]
+          precio_max: number | null
+          precio_min: number | null
           reglas_calculo: string
           unidad: string
           updated_at: string | null
           usage_count: number | null
         }
         Insert: {
+          activo?: boolean
           actuacion_id: string
           created_at?: string | null
           id?: string
@@ -7380,12 +7384,15 @@ export type Database = {
           palabras_clave?: string[]
           partidas_auxiliares?: string[]
           partidas_obligatorias?: string[]
+          precio_max?: number | null
+          precio_min?: number | null
           reglas_calculo?: string
           unidad?: string
           updated_at?: string | null
           usage_count?: number | null
         }
         Update: {
+          activo?: boolean
           actuacion_id?: string
           created_at?: string | null
           id?: string
@@ -7395,6 +7402,8 @@ export type Database = {
           palabras_clave?: string[]
           partidas_auxiliares?: string[]
           partidas_obligatorias?: string[]
+          precio_max?: number | null
+          precio_min?: number | null
           reglas_calculo?: string
           unidad?: string
           updated_at?: string | null

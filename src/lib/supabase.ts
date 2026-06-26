@@ -70,6 +70,7 @@ export interface TradeQuote {
   total_con_iva: number;
   voice_note_url?: string;
   whatsapp_sent_at?: string;
+  kb_actuaciones?: string[] | null;
   created_at: string;
   updated_at: string;
   trade_quote_items?: TradeQuoteItem[];
@@ -586,6 +587,7 @@ export async function saveQuote(
   clientId: string,
   descripcion: string,
   items: Pick<TradeQuoteItem, 'descripcion' | 'tipo' | 'cantidad' | 'precio_unitario' | 'precio_material' | 'supplier_key' | 'supplier_name' | 'supplier_ref' | 'catalog_variant_id'>[],
+  kbActuaciones?: string[],
 ): Promise<TradeQuote> {
   const { count } = await supabase
     .from('trade_quotes')
@@ -595,9 +597,12 @@ export async function saveQuote(
   const numero = `PRE-${new Date().getFullYear()}-${String((count ?? 0) + 1).padStart(3, '0')}`;
   const totalNeto = items.reduce((s, i) => s + i.cantidad * i.precio_unitario, 0);
 
+  const insertPayload: Record<string, unknown> = { org_id: orgId, client_id: clientId, numero, descripcion, total_neto: totalNeto };
+  if (kbActuaciones && kbActuaciones.length > 0) insertPayload.kb_actuaciones = kbActuaciones;
+
   const { data: quote, error: qErr } = await supabase
     .from('trade_quotes')
-    .insert({ org_id: orgId, client_id: clientId, numero, descripcion, total_neto: totalNeto })
+    .insert(insertPayload)
     .select()
     .single();
   if (qErr) throw qErr;
@@ -2378,6 +2383,27 @@ export async function adminSetOrgFlag(
     .update({ [flag]: value, updated_at: new Date().toISOString() })
     .eq('id', orgId);
   if (error) throw error;
+}
+
+// ── Admin: últimos presupuestos de una org ────────────────────────────────
+
+export interface AdminOrgRecentQuote {
+  id: string;
+  numero: string;
+  fecha: string;
+  estado: string;
+  total_con_iva: number;
+  descripcion?: string;
+}
+
+export async function adminLoadOrgRecentQuotes(orgId: string): Promise<AdminOrgRecentQuote[]> {
+  const { data } = await supabase
+    .from('trade_quotes')
+    .select('id,numero,fecha,estado,total_con_iva,descripcion')
+    .eq('org_id', orgId)
+    .order('created_at', { ascending: false })
+    .limit(5);
+  return (data ?? []) as AdminOrgRecentQuote[];
 }
 
 // ── Admin: automatizaciones ────────────────────────────────────────────────

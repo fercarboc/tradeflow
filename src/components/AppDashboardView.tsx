@@ -68,6 +68,9 @@ import {
   Loader2,
   Truck,
   ShoppingCart,
+  Bell,
+  Home,
+  MapPin,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ADMIN_EMAIL } from '../lib/constants';
@@ -583,7 +586,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       const data = await loadDashboard(org.id);
       // Always replace demo clients with real data (even if empty list)
       setClientes(data.clients.map(c => ({ id: c.id, nombre: c.nombre, telefono: c.telefono ?? '', email: c.email ?? '', direccion: c.direccion ?? '', obrasActivas: c.obras_activas, totalFacturado: c.total_facturado })));
-      setPresupuestos(data.quotes.map(q => ({ id: q.numero, dbId: q.id, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, iva_pct: q.iva_pct, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '' })));
+      setPresupuestos(data.quotes.map(q => ({ id: q.numero, dbId: q.id, nombreCliente: q.client_id ? (data.clients.find(c => c.id === q.client_id)?.nombre ?? '') : '', descripcion: q.descripcion ?? '', partidas: (q.trade_quote_items ?? []).map(i => ({ descripcion: i.descripcion, tipo: i.tipo as 'material' | 'mano_de_obra', cantidad: i.cantidad, precioUnitario: i.precio_unitario, total: i.total })), total: q.total_neto, iva_pct: q.iva_pct, fecha: q.fecha, estado: q.estado as any, telefonoCliente: '', emailCliente: '', kbActuaciones: q.kb_actuaciones ?? undefined })));
       setFacturas(data.invoices.map(f => ({ id: f.id, numeroFactura: f.numero, nombreCliente: f.client_id ? (data.clients.find(c => c.id === f.client_id)?.nombre ?? '') : (f.concepto?.split('—')[1]?.trim() ?? ''), idPresupuesto: f.quote_id ?? '', importe: f.subtotal, fecha: f.fecha, fechaVencimiento: f.fecha_vencimiento ?? '', estado: f.estado as any, concepto: f.concepto ?? undefined, esMantenimineto: !!f.contract_id })));
       if (org) {
         setOrgId(org.id);
@@ -1139,6 +1142,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     quote: AIQuote,
     actuacionIds: string[] = [],
     kbScore: number = 0,
+    webSearchUsed: boolean = false,
   ) => {
     try {
       // Auto-detectar si es una solicitud de mantenimiento
@@ -1188,10 +1192,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         (typeof quote.resumen === 'string' ? quote.resumen : quote.resumen?.tipo_presupuesto || quote.resumen?.texto_original) || transcript
       ).slice(0, 80);
 
-      // Informar si se usó búsqueda web
-      const usedWebSearch = (quote.partidas_nuevas_detectadas ?? []).length > 0;
-      const toastMsg = usedWebSearch
-        ? `IA procesada ✓ — ${quote.partidas_nuevas_detectadas!.length} partidas nuevas encontradas en internet`
+      // Informar fuente usada: Base Maestra > Web search > Solo IA
+      const toastMsg = actuacionIds.length > 0
+        ? `IA procesada ✓ — Base Maestra (${actuacionIds.length} actuación${actuacionIds.length > 1 ? 'es' : ''})`
+        : webSearchUsed
+        ? 'IA procesada ✓ — reforzada con búsqueda web'
         : 'Voz procesada por IA ✓';
 
       setWizardQuote(prev => ({ ...prev, descripcion: desc, partidas, total, estado: 'Borrador' as const }));
@@ -1291,8 +1296,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         }
         throw new Error(err.error ?? `HTTP ${res.status}`);
       }
-      const result: { transcript: string; quote: AIQuote; actuacion_ids_matched?: string[] } = await res.json();
-      handleVoiceResult(result.transcript, result.quote, result.actuacion_ids_matched ?? []);
+      const result: { transcript: string; quote: AIQuote; actuacion_ids_matched?: string[]; kb_score?: number; web_search_used?: boolean } = await res.json();
+      handleVoiceResult(result.transcript, result.quote, result.actuacion_ids_matched ?? [], result.kb_score ?? 0, result.web_search_used ?? false);
     } catch (e: any) {
       clearTimeout(fetchTimeout);
       const isAbort = e.name === 'AbortError';
@@ -1526,7 +1531,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     autoLearnPrices(finalQuote.partidas ?? [], wizardOrigin);
 
     // ── Aprendizaje IA: comparar partidas finales con propuesta original ──────
+    let kbActuacionesSaved: string[] = [];
     if (aiLearningData && orgId && isLiveMode) {
+      kbActuacionesSaved = aiLearningData.actuacionIds;
       const finalDescripciones = new Set((finalQuote.partidas ?? []).map(p => p.descripcion.toLowerCase().trim()));
       const aiDescripciones = new Set(aiLearningData.aiPartidas.map(p => p.descripcion.toLowerCase().trim()));
 
@@ -1594,8 +1601,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           const dbQuote = await saveQuote(
             orgId, clientId, finalQuote.descripcion ?? '',
             (finalQuote.partidas ?? []).map(p => ({ descripcion: p.descripcion, tipo: p.tipo, cantidad: p.cantidad, precio_unitario: p.precioUnitario })),
+            kbActuacionesSaved.length > 0 ? kbActuacionesSaved : undefined,
           );
-          savedQuote = { ...finalQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'] };
+          savedQuote = { ...finalQuote, id: dbQuote.numero, dbId: dbQuote.id, total: dbQuote.total_neto, iva_pct: dbQuote.iva_pct, fecha: dbQuote.fecha, estado: dbQuote.estado as Presupuesto['estado'], kbActuaciones: dbQuote.kb_actuaciones ?? undefined };
         } catch (e) { console.error('Error guardando presupuesto:', e); }
       }
     }
@@ -1651,8 +1659,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           if (err.plan_restriction) { showToast(err.error ?? 'Tu plan no permite esta función', 'error'); setVoiceStep('idle'); setShowUpgradeModal(true); return; }
           throw new Error(err.error ?? `HTTP ${res.status}`);
         }
-        const result: { transcript: string; quote: AIQuote; actuacion_ids_matched?: string[] } = await res.json();
-        handleVoiceResult(result.transcript || text, result.quote, result.actuacion_ids_matched ?? []);
+        const result: { transcript: string; quote: AIQuote; actuacion_ids_matched?: string[]; kb_score?: number; web_search_used?: boolean } = await res.json();
+        handleVoiceResult(result.transcript || text, result.quote, result.actuacion_ids_matched ?? [], result.kb_score ?? 0, result.web_search_used ?? false);
       } catch (e: unknown) {
         clearTimeout(textTimeout);
         const isAbort = (e as Error).name === 'AbortError';
@@ -3045,74 +3053,38 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       >
         {/* ── APP HEADER ── */}
         <div
-          className="bg-[#0B0F14] border-b border-white/5 flex items-center justify-between shrink-0 px-5"
-          style={{ paddingTop: isNativeDevice ? 'calc(env(safe-area-inset-top, 0px) + 14px)' : '14px', paddingBottom: '14px' }}
+          className="bg-white border-b border-gray-100 flex items-center justify-between shrink-0 px-4"
+          style={{ paddingTop: isNativeDevice ? 'calc(env(safe-area-inset-top, 0px) + 12px)' : '12px', paddingBottom: '12px' }}
         >
-          {/* Logo + brand */}
-          <div className="flex items-center gap-3">
-            {isTecnico ? (
-              <div className="w-9 h-9 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-600/40 shrink-0">
-                <span className="text-white font-black text-[11px] tracking-tight">{(workerProfile?.nombre?.[0] ?? 'T').toUpperCase()}</span>
-              </div>
-            ) : (
-              <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/40 shrink-0">
-                <span className="text-white font-black text-[11px] tracking-tight">TF</span>
-              </div>
-            )}
-            <div>
-              <span className="text-white font-black text-sm tracking-tight">
-                {isTecnico ? (workerProfile?.nombre ?? 'Técnico') : <>{`TrabFlow `}<span className="text-blue-400">AI</span></>}
-              </span>
-              <div className="flex items-center gap-1 mt-0.5">
-                {isTecnico ? (
-                  <span className="text-[8.5px] text-emerald-400 font-mono font-bold">TÉCNICO · {empresaAjustes.nombre}</span>
-                ) : isLiveMode ? (
-                  <span className="text-[8.5px] text-emerald-400 font-mono font-bold flex items-center gap-1">
-                    <span className="w-1 h-1 bg-emerald-400 rounded-full inline-block animate-pulse" />
-                    EN VIVO
-                  </span>
-                ) : (
-                  <span className="text-[8.5px] text-slate-500 font-mono font-bold">DEMO</span>
-                )}
-              </div>
+          <button
+            onClick={() => setMobileTab('ajustes')}
+            className="w-9 h-9 flex items-center justify-center rounded-full text-gray-500 active:bg-gray-100 cursor-pointer"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+
+          <div className="text-center">
+            <div className="font-black text-lg tracking-tight text-gray-900 leading-none">
+              TRAB<span className="text-blue-600">FLOW</span>
+            </div>
+            <div className="text-[10px] text-gray-400 font-medium mt-0.5 leading-none">
+              {isTecnico ? (workerProfile?.nombre ?? 'Técnico') : (empresaAjustes.nombre || 'Instalaciones')}
             </div>
           </div>
 
-          {/* Derecha: nuevo presupuesto + ajustes + logout */}
-          <div className="flex items-center gap-2">
-            {isTecnico && (
-              <button
-                onClick={() => setMobileTab('asistente')}
-                className="flex items-center gap-1.5 bg-violet-900/60 border border-violet-500/40 active:bg-violet-900 text-violet-300 font-bold text-[11px] px-2.5 py-2 rounded-xl cursor-pointer transition-colors"
-              >
-                <BookOpen className="w-3.5 h-3.5" />
-                Normativa
-              </button>
-            )}
-            <button
-              onClick={() => { setMobileTab('trabajos'); setNewJobTrigger(p => p + 1); }}
-              className="flex items-center gap-1.5 bg-violet-600 active:bg-violet-700 text-white font-bold text-[11px] px-3 py-2 rounded-xl cursor-pointer transition-colors"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              {isTecnico ? 'Nuevo trabajo' : 'Añadir Trabajo'}
-            </button>
-            {!isTecnico && (
-              <button
-                onClick={() => setMobileTab('ajustes')}
-                className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 active:bg-white/10 text-slate-400"
-              >
-                <SettingsIcon className="w-4 h-4" />
-              </button>
-            )}
+          <div className="flex items-center gap-1">
             {isLiveMode && (
               <button
                 onClick={handleLogout}
-                className="w-9 h-9 flex items-center justify-center rounded-full bg-white/5 active:bg-white/10 text-red-400"
+                className="w-9 h-9 flex items-center justify-center rounded-full text-gray-400 active:bg-gray-100 cursor-pointer"
                 title="Cerrar sesión"
               >
                 <LogOut className="w-4 h-4" />
               </button>
             )}
+            <button className="relative w-9 h-9 flex items-center justify-center rounded-full text-gray-500 active:bg-gray-100 cursor-pointer">
+              <Bell className="w-5 h-5" />
+            </button>
           </div>
         </div>
 
@@ -3286,7 +3258,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {/* BOTTOM TAB BAR */}
         <div className="absolute bottom-0 left-0 right-0 z-30">
           <div
-            className="bg-[#0B0F14] border-t border-white/8 flex items-stretch select-none"
+            className="bg-white border-t border-gray-100 flex items-stretch select-none shadow-[0_-1px_8px_rgba(0,0,0,0.06)]"
             style={{
               paddingBottom: isNativeDevice ? 'env(safe-area-inset-bottom, 0px)' : '0px',
               minHeight: isNativeDevice ? 'calc(60px + env(safe-area-inset-bottom, 0px))' : '60px',
@@ -3294,19 +3266,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           >
             {isTecnico ? (
               <>
-                {MobileTabButton({ tab: 'trabajos', icon: <Briefcase className="w-5 h-5" />, label: 'Mis Trabajos' })}
-                {MobileTabButton({ tab: 'ruta', icon: <Navigation className="w-5 h-5" />, label: 'Mi Ruta' })}
-                {MobileTabButton({ tab: 'asistente', icon: <BookOpen className="w-5 h-5" />, label: 'Normativa' })}
+                {MobileTabButton({ tab: 'trabajos', icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
+                {MobileTabButton({ tab: 'ruta',     icon: <Navigation className="w-5 h-5" />, label: 'Mi Ruta' })}
+                {MobileTabButton({ tab: 'asistente',icon: <BookOpen   className="w-5 h-5" />, label: 'Normativa' })}
               </>
             ) : (
-              <div className="overflow-x-auto scrollbar-hide flex flex-1" style={{ WebkitOverflowScrolling: 'touch' }}>
-                {MobileTabButton({ tab: 'inicio',        icon: <TrendingUp className="w-5 h-5" />, label: 'Inicio',     carousel: true })}
-                {MobileTabButton({ tab: 'trabajos',      icon: <Briefcase  className="w-5 h-5" />, label: 'Trabajos',  carousel: true })}
-                {MobileTabButton({ tab: 'presupuestos',  icon: <FileText   className="w-5 h-5" />, label: 'Presup.',   carousel: true })}
-                {MobileTabButton({ tab: 'asistente',     icon: <BookOpen   className="w-5 h-5" />, label: 'Normativa', carousel: true })}
-                {MobileTabButton({ tab: 'catalogo',      icon: <Package    className="w-5 h-5" />, label: 'Catálogo',  carousel: true })}
-                {MobileTabButton({ tab: 'clientes',      icon: <Users      className="w-5 h-5" />, label: 'Clientes',  carousel: true })}
-              </div>
+              <>
+                {MobileTabButton({ tab: 'inicio',       icon: <Home     className="w-5 h-5" />, label: 'Inicio' })}
+                {MobileTabButton({ tab: 'presupuestos', icon: <FileText className="w-5 h-5" />, label: 'Presupuestos' })}
+                {MobileTabButton({ tab: 'facturas',     icon: <Receipt  className="w-5 h-5" />, label: 'Facturas' })}
+                {MobileTabButton({ tab: 'trabajos',     icon: <Briefcase className="w-5 h-5" />, label: 'Trabajos' })}
+                {MobileTabButton({ tab: 'clientes',     icon: <Users    className="w-5 h-5" />, label: 'Clientes' })}
+              </>
             )}
           </div>
         </div>
@@ -3591,19 +3562,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     );
 
     // Helpers botones navegación móvil
-    function MobileTabButton({ tab, icon, label, carousel = false }: { tab: 'inicio' | 'trabajos' | 'presupuestos' | 'catalogo' | 'clientes' | 'ruta' | 'asistente'; icon: React.ReactNode; label: string; carousel?: boolean }) {
+    function MobileTabButton({ tab, icon, label }: { tab: 'inicio' | 'trabajos' | 'presupuestos' | 'catalogo' | 'clientes' | 'ruta' | 'asistente' | 'facturas'; icon: React.ReactNode; label: string }) {
       const isActive = mobileTab === tab;
       return (
         <button
-          onClick={() => { setMobileTab(tab); setShowFloatingMenu(false); }}
-          className={`${carousel ? 'flex-none w-[68px]' : 'flex-1 min-w-[60px]'} flex flex-col items-center justify-center gap-1 py-1.5 px-1 cursor-pointer transition-all active:scale-95`}
+          onClick={() => { setMobileTab(tab as typeof mobileTab); setShowFloatingMenu(false); }}
+          className="flex-1 flex flex-col items-center justify-center gap-0.5 py-2 px-1 cursor-pointer transition-all active:scale-95 relative"
         >
-          <div className={`w-10 h-10 rounded-2xl flex items-center justify-center transition-all duration-200 ${
-            isActive ? 'bg-blue-600 shadow-lg shadow-blue-500/40' : ''
-          }`}>
-            <span className={`transition-colors ${isActive ? 'text-white' : 'text-slate-500'}`}>{icon}</span>
-          </div>
-          <span className={`text-[9.5px] font-semibold tracking-wide transition-colors ${isActive ? 'text-blue-400' : 'text-slate-600'}`}>{label}</span>
+          {isActive && (
+            <span className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-blue-600 rounded-full" />
+          )}
+          <span className={`transition-colors ${isActive ? 'text-blue-600' : 'text-gray-400'}`}>{icon}</span>
+          <span className={`text-[10px] font-semibold transition-colors leading-tight ${isActive ? 'text-blue-600' : 'text-gray-400'}`}>{label}</span>
         </button>
       );
     }
@@ -3615,421 +3585,125 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     const hour = now.getHours();
     const greeting = hour < 12 ? 'Buenos días' : hour < 20 ? 'Buenas tardes' : 'Buenas noches';
     const shortName = empresaAjustes.nombre.split(' ')[0] || 'Instalador';
-    const todayStr = now.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
     const todayISO = now.toISOString().split('T')[0];
     const todayJobs = jobs.filter(j => j.fecha_inicio === todayISO && j.estado !== 'cancelado');
-
-    // Próximos 7 días (excluye hoy)
-    const next7Days = Array.from({ length: 7 }, (_, i) => {
-      const d = new Date(now);
-      d.setDate(d.getDate() + i + 1);
-      return d.toISOString().split('T')[0];
-    });
-    const upcomingJobs = jobs
-      .filter(j => j.fecha_inicio && next7Days.includes(j.fecha_inicio) && j.estado !== 'cancelado' && j.estado !== 'completado')
-      .sort((a, b) => (a.fecha_inicio ?? '') > (b.fecha_inicio ?? '') ? 1 : -1);
-
-    // Visitas pendientes (sin completar)
-    const visitasPendientes = jobs.filter(j => j.tipo === 'visita' && j.estado !== 'completado' && j.estado !== 'cancelado');
-
-    // Presupuestos enviados sin respuesta
-    const presupuestosEnviados = presupuestos.filter(p => p.estado === 'Enviado');
-
-    const draft = presupuestos.find(p => p.estado === 'Borrador') ?? null;
     const aceptados = presupuestos.filter(p => p.estado === 'Aceptado');
-    const recent = presupuestos.filter(p => p.estado !== 'Borrador').slice(0, 4);
-
-    const statusMeta = (estado: string) => {
-      if (estado === 'Aceptado')  return { dot: 'bg-emerald-500', color: 'text-emerald-400', bg: 'bg-emerald-500/10', label: 'Aceptado' };
-      if (estado === 'Facturado') return { dot: 'bg-indigo-500',  color: 'text-indigo-400',  bg: 'bg-indigo-500/10',  label: 'Facturado' };
-      if (estado === 'Enviado')   return { dot: 'bg-blue-500',    color: 'text-blue-400',    bg: 'bg-blue-500/10',    label: 'Enviado' };
-      return { dot: 'bg-amber-400', color: 'text-amber-400', bg: 'bg-amber-500/10', label: estado };
-    };
 
     return (
-      <div className="space-y-5 pb-2">
+      <div className="pb-6">
 
-        {/* ── GREETING + FECHA ── */}
-        <div className="space-y-1">
-          <p className="text-xs font-semibold text-slate-500 capitalize">{todayStr}</p>
-          <h2 className="text-2xl font-black text-white leading-tight">
-            {greeting}, {shortName}
-          </h2>
-          {presupuestosPendientesCount > 0 ? (
-            <p className="text-sm text-amber-400 font-medium mt-1">
-              {presupuestosPendientesCount} presupuesto{presupuestosPendientesCount !== 1 ? 's' : ''} pendiente{presupuestosPendientesCount !== 1 ? 's' : ''}
-            </p>
-          ) : (
-            <p className="text-sm text-emerald-400 font-medium mt-1">Todo al día ✓</p>
-          )}
+        {/* Greeting */}
+        <div className="pb-5">
+          <h2 className="text-2xl font-black text-gray-900 leading-tight">{greeting}, {shortName}</h2>
+          <p className="text-sm text-gray-400 mt-1">¿Qué quieres hacer hoy?</p>
         </div>
 
-        {/* ── KPI STRIP ── */}
-        <div className="grid grid-cols-3 gap-2.5">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-1">
-            <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Hoy</p>
-            <p className="text-xl font-black text-white leading-none">{todayJobs.length}</p>
-            <p className="text-[10px] text-slate-500">trabajo{todayJobs.length !== 1 ? 's' : ''}</p>
+        {/* KPI strip */}
+        <div className="grid grid-cols-3 gap-2.5 mb-5">
+          <div className="bg-white border border-gray-100 rounded-2xl p-3 text-center shadow-sm">
+            <p className="text-xl font-black text-gray-900 leading-none">{todayJobs.length}</p>
+            <p className="text-[10px] text-gray-400 mt-0.5">hoy</p>
           </div>
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-1">
-            <p className="text-[9px] font-bold text-emerald-600 uppercase tracking-widest">Acept.</p>
-            <p className="text-xl font-black text-emerald-400 leading-none">{aceptados.length}</p>
-            <p className="text-[10px] text-slate-500">presup.</p>
+          <div className="bg-white border border-gray-100 rounded-2xl p-3 text-center shadow-sm">
+            <p className="text-xl font-black text-emerald-600 leading-none">{aceptados.length}</p>
+            <p className="text-[10px] text-gray-400 mt-0.5">aceptados</p>
           </div>
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-1">
-            <p className="text-[9px] font-bold text-blue-500 uppercase tracking-widest">Total</p>
-            <p className="text-xl font-black text-white leading-none">{presupuestos.length}</p>
-            <p className="text-[10px] text-slate-500">presup.</p>
+          <div className="bg-white border border-gray-100 rounded-2xl p-3 text-center shadow-sm">
+            <p className="text-xl font-black text-blue-600 leading-none">{presupuestos.length}</p>
+            <p className="text-[10px] text-gray-400 mt-0.5">presup.</p>
           </div>
         </div>
 
-        {/* ── VISITAS PENDIENTES ── */}
-        {visitasPendientes.length > 0 && (
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">👁 Visitas pendientes</span>
-              <button onClick={() => setMobileTab('trabajos')} className="text-[10px] font-bold text-amber-400 cursor-pointer">Ver todas →</button>
+        {/* Shortcuts 2×3 */}
+        <div className="grid grid-cols-2 gap-3">
+
+          {/* Crear presupuesto */}
+          <button
+            onClick={() => startWizard(2)}
+            className="border-2 border-blue-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
+          >
+            <div className="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
+              <Mic className="w-5 h-5 text-blue-600" />
             </div>
-            {visitasPendientes.slice(0, 3).map(j => (
-              <div
-                key={j.id}
-                onClick={() => setMobileTab('trabajos')}
-                className="rounded-2xl p-3.5 cursor-pointer active:scale-99 transition-transform border border-amber-500/50 bg-slate-900"
-              >
-                <div className="flex items-center justify-between gap-2">
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-bold text-white truncate">{j.titulo}</p>
-                    <div className="flex items-center gap-2 mt-0.5">
-                      {j.trade_clients?.nombre && (
-                        <p className="text-[10px] text-amber-400 truncate">{j.trade_clients.nombre}</p>
-                      )}
-                      {j.fecha_inicio && (
-                        <span className="text-[9px] font-mono text-slate-500">{new Date(j.fecha_inicio + 'T12:00:00').toLocaleDateString('es-ES', { day: '2-digit', month: 'short' })}</span>
-                      )}
-                    </div>
-                  </div>
-                  <span className="text-[8px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40 rounded-full px-2 py-0.5 uppercase shrink-0">Visita</span>
-                </div>
-              </div>
-            ))}
-            {visitasPendientes.length > 3 && (
-              <p className="text-[10px] text-amber-400 text-center font-medium cursor-pointer" onClick={() => setMobileTab('trabajos')}>
-                +{visitasPendientes.length - 3} más → ver en agenda
-              </p>
-            )}
-          </div>
-        )}
-
-        {/* ── TRABAJOS DE HOY ── */}
-        {todayJobs.length > 0 && (
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Hoy · {todayISO}</span>
-              <button onClick={() => setMobileTab('trabajos')} className="text-[10px] font-bold text-blue-400 cursor-pointer">Ver agenda →</button>
-            </div>
-            {todayJobs.map(j => {
-              const isCurrent = j.estado === 'en_curso';
-              return (
-                <div
-                  key={j.id}
-                  onClick={() => setMobileTab('trabajos')}
-                  className={`rounded-2xl p-4 cursor-pointer active:scale-99 transition-transform border ${
-                    isCurrent ? 'bg-amber-950/70 border-amber-500/50' : 'bg-slate-900 border-slate-800'
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${
-                        j.estado === 'completado' ? 'bg-emerald-500' :
-                        j.estado === 'en_curso' ? 'bg-amber-400 animate-pulse' : 'bg-blue-500'
-                      }`} />
-                      <div className="min-w-0">
-                        <p className="text-sm font-bold text-white truncate">{j.titulo}</p>
-                        {j.trade_clients?.nombre && (
-                          <p className="text-[11px] text-slate-400 truncate">{j.trade_clients.nombre}</p>
-                        )}
-                      </div>
-                    </div>
-                    {j.hora_inicio && (
-                      <span className="text-xs font-mono font-bold text-slate-400 shrink-0">{j.hora_inicio}</span>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-
-        {/* ── PRÓXIMOS 7 DÍAS ── */}
-        {upcomingJobs.length > 0 && (
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Próximos días</span>
-              <button onClick={() => setMobileTab('trabajos')} className="text-[10px] font-bold text-blue-400 cursor-pointer">Ver agenda →</button>
-            </div>
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
-              {upcomingJobs.slice(0, 5).map((j, i) => {
-                const isVisita = j.tipo === 'visita';
-                return (
-                  <div
-                    key={j.id}
-                    onClick={() => setMobileTab('trabajos')}
-                    className={`px-4 py-3 flex items-center gap-3 cursor-pointer active:bg-slate-800/60 ${i < Math.min(upcomingJobs.length, 5) - 1 ? 'border-b border-slate-800' : ''}`}
-                  >
-                    <div className={`w-1.5 h-8 rounded-full shrink-0 ${isVisita ? 'bg-violet-500' : 'bg-blue-500'}`} />
-                    <div className="min-w-0 flex-1">
-                      <p className="text-xs font-bold text-white truncate">{j.titulo}</p>
-                      {j.trade_clients?.nombre && (
-                        <p className="text-[10px] text-slate-400 truncate">{j.trade_clients.nombre}</p>
-                      )}
-                    </div>
-                    <div className="text-right shrink-0">
-                      <p className="text-[10px] font-mono font-bold text-slate-300">
-                        {new Date(j.fecha_inicio! + 'T12:00:00').toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'short' })}
-                      </p>
-                      {j.hora_inicio && <p className="text-[9px] text-slate-500">{j.hora_inicio}</p>}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* ── PRESUPUESTOS ENVIADOS SIN RESPUESTA ── */}
-        {presupuestosEnviados.length > 0 && (
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-blue-400 uppercase tracking-widest">✉ Esperando respuesta</span>
-              <button onClick={() => setMobileTab('presupuestos')} className="text-[10px] font-bold text-blue-400 cursor-pointer">Ver todos →</button>
-            </div>
-            <div className="space-y-1.5">
-              {presupuestosEnviados.slice(0, 3).map(p => (
-                <div
-                  key={p.id}
-                  onClick={() => { setWizardQuote(p); setWizardStep(5); setWizardActive(true); }}
-                  className="bg-blue-500/8 border border-blue-500/20 rounded-2xl px-4 py-3 flex items-center justify-between cursor-pointer active:scale-99"
-                >
-                  <div className="min-w-0 flex-1">
-                    <p className="text-xs font-bold text-white truncate">{p.nombreCliente || 'Sin cliente'}</p>
-                    <p className="text-[10px] text-slate-400 truncate">{p.descripcion || 'Sin descripción'}</p>
-                  </div>
-                  <div className="text-right shrink-0 ml-3">
-                    <p className="text-xs font-mono font-bold text-blue-300">{((p.total ?? 0) * 1.21).toFixed(0)}€</p>
-                    <p className="text-[9px] text-slate-500">{p.fecha ? new Date(p.fecha).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' }) : ''}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* ── ACCIONES RÁPIDAS ── */}
-        <div className="space-y-2">
-          <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Acciones rápidas</p>
-          <div className="grid grid-cols-2 gap-2.5">
-            {/* 0 Añadir visita/trabajo */}
-            <button
-              onClick={() => { setMobileTab('trabajos'); setNewJobTrigger(p => p + 1); }}
-              className="bg-violet-600 rounded-2xl p-4 flex flex-col items-start gap-2.5 cursor-pointer active:scale-95 transition-transform text-left"
-              style={{ boxShadow: '0 4px 16px rgba(124,58,237,0.35)' }}
-            >
-              <div className="w-9 h-9 bg-white/15 rounded-xl flex items-center justify-center">
-                <Briefcase className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <p className="text-xs font-black text-white leading-tight">Añadir visita</p>
-                <p className="text-[10px] text-violet-200/70 mt-0.5">Anotar llamada/trabajo</p>
-              </div>
-            </button>
-
-            {/* 1 Presupuesto directo IA */}
-            <button
-              onClick={() => startWizard(2)}
-              className="bg-blue-600 rounded-2xl p-4 flex flex-col items-start gap-2.5 cursor-pointer active:scale-95 transition-transform text-left"
-              style={{ boxShadow: '0 4px 16px rgba(37,99,235,0.35)' }}
-            >
-              <div className="w-9 h-9 bg-white/15 rounded-xl flex items-center justify-center">
-                <Mic className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <p className="text-xs font-black text-white leading-tight">Presup. por IA</p>
-                <p className="text-[10px] text-blue-200/70 mt-0.5">Dictado por voz</p>
-              </div>
-            </button>
-
-            {/* 2 Presupuesto por pasos */}
-            <button
-              onClick={() => setShowPresupuestoIncremental(true)}
-              className="bg-emerald-700 rounded-2xl p-4 flex flex-col items-start gap-2.5 cursor-pointer active:scale-95 transition-transform text-left"
-              style={{ boxShadow: '0 4px 16px rgba(22,163,74,0.3)' }}
-            >
-              <div className="w-9 h-9 bg-white/15 rounded-xl flex items-center justify-center">
-                <span className="text-lg">📋</span>
-              </div>
-              <div>
-                <p className="text-xs font-black text-white leading-tight">Por pasos</p>
-                <p className="text-[10px] text-emerald-200/70 mt-0.5">Guiado y estructurado</p>
-              </div>
-            </button>
-
-            {/* 3 Presupuesto mantenimiento */}
-            <button
-              onClick={() => setShowMantenimientoWizard(true)}
-              className="bg-amber-600 rounded-2xl p-4 flex flex-col items-start gap-2.5 cursor-pointer active:scale-95 transition-transform text-left"
-              style={{ boxShadow: '0 4px 16px rgba(217,119,6,0.35)' }}
-            >
-              <div className="w-9 h-9 bg-white/15 rounded-xl flex items-center justify-center">
-                <Wrench className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <p className="text-xs font-black text-white leading-tight">Mantenimiento</p>
-                <p className="text-[10px] text-amber-200/70 mt-0.5">Elige sector y equipos</p>
-              </div>
-            </button>
-
-            {/* 4 Presupuesto por foto */}
-            <button
-              onClick={() => setShowPresupuestoFoto(true)}
-              className="bg-cyan-700 rounded-2xl p-4 flex flex-col items-start gap-2.5 cursor-pointer active:scale-95 transition-transform text-left"
-              style={{ boxShadow: '0 4px 16px rgba(8,145,178,0.3)' }}
-            >
-              <div className="w-9 h-9 bg-white/15 rounded-xl flex items-center justify-center">
-                <Camera className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <p className="text-xs font-black text-white leading-tight">Por foto</p>
-                <p className="text-[10px] text-cyan-200/70 mt-0.5">IA desde imagen</p>
-              </div>
-            </button>
-
-            {/* 5 Ver contratos */}
-            <button
-              onClick={() => setMobileTab('contratos')}
-              className="bg-slate-700 rounded-2xl p-4 flex flex-col items-start gap-2.5 cursor-pointer active:scale-95 transition-transform text-left"
-              style={{ boxShadow: '0 4px 16px rgba(51,65,85,0.3)' }}
-            >
-              <div className="w-9 h-9 bg-white/15 rounded-xl flex items-center justify-center">
-                <FileText className="w-5 h-5 text-white" />
-              </div>
-              <div>
-                <p className="text-xs font-black text-white leading-tight">Ver contratos</p>
-                <p className="text-[10px] text-slate-300/70 mt-0.5">Gestiona activos</p>
-              </div>
-            </button>
-
-            {/* 6 Crear manualmente */}
-            <button
-              onClick={() => startWizard(1)}
-              className="col-span-2 bg-slate-800 border border-slate-700 rounded-2xl px-4 py-3 flex items-center gap-3 cursor-pointer active:scale-95 transition-transform"
-            >
-              <div className="w-8 h-8 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
-                <Plus className="w-4.5 h-4.5 text-white" />
-              </div>
-              <div className="min-w-0">
-                <p className="text-xs font-black text-white">Crear manualmente</p>
-                <p className="text-[10px] text-slate-400">Introduce partidas a mano</p>
-              </div>
-              <span className="text-slate-500 ml-auto text-lg shrink-0">›</span>
-            </button>
-
-            {/* 7 Normativa por IA */}
-            <button
-              onClick={() => setMobileTab('asistente')}
-              className="col-span-2 bg-violet-950/70 border border-violet-500/30 rounded-2xl px-4 py-3 flex items-center gap-3 cursor-pointer active:scale-95 transition-transform"
-              style={{ boxShadow: '0 2px 12px rgba(124,58,237,0.15)' }}
-            >
-              <div className="w-8 h-8 bg-violet-500/20 rounded-xl flex items-center justify-center shrink-0">
-                <BookOpen className="w-4 h-4 text-violet-300" />
-              </div>
-              <div className="min-w-0">
-                <p className="text-xs font-black text-white">Normativa por IA</p>
-                <p className="text-[10px] text-violet-300/70">REBT · RITE · GAS · ACS y más</p>
-              </div>
-              <span className="text-violet-400 ml-auto text-lg shrink-0">›</span>
-            </button>
-          </div>
-        </div>
-
-        {/* ── BORRADOR ACTUAL ── */}
-        {draft && (
-          <div className="bg-slate-900 border border-amber-500/20 rounded-3xl p-5 space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-bold text-amber-400 uppercase tracking-widest">Borrador activo</span>
-              <span className="text-[10px] bg-amber-500/10 text-amber-400 font-bold px-2.5 py-1 rounded-full border border-amber-500/20">
-                {draft.estado}
-              </span>
-            </div>
-
             <div>
-              <p className="text-base font-bold text-white">{draft.nombreCliente || 'Sin cliente'}</p>
-              <p className="text-sm text-slate-400 mt-0.5 truncate">{draft.descripcion || 'Sin descripción'}</p>
+              <p className="text-sm font-bold text-gray-900 leading-tight">Crear presupuesto</p>
+              <p className="text-xs text-gray-400 mt-0.5">Voz o por pasos</p>
             </div>
+          </button>
 
-            <div className="flex justify-between items-center border-t border-slate-800 pt-3">
-              <span className="text-xs text-slate-500 uppercase tracking-wider">Total c/IVA</span>
-              <span className="text-2xl font-black text-white font-mono">{((draft.total ?? 0) * 1.21).toFixed(0)}€</span>
+          {/* Trabajos de hoy */}
+          <button
+            onClick={() => setMobileTab('trabajos')}
+            className="border-2 border-emerald-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
+          >
+            <div className="w-10 h-10 bg-emerald-50 rounded-xl flex items-center justify-center">
+              <Briefcase className="w-5 h-5 text-emerald-600" />
             </div>
+            <div>
+              <p className="text-sm font-bold text-gray-900 leading-tight">Trabajos de hoy</p>
+              <p className="text-xs text-gray-400 mt-0.5">
+                {todayJobs.length > 0 ? `${todayJobs.length} pendiente${todayJobs.length !== 1 ? 's' : ''}` : 'Agenda del día'}
+              </p>
+            </div>
+          </button>
 
-            <div className="grid grid-cols-2 gap-2.5">
-              <button
-                onClick={() => setMobileTab('presupuestos')}
-                className="bg-white/6 border border-white/8 text-white text-sm font-bold py-3 rounded-2xl cursor-pointer active:bg-white/10 transition-colors"
-              >
-                Editar
-              </button>
-              <button
-                onClick={() => {
-                  const tel = draft.telefonoCliente ?? '';
-                  const msg = encodeURIComponent(`Presupuesto TradeFlow: ${draft.descripcion ?? ''} — Total: ${((draft.total ?? 0) * 1.21).toFixed(0)}€`);
-                  window.open(`https://wa.me/${tel.replace(/\D/g, '') || ''}?text=${msg}`, '_blank');
-                }}
-                className="text-white text-sm font-bold py-3 rounded-2xl flex items-center justify-center gap-2 cursor-pointer active:opacity-80"
-                style={{ backgroundColor: '#25D366', boxShadow: '0 4px 20px rgba(37,211,102,0.3)' }}
-              >
-                <MessageSquare className="w-4 h-4" />
-                WhatsApp
-              </button>
+          {/* Clientes */}
+          <button
+            onClick={() => setMobileTab('clientes')}
+            className="border-2 border-violet-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
+          >
+            <div className="w-10 h-10 bg-violet-50 rounded-xl flex items-center justify-center">
+              <Users className="w-5 h-5 text-violet-600" />
             </div>
-          </div>
-        )}
+            <div>
+              <p className="text-sm font-bold text-gray-900 leading-tight">Clientes</p>
+              <p className="text-xs text-gray-400 mt-0.5">Ver y gestionar</p>
+            </div>
+          </button>
 
-        {/* ── ACTIVIDAD RECIENTE ── */}
-        {recent.length > 0 && (
-          <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Recientes</span>
-              <button onClick={() => setMobileTab('presupuestos')} className="text-[10px] font-bold text-blue-400 cursor-pointer">Ver todos →</button>
+          {/* Catálogo */}
+          <button
+            onClick={() => setMobileTab('catalogo')}
+            className="border-2 border-amber-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
+          >
+            <div className="w-10 h-10 bg-amber-50 rounded-xl flex items-center justify-center">
+              <Package className="w-5 h-5 text-amber-600" />
             </div>
-            <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden">
-              {recent.map((p, i) => {
-                const meta = statusMeta(p.estado ?? '');
-                return (
-                  <div
-                    key={p.id}
-                    className={`flex items-center gap-3.5 px-4 py-4 cursor-pointer active:bg-slate-800/60 transition-colors ${i < recent.length - 1 ? 'border-b border-slate-800' : ''}`}
-                    onClick={() => setMobileTab('presupuestos')}
-                  >
-                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${meta.bg}`}>
-                      <span className={`w-3 h-3 rounded-full ${meta.dot}`} />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-white truncate">{p.nombreCliente || 'Sin cliente'}</p>
-                      <p className="text-xs text-slate-500 truncate mt-0.5">{(p.descripcion ?? '').slice(0, 50) || p.estado}</p>
-                    </div>
-                    <div className="text-right shrink-0">
-                      <p className="text-sm font-bold text-white font-mono">{(p.total ?? 0).toFixed(0)}€</p>
-                      <p className="text-[10px] text-slate-500 mt-0.5">
-                        {p.fecha ? new Date(p.fecha).toLocaleDateString('es-ES', { day: '2-digit', month: 'short' }) : ''}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
+            <div>
+              <p className="text-sm font-bold text-gray-900 leading-tight">Catálogo</p>
+              <p className="text-xs text-gray-400 mt-0.5">Material y precios</p>
             </div>
-          </div>
-        )}
+          </button>
 
+          {/* Normativa */}
+          <button
+            onClick={() => setMobileTab('asistente')}
+            className="border-2 border-teal-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
+          >
+            <div className="w-10 h-10 bg-teal-50 rounded-xl flex items-center justify-center">
+              <BookOpen className="w-5 h-5 text-teal-600" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-gray-900 leading-tight">Normativa</p>
+              <p className="text-xs text-gray-400 mt-0.5">REBT · RITE · GAS</p>
+            </div>
+          </button>
+
+          {/* Contratos */}
+          <button
+            onClick={() => setMobileTab('contratos')}
+            className="border-2 border-indigo-200 rounded-2xl p-4 flex flex-col gap-3 bg-white active:scale-95 transition-transform text-left"
+          >
+            <div className="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center">
+              <FileText className="w-5 h-5 text-indigo-600" />
+            </div>
+            <div>
+              <p className="text-sm font-bold text-gray-900 leading-tight">Contratos</p>
+              <p className="text-xs text-gray-400 mt-0.5">Mantenimiento activo</p>
+            </div>
+          </button>
+
+        </div>
       </div>
     );
   }
@@ -4091,7 +3765,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             >
               <div className="flex justify-between items-start gap-3">
                 <div className="min-w-0 flex-1">
-                  <span className="font-bold text-sm text-slate-900 dark:text-white block truncate leading-tight">{p.nombreCliente || 'Sin cliente'}</span>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <span className="font-bold text-sm text-slate-900 dark:text-white truncate leading-tight">{p.nombreCliente || 'Sin cliente'}</span>
+                    {p.kbActuaciones && p.kbActuaciones.length > 0 && (
+                      <span
+                        title={`Generado con IA voz — ${p.kbActuaciones.length} actuación${p.kbActuaciones.length > 1 ? 'es' : ''} de la Base Maestra: ${p.kbActuaciones.join(', ')}`}
+                        className="shrink-0 text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-violet-500/15 border border-violet-500/30 text-violet-400 leading-none cursor-help"
+                      >
+                        IA voz
+                      </span>
+                    )}
+                  </div>
                   <span className="text-xs text-slate-500 block truncate mt-0.5">{p.descripcion}</span>
                 </div>
                 <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border whitespace-nowrap shrink-0 ${estadoBadge}`}>
@@ -5577,7 +5261,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       setJobs(prev => prev.filter(j => j.id !== id));
                     }}
                     onAssignWorker={async (jobId, workerId, rol) => {
-                      await assignWorkerToJob(jobId, workerId, rol as 'responsable' | 'asignado' | 'apoyo');
+                      const jobTitulo = jobs.find(j => j.id === jobId)?.titulo;
+                      await assignWorkerToJob(jobId, workerId, rol as 'responsable' | 'asignado' | 'apoyo', jobTitulo);
                       await loadJobs(orgId!).then(setJobs);
                     }}
                     onRemoveWorker={async (jobId, workerId) => {
