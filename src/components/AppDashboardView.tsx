@@ -1036,19 +1036,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
       { descripcion: 'Mano de obra oficial instalación gas certificado', tipo: 'mano_de_obra', cantidad: 3, precioUnitario: 45, total: 135 },
       { descripcion: 'Kit latiguillo inoxidable 1/2" y llave escuadra cromada', tipo: 'material', cantidad: 1, precioUnitario: 15, total: 15 }
     ];
-    
-    const totalIA = partidasIA.reduce((acc, curr) => acc + curr.total, 0);
 
-    setWizardQuote(prev => ({
-      ...prev,
-      descripcion: 'Instalación de calentador Vaillant estanco',
-      partidas: partidasIA,
-      total: totalIA
-    }));
+    const totalIA = partidasIA.reduce((acc, curr) => acc + curr.total, 0);
+    const descIA = 'Instalación de calentador Vaillant estanco';
+
+    setWizardQuote(prev => ({ ...prev, descripcion: descIA, partidas: partidasIA, total: totalIA }));
+    setEditingQuote(prev => ({ ...prev, descripcion: descIA, partidas: partidasIA, total: totalIA }));
 
     showToast('Voz procesada por IA con éxito');
     setTimeout(() => {
       setVoiceStep('idle');
+      setIsVoiceModalOpen(false);
+      setDesktopModalText('');
+      setActiveTab('create_quote');
+      setWizardActive(true);
       setWizardStep(4);
     }, 800);
   };
@@ -4885,6 +4886,58 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         {(part.total ?? 0).toFixed(2)}€
                       </span>
                     </div>
+
+                    {/* Comparar precios de proveedores — solo materiales */}
+                    {part.tipo === 'material' && orgId && (
+                      <div className="space-y-1.5">
+                        <button
+                          onClick={() => handleOpenCompare(idx, part.descripcion)}
+                          className="flex items-center gap-1.5 text-blue-600 font-bold text-[9.5px] uppercase tracking-wider cursor-pointer hover:text-blue-700 active:opacity-70"
+                        >
+                          <ArrowUpDown className="w-3 h-3" />
+                          {compareIdx === idx ? 'Ocultar proveedores' : 'Ver precios proveedor'}
+                        </button>
+
+                        {compareIdx === idx && (
+                          <div className="space-y-1.5 pt-1 border-t border-gray-100">
+                            {compareLoading ? (
+                              <div className="flex items-center gap-1.5 text-[10px] text-gray-400">
+                                <div className="w-3 h-3 border border-gray-200 border-t-blue-500 rounded-full animate-spin" />
+                                <span>Buscando en catálogos...</span>
+                              </div>
+                            ) : compareResults.length === 0 ? (
+                              <p className="text-[10px] text-gray-400 italic">Sin opciones en catálogos de proveedores</p>
+                            ) : (
+                              compareResults.map((opt, i) => (
+                                <button
+                                  key={i}
+                                  onClick={() => {
+                                    handleUpdateWizardItem(idx, {
+                                      precioUnitario: opt.precio_venta,
+                                      supplier_key: opt.catalog_key,
+                                      supplier_name: opt.supplier_name,
+                                      supplier_ref: opt.ref_proveedor ?? undefined,
+                                      precioCoste: opt.precio_coste,
+                                    });
+                                    setCompareIdx(null);
+                                    setCompareResults([]);
+                                  }}
+                                  className="w-full text-left bg-blue-50 active:bg-blue-100 border border-blue-200 rounded-xl px-3 py-2 text-[10px] cursor-pointer"
+                                >
+                                  <div className="flex justify-between items-center gap-2">
+                                    <div className="min-w-0">
+                                      <span className="font-bold text-blue-800 block truncate">{opt.supplier_name}</span>
+                                      <span className="text-blue-600 block truncate">{opt.descripcion}</span>
+                                    </div>
+                                    <span className="font-black text-blue-900 whitespace-nowrap shrink-0">{opt.precio_venta.toFixed(2)}€/{opt.unidad}</span>
+                                  </div>
+                                </button>
+                              ))
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 );
                 })}
@@ -6109,6 +6162,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             </button>
           )}
         </div>
+
+        {/* Banner IA: aviso visual cuando se acaban de generar partidas */}
+        {aiLearningData && !editingQuoteId && editingQuote.partidas.length > 0 && (
+          <div className="flex items-center gap-2.5 bg-blue-50 border border-blue-200 rounded-xl px-4 py-2.5 text-xs text-blue-700">
+            <Sparkles className="w-3.5 h-3.5 shrink-0 text-blue-500" />
+            <span><strong>{editingQuote.partidas.length} partidas generadas por IA</strong> — selecciona el cliente y revisa precios antes de guardar</span>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div className="space-y-1">

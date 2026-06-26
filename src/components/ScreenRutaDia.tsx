@@ -266,7 +266,7 @@ export default function ScreenRutaDia({
             <button
               onClick={handleOpenMaps}
               disabled={routeJobs.length === 0}
-              className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-white text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white text-[11px] font-bold px-3 py-1.5 rounded-xl transition-colors cursor-pointer"
             >
               <ExternalLink className="w-3.5 h-3.5" />
               Google Maps

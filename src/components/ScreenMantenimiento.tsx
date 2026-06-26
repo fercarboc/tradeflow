@@ -291,7 +291,7 @@ function NuevoContratoModal({ plantillas, onClose, onSaved, orgId, showToast, in
           <button
             onClick={handleSave}
             disabled={!result || saving}
-            className="flex-1 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer transition-colors"
+            className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer transition-colors"
           >
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
             Guardar borrador
@@ -446,7 +446,7 @@ function EditPresupuestoModal({ presupuesto, slaList, sectores, oficios, onClose
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex-1 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-700 disabled:opacity-40 text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer transition-colors"
+            className="flex-1 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white font-bold text-sm flex items-center justify-center gap-2 cursor-pointer transition-colors"
           >
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
             Guardar cambios
@@ -621,7 +621,7 @@ function PresupuestoDetalleModal({ presupuesto, onClose, onEdit, onConvert }: Pr
           </div>
           <div className="grid grid-cols-2 gap-2">
             <button onClick={() => { onClose(); onEdit(); }}
-              className="py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold flex items-center justify-center gap-2 cursor-pointer hover:bg-slate-700">
+              className="py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold flex items-center justify-center gap-2 cursor-pointer hover:bg-blue-700">
               <Edit2 className="w-3.5 h-3.5" /> Editar partidas
             </button>
             <button onClick={() => { onClose(); onConvert(); }}
@@ -1063,7 +1063,7 @@ function NuevaIncidenciaModal({ contratos, orgId, members, onClose, onSaved, sho
           <button onClick={onClose} className="flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-semibold cursor-pointer hover:bg-slate-50">Cancelar</button>
           <button
             onClick={() => void handleSave()} disabled={saving || !titulo.trim()}
-            className="flex-1 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-bold cursor-pointer hover:bg-slate-700 disabled:opacity-40 flex items-center justify-center gap-2"
+            className="flex-1 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-bold cursor-pointer hover:bg-blue-700 disabled:opacity-40 flex items-center justify-center gap-2"
           >
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Plus className="w-4 h-4" />}
             Registrar
@@ -1339,7 +1339,7 @@ function DetalleIncidenciaModal({ incidencia, members, onClose, onUpdated, showT
               </button>
               <button
                 onClick={() => void handleSendParte()} disabled={sendingParte}
-                className="flex-1 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-bold cursor-pointer hover:bg-slate-700 disabled:opacity-40 flex items-center justify-center gap-2"
+                className="flex-1 py-2.5 rounded-xl bg-blue-600 text-white text-sm font-bold cursor-pointer hover:bg-blue-700 disabled:opacity-40 flex items-center justify-center gap-2"
               >
                 {sendingParte ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                 Enviar parte
@@ -1635,7 +1635,7 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
   const sec = 'bg-white rounded-2xl border border-slate-100 shadow-sm p-5';
   const tabCls = (t: typeof tab) =>
     `px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider cursor-pointer transition-all ${
-      tab === t ? 'bg-slate-900 text-white' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100'
+      tab === t ? 'bg-blue-600 text-white' : 'text-slate-500 hover:text-slate-800 hover:bg-slate-100'
     }`;
 
   return (
@@ -1672,7 +1672,7 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
           <button onClick={() => void loadData()} className="p-2 rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50 cursor-pointer" title="Recargar">
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-blue-500' : ''}`} />
           </button>
-          <button onClick={() => setShowNuevoModal(true)} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-700 text-white text-xs font-bold uppercase tracking-wider cursor-pointer transition-colors shadow-sm">
+          <button onClick={() => setShowNuevoModal(true)} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider cursor-pointer transition-colors shadow-sm">
             <Plus className="w-4 h-4" /> Nuevo por IA
           </button>
         </div>
@@ -1723,7 +1723,7 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
               <ClipboardList className="w-10 h-10 text-slate-200 mb-3" />
               <p className="text-slate-400 text-sm font-semibold">Sin presupuestos de mantenimiento</p>
               <p className="text-slate-300 text-xs mt-1">Usa "Nuevo por IA" para crear el primero</p>
-              <button onClick={() => setShowNuevoModal(true)} className="mt-4 flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold cursor-pointer hover:bg-slate-700 transition-colors">
+              <button onClick={() => setShowNuevoModal(true)} className="mt-4 flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-bold cursor-pointer hover:bg-blue-700 transition-colors">
                 <Mic className="w-4 h-4" /> Crear con IA
               </button>
             </div>
@@ -1940,7 +1940,7 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
             </p>
             <button
               onClick={() => setShowNuevaIncidencia(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 text-white text-[10px] font-bold uppercase tracking-wider cursor-pointer hover:bg-slate-700 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider cursor-pointer hover:bg-blue-700 transition-colors"
             >
               <Plus className="w-3 h-3" /> Nueva incidencia
             </button>
@@ -2078,7 +2078,7 @@ export default function ScreenMantenimiento({ orgId, showToast, initialText, onI
             <p className="font-bold text-slate-500 text-sm">Empieza a gestionar tus contratos de mantenimiento</p>
             <p className="text-slate-400 text-xs mt-1">Dicta o escribe el tipo de contrato y la IA lo estructurará en segundos.</p>
           </div>
-          <button onClick={() => setShowNuevoModal(true)} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold uppercase tracking-wide cursor-pointer hover:bg-slate-700 transition-colors">
+          <button onClick={() => setShowNuevoModal(true)} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-bold uppercase tracking-wide cursor-pointer hover:bg-blue-700 transition-colors">
             <Mic className="w-4 h-4" /> Crear primer contrato con IA
           </button>
         </div>

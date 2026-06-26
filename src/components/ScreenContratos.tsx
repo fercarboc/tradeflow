@@ -513,7 +513,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
             </button>
             <button
               onClick={handlePrint}
-              className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-700 text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg cursor-pointer transition-colors"
+              className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg cursor-pointer transition-colors"
             >
               <Download className="w-3.5 h-3.5" /> Imprimir / PDF
             </button>
@@ -582,7 +582,7 @@ export default function ScreenContratos({ orgId, orgData, clientes, oficio, plan
                 </button>
                 <button
                   onClick={handlePrint}
-                  className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-700 text-white text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-lg cursor-pointer transition-colors"
+                  className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-lg cursor-pointer transition-colors"
                 >
                   <Download className="w-3.5 h-3.5" /> PDF
                 </button>

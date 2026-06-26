@@ -587,7 +587,7 @@ export default function ScreenIngresos({ showToast }: Props) {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <p className="text-xs text-slate-500">Distribuidores y mayoristas de material</p>
-                <button onClick={openNewMayor} className="flex items-center gap-1.5 bg-slate-700 hover:bg-slate-800 text-white font-bold text-xs uppercase px-4 py-2 rounded-xl cursor-pointer">
+                <button onClick={openNewMayor} className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs uppercase px-4 py-2 rounded-xl cursor-pointer">
                   <Plus className="w-3.5 h-3.5" /> Añadir proveedor material
                 </button>
               </div>
@@ -596,7 +596,7 @@ export default function ScreenIngresos({ showToast }: Props) {
                   <Building2 className="w-8 h-8 text-slate-300 mx-auto mb-2" />
                   <p className="text-sm text-slate-500">Sin proveedores de material</p>
                   <p className="text-xs text-slate-400 mt-1 mb-4">Añade tus distribuidores y mayoristas habituales</p>
-                  <button onClick={openNewMayor} className="inline-flex items-center gap-2 text-xs font-bold bg-slate-700 text-white px-4 py-2 rounded-xl hover:bg-slate-800 cursor-pointer">
+                  <button onClick={openNewMayor} className="inline-flex items-center gap-2 text-xs font-bold bg-blue-600 text-white px-4 py-2 rounded-xl hover:bg-blue-700 cursor-pointer">
                     <Plus className="w-3.5 h-3.5" /> Añadir proveedor
                   </button>
                 </div>
@@ -772,7 +772,7 @@ export default function ScreenIngresos({ showToast }: Props) {
                   <div className="flex gap-1 mt-1">
                     {[0, 10, 21].map(v => (
                       <button key={v} type="button" onClick={() => setDraftCompra(d => ({ ...d, iva_pct: v }))}
-                        className={`flex-1 py-2 rounded-xl text-xs font-bold border cursor-pointer ${draftCompra.iva_pct === v ? 'bg-slate-700 text-white border-transparent' : 'border-slate-200 text-slate-500 hover:border-slate-400'}`}>
+                        className={`flex-1 py-2 rounded-xl text-xs font-bold border cursor-pointer ${draftCompra.iva_pct === v ? 'bg-blue-600 text-white border-transparent' : 'border-slate-200 text-slate-500 hover:border-slate-400'}`}>
                         {v}%
                       </button>
                     ))}
@@ -875,7 +875,7 @@ export default function ScreenIngresos({ showToast }: Props) {
             </div>
             <div className="flex gap-3 px-5 py-4 border-t border-slate-100 shrink-0">
               <button onClick={() => setShowMayorModal(false)} className="flex-1 py-2.5 border border-slate-200 rounded-xl text-xs font-bold text-slate-500 cursor-pointer hover:border-slate-400">Cancelar</button>
-              <button onClick={handleSaveMayor} disabled={savingMayor} className="flex-1 py-2.5 bg-slate-700 hover:bg-slate-800 text-white rounded-xl text-xs font-bold cursor-pointer disabled:opacity-50 flex items-center justify-center gap-1.5">
+              <button onClick={handleSaveMayor} disabled={savingMayor} className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold cursor-pointer disabled:opacity-50 flex items-center justify-center gap-1.5">
                 {savingMayor ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
                 {editingMayorId ? 'Guardar' : 'Añadir proveedor'}
               </button>
