@@ -4396,12 +4396,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // ================= MÓVIL: WIZARD DE CREACIÓN EN 5 PASOS =================
   function MobileWizardView() {
     return (
-      <div className="flex flex-col h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 select-none relative">
+      <div className="flex flex-col h-full bg-gray-50 text-gray-900 select-none relative">
         
         {/* Progreso del Wizard */}
-        <div className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-850 px-4 py-3 shrink-0">
+        <div className="bg-white border-b border-gray-200 px-4 py-3 shrink-0">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-[10px] font-mono font-bold text-blue-500 uppercase tracking-widest">
+            <span className="text-[10px] font-mono font-bold text-blue-600 uppercase tracking-widest">
               Paso {wizardStep} de 5
             </span>
             <button 
@@ -4409,14 +4409,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 setWizardActive(false);
                 setMobileTab('inicio');
               }}
-              className="text-slate-400 hover:text-slate-905 p-0.5 rounded-full"
+              className="text-gray-500 hover:text-gray-700 p-0.5 rounded-full"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
           
           {/* Barra indicadora de progreso */}
-          <div className="h-1 bg-slate-100 dark:bg-slate-800 rounded-full w-full overflow-hidden">
+          <div className="h-1 bg-gray-200 rounded-full w-full overflow-hidden">
             <div 
               className="h-full bg-blue-600 transition-all duration-300" 
               style={{ width: `${(wizardStep / 5) * 100}%` }}
@@ -4432,7 +4432,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <div className="space-y-4">
               <div className="space-y-1">
                 <h3 className="text-sm font-display font-bold uppercase">Paso 1: Selecciona el Cliente</h3>
-                <p className="text-[10.5px] text-slate-450 leading-relaxed font-sans">Elige un cliente existente de tu lista o regístralo rápidamente.</p>
+                <p className="text-[10.5px] text-gray-400 leading-relaxed font-sans">Elige un cliente existente de tu lista o regístralo rápidamente.</p>
               </div>
 
               {/* Lista rápida de un toque */}
@@ -4450,15 +4450,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       }))}
                       className={`p-3.5 rounded-2xl border-2 cursor-pointer transition-all flex items-center justify-between text-xs font-semibold ${
                         isSelected 
-                          ? 'border-blue-600 bg-blue-500/5' 
-                          : 'border-slate-200 dark:border-slate-850 bg-white dark:bg-slate-900 hover:border-slate-350'
+                          ? 'border-blue-600 bg-blue-50'
+                          : 'border-gray-200 bg-white hover:border-gray-300'
                       }`}
                     >
                       <div className="truncate">
                         <span className="font-bold block truncate">{c.nombre}</span>
-                        <span className="text-[10px] text-slate-450 block truncate font-mono">{c.direccion}</span>
+                        <span className="text-[10px] text-gray-400 block truncate font-mono">{c.direccion}</span>
                       </div>
-                      {isSelected && <Check className="w-4.5 h-4.5 text-blue-500 shrink-0 ml-2" />}
+                      {isSelected && <Check className="w-4.5 h-4.5 text-blue-600 shrink-0 ml-2" />}
                     </div>
                   );
                 })}
@@ -4470,7 +4470,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   setNewClient({ nombre: '', telefono: '', email: '', direccion: '' });
                   setIsClientModalOpen(true);
                 }}
-                className="w-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-bold p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 text-center uppercase tracking-wider text-[10px] cursor-pointer"
+                className="w-full bg-gray-100 text-gray-700 font-bold p-3.5 rounded-2xl border border-gray-200 text-center uppercase tracking-wider text-[10px] cursor-pointer"
               >
                 + Alta rápida de nuevo cliente
               </button>
@@ -4482,7 +4482,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <div className="space-y-5">
               <div className="space-y-1">
                 <h3 className="text-sm font-display font-bold uppercase">Paso 2: Describe el Trabajo</h3>
-                <p className="text-[10.5px] text-slate-450 leading-relaxed font-sans">"Habla como lo harías por WhatsApp" — La IA estructurará las partidas y materiales por ti.</p>
+                <p className="text-[10.5px] text-gray-400 leading-relaxed font-sans">"Habla como lo harías por WhatsApp" — La IA estructurará las partidas y materiales por ti.</p>
               </div>
 
               <div className="flex flex-col items-center py-4">
@@ -4498,9 +4498,9 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     </button>
                   </div>
                 ) : voiceStep === 'thinking' ? (
-                  <div className="w-20 h-20 bg-slate-850 rounded-full flex items-center justify-center shadow-md border border-slate-700">
-                    <div className="absolute inset-0 rounded-full border-2 border-slate-900 border-t-blue-500 animate-spin" />
-                    <Sparkles className="w-7 h-7 text-blue-400" />
+                  <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center shadow-md border border-gray-200">
+                    <div className="absolute inset-0 rounded-full border-2 border-gray-200 border-t-blue-600 animate-spin" />
+                    <Sparkles className="w-7 h-7 text-blue-600" />
                   </div>
                 ) : (
                   <button 
@@ -4511,19 +4511,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   </button>
                 )}
 
-                <span className="text-[9.5px] font-bold text-slate-450 uppercase tracking-widest mt-6 font-mono block">
+                <span className="text-[9.5px] font-bold text-gray-400 uppercase tracking-widest mt-6 font-mono block">
                   {voiceStep === 'listening' ? 'Grabando audio...' : voiceStep === 'transcribing' ? 'Transcribiendo...' : voiceStep === 'thinking' ? 'IA Procesando...' : 'Pulsa para dictar obra'}
                 </span>
               </div>
 
               {/* Visualizador de texto */}
-              <div className="bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 p-4 rounded-2xl min-h-[90px] text-xs">
+              <div className="bg-white border border-gray-200 p-4 rounded-2xl min-h-[90px] text-xs">
                 {voiceText ? (
-                  <p className="italic text-slate-700 dark:text-slate-200 leading-normal">
+                  <p className="italic text-gray-700 leading-normal">
                     "{voiceText}"
                   </p>
                 ) : (
-                  <div className="space-y-2 text-slate-450 italic font-sans leading-normal">
+                  <div className="space-y-2 text-gray-400 italic font-sans leading-normal">
                     <p>💡 <strong>Ejemplo de dictado:</strong></p>
                     <p>"Instalación de termo de doce litros Vaillant estanco, tres horas de mano de obra a cuarenta y cinco euros y latiguillos por quince euros."</p>
                   </div>
@@ -4532,12 +4532,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
               {/* Caja de edición manual alternativa */}
               <div className="space-y-1.5">
-                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider font-mono">O escribe la descripción aquí:</span>
+                <span className="text-[9px] font-bold text-gray-400 uppercase tracking-wider font-mono">O escribe la descripción aquí:</span>
                 <textarea
                   value={wizardQuote.descripcion}
                   onChange={(e) => setWizardQuote(prev => ({ ...prev, descripcion: e.target.value }))}
                   placeholder="Ej: instalar piscina de obra 8x4 en jardín de chalet con depuradora y luces..."
-                  className="w-full bg-white dark:bg-slate-900 border border-slate-205 dark:border-slate-850 rounded-xl p-3 text-xs focus:outline-none"
+                  className="w-full bg-white border border-gray-200 rounded-xl p-3 text-xs focus:outline-none"
                   rows={3}
                 />
                 {(wizardQuote.descripcion ?? '').trim().length > 10 && (
@@ -4569,11 +4569,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-1">
                   <h3 className="text-sm font-display font-bold uppercase">Paso 3: Añadir Fotografía</h3>
-                  <p className="text-[10.5px] text-slate-450 leading-relaxed font-sans">Opcional — Toma foto de equipos viejos o averías para que la IA identifique recambios.</p>
+                  <p className="text-[10.5px] text-gray-400 leading-relaxed font-sans">Opcional — Toma foto de equipos viejos o averías para que la IA identifique recambios.</p>
                 </div>
                 <button
                   onClick={() => setWizardStep(4)}
-                  className="shrink-0 text-[9.5px] font-bold uppercase text-slate-400 hover:text-blue-500 cursor-pointer transition-colors whitespace-nowrap pt-0.5"
+                  className="shrink-0 text-[9.5px] font-bold uppercase text-gray-400 hover:text-blue-600 cursor-pointer transition-colors whitespace-nowrap pt-0.5"
                 >
                   Saltar →
                 </button>
@@ -4603,22 +4603,22 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                 <div className="space-y-2">
                   <button
                     onClick={() => photoCameraRef.current?.click()}
-                    className="w-full bg-slate-800 border-2 border-blue-600/50 hover:border-blue-500 rounded-2xl p-4 text-center cursor-pointer transition-colors flex items-center justify-center gap-3"
+                    className="w-full bg-white border-2 border-blue-200 hover:border-blue-400 rounded-2xl p-4 text-center cursor-pointer transition-colors flex items-center justify-center gap-3"
                   >
-                    <Camera className="w-6 h-6 text-blue-400 shrink-0" />
+                    <Camera className="w-6 h-6 text-blue-600 shrink-0" />
                     <div className="text-left">
-                      <span className="text-xs font-bold text-white block">Tomar foto con cámara</span>
-                      <span className="text-[10px] text-slate-400">Abre la cámara directamente</span>
+                      <span className="text-xs font-bold text-gray-900 block">Tomar foto con cámara</span>
+                      <span className="text-[10px] text-gray-400">Abre la cámara directamente</span>
                     </div>
                   </button>
                   <button
                     onClick={() => photoInputRef.current?.click()}
-                    className="w-full bg-slate-800 border-2 border-dashed border-slate-600 hover:border-blue-500 rounded-2xl p-4 text-center cursor-pointer transition-colors flex items-center justify-center gap-3"
+                    className="w-full bg-white border-2 border-dashed border-gray-300 hover:border-blue-400 rounded-2xl p-4 text-center cursor-pointer transition-colors flex items-center justify-center gap-3"
                   >
-                    <ImageIcon className="w-6 h-6 text-slate-400 shrink-0" />
+                    <ImageIcon className="w-6 h-6 text-gray-400 shrink-0" />
                     <div className="text-left">
-                      <span className="text-xs font-bold text-white block">Subir desde galería</span>
-                      <span className="text-[10px] text-slate-400">Elige una foto ya tomada</span>
+                      <span className="text-xs font-bold text-gray-900 block">Subir desde galería</span>
+                      <span className="text-[10px] text-gray-400">Elige una foto ya tomada</span>
                     </div>
                   </button>
                 </div>
@@ -4627,7 +4627,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               {/* Preview foto real + botón analizar */}
               {isLiveMode && realPhotoFile && realPhotoPreviewUrl && (
                 <div className="space-y-3">
-                  <div className="relative rounded-2xl overflow-hidden border border-blue-600 aspect-video bg-slate-950">
+                  <div className="relative rounded-2xl overflow-hidden border border-blue-600 aspect-video bg-gray-100">
                     <img src={realPhotoPreviewUrl} alt="Preview" className="w-full h-full object-cover" />
                     {isScanning && (
                       <div className="absolute left-0 right-0 h-1 bg-emerald-400 shadow-[0_0_15px_#34d399] z-20"
@@ -4641,7 +4641,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     </button>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-[9px] text-slate-400 font-mono truncate max-w-[60%]">{realPhotoFile.name}</span>
+                    <span className="text-[9px] text-gray-400 font-mono truncate max-w-[60%]">{realPhotoFile.name}</span>
                     {!isScanning ? (
                       <button onClick={startPhotoAnalysis}
                         className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-1.5 rounded-lg text-[9px] uppercase cursor-pointer">
@@ -4660,15 +4660,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   <div className="grid grid-cols-2 gap-2">
                     {presetPhotos.map(p => (
                       <div key={p.id} onClick={() => handleSelectPresetPhoto(p)}
-                        className={`p-2 rounded-2xl border-2 cursor-pointer transition-all flex flex-col items-center gap-2 bg-white dark:bg-slate-900 ${selectedPhotoPreset?.id === p.id ? 'border-blue-600' : 'border-slate-200 dark:border-slate-850'}`}>
+                        className={`p-2 rounded-2xl border-2 cursor-pointer transition-all flex flex-col items-center gap-2 bg-white ${selectedPhotoPreset?.id === p.id ? 'border-blue-600' : 'border-gray-200'}`}>
                         <img src={p.url} alt={p.name} className="w-full h-16 rounded-xl object-cover" />
-                        <span className="font-bold text-[9.5px] text-slate-800 dark:text-slate-200 block text-center truncate w-full">{p.name}</span>
+                        <span className="font-bold text-[9.5px] text-gray-900 block text-center truncate w-full">{p.name}</span>
                       </div>
                     ))}
                   </div>
                   {selectedPhotoPreset ? (
                     <div className="space-y-3 pt-2">
-                      <div className="relative rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 aspect-video flex items-center justify-center">
+                      <div className="relative rounded-2xl overflow-hidden bg-gray-100 border border-gray-200 aspect-video flex items-center justify-center">
                         <img src={selectedPhotoPreset.url} alt="Scan preview" className="max-h-full max-w-full object-contain" />
                         {isScanning && (
                           <div className="absolute left-0 right-0 h-1 bg-emerald-400 shadow-[0_0_15px_#34d399] z-20"
@@ -4676,25 +4676,25 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         )}
                       </div>
                       <div className="flex justify-between items-center text-xs">
-                        <span className="text-slate-450 font-mono text-[9px]">{selectedPhotoPreset.name}</span>
+                        <span className="text-gray-400 font-mono text-[9px]">{selectedPhotoPreset.name}</span>
                         {!isScanning ? (
                           <button onClick={startPhotoAnalysis}
                             className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-lg text-[9px] uppercase cursor-pointer">
                             Analizar con IA 📷
                           </button>
                         ) : (
-                          <span className="text-emerald-450 font-bold font-mono text-[9px] animate-pulse">Escaneando... {scanProgress}%</span>
+                          <span className="text-emerald-600 font-bold font-mono text-[9px] animate-pulse">Escaneando... {scanProgress}%</span>
                         )}
                       </div>
                     </div>
                   ) : (
-                    <div className="bg-white dark:bg-slate-900 border-2 border-dashed border-slate-200 dark:border-slate-850 rounded-2xl p-8 text-center space-y-3">
-                      <div className="w-10 h-10 bg-slate-100 dark:bg-slate-850 text-slate-400 rounded-full flex items-center justify-center mx-auto border border-slate-200 dark:border-slate-800">
-                        <Upload className="w-5 h-5 text-slate-500" />
+                    <div className="bg-white border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center space-y-3">
+                      <div className="w-10 h-10 bg-gray-100 text-gray-400 rounded-full flex items-center justify-center mx-auto border border-gray-200">
+                        <Upload className="w-5 h-5 text-gray-400" />
                       </div>
                       <div>
-                        <span className="text-xs font-bold text-slate-800 dark:text-white block">Selecciona un preset de ejemplo</span>
-                        <span className="text-[10px] text-slate-450 block mt-1 leading-normal">Modo demo — activa modo real para usar tu cámara.</span>
+                        <span className="text-xs font-bold text-gray-900 block">Selecciona un preset de ejemplo</span>
+                        <span className="text-[10px] text-gray-400 block mt-1 leading-normal">Modo demo — activa modo real para usar tu cámara.</span>
                       </div>
                     </div>
                   )}
@@ -4708,15 +4708,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <div className="space-y-4">
               <div className="space-y-1">
                 <h3 className="text-sm font-display font-bold uppercase">Paso 4: Revisa el Presupuesto</h3>
-                <p className="text-[10.5px] text-slate-450 leading-relaxed font-sans">Añade o modifica cantidades y precios sugeridos de los componentes detectados.</p>
+                <p className="text-[10.5px] text-gray-400 leading-relaxed font-sans">Añade o modifica cantidades y precios sugeridos de los componentes detectados.</p>
               </div>
 
               {/* Botón sugerencia precio */}
               {showPricingSuggestion && empresaAjustes.valorHoraOperario < TARIFA_SUGERIDA && (
-                <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-3 text-[11px] flex justify-between items-center gap-2 text-left">
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-[11px] flex justify-between items-center gap-2 text-left">
                   <div>
-                    <span className="font-bold text-blue-400 block font-mono text-[8.5px] uppercase">Recomendación IA</span>
-                    <p className="text-slate-350 mt-0.5 leading-normal">Tu zona: tarifa media {TARIFA_SUGERIDA}€/h. Ahora cobras {empresaAjustes.valorHoraOperario}€/h.</p>
+                    <span className="font-bold text-blue-600 block font-mono text-[8.5px] uppercase">Recomendación IA</span>
+                    <p className="text-gray-600 mt-0.5 leading-normal">Tu zona: tarifa media {TARIFA_SUGERIDA}€/h. Ahora cobras {empresaAjustes.valorHoraOperario}€/h.</p>
                   </div>
                   <button
                     onClick={applySuggestedPricing}
@@ -4729,7 +4729,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
               {/* Banner si se usó búsqueda web */}
               {aiLearningData && aiLearningData.nuevasPartidas.length > 0 && (
-                <div className="flex items-center gap-2 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-300/50 dark:border-emerald-700/40 rounded-xl px-3 py-2 text-[10px] text-emerald-700 dark:text-emerald-400">
+                <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2 text-[10px] text-emerald-700">
                   <span className="text-base leading-none">🌐</span>
                   <span><strong>{aiLearningData.nuevasPartidas.length} partida{aiLearningData.nuevasPartidas.length > 1 ? 's' : ''} nueva{aiLearningData.nuevasPartidas.length > 1 ? 's' : ''}</strong> encontrada{aiLearningData.nuevasPartidas.length > 1 ? 's' : ''} en internet y añadida{aiLearningData.nuevasPartidas.length > 1 ? 's' : ''} al presupuesto</span>
                 </div>
@@ -4738,17 +4738,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               {/* Banner: guardar nueva actuación detectada */}
               {aiLearningData && aiLearningData.nuevosOficios.length > 0 && isLiveMode && (
                 savedActuacion ? (
-                  <div className="flex items-center gap-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-300/50 dark:border-blue-700/40 rounded-xl px-3 py-2 text-[10px] text-blue-700 dark:text-blue-400">
+                  <div className="flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-xl px-3 py-2 text-[10px] text-blue-700">
                     <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-blue-500" />
                     <span><strong>Plantilla guardada</strong> — la próxima vez se detectará automáticamente</span>
                   </div>
                 ) : (
-                  <div className="bg-violet-50 dark:bg-violet-900/20 border border-violet-300/50 dark:border-violet-700/40 rounded-xl px-3 py-2.5 text-[10px]">
+                  <div className="bg-violet-50 border border-violet-200 rounded-xl px-3 py-2.5 text-[10px]">
                     <div className="flex items-start gap-2 mb-2">
                       <Sparkles className="w-3.5 h-3.5 shrink-0 mt-0.5 text-violet-500" />
                       <div>
-                        <span className="font-bold text-violet-700 dark:text-violet-300 block">Trabajo nuevo detectado: <em>{aiLearningData.nuevosOficios[0].oficio}</em></span>
-                        <span className="text-violet-600 dark:text-violet-400 leading-relaxed">¿Guardar estas partidas como plantilla para futuros presupuestos?</span>
+                        <span className="font-bold text-violet-700 block">Trabajo nuevo detectado: <em>{aiLearningData.nuevosOficios[0].oficio}</em></span>
+                        <span className="text-violet-600 leading-relaxed">¿Guardar estas partidas como plantilla para futuros presupuestos?</span>
                       </div>
                     </div>
                     <div className="flex gap-2">
@@ -4760,7 +4760,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                       </button>
                       <button
                         onClick={() => setSavedActuacion(true)}
-                        className="px-3 bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 font-bold py-2 rounded-lg text-[9.5px] uppercase tracking-wider cursor-pointer"
+                        className="px-3 bg-gray-100 text-gray-500 font-bold py-2 rounded-lg text-[9.5px] uppercase tracking-wider cursor-pointer"
                       >
                         Ignorar
                       </button>
@@ -4778,7 +4778,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   return (
                   <div
                     key={idx}
-                    className={`bg-white dark:bg-slate-900 border p-3 rounded-2xl space-y-2 text-xs ${esDeInternet ? 'border-emerald-300/60 dark:border-emerald-700/50' : 'border-slate-200 dark:border-slate-800'}`}
+                    className={`bg-white border p-3 rounded-2xl space-y-2 text-xs ${esDeInternet ? 'border-emerald-200' : 'border-gray-200'}`}
                   >
                     {/* Descripción editable */}
                     <div className="flex items-center gap-2">
@@ -4787,21 +4787,21 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         type="text"
                         value={part.descripcion}
                         onChange={e => handleUpdateWizardItem(idx, { descripcion: e.target.value })}
-                        className="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
+                        className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs text-gray-900 focus:outline-none focus:border-blue-500"
                       />
                       {esDeInternet && (
-                        <span className="shrink-0 text-[8px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-700/50 rounded-full px-1.5 py-0.5 leading-none">
+                        <span className="shrink-0 text-[8px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-full px-1.5 py-0.5 leading-none">
                           Web
                         </span>
                       )}
-                      <button onClick={() => handleRemoveItem(idx)} className="text-slate-400 hover:text-red-500 p-1 shrink-0">
+                      <button onClick={() => handleRemoveItem(idx)} className="text-gray-400 hover:text-red-500 p-1 shrink-0">
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
 
                     {/* Aviso sin precio en catálogo */}
                     {part.requiere_precio && (
-                      <div className="flex items-center gap-1.5 bg-amber-50 dark:bg-amber-900/20 border border-amber-300/50 dark:border-amber-700/40 rounded-lg px-2.5 py-1.5 text-[10px] text-amber-700 dark:text-amber-400">
+                      <div className="flex items-center gap-1.5 bg-amber-50 border border-amber-200 rounded-lg px-2.5 py-1.5 text-[10px] text-amber-700">
                         <AlertTriangle className="w-3 h-3 shrink-0" />
                         <span>Sin precio en catálogo — asigna el precio y se guardará automáticamente</span>
                       </div>
@@ -4811,10 +4811,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     <div className="flex items-center gap-2">
                       {part.tipo === 'mano_de_obra' ? (
                         <>
-                          <div className="flex items-center bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/50 rounded-lg overflow-hidden">
+                          <div className="flex items-center bg-amber-50 border border-amber-200 rounded-lg overflow-hidden">
                             <button
                               onClick={() => handleUpdateWizardItem(idx, { cantidad: Math.max(0.5, Math.round((part.cantidad - 0.5) * 2) / 2), precioUnitario: empresaAjustes.valorHoraOperario })}
-                              className="w-7 h-8 flex items-center justify-center text-amber-600 dark:text-amber-400 font-bold text-base cursor-pointer hover:bg-amber-100 dark:hover:bg-amber-800/40 active:scale-90 transition-transform shrink-0"
+                              className="w-7 h-8 flex items-center justify-center text-amber-600 font-bold text-base cursor-pointer hover:bg-amber-100 active:scale-90 transition-transform shrink-0"
                             >−</button>
                             <input
                               type="number"
@@ -4825,15 +4825,15 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                                 cantidad: parseFloat(e.target.value) || 1,
                                 precioUnitario: empresaAjustes.valorHoraOperario,
                               })}
-                              className="w-10 bg-transparent text-center text-xs font-bold text-amber-700 dark:text-amber-300 focus:outline-none"
+                              className="w-10 bg-transparent text-center text-xs font-bold text-amber-700 focus:outline-none"
                             />
                             <button
                               onClick={() => handleUpdateWizardItem(idx, { cantidad: Math.round((part.cantidad + 0.5) * 2) / 2, precioUnitario: empresaAjustes.valorHoraOperario })}
-                              className="w-7 h-8 flex items-center justify-center text-amber-600 dark:text-amber-400 font-bold text-base cursor-pointer hover:bg-amber-100 dark:hover:bg-amber-800/40 active:scale-90 transition-transform shrink-0"
+                              className="w-7 h-8 flex items-center justify-center text-amber-600 font-bold text-base cursor-pointer hover:bg-amber-100 active:scale-90 transition-transform shrink-0"
                             >+</button>
                           </div>
-                          <span className="text-[9px] text-amber-600 dark:text-amber-400 font-mono whitespace-nowrap">h × {empresaAjustes.valorHoraOperario}€/h</span>
-                          <span className="text-[9px] text-slate-400">o manual:</span>
+                          <span className="text-[9px] text-amber-600 font-mono whitespace-nowrap">h × {empresaAjustes.valorHoraOperario}€/h</span>
+                          <span className="text-[9px] text-gray-400">o manual:</span>
                           <input
                             type="number"
                             step="0.01"
@@ -4841,17 +4841,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                             placeholder="€/h"
                             onChange={e => handleUpdateWizardItem(idx, { precioUnitario: parseFloat(e.target.value) || 0 })}
                             onBlur={() => handleLearnPrice(idx)}
-                            className="w-16 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-right text-xs font-mono text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
+                            className="w-16 bg-gray-50 border border-gray-200 rounded-lg px-2 py-1.5 text-right text-xs font-mono text-gray-900 focus:outline-none focus:border-blue-500"
                           />
                         </>
                       ) : (
                         <>
                           <div className="flex items-center gap-1">
-                            <span className="text-[9px] text-slate-400 whitespace-nowrap">Cant.</span>
-                            <div className="flex items-center border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden">
+                            <span className="text-[9px] text-gray-400 whitespace-nowrap">Cant.</span>
+                            <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
                               <button
                                 onClick={() => handleUpdateWizardItem(idx, { cantidad: Math.max(1, (part.cantidad || 1) - 1) })}
-                                className="w-7 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-base cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-90 transition-transform shrink-0"
+                                className="w-7 h-8 flex items-center justify-center bg-gray-100 text-gray-600 font-bold text-base cursor-pointer hover:bg-gray-200 active:scale-90 transition-transform shrink-0"
                               >−</button>
                               <input
                                 type="number"
@@ -4859,16 +4859,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                                 step="1"
                                 value={part.cantidad}
                                 onChange={e => handleUpdateWizardItem(idx, { cantidad: Math.max(1, parseFloat(e.target.value) || 1) })}
-                                className="w-9 bg-white dark:bg-slate-900 text-center text-xs font-bold text-slate-800 dark:text-white focus:outline-none"
+                                className="w-9 bg-white text-center text-xs font-bold text-gray-900 focus:outline-none"
                               />
                               <button
                                 onClick={() => handleUpdateWizardItem(idx, { cantidad: (part.cantidad || 1) + 1 })}
-                                className="w-7 h-8 flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-base cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-90 transition-transform shrink-0"
+                                className="w-7 h-8 flex items-center justify-center bg-gray-100 text-gray-600 font-bold text-base cursor-pointer hover:bg-gray-200 active:scale-90 transition-transform shrink-0"
                               >+</button>
                             </div>
                           </div>
                           <div className="flex items-center gap-1.5">
-                            <span className="text-[9px] text-slate-400 whitespace-nowrap">P/ud</span>
+                            <span className="text-[9px] text-gray-400 whitespace-nowrap">P/ud</span>
                             <input
                               type="number"
                               step="0.01"
@@ -4876,12 +4876,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                               placeholder="0.00"
                               onChange={e => handleUpdateWizardItem(idx, { precioUnitario: parseFloat(e.target.value) || 0 })}
                               onBlur={() => handleLearnPrice(idx)}
-                              className="w-20 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 text-right text-xs font-mono text-slate-800 dark:text-white focus:outline-none focus:border-blue-500"
+                              className="w-20 bg-gray-50 border border-gray-200 rounded-lg px-2 py-1.5 text-right text-xs font-mono text-gray-900 focus:outline-none focus:border-blue-500"
                             />
                           </div>
                         </>
                       )}
-                      <span className="ml-auto font-bold font-mono text-slate-900 dark:text-white whitespace-nowrap">
+                      <span className="ml-auto font-bold font-mono text-gray-900 whitespace-nowrap">
                         {(part.total ?? 0).toFixed(2)}€
                       </span>
                     </div>
@@ -4892,7 +4892,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
               <button
                 onClick={handleAddManualItem}
-                className="w-full bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-bold p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-[10px] uppercase tracking-wider text-center cursor-pointer"
+                className="w-full bg-gray-100 text-gray-700 font-bold p-3 rounded-xl border border-gray-200 text-[10px] uppercase tracking-wider text-center cursor-pointer"
               >
                 + Añadir Partida Manual
               </button>
@@ -4904,37 +4904,37 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <div className="space-y-4">
               <div className="space-y-1">
                 <h3 className="text-sm font-display font-bold uppercase">Paso 5: Resumen y Envío</h3>
-                <p className="text-[10.5px] text-slate-450 leading-relaxed font-sans">"Revisa y envía" — Hemos preparado el borrador. Envíaselo por WhatsApp al cliente en un tap.</p>
+                <p className="text-[10.5px] text-gray-400 leading-relaxed font-sans">"Revisa y envía" — Hemos preparado el borrador. Envíaselo por WhatsApp al cliente en un tap.</p>
               </div>
 
               {/* Ficha colapsada simplificada */}
-              <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 p-4 rounded-[24px] space-y-4 shadow-sm text-xs">
-                
+              <div className="bg-white border border-gray-200 p-4 rounded-[24px] space-y-4 shadow-sm text-xs">
+
                 {/* Cabecera */}
-                <div className="flex justify-between items-start gap-2 border-b border-slate-100 dark:border-slate-850 pb-3">
+                <div className="flex justify-between items-start gap-2 border-b border-gray-100 pb-3">
                   <div>
-                    <span className="text-[9px] font-mono font-bold text-slate-400 block uppercase">CLIENTE:</span>
-                    <span className="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wide block">{wizardQuote.nombreCliente}</span>
-                    <span className="text-[10.5px] text-slate-500 block truncate">{wizardQuote.descripcion}</span>
+                    <span className="text-[9px] font-mono font-bold text-gray-400 block uppercase">CLIENTE:</span>
+                    <span className="font-bold text-sm text-gray-900 uppercase tracking-wide block">{wizardQuote.nombreCliente}</span>
+                    <span className="text-[10.5px] text-gray-500 block truncate">{wizardQuote.descripcion}</span>
                   </div>
-                  <span className="bg-amber-500/10 border border-amber-500/30 text-amber-450 font-bold px-2 py-0.5 rounded-full text-[8.5px] font-mono uppercase">
+                  <span className="bg-amber-100 border border-amber-200 text-amber-700 font-bold px-2 py-0.5 rounded-full text-[8.5px] font-mono uppercase">
                     {wizardQuote.estado}
                   </span>
                 </div>
 
                 {/* Importe destacado */}
                 <div className="flex justify-between items-baseline py-1">
-                  <span className="text-[10px] text-slate-450 font-semibold uppercase tracking-wider font-mono">Importe Final (IVA Incl.):</span>
-                  <span className="text-lg font-bold font-mono text-blue-650 dark:text-blue-400">
+                  <span className="text-[10px] text-gray-400 font-semibold uppercase tracking-wider font-mono">Importe Final (IVA Incl.):</span>
+                  <span className="text-lg font-bold font-mono text-blue-600">
                     {((wizardQuote.total || 0) * 1.21).toFixed(2)}€
                   </span>
                 </div>
 
                 {/* Partidas colapsables */}
-                <div className="border-t border-slate-100 dark:border-slate-850 pt-3 space-y-2">
-                  <button 
+                <div className="border-t border-gray-100 pt-3 space-y-2">
+                  <button
                     onClick={() => setItemsCollapsedMobile(!itemsCollapsedMobile)}
-                    className="flex justify-between items-center w-full text-slate-500 font-bold text-[10px] uppercase font-mono tracking-wide"
+                    className="flex justify-between items-center w-full text-gray-500 font-bold text-[10px] uppercase font-mono tracking-wide"
                   >
                     <span>Detalle de partidas ({wizardQuote.partidas?.length || 0})</span>
                     {itemsCollapsedMobile ? <ChevronDown className="w-4.5 h-4.5" /> : <ChevronUp className="w-4.5 h-4.5" />}
@@ -4943,7 +4943,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   {!itemsCollapsedMobile && (
                     <div className="space-y-1.5 pt-1.5 animate-fadeIn">
                       {wizardQuote.partidas?.map((part, idx) => (
-                        <div key={idx} className="flex justify-between items-baseline text-[10.5px] text-slate-650 dark:text-slate-400">
+                        <div key={idx} className="flex justify-between items-baseline text-[10.5px] text-gray-500">
                           <span className="truncate pr-2">✓ {part.descripcion} x{part.cantidad}</span>
                           <span className="font-mono font-semibold shrink-0">{(part.total ?? 0).toFixed(0)}€</span>
                         </div>
@@ -4952,10 +4952,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   )}
                 </div>
 
-                <div className="h-px bg-slate-100 dark:bg-slate-850 my-1" />
+                <div className="h-px bg-gray-100 my-1" />
 
                 {/* Badges de cumplimiento */}
-                <div className="flex items-center gap-2 text-[9px] text-slate-400 dark:text-slate-550 leading-relaxed font-mono">
+                <div className="flex items-center gap-2 text-[9px] text-gray-400 leading-relaxed font-mono">
                   <ShieldCheck className="w-4 h-4 text-emerald-500" />
                   <span>Presupuesto timbrado digitalmente</span>
                 </div>
@@ -4966,11 +4966,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         </div>
 
         {/* BOTÓN CTAs ADHERIDO EN BASE (STICKY BOTTOM) */}
-        <div className="absolute bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-850 p-4 shrink-0 z-30 select-none flex gap-2">
+        <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shrink-0 z-30 select-none flex gap-2">
           {wizardStep > 1 && (
             <button
               onClick={() => setWizardStep(prev => prev - 1)}
-              className="px-4 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-350 py-3.5 rounded-2xl font-bold uppercase tracking-wider text-[10px] cursor-pointer"
+              className="px-4 bg-gray-100 text-gray-700 py-3.5 rounded-2xl font-bold uppercase tracking-wider text-[10px] cursor-pointer"
             >
               Atrás
             </button>
@@ -4986,10 +4986,10 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         {/* Modal: asignar cliente al finalizar */}
         {showQuickClientModal && (
           <div className="absolute inset-0 z-50 flex items-end bg-black/50">
-            <div className="w-full bg-white dark:bg-slate-900 rounded-t-3xl p-5 space-y-4">
+            <div className="w-full bg-white rounded-t-3xl p-5 space-y-4">
               <div>
                 <h3 className="font-bold text-sm uppercase tracking-wide">¿A quién va este presupuesto?</h3>
-                <p className="text-[10.5px] text-slate-450 mt-0.5">Añade nombre y teléfono para enviarlo por WhatsApp.</p>
+                <p className="text-[10.5px] text-gray-400 mt-0.5">Añade nombre y teléfono para enviarlo por WhatsApp.</p>
               </div>
               <div className="space-y-3">
                 <input
@@ -4997,27 +4997,27 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   placeholder="Nombre del cliente *"
                   value={quickClientName}
                   onChange={e => setQuickClientName(e.target.value)}
-                  className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+                  className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500"
                 />
                 <input
                   type="tel"
                   placeholder="Teléfono (WhatsApp)"
                   value={quickClientPhone}
                   onChange={e => setQuickClientPhone(e.target.value)}
-                  className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+                  className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500"
                 />
                 <input
                   type="email"
                   placeholder="Email (opcional)"
                   value={quickClientEmail}
                   onChange={e => setQuickClientEmail(e.target.value)}
-                  className="w-full border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+                  className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500"
                 />
               </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => finishWizardAndSave('Sin nombre', '')}
-                  className="flex-1 py-3 rounded-xl text-[10px] font-bold uppercase text-slate-500 border border-slate-200 dark:border-slate-700 cursor-pointer"
+                  className="flex-1 py-3 rounded-xl text-[10px] font-bold uppercase text-gray-500 border border-gray-200 cursor-pointer"
                 >
                   Saltar
                 </button>

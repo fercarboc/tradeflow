@@ -671,28 +671,28 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
   const stepIdx = STEPS.indexOf(phase);
 
   return (
-    <div className="fixed inset-0 bg-[#0B0F14] z-[60] flex flex-col">
+    <div className="fixed inset-0 bg-gray-50 z-[60] flex flex-col">
 
       {/* Header */}
-      <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-white/8 shrink-0">
+      <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-gray-200 shrink-0 bg-white">
         <button
           onClick={phase === 'sector' ? onClose : handleBack}
-          className="flex items-center gap-1.5 text-slate-400 text-sm cursor-pointer"
+          className="flex items-center gap-1.5 text-gray-500 text-sm cursor-pointer"
         >
           {phase === 'sector' ? <X className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
         </button>
         <div className="flex items-center gap-2">
-          <ShieldCheck className="w-4 h-4 text-blue-400" />
-          <span className="text-sm font-bold text-white">Contrato de Mantenimiento</span>
+          <ShieldCheck className="w-4 h-4 text-blue-600" />
+          <span className="text-sm font-bold text-gray-900">Contrato de Mantenimiento</span>
         </div>
         <div className="w-8" />
       </div>
 
       {/* Step dots */}
-      <div className="flex items-center justify-center gap-2 py-2.5 border-b border-white/8 shrink-0">
+      <div className="flex items-center justify-center gap-2 py-2.5 border-b border-gray-200 bg-white shrink-0">
         {STEPS.map((s, i) => (
           <div key={s} className={`w-2 h-2 rounded-full transition-all ${
-            i === stepIdx ? 'bg-blue-400 scale-125' : i < stepIdx ? 'bg-blue-800' : 'bg-white/10'
+            i === stepIdx ? 'bg-blue-600 scale-125' : i < stepIdx ? 'bg-blue-300' : 'bg-gray-200'
           }`} />
         ))}
       </div>
@@ -703,24 +703,24 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
         {phase === 'cliente' && (
           <div className="px-4 py-5 space-y-4 pb-32">
             <div className="text-center space-y-1.5">
-              <h2 className="text-lg font-bold text-white">¿Para qué cliente?</h2>
-              <p className="text-slate-400 text-sm">Selecciona un cliente existente o crea uno nuevo</p>
+              <h2 className="text-lg font-bold text-gray-900">¿Para qué cliente?</h2>
+              <p className="text-gray-400 text-sm">Selecciona un cliente existente o crea uno nuevo</p>
             </div>
 
             {/* Cliente seleccionado */}
             {clienteId && (
-              <div className="bg-blue-600/15 border border-blue-500/30 rounded-2xl p-3.5 flex items-center justify-between gap-3">
+              <div className="bg-blue-50 border border-blue-200 rounded-2xl p-3.5 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-8 h-8 rounded-xl bg-blue-500/20 flex items-center justify-center shrink-0">
-                    <Building2 className="w-4 h-4 text-blue-400" />
+                  <div className="w-8 h-8 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
+                    <Building2 className="w-4 h-4 text-blue-600" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-sm font-bold text-white truncate">{clienteNombre}</p>
-                    {clienteCif && <p className="text-[10px] text-blue-400">{clienteCif}</p>}
-                    {clienteDireccion && <p className="text-[10px] text-slate-400 truncate">{clienteDireccion}</p>}
+                    <p className="text-sm font-bold text-gray-900 truncate">{clienteNombre}</p>
+                    {clienteCif && <p className="text-[10px] text-blue-600">{clienteCif}</p>}
+                    {clienteDireccion && <p className="text-[10px] text-gray-400 truncate">{clienteDireccion}</p>}
                   </div>
                 </div>
-                <button onClick={clearCliente} className="p-1 rounded-lg text-slate-500 hover:text-red-400 cursor-pointer shrink-0">
+                <button onClick={clearCliente} className="p-1 rounded-lg text-gray-400 hover:text-red-500 cursor-pointer shrink-0">
                   <X className="w-4 h-4" />
                 </button>
               </div>
@@ -728,64 +728,64 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
 
             {/* Modo nuevo cliente expandido */}
             {modoNuevo && !clienteId && (
-              <div className="bg-slate-900 border border-slate-700 rounded-2xl p-4 space-y-3">
+              <div className="bg-white border border-gray-200 rounded-2xl p-4 space-y-3 shadow-sm">
                 <div className="flex items-center justify-between">
-                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Nuevo cliente</p>
-                  <button onClick={() => setModoNuevo(false)} className="p-1 text-slate-600 hover:text-slate-300 cursor-pointer"><X className="w-3.5 h-3.5" /></button>
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Nuevo cliente</p>
+                  <button onClick={() => setModoNuevo(false)} className="p-1 text-gray-400 hover:text-gray-600 cursor-pointer"><X className="w-3.5 h-3.5" /></button>
                 </div>
                 <div className="space-y-2">
                   <div>
-                    <p className="text-[9px] text-slate-500 mb-1">Nombre / empresa <span className="text-red-400">*</span></p>
+                    <p className="text-[9px] text-gray-400 mb-1">Nombre / empresa <span className="text-red-500">*</span></p>
                     <input type="text" value={clienteNombre} onChange={e => setClienteNombre(e.target.value)}
                       placeholder="Empresa Ejemplo S.L." autoFocus
-                      className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500" />
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <p className="text-[9px] text-slate-500 mb-1">CIF / NIF</p>
+                      <p className="text-[9px] text-gray-400 mb-1">CIF / NIF</p>
                       <input type="text" value={clienteCif} onChange={e => setClienteCif(e.target.value)}
                         placeholder="B-12345678"
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500" />
                     </div>
                     <div>
-                      <p className="text-[9px] text-slate-500 mb-1">Teléfono</p>
+                      <p className="text-[9px] text-gray-400 mb-1">Teléfono</p>
                       <input type="tel" value={clienteTelefono} onChange={e => setClienteTelefono(e.target.value)}
                         placeholder="600 000 000"
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500" />
                     </div>
                   </div>
                   <div>
-                    <p className="text-[9px] text-slate-500 mb-1">Email</p>
+                    <p className="text-[9px] text-gray-400 mb-1">Email</p>
                     <input type="email" value={clienteEmail} onChange={e => setClienteEmail(e.target.value)}
                       placeholder="contacto@empresa.com"
-                      className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500" />
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <p className="text-[9px] text-slate-500 mb-1">Dirección de la instalación</p>
+                      <p className="text-[9px] text-gray-400 mb-1">Dirección de la instalación</p>
                       <input type="text" value={clienteDireccion} onChange={e => setClienteDireccion(e.target.value)}
                         placeholder="Calle Ejemplo 1"
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500" />
                     </div>
                     <div>
-                      <p className="text-[9px] text-slate-500 mb-1">Ciudad</p>
+                      <p className="text-[9px] text-gray-400 mb-1">Ciudad</p>
                       <input type="text" value={clienteCiudad} onChange={e => setClienteCiudad(e.target.value)}
                         placeholder="Madrid"
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500" />
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <p className="text-[9px] text-slate-500 mb-1">Representante</p>
+                      <p className="text-[9px] text-gray-400 mb-1">Representante</p>
                       <input type="text" value={clienteRepresentante} onChange={e => setClienteRepresentante(e.target.value)}
                         placeholder="Juan García"
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500" />
                     </div>
                     <div>
-                      <p className="text-[9px] text-slate-500 mb-1">Cargo</p>
+                      <p className="text-[9px] text-gray-400 mb-1">Cargo</p>
                       <input type="text" value={clienteCargo} onChange={e => setClienteCargo(e.target.value)}
                         placeholder="Gerente"
-                        className="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500" />
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500" />
                     </div>
                   </div>
                 </div>
@@ -797,42 +797,42 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
               <div className="space-y-3">
                 {/* Buscador */}
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <input
                     type="text" value={searchCliente}
                     onChange={e => setSearchCliente(e.target.value)}
                     placeholder="Buscar cliente por nombre, CIF o email…"
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                    className="w-full bg-white border border-gray-200 rounded-xl pl-9 pr-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500"
                   />
                 </div>
 
                 {loadingClientes ? (
-                  <div className="flex justify-center py-4"><Loader2 className="w-5 h-5 animate-spin text-slate-500" /></div>
+                  <div className="flex justify-center py-4"><Loader2 className="w-5 h-5 animate-spin text-gray-400" /></div>
                 ) : clientesFiltrados.length > 0 ? (
                   <div className="space-y-1.5">
-                    {!searchCliente && <p className="text-[9px] font-bold text-slate-600 uppercase tracking-widest">Clientes recientes</p>}
+                    {!searchCliente && <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Clientes recientes</p>}
                     {clientesFiltrados.map(c => (
                       <button key={c.id} onClick={() => selectCliente(c)}
-                        className="w-full bg-slate-900 border border-slate-800 hover:border-blue-500/40 rounded-xl p-3 flex items-center gap-3 text-left cursor-pointer transition-colors">
-                        <div className="w-7 h-7 rounded-lg bg-slate-800 flex items-center justify-center shrink-0">
-                          <User className="w-3.5 h-3.5 text-slate-400" />
+                        className="w-full bg-white border border-gray-200 hover:border-blue-400 rounded-xl p-3 flex items-center gap-3 text-left cursor-pointer transition-colors">
+                        <div className="w-7 h-7 rounded-lg bg-gray-100 flex items-center justify-center shrink-0">
+                          <User className="w-3.5 h-3.5 text-gray-400" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-bold text-slate-200 truncate">{c.nombre}</p>
-                          <p className="text-[10px] text-slate-500 truncate">{[c.nif, c.email, c.direccion].filter(Boolean).join(' · ')}</p>
+                          <p className="text-sm font-bold text-gray-900 truncate">{c.nombre}</p>
+                          <p className="text-[10px] text-gray-400 truncate">{[c.nif, c.email, c.direccion].filter(Boolean).join(' · ')}</p>
                         </div>
                       </button>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-center text-slate-600 text-xs py-3">
+                  <p className="text-center text-gray-400 text-xs py-3">
                     {searchCliente ? 'Sin resultados' : 'Sin clientes todavía'}
                   </p>
                 )}
 
                 {/* Crear nuevo */}
                 <button onClick={() => setModoNuevo(true)}
-                  className="w-full py-3 rounded-2xl border border-dashed border-slate-700 hover:border-blue-500/50 text-slate-400 hover:text-blue-400 text-xs font-bold flex items-center justify-center gap-2 cursor-pointer transition-colors">
+                  className="w-full py-3 rounded-2xl border border-dashed border-gray-300 hover:border-blue-400 text-gray-400 hover:text-blue-600 text-xs font-bold flex items-center justify-center gap-2 cursor-pointer transition-colors">
                   <UserPlus className="w-4 h-4" /> Crear nuevo cliente
                 </button>
               </div>
@@ -844,8 +844,8 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
         {phase === 'sector' && (
           <div className="px-4 py-5 space-y-4">
             <div className="text-center space-y-1.5">
-              <h2 className="text-lg font-bold text-white">¿Sector del cliente?</h2>
-              <p className="text-slate-400 text-sm">El sector determina el SLA, cobertura y cláusulas del contrato</p>
+              <h2 className="text-lg font-bold text-gray-900">¿Sector del cliente?</h2>
+              <p className="text-gray-400 text-sm">El sector determina el SLA, cobertura y cláusulas del contrato</p>
             </div>
 
             <div className="grid grid-cols-2 gap-2">
@@ -853,13 +853,13 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
                 <button
                   key={s.label}
                   onClick={() => { setSector(s); setDetalles({ ...DEFAULT_DETALLES, cobertura: s.cobertura as SectorDetalles['cobertura'] }); setPhase('detalles'); }}
-                  className="bg-slate-900 border border-slate-700 hover:border-blue-500/40 rounded-2xl p-3.5 flex flex-col items-start gap-1.5 cursor-pointer active:opacity-70 text-left transition-colors"
+                  className="bg-white border border-gray-200 hover:border-blue-400 rounded-2xl p-3.5 flex flex-col items-start gap-1.5 cursor-pointer active:opacity-70 text-left transition-colors shadow-sm"
                 >
                   <span className="text-2xl">{s.icon}</span>
-                  <span className="text-xs font-bold text-slate-200 leading-tight">{s.label}</span>
+                  <span className="text-xs font-bold text-gray-900 leading-tight">{s.label}</span>
                   <div className="flex items-center gap-1 flex-wrap">
-                    <span className="text-[9px] bg-blue-500/10 text-blue-400 px-1.5 py-0.5 rounded font-bold">SLA {s.sla}</span>
-                    <span className="text-[9px] bg-slate-800 text-slate-500 px-1.5 py-0.5 rounded">{s.cobertura}</span>
+                    <span className="text-[9px] bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded font-bold">SLA {s.sla}</span>
+                    <span className="text-[9px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded">{s.cobertura}</span>
                   </div>
                 </button>
               ))}
@@ -872,42 +872,42 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
           <div className="px-4 py-5 space-y-5 pb-32">
             <div className="text-center space-y-1">
               <span className="text-3xl">{sector.icon}</span>
-              <h2 className="text-base font-bold text-white">{sector.label}</h2>
+              <h2 className="text-base font-bold text-gray-900">{sector.label}</h2>
               <div className="flex items-center justify-center gap-2 flex-wrap">
-                <span className="text-[9px] bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded-full font-bold">SLA {sector.sla}</span>
-                <span className="text-[9px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full">Criticidad {sector.criticidad}</span>
+                <span className="text-[9px] bg-blue-50 text-blue-600 px-2 py-0.5 rounded-full font-bold">SLA {sector.sla}</span>
+                <span className="text-[9px] bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full">Criticidad {sector.criticidad}</span>
               </div>
             </div>
 
             {/* Equipos y potencia */}
             <div className="grid grid-cols-2 gap-3">
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-1.5">
-                <p className="text-[10px] text-slate-400">Nº equipos</p>
+              <div className="bg-white border border-gray-200 rounded-2xl p-3 space-y-1.5 shadow-sm">
+                <p className="text-[10px] text-gray-400">Nº equipos</p>
                 <div className="flex gap-1.5 flex-wrap">
                   {['1', '2', '3', '4', '5+', '10+'].map(v => (
                     <button key={v} onClick={() => setD('num_equipos', v)}
                       className={`px-2 py-1 rounded-lg text-xs font-bold cursor-pointer transition-colors ${
-                        detalles.num_equipos === v ? 'bg-blue-500 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+                        detalles.num_equipos === v ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                       }`}>{v}</button>
                   ))}
                 </div>
               </div>
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-1.5">
-                <p className="text-[10px] text-slate-400">Potencia total (kW)</p>
+              <div className="bg-white border border-gray-200 rounded-2xl p-3 space-y-1.5 shadow-sm">
+                <p className="text-[10px] text-gray-400">Potencia total (kW)</p>
                 <input
                   type="number" min="0" step="1"
                   value={detalles.potencia_kw}
                   onChange={e => setD('potencia_kw', e.target.value)}
                   placeholder="Ej: 50"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-sm text-white text-center focus:outline-none focus:border-blue-500"
+                  className="w-full bg-gray-50 border border-gray-200 rounded-lg px-2 py-1.5 text-sm text-gray-900 text-center focus:outline-none focus:border-blue-500"
                 />
               </div>
             </div>
 
             {/* Cobertura */}
             <div className="space-y-2">
-              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
-                <Clock className="w-3 h-3 text-blue-400" /> Cobertura horaria
+              <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
+                <Clock className="w-3 h-3 text-blue-600" /> Cobertura horaria
               </p>
               <div className="grid grid-cols-2 gap-2">
                 {([
@@ -918,7 +918,7 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
                 ] as const).map(({ v, label }) => (
                   <button key={v} onClick={() => setD('cobertura', v)}
                     className={`py-2 px-3 rounded-xl text-[10px] font-bold cursor-pointer transition-colors text-left ${
-                      detalles.cobertura === v ? 'bg-blue-500 text-white' : 'bg-slate-900 border border-slate-700 text-slate-400 hover:border-blue-500/40'
+                      detalles.cobertura === v ? 'bg-blue-600 text-white' : 'bg-white border border-gray-200 text-gray-500 hover:border-blue-400'
                     }`}>{label}</button>
                 ))}
               </div>
@@ -926,8 +926,8 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
 
             {/* Visitas preventivas */}
             <div className="space-y-2">
-              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
-                <Wrench className="w-3 h-3 text-blue-400" /> Visitas preventivas anuales
+              <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1.5">
+                <Wrench className="w-3 h-3 text-blue-600" /> Visitas preventivas anuales
               </p>
               <div className="flex gap-2 flex-wrap">
                 {[
@@ -939,26 +939,26 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
                 ].map(({ v, label }) => (
                   <button key={v} onClick={() => setD('visitas_anuales', v as SectorDetalles['visitas_anuales'])}
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition-colors ${
-                      detalles.visitas_anuales === v ? 'bg-blue-500 text-white' : 'bg-slate-900 border border-slate-700 text-slate-400 hover:border-blue-500/40'
+                      detalles.visitas_anuales === v ? 'bg-blue-600 text-white' : 'bg-white border border-gray-200 text-gray-500 hover:border-blue-400'
                     }`}>{label}</button>
                 ))}
               </div>
             </div>
 
             {/* Toggles */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-3">
+            <div className="bg-white border border-gray-200 rounded-2xl p-3 space-y-3 shadow-sm">
               {[
                 { key: 'incluye_piezas', label: 'Repuestos incluidos', sub: 'El contrato cubre piezas y materiales' },
                 { key: 'recargo_urgencias', label: 'Recargos urgencias', sub: 'Sábados +25%, festivos +40%, guardia 24h +70%' },
               ].map(({ key, label, sub }) => (
                 <div key={key} className="flex items-center justify-between gap-3">
                   <div>
-                    <p className="text-xs text-slate-200 font-medium">{label}</p>
-                    <p className="text-[9px] text-slate-500">{sub}</p>
+                    <p className="text-xs text-gray-900 font-medium">{label}</p>
+                    <p className="text-[9px] text-gray-400">{sub}</p>
                   </div>
                   <div
                     onClick={() => setD(key as keyof SectorDetalles, !((detalles as any)[key]) as any)}
-                    className={`w-9 h-5 rounded-full transition-colors relative cursor-pointer shrink-0 ${(detalles as any)[key] ? 'bg-blue-500' : 'bg-slate-700'}`}
+                    className={`w-9 h-5 rounded-full transition-colors relative cursor-pointer shrink-0 ${(detalles as any)[key] ? 'bg-blue-600' : 'bg-gray-300'}`}
                   >
                     <div className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform ${(detalles as any)[key] ? 'translate-x-4' : 'translate-x-0.5'}`} />
                   </div>
@@ -968,13 +968,13 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
 
             {/* Zona */}
             <div className="space-y-1.5">
-              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Zona / Municipio</p>
+              <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Zona / Municipio</p>
               <input
                 type="text"
                 value={detalles.zona}
                 onChange={e => setD('zona', e.target.value)}
                 placeholder="Ej: Madrid — zona norte"
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                className="w-full bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500"
               />
             </div>
           </div>
@@ -983,22 +983,22 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
         {/* ── FASE: VOZ / TEXTO ── */}
         {phase === 'voz' && sector && (
           <div className="flex flex-col">
-            <div className="px-4 py-3 bg-blue-600/10 border-b border-blue-500/20">
-              <p className="text-[9px] text-blue-400 font-bold uppercase tracking-widest mb-0.5">Sector activo</p>
-              <p className="text-sm font-bold text-white">{sector.icon} {sector.label}</p>
-              <p className="text-[10px] text-slate-400">SLA {sector.sla} · {detalles.cobertura} · {detalles.visitas_anuales} visitas/año</p>
+            <div className="px-4 py-3 bg-blue-50 border-b border-blue-200">
+              <p className="text-[9px] text-blue-600 font-bold uppercase tracking-widest mb-0.5">Sector activo</p>
+              <p className="text-sm font-bold text-gray-900">{sector.icon} {sector.label}</p>
+              <p className="text-[10px] text-gray-400">SLA {sector.sla} · {detalles.cobertura} · {detalles.visitas_anuales} visitas/año</p>
             </div>
 
             <div className="px-4 py-5 space-y-5 pb-32">
               <div className="text-center space-y-1">
-                <h3 className="text-base font-bold text-white">Selecciona los equipos del contrato</h3>
-                <p className="text-slate-400 text-xs">Marca los que incluye el mantenimiento. Añade detalles por voz o texto si necesitas.</p>
+                <h3 className="text-base font-bold text-gray-900">Selecciona los equipos del contrato</h3>
+                <p className="text-gray-400 text-xs">Marca los que incluye el mantenimiento. Añade detalles por voz o texto si necesitas.</p>
               </div>
 
               {/* Chips de equipos */}
               {(ITEMS_POR_SECTOR[sector.label] ?? []).length > 0 && (
                 <div className="space-y-2">
-                  <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Equipos / Sistemas</p>
+                  <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Equipos / Sistemas</p>
                   <div className="flex flex-wrap gap-2">
                     {(ITEMS_POR_SECTOR[sector.label] ?? []).map(item => (
                       <button
@@ -1006,32 +1006,32 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
                         onClick={() => setSelectedItems(prev => ({ ...prev, [item.label]: !prev[item.label] }))}
                         className={`px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer transition-all ${
                           selectedItems[item.label]
-                            ? 'bg-blue-500 text-white shadow-sm shadow-blue-500/30'
-                            : 'bg-slate-800 text-slate-400 border border-slate-700 hover:border-blue-500/40 hover:text-slate-200'
+                            ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/20'
+                            : 'bg-white text-gray-500 border border-gray-200 hover:border-blue-400 hover:text-gray-700'
                         }`}
                       >
                         {item.label}
                       </button>
                     ))}
                   </div>
-                  <p className="text-[9px] text-slate-600">
+                  <p className="text-[9px] text-gray-400">
                     {Object.values(selectedItems).filter(Boolean).length} elemento{Object.values(selectedItems).filter(Boolean).length !== 1 ? 's' : ''} seleccionado{Object.values(selectedItems).filter(Boolean).length !== 1 ? 's' : ''}
                   </p>
                 </div>
               )}
 
               {/* SLA del sector */}
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3 space-y-1">
+              <div className="bg-amber-50 border border-amber-200 rounded-2xl p-3 space-y-1">
                 <div className="flex items-center gap-1.5">
-                  <AlertTriangle className="w-3 h-3 text-amber-400 shrink-0" />
-                  <p className="text-[9px] text-amber-400 font-bold uppercase tracking-widest">SLA del sector</p>
+                  <AlertTriangle className="w-3 h-3 text-amber-600 shrink-0" />
+                  <p className="text-[9px] text-amber-600 font-bold uppercase tracking-widest">SLA del sector</p>
                 </div>
-                <p className="text-xs text-slate-300">Respuesta en {sector.sla} · Penalización -5%/h por incumplimiento</p>
+                <p className="text-xs text-gray-600">Respuesta en {sector.sla} · Penalización -5%/h por incumplimiento</p>
               </div>
 
               {/* Descripción adicional + micrófono inline */}
               <div className="space-y-2">
-                <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Descripción adicional (opcional)</p>
+                <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Descripción adicional (opcional)</p>
                 <div className="flex items-start gap-2">
                   <button
                     onClick={recording ? stopRecording : startRecording}
@@ -1048,7 +1048,7 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
                     onChange={e => setTextInput(e.target.value)}
                     placeholder="Añade detalles: antigüedad de equipos, marcas, condiciones especiales…"
                     rows={3}
-                    className="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 resize-none"
+                    className="flex-1 bg-white border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 resize-none"
                   />
                 </div>
                 {recording && (
@@ -1066,14 +1066,14 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
         {phase === 'resultado' && sector && (
           <div className="px-4 py-4 space-y-4 pb-32">
             <div className="text-center space-y-1.5">
-              <CheckCircle className="w-10 h-10 text-blue-400 mx-auto" />
-              <h2 className="text-lg font-bold text-white">{sector.icon} {sector.label}</h2>
-              <p className="text-slate-400 text-sm">{clausulas.length} partidas de contrato generadas</p>
+              <CheckCircle className="w-10 h-10 text-blue-600 mx-auto" />
+              <h2 className="text-lg font-bold text-gray-900">{sector.icon} {sector.label}</h2>
+              <p className="text-gray-400 text-sm">{clausulas.length} partidas de contrato generadas</p>
             </div>
 
             {/* Resumen del contrato */}
-            <div className="bg-blue-600/10 border border-blue-500/20 rounded-2xl p-3 space-y-1.5">
-              <p className="text-[9px] font-bold text-blue-400 uppercase tracking-widest">Condiciones del contrato</p>
+            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-3 space-y-1.5">
+              <p className="text-[9px] font-bold text-blue-600 uppercase tracking-widest">Condiciones del contrato</p>
               <div className="grid grid-cols-2 gap-x-4 gap-y-1">
                 {[
                   ['SLA urgente', sector.sla],
@@ -1084,63 +1084,63 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
                   ['Recargos', detalles.recargo_urgencias ? 'Sí' : 'No'],
                 ].map(([k, v]) => (
                   <div key={k}>
-                    <span className="text-[9px] text-slate-500">{k}: </span>
-                    <span className="text-[10px] text-slate-200 font-bold">{v}</span>
+                    <span className="text-[9px] text-gray-400">{k}: </span>
+                    <span className="text-[10px] text-gray-900 font-bold">{v}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Partidas editables */}
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+            <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
               {clausulas.map((c, i) => (
-                <div key={i} className={`px-3 py-2.5 space-y-1.5 ${i < clausulas.length - 1 ? 'border-b border-slate-800' : ''}`}>
+                <div key={i} className={`px-3 py-2.5 space-y-1.5 ${i < clausulas.length - 1 ? 'border-b border-gray-100' : ''}`}>
                   <div className="flex items-start gap-2">
                     <div className="flex-1 min-w-0">
                       <input
                         value={c.descripcion}
                         onChange={e => updateClausula(i, 'descripcion', e.target.value)}
-                        className="w-full bg-transparent text-xs text-white font-medium focus:outline-none focus:bg-slate-800 rounded px-1 py-0.5 -mx-1"
+                        className="w-full bg-transparent text-xs text-gray-900 font-medium focus:outline-none focus:bg-gray-50 rounded px-1 py-0.5 -mx-1"
                         placeholder="Descripción de la partida…"
                       />
                       <span className={`text-[8px] font-bold px-1.5 py-0.5 rounded-full mt-0.5 inline-block ${
-                        c.tipo === 'mano_de_obra' ? 'bg-blue-500/10 text-blue-400'
-                        : c.tipo === 'servicio' ? 'bg-violet-500/10 text-violet-400'
-                        : 'bg-emerald-500/10 text-emerald-400'
+                        c.tipo === 'mano_de_obra' ? 'bg-blue-50 text-blue-600'
+                        : c.tipo === 'servicio' ? 'bg-violet-50 text-violet-600'
+                        : 'bg-emerald-50 text-emerald-600'
                       }`}>
                         {c.tipo === 'mano_de_obra' ? 'Mano de obra' : c.tipo === 'servicio' ? 'Servicio' : 'Material'}
                       </span>
                     </div>
                     <button
                       onClick={() => deleteClausula(i)}
-                      className="p-1 rounded-lg text-slate-600 hover:text-red-400 hover:bg-red-500/10 cursor-pointer shrink-0 transition-colors"
+                      className="p-1 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 cursor-pointer shrink-0 transition-colors"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-1 text-[10px] text-slate-500">
+                    <div className="flex items-center gap-1 text-[10px] text-gray-400">
                       <input
                         type="number" min="0" step="0.5"
                         value={c.cantidad}
                         onChange={e => updateClausula(i, 'cantidad', Number(e.target.value))}
-                        className="w-10 bg-slate-800 rounded px-1 py-0.5 text-white text-center text-[10px] focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="w-10 bg-gray-100 rounded px-1 py-0.5 text-gray-900 text-center text-[10px] focus:outline-none focus:ring-1 focus:ring-blue-500"
                       />
                       <span>{c.unidad}</span>
                     </div>
-                    <span className="text-slate-700">×</span>
+                    <span className="text-gray-300">×</span>
                     <div className="flex items-center gap-1">
                       <input
                         type="number" min="0" step="1"
                         value={c.precioUnitario || ''}
                         onChange={e => updateClausula(i, 'precioUnitario', Number(e.target.value))}
-                        className="w-20 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1 text-right text-xs text-white focus:outline-none focus:border-blue-500"
+                        className="w-20 bg-gray-50 border border-gray-200 rounded-lg px-2 py-1 text-right text-xs text-gray-900 focus:outline-none focus:border-blue-500"
                         placeholder="0,00"
                       />
-                      <span className="text-[10px] text-slate-500">€</span>
+                      <span className="text-[10px] text-gray-400">€</span>
                     </div>
                     <div className="flex-1" />
-                    <p className="text-xs font-bold text-slate-200 font-mono shrink-0">
+                    <p className="text-xs font-bold text-gray-900 font-mono shrink-0">
                       {(c.precioUnitario * c.cantidad).toLocaleString('es-ES', { minimumFractionDigits: 2 })} €
                     </p>
                   </div>
@@ -1150,7 +1150,7 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
               {/* Añadir partida */}
               <button
                 onClick={addClausula}
-                className="w-full py-2.5 flex items-center justify-center gap-1.5 text-[11px] font-bold text-blue-400 hover:bg-blue-500/5 transition-colors border-t border-slate-800 cursor-pointer"
+                className="w-full py-2.5 flex items-center justify-center gap-1.5 text-[11px] font-bold text-blue-600 hover:bg-blue-50 transition-colors border-t border-gray-100 cursor-pointer"
               >
                 <Plus className="w-3.5 h-3.5" /> Añadir partida
               </button>
@@ -1158,26 +1158,26 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
 
             {/* Resumen del cliente si está asignado */}
             {clienteNombre && (
-              <div className="bg-blue-600/10 border border-blue-500/20 rounded-2xl p-3 flex items-center gap-2.5">
-                <Building2 className="w-4 h-4 text-blue-400 shrink-0" />
+              <div className="bg-blue-50 border border-blue-200 rounded-2xl p-3 flex items-center gap-2.5">
+                <Building2 className="w-4 h-4 text-blue-600 shrink-0" />
                 <div className="min-w-0">
-                  <p className="text-xs font-bold text-white truncate">{clienteNombre}</p>
-                  {clienteDireccion && <p className="text-[10px] text-slate-400 truncate">{clienteDireccion}</p>}
+                  <p className="text-xs font-bold text-gray-900 truncate">{clienteNombre}</p>
+                  {clienteDireccion && <p className="text-[10px] text-gray-400 truncate">{clienteDireccion}</p>}
                 </div>
               </div>
             )}
 
             {/* Total */}
-            <div className="bg-slate-900 border border-slate-700 rounded-2xl px-4 py-3 flex items-center justify-between">
-              <span className="text-xs text-slate-400 font-bold uppercase tracking-wide">Total estimado</span>
-              <span className="text-lg font-bold text-white">
+            <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 flex items-center justify-between shadow-sm">
+              <span className="text-xs text-gray-400 font-bold uppercase tracking-wide">Total estimado</span>
+              <span className="text-lg font-bold text-gray-900">
                 {totalContrato.toLocaleString('es-ES', { minimumFractionDigits: 2 })} €
               </span>
             </div>
 
             <button
               onClick={() => setPhase('voz')}
-              className="w-full py-3 rounded-2xl text-xs font-bold text-blue-400 border border-blue-500/30 cursor-pointer"
+              className="w-full py-3 rounded-2xl text-xs font-bold text-blue-600 border border-blue-200 cursor-pointer"
             >
               ← Ajustar descripción
             </button>
@@ -1187,7 +1187,7 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
 
       {/* Footer: fase cliente */}
       {phase === 'cliente' && (
-        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent space-y-2">
+        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-gray-50 to-transparent space-y-2">
           {(clienteId || (modoNuevo && clienteNombre.trim())) && (
             <button
               onClick={() => setPhase('sector')}
@@ -1199,7 +1199,7 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
           )}
           <button
             onClick={() => setPhase('sector')}
-            className="w-full py-2.5 rounded-2xl text-slate-500 text-xs font-semibold cursor-pointer hover:text-slate-300 transition-colors"
+            className="w-full py-2.5 rounded-2xl text-gray-400 text-xs font-semibold cursor-pointer hover:text-gray-600 transition-colors"
           >
             Continuar sin asignar cliente
           </button>
@@ -1208,7 +1208,7 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
 
       {/* Footer: continuar de detalles a voz */}
       {phase === 'detalles' && (
-        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
+        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-gray-50 to-transparent">
           <button
             onClick={() => {
               const items = ITEMS_POR_SECTOR[sector!.label] ?? [];
@@ -1227,7 +1227,7 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
 
       {/* Footer: generar contrato (fase voz) */}
       {phase === 'voz' && (
-        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
+        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-gray-50 to-transparent">
           <button
             onClick={generarContrato}
             disabled={processing}
@@ -1244,7 +1244,7 @@ export default function ScreenMantenimientoWizard({ onConfirm, onClose, orgId, s
 
       {/* Footer: confirmar (resultado) */}
       {phase === 'resultado' && (
-        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-[#0B0F14] to-transparent">
+        <div className="absolute bottom-0 left-0 right-0 px-4 pb-6 pt-3 bg-gradient-to-t from-gray-50 to-transparent">
           <button
             onClick={handleSaveDirectly}
             disabled={saving}
