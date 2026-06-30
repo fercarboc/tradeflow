@@ -440,8 +440,10 @@ Deno.serve(async (req: Request) => {
 
       const { text: sttText } = await transcribeRes.json() as { text: string };
       transcript = sttText ?? '';
-      if (!transcript.trim()) {
-        return new Response(JSON.stringify({ error: 'No se detectó voz en el audio' }), {
+      console.log(`[stt][${requestId}] transcript(${transcript.length}): "${transcript.slice(0, 100)}"`);
+      const meaningfulText = transcript.replace(/[\s.,!?¿¡\-–…"'()]+/g, '').trim();
+      if (!meaningfulText || meaningfulText.length < 3) {
+        return new Response(JSON.stringify({ error: 'No se detectó voz con claridad — acércate al micrófono e inténtalo de nuevo' }), {
           status: 422, headers: { ...cors(req), 'Content-Type': 'application/json' },
         });
       }

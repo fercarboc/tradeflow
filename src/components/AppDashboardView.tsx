@@ -1211,7 +1211,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
       const partidas = quoteToPartidas(quote);
       if (partidas.length === 0) {
-        showToast('La IA no detectó partidas — revisa la descripción e inténtalo de nuevo', 'error');
+        if (transcript && transcript.trim().length > 2) {
+          setDesktopModalText(transcript.trim());
+          showToast('La IA no generó partidas — transcripción copiada al texto, corrígela y pulsa "Enviar con IA"', 'error');
+        } else {
+          showToast('La IA no detectó voz con claridad — acércate al micrófono e inténtalo de nuevo', 'error');
+        }
         setVoiceStep('idle');
         mediaRecorderRef.current = null;
         audioChunksRef.current = [];
@@ -2497,7 +2502,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className={`fixed z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl overflow-hidden ${
+            className={`fixed z-[9999] bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border border-slate-200 dark:border-slate-800 rounded-2xl shadow-xl overflow-hidden ${
               isNativeDevice
                 ? 'left-3 right-3 w-auto'
                 : 'bottom-4 right-4 w-80'
