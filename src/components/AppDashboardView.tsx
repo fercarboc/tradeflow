@@ -1554,17 +1554,17 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     let kbActuacionesSaved: string[] = [];
     if (aiLearningData && orgId && isLiveMode) {
       kbActuacionesSaved = aiLearningData.actuacionIds;
-      const finalDescripciones = new Set((finalQuote.partidas ?? []).map(p => p.descripcion.toLowerCase().trim()));
-      const aiDescripciones = new Set(aiLearningData.aiPartidas.map(p => p.descripcion.toLowerCase().trim()));
+      const finalDescripciones = new Set((finalQuote.partidas ?? []).map(p => (p.descripcion ?? '').toLowerCase().trim()));
+      const aiDescripciones = new Set(aiLearningData.aiPartidas.map(p => (p.descripcion ?? '').toLowerCase().trim()));
 
       // Partidas que el instalador AÑADIÓ (no estaban en la propuesta de la IA)
       const partidasNuevasInstalador = (finalQuote.partidas ?? [])
-        .filter(p => !aiDescripciones.has(p.descripcion.toLowerCase().trim()))
+        .filter(p => p.descripcion && !aiDescripciones.has(p.descripcion.toLowerCase().trim()))
         .map(p => p.descripcion);
 
       // Partidas nuevas de internet que el instalador confirmó (las mantuvo)
       const partidasWebConfirmadas = aiLearningData.nuevasPartidas
-        .filter(p => finalDescripciones.has(p.concepto.toLowerCase().trim()))
+        .filter(p => p.concepto && finalDescripciones.has(p.concepto.toLowerCase().trim()))
         .map(p => p.concepto);
 
       const todasNuevasPartidas = [...new Set([...partidasNuevasInstalador, ...partidasWebConfirmadas])];
@@ -4807,7 +4807,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               <div className="space-y-2">
                 {wizardQuote.partidas?.map((part, idx) => {
                   const esDeInternet = aiLearningData?.nuevasPartidas.some(
-                    np => np.concepto.toLowerCase().trim() === part.descripcion.toLowerCase().trim()
+                    np => np.concepto && part.descripcion && np.concepto.toLowerCase().trim() === part.descripcion.toLowerCase().trim()
                   ) ?? false;
                   const cardBg =
                     part.origen === 'sugerida_ia' ? 'bg-amber-50 border-amber-200' :

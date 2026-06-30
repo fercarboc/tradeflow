@@ -1594,9 +1594,10 @@ export async function sendClientEmail(to: string, subject: string, text: string)
  * Evita falsos positivos cuando solo coincide una palabra genérica (ej. "radiador").
  */
 export function matchProductForAI(
-  detectedText: string,
+  detectedText: string | undefined | null,
   catalog: TradeCatalogProduct[],
 ): { product: TradeCatalogProduct; variant: TradeCatalogVariant } | null {
+  if (!detectedText) return null;
   const STOPWORDS = new Set([
     'de', 'la', 'el', 'los', 'las', 'un', 'una', 'del', 'al', 'y', 'o',
     'con', 'por', 'para', 'en', 'a', 'su', 'se', 'que', 'del', 'nuevo',
