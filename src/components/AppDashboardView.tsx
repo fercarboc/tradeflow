@@ -1063,9 +1063,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     cantidad: number;
     precio_unitario: number;
     total: number;
-    precio_origen: 'catalogo' | 'usuario' | 'estimado' | 'pendiente';
+    precio_origen: string;
     requiere_revision: boolean;
     motivo_revision: string;
+    origen?: 'catalogo' | 'sugerida_ia' | 'proveedor';
+    // Enriquecido por enrichWithSupplierProducts en el edge function
+    supplier_key?: string;
+    supplier_name?: string;
+    supplier_ref?: string;
+    supplier_precio_coste?: number;
+    supplier_margen_pct?: number;
   }
 
   interface AIQuote {
@@ -1109,8 +1116,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
     return quote.partidas.map(p => {
       const tipo: PartidaPresupuesto['tipo'] = p.tipo_partida === 'material' ? 'material' : 'mano_de_obra';
 
-      // Para materiales sin precio: intentar match en catálogo del profesional
-      if (p.tipo_partida === 'material' && (p.precio_unitario ?? 0) === 0 && catalogProducts.length > 0) {
+      // Determinar origen: proveedor (enriquecido por edge fn) > sugerida_ia (IA sin catálogo) > catalogo
+      const origen: PartidaPresupuesto['origen'] =
+        p.supplier_key ? 'proveedor' :
+        (p.origen === 'sugerida_ia' || (p.requiere_revision && (p.precio_unitario ?? 0) === 0)) ? 'sugerida_ia' :
+        'catalogo';
+
+      // Para materiales sin precio sin proveedor: intentar match en catálogo propio
+      if (p.tipo_partida === 'material' && (p.precio_unitario ?? 0) === 0 && !p.supplier_key && catalogProducts.length > 0) {
         const catalogMatch = matchProductForAI(p.concepto || p.descripcion, catalogProducts);
         if (catalogMatch) {
           const basePrice = catalogMatch.variant.precio_venta;
@@ -1122,6 +1135,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             cantidad: qty,
             precioUnitario: pu,
             total: pu * qty,
+            origen: 'catalogo',
           };
         }
       }
@@ -1134,6 +1148,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         total: p.total ?? 0,
         requiere_precio: p.requiere_revision,
         aviso: p.motivo_revision || undefined,
+        origen,
+        supplier_key: p.supplier_key,
+        supplier_name: p.supplier_name,
+        supplier_ref: p.supplier_ref,
+        precioCoste: p.supplier_precio_coste,
       };
     });
   };
@@ -2136,10 +2155,24 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   // y el usuario rellenó antes de guardar. Fire-and-forget.
   const autoLearnPrices = (partidas: PartidaPresupuesto[], origen: 'voz' | 'foto' | 'manual' = 'voz') => {
     if (!isLiveMode || !orgId) return;
+    let nuevasAprendidas = 0;
     for (const p of partidas) {
       if (p.requiere_precio && p.precioUnitario > 0) {
         learnPriceToCatalog(orgId, p.descripcion, p.precioUnitario, p.tipo, origen).catch(() => {});
       }
+      if (p.origen === 'sugerida_ia' && p.precioUnitario > 0) {
+        void supabase.rpc('upsert_partida_aprendida', {
+          p_org_id: orgId,
+          p_descripcion: p.descripcion,
+          p_tipo: p.tipo,
+          p_precio_unitario: p.precioUnitario,
+          p_oficio: null,
+        });
+        nuevasAprendidas++;
+      }
+    }
+    if (nuevasAprendidas > 0) {
+      showToast(`${nuevasAprendidas} partida${nuevasAprendidas > 1 ? 's' : ''} nueva${nuevasAprendidas > 1 ? 's' : ''} guardada${nuevasAprendidas > 1 ? 's' : ''} en tu catálogo IA`, 'success');
     }
   };
 
@@ -4776,10 +4809,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   const esDeInternet = aiLearningData?.nuevasPartidas.some(
                     np => np.concepto.toLowerCase().trim() === part.descripcion.toLowerCase().trim()
                   ) ?? false;
+                  const cardBg =
+                    part.origen === 'sugerida_ia' ? 'bg-amber-50 border-amber-200' :
+                    part.origen === 'proveedor' ? 'bg-blue-50 border-blue-200' :
+                    esDeInternet ? 'bg-white border-emerald-200' :
+                    'bg-white border-gray-200';
+
                   return (
                   <div
                     key={idx}
-                    className={`bg-white border p-3 rounded-2xl space-y-2 text-xs ${esDeInternet ? 'border-emerald-200' : 'border-gray-200'}`}
+                    className={`border p-3 rounded-2xl space-y-2 text-xs ${cardBg}`}
                   >
                     {/* Descripción editable */}
                     <div className="flex items-center gap-2">
@@ -4788,9 +4827,23 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                         type="text"
                         value={part.descripcion}
                         onChange={e => handleUpdateWizardItem(idx, { descripcion: e.target.value })}
-                        className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-2.5 py-1.5 text-xs text-gray-900 focus:outline-none focus:border-blue-500"
+                        className={`flex-1 border rounded-lg px-2.5 py-1.5 text-xs text-gray-900 focus:outline-none ${
+                          part.origen === 'sugerida_ia' ? 'bg-amber-50 border-amber-200 focus:border-amber-400' :
+                          part.origen === 'proveedor' ? 'bg-blue-50 border-blue-200 focus:border-blue-400' :
+                          'bg-gray-50 border-gray-200 focus:border-blue-500'
+                        }`}
                       />
-                      {esDeInternet && (
+                      {part.origen === 'sugerida_ia' && (
+                        <span className="shrink-0 text-[8px] font-bold uppercase tracking-wider text-amber-700 bg-amber-100 border border-amber-300 rounded-full px-1.5 py-0.5 leading-none whitespace-nowrap">
+                          Nueva — pon precio
+                        </span>
+                      )}
+                      {part.origen === 'proveedor' && part.supplier_name && (
+                        <span className="shrink-0 text-[8px] font-bold uppercase tracking-wider text-blue-700 bg-blue-100 border border-blue-300 rounded-full px-1.5 py-0.5 leading-none whitespace-nowrap">
+                          {part.supplier_name}
+                        </span>
+                      )}
+                      {esDeInternet && part.origen !== 'sugerida_ia' && part.origen !== 'proveedor' && (
                         <span className="shrink-0 text-[8px] font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 border border-emerald-200 rounded-full px-1.5 py-0.5 leading-none">
                           Web
                         </span>
@@ -6276,7 +6329,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           <div className="space-y-2">
             {editingQuote.partidas.map((item, idx) => (
               <React.Fragment key={idx}>
-              <div className={`bg-slate-50 border p-3 rounded-xl flex flex-wrap md:flex-nowrap gap-3 items-center transition-colors ${compareIdx === idx ? 'border-blue-300 bg-blue-50/50' : 'border-slate-200'}`}>
+              <div className={`border p-3 rounded-xl flex flex-wrap md:flex-nowrap gap-3 items-center transition-colors ${
+                compareIdx === idx ? 'border-blue-300 bg-blue-50/50' :
+                item.origen === 'sugerida_ia' ? 'bg-amber-50 border-amber-200' :
+                'bg-slate-50 border-slate-200'
+              }`}>
                 <div className="flex-grow flex items-center gap-1.5 min-w-0">
                   <QuoteItemDescInput
                     value={item.descripcion}
@@ -6286,6 +6343,11 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                     }
                     catalogProducts={catalogProducts}
                   />
+                  {item.origen === 'sugerida_ia' && (
+                    <span className="text-[9px] font-bold bg-amber-100 text-amber-700 border border-amber-300 px-1.5 py-0.5 rounded-full shrink-0 whitespace-nowrap">
+                      Nueva — pon precio
+                    </span>
+                  )}
                   {item.supplier_key === 'obramat' && (
                     <img src="/articuloobramat.png" alt="OBRAMAT" className="h-4 shrink-0 opacity-80" title={item.supplier_ref ?? 'OBRAMAT'} />
                   )}

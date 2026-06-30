@@ -93,6 +93,7 @@ precioCoste?: number;
 catalog_variant_id?: string;
 dbItemId?: string;
 material_order_placed?: boolean;
+origen?: 'catalogo' | 'sugerida_ia' | 'proveedor';
 }
 
 export interface Presupuesto {

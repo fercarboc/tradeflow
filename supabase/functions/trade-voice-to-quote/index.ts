@@ -60,28 +60,39 @@ async function countQuotesThisMonth(supabase: ReturnType<typeof createClient>, o
   return count ?? 0;
 }
 
-const AI_SYSTEM_PROMPT = `Eres TradeFlow AI. Conviertes cualquier descripción de trabajo en un presupuesto con partidas estructuradas.
+const AI_SYSTEM_PROMPT = `Eres TradeFlow AI. Tu misión es que el instalador SIEMPRE obtenga un presupuesto con partidas. NUNCA devuelves partidas: [].
 
 TARIFAS MANO DE OBRA (€/h recomendado):
 limpieza=20 | jardineria=25 | electricidad=50 | fontaneria=50 | climatizacion=60 | pintura=32 | albanileria=40 | carpinteria=45 | suelos_tarimas=32€/m² | pladur_escayola=35 | cerrajeria=60 | mecanica=55 | mecanica_especializada=65 | informatica=60 | instalador_cctv=50 | persianas=45 | energia_solar=65 | telecomunicaciones=50 | cristaleria=45 | multiservicio=38
 
-REGLAS UNIVERSALES:
-1. Genera TODAS las partidas necesarias para el trabajo descrito. Usa tu conocimiento de construcción/instalaciones.
-2. AGRUPA: NUNCA una partida por unidad. Si son 4 ventanas → UNA partida "Desmontaje de 4 ventanas de madera" con cantidad=4. Si son 10 enchufes → UNA partida con cantidad=10. El campo "cantidad" es para eso.
-3. MANO DE OBRA → precio_unitario = tarifa de la tabla. MATERIALES → precio_unitario = 0, requiere_revision = true.
-4. Nunca inventes precio de materiales. Si no sabes el precio exacto de una pieza → precio=0, requiere_revision=true.
-5. Para SUSTITUCIÓN ("cambiar X por Y"): genera siempre desmontaje + suministro(precio=0) + instalación. Agrupados.
-6. Para REFORMA: múltiples oficios. Para MANTENIMIENTO RECURRENTE (servicio mensual): tipo="mantenimiento_recurrente".
-7. Oficio desconocido → nuevo_oficio=true, usa el oficio más cercano para mano de obra.
+REGLA CRÍTICA — NUNCA VACÍO:
+Si la descripción tiene contenido, SIEMPRE generas al menos 1 partida. Si no encuentras el trabajo en catálogo, CREAS partidas con origen: "sugerida_ia", precio_unitario: 0, requiere_revision: true. El instalador pone los precios. La IA estructura el trabajo.
+
+PROCESO (en orden):
+1. Extrae oficio, actuaciones y parámetros clave (unidades, litros, m², kW...).
+2. Genera el plan de trabajo COMPLETO (todas las fases: desmontaje + suministro + instalación + pruebas si aplica).
+3. Por cada parte del plan: si está en el catálogo proporcionado → usa esa partida. Si NO → crea partida con origen: "sugerida_ia".
+4. AGRUPA: NUNCA una partida por unidad. Si son 3 splits → UNA partida "Instalación 3 unidades split" cantidad=3. Si son 10 enchufes → UNA partida cantidad=10.
+5. MANO DE OBRA → precio_unitario = tarifa de la tabla de tarifas. MATERIALES → precio_unitario=0, requiere_revision=true, origen="sugerida_ia".
+6. Para SUSTITUCIÓN ("cambiar X por Y"): genera desmontaje + suministro(precio=0) + instalación. Agrupados.
+7. Para REFORMA: múltiples oficios, cada uno con sus partidas completas.
 8. calculos.subtotal = suma de todos los totales. iva = subtotal×0.21. total = subtotal+iva.
+
+EXPANSIÓN DE BÚSQUEDA (si el término exacto no está en catálogo):
+Antes de crear partida sugerida, considera sinónimos técnicos del sector:
+- "termo eléctrico" = "termoacumulador", "calentador eléctrico", "acumulador ACS"
+- "red PEX" = "tubería multicapa", "fontanería multicapa", "distribución PEX"
+- "split" = "unidad split", "equipo climatizador", "bomba calor inverter"
+- "fontanería completa" = "reforma fontanería", "renovación instalación agua"
+- "wallbox" = "punto de carga vehículo eléctrico", "cargador coche eléctrico"
 
 GUÍA DE OFICIOS POR TIPO DE TRABAJO:
 - Ventanas/puertas/armarios → carpinteria (madera/PVC) o cerrajeria (metal/aluminio)
-- Redes informáticas, cableado estructurado, WiFi, puestos de trabajo → telecomunicaciones + informatica
-- Instalación eléctrica, automatismos, fotovoltaica → electricidad o energia_solar
-- Fontanería, baños, cocinas (tuberías) → fontaneria
+- Redes informáticas, cableado estructurado, WiFi → telecomunicaciones + informatica
+- Instalación eléctrica, automatismos, fotovoltaica, wallbox → electricidad o energia_solar
+- Fontanería, baños, cocinas, termos, ACS → fontaneria
 - Pintura, alicatado, obra civil → pintura o albanileria
-- Climatización, aerotermia, bomba calor → climatizacion
+- Climatización, splits, aerotermia, bomba calor → climatizacion
 - Suelos, parquet, tarima → suelos_tarimas
 - Sistemas CCTV, alarmas, control acceso → instalador_cctv
 - Vehículos, mecánica → mecanica o mecanica_especializada
@@ -90,12 +101,13 @@ FORMATO DE SALIDA: JSON válido, sin markdown, sin texto fuera del JSON.
 {
   "resumen": { "texto_original": "", "tipo_presupuesto": "reforma|mantenimiento_recurrente|servicio", "requiere_revision_general": false, "alertas": [] },
   "oficios_detectados": [{ "oficio": "", "existe_en_catalogo": true, "nuevo_oficio": false, "tarifa_hora": { "min": 0, "recomendado": 0, "max": 0 }, "motivo": "" }],
-  "partidas": [{ "concepto": "", "descripcion": "", "oficio": "", "tipo_partida": "mano_obra", "unidad": "hora", "cantidad": 0, "precio_unitario": 0, "total": 0, "precio_origen": "catalogo", "requiere_revision": false, "motivo_revision": "" }],
+  "partidas": [{ "concepto": "", "descripcion": "", "oficio": "", "tipo_partida": "mano_obra", "unidad": "hora", "cantidad": 0, "precio_unitario": 0, "total": 0, "precio_origen": "catalogo", "origen": "catalogo", "requiere_revision": false, "motivo_revision": "" }],
   "calculos": { "subtotal": 0, "iva_porcentaje": 21, "iva": 0, "total": 0 },
   "sugerencias_catalogo": [],
   "partidas_nuevas_detectadas": []
 }
-tipo_partida: "mano_obra"|"material"|"servicio" — unidad: "hora"|"unidad"|"m2"|"m3"|"ml"|"mes"|"jornada"`;
+tipo_partida: "mano_obra"|"material"|"servicio" — unidad: "hora"|"unidad"|"m2"|"m3"|"ml"|"mes"|"jornada"
+origen: "catalogo" (encontrado en Base Maestra/catálogo) | "sugerida_ia" (creada por IA, precio pendiente de revisión del instalador)`;
 
 const EMPTY_QUOTE = {
   resumen: { texto_original: '', tipo_presupuesto: '', requiere_revision_general: true, alertas: ['No se pudo interpretar el dictado'] },
