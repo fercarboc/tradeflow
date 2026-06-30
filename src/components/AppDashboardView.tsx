@@ -714,6 +714,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const [wizardActive, setWizardActive] = useState<boolean>(false);
   const [wizardStep, setWizardStep] = useState<number>(1);
   const [wizardOrigin, setWizardOrigin] = useState<'voz' | 'foto' | 'manual'>('manual');
+  const [wizardViewOnly, setWizardViewOnly] = useState<boolean>(false);
   const [wizardQuote, setWizardQuote] = useState<Partial<Presupuesto>>({
     id: '',
     nombreCliente: '',
@@ -3427,9 +3428,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               setPostConfirmQuote(null);
             }}
             onVerPresupuesto={() => {
-              setSelectedQuoteForPreview(postConfirmQuote);
+              const q = postConfirmQuote;
               setPostConfirmQuote(null);
-              setMobileTab('presupuestos');
+              setWizardQuote(q);
+              setWizardStep(5);
+              setWizardViewOnly(true);
+              setWizardActive(true);
             }}
           />
         )}
@@ -3810,12 +3814,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
             <div
               key={p.id}
               data-testid="quote-row"
-              onClick={() => {
-                setSelectedQuoteForPreview(p);
-                setWizardQuote(p);
-                setWizardStep(5);
-                setWizardActive(true);
-              }}
+              onClick={() => setPostConfirmQuote(p)}
               className={`bg-white border border-gray-100 border-l-4 ${borderColor} p-4 rounded-2xl space-y-3 cursor-pointer active:scale-[0.99] transition-transform shadow-sm`}
             >
               <div className="flex justify-between items-start gap-3">
@@ -4436,12 +4435,14 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
         <div className="bg-white border-b border-gray-200 px-4 py-3 shrink-0">
           <div className="flex justify-between items-center mb-2">
             <span className="text-[10px] font-mono font-bold text-blue-600 uppercase tracking-widest">
-              Paso {wizardStep} de 5
+              {wizardViewOnly ? 'Vista del Presupuesto' : `Paso ${wizardStep} de 5`}
             </span>
-            <button 
+            <button
               onClick={() => {
                 setWizardActive(false);
-                setMobileTab('inicio');
+                setWizardViewOnly(false);
+                if (wizardViewOnly) setPostConfirmQuote(wizardQuote as Presupuesto);
+                else setMobileTab('inicio');
               }}
               className="text-gray-500 hover:text-gray-700 p-0.5 rounded-full"
             >
@@ -5073,20 +5074,31 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
         {/* BOTÓN CTAs ADHERIDO EN BASE (STICKY BOTTOM) */}
         <div className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shrink-0 z-30 select-none flex gap-2">
-          {wizardStep > 1 && (
+          {wizardViewOnly ? (
             <button
-              onClick={() => setWizardStep(prev => prev - 1)}
-              className="px-4 bg-gray-100 text-gray-700 py-3.5 rounded-2xl font-bold uppercase tracking-wider text-[10px] cursor-pointer"
+              onClick={() => { setWizardActive(false); setWizardViewOnly(false); setPostConfirmQuote(wizardQuote as Presupuesto); }}
+              className="flex-grow bg-gray-100 text-gray-700 py-3.5 rounded-2xl font-bold uppercase tracking-wider text-[10px] cursor-pointer text-center"
             >
-              Atrás
+              ← Volver a acciones
             </button>
+          ) : (
+            <>
+              {wizardStep > 1 && (
+                <button
+                  onClick={() => setWizardStep(prev => prev - 1)}
+                  className="px-4 bg-gray-100 text-gray-700 py-3.5 rounded-2xl font-bold uppercase tracking-wider text-[10px] cursor-pointer"
+                >
+                  Atrás
+                </button>
+              )}
+              <button
+                onClick={handleNextWizardStep}
+                className="flex-grow bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-2xl text-[10px] uppercase tracking-wider text-center block cursor-pointer shadow-sm transition-transform active:scale-99"
+              >
+                {wizardStep === 5 ? 'Guardar y enviar 💬' : 'Siguiente ➔'}
+              </button>
+            </>
           )}
-          <button
-            onClick={handleNextWizardStep}
-            className="flex-grow bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-2xl text-[10px] uppercase tracking-wider text-center block cursor-pointer shadow-sm transition-transform active:scale-99"
-          >
-            {wizardStep === 5 ? 'Guardar y enviar 💬' : 'Siguiente ➔'}
-          </button>
         </div>
 
         {/* Modal: asignar cliente al finalizar */}
