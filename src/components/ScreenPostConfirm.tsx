@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircle, MessageCircle, CreditCard, Wrench, ShoppingCart, FileText, X } from 'lucide-react';
+import { CheckCircle, MessageCircle, CreditCard, Wrench, ShoppingCart, FileText, X, Pencil } from 'lucide-react';
 import type { Presupuesto } from '../types';
 
 interface Props {
@@ -9,6 +9,7 @@ interface Props {
   onCrearTrabajo: () => void;
   onPedirMaterial: () => void;
   onVerPresupuesto: () => void;
+  onEditar: () => void;
   onClose: () => void;
 }
 
@@ -22,7 +23,7 @@ interface ActionBtn {
 }
 
 export default function ScreenPostConfirm({
-  quote, onWhatsApp, onCobrar, onCrearTrabajo, onPedirMaterial, onVerPresupuesto, onClose,
+  quote, onWhatsApp, onCobrar, onCrearTrabajo, onPedirMaterial, onVerPresupuesto, onEditar, onClose,
 }: Props) {
   const totalConIva = ((quote.total ?? 0) * 1.21).toFixed(2);
 
@@ -58,6 +59,14 @@ export default function ScreenPostConfirm({
       onClick: onPedirMaterial,
       className: 'bg-amber-500 hover:bg-amber-400 text-white',
       shadow: '0 8px 24px rgba(245,158,11,0.45)',
+    },
+    {
+      icon: <Pencil className="w-6 h-6" />,
+      label: 'Editar presupuesto',
+      sublabel: 'Añade o cambia partidas y precios',
+      onClick: onEditar,
+      className: 'bg-slate-600 hover:bg-slate-500 text-white',
+      shadow: '0 8px 24px rgba(71,85,105,0.35)',
     },
   ];
 

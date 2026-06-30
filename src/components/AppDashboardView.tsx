@@ -937,6 +937,8 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const streamTimeoutRef = useRef<NodeJS.Timeout[]>([]);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const audioChunksRef = useRef<Blob[]>([]);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const analyserRef = useRef<AnalyserNode | null>(null);
   const audioMimeTypeRef = useRef<string>('audio/webm');
 
   const dictadoFicticio = [
@@ -956,8 +958,18 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   const startWaveform = () => {
     audioIntervalRef.current = setInterval(() => {
-      setAudioWaveHeights(Array.from({ length: 14 }, () => Math.floor(Math.random() * 40) + 6));
-    }, 110);
+      if (analyserRef.current) {
+        const data = new Uint8Array(analyserRef.current.frequencyBinCount);
+        analyserRef.current.getByteFrequencyData(data);
+        const step = Math.floor(data.length / 14);
+        setAudioWaveHeights(Array.from({ length: 14 }, (_, i) => {
+          const val = data[i * step] ?? 0;
+          return Math.max(4, Math.floor((val / 255) * 44) + 4);
+        }));
+      } else {
+        setAudioWaveHeights(Array.from({ length: 14 }, () => Math.floor(Math.random() * 40) + 6));
+      }
+    }, 80);
   };
 
   const startVoiceRecording = async () => {
@@ -985,9 +997,20 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
           audioChunksRef.current = [];
         };
         recorder.start(250);
+        // Web Audio API: niveles reales del micrófono
+        try {
+          const ctx = new AudioContext();
+          const analyser = ctx.createAnalyser();
+          analyser.fftSize = 256;
+          ctx.createMediaStreamSource(stream).connect(analyser);
+          audioContextRef.current = ctx;
+          analyserRef.current = analyser;
+        } catch {
+          // Si Web Audio falla, el waveform cae a modo aleatorio (no es crítico)
+        }
         startWaveform();
       } catch {
-        showToast('No se puede acceder al micrófono', 'error');
+        showToast('No se puede acceder al micrófono — revisa los permisos del navegador', 'error');
         setVoiceStep('idle');
       }
     } else {
@@ -1014,6 +1037,7 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
 
   const handleStartAIThinking = () => {
     if (audioIntervalRef.current) clearInterval(audioIntervalRef.current);
+    stopAudioContext();
     setVoiceStep('thinking');
     
     let faseIdx = 0;
@@ -2012,10 +2036,19 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
   const totalPendienteFacturas = facturas.filter(f => f.estado !== 'Pagada').reduce((acc, f) => acc + f.importe, 0);
   const totalFacturadoFacturas = facturas.filter(f => f.estado === 'Pagada').reduce((acc, f) => acc + f.importe, 0);
 
+  const stopAudioContext = () => {
+    analyserRef.current = null;
+    if (audioContextRef.current) {
+      try { audioContextRef.current.close(); } catch { /* ignorar */ }
+      audioContextRef.current = null;
+    }
+  };
+
   const cancelVoiceRecording = () => {
     streamTimeoutRef.current.forEach(t => clearTimeout(t));
     streamTimeoutRef.current = [];
     if (audioIntervalRef.current) { clearInterval(audioIntervalRef.current); audioIntervalRef.current = null; }
+    stopAudioContext();
     if (mediaRecorderRef.current) {
       try { mediaRecorderRef.current.stop(); } catch { /* ignorar si ya parado */ }
       mediaRecorderRef.current.stream.getTracks().forEach(t => t.stop());
@@ -2621,8 +2654,13 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               </div>
 
               <div className="flex justify-between items-center text-[10px] text-slate-500">
-                <span>Obra: <strong className="text-slate-350 tracking-wider font-mono">TrabFlow Voice</strong></span>
-                
+                <span className="flex items-center gap-1.5">
+                  <span className={`w-1.5 h-1.5 rounded-full ${isLiveMode ? 'bg-emerald-400' : 'bg-amber-400'}`} />
+                  {isLiveMode
+                    ? <span className="text-emerald-400 font-bold">IA en directo</span>
+                    : <span className="text-amber-400 font-bold">Modo demo</span>
+                  }
+                </span>
                 {(voiceStep === 'listening' || voiceStep === 'transcribing') && (
                   <button
                     onClick={stopVoiceRecording}
@@ -2630,6 +2668,12 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
                   >
                     {isLiveMode ? 'Parar y procesar' : 'Procesar'}
                   </button>
+                )}
+                {voiceStep === 'listening' && isLiveMode && mediaRecorderRef.current && (
+                  <span className="text-emerald-400 font-bold text-[9px] flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                    Grabando
+                  </span>
                 )}
               </div>
             </motion.div>
@@ -3433,6 +3477,16 @@ export default function AppDashboardView({ setCurrentPage, initialMobile = true,
               setWizardQuote(q);
               setWizardStep(5);
               setWizardViewOnly(true);
+              setWizardActive(true);
+            }}
+            onEditar={() => {
+              const q = postConfirmQuote!;
+              setPostConfirmQuote(null);
+              setEditingQuoteId(q.dbId ?? q.id);
+              setEditingQuote({ ...q });
+              setWizardQuote(q);
+              setWizardStep(4);
+              setWizardViewOnly(false);
               setWizardActive(true);
             }}
           />
